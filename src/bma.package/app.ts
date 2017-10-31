@@ -509,12 +509,27 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
-    $(".ml-single-item").slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1
+    var isSlickVisible = false;
+    var isSlickInitialized = false;
+    $(".ml-open").click((arg) => {
+        if (isSlickVisible)
+            $(".ml-container").hide();
+        else {
+            $(".ml-container").show();
+            if (!isSlickInitialized)
+            {
+                $(".ml-single-item").slick({
+                    dots: true,
+                    infinite: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                });
+                isSlickInitialized = true;
+            }
+        }
+        isSlickVisible = !isSlickVisible;
     });
+    $(".ml-container").hide();
 
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();

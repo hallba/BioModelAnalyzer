@@ -78,13 +78,15 @@
                 }
 
         .ml-container {
-            margin-left: 0.5%;
+            margin-left: 0;
             padding: 40px;
-            width: 95%;
-            color: #333;
-            background: #EDEDED;
+            width: 98%;
+            color: gray;
+            background: white;
             position: absolute;
             bottom: 5px;
+            height: 250px;
+            box-shadow: 0px -3px 10px rgba(0,0,0,0.50);
         }
 
         .ml-slick-slide {
@@ -101,6 +103,29 @@
             border: 1px solid black;
             margin: 3px;
             height: 250px;
+        }
+
+        .ml-open-container {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ml-open {
+            padding: 5px 300px 5px 300px;
+            margin: 0;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0px -3px 10px rgba(0,0,0,0.50);
+            background-color: white;
+            cursor: pointer;
+            text-align: center;
         }
     </style>
 
@@ -179,6 +204,10 @@
 
         <div id="zoomslider" data-command="ZoomSliderChanged"></div>
 
+        <div class="website-link-container">
+            <a href="about.html" class="website-link" target="_blank">About</a> |
+            <a href="help.html" class="website-link" target="_blank">Help</a>
+        </div>
     </div>
 
     <div id="drawingSurceContainer" class="bma-drawingsurfacecontainer">
@@ -263,7 +292,11 @@
         <div id="editor" class="window"></div>
         <div id="containerEditor" class="window container-name"></div>
 
-        <div class='ml-container'>
+        <div class="ml-open-container">
+            <div class="ml-open">Motif Library</div>
+        </div>
+
+        <div class='ml-container' style="display:none;">
             <div class='ml-single-item'>
                 <div><div class="ml-bounding-box" style="background-image:url(images/motifs/m1.png)"></div></div>
                 <div><div class="ml-bounding-box" style="background-image:url(images/motifs/m2.png)"></div></div>
@@ -274,7 +307,7 @@
 
     </div>
 
-    <footer class="bma-footer">
+    <!--<footer class="bma-footer">
         <div class="bma-pagefooter-logo">
             <img src="images/logo-crop.png" alt="Logo" />
         </div>
@@ -282,21 +315,21 @@
         <div class="bma-pagefooter-linkcontainer">
             <a href="about.html" class="website-link" target="_blank">About</a> -
             <a href="help.html" class="website-link" target="_blank">Help</a>
-            <!--<a href="http://go.microsoft.com/fwlink/?LinkID=286687" class="website-link" target="_blank">Privacy &amp Cookies</a> -
+            <a href="http://go.microsoft.com/fwlink/?LinkID=286687" class="website-link" target="_blank">Privacy &amp Cookies</a> -
             <a href="http://go.microsoft.com/fwlink/?LinkId=386394" class="website-link" target="_blank">Terms of Use</a> -
             <a href="http://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/en-us.aspx" class="website-link" target="_blank">Trademarks</a>
-            <a onclick="window.onerror('bug', 'bma', 'q')" class="website-link">Report a Bug</a>-->
+            <a onclick="window.onerror('bug', 'bma', 'q')" class="website-link">Report a Bug</a>
         </div>
-        <!--<div class="bma-pagefooter-msrlogo">
+        <div class="bma-pagefooter-msrlogo">
             <div class="bma-pagefooter-msrlogo-copyright">©2016 Microsoft</div>
 
             <a href="http://research.microsoft.com/en-us/" target="_blank">
                 <img src="http://research.microsoft.com/a/i/c/ms-logo.png" alt="Logo" />
             </a>
-        </div>-->
-        <div id="signin" style="display:none"></div>
-    </footer>
+        </div>
 
+    </footer>-->
+    <div id="signin" style="display:none"></div>
 </body>
 
 </html>

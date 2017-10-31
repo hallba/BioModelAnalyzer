@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Research 2016
+﻿// Copyright (c) Microsoft Research 2016
 // License: MIT. See LICENSE
 /// <reference path="..\..\Scripts\typings\jquery\jquery.d.ts"/>
 /// <reference path="..\..\Scripts\typings\jqueryui\jqueryui.d.ts"/>
@@ -77,6 +77,11 @@ declare var InteractiveDataDisplay: any;
             var gridLinesPlotDiv = $("<div></div>").attr("data-idd-plot", "scalableGridLines").appendTo(plotDiv);
             var rectsPlotDiv = $("<div></div>").attr("data-idd-plot", "rectsPlot").appendTo(plotDiv);
             var zoomPlotDiv = $("<div></div>").attr("data-idd-plot", "zoomPlot").appendTo(plotDiv);
+
+            var logoСontainer1 = $("<div></div>").height("100%").appendTo(plotDiv);
+            var logoСontainer2 = $("<div></div>").height("100%").css("position", "relative").appendTo(logoСontainer1);
+            var logo = $("<div></div>").addClass("bma-logo-watermark").appendTo(logoСontainer2);
+
             var svgPlotDiv2 = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
             var svgPlotDiv = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
