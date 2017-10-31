@@ -62,6 +62,11 @@ interface JQuery {
     contextmenu(settings: Object): JQueryUI.Widget;
     contextmenu(optionLiteral: string, optionName: string): any;
     contextmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    slick(): JQueryUI.Widget;
+    slick(settings: Object): JQueryUI.Widget;
+    slick(optionLiteral: string, optionName: string): any;
+    slick(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
 
 interface Window {
@@ -503,6 +508,13 @@ function loadScript(version) {
     popup.draggable({ handle: ".analysis-title", scroll: false });
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
+
+    $(".ml-single-item").slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1
+    });
 
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();
