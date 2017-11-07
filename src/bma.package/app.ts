@@ -509,6 +509,9 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
+    //Caorusel experiments
+    
+
     var isSlickVisible = false;
     var isSlickInitialized = false;
     $(".ml-open").click((arg) => {
@@ -522,14 +525,30 @@ function loadScript(version) {
                     dots: true,
                     infinite: true,
                     slidesToShow: 3,
-                    slidesToScroll: 1
+                    slidesToScroll: 1,
+                    draggable: true
                 });
+
+                $('*[draggable!=true]', '.slick-track').unbind('dragstart');
+                $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body" });
+
                 isSlickInitialized = true;
             }
         }
         isSlickVisible = !isSlickVisible;
     });
     $(".ml-container").hide();
+
+    //$(function () {
+    //    $('*[draggable!=true]', '.slick-track').unbind('dragstart');
+    //    $(".ml-draggable-element").draggable();
+    //});
+
+    $(".ml-draggable-element").on("draggable mouseenter mousedown", function (event) {
+        event.stopPropagation();
+    });
+
+    //End of Caorusel experiments
 
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();
