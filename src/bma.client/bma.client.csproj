@@ -120,6 +120,7 @@
     <Content Include="css\fonts.min.css" />
     <Content Include="css\idd.css" />
     <Content Include="css\website.css" />
+    <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\resize-grabber.svg" />
     <Content Include="js\idd.heatmapworker.js" />
     <Content Include="js\idd.js" />
