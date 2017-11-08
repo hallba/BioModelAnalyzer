@@ -267,6 +267,24 @@ function loadScript(version) {
     window.OperatorsRegistry = new BMA.LTLOperations.OperatorsRegistry();
     //Creating model and layout
     var appModel = new BMA.Model.AppModel();
+    var motifLibrary = new BMA.Model.MotifLibrary();
+
+    var preloadedMotifs = [
+        "motifs/m1.json",
+        "motifs/m2.json",
+        "motifs/m3.json",
+        "motifs/m4.json"
+    ];
+
+    var requests = [];
+    var motifs = [];
+    for (var i = 0; i < preloadedMotifs.length; i++)
+        $.ajax(preloadedMotifs[i], {
+            dataType: "text",
+            success: function (fileContent) {
+                motifLibrary.AddFromJSON(fileContent);
+            }
+        });
 
     window.PlotSettings = {
         MaxWidth: 3200,
@@ -510,7 +528,7 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Caorusel experiments
-    
+
 
     var isSlickVisible = false;
     var isSlickInitialized = false;
@@ -519,9 +537,16 @@ function loadScript(version) {
             $(".ml-container").hide();
         else {
             $(".ml-container").show();
-            if (!isSlickInitialized)
-            {
-                $(".ml-single-item").slick({
+            if (!isSlickInitialized) {
+                var mlmotifs = motifLibrary.Motifs;
+                var slickContainer = $(".ml-single-item");
+                for (var i = 0; i < mlmotifs.length; i++) {
+                    var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
+                    var motifCard = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
+                    motifCard.html(mlmotifs[i].Preview);
+                }
+
+                slickContainer.slick({
                     dots: true,
                     infinite: true,
                     slidesToShow: 3,

@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                     "script/onedrive/OneDrive.js",
                     "script/model/biomodel.js",
                     "script/model/model.js",
+                    "script/model/MotifLibrary.js",
                     "script/model/analytics.js",  
                     "script/model/visualsettings.js",
                     "script/model/exportimport.js",

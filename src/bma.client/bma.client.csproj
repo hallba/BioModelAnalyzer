@@ -363,6 +363,10 @@
     <Content Include="index.html" />
     <Content Include="js\monaco\editor\editor.main.js" />
     <Content Include="js\monaco\editor\editor.main.nls.js" />
+    <Content Include="motifs\m1.json" />
+    <Content Include="motifs\m2.json" />
+    <Content Include="motifs\m3.json" />
+    <Content Include="motifs\m4.json" />
     <None Include="Properties\PublishProfiles\bmademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />

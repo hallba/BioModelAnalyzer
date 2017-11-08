@@ -337,6 +337,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="script\model\MotifLibrary.ts" />
     <TypeScriptCompile Include="script\presenters\onedrivestoragepresenter.ts" />
     <TypeScriptCompile Include="script\presenters\storagepresenter.ts" />
     <TypeScriptCompile Include="script\widgets\codeeditor.ts" />
