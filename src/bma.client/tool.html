@@ -77,57 +77,8 @@
                     background-color: #606060;
                 }
 
-        .ml-container {
-            margin-left: 0;
-            padding: 40px;
-            width: 98%;
-            color: gray;
-            background: white;
-            position: absolute;
-            bottom: 5px;
-            height: 250px;
-            box-shadow: 0px -3px 10px rgba(0,0,0,0.50);
-        }
 
-        .ml-slick-slide {
-            text-align: center;
-            color: #419be0;
-            box-sizing: border-box;
-        }
-
-        .ml-bounding-box {
-            background-color: white;
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position-x: center;
-            border: 1px solid black;
-            margin: 3px;
-            height: 200px;
-            width: 200px;
-        }
-
-        .ml-open-container {
-            position: absolute;
-            bottom: 0px;
-            width: 100%;
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ml-open {
-            padding: 5px 300px 5px 300px;
-            margin: 0;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0px -3px 10px rgba(0,0,0,0.50);
-            background-color: white;
-            cursor: pointer;
-            text-align: center;
-        }
+        
     </style>
 
 </head>
@@ -136,6 +87,7 @@
     <div class="page-loading">
         <div class="loading-text">Loading</div>
     </div>
+
     <div id="tools" class="bma-toolbarpanel">
         <a id="downloadLink" style="display: none"></a>
         <input style="display: none;" type="file" id="fileLoader">
@@ -158,56 +110,56 @@
 
         <div id="modelelemtoolbar" class="elements-toolbar"></div>
 
-        <div class="vis-options-toolbar" id="visibilityOptionsSlider">
-            <div class="tool-icon">
-                <span class="ui-button-text">
-                    <div title="Visual Settings" class="view-options-icon"></div>
-                </span>
-            </div>
-            <div>
-                <div id="visibilityOptionsContent" class="window vis-options">
-                    <ul>
-                        <li>
-                            <div class="option-name">Zoom Reset</div>
-                            <div class="default-button">
-                                <button data-behavior="action" data-command="ModelFitToView" id="fitToViewBtn">FIT TO VIEW</button>
-                            </div>
-                        </li>
-                        <li id="li1">
-                            <div class="option-name">Text Labels</div>
-                            <div>
-                                <div data-behavior="toggle" data-command="Commands.ToggleLabels" data-default="true"></div>
-                                <div data-behavior="increment" data-command="Commands.LabelsSize" data-default="10"></div>
-                            </div>
-                        </li>
-                        <li id="li3">
-                            <div class="option-name">Grid</div>
-                            <div>
-                                <div data-behavior="toggle" data-command="Commands.ToggleGrid" data-default="true"></div>
-                            </div>
-                        </li>
-                        <li id="li4">
-                            <div class="option-name">Line Width</div>
-                            <div>
-                                <div data-behavior="increment" data-command="Commands.LineWidth" data-default="1"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="option-name">Save Image</div>
-                            <ul class="button-list">
-                                <li data-behavior="action" data-command="SaveSVG" class="action-button-small grey"><button id="exportSVGBtn"><div class="icon download"></div> SVG</button></li>
-                            </ul>
-                        </li>
-                    </ul>
+        <div class="vis-and-zoom">
+            <div class="vis-options-toolbar" id="visibilityOptionsSlider">
+                <div class="tool-icon">
+                    <span class="ui-button-text">
+                        <div title="Visual Settings" class="view-options-icon"></div>
+                    </span>
+                </div>
+                <div>
+                    <div id="visibilityOptionsContent" class="window vis-options">
+                        <ul>
+                            <li>
+                                <div class="option-name">Zoom Reset</div>
+                                <div class="default-button">
+                                    <button data-behavior="action" data-command="ModelFitToView" id="fitToViewBtn">FIT TO VIEW</button>
+                                </div>
+                            </li>
+                            <li id="li1">
+                                <div class="option-name">Text Labels</div>
+                                <div>
+                                    <div data-behavior="toggle" data-command="Commands.ToggleLabels" data-default="true"></div>
+                                    <div data-behavior="increment" data-command="Commands.LabelsSize" data-default="10"></div>
+                                </div>
+                            </li>
+                            <li id="li3">
+                                <div class="option-name">Grid</div>
+                                <div>
+                                    <div data-behavior="toggle" data-command="Commands.ToggleGrid" data-default="true"></div>
+                                </div>
+                            </li>
+                            <li id="li4">
+                                <div class="option-name">Line Width</div>
+                                <div>
+                                    <div data-behavior="increment" data-command="Commands.LineWidth" data-default="1"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="option-name">Save Image</div>
+                                <ul class="button-list">
+                                    <li data-behavior="action" data-command="SaveSVG" class="action-button-small grey"><button id="exportSVGBtn"><div class="icon download"></div> SVG</button></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div id="zoomslider" data-command="ZoomSliderChanged"></div>
-
-        <div class="website-link-container">
-            <a href="about.html" class="website-link" target="_blank">About</a> |
-            <a href="help.html" class="website-link" target="_blank">Help</a>
+            <div id="zoomslider" data-command="ZoomSliderChanged"></div>
+            <div class="website-link-container">
+                <a href="about.html" class="website-link" target="_blank">About</a> |
+                <a href="help.html" class="website-link" target="_blank">Help</a>
+            </div>
         </div>
     </div>
 
@@ -294,17 +246,19 @@
         <div id="containerEditor" class="window container-name"></div>
 
         <div class="ml-open-container">
-            <div class="ml-open">Motif Library</div>
-        </div>
-
-        <div class='ml-container' style="display:none;">
-            <div class='ml-single-item'>
-                <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m1.png)"></div><!--<div style="background:red;width:50px;height:50px;" class="ml-draggable">--></div>
-                <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m2.png)"></div><!--<div style="background:red;width:50px;height:50px;" class="ml-draggable">--></div>
-                <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m3.png)"></div><!--<div style="background:red;width:50px;height:50px;" class="ml-draggable">--></div>
-                <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m4.png)"></div><!--<div style="background:red;width:50px;height:50px;" class="ml-draggable">--></div>
+            <div class='ml-container' style="display:none;">
+                <div class='ml-single-item'>
+                    <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m1.png)"></div></div>
+                    <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m2.png)"></div></div>
+                    <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m3.png)"></div></div>
+                    <div class="ml-element" style="display:inline-block"><div class="ml-bounding-box ml-draggable-element" style="background-image:url(images/motifs/m4.png)"></div></div>
+                </div>
+            </div>
+            <div class="ml-open">
+                <div class="ml-open-icon"></div>
             </div>
         </div>
+
 
     </div>
 
