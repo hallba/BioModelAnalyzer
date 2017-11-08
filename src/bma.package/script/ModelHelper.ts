@@ -2,6 +2,149 @@
 // License: MIT. See LICENSE
 module BMA {
     export module ModelHelper {
+        //Renders svg from model or motif
+        export function RenderSVG(svg: any, model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: any, args: any): any {
+            //Generating svg elements from model and layout
+            var svgElements = [];
+
+            var containerLayouts = layout.Containers;
+            for (var i = 0; i < containerLayouts.length; i++) {
+                var containerLayout = containerLayouts[i];
+                var element = window.ElementRegistry.GetElementByType("Container");
+
+                var isHighlighted = undefined;
+                if (args !== undefined && args.containerHighlightIds !== undefined) {
+                    isHighlighted = false;
+                    for (var j = 0; j < args.containerHighlightIds.length; j++) {
+                        if (containerLayout.Id === args.containerHighlightIds[j]) {
+                            isHighlighted = true;
+                            break;
+                        }
+                    }
+                }
+
+                svgElements.push(element.RenderToSvg({
+                    layout: containerLayout,
+                    grid: grid,
+                    background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
+                    isHighlighted: isHighlighted
+                }));
+            }
+
+            var variables = model.Variables;
+            var variableLayouts = layout.Variables;
+
+            for (var i = 0; i < variables.length; i++) {
+                var variable = variables[i];
+                var variableLayout = variableLayouts[i];
+                var element = window.ElementRegistry.GetElementByType(variable.Type);
+                var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : GetItemById(args.variablesStability, variable.Id);
+
+                var isHighlighted = undefined;
+                if (args !== undefined && args.variableHighlightIds !== undefined) {
+                    isHighlighted = false;
+                    for (var j = 0; j < args.variableHighlightIds.length; j++) {
+                        if (variable.Id === args.variableHighlightIds[j]) {
+                            isHighlighted = true;
+                            break;
+                        }
+                    }
+                    if (!isHighlighted) {
+                        for (var j = 0; j < args.containerHighlightIds.length; j++) {
+                            if (variable.ContainerId === args.containerHighlightIds[j]) {
+                                isHighlighted = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
+                var sizeCoef = undefined;
+                var gridCell = undefined;
+                if (container !== undefined) {
+                    sizeCoef = container.Size;
+                    gridCell = { x: container.PositionX, y: container.PositionY };
+                }
+                svgElements.push(element.RenderToSvg({
+                    model: variable,
+                    layout: variableLayout,
+                    grid: grid,
+                    gridCell: gridCell,
+                    sizeCoef: sizeCoef,
+                    valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                    labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
+                    isHighlighted: isHighlighted
+                }));
+            }
+
+            var relationships = model.Relationships;
+            for (var i = 0; i < relationships.length; i++) {
+                var relationship = relationships[i];
+                var element = window.ElementRegistry.GetElementByType(relationship.Type);
+
+                var start = GetVariableById(layout, model, relationship.FromVariableId).layout;
+                var end = GetVariableById(layout, model, relationship.ToVariableId).layout;
+
+                svgElements.push(element.RenderToSvg({
+                    layout: { start: start, end: end },
+                    grid: grid
+                }));
+            }
+
+
+
+            //constructing final svg image
+            svg.clear();
+            var defs = svg.defs("bmaDefs");
+            var activatorMarker = svg.marker(defs, "Activator", 4, 0, 8, 4, "auto", { viewBox: "0 -2 4 4" });
+            svg.polyline(activatorMarker, [[0, 2], [4, 0], [0, -2]], { fill: "none", stroke: "#808080", strokeWidth: "1px" });
+            var inhibitorMarker = svg.marker(defs, "Inhibitor", 0, 0, 2, 6, "auto", { viewBox: "0 -3 2 6" });
+            svg.line(inhibitorMarker, 0, 3, 0, -3, { fill: "none", stroke: "#808080", strokeWidth: "2px" });
+
+            for (var i = 0; i < svgElements.length; i++) {
+                svg.add(svgElements[i]);
+            }
+
+            return svg.toSVG();
+        }
+
+        export function GetVariableColorByStatus(status): string {
+            if (status)
+                return "green";//"#D9FFB3";
+            else
+                return "red";
+        }
+
+        export function GetContainerColorByStatus(status): string {
+            if (status)
+                return "#E9FFCC";
+            else
+                return "#FFDDDB";
+        }
+
+        export function GetItemById(arr, id) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].id === id)
+                    return arr[i];
+            }
+
+            return undefined;
+        }
+
+        export function GetVariableById(layout: BMA.Model.Layout, model: BMA.Model.BioModel, id: number): { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout } {
+            var variableLayouts = layout.Variables;
+            var variables = model.Variables;
+            for (var i = 0; i < variableLayouts.length; i++) {
+                var variableLayout = variableLayouts[i];
+                if (variableLayout.Id === id) {
+                    return { model: variables[i], layout: variableLayout };
+                }
+            }
+
+            throw "No such variable in model";
+        }
+
         export function CreateClipboardContent(model: BMA.Model.BioModel, layout: BMA.Model.Layout, contextElement: { id: number; type: string }): {
             Container: BMA.Model.ContainerLayout;
             Variables: {
@@ -299,8 +442,7 @@ module BMA {
          * @param layout
          * @param states
          */
-        export function UpdateStatesWithModel(model: BMA.Model.BioModel, layout: BMA.Model.Layout, states: BMA.LTLOperations.Keyframe[]):
-            { states: BMA.LTLOperations.Keyframe[], isChanged: boolean, shouldNotify: boolean } {
+        export function UpdateStatesWithModel(model: BMA.Model.BioModel, layout: BMA.Model.Layout, states: BMA.LTLOperations.Keyframe[]): { states: BMA.LTLOperations.Keyframe[], isChanged: boolean, shouldNotify: boolean } {
 
             var isChanged = false;
             var shouldNotify = false;
@@ -518,8 +660,7 @@ module BMA {
             return { width: width, height: height };
         }
 
-        export function ConvertFormulaToOperation(formula: string, states: BMA.LTLOperations.Keyframe[], model: BMA.Model.BioModel):
-            { operation: BMA.LTLOperations.Operation, states: BMA.LTLOperations.Keyframe[] } {
+        export function ConvertFormulaToOperation(formula: string, states: BMA.LTLOperations.Keyframe[], model: BMA.Model.BioModel): { operation: BMA.LTLOperations.Operation, states: BMA.LTLOperations.Keyframe[] } {
             var parsedFormula;
             try {
                 var parsedFormula = BMA.parser.parse(formula);
@@ -564,8 +705,7 @@ module BMA {
             return undefined;
         }
 
-        export function ConvertToOperation(formula: any, states: BMA.LTLOperations.Keyframe[], model: BMA.Model.BioModel):
-            { operation: BMA.LTLOperations.IOperand, states: BMA.LTLOperations.Keyframe[], formula?: any } {
+        export function ConvertToOperation(formula: any, states: BMA.LTLOperations.Keyframe[], model: BMA.Model.BioModel): { operation: BMA.LTLOperations.IOperand, states: BMA.LTLOperations.Keyframe[], formula?: any } {
             if (!formula) throw "Nothing to import";
             //if (formula.state && states) {
             //    for (var i = 0; i < states.length; i++) {

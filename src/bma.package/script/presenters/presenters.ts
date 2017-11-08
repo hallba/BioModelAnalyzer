@@ -134,7 +134,7 @@ module BMA {
                             if (that.editingId == that.variableEditedId)
                                 that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
                             that.editingId = id;
-                            that.variableEditor.Initialize(that.GetVariableById(that.undoRedoPresenter.Current.layout,
+                            that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout,
                                 that.undoRedoPresenter.Current.model, id).model, that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
                             that.variableEditor.Show(args.screenX, args.screenY);
                             window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
@@ -454,7 +454,7 @@ module BMA {
                         if (that.editingId == that.variableEditedId)
                             that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
                         that.editingId = id;
-                        that.variableEditor.Initialize(that.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id).model,
+                        that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id).model,
                             that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
                         that.variableEditor.Show(that.contextElement.screenX, that.contextElement.screenY);
                         window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
@@ -511,7 +511,7 @@ module BMA {
                             if (v !== undefined) {
                                 //if (that.editingId == that.variableEditedId)
                                 //    that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
-                                that.variableEditor.Initialize(that.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, that.editingId).model,
+                                that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, that.editingId).model,
                                     that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
                             } else {
                                 //if (that.editingId == that.variableEditedId)
@@ -675,7 +675,7 @@ module BMA {
                             var containerId = this.GetContainerAtPosition(gesture.x, gesture.y);
                             if (id !== undefined) {
                                 that.navigationDriver.TurnNavigation(false);
-                                var vl = that.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id);
+                                var vl = ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id);
                                 that.stagingVariable = { model: vl.model, layout: vl.layout };
                             } else if (containerId !== undefined) {
                                 that.navigationDriver.TurnNavigation(false);
@@ -1453,42 +1453,6 @@ module BMA {
                 return { x0: this.xOrigin, y0: this.yOrigin, xStep: this.xStep, yStep: this.yStep };
             }
 
-            private GetVariableById(layout: BMA.Model.Layout, model: BMA.Model.BioModel, id: number): { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout } {
-                var variableLayouts = layout.Variables;
-                var variables = model.Variables;
-                for (var i = 0; i < variableLayouts.length; i++) {
-                    var variableLayout = variableLayouts[i];
-                    if (variableLayout.Id === id) {
-                        return { model: variables[i], layout: variableLayout };
-                    }
-                }
-
-                throw "No such variable in model";
-            }
-
-            private GetVariableColorByStatus(status): string {
-                if (status)
-                    return "green";//"#D9FFB3";
-                else
-                    return "red";
-            }
-
-            private GetContainerColorByStatus(status): string {
-                if (status)
-                    return "#E9FFCC";
-                else
-                    return "#FFDDDB";
-            }
-
-            private GetItemById(arr, id) {
-                for (var i = 0; i < arr.length; i++) {
-                    if (arr[i].id === id)
-                        return arr[i];
-                }
-
-                return undefined;
-            }
-
             private CreateSvg(args: any, model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined): any {
                 if (this.svg === undefined)
                     return undefined;
@@ -1496,109 +1460,12 @@ module BMA {
                     model = this.undoRedoPresenter.Current.model;
                 if (layout === undefined)
                     layout = this.undoRedoPresenter.Current.layout;
+
+                var grid = this.Grid;
+
                 //Generating svg elements from model and layout
-                var svgElements = [];
-
-                var containerLayouts = layout.Containers;//this.undoRedoPresenter.Current.layout.Containers;
-                for (var i = 0; i < containerLayouts.length; i++) {
-                    var containerLayout = containerLayouts[i];
-                    var element = window.ElementRegistry.GetElementByType("Container");
-
-                    var isHighlighted = undefined;
-                    if (args !== undefined && args.containerHighlightIds !== undefined) {
-                        isHighlighted = false;
-                        for (var j = 0; j < args.containerHighlightIds.length; j++) {
-                            if (containerLayout.Id === args.containerHighlightIds[j]) {
-                                isHighlighted = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    svgElements.push(element.RenderToSvg({
-                        layout: containerLayout,
-                        grid: this.Grid,
-                        background: args === undefined || args.containersStability === undefined ? undefined : this.GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
-                        isHighlighted: isHighlighted
-                    }));
-                }
-
-                var variables = model.Variables;//this.undoRedoPresenter.Current.model.Variables;
-                var variableLayouts = layout.Variables;//this.undoRedoPresenter.Current.layout.Variables;
-
-                for (var i = 0; i < variables.length; i++) {
-                    var variable = variables[i];
-                    var variableLayout = variableLayouts[i];
-                    var element = window.ElementRegistry.GetElementByType(variable.Type);
-                    var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : this.GetItemById(args.variablesStability, variable.Id);
-
-                    var isHighlighted = undefined;
-                    if (args !== undefined && args.variableHighlightIds !== undefined) {
-                        isHighlighted = false;
-                        for (var j = 0; j < args.variableHighlightIds.length; j++) {
-                            if (variable.Id === args.variableHighlightIds[j]) {
-                                isHighlighted = true;
-                                break;
-                            }
-                        }
-                        if (!isHighlighted) {
-                            for (var j = 0; j < args.containerHighlightIds.length; j++) {
-                                if (variable.ContainerId === args.containerHighlightIds[j]) {
-                                    isHighlighted = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    var container: any = variable.Type === "MembraneReceptor" ? /*this.undoRedoPresenter.Current.layout*/layout.GetContainerById(variable.ContainerId) : undefined;
-                    var sizeCoef = undefined;
-                    var gridCell = undefined;
-                    if (container !== undefined) {
-                        sizeCoef = container.Size;
-                        gridCell = { x: container.PositionX, y: container.PositionY };
-                    }
-                    svgElements.push(element.RenderToSvg({
-                        model: variable,
-                        layout: variableLayout,
-                        grid: this.Grid,
-                        gridCell: gridCell,
-                        sizeCoef: sizeCoef,
-                        valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
-                        labelColor: additionalInfo === undefined ? undefined : this.GetVariableColorByStatus(additionalInfo.state),
-                        isHighlighted: isHighlighted
-                    }));
-                }
-
-                var relationships = model.Relationships;//this.undoRedoPresenter.Current.model.Relationships;
-                for (var i = 0; i < relationships.length; i++) {
-                    var relationship = relationships[i];
-                    var element = window.ElementRegistry.GetElementByType(relationship.Type);
-
-                    var start = this.GetVariableById(layout/*this.undoRedoPresenter.Current.layout*/, model/*this.undoRedoPresenter.Current.model*/, relationship.FromVariableId).layout;
-                    var end = this.GetVariableById(layout/*this.undoRedoPresenter.Current.layout*/, model/*this.undoRedoPresenter.Current.model*/, relationship.ToVariableId).layout;
-
-                    svgElements.push(element.RenderToSvg({
-                        layout: { start: start, end: end },
-                        grid: this.Grid
-                    }));
-                }
-
-
-
-                //constructing final svg image
-                this.svg.clear();
-                var defs = this.svg.defs("bmaDefs");
-                var activatorMarker = this.svg.marker(defs, "Activator", 4, 0, 8, 4, "auto", { viewBox: "0 -2 4 4" });
-                this.svg.polyline(activatorMarker, [[0, 2], [4, 0], [0, -2]], { fill: "none", stroke: "#808080", strokeWidth: "1px" });
-                var inhibitorMarker = this.svg.marker(defs, "Inhibitor", 0, 0, 2, 6, "auto", { viewBox: "0 -3 2 6" });
-                this.svg.line(inhibitorMarker, 0, 3, 0, -3, { fill: "none", stroke: "#808080", strokeWidth: "2px" });
-
-                for (var i = 0; i < svgElements.length; i++) {
-                    this.svg.add(svgElements[i]);
-                }
-
-                return $(this.svg.toSVG()).children();
+                var res = ModelHelper.RenderSVG(this.svg, model, layout, grid, args);
+                return $(res).children();
             }
 
             private CreateStagingSvg(): any {
