@@ -216,7 +216,7 @@ module BMA {
                             0,
                             {
                                 stroke: "none",
-                                fill: renderParams.background !== undefined ? renderParams.background : "white",
+                                fill: renderParams.background !== undefined ? renderParams.background : "transparent",
                             });
 
                         var scale = 0.45 * renderParams.layout.Size;
@@ -241,7 +241,7 @@ module BMA {
                                 containerInnerCenterOffset * renderParams.layout.Size,
                                 0,
                                 containerInnerEllipseWidth * renderParams.layout.Size,
-                                containerInnerEllipseHeight * renderParams.layout.Size, { stroke: "none", fill: "white" });
+                                containerInnerEllipseHeight * renderParams.layout.Size, { stroke: "none", fill: "transparent" });
 
                             if (that.labelVisibility === true) {
                                 if (renderParams.layout.Name !== undefined && renderParams.layout.Name !== "") {
