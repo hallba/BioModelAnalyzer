@@ -25,9 +25,9 @@
                 var parsed = JSON.parse(source);
 
                 var imported = BMA.Model.ImportModelAndLayout(parsed);
-                var description = parsed.Description == undefined ? "" : parsed.Description;
+                var description = parsed.Model.Description == undefined ? "" : parsed.Model.Description;
 
-                var newMotif = new MotifCard(parsed.Name, description, imported.Model, imported.Layout);
+                var newMotif = new MotifCard(parsed.Model.Name, description, imported.Model, imported.Layout);
 
                 if (that.svg != undefined) {
                     newMotif.RefreshPreview(that.svg);
@@ -68,7 +68,14 @@
 
             public RefreshPreview(svg: any) {
                 var that = this;
-                var grid = { x0: 0, y0: 0, xStep: 2.5, yStep: 2.8 };
+                var grid = { x0: 0, y0: 0, xStep: 250, yStep: 280 };
+
+                var bbox = ModelHelper.GetModelBoundingBox(that.layout, { xOrigin: 0, yOrigin: 0, xStep: grid.xStep, yStep: grid.yStep });
+
+                svg.configure({
+                    viewBox: bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height,
+                    preserveAspectRatio: "xMidYMid meet"
+                }, false);
                 this.preview = ModelHelper.RenderSVG(svg, that.model, that.layout, grid, undefined);
             }
         }

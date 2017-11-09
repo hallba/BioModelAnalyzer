@@ -56,6 +56,7 @@
 declare var saveTextAs: any;
 declare var Silverlight: any;
 declare var drawingSurceContainer: any;
+declare function canvg(a1: any, a2: any, a3: any);
 
 interface JQuery {
     contextmenu(): JQueryUI.Widget;
@@ -542,16 +543,26 @@ function loadScript(version) {
                 var slickContainer = $(".ml-single-item");
                 for (var i = 0; i < mlmotifs.length; i++) {
                     var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
-                    var motifCard = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
-                    motifCard.html(mlmotifs[i].Preview);
+
+                    //Adding name
+                    var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
+
+                    //Adding preview
+                    var motifPreview = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
+                    var canvas:any = $("<canvas><canvas>").attr("width", 350).attr("height", 250);
+                    canvg(canvas[0], mlmotifs[i].Preview, { ignoreMouse: true, ignoreAnimation: true, ignoreDimensions: true });
+                    var url = canvas[0].toDataURL("image/png");
+                    $('<img src="' + url + '"/>').appendTo(motifPreview);
+
+                    //Adding description
+                    var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
                 }
 
                 slickContainer.slick({
                     dots: true,
                     infinite: true,
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    draggable: true
+                    centerMode: true,
+                    variableWidth: true
                 });
 
                 $('*[draggable!=true]', '.slick-track').unbind('dragstart');
@@ -569,9 +580,9 @@ function loadScript(version) {
     //    $(".ml-draggable-element").draggable();
     //});
 
-    $(".ml-draggable-element").on("draggable mouseenter mousedown", function (event) {
-        event.stopPropagation();
-    });
+    //$(".ml-draggable-element").on("draggable mouseenter mousedown", function (event) {
+    //    event.stopPropagation();
+    //});
 
     //End of Caorusel experiments
 

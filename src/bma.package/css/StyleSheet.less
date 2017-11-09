@@ -2753,7 +2753,7 @@ textarea {
     width: 98%;
     color: gray;
     background: white;
-    height: 250px;
+    height: 300px;
     box-shadow: -4px -6px 10px @shadow;
 }
 
@@ -2763,15 +2763,36 @@ textarea {
     box-sizing: border-box;
 }
 
+.ml-card-title {
+    margin-left: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: @darkgrey;
+    cursor: pointer;
+}
+
+.ml-card-description {
+    margin-left: 1px;
+    font-size: 10px;
+    color: @darkgrey;
+    cursor: pointer;
+}
+
 .ml-bounding-box {
     background-color: white;
     background-repeat: no-repeat;
     background-size: contain;
-    background-position-x: center;
-    border: 1px solid black;
+    background-position: center;
+    border-color: @darkgrey;
+    border-style: solid;
+    border-width: 1px;
     margin: 3px;
     height: 250px;
     width: 350px;
+}
+
+.ml-bounding-box :hover {
+    border-width: 2px;
 }
 
 .ml-open {
