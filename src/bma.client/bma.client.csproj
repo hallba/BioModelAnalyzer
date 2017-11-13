@@ -363,10 +363,13 @@
     <Content Include="index.html" />
     <Content Include="js\monaco\editor\editor.main.js" />
     <Content Include="js\monaco\editor\editor.main.nls.js" />
-    <Content Include="motifs\m1.json" />
-    <Content Include="motifs\m2.json" />
-    <Content Include="motifs\m3.json" />
-    <Content Include="motifs\m4.json" />
+    <Content Include="motifs\10_Substrate_Depletion_Oscillations.json" />
+    <Content Include="motifs\10_Substrate_Depletion_Oscillations_v2.json" />
+    <Content Include="motifs\1_Linear.json" />
+    <Content Include="motifs\5_Mutual_Activation.json" />
+    <Content Include="motifs\6_Mutual_Inhibition_v1.json" />
+    <Content Include="motifs\7_Homeostasis_v1.json" />
+    <Content Include="motifs\9_Activator-Inhibitor_Oscillations.json" />
     <None Include="Properties\PublishProfiles\bmademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />

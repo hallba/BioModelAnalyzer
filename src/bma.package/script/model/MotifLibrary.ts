@@ -1,31 +1,51 @@
 ﻿module BMA {
     export module Model {
         export class MotifLibrary {
+            private commands: BMA.ICommandRegistry;
+
             private motifs: MotifCard[];
             private svg: any;
 
-            constructor() {
+            private preloadedPaths: string[];
+
+            constructor(commands: BMA.ICommandRegistry) {
+                this.commands = commands;
                 this.motifs = [];
+
+                this.preloadedPaths = [
+                    "motifs/1_Linear.json",
+                    "motifs/5_Mutual_Activation.json",
+                    "motifs/6_Mutual_Inhibition_v1.json",
+                    "motifs/7_Homeostasis_v1.json",
+                    "motifs/9_Activator-Inhibitor_Oscillations.json",
+                    "motifs/10_Substrate_Depletion_Oscillations.json",
+                    "motifs/10_Substrate_Depletion_Oscillations_v2.json"
+                ];
 
                 var svgCnt = $("<div></div>");
                 svgCnt.svg({
                     onLoad: (svg) => {
                         this.svg = svg;
+                        this.StartLoadMotifs();
                     }
                 });
+            }
+
+            public get IsInitialized() {
+                return this.preloadedPaths.length == 0;
             }
 
             public get Motifs(): MotifCard[] {
                 return this.motifs;
             }
 
-            public AddFromJSON(source) {
+            private AddFromJSON(source) {
                 var that = this;
 
                 var parsed = JSON.parse(source);
 
                 var imported = BMA.Model.ImportModelAndLayout(parsed);
-                var description = parsed.Model.Description == undefined ? "" : parsed.Model.Description;
+                var description = parsed.Model.Description == undefined ? "no description for this motif" : parsed.Model.Description;
 
                 var newMotif = new MotifCard(parsed.Model.Name, description, imported.Model, imported.Layout);
 
@@ -34,6 +54,31 @@
                 }
 
                 that.motifs.push(newMotif);
+            }
+
+            private StartLoadMotifs() {
+                this.LoadMotif();
+            }
+
+            private LoadMotif() {
+                var that = this;
+                if (this.preloadedPaths.length > 0) {
+                    var path = this.preloadedPaths.pop();
+
+                    $.ajax(path, {
+                        dataType: "text",
+                        success: function (fileContent) {
+                            that.AddFromJSON(fileContent);
+                            that.LoadMotif();
+                        },
+                        error: function (err) {
+                            console.log("failed to load motif " + path + " :" + err);
+                            that.LoadMotif();
+                        }
+                    });
+                } else {
+                    that.commands.Execute("PreloadedMotifsReady", undefined);
+                }
             }
         }
 

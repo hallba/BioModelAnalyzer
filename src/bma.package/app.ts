@@ -268,24 +268,7 @@ function loadScript(version) {
     window.OperatorsRegistry = new BMA.LTLOperations.OperatorsRegistry();
     //Creating model and layout
     var appModel = new BMA.Model.AppModel();
-    var motifLibrary = new BMA.Model.MotifLibrary();
-
-    var preloadedMotifs = [
-        "motifs/m1.json",
-        "motifs/m2.json",
-        "motifs/m3.json",
-        "motifs/m4.json"
-    ];
-
-    var requests = [];
-    var motifs = [];
-    for (var i = 0; i < preloadedMotifs.length; i++)
-        $.ajax(preloadedMotifs[i], {
-            dataType: "text",
-            success: function (fileContent) {
-                motifLibrary.AddFromJSON(fileContent);
-            }
-        });
+    var motifLibrary = new BMA.Model.MotifLibrary(window.Commands);
 
     window.PlotSettings = {
         MaxWidth: 3200,
@@ -529,60 +512,55 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Caorusel experiments
+    var loadMotifs = () => {
+        var mlmotifs = motifLibrary.Motifs;
+        var slickContainer = $(".ml-single-item");
+        for (var i = 0; i < mlmotifs.length; i++) {
+            var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
 
+            //Adding name
+            var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
+
+            //Adding preview
+            var motifPreview = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
+            var canvas: any = $("<canvas><canvas>").attr("width", 350).attr("height", 250);
+            canvg(canvas[0], mlmotifs[i].Preview, { ignoreMouse: true, ignoreAnimation: true, ignoreDimensions: true });
+            var url = canvas[0].toDataURL("image/png");
+            $('<img src="' + url + '"/>').appendTo(motifPreview);
+
+            //Adding description
+            var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+        }
+
+        slickContainer.slick({
+            dots: true,
+            infinite: true,
+            centerMode: true,
+            variableWidth: true
+        });
+
+        $('*[draggable!=true]', '.slick-track').unbind('dragstart');
+        $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body", cursorAt: { left: 0, top: 0 }, cursor: "pointer" });
+    };
 
     var isSlickVisible = false;
     var isSlickInitialized = false;
-    $(".ml-open").click((arg) => {
-        if (isSlickVisible)
-            $(".ml-container").hide();
-        else {
-            $(".ml-container").show();
-            if (!isSlickInitialized) {
-                var mlmotifs = motifLibrary.Motifs;
-                var slickContainer = $(".ml-single-item");
-                for (var i = 0; i < mlmotifs.length; i++) {
-                    var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
-
-                    //Adding name
-                    var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
-
-                    //Adding preview
-                    var motifPreview = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
-                    var canvas:any = $("<canvas><canvas>").attr("width", 350).attr("height", 250);
-                    canvg(canvas[0], mlmotifs[i].Preview, { ignoreMouse: true, ignoreAnimation: true, ignoreDimensions: true });
-                    var url = canvas[0].toDataURL("image/png");
-                    $('<img src="' + url + '"/>').appendTo(motifPreview);
-
-                    //Adding description
-                    var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
-                }
-
-                slickContainer.slick({
-                    dots: true,
-                    infinite: true,
-                    centerMode: true,
-                    variableWidth: true
-                });
-
-                $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-                $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body" });
-
-                isSlickInitialized = true;
-            }
-        }
-        isSlickVisible = !isSlickVisible;
-    });
     $(".ml-container").hide();
 
-    //$(function () {
-    //    $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-    //    $(".ml-draggable-element").draggable();
-    //});
-
-    //$(".ml-draggable-element").on("draggable mouseenter mousedown", function (event) {
-    //    event.stopPropagation();
-    //});
+    window.Commands.On("PreloadedMotifsReady", (args) => {
+        $(".ml-open").click((arg) => {
+            if (isSlickVisible)
+                $(".ml-container").hide();
+            else {
+                $(".ml-container").show();
+                if (!isSlickInitialized) {
+                    loadMotifs();
+                    isSlickInitialized = true;
+                }
+            }
+            isSlickVisible = !isSlickVisible;
+        });
+    });
 
     //End of Caorusel experiments
 
