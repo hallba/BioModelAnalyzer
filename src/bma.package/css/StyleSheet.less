@@ -2784,9 +2784,7 @@ textarea {
 }
 
 .ml-bounding-box {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+   
     border-color: @darkgrey;
     border-style: solid;
     border-width: 1px;
@@ -2796,14 +2794,16 @@ textarea {
     box-sizing:border-box;
 }
 
+.ml-bounding-box:hover {
+    border-width: 3px;
+}
+
 .ml-preview {
     height: 250px;
     width: 350px;
-}
-
-.ml-bounding-box:hover {
-    border-width: 3px;
-    
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 .ml-open {

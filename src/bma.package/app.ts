@@ -524,17 +524,19 @@ function loadScript(version) {
             //Adding preview
             var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
             var motifPreviewPicture = $("<div></div>").addClass("ml-preview").addClass("ml-draggable-element").appendTo(motifPreview);
-            var canvas: any = $("<canvas><canvas>").attr("width", 350).attr("height", 250);
-            canvg(canvas[0], mlmotifs[i].Preview, { ignoreMouse: true, ignoreAnimation: true, ignoreDimensions: true });
-            var url = canvas[0].toDataURL("image/png");
-            $('<img src="' + url + '"/>').appendTo(motifPreviewPicture);
+            // make it base64
+            var svg64 = btoa(mlmotifs[i].Preview);
+            var b64Start = 'data:image/svg+xml;base64,';
+            // prepend a "header"
+            var image64 = "url(" + b64Start + svg64 + ")";
+            motifPreviewPicture.css("background-image", image64);
 
             //Adding description
             var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
         }
 
-        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>'; //$('<div></div>').addClass('ml-navbutton').addClass('ml-navbutton-prev');
-        var next = '<div class="ml-navbutton ml-navbutton-next"></div>'; //$('<div></div>').addClass('ml-navbutton').addClass('ml-navbutton-prev');
+        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>'; 
+        var next = '<div class="ml-navbutton ml-navbutton-next"></div>';       
         slickContainer.slick({
             dots: true,
             infinite: true,
