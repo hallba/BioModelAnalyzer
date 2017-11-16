@@ -187,6 +187,9 @@ module BMA {
                 var containerOuterCenterOffset = 0;
                 var containerPaddingCoef = 100;
 
+                var textFontFamily = "Segoe-UI";
+                var textFontSrc = "local('Segoe UI'), local('Frutiger'), local('Frutiger Linotype'), local('Dejavu Sans'), local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('sans serif'), local('sans-serif')";
+
                 this.elements.push(new BorderContainerElement(
                     "Container",
                     function (renderParams) {
@@ -248,6 +251,8 @@ module BMA {
                                     var textLabel = jqSvg.text(g, 0, 0, renderParams.layout.Name, {
                                         transform: "translate(" + -(renderParams.layout.Size * renderParams.grid.xStep / 2 - 10 * renderParams.layout.Size) + ", " + -(renderParams.layout.Size * renderParams.grid.yStep / 2 - that.labelSize - 10 * renderParams.layout.Size) + ")",
                                         "font-size": that.labelSize * renderParams.layout.Size,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
                                         "fill": "black"
                                     });
                                 }
@@ -363,6 +368,8 @@ module BMA {
                                 var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                                 offset += that.labelSize;
@@ -372,6 +379,8 @@ module BMA {
                                 jqSvg.text(g, 0, 0, renderParams.valueText + "", {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                             }
@@ -444,6 +453,8 @@ module BMA {
                                 var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                                 offset += that.labelSize;
@@ -453,6 +464,8 @@ module BMA {
                                 jqSvg.text(g, 0, 0, renderParams.valueText + "", {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                             }
@@ -536,6 +549,8 @@ module BMA {
                                 var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                                 offset += that.labelSize;
@@ -545,6 +560,8 @@ module BMA {
                                 jqSvg.text(g, 0, 0, renderParams.valueText + "", {
                                     transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
                                     "font-size": that.labelSize,
+                                    "font-family": textFontFamily,
+                                    "src": textFontSrc,
                                     "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                                 });
                             }

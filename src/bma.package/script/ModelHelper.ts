@@ -366,6 +366,10 @@ module BMA {
             }
         }
 
+        export function GetModelSVGBoundingBox(model: BMA.Model.BioModel, layout: BMA.Model.Layout): { x: number; y: number; width: number; height: number } {
+            return undefined;
+        }
+
         export function GetModelBoundingBox(model: BMA.Model.Layout, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): { x: number; y: number; width: number; height: number } {
             var bottomLeftCell = { x: Number.POSITIVE_INFINITY, y: Number.POSITIVE_INFINITY };
             var topRightCell = { x: Number.NEGATIVE_INFINITY, y: Number.NEGATIVE_INFINITY };
