@@ -148,14 +148,15 @@ declare var InteractiveDataDisplay: any;
                     var cs = svgPlot.getScreenToDataTransform();
                     var position = {
                         x: cs.screenToDataX(e.pageX - plotDiv.offset().left),
-                        y: -cs.screenToDataY(e.pageY - plotDiv.offset().top)
+                        y: -cs.screenToDataY(e.pageY - plotDiv.offset().top),
+                        screenX: e.pageX - plotDiv.offset().left,
+                        screenY: e.pageY - plotDiv.offset().top
                     };
                     if (that.options.isNavigationEnabled !== true) {
                         that._executeCommand("DrawingSurfaceClick", position);
                     }
 
                     that._executeCommand("DrawingSurfaceDrop", position);
-
                 }
             });
 

@@ -512,9 +512,10 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Caorusel experiments
+    
     var loadMotifs = () => {
-        var mlmotifs = motifLibrary.Motifs;
         var slickContainer = $(".ml-single-item");
+        var mlmotifs = motifLibrary.Motifs;
         for (var i = 0; i < mlmotifs.length; i++) {
             var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
 
@@ -535,8 +536,8 @@ function loadScript(version) {
             var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
         }
 
-        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>'; 
-        var next = '<div class="ml-navbutton ml-navbutton-next"></div>';       
+        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>';
+        var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
         slickContainer.slick({
             dots: true,
             infinite: true,
@@ -548,19 +549,24 @@ function loadScript(version) {
         });
 
         $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-        $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body", cursor: "pointer" });
+        $(".ml-draggable-element").addClass("drawingsurface-droppable").draggable({
+            helper: "clone", appendTo: $("#drawingSurceContainer")[0], containment: $("#drawingSurceContainer")[0], cursor: "pointer"
+        });
     };
 
     var isSlickVisible = false;
     var isSlickInitialized = false;
-    $(".ml-container").hide();
+    var motifLibraryContainer = $(".ml-container");
+    motifLibraryContainer.hide();
+
+    var motifLibraryOpenButton = $(".ml-open");
 
     window.Commands.On("PreloadedMotifsReady", (args) => {
-        $(".ml-open").click((arg) => {
+        motifLibraryOpenButton.click((arg) => {
             if (isSlickVisible)
-                $(".ml-container").hide();
+                motifLibraryContainer.hide();
             else {
-                $(".ml-container").show();
+                motifLibraryContainer.show();
                 if (!isSlickInitialized) {
                     loadMotifs();
                     isSlickInitialized = true;
@@ -717,7 +723,7 @@ function loadScript(version) {
     var lratestservice = new BMA.UIDrivers.BMALRAProcessingService(window.BMAServiceURL + "/api/lra/", logService.UserID);
 
     var waitScreen = new BMA.UIDrivers.LoadingWaitScreen($('.page-loading'));
-    var dragndropextender = new BMA.UIDrivers.DrawingSurfaceDragnDropExtender(drawingSurface, popup);
+    var dragndropextender = new BMA.UIDrivers.DrawingSurfaceDragnDropExtender(drawingSurface, [popup, motifLibraryContainer, motifLibraryOpenButton]);
 
     //Loading presenters
     var undoRedoPresenter = new BMA.Presenters.UndoRedoPresenter(appModel, undoDriver, redoDriver);

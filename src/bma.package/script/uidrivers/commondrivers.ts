@@ -1023,32 +1023,40 @@ module BMA {
         }
 
         export class DrawingSurfaceDragnDropExtender implements IDragnDropExtender {
-            private popup: JQuery;
+            private popups: JQuery[];
             private drawingSurface: JQuery;
 
-            constructor(drawingSurface: JQuery, popup: JQuery) {
+            constructor(drawingSurface: JQuery, popups: JQuery[]) {
                 this.drawingSurface = drawingSurface;
-                this.popup = popup;
+                this.popups = popups;
             }
 
             HandleDrop(screenLocation: { x: number; y: number }, dropObject: any): boolean {
-                if (!this.popup.is(":visible"))
-                    return false;
 
-                var popupPosition = this.popup.offset();
-                var w = this.popup.width();
-                var h = this.popup.height();
+                for (var i = 0; i < this.popups.length; i++) {
+                    var popup = this.popups[i];
 
-                var isInsidePopup = (screenLocation.y > popupPosition.top && screenLocation.y < popupPosition.top + h) &&
-                    (screenLocation.x > popupPosition.left && screenLocation.x < popupPosition.left + w)
+                    if (!popup.is(":visible"))
+                        continue;
 
-                if (isInsidePopup)
-                    window.Commands.Execute("HandlePopupDrop", {
-                        screenLocation: screenLocation,
-                        dropObject: dropObject
-                    });
+                    var popupPosition = popup.offset();
+                    var w = popup.width();
+                    var h = popup.height();
 
-                return isInsidePopup;
+                    var isInsidePopup = (screenLocation.y > popupPosition.top && screenLocation.y < popupPosition.top + h) &&
+                        (screenLocation.x > popupPosition.left && screenLocation.x < popupPosition.left + w)
+
+                    if (isInsidePopup) {
+                        window.Commands.Execute("HandlePopupDrop", {
+                            screenLocation: screenLocation,
+                            dropObject: dropObject
+                        });
+
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 

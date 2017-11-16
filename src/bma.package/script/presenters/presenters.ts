@@ -99,6 +99,13 @@ module BMA {
                     //this.driver.TurnNavigation(this.selectedType === undefined);
                 });
 
+                window.Commands.On("DrawingSurfaceDrop", (args: { x: number; y: number; screenX: number; screenY: number }) => {
+                    if (!dragndropExtender.HandleDrop({ x: args.screenX, y: args.screenY }, undefined)) {
+                        //TODO: check if this is a motif and perform drop oeration if true
+                        //alert("attempt to drop motif");
+                    }
+                });
+
                 window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
                     if (that.selectedType !== undefined) {
                         if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
