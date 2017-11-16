@@ -366,8 +366,58 @@ module BMA {
             }
         }
 
-        export function GetModelSVGBoundingBox(model: BMA.Model.BioModel, layout: BMA.Model.Layout): { x: number; y: number; width: number; height: number } {
-            return undefined;
+        export function GetModelSVGBoundingBox(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): { x: number; y: number; width: number; height: number } {
+            var bottomLeft = { x: Number.POSITIVE_INFINITY, y: Number.POSITIVE_INFINITY };
+            var topRight = { x: Number.NEGATIVE_INFINITY, y: Number.NEGATIVE_INFINITY };
+
+
+            //Getting Container BBoxes
+            var cells = layout.Containers;
+            for (var i = 0; i < cells.length; i++) {
+                var cnt = cells[i];
+
+                var xLeft = cnt.PositionX * grid.xStep + grid.xOrigin;
+                var xRight = xLeft + grid.xStep;
+                var yBottom = cnt.PositionY * grid.yStep + grid.yOrigin;
+                var yTop = yBottom + grid.yStep;
+
+                if (xLeft < bottomLeft.x)
+                    bottomLeft.x = xLeft;
+                if (xRight > topRight.x)
+                    topRight.x = xRight;
+
+                if (yBottom < bottomLeft.y)
+                    bottomLeft.y = yBottom;
+                if (yTop > topRight.y)
+                    topRight.y = yTop;
+            }
+
+
+            var variables = model.Variables;
+
+            for (var i = 0; i < variables.length; i++) {
+                var vrbl = variables[i];
+                var vLayout = layout.Variables[i];
+
+                var elementBBox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(vrbl.Type)).GetBoundingBox(vLayout.PositionX, vLayout.PositionY);
+
+                var xLeft = elementBBox.x;
+                var xRight = elementBBox.x + elementBBox.width;
+                var yBottom = elementBBox.y;
+                var yTop = elementBBox.y + elementBBox.height;
+
+                if (xLeft < bottomLeft.x)
+                    bottomLeft.x = xLeft;
+                if (xRight > topRight.x)
+                    topRight.x = xRight;
+
+                if (yBottom < bottomLeft.y)
+                    bottomLeft.y = yBottom;
+                if (yTop > topRight.y)
+                    topRight.y = yTop;
+            }
+
+            return { x: bottomLeft.x, y: bottomLeft.y, width: topRight.x - bottomLeft.x, height: topRight.y - bottomLeft.y };
         }
 
         export function GetModelBoundingBox(model: BMA.Model.Layout, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): { x: number; y: number; width: number; height: number } {

@@ -115,7 +115,13 @@
                 var that = this;
                 var grid = { x0: 0, y0: 0, xStep: 250, yStep: 280 };
 
-                var bbox = ModelHelper.GetModelBoundingBox(that.layout, { xOrigin: 0, yOrigin: 0, xStep: grid.xStep, yStep: grid.yStep });
+                var bbox = ModelHelper.GetModelSVGBoundingBox(that.model, that.layout, { xOrigin: 0, yOrigin: 0, xStep: grid.xStep, yStep: grid.yStep });
+
+                //Adding some padding
+                bbox.x -= bbox.width * 0.05;
+                bbox.y -= bbox.height * 0.05;
+                bbox.width *= 1.1;
+                bbox.height *= 1.1;
 
                 svg.configure({
                     viewBox: bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height,
