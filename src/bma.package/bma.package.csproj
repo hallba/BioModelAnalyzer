@@ -55,6 +55,8 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="css\jquery.svg.css" />
+    <Content Include="images\caoruselNext.png" />
+    <Content Include="images\caoruselPrev.png" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js">

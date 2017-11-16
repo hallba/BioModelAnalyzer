@@ -522,25 +522,31 @@ function loadScript(version) {
             var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
 
             //Adding preview
-            var motifPreview = $("<div></div>").addClass("ml-bounding-box").addClass("ml-draggable-element").appendTo(slickCard);
+            var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
+            var motifPreviewPicture = $("<div></div>").addClass("ml-preview").addClass("ml-draggable-element").appendTo(motifPreview);
             var canvas: any = $("<canvas><canvas>").attr("width", 350).attr("height", 250);
             canvg(canvas[0], mlmotifs[i].Preview, { ignoreMouse: true, ignoreAnimation: true, ignoreDimensions: true });
             var url = canvas[0].toDataURL("image/png");
-            $('<img src="' + url + '"/>').appendTo(motifPreview);
+            $('<img src="' + url + '"/>').appendTo(motifPreviewPicture);
 
             //Adding description
             var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
         }
 
+        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>'; //$('<div></div>').addClass('ml-navbutton').addClass('ml-navbutton-prev');
+        var next = '<div class="ml-navbutton ml-navbutton-next"></div>'; //$('<div></div>').addClass('ml-navbutton').addClass('ml-navbutton-prev');
         slickContainer.slick({
             dots: true,
             infinite: true,
             centerMode: true,
-            variableWidth: true
+            variableWidth: true,
+            draggable: false,
+            prevArrow: prev,
+            nextArrow: next,
         });
 
         $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-        $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body", cursorAt: { left: 0, top: 0 }, cursor: "pointer" });
+        $(".ml-draggable-element").draggable({ helper: "clone", appendTo: "body", cursor: "pointer" });
     };
 
     var isSlickVisible = false;
