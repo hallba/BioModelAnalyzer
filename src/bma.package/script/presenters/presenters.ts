@@ -44,7 +44,7 @@ module BMA {
 
             private contextMenu: BMA.UIDrivers.IContextMenu;
             private contextElement;
-            
+
             private variableEditedId = undefined;
             private prevVariablesOptions = undefined;
             private isContainerEdited: boolean;
@@ -81,7 +81,7 @@ module BMA {
                 this.containerEditor = containerEditorDriver;
                 this.contextMenu = contextMenu;
                 this.exportservice = exportservice;
-                
+
                 that.isContainerEdited = false;
 
                 svgPlotDriver.SetGrid(this.xOrigin, this.yOrigin, this.xStep, this.yStep);
@@ -703,6 +703,20 @@ module BMA {
 
                             return;
                         } else if (that.stagingVariable !== undefined) {
+                            var vrbl = that.stagingVariable.model;
+                            var id = vrbl.Id;
+                            var stagingVariableType = vrbl.Type;
+                            var x = gesture.x1;
+                            var y = gesture.y1;
+
+                            if (that.CanAddVariable(x, y, "Constant", id) == true) {
+                                stagingVariableType = "Constant";
+                            } else if (that.CanAddVariable(x, y, "Default", id) == true) {
+                                stagingVariableType = "Default";
+                            } else if (that.CanAddVariable(x, y, "MembraneReceptor", id) == true) {
+                                stagingVariableType = "MembraneReceptor";
+                            }
+                            that.stagingVariable.model = new BMA.Model.Variable(id, vrbl.ContainerId, stagingVariableType, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
                             that.stagingVariable.layout = new BMA.Model.VariableLayout(that.stagingVariable.layout.Id, gesture.x1, gesture.y1, 0, 0, 0, that.stagingVariable.layout.TFDescription);
 
                             if (that.svg !== undefined) {
@@ -733,7 +747,6 @@ module BMA {
                         if (that.stagingVariable !== undefined) {
                             var x = that.stagingVariable.layout.PositionX;
                             var y = that.stagingVariable.layout.PositionY;
-                            var type = that.stagingVariable.model.Type;
                             var id = that.stagingVariable.model.Id;
                             that.stagingVariable = undefined;
 
@@ -741,7 +754,7 @@ module BMA {
                             //var left = svgPlotDriver.GetLeft(gesture.x);
 
                             if (dragndropExtender === undefined || !dragndropExtender.HandleDrop({ x: gesture.pageX, y: gesture.pageY }, { type: "variable", id: id })) {
-                                if (!that.TryAddVariable(x, y, type, id)) {
+                                if (!that.TryAddVariable(x, y, "Any", id)) {
                                     that.RefreshOutput();
                                 }
                             } else {
@@ -752,7 +765,7 @@ module BMA {
                         if (that.stagingContainer !== undefined) {
                             var cx = that.stagingContainer.position.x - that.stagingContainer.container.Size * that.Grid.xStep / 3;
                             var cy = that.stagingContainer.position.y - that.stagingContainer.container.Size * that.Grid.yStep / 3;
-                            
+
                             var cid = that.stagingContainer.container.Id;
                             that.stagingContainer = undefined;
                             if (!that.TryAddVariable(cx, cy, "Container", cid)) {
@@ -1210,14 +1223,26 @@ module BMA {
                 throw "Unknown Variable type";
             }
 
-            private TryAddVariable(x: number, y: number, type: string, id: number): boolean {
+            private TryAddVariable(x: number, y: number, variableType: string, id: number): boolean {
                 var that = this;
                 var current = that.undoRedoPresenter.Current;
                 var model = current.model;
                 var layout = current.layout;
 
+                var vt = variableType;
+                if (variableType == "Any") {
+                    if (that.CanAddVariable(x, y, "Constant", id) == true) {
+                        vt = "Constant";
+                    } else if (that.CanAddVariable(x, y, "Default", id) == true) {
+                        vt = "Default";
+                    } else if (that.CanAddVariable(x, y, "MembraneReceptor", id) == true) {
+                        vt = "MembraneReceptor";
+                    } else
+                        return false;
+                }
 
-                switch (type) {
+
+                switch (vt) {
                     case "Container":
                         var containerLayouts = layout.Containers.slice(0);
                         var variables = model.Variables.slice(0);
@@ -1277,11 +1302,13 @@ module BMA {
                         if (id !== undefined) {
                             for (var i = 0; i < variables.length; i++) {
                                 if (variables[i].Id === id) {
+                                    var vrbl = variables[i];
+                                    variables[i] = new BMA.Model.Variable(vrbl.Id, 0, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
                                     variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription);
                                 }
                             }
                         } else {
-                            variables.push(new BMA.Model.Variable(this.variableIndex, 0, type, "", 0, 1, ""));
+                            variables.push(new BMA.Model.Variable(this.variableIndex, 0, vt, "", 0, 1, ""));
                             variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0));
                         }
 
@@ -1303,14 +1330,12 @@ module BMA {
                             for (var i = 0; i < variables.length; i++) {
                                 if (variables[i].Id === id) {
                                     var vrbl = variables[i];
-                                    if (vrbl.ContainerId !== container.Id) {
-                                        variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vrbl.Type, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    }
+                                    variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
                                     variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription);
                                 }
                             }
                         } else {
-                            variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, type, "", 0, 1, ""));
+                            variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
                             variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0));
                         }
 
@@ -1352,15 +1377,13 @@ module BMA {
                             for (var i = 0; i < variables.length; i++) {
                                 if (variables[i].Id === id) {
                                     var vrbl = variables[i];
-                                    if (vrbl.ContainerId !== container.Id) {
-                                        variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vrbl.Type, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    }
+                                    variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
                                     variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, angle, variableLayouts[i].TFDescription);
                                 }
                             }
                         } else {
                             var pos = SVGHelper.GeEllipsePoint(containerX + 2.5 * container.Size, containerY, 107 * container.Size, 127 * container.Size, x, y);
-                            variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, type, "", 0, 1, ""));
+                            variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
                             variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle));
                         }
 
