@@ -13,13 +13,25 @@
                 this.motifs = [];
 
                 this.preloadedPaths = [
-                    "motifs/1_Linear.json",
-                    "motifs/5_Mutual_Activation.json",
-                    "motifs/6_Mutual_Inhibition_v1.json",
-                    "motifs/7_Homeostasis_v1.json",
-                    "motifs/9_Activator-Inhibitor_Oscillations.json",
-                    "motifs/10_Substrate_Depletion_Oscillations.json",
-                    "motifs/10_Substrate_Depletion_Oscillations_v2.json"
+                    "motifs/Activator-Inhibitor_Oscillation.json",
+                    "motifs/Homeostasis.json",
+                    "motifs/Hyperbolic A.json",
+                    "motifs/Hyperbolic B.json",
+                    "motifs/Hyperbolic C.json",
+                    "motifs/Hyperbolic D.json",
+                    "motifs/Linear.json",
+                    "motifs/Mutual_Activation.json",
+                    "motifs/Mutual_Inhibition.json",
+                    "motifs/Negative_Feedback_Oscillations 1.json",
+                    "motifs/Negative_Feedback_Oscillations 2.json",
+                    "motifs/Negative_Feedback_Oscillations 3.json",
+                    "motifs/Perfect Adaptation A.json",
+                    "motifs/Perfect Adaptation B.json",
+                    "motifs/Perfect Adaptation.json",
+                    "motifs/Sigmoidal A.json",
+                    "motifs/Sigmoidal B.json",
+                    "motifs/Sigmoidal C.json",
+                    "motifs/Substrate_depletion_oscillations.json.json",
                 ];
 
                 var svgCnt = $("<div></div>");
