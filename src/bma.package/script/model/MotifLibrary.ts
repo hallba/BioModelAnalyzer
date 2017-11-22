@@ -32,6 +32,7 @@
                     "motifs/Sigmoidal B.json",
                     "motifs/Sigmoidal C.json",
                     "motifs/Substrate_depletion_oscillations.json.json",
+                    "preloaded/SkinModel.json"
                 ];
 
                 var svgCnt = $("<div></div>");
@@ -121,6 +122,10 @@
 
             public get Description(): string {
                 return this.description;
+            }
+
+            public get ModelSource(): { model: BMA.Model.BioModel, layout: BMA.Model.Layout } {
+                return { model: this.model, layout: this.layout };
             }
 
             public RefreshPreview(svg: any) {

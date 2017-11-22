@@ -99,10 +99,21 @@ module BMA {
                     //this.driver.TurnNavigation(this.selectedType === undefined);
                 });
 
-                window.Commands.On("DrawingSurfaceDrop", (args: { x: number; y: number; screenX: number; screenY: number }) => {
-                    if (!dragndropExtender.HandleDrop({ x: args.screenX, y: args.screenY }, undefined)) {
-                        //TODO: check if this is a motif and perform drop oeration if true
-                        //alert("attempt to drop motif");
+                window.Commands.On("MotifDropped", (args: { screenX: number; screenY: number; motifID: number; }) => {
+                    var plotX = svgPlotDriver.GetPlotX(args.screenX);
+                    var plotY = svgPlotDriver.GetPlotY(args.screenY);
+
+                    if (!dragndropExtender.HandleDrop({ x: plotX, y: plotY }, undefined)) {
+                        
+                        var cell = that.GetGridCell(plotX, plotY);
+                        if (that.CanAddContainer(undefined, cell.x, cell.y, 1, false)) {
+                            var motif = window.MotifLibrary.Motifs[args.motifID];
+
+                            var source = that.undoRedoPresenter.Current;
+                            var merged = ModelHelper.MergeModels(source, motif.ModelSource, that.Grid, cell, that.variableIndex);
+                            that.variableIndex = merged.indexOffset + 1;
+                            that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
+                        }
                     }
                 });
 

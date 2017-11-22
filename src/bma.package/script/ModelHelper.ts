@@ -286,6 +286,74 @@ module BMA {
             return true;
         }
 
+        export function MergeModels(
+            source: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
+            target: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
+            grid: { x0: number; y0: number; xStep: number; yStep: number },
+            targetCell: { x: number; y: number },
+            indexOffset: number): { result: { model: BMA.Model.BioModel; layout: BMA.Model.Layout }; indexOffset: number } {
+
+            var model = source.model;
+            var layout = source.layout;
+            var idDic = {};
+            var cntDic = {};
+            var variables = model.Variables.slice(0);
+            var variableLayouts = layout.Variables.slice(0);
+            var containerLayouts = layout.Containers.slice(0);
+            var relationships = model.Relationships.slice(0);
+            var variableIndex = indexOffset;
+
+            var gridBBox = GetModelBoundingBox(target.layout, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
+
+            var targetOffsetX = - gridBBox.x + targetCell.x * grid.xStep + grid.x0;
+            var targetOffsetY = - gridBBox.y + targetCell.y * grid.yStep + grid.y0;
+
+            for (var i = 0; i < target.layout.Containers.length; i++) {
+                var cnt = target.layout.Containers[i];
+                var newContainerId = variableIndex++;
+                cntDic[cnt.Id] = newContainerId;
+
+                var newCntName = cnt.Name == undefined || cnt.Name == "" ? BMA.Model.GenerateNewContainerName(containerLayouts) : cnt.Name;
+
+                var containerOffset = {
+                    x: cnt.PositionX * grid.xStep + grid.x0 + targetOffsetX,
+                    y: cnt.PositionY * grid.yStep + grid.y0 + targetOffsetY,
+                };
+
+                var cntX = containerOffset.x / grid.xStep;
+                var cntY = containerOffset.y / grid.yStep;
+
+                containerLayouts.push(new BMA.Model.ContainerLayout(newContainerId, newCntName, cnt.Size, cntX, cntY));
+            }
+
+
+            for (var i = 0; i < target.model.Variables.length; i++) {
+                var variable = target.model.Variables[i];
+                var variableLayout = target.layout.Variables[i];
+                idDic[variable.Id] = variableIndex;
+                var offsetX = variableLayout.PositionX + targetOffsetX;
+                var offsetY = variableLayout.PositionY + targetOffsetY;
+                variables.push(new BMA.Model.Variable(variableIndex, cntDic[variable.ContainerId], variable.Type, variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula));
+                variableLayouts.push(new BMA.Model.VariableLayout(variableIndex++, offsetX, offsetY, 0, 0, variableLayout.Angle, variableLayout.TFDescription));
+            }
+
+            for (var i = 0; i < target.model.Relationships.length; i++) {
+                var relationship = target.model.Relationships[i];
+                relationships.push(new BMA.Model.Relationship(variableIndex++, idDic[relationship.FromVariableId], idDic[relationship.ToVariableId], relationship.Type));
+            }
+
+            var newmodel = new BMA.Model.BioModel(model.Name, variables, relationships);
+            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts);
+
+            return {
+                result: {
+                    model: newmodel,
+                    layout: newlayout
+                },
+                indexOffset: variableIndex
+            };
+        }
+
         export function ResizeContainer(model: BMA.Model.BioModel, layout: BMA.Model.Layout, containerId: number, containerSize: number, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): {
             model: BMA.Model.BioModel;
             layout: BMA.Model.Layout

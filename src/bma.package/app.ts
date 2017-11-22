@@ -74,6 +74,7 @@ interface Window {
     PlotSettings: any;
     GridSettings: any;
     BMAServiceURL: string;
+    MotifLibrary: BMA.Model.MotifLibrary;
 }
 
 function onSilverlightError(sender, args) {
@@ -269,6 +270,7 @@ function loadScript(version) {
     //Creating model and layout
     var appModel = new BMA.Model.AppModel();
     var motifLibrary = new BMA.Model.MotifLibrary(window.Commands);
+    window.MotifLibrary = motifLibrary;
 
     window.PlotSettings = {
         MaxWidth: 3200,
@@ -511,8 +513,7 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
-    //Caorusel experiments
-    
+    //Loading motif library
     var loadMotifs = () => {
         var slickContainer = $(".ml-single-item");
         var mlmotifs = motifLibrary.Motifs;
@@ -524,7 +525,7 @@ function loadScript(version) {
 
             //Adding preview
             var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
-            var motifPreviewPicture = $("<div></div>").addClass("ml-preview").addClass("ml-draggable-element").appendTo(motifPreview);
+            var motifPreviewPicture = $("<div></div>").addClass("ml-preview").addClass("ml-draggable-element").attr("data-motifid", i).appendTo(motifPreview);
             // make it base64
             var svg64 = btoa(mlmotifs[i].Preview);
             var b64Start = 'data:image/svg+xml;base64,';
@@ -549,8 +550,8 @@ function loadScript(version) {
         });
 
         $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-        $(".ml-draggable-element").addClass("drawingsurface-droppable").draggable({
-            helper: "clone", appendTo: $("#drawingSurceContainer")[0], containment: $("#drawingSurceContainer")[0], cursor: "pointer"
+        $(".ml-draggable-element").draggable({
+            helper: "clone", appendTo: $("#drawingSurceContainer")[0], containment: $("#drawingSurceContainer")[0], cursor: "pointer", scope: "ml-card"
         });
     };
 
@@ -558,6 +559,34 @@ function loadScript(version) {
     var isSlickInitialized = false;
     var motifLibraryContainer = $(".ml-container");
     motifLibraryContainer.hide();
+
+    var checkInside = (cursor, target) => {
+        var pos = target.offset();
+        var w = target.outerWidth(true);
+        var h = target.outerHeight(true);
+        return cursor.x >= pos.left && cursor.x <= pos.left + w && cursor.y >= pos.top && cursor.y <= pos.top + h
+    };
+
+    //Adding droppable 
+    var motifDropConteiner = $("#drawingSurceContainer");
+    motifDropConteiner.droppable({
+        greedy: true,
+        scope: "ml-card",
+        drop: function (event, ui) {
+            var e = <MouseEvent>event;
+            var cursor = { x: e.pageX, y: e.pageY };
+            if (!checkInside(cursor, $(".ml-container")) && !checkInside(cursor, $(".ml-open"))) {
+
+                var position = {
+                    screenX: e.pageX - motifDropConteiner.offset().left,
+                    screenY: e.pageY - motifDropConteiner.offset().top,
+                    motifID: parseInt(ui.draggable.attr("data-motifid"))
+                };
+
+                window.Commands.Execute("MotifDropped", position);
+            }
+        }
+    });
 
     var motifLibraryOpenButton = $(".ml-open");
 
@@ -575,8 +604,6 @@ function loadScript(version) {
             isSlickVisible = !isSlickVisible;
         });
     });
-
-    //End of Caorusel experiments
 
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();
