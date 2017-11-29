@@ -344,6 +344,7 @@
     <TypeScriptCompile Include="script\presenters\storagepresenter.ts" />
     <TypeScriptCompile Include="script\widgets\codeeditor.ts" />
     <TypeScriptCompile Include="script\widgets\modelstoragewidget.ts" />
+    <TypeScriptCompile Include="script\widgets\motiflibrary.ts" />
     <TypeScriptCompile Include="script\widgets\onedrivestoragewidget.ts" />
     <TypeScriptCompile Include="script\onedrive\OneDrive.ts" />
     <TypeScriptCompile Include="script\onedrive\OneDriveRepository.ts" />

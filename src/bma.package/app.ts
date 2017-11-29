@@ -514,51 +514,10 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Loading motif library
-    var loadMotifs = () => {
-        var slickContainer = $(".ml-single-item");
-        var mlmotifs = motifLibrary.Motifs;
-        for (var i = 0; i < mlmotifs.length; i++) {
-            var slickCard = $("<div></div>").addClass("ml-element").appendTo(slickContainer);
-
-            //Adding name
-            var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
-
-            //Adding preview
-            var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
-            var motifPreviewPicture = $("<div></div>").addClass("ml-preview").addClass("ml-draggable-element").attr("data-motifid", i).appendTo(motifPreview);
-            // make it base64
-            var svg64 = btoa(mlmotifs[i].Preview);
-            var b64Start = 'data:image/svg+xml;base64,';
-            // prepend a "header"
-            var image64 = "url(" + b64Start + svg64 + ")";
-            motifPreviewPicture.css("background-image", image64);
-
-            //Adding description
-            var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
-        }
-
-        var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>';
-        var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
-        slickContainer.slick({
-            dots: true,
-            infinite: true,
-            centerMode: true,
-            variableWidth: true,
-            draggable: false,
-            prevArrow: prev,
-            nextArrow: next,
-        });
-
-        $('*[draggable!=true]', '.slick-track').unbind('dragstart');
-        $(".ml-draggable-element").draggable({
-            helper: "clone", appendTo: $("#drawingSurceContainer")[0], containment: $("#drawingSurceContainer")[0], cursor: "pointer", scope: "ml-card"
-        });
-    };
-
-    var isSlickVisible = false;
-    var isSlickInitialized = false;
-    var motifLibraryContainer = $(".ml-container");
-    motifLibraryContainer.hide();
+    $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0] });
+    window.Commands.On("PreloadedMotifsReady", (args) => {
+        $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
+    });
 
     var checkInside = (cursor, target) => {
         var pos = target.offset();
@@ -586,23 +545,6 @@ function loadScript(version) {
                 window.Commands.Execute("MotifDropped", position);
             }
         }
-    });
-
-    var motifLibraryOpenButton = $(".ml-open");
-
-    window.Commands.On("PreloadedMotifsReady", (args) => {
-        motifLibraryOpenButton.click((arg) => {
-            if (isSlickVisible)
-                motifLibraryContainer.hide();
-            else {
-                motifLibraryContainer.show();
-                if (!isSlickInitialized) {
-                    loadMotifs();
-                    isSlickInitialized = true;
-                }
-            }
-            isSlickVisible = !isSlickVisible;
-        });
     });
 
     //Visual Settings Presenter
@@ -750,7 +692,7 @@ function loadScript(version) {
     var lratestservice = new BMA.UIDrivers.BMALRAProcessingService(window.BMAServiceURL + "/api/lra/", logService.UserID);
 
     var waitScreen = new BMA.UIDrivers.LoadingWaitScreen($('.page-loading'));
-    var dragndropextender = new BMA.UIDrivers.DrawingSurfaceDragnDropExtender(drawingSurface, [popup, motifLibraryContainer, motifLibraryOpenButton]);
+    var dragndropextender = new BMA.UIDrivers.DrawingSurfaceDragnDropExtender(drawingSurface, [popup]);
 
     //Loading presenters
     var undoRedoPresenter = new BMA.Presenters.UndoRedoPresenter(appModel, undoDriver, redoDriver);
