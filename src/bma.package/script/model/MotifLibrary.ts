@@ -8,6 +8,10 @@
 
             private preloadedPaths: string[];
 
+
+            private isSvgReady: boolean = false;
+            private isStartLoadRequested: boolean = false;
+
             constructor(commands: BMA.ICommandRegistry) {
                 this.commands = commands;
                 this.motifs = [];
@@ -39,7 +43,11 @@
                 svgCnt.svg({
                     onLoad: (svg) => {
                         this.svg = svg;
-                        this.StartLoadMotifs();
+                        this.isSvgReady = true;
+                        if (this.isStartLoadRequested) {
+                            this.isStartLoadRequested = false;
+                            this.StartLoadMotifs();
+                        }
                     }
                 });
             }
@@ -69,8 +77,12 @@
                 that.motifs.push(newMotif);
             }
 
-            private StartLoadMotifs() {
-                this.LoadMotif();
+            public StartLoadMotifs() {
+                if (this.isSvgReady) {
+                    this.LoadMotif();
+                } else {
+                    this.isStartLoadRequested = true;
+                }
             }
 
             private LoadMotif() {

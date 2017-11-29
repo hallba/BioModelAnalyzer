@@ -5,9 +5,13 @@
             container: undefined
         },
 
+        _mlOpen: undefined,
+        _mlContainer: undefined,
+
         _slickContainer: undefined,
         _isInitialized: false,
         _isOpened: false,
+        _isAnimationShown: false,
 
         _create: function () {
             var that = this;
@@ -30,23 +34,34 @@
 
             //Motifs container
             var mlContainer = $("<div></div>").addClass("ml-container").appendTo(root);
-            mlContainer.hide();
-
+            that._mlContainer = mlContainer;
             var mlSingleItem = $("<div></div>").addClass("ml-single-item").appendTo(mlContainer);
             that._slickContainer = mlSingleItem;
 
             //Motif Library open button
             var mlOpen = $("<div></div>").addClass("ml-open").appendTo(root);
+            that._mlOpen = mlOpen;
             var mlOpenIcon = $("<div></div>").addClass("ml-open-icon").appendTo(mlOpen);
 
             mlOpen.click((arg) => {
-                if (that._isOpened)
-                    mlContainer.hide();
+                if (that._isOpened) {
+                    if (that._isAnimationShown) {
+                        that._hideLoading(mlOpen);
+                    } else {
+                        mlContainer.animate({ height: "-=300px", "padding-top": "-=40px", "padding-bottom": "-=40px" });
+                    }
+                }
                 else {
-                    mlContainer.show();
-                    if (!that._isInitialized && that.options.motifs.length > 0) {
-                        that._createCards();
-                        that._isInitialized = true;
+                    if (that.options.motifs.length > 0) {
+                        mlContainer.animate({ height: "+=300px", "padding-top": "+=40px", "padding-bottom": "+=40px" });
+                        if (!that._isInitialized) {
+                            that._createCards();
+                            that._isInitialized = true;
+                        }
+                    }
+                    else
+                    {
+                        that._showLoading(mlOpen);
                     }
                 }
                 that._isOpened = !that._isOpened;
@@ -61,7 +76,7 @@
 
             //Clear previous container
             if (that.isInitialized) {
-                slickContainer.unslick();
+                slickContainer.slick('unslick');
             }
             slickContainer.empty();
 
@@ -102,14 +117,33 @@
             $(".ml-draggable-element").draggable({
                 helper: "clone", appendTo: that.options.container, containment: that.options.container, cursor: "pointer", scope: "ml-card"
             });
+
+            if (that._isAnimationShown) {
+                that._hideLoading(that._mlOpen);
+                that._mlContainer.animate({ height: "+=300px", "padding-top": "+=40px", "padding-bottom": "+=40px" });
+            }
+
+            that.isInitialized = true;
         },
 
-        _refresh: function () {
-            var that = this;
-            if (that.option.isOpened) {
-
-                that.isInitialized = false;
+        _showLoading: function (clicked) {
+            clicked.animate({ height: "+=30px" });
+            var snipper = $('<div class="spinner loading"></div>').css("margin-top", 10).appendTo(clicked);
+            for (var i = 1; i < 4; i++) {
+                $('<div></div>').addClass('bounce' + i).appendTo(snipper);
             }
+            this._isAnimationShown = true;
+        },
+
+        _hideLoading: function (toHide) {
+            toHide.each(function () {
+                var load = $(this).children().filter(".loading");
+                if (load.length) {
+                    load.detach();
+                    $(this).animate({ height: "-=30px" });
+                }
+            });
+            this._isAnimationShown = false;
         },
 
         _setOption: function (key, value) {
@@ -119,7 +153,8 @@
 
             switch (key) {
                 case "motifs":
-                    if (that._isInitialized) {
+                    that._isInitialized = false;
+                    if (that._isOpened) {
                         that._createCards();
                     }
                     break;

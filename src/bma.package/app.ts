@@ -547,6 +547,9 @@ function loadScript(version) {
         }
     });
 
+    //Start loading preloaded motifs
+    motifLibrary.StartLoadMotifs();
+
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();
     (<any>window).VisualSettings = visualSettings;

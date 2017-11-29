@@ -2749,11 +2749,12 @@ textarea {
 
 .ml-container {
     margin-left: 0;
-    padding: 40px;
-    width: 98%;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: calc(~"100% - 60px");
     color: gray;
     background: white;
-    height: 300px;
+    height: 0;
     box-shadow: -4px -6px 10px @shadow;
 }
 
@@ -2837,10 +2838,10 @@ textarea {
 
 .ml-navbutton-prev {
     background-image: url(../images/caoruselPrev.png);
-    left: -15px;
+    left: -25px;
 }
 
 .ml-navbutton-next {
     background-image: url(../images/caoruselNext.png);
-    right: -15px;
+    right: -25px;
 }
