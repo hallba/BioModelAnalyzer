@@ -248,9 +248,10 @@ function loadVersion(): JQueryPromise<Object> {
 
 function loadScript(version) {
     var version_key = 'bma-version';
-    var versionText = 'v. ' + version.major + '.' + version.minor + '.' + version.build;
+    var versionText = version.major + '.' + version.minor + '.' + version.build;
 
-    $('.version-number').text(versionText);
+    //$('.version-number').text(versionText);
+
     //Creating CommandRegistry
     window.Commands = new BMA.CommandRegistry();
     var ltlCommands = new BMA.CommandRegistry();
@@ -287,7 +288,7 @@ function loadScript(version) {
 
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
-    drawingSurface.drawingsurface({ showLogo: true, version: versionText });
+    drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
     $("#zoomslider").bmazoomslider({ value: 50 });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
@@ -747,7 +748,7 @@ function loadScript(version) {
     var lastversion = window.localStorage.getItem(version_key);
     if (lastversion !== JSON.stringify(version)) {
         var userDialog = $('<div></div>').appendTo('body').userdialog({
-            message: "BMA client was updated to version " + $('.version-number').text(),
+            message: "BMA client was updated to version " + versionText,
             actions: [
                 {
                     button: 'Ok',
