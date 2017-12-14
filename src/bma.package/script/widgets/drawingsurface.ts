@@ -20,12 +20,17 @@ declare var InteractiveDataDisplay: any;
         _domPlot: null,
         _zoomPlot: null,
 
+        _logoContainer: undefined,
+        _versionContainer: undefined,
+
         options: {
             isNavigationEnabled: true,
             svg: undefined,
             zoom: 50,
             dropFilter: ["drawingsurface-droppable"],
-            useContraints: true
+            useContraints: true,
+            showLogo: false,
+            version: "1.0.0.0"
         },
 
         _plotSettings: {
@@ -80,7 +85,15 @@ declare var InteractiveDataDisplay: any;
 
             var logoСontainer1 = $("<div></div>").height("100%").appendTo(plotDiv);
             var logoСontainer2 = $("<div></div>").height("100%").css("position", "relative").appendTo(logoСontainer1);
+
             var logo = $("<div></div>").addClass("bma-logo-watermark").appendTo(logoСontainer2);
+            that._versionContainer = $("<div></div>").addClass("bma-logo-version").text(that.options.version).appendTo(logoСontainer2);
+
+            that._logoContainer = logoСontainer1;
+            if (that.options.showLogo == false)
+                that._logoContainer.hide();
+
+            
 
             var svgPlotDiv2 = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
@@ -493,6 +506,15 @@ declare var InteractiveDataDisplay: any;
                 case "maxZoomHeight":
                     if (value !== undefined)
                         this._zoomPlot.maxZoomHeight = value;
+                    break;
+                case "version":
+                    this._versionContainer.text(value);
+                    break;
+                case "showLogo":
+                    if (value)
+                        this._logoContainer.show();
+                    else
+                        this._logoContainer.hide();
                     break;
             }
             this._super(key, value);

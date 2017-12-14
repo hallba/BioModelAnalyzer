@@ -248,8 +248,9 @@ function loadVersion(): JQueryPromise<Object> {
 
 function loadScript(version) {
     var version_key = 'bma-version';
+    var versionText = 'v. ' + version.major + '.' + version.minor + '.' + version.build;
 
-    $('.version-number').text('v. ' + version.major + '.' + version.minor + '.' + version.build);
+    $('.version-number').text(versionText);
     //Creating CommandRegistry
     window.Commands = new BMA.CommandRegistry();
     var ltlCommands = new BMA.CommandRegistry();
@@ -286,7 +287,7 @@ function loadScript(version) {
 
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
-    drawingSurface.drawingsurface();
+    drawingSurface.drawingsurface({ showLogo: true, version: versionText });
     $("#zoomslider").bmazoomslider({ value: 50 });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
