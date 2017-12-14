@@ -104,9 +104,8 @@ module BMA {
                     var plotY = svgPlotDriver.GetPlotY(args.screenY);
 
                     if (!dragndropExtender.HandleDrop({ x: plotX, y: plotY }, undefined)) {
-                        
                         var cell = that.GetGridCell(plotX, plotY);
-                        if (that.CanAddContainer(undefined, cell.x, cell.y, 1, false)) {
+                        if (that.CanAddContainer(undefined, plotX, plotY, 1, false)) {
                             var motif = window.MotifLibrary.Motifs[args.motifID];
 
                             var source = that.undoRedoPresenter.Current;
