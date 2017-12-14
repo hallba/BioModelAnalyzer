@@ -305,6 +305,50 @@ module BMA {
 
             var gridBBox = GetModelBoundingBox(target.layout, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
 
+            var gridBBoxHorCells = gridBBox.width / grid.xStep;
+            var gridBBoxVertCells = gridBBox.height / grid.yStep;
+
+
+            if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1) {
+                //Creating extra empty space inside model before insertion
+                for (var i = 0; i < containerLayouts.length; i++) {
+                    var cnt = containerLayouts[i];
+                    var newCntX = cnt.PositionX;
+                    var newCntY = cnt.PositionY;
+
+                    if (cnt.PositionX >= targetCell.x && cnt.PositionY >= targetCell.y) {
+                        if (cnt.PositionX > targetCell.x) {
+                            newCntX += gridBBoxHorCells - 1;
+                        }
+
+                        if (cnt.PositionY > targetCell.y) {
+                            newCntY += gridBBoxVertCells - 1;
+                        }
+                    }
+
+                    containerLayouts[i] = new BMA.Model.ContainerLayout(cnt.Id, cnt.Name, cnt.Size, newCntX, newCntY);
+                }
+
+                for (var i = 0; i < variableLayouts.length; i++) {
+                    var variableLayout = variableLayouts[i];
+                    var varPosX = variableLayout.PositionX;
+                    var varPosY = variableLayout.PositionY;
+                    var variableGridCell = GetGridCell(variableLayout.PositionX, variableLayout.PositionY, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
+
+                    if (variableGridCell.x >= targetCell.x && variableGridCell.y >= targetCell.y) {
+                        if (variableGridCell.x > targetCell.x) {
+                            varPosX += (gridBBoxHorCells - 1) * grid.xStep;
+                        }
+
+                        if (variableGridCell.y > targetCell.y) {
+                            varPosY += (gridBBoxVertCells - 1) * grid.yStep;
+                        }
+                    }
+
+                    variableLayouts[i] = new BMA.Model.VariableLayout(variableLayout.Id, varPosX, varPosY, variableLayout.CellX, variableLayout.CellY, variableLayout.Angle, variableLayout.TFDescription);
+                }
+            }
+
             var targetOffsetX = - gridBBox.x + targetCell.x * grid.xStep + grid.x0;
             var targetOffsetY = - gridBBox.y + targetCell.y * grid.yStep + grid.y0;
 
