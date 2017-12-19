@@ -32,9 +32,12 @@ src/bma.client/css/bma.css
 src/bma.client/css/website.css
 src/bma.client/css/fonts.min.css
 src/bma.client/css/idd.css
+src/bma.client/css/slick-theme.css
+src/bma.client/css/slick.css
 src/bma.client/js/script/idd.heatmapworker.js
 
 #dependencies copied by paket and grunt
+src/bma.client/js/slick.min.js
 src/bma.client/js/FileSaver.js
 src/bma.client/js/jquery.browser.min.js
 src/bma.client/js/jquery.cookie.js

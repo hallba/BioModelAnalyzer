@@ -120,6 +120,8 @@
     <Content Include="css\fonts.min.css" />
     <Content Include="css\idd.css" />
     <Content Include="css\website.css" />
+    <Content Include="css\slick.css" />
+    <Content Include="css\slick-theme.css" />
     <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\caoruselNext.png" />
     <Content Include="images\caoruselPrev.png" />
@@ -162,6 +164,7 @@
     <Content Include="js\jquery.ui-contextmenu.js" />
     <Content Include="js\jquery.ui-contextmenu.min.js" />
     <Content Include="js\jquery.ui.touch-punch.min.js" />
+    <Content Include="js\slick.min.js" />
     <Content Include="Scripts\jquery-2.1.4-vsdoc.js">
       <Paket>True</Paket>
     </Content>
