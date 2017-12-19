@@ -79,3 +79,7 @@ github svgdotjs/svg.js:a67f69cd521a6ae000bb729afb3b84fc7a94eab0 dist/svg.js
 github predictionmachines/InteractiveDataDisplay:6205dacd87c3494dc652ceee5243ccb31443b624 dist/idd.js
 github predictionmachines/InteractiveDataDisplay:6205dacd87c3494dc652ceee5243ccb31443b624 dist/idd.heatmapworker.js
 github predictionmachines/InteractiveDataDisplay:6205dacd87c3494dc652ceee5243ccb31443b624 dist/idd.css
+github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.min.js
+github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.css
+github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick-theme.css
+
