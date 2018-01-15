@@ -167,6 +167,19 @@ a:hover {
     background-color: @pink;
 }
 
+.pink-btn {
+    color: @pink;
+    font-family: Segoe-UI-Bold;
+    font-size: 24px;
+    line-height: 100%;
+    z-index: 5;
+    margin: 0px;
+    padding: 7px 15px 7px 15px;
+    background-color: white;
+    border: 1px solid @pink;
+    .border-radius(10px 10px 10px 10px);
+}
+
 .expand-btn {
     background-repeat: no-repeat;
     background-size: contain;
@@ -217,6 +230,7 @@ a:hover {
     font-family: 'Segoe-UI';
     font-size: 24px;
     line-height: 31px;
+    color: @teamgrey;
 }
 
 .infopage-block-intro .heading {
@@ -225,6 +239,39 @@ a:hover {
     font-size: 36px;
     line-height: 100%;
     margin-bottom: 50px;
+}
+
+.into-btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.intro-btn {
+    font-family: Segoe-UI-Bold;
+    font-size: 24px;
+    line-height: 100%;
+    z-index: 5;
+    margin: 0px;
+    padding: 10px;
+    background-color: white;
+    .border-radius(10px 10px 10px 10px);
+}
+
+.green {
+    color: @green;
+    border: 2px solid green;
+}
+
+.red {
+    color: @darkred;
+    border: 2px solid @darkred;
+}
+
+.pink {
+    color: @pink;
+    border: 2px solid @pink;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 /* F.A.Q. Block */
@@ -261,6 +308,17 @@ a:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+}
+
+.white-pink {
+    margin-top: 15px;
+    color: white;
+    border: 2px solid white;
+    background: @pink;
+}
+
+.contact-us-container {
+    margin-top: 35px;
 }
 
 /* Publications Block */
@@ -352,9 +410,35 @@ a:hover {
 .infopage-block-examples {
     background-color: white;
     padding: 50px;
-    font-family: 'Segoe-UI';
+    font-family: 'Segoe-UI-Light';
     font-size: 24px;
     line-height: 31px;
+}
+
+.infopage-block-examples .heading {
+    color: @pink;
+    font-family: 'Segoe-UI';
+    font-size: 36px;
+    line-height: 100%;
+    margin-bottom: 50px;
+}
+
+.infopage-block-examples .example {
+    border-bottom: 1px solid @teamgrey;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.example .reference-paper {
+    margin-left: 10px;
+}
+
+.example .bold {
+    font-family: 'Segoe-UI';
 }
 
 

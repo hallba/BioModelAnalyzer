@@ -64,9 +64,15 @@
             <br />
             At another level, Bio Model Analyzer’s analysis proves stabilization of biological systems, based upon formal methods that were developed for the specification and verification of properties in concurrent software systems. We hope you enjoy using Bio Model Analyzer and welcome your feedback.
         </p>
+        <div class="into-btn-container ">
+            <a href="https://www.youtube.com/watch?v=RDefcGkXJXk" target="_blank" class="intro-btn green">Watch Intro</a>
+            <a class="intro-btn pink" onclick="scrollTo('examples-library')">Example Library</a>
+            <a class="intro-btn red" onclick="scrollTo('faq')">F.A.Q.</a>
+
+        </div>
     </div>
 
-    <div class="infopage-block-faq">
+    <div class="infopage-block-faq" id="faq">
         <div class="heading">Frequently Asked Questions</div>
 
         <div class="FAQ_question">
@@ -184,7 +190,6 @@
             </div>
             <p style="display:none" id="q10">
                 Once you have developed a comprehensive model library, you can skip between models by clicking them (to highlight), then using the open button.
-
             </p>
         </div>
 
@@ -229,32 +234,56 @@
             </p>
         </div>
 
+        <div class="contact-us-container">
+            <a class="intro-btn white-pink" href="mailto:biomodelanalyzer@outlook.com">Contact Us</a>
+        </div>
     </div>
 
-    <div class="infopage-block-examples" style="clear:both">
-        <span class="heading">Example Library and References</span><br><br>
-        <span class="bold">Toy Example 1</span> (stabilising)<br>
-        <a href="preloaded/ToyModelStable.json" target="_blank">[Download JSON]</a>
-        <a href="tool.html?Model=preloaded/ToyModelStable.json" target="_blank">[Load model in tool]</a><br><br>
+    <div id="examples-library" class="infopage-block-examples" style="clear:both">
+        <div class="heading">Example Library and References</div>
 
-        <span class="bold">Toy Example 2</span> (non stabilising)<br>
-        <a href="preloaded/ToyModelUnstable.json" target="_blank">[Download JSON]</a>
-        <a href="tool.html?Model=preloaded/ToyModelUnstable.json" target="_blank">[Load model in tool]</a><br><br>
+        <div class="example">
+            <div>
+                <span class="bold">Toy Example 1</span> (stabilising)<br>
+                <a href="preloaded/ToyModelStable.json" target="_blank">[Download JSON]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/ToyModelStable.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
 
-        <span class="bold">Mammalian Epidermis</span><br>
-        <a href="preloaded/SkinModel.json" target="_blank">[Download JSON]</a>
-        <a href="tool.html?Model=preloaded/SkinModel.json" target="_blank">[Load model in tool]</a><br>
-        Reference paper <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a><br><br>
+        <div class="example">
+            <div>
+                <span class="bold">Toy Example 2</span> (non stabilising)<br>
+                <a href="preloaded/ToyModelUnstable.json" target="_blank">[Download JSON]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/ToyModelUnstable.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
 
-        <span class="bold">Cell fate determination during C. elegans vulval development – VPC</span><br>
-        <a href="preloaded/VPC.json" target="_blank">[Download JSON]</a>
-        <a href="tool.html?Model=preloaded/VPC.json" target="_blank">[Load model in tool]</a><br>
-        Reference paper <a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[PDF]</a><br><br>
+        <div class="example">
+            <div>
+                <span class="bold">Mammalian Epidermis</span><br>
+                <a href="preloaded/SkinModel.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/SkinModel.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
 
-        <span class="bold">Metabolic networks operating intType-2 diabetes</span><br>
-        <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
-        <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank">[Load model in tool]</a><br>
-        Reference paper <a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[PDF]</a><br><br>
+        <div class="example">
+            <div>
+                <span class="bold">Cell fate determination during C. elegans vulval development – VPC</span><br>
+                <a href="preloaded/VPC.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[PDF]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/VPC.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Metabolic networks operating intType-2 diabetes</span><br>
+                <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[PDF]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
     </div>
 
     <div class="infopage-block-publications">
