@@ -125,9 +125,11 @@
     <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\caoruselNext.png" />
     <Content Include="images\caoruselPrev.png" />
+    <Content Include="images\downarrow-grey.png" />
     <Content Include="images\downarrow.png" />
     <Content Include="images\motif-library.svg" />
     <Content Include="images\resize-grabber.svg" />
+    <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
     <Content Include="js\idd.heatmapworker.js" />
     <Content Include="js\idd.js" />

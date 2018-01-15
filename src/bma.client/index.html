@@ -10,17 +10,34 @@
 
     <script type="text/javascript">
 
-        function toggleInfo(id) {
+        function toggleInfo(id, up, down) {
             var textL = $("#" + id);
             var button = $("#" + id + "b");
 
             textL.slideToggle("fast");
 
-            if (button.hasClass("down-arrow"))
-                button.removeClass("down-arrow").addClass("up-arrow");
+            if (button.hasClass(down))
+                button.removeClass(down).addClass(up);
             else
-                button.removeClass("up-arrow").addClass("down-arrow");
+                button.removeClass(up).addClass(down);
 
+        }
+
+        function toggleFaqInfo(id) {
+            toggleInfo(id, "up-arrow-white", "down-arrow-white");
+        }
+
+        function toggleTeamMemberInfo(id) {
+            toggleInfo(id, "up-arrow-grey", "down-arrow-grey");
+        }
+
+        function scrollTo(id) {
+            document.getElementById(id).scrollIntoView(true);
+            /*
+            $(document).animate({
+                scrollTop: $("#" + id).offset().top
+            }, 1000);
+            */
         }
 
     </script>
@@ -31,24 +48,31 @@
 
     <div id="home-logo" style="position: relative;">
         <object class="home-logo-img" type="image/svg+xml" data="images/BMA-logo-big.svg">Your browser does not support SVG</object>
+
         <div id="home-launch">
-            <a href="tool.html" class="home-launch-btn">Launch Tool</a>
+            <a href="tool.html" class="launch-btn">Launch Tool</a>
+            <a class="showmore-btn" onclick="scrollTo('bma-intro')">Find out more</a>
         </div>
+
     </div>
 
-    <div class="infopage-block">
-        <span class="heading">What is the BMA?</span><br><br>
+    <div id="bma-intro" class="infopage-block-intro">
+        <span class="heading">What is the BMA?</span>
         <p>
-            Bio Model Analyzer is a new biological modelling tool that illustrates signalling pathways and determines cellular stabilization. The tool represents a merging of perspectives from systems biology, formal methods, human computer interaction and design. At one level, Bio Model Analyzer is a sketching tool that enables users to draw out a biological system of interest (e.g. a genetic regulatory network) by dragging and dropping cells, their contents (DNA, proteins, etc.), extracellular components and relationships onto a simple canvas. At another level, Bio Model Analyzer’s analysis proves stabilization of biological systems, based upon formal methods that were developed for the specification and verification of properties in concurrent software systems. We hope you enjoy using Bio Model Analyzer and welcome your feedback.
+            Bio Model Analyzer is a new biological modelling tool that illustrates signalling pathways and determines cellular stabilization. The tool represents a merging of perspectives from systems biology, formal methods, human computer interaction and design. At one level, Bio Model Analyzer is a sketching tool that enables users to draw out a biological system of interest (e.g. a genetic regulatory network) by dragging and dropping cells, their contents (DNA, proteins, etc.), extracellular components and relationships onto a simple canvas.
+            <br />
+            <br />
+            At another level, Bio Model Analyzer’s analysis proves stabilization of biological systems, based upon formal methods that were developed for the specification and verification of properties in concurrent software systems. We hope you enjoy using Bio Model Analyzer and welcome your feedback.
         </p>
     </div>
 
     <div class="infopage-block-faq">
-        <span class="heading">Frequently Asked Questions</span><br><br>
+        <div class="heading">Frequently Asked Questions</div>
+
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I open Bio Model Analyzer?</span>
-                <div id="q1b" class="expand-btn down-arrow" onclick="toggleInfo('q1');"></div>
+                <div id="q1b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q1');"></div>
             </div>
             <p style="display: none;" id="q1">
                 To get started, click ‘Enter Tool’ on the Bio Model Analyzer website. You will enter Bio Model Analyzer’s blank canvas screen, with the icons aligned at the top of the screen and ‘Default Model: Version 1’ displayed in the lower right-hand corner.
@@ -58,7 +82,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I drag and drop elements onto the canvas?</span>
-                <div id="q2b" class="expand-btn down-arrow" onclick="toggleInfo('q2');"></div>
+                <div id="q2b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q2');"></div>
             </div>
             <p style="display: none;" id="q2">
                 Drag and drop works the same way for cells, membrane receptors, red variables and grey constants. Click the icon, drag it onto the canvas and release the mouse button to place the variable. Note that the canvas has ‘soft spots’ where the components can be placed and if you are not hovering over a soft spot, you won’t be able to place the component. These soft spots are apparent through highlighting. For instance, if you’re dragging a cell, a grid will highlight when you’ve reached a spot where you can release the cell onto the canvas. Similarly, when dragging receptors onto the cell membrane, you’ll see a circular spot appear highlighted in eight possible locations to attach the receptor around a given cell. <br>
@@ -69,7 +93,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I zoom and scroll around the canvas?</span>
-                <div id="q3b" class="expand-btn down-arrow" onclick="toggleInfo('q3');"></div>
+                <div id="q3b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q3');"></div>
             </div>
             <p style="display: none;" id="q3">
                 The zoom operates by using either your mouse wheel or the zoom bar in the top right-hand corner. There is also a panning hand icon; when this mode is on (clicked and highlighted), you can pan around the grid, which you cannot do when the selection tool is on.<br>
@@ -80,7 +104,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I name and give ranges to variables?</span>
-                <div id="q4b" class="expand-btn down-arrow" onclick="toggleInfo('q4');"></div>
+                <div id="q4b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q4');"></div>
             </div>
             <p style="display:none" id="q4">
                 Clicking on a variable opens up a dialogue box in the bottom left corner. Here you can specify a name and descriptive range for variables. As usual it is good practice not to include symbols in names of variables (or files). For example, a ‘-‘ symbols in the name of a variable increases the likelihood of getting a failed analysis run as the tool processes subtraction relationships too, specified by ‘-‘. Typical qualitatively descriptive ranges are as follows: 0-1 for ‘off’ and ‘on’; 0-3 for ‘off’, ‘low’, ‘medium’ and ‘high’ concentrations; 1-1 for a ‘low concentration constant’; 3-3 for a ‘high concentration constant’; etc.<br />
@@ -91,7 +115,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">What are some basic target functions?</span>
-                <div id="q5b" class="expand-btn down-arrow" onclick="toggleInfo('q5');"></div>
+                <div id="q5b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q5');"></div>
             </div>
             <p style="display:none" id="q5">
                 You can leave the default target function, which will entail that your variables get processed as follows: ave(pos) – ave(neg). This function means that the variable gradually changes its value to the difference between the average of the variables having an activating influence on it and the average of the variables having an inhibitive influence on it. This target function is built to optimize the usage of the range of the variable (see below when discussing sum). <br><br>
@@ -108,7 +132,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I use advanced target functions?</span>
-                <div id="q6b" class="expand-btn down-arrow" onclick="toggleInfo('q6');"></div>
+                <div id="q6b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q6');"></div>
             </div>
             <p style="display:none" id="q6">
                 You can also customize the target function, within the limits of the language defined in Bio Model Analyzer. The user has available the following operators: addition, subtraction, multiplication, division, maximum, minimum, ceiling, floor, and average. For example:<br><br>
@@ -122,7 +146,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">What happens with variables with different ranges?</span>
-                <div id="q7b" class="expand-btn down-arrow" onclick="toggleInfo('q7');"></div>
+                <div id="q7b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q7');"></div>
             </div>
             <p style="display:none" id="q7">
                 BioModelAnalyzer is built to facilitate the usage of the default target function. What should happen if I have a variable X with range [0,1] activating a variable Y with range [0,2] (and no other influences)? In this case, it makes sense that the maximal value of X should lead to Y having maximal value as well. This means that the ranges of X and Y need to be adjusted when they affect each other. So BioModelAnalyzer does an automatic range conversion when X appears in the target function of Y (or vice versa). If you just use the default target functions this is not something you have to worry about. It essentially means that the entire range of Y will be possible in the example above (and similar cases). However, if you are building your own target functions this may lead to unexpected behaviour.<br />
@@ -134,7 +158,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I save my work to the model library?</span>
-                <div id="q8b" class="expand-btn down-arrow" onclick="toggleInfo('q8');"></div>
+                <div id="q8b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q8');"></div>
             </div>
             <p style="display:none" id="q8">
                 The simple saving that we recommend you do frequently while you work is done by clicking the save icon, second from the top left. To name and save a model more precisely during, or at the end of a model sketch, click the model library icon at the top left. You will see that the model you have started working on is temporarily saved as ‘Default Model’. To change that, simply click this text in the model library (highlighting it) and rewrite the file name of your choice. (To save your work further, see the next question about exporting and importing XML files.)<br>
@@ -145,7 +169,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I export and import XML files?</span>
-                <div id="q9b" class="expand-btn down-arrow" onclick="toggleInfo('q9');"></div>
+                <div id="q9b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q9');"></div>
             </div>
             <p style="display:none" id="q9">
                 In the model library, there are icons to export and import XML files. This is the best way to save and share models with your colleagues in a secure folder of your choice. Both export and import work like a typical ‘save as’ or ‘open’ function.<br>
@@ -156,7 +180,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">How do I move between models in my library?</span>
-                <div id="q10b" class="expand-btn down-arrow" onclick="toggleInfo('q10');"></div>
+                <div id="q10b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q10');"></div>
             </div>
             <p style="display:none" id="q10">
                 Once you have developed a comprehensive model library, you can skip between models by clicking them (to highlight), then using the open button.
@@ -167,7 +191,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">Bio Model Analyzer freezes while I’m working; <br>how do I stop this?</span>
-                <div id="q11b" class="expand-btn down-arrow" onclick="toggleInfo('q11');"></div>
+                <div id="q11b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q11');"></div>
             </div>
             <p style="display:none" id="q11">
                 Key F5 to refresh the page. Don’t forget to frequently save your work. Please report any bugs via our feedback page.
@@ -177,7 +201,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">Is this just a nice drawing tool?</span>
-                <div id="q12b" class="expand-btn down-arrow" onclick="toggleInfo('q12');"></div>
+                <div id="q12b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q12');"></div>
             </div>
             <p style="display:none" id="q12">
                 The drawing has an underlying dynamic semantics. Essentially, a drawing describes a system with multiple states with rules on how it changes from state to state. A state corresponds to an assignment to all the variables in the system. From a given state, the system transitions to a new state by updating all the variables simultaneously. In order to determine the new value for a variable the value of its target function is computed based on the values of other variables it is in relation with. Then, if the value of the target function is higher than the value of the variable, it increases by 1. If the value of the target function is lower than the value of the variable, it decreases by 1. If the value of the target function is the same as that of the variable, it does not change.
@@ -187,7 +211,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">What kind of analysis does Bio Model Analyzer do?</span>
-                <div id="q13b" class="expand-btn down-arrow" onclick="toggleInfo('q13');"></div>
+                <div id="q13b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q13');"></div>
             </div>
             <p style="display:none" id="q13">
                 Bio Model Analyzer checks if the model becomes stable. That is, if regardless of the values the variables start with, there is one stability point that the model always reaches and then remains in. Bio Model Analyzer’s analysis is based on formal methods that were developed for the specification and verification of properties in concurrent software systems. The complexity of this analysis stems from the high number of possible states of such a system. A system with 10 variables, each ranging over 0-3, has 4^10 states, or roughly one million states. A system with 30 variables ranging over 0-1, has over one trillion states. Such large systems are impossible to manually inspect or visually inspect in a comprehendible layout. The formal analysis collects rules about which states of the system can be visited again and again. It uses this information to narrow down the possible states for the system to stabilize in. If the set of possible states to stabilize in collapses to just one state, then the analysis has been able to prove stabilization. If it does not, then the analysis tries to find either multiple sinks or several states that have a cycle between them. <br>
@@ -198,7 +222,7 @@
         <div class="FAQ_question">
             <div class="question">
                 <span class="bold">Why are there only one variable and one constant icon?<br> How am I to represent the many different kinds of biological elements?</span>
-                <div id="q14b" class="expand-btn down-arrow" onclick="toggleInfo('q14');"></div>
+                <div id="q14b" class="expand-btn down-arrow-white" onclick="toggleFaqInfo('q14');"></div>
             </div>
             <p style="display:none" id="q14">
                 Bio Model Analyzer is a model that abstracts the biological meanings that differentiate genes, transcription factors, proteins and the like. As the biologist, you need to identify your variables so they make sense to you (e.g. via their naming) but the actual analysis that Bio Model Analyzer provides does not account for differences between variables, beyond how they are named, connected, and given ranges and target functions.
@@ -207,7 +231,7 @@
 
     </div>
 
-    <div class="infopage-block" style="clear:both">
+    <div class="infopage-block-examples" style="clear:both">
         <span class="heading">Example Library and References</span><br><br>
         <span class="bold">Toy Example 1</span> (stabilising)<br>
         <a href="preloaded/ToyModelStable.json" target="_blank">[Download JSON]</a>
@@ -234,141 +258,195 @@
     </div>
 
     <div class="infopage-block-publications">
-        <span class="heading">Publications</span><br><br>
+        <div class="heading">Publications</div>
 
-        <span class="bold">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</span><br>
-        Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
-        Scientific Reports, 5:8190, Nature Publishing Group, February 2015<br>
-        <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">[text]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</span>
+                <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">[text]</a>
+            </div>
+            Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
+            Scientific Reports, 5:8190, Nature Publishing Group, February 2015<br>
+        </div>
 
-        <span class="bold">Modelling biology -- working through (in-)stabilities and frictions</span><br>
-        Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
-        Computational Culture, Nov 2014<br>
-        <a href="http://computationalculture.net/article/modelling-biology" target="_blank">[text]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Modelling biology - working through (in-)stabilities and frictions</span>
+                <a href="http://computationalculture.net/article/modelling-biology" target="_blank">[text]</a>
+            </div>
+            Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
+            Computational Culture, Nov 2014<br>
+        </div>
 
-        <span class="bold">Finding instability in biological models</span><br>
-        Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
-        CAV 2014<br>
-        <a href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">[PDF]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Finding instability in biological models</span>
+                <a href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">[PDF]</a>
+            </div>
+            Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
+            CAV 2014<br>
+        </div>
 
-        <span class="bold">At the Interface of Biology and Computation</span><br>
-        Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
-        CHI 2013<br>
-        <a href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">[PDF]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">At the Interface of Biology and Computation</span>
+                <a href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">[PDF]</a>
+            </div>
+            Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
+            CHI 2013<br>
+        </div>
 
-        <span class="bold">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</span><br>
-        Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
-        CAV 2013<br>
-        <a href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">[PDF]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</span>
+                <a href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">[PDF]</a>
+            </div>
+            Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
+            CAV 2013<br>
+        </div>
 
-        <span class="bold">BMA: Visual Tool for Modeling and Analyzing Biological Networks</span><br>
-        Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
-        CAV 2012<br>
-        <a href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">[PDF]</a><br>
-        <br>
-        <span class="bold">Proving Stabilization of Biological Systems</span><br>
-        Cook, Fisher, Krepska, Piterman<br>
-        VMCAI 2011<br>
-        <a href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">[PDF]</a><br>
-        <br>
-        <span class="bold">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</span><br>
-        Schaub, Henzinger,  Fisher<br>
-        BMC Systems Biology. 1:4,  2007<br>
-        <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a><br>
-        <br>
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">BMA: Visual Tool for Modeling and Analyzing Biological Networks</span>
+                <a href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">[PDF]</a>
+            </div>
+            Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
+            CAV 2012<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Proving Stabilization of Biological Systems</span>
+                <a href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">[PDF]</a>
+            </div>
+            Cook, Fisher, Krepska, Piterman<br>
+            VMCAI 2011<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <span class="bold">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</span>
+                <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a>
+            </div>
+            Schaub, Henzinger,  Fisher<br>
+            BMC Systems Biology. 1:4,  2007<br>
+        </div>
     </div>
 
-    <div class="infopage-block">
+    <div class="infopage-block-team">
         <span class="heading">Team</span><br><br>
 
-        <div class="Team_Member">
-            <span class="bold">Jasmin Fisher</span><br>
-            Systems Biology - <a href="http://research.microsoft.com/en-us/people/jfisher/" target="_blank">Microsoft Research</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Jasmin Fisher</span><br>
+                    Systems Biology <a href="http://research.microsoft.com/en-us/people/jfisher/" target="_blank">Microsoft Research</a><br>
+                </div>
+                <div id="jasminb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('jasmin');"></div>
+            </div>
             <p style="display:none" id="jasmin">
                 Jasmin Fisher is a Senior Researcher at Microsoft Research Cambridge.
                 She is also a Reader and Group Leader at the Dept of Biochemistry, Cambridge University.
                 Her research focuses on the construction and analysis of executable models that mimic aspects of biological phenomena in order to better understand complex biological systems. She is mainly interested in processes of cell fate determination and signalling networks operating during normal development and cancer.
             </p>
-            <a onclick="toggleInfo('#jasmin')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">Nir Piterman</span><br>
-            Verification and Automated Reasoning - <a href="http://www.cs.le.ac.uk/people/npiterman/" target="_blank">University of Leicester</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Nir Piterman</span><br>
+                    Verification and Automated Reasoning <a href="http://www.cs.le.ac.uk/people/npiterman/" target="_blank">University of Leicester</a><br>
+                </div>
+
+                <div id="nirb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nir');"></div>
+            </div>
             <p style="display:none" id="nir">
                 Nir Piterman is Reader in the Department of Computer Science in the University of Leicester.
                 His research interests include formal verification, automata theory, and applications of formal methods to biological modeling.
             </p>
-            <a onclick="toggleInfo('#nir')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">Ben Hall</span><br>
-            Systems Biology - <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Ben Hall</span><br>
+                    Systems Biology <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
+                </div>
+
+                <div id="benb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('ben');"></div>
+            </div>
             <p style="display:none" id="ben">
                 Ben Hall is a Royal Society University Research Fellow working at the MRC Cancer Unit at the University of Cambridge. His research focuses on developing computational models of the decision making processes of cancer, from the early events of carcinogenesis to the later stages of metastasis. Alongside this, he maintains a long-standing interest in the development of algorithms and tools in formal methods for biology.
             </p>
-            <a onclick="toggleInfo('#ben')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">Alex Taylor</span><br>
-            Socio-Digital Systems - <a href="http://research.microsoft.com/en-us/people/ataylor/" target="_blank">Microsoft Research</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Alex Taylor</span><br>
+                    Socio-Digital Systems <a href="http://research.microsoft.com/en-us/people/ataylor/" target="_blank">Microsoft Research</a><br>
+                </div>
+
+                <div id="alexb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('alex');"></div>
+            </div>
             <p style="display:none" id="alex">
                 Alex joined Microsoft Research's Cambridge Lab in September 2004 as a member of the Socio-digital Systems Group (SDS).<br>
                 Since joining, he's undertaken investigations into a range of routine aspects of everyday life - with a particular emphasis on life at home. For instance, showing what some might describe as an unhealthy preoccupation with hoarding, dirt, clutter and similar seemingly banal subject matter. Most recently, he has begun obsessing over robots and other curious 'thinking' machines.<br>
                 Much of this work has been considered alongside the design of computing technology. Rather than informing design directly, however, he has sought with varying success to open up the possibilities for different and hopefully new ways of interacting with technology. A further goal has been to reflect on the intersections between humans and machines, and wonder what the unceasing developments in science and technology might mean for being human.
             </p>
-            <a onclick="toggleInfo('#alex')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">Scarlet Schwiderski-Grosche</span><br>
-            Program Management - <a href="http://research.microsoft.com/en-us/people/scarlets/" target="_blank">Microsoft Research</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Scarlet Schwiderski-Grosche</span><br>
+                    Program Management <a href="http://research.microsoft.com/en-us/people/scarlets/" target="_blank">Microsoft Research</a><br>
+                </div>
+
+                <div id="scarletb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('scarlet');"></div>
+            </div>
             <p style="display:none" id="scarlet">
                 Scarlet is Senior Research Program Manager at Microsoft Research Cambridge. She has a background in Computer Science, i.e. distributed and mobile/wireless systems, databases, and security. Her particular interest lies in bridging research topics in Computer Science with other research domains, especially Design, Education and Computational Science.
             </p>
-            <a onclick="toggleInfo('#scarlet')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">David Benque</span><br>
-            Design - <a href="http://protoplot.com" target="_blank">Protoplot</a><br>
-            <p style="display:none" id="david">
-                David is a designer and researcher working in London. He holds a BA in graphic design from the Royal Academy in the Hague, the Netherlands, and an MA in Design Interactions from the Royal College of Art in London, United Kingdom.
-            </p>
-            <a onclick="toggleInfo('#david')">[+]</a>
-        </div>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Sergey Berezin</span><br>
+                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+                </div>
 
-        <div class="Team_Member">
-            <span class="bold">Sergey Berezin</span><br>
-            Architecture and programming - <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+                <div id="sergeyb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('sergey');"></div>
+            </div>
+
             <p style="display:none" id="sergey">
                 Sergey is Associate Professor in Moscow State University. His interests include visualization and processing of large data sets
                 and applications of cloud computing and modern programming technologies to problems of computational sciences.
             </p>
-            <a onclick="toggleInfo('#sergey')">[+]</a>
         </div>
 
-        <div class="Team_Member">
-            <span class="bold">Nikita Skoblov</span><br>
-            Architecture and programming - <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Nikita Skoblov</span><br>
+                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+                </div>
+
+                <div id="nikitab" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nikita');"></div>
+            </div>
+
             <p style="display:none" id="nikita">
                 Nikita is a senior developer working in Moscow State University. His interests includes scientific visualization and visualization of large data sets.
             </p>
-            <a onclick="toggleInfo('#nikita')">[+]</a>
         </div>
 
-        <span class="heading">Alumni</span><br><br>
+        <div class="heading alumni">Alumni</div>
         <span class="bold">Byron Cook</span> - University College London<br>
         <span class="bold">Samin Ishtiaq</span> - Microsoft Research<br />
         <span class="bold">Inna Zelenina</span> - Moscow State University<br />
         <span class="bold">Svetlana Kostyukova</span> - Moscow State University<br />
+        <span class="bold">David Benque</span> - Protoplot<br />
     </div>
 
 </body>

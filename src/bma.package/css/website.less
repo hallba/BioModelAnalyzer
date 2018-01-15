@@ -55,6 +55,7 @@
 @sim-yellow: #FFFCB5;
 @sim-blue: rgba(223,223,245,0.5);
 @pink: #F5B3B2;
+@teamgrey: #989899;
 
 @shadow: rgba(0,0,0,0.50);
 
@@ -69,10 +70,6 @@
     color: @darkgrey;
 }
 
-.bold {
-    font-family: 'Segoe-UI-Bold';
-}
-
 /*   BASE   */
 
 html, body {
@@ -83,25 +80,12 @@ html, body {
     background-position: center;
     margin: 0;
     padding: 0;
-    overflow-y: auto;
     height: 100%;
     .default-text()
 }
 
 img {
     border: 0;
-}
-
-.heading {
-    color: @green;
-    font-family: 'Segoe-UI-Light';
-    font-size: 36px; 
-    line-height: 100%;
-}
-
-.bold {
-    color: @darkgrey;
-    font-weight: 'Segoe-UI-Bold';
 }
 
 .page-title() {
@@ -137,69 +121,73 @@ a:hover {
     text-decoration: none;
     cursor: pointer;
 }
-/* New class ends */
 
-/* ---  Buttons --- */
-
-#btn-block {
-    position: relative;
-    background-color: white;
-    /*padding:10px 10px 10px 10px;*/ /* No spill-over, unclickable space.  */
-    margin: 0 15px 15px 0;
-    width: 110px;
-    text-align: center;
-    color: @green;
-    float: left;
-    .border-radius(10px);
-    .box-shadow(@x:2px, @y:5px, @blur:10px, @color:@shadow);
-}
-
-#btn-block:hover {
-    background-color: @green;
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#btn {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-/* ---  Site-Wide header  --- */
-
+/* ---  Buttons  --- */
 .launch-btn {
-    position: relative;
-    z-index: 5;
-    background-color: @green;
-    display: block;
     color: white;
-    font-family: 'Segoe-UI-Light';
-    font-size: 2.2em;
+    font-family: Segoe-UI-Bold;
+    font-size: 2em;
     line-height: 100%;
-    width: 150px;
-    padding: 30px 10px 10px 10px; /* Prevents 'Enter tool' from being squeezed up against the page top*/
-    margin: -65px 0 0 -270px; /* wrt the page */
-    .border-radius(0px 0px 10px 10px);
-    .box-shadow(@x:2px, @y:5px, @blur:10px, @color:@shadow);
+    z-index: 5;
+    margin: 0px;
+    padding: 15px;
+    .border-radius(10px 10px 10px 10px);
 
     &:hover {
         text-decoration: none;
         background-color: white;
         color: @green;
     }
-}
 
-.home-launch-btn {
-    .launch-btn();
-    margin: 0px;
-    padding: 10px 10px 10px 10px;
-    .border-radius(10px 10px 10px 10px);
-    //.box-shadow(@x:2px, @y:5px, @blur:10px, @color:@shadow);
     position: absolute;
     top: 40px;
     left: 40px;
+    background-color: @green;
+}
+
+.showmore-btn {
+    color: white;
+    font-family: Segoe-UI-Bold;
+    font-size: 2em;
+    line-height: 100%;
+    z-index: 5;
+    margin: 0px;
+    padding: 15px;
+    .border-radius(10px 10px 10px 10px);
+
+    &:hover {
+        text-decoration: none;
+        background-color: white;
+        color: @pink;
+    }
+
+    position: absolute;
+    top: 120px;
+    left: 40px;
+    background-color: @pink;
+}
+
+.expand-btn {
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30px;
+    height: 15px;
+}
+
+.down-arrow-white {
+    background-image: url(../images/downarrow.png);
+}
+
+.up-arrow-white {
+    background-image: url(../images/uparrow.png);
+}
+
+.down-arrow-grey {
+    background-image: url(../images/downarrow-grey.png);
+}
+
+.up-arrow-grey {
+    background-image: url(../images/uparrow-grey.png);
 }
 
 /* ---  Home page  --- */
@@ -218,30 +206,28 @@ a:hover {
 #home-launch {
     position: relative;
     height: 100%;
-    //margin: 0 auto 0 50%;
 }
 
 
-#home-launch img {
-    margin-top: 14px;
-}
+/* Intro Block */
 
-#home-launch-btn {
-    position: absolute;
-    //width: 100%;
-    //height: 100%;
-    bottom: 30%;
-    left: 250px;
-    z-index: 1;
-}
-
-/* Blocks */
-
-.infopage-block {
+.infopage-block-intro {
     background-color: white;
-    padding: 50px; 
-    .default-text()
+    padding: 50px;
+    font-family: 'Segoe-UI';
+    font-size: 24px;
+    line-height: 31px;
 }
+
+.infopage-block-intro .heading {
+    color: @green;
+    font-family: 'Segoe-UI-Light';
+    font-size: 36px;
+    line-height: 100%;
+    margin-bottom: 50px;
+}
+
+/* F.A.Q. Block */
 
 .infopage-block-faq {
     background-color: @pink;
@@ -249,39 +235,19 @@ a:hover {
     font-family: 'Segoe-UI';
     font-size: 24px;
     line-height: 31px;
-    padding: 50px; 
+    padding: 50px;
 }
 
-.infopage-block-faq .heading{
+.infopage-block-faq .heading {
     color: @darkred;
+    margin-bottom: 50px;
+    font-size: 36px;
+    line-height: 100%;
 }
 
-.infopage-block-faq .bold{
+.infopage-block-faq .bold {
     color: white;
 }
-
-.infopage-block-publications {
-    background-color: @green;
-    color: white;
-    font-family: 'Segoe-UI';
-    font-size: 24px;
-    line-height: 31px;
-    padding: 50px; 
-}
-
-.infopage-block-publications .heading {
-    color: white;
-}
-
-.Team_Member {
-    //margin-bottom: 15px;
-}
-
-
-.Team_Member p {
-    //margin: 5px 0px 5px 0px;
-}
-
 
 .FAQ_question {
     border-bottom: 1px solid white;
@@ -297,19 +263,98 @@ a:hover {
     align-items: baseline;
 }
 
-.expand-btn {
-    background-repeat: no-repeat;
-    background-size:contain;
-    width: 30px;
-    height: 15px;
+/* Publications Block */
+
+.infopage-block-publications {
+    background-color: @green;
+    color: white;
+    font-family: 'Segoe-UI';
+    font-size: 24px;
+    line-height: 31px;
+    padding: 50px;
 }
 
-.down-arrow {
-    background-image: url(../images/downarrow.png);
+.infopage-block-publications .heading {
+    color: white;
+    margin-bottom: 50px;
+    font-size: 36px;
+    line-height: 100%;
+    font-family: 'Segoe-UI-Light';
 }
 
-.up-arrow {
-    background-image: url(../images/uparrow.png);
+.publication {
+    display: block;
+    border-bottom: 1px solid white;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    font-family: Segoe-UI-Light;
+}
+
+.publication-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.publication-header .bold {
+    color: white;
+    font-family: Segoe-UI-Bold;
+}
+
+.publication-header a {
+    color: white;
+}
+
+/* Team Block */
+
+.infopage-block-team {
+    background-color: white;
+    padding: 50px;
+    font-family: "Segoe-UI-Light";
+    font-size: 24px;
+    line-height: 31px;
+    color: @teamgrey;
+}
+
+.infopage-block-team .heading {
+    color: @teamgrey;
+    font-family: 'Segoe-UI';
+    font-size: 36px;
+    line-height: 100%;
+    margin-bottom: 50px;
+}
+
+.team-member {
+    border-bottom: 1px solid @teamgrey;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.team-member-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.infopage-block-team .bold {
+    font-family: Segoe-UI;
+}
+
+.infopage-block-team .alumni {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+/* Examples Block */
+
+.infopage-block-examples {
+    background-color: white;
+    padding: 50px;
+    font-family: 'Segoe-UI';
+    font-size: 24px;
+    line-height: 31px;
 }
 
 
