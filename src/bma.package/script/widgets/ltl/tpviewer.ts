@@ -171,7 +171,7 @@
 
 
                 if (operations[i].status !== "nottested" && operations[i].status.indexOf("processing") < 0 && operations[i].steps !== undefined) {
-                    context.font = "14px Segoe-UI";
+                    context.font = "14px OpenSans";
                     context.textBaseline = "middle";
 
                     if (operations[i].status === "partialsuccesspartialfail") {
@@ -188,7 +188,7 @@
                     var anim = this._createWaitAnimation(opSize.width + 10, opPosition.y - 7, operations[i].status.indexOf("processinglra") > -1);
                     this._anims.push(anim);
                 } else if (operations[i].status === "nottested" && operations[i].message !== undefined && operations[i].message !== null) {
-                    context.font = "14px Segoe-UI";
+                    context.font = "14px OpenSans";
                     context.textBaseline = "middle";
                     context.fillStyle = "rgb(254, 172, 158)";
                     var text = <string>operations[i].message;

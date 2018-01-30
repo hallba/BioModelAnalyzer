@@ -231,7 +231,7 @@
 
                         context.fillStyle = "rgb(96,96,96)";
                         context.textBaseline = "middle";
-                        context.font = circleSize / 2 + "px Segoe-UI";
+                        context.font = circleSize / 2 + "px OpenSans";
                         var w = context.measureText(rect.labels[j]).width;
                         context.fillText(rect.labels[j], dataToScreenX(rect.x) + x + circleSize / 2 - w / 2, dataToScreenY(rect.y + rect.height / 2));
 

@@ -32,7 +32,7 @@ module BMA {
             var context = canvas.getContext("2d");
 
             var layout = CreateLayout(operation, (name, fontSize) => {
-                context.font = fontSize + "px Segoe-UI";
+                context.font = fontSize + "px OpenSans";
                 return context.measureText(name).width;
             }, operationAppearance.padding, operationAppearance.keyFrameSize, { fontSize: 16 });
 
@@ -81,7 +81,7 @@ module BMA {
 
                         var offset = pos.x - halfWidth + paddingX;
                         if (layoutPart.isFunction || operands.length === 1) {
-                            context.font = "10px Segoe-UI";
+                            context.font = "10px OpenSans";
                             context.fillStyle = "rgb(96,96,96)";
                             context.fillText(operation.operator, offset, pos.y);
                             offset += layoutPart.operatorWidth + paddingX;
@@ -96,7 +96,7 @@ module BMA {
                             offset += operands[i].width / 2 + paddingX;
                             if (!layoutPart.isFunction) {
                                 if (i < operands.length - 1) {
-                                    context.font = "10px Segoe-UI";
+                                    context.font = "10px OpenSans";
                                     context.fillStyle = "rgb(96,96,96)";
                                     context.fillText(operation.operator, offset, pos.y);
                                 }
@@ -119,13 +119,13 @@ module BMA {
                         if (layoutPart.type === "keyframe" || layoutPart.type === "constant" || layoutPart.type === "other") {
                             var name = layoutPart.name;
                             var fs = 16;
-                            context.font = "16px Segoe-UI";
+                            context.font = "16px OpenSans";
 
                             var width = context.measureText(name).width;
                             //if (width > hks) {
                             //    fs = fs * hks / width;
                             //    width = hks;
-                            //    context.font = fs + "px Segoe-UI";
+                            //    context.font = fs + "px OpenSans";
                             //}
                             context.fillStyle = "rgb(96,96,96)";
                             context.fillText(name, pos.x - width / 2, pos.y);
@@ -163,7 +163,7 @@ module BMA {
         export function CalcOperationSizeOnCanvas(canvas: HTMLCanvasElement, operation: IOperand, padding: { x: number; y: number }, keyFrameSize: number): { width: number; height: number } {
             var context = canvas.getContext("2d");
             var getOpWidth = (name, fontSize) => {
-                context.font = fontSize + "px Segoe-UI";
+                context.font = fontSize + "px OpenSans";
                 return context.measureText(name).width;
             };
 

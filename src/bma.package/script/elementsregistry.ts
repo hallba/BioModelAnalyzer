@@ -187,7 +187,7 @@ module BMA {
                 var containerOuterCenterOffset = 0;
                 var containerPaddingCoef = 100;
 
-                var textFontFamily = "Segoe-UI";
+                var textFontFamily = "OpenSans";
                 var textFontSrc = "local('Segoe UI'), local('Frutiger'), local('Frutiger Linotype'), local('Dejavu Sans'), local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('sans serif'), local('sans-serif')";
 
                 this.elements.push(new BorderContainerElement(
