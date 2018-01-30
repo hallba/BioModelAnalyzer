@@ -31,7 +31,7 @@
             toggleInfo(id, "up-arrow-grey", "down-arrow-grey");
         }
 
-        function scrollTo(id) {
+        function scrollToBlockElement(id) {
             document.getElementById(id).scrollIntoView(true);
             /*
             $(document).animate({
@@ -51,7 +51,7 @@
 
         <div id="home-launch">
             <a href="tool.html" class="launch-btn">Launch Tool</a>
-            <a class="showmore-btn" onclick="scrollTo('bma-intro')">Find out more</a>
+            <a class="showmore-btn" onclick="scrollToBlockElement('bma-intro')">Find out more</a>
         </div>
 
     </div>
@@ -66,8 +66,8 @@
         </p>
         <div class="into-btn-container ">
             <a href="https://www.youtube.com/watch?v=RDefcGkXJXk" target="_blank" class="intro-btn green">Watch Intro</a>
-            <a class="intro-btn pink" onclick="scrollTo('examples-library')">Example Library</a>
-            <a class="intro-btn red" onclick="scrollTo('faq')">F.A.Q.</a>
+            <a class="intro-btn pink" onclick="scrollToBlockElement('examples-library')">Example Library</a>
+            <a class="intro-btn red" onclick="scrollToBlockElement('faq')">F.A.Q.</a>
 
         </div>
     </div>
