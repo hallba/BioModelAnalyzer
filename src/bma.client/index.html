@@ -1,4 +1,4 @@
-<!-- Copyright (c) Microsoft Research 2016 -->
+﻿<!-- Copyright (c) Microsoft Research 2016 -->
 <!-- License: MIT. See LICENSE -->
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,7 +46,7 @@
 
 <body>
 
-    <div id="home-logo" style="position: relative;">
+    <div id="home-logo" style="position: relative;" class="fixed-width">
         <object class="home-logo-img" type="image/svg+xml" data="images/BMA-logo-big.svg">Your browser does not support SVG</object>
 
         <div id="home-launch">
@@ -56,7 +56,7 @@
 
     </div>
 
-    <div id="bma-intro" class="infopage-block-intro">
+    <div id="bma-intro" class="infopage-block-intro fixed-width">
         <span class="heading">What is the BMA?</span>
         <p>
             Bio Model Analyzer is a new biological modelling tool that illustrates signalling pathways and determines cellular stabilization. The tool represents a merging of perspectives from systems biology, formal methods, human computer interaction and design. At one level, Bio Model Analyzer is a sketching tool that enables users to draw out a biological system of interest (e.g. a genetic regulatory network) by dragging and dropping cells, their contents (DNA, proteins, etc.), extracellular components and relationships onto a simple canvas.
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="infopage-block-faq" id="faq">
+    <div class="infopage-block-faq fixed-width" id="faq">
         <div class="heading">Frequently Asked Questions</div>
 
         <div class="FAQ_question">
@@ -239,7 +239,7 @@
         </div>
     </div>
 
-    <div id="examples-library" class="infopage-block-examples" style="clear:both">
+    <div id="examples-library" class="infopage-block-examples fixed-width" style="clear:both">
         <div class="heading">Example Library and References</div>
 
         <div class="example">
@@ -262,7 +262,7 @@
             <div>
                 <span class="bold">Mammalian Epidermis</span><br>
                 <a href="preloaded/SkinModel.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[Go to pubication]</a>
             </div>
             <a href="tool.html?Model=preloaded/SkinModel.json" target="_blank" class="pink-btn">Load model in tool</a>
         </div>
@@ -271,7 +271,7 @@
             <div>
                 <span class="bold">Cell fate determination during C. elegans vulval development – VPC</span><br>
                 <a href="preloaded/VPC.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[PDF]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[Go to pubication]</a>
             </div>
             <a href="tool.html?Model=preloaded/VPC.json" target="_blank" class="pink-btn">Load model in tool</a>
         </div>
@@ -280,19 +280,21 @@
             <div>
                 <span class="bold">Metabolic networks operating intType-2 diabetes</span><br>
                 <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[PDF]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[Go to pubication]</a>
             </div>
             <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
         </div>
     </div>
 
-    <div class="infopage-block-publications">
+    <div class="infopage-block-publications fixed-width">
         <div class="heading">Publications</div>
 
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</span>
-                <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">[text]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
             Scientific Reports, 5:8190, Nature Publishing Group, February 2015<br>
@@ -301,7 +303,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Modelling biology - working through (in-)stabilities and frictions</span>
-                <a href="http://computationalculture.net/article/modelling-biology" target="_blank">[text]</a>
+                <div class="publication-ref">
+                    <a href="http://computationalculture.net/article/modelling-biology" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
             Computational Culture, Nov 2014<br>
@@ -310,7 +314,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Finding instability in biological models</span>
-                <a href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
             CAV 2014<br>
@@ -319,7 +325,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">At the Interface of Biology and Computation</span>
-                <a href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
             CHI 2013<br>
@@ -328,7 +336,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</span>
-                <a href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
             CAV 2013<br>
@@ -337,7 +347,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">BMA: Visual Tool for Modeling and Analyzing Biological Networks</span>
-                <a href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
             CAV 2012<br>
@@ -346,7 +358,9 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Proving Stabilization of Biological Systems</span>
-                <a href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Cook, Fisher, Krepska, Piterman<br>
             VMCAI 2011<br>
@@ -355,14 +369,16 @@
         <div class="publication">
             <div class="publication-header">
                 <span class="bold">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</span>
-                <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[PDF]</a>
+                <div class="publication-ref">
+                    <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[go to pubication]</a>
+                </div>
             </div>
             Schaub, Henzinger,  Fisher<br>
             BMC Systems Biology. 1:4,  2007<br>
         </div>
     </div>
 
-    <div class="infopage-block-team">
+    <div class="infopage-block-team fixed-width">
         <span class="heading">Team</span><br><br>
 
         <div class="team-member">

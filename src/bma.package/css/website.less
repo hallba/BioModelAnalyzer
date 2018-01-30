@@ -64,7 +64,7 @@
 @import "fonts.less";
 
 .default-text() {
-    font-family: 'Segoe-UI';
+    font-family: OpenSans;
     font-size: 13px;
     line-height: 17px;
     color: @darkgrey;
@@ -74,13 +74,16 @@
 
 html, body {
     background-color: @lightgrey;
-    background-image: url(../images/background.svg);
+    background-image: url(../images/BMA_Background_Homepage.svg);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     margin: 0;
     padding: 0;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .default-text()
 }
 
@@ -89,10 +92,14 @@ img {
 }
 
 .page-title() {
-    font-family: 'Segoe-UI-Light';
+    font-family: OpenSans-Light;
     font-size: 3em;
     line-height: 100%;
     color: @green;
+}
+
+.fixed-width {
+    width: 1000px;
 }
 
 /* ---  Links  --- */
@@ -125,7 +132,7 @@ a:hover {
 /* ---  Buttons  --- */
 .launch-btn {
     color: white;
-    font-family: Segoe-UI-Bold;
+    font-family: OpenSans-Light;
     font-size: 2em;
     line-height: 100%;
     z-index: 5;
@@ -147,7 +154,7 @@ a:hover {
 
 .showmore-btn {
     color: white;
-    font-family: Segoe-UI-Bold;
+    font-family: OpenSans-Light;
     font-size: 2em;
     line-height: 100%;
     z-index: 5;
@@ -169,7 +176,7 @@ a:hover {
 
 .pink-btn {
     color: @pink;
-    font-family: Segoe-UI-Bold;
+    font-family: OpenSans-Light;
     font-size: 24px;
     line-height: 100%;
     z-index: 5;
@@ -177,6 +184,8 @@ a:hover {
     padding: 7px 15px 7px 15px;
     background-color: white;
     border: 1px solid @pink;
+    white-space: nowrap;
+    resize: none;
     .border-radius(10px 10px 10px 10px);
 }
 
@@ -227,7 +236,7 @@ a:hover {
 .infopage-block-intro {
     background-color: white;
     padding: 50px;
-    font-family: 'Segoe-UI';
+    font-family: 'OpenSans';
     font-size: 24px;
     line-height: 31px;
     color: @teamgrey;
@@ -235,7 +244,7 @@ a:hover {
 
 .infopage-block-intro .heading {
     color: @green;
-    font-family: 'Segoe-UI-Light';
+    font-family: 'OpenSans-Light';
     font-size: 36px;
     line-height: 100%;
     margin-bottom: 50px;
@@ -247,7 +256,7 @@ a:hover {
 }
 
 .intro-btn {
-    font-family: Segoe-UI-Bold;
+    font-family: OpenSans-Light;
     font-size: 24px;
     line-height: 100%;
     z-index: 5;
@@ -259,17 +268,17 @@ a:hover {
 
 .green {
     color: @green;
-    border: 2px solid green;
+    border: 1px solid green;
 }
 
 .red {
     color: @darkred;
-    border: 2px solid @darkred;
+    border: 1px solid @darkred;
 }
 
 .pink {
     color: @pink;
-    border: 2px solid @pink;
+    border: 1px solid @pink;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -279,7 +288,7 @@ a:hover {
 .infopage-block-faq {
     background-color: @pink;
     color: white;
-    font-family: 'Segoe-UI';
+    font-family: 'OpenSans';
     font-size: 24px;
     line-height: 31px;
     padding: 50px;
@@ -290,10 +299,12 @@ a:hover {
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 100%;
+    font-family: OpenSans-Light;
 }
 
 .infopage-block-faq .bold {
     color: white;
+    font-family: OpenSans-Bold;
 }
 
 .FAQ_question {
@@ -313,7 +324,7 @@ a:hover {
 .white-pink {
     margin-top: 15px;
     color: white;
-    border: 2px solid white;
+    border: 1px solid white;
     background: @pink;
 }
 
@@ -326,7 +337,7 @@ a:hover {
 .infopage-block-publications {
     background-color: @green;
     color: white;
-    font-family: 'Segoe-UI';
+    font-family: 'OpenSans';
     font-size: 24px;
     line-height: 31px;
     padding: 50px;
@@ -337,7 +348,7 @@ a:hover {
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 100%;
-    font-family: 'Segoe-UI-Light';
+    font-family: 'OpenSans-Light';
 }
 
 .publication {
@@ -345,31 +356,37 @@ a:hover {
     border-bottom: 1px solid white;
     padding-bottom: 20px;
     padding-top: 10px;
-    font-family: Segoe-UI-Light;
+    font-family: OpenSans-Light;
 }
 
 .publication-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-start;
 }
 
 .publication-header .bold {
     color: white;
-    font-family: Segoe-UI-Bold;
+    font-family: OpenSans-Bold;
 }
 
 .publication-header a {
     color: white;
+    resize: none;
+    white-space: nowrap;
 }
+
+ .publication-ref {
+    flex-basis: 195px;
+ }
 
 /* Team Block */
 
 .infopage-block-team {
     background-color: white;
     padding: 50px;
-    font-family: "Segoe-UI-Light";
+    font-family: "OpenSans-Light";
     font-size: 24px;
     line-height: 31px;
     color: @teamgrey;
@@ -377,7 +394,7 @@ a:hover {
 
 .infopage-block-team .heading {
     color: @teamgrey;
-    font-family: 'Segoe-UI';
+    font-family: 'OpenSans';
     font-size: 36px;
     line-height: 100%;
     margin-bottom: 50px;
@@ -397,7 +414,7 @@ a:hover {
 }
 
 .infopage-block-team .bold {
-    font-family: Segoe-UI;
+    font-family: OpenSans-Bold;
 }
 
 .infopage-block-team .alumni {
@@ -410,14 +427,14 @@ a:hover {
 .infopage-block-examples {
     background-color: white;
     padding: 50px;
-    font-family: 'Segoe-UI-Light';
+    font-family: 'OpenSans-Light';
     font-size: 24px;
     line-height: 31px;
 }
 
 .infopage-block-examples .heading {
     color: @pink;
-    font-family: 'Segoe-UI';
+    font-family: OpenSans-Light;
     font-size: 36px;
     line-height: 100%;
     margin-bottom: 50px;
@@ -438,7 +455,7 @@ a:hover {
 }
 
 .example .bold {
-    font-family: 'Segoe-UI';
+    font-family: OpenSans-Bold;
 }
 
 

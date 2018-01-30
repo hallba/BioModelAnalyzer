@@ -123,6 +123,7 @@
     <Content Include="css\slick.css" />
     <Content Include="css\slick-theme.css" />
     <Content Include="images\BMA-logo-version-number.svg" />
+    <Content Include="images\BMA_Background_Homepage.svg" />
     <Content Include="images\caoruselNext.png" />
     <Content Include="images\caoruselPrev.png" />
     <Content Include="images\downarrow-grey.png" />
@@ -391,6 +392,16 @@
     <Content Include="motifs\Sigmoidal B.json" />
     <Content Include="motifs\Sigmoidal C.json" />
     <Content Include="motifs\Substrate_depletion_oscillations.json" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-SemiBold.ttf" />
+    <Content Include="fonts\OpenSans-SemiBoldItalic.ttf" />
     <None Include="Properties\PublishProfiles\bmademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />
