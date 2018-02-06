@@ -40,13 +40,46 @@
             */
         }
 
+        function getSearchParameters() {
+            var prmstr = window.location.search.substr(1);
+            return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+        }
+
+        function transformToAssocArray(prmstr) {
+            var params = {};
+            var prmarr = prmstr.split("&");
+            for (var i = 0; i < prmarr.length; i++) {
+                var tmparr = prmarr[i].split("=");
+                params[tmparr[0]] = tmparr[1];
+            }
+            return params;
+        }
+
+        $(document).ready(function () {
+
+            var params = getSearchParameters();
+            if (params.Section !== undefined) {
+                switch (params.Section) {
+                    case "About":
+                        scrollToBlockElement('bma-intro');
+                        break;
+                    case "Help":
+                        scrollToBlockElement("faq");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+
     </script>
 
 </head>
 
 <body>
 
-    <div class="home-logo fixed-width">        
+    <div class="home-logo fixed-width">
         <object class="home-logo-img" type="image/svg+xml" data="images/BMA-logo-big.svg">Your browser does not support SVG</object>
 
         <div id="home-launch">
