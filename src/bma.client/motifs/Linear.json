@@ -1,1 +1,96 @@
-{"Model":{"Name":"Linear","Variables":[{"Name":"I","Id":2,"RangeFrom":0,"RangeTo":4,"Formula":"2"},{"Name":"O","Id":3,"RangeFrom":0,"RangeTo":4,"Formula":""},{"Name":"A","Id":4,"RangeFrom":0,"RangeTo":4,"Formula":""}],"Relationships":[{"Id":5,"FromVariable":2,"ToVariable":4,"Type":"Activator"},{"Id":6,"FromVariable":4,"ToVariable":3,"Type":"Activator"}]},"Layout":{"Variables":[{"Id":2,"Name":"I","Type":"MembraneReceptor","ContainerId":1,"PositionX":522.6608187134505,"PositionY":-418.6257309941522,"CellX":0,"CellY":0,"Angle":269.23064577502214,"Description":"Input"},{"Id":3,"Name":"O","Type":"MembraneReceptor","ContainerId":1,"PositionX":734.356725146199,"PositionY":-419.79532163742704,"CellX":0,"CellY":0,"Angle":90.10723796477593,"Description":"Output"},{"Id":4,"Name":"A","Type":"Default","ContainerId":1,"PositionX":626.6666666666667,"PositionY":-421.6666666666667,"CellX":0,"CellY":0,"Angle":0,"Description":""}],"Containers":[{"Id":1,"Name":"Linear","Size":1,"PositionX":2,"PositionY":-2}]},"ltl":{"states":[],"operations":[]}}
+{
+  "Model": {
+    "Description": "Activity rises with input",
+    "Name": "Linear",
+    "Variables": [
+      {
+        "Name": "I",
+        "Id": 2,
+        "RangeFrom": 0,
+        "RangeTo": 4,
+        "Formula": "2"
+      },
+      {
+        "Name": "O",
+        "Id": 3,
+        "RangeFrom": 0,
+        "RangeTo": 4,
+        "Formula": ""
+      },
+      {
+        "Name": "A",
+        "Id": 4,
+        "RangeFrom": 0,
+        "RangeTo": 4,
+        "Formula": ""
+      }
+    ],
+    "Relationships": [
+      {
+        "Id": 5,
+        "FromVariable": 2,
+        "ToVariable": 4,
+        "Type": "Activator"
+      },
+      {
+        "Id": 6,
+        "FromVariable": 4,
+        "ToVariable": 3,
+        "Type": "Activator"
+      }
+    ]
+  },
+  "Layout": {
+    "Variables": [
+      {
+        "Id": 2,
+        "Name": "I",
+        "Type": "MembraneReceptor",
+        "ContainerId": 1,
+        "PositionX": 522.6608187134505,
+        "PositionY": -418.6257309941522,
+        "CellX": 0,
+        "CellY": 0,
+        "Angle": 269.23064577502214,
+        "Description": "Input"
+      },
+      {
+        "Id": 3,
+        "Name": "O",
+        "Type": "MembraneReceptor",
+        "ContainerId": 1,
+        "PositionX": 734.356725146199,
+        "PositionY": -419.79532163742704,
+        "CellX": 0,
+        "CellY": 0,
+        "Angle": 90.10723796477593,
+        "Description": "Output"
+      },
+      {
+        "Id": 4,
+        "Name": "A",
+        "Type": "Default",
+        "ContainerId": 1,
+        "PositionX": 626.6666666666667,
+        "PositionY": -421.6666666666667,
+        "CellX": 0,
+        "CellY": 0,
+        "Angle": 0,
+        "Description": ""
+      }
+    ],
+    "Containers": [
+      {
+        "Id": 1,
+        "Name": "Linear",
+        "Size": 1,
+        "PositionX": 2,
+        "PositionY": -2
+      }
+    ]
+  },
+  "ltl": {
+    "states": [],
+    "operations": []
+  }
+}

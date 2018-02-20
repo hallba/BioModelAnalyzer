@@ -17,26 +17,16 @@
                 this.motifs = [];
 
                 this.preloadedPaths = [
+                    "motifs/Substrate_depletion_oscillations.json",
                     "motifs/Activator-Inhibitor_Oscillation.json",
-                    "motifs/Homeostasis.json",
-                    "motifs/Hyperbolic A.json",
-                    "motifs/Hyperbolic B.json",
-                    "motifs/Hyperbolic C.json",
-                    "motifs/Hyperbolic D.json",
-                    "motifs/Linear.json",
-                    "motifs/Mutual_Activation.json",
-                    "motifs/Mutual_Inhibition.json",
                     "motifs/Negative_Feedback_Oscillations 1.json",
-                    "motifs/Negative_Feedback_Oscillations 2.json",
-                    "motifs/Negative_Feedback_Oscillations 3.json",
+                    "motifs/Homeostasis.json",
+                    "motifs/Mutual_Inhibition.json",
+                    "motifs/Mutual_Activation.json",
                     "motifs/Perfect Adaptation A.json",
-                    "motifs/Perfect Adaptation B.json",
-                    "motifs/Perfect Adaptation.json",
                     "motifs/Sigmoidal A.json",
-                    "motifs/Sigmoidal B.json",
-                    "motifs/Sigmoidal C.json",
-                    "motifs/Substrate_depletion_oscillations.json.json",
-                    "preloaded/SkinModel.json"
+                    "motifs/Hyperbolic A.json",
+                    "motifs/Linear.json",
                 ];
 
                 var svgCnt = $("<div></div>");
