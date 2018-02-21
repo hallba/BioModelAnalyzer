@@ -85,11 +85,13 @@
   </Target>
   -->
   <ItemGroup>
-    <None Include="..\..\packages\z3x64win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">
+    <!--<None Include="..\..\packages\z3x64win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">-->
+    <None Include="..\..\ext\z3\x64\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">
       <Link>Microsoft.Z3.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\packages\z3x86win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">
+    <!--<None Include="..\..\packages\z3x86win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">-->
+    <None Include="..\..\ext\z3\x86\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">
       <Link>Microsoft.Z3.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

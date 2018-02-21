@@ -91,11 +91,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\packages\z3x64win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">
+    <!--<None Include="..\..\packages\z3x64win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">-->
+    <None Include="..\..\ext\z3\x64\Microsoft.Z3.dll" Condition="'$(Platform)'=='x64'">
       <Link>Microsoft.Z3.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\packages\z3x86win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">
+    <!--<None Include="..\..\packages\z3x86win\lib\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">-->
+    <None Include="..\..\ext\z3\x86\Microsoft.Z3.dll" Condition="'$(Platform)'!='x64'">
       <Link>Microsoft.Z3.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -116,6 +118,8 @@
     <Content Include="unity.web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\bmacomputetest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\bmainterfacetest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FileSystemPublishx64.pubxml" />
     <None Include="Properties\PublishProfiles\FileSystemPublishx86.pubxml" />
     <Content Include="unity.azure-appservice.template.config" />
