@@ -97,16 +97,298 @@
             At another level, Bio Model Analyzer’s analysis proves stabilization of biological systems, based upon formal methods that were developed for the specification and verification of properties in concurrent software systems. We hope you enjoy using Bio Model Analyzer and welcome your feedback.
         </p>
         <div class="into-btn-container ">
-            <a href="https://www.youtube.com/watch?v=LwDCskL9PL4" target="_blank" class="intro-btn green">Watch Intro</a>
+            <a href="Tutorial.pdf" target="_blank" class="intro-btn green">Tutorial PDF</a>
             <a class="intro-btn pink" onclick="scrollToBlockElement('examples-library')">Example Library</a>
             <a class="intro-btn red" onclick="scrollToBlockElement('faq')">F.A.Q.</a>
         </div>
-        <iframe class="intro-video" width="900" height="507" src="https://www.youtube.com/embed/iyDuBHWL40U"></iframe> 
-        <iframe class="intro-video" width="900" height="507" src="https://www.youtube.com/embed/RDefcGkXJXk"></iframe>
-        <iframe class="intro-video" width="900" height="507" src="https://www.youtube.com/embed/X8kpLChwA3Q"></iframe>
-        <iframe class="intro-video" width="900" height="507" src="https://www.youtube.com/embed/MRMCr0dWD5c"></iframe>
-        <iframe class="intro-video" width="900" height="507" src="https://www.youtube.com/embed/LwDCskL9PL4"></iframe>
 
+
+    </div>
+
+    <div id="bma-video" class="infopage-block-video fixed-width">
+        <span class="heading">Bio Model Analyzer Demonstration</span>
+        <iframe class="intro-video" width="1000" height="565" src="https://www.youtube.com/embed/iyDuBHWL40U"></iframe>
+        <div class="video-panel">
+            <div class="intro-video-small-left">
+                <iframe width="225" height="127" src="https://www.youtube.com/embed/RDefcGkXJXk"></iframe>
+                <div class="video-descr-small">Video Description</div>
+            </div>
+            <div class="intro-video-small">
+                <iframe width="225" height="127" src="https://www.youtube.com/embed/X8kpLChwA3Q"></iframe>
+                <div class="video-descr-small">Video Description</div>
+            </div>
+            <div class="intro-video-small">
+                <iframe width="225" height="127" src="https://www.youtube.com/embed/MRMCr0dWD5c"></iframe>
+                <div class="video-descr-small">Video Description</div>
+            </div>
+            <div class="intro-video-small-right">
+                <iframe width="225" height="127" src="https://www.youtube.com/embed/LwDCskL9PL4"></iframe>
+                <div class="video-descr-small">Video Description</div>
+            </div>
+        </div>
+        <div>
+            <a href="tool.html" target="_blank" class="intro-btn white">Launch Tool</a>
+        </div>
+    </div>
+
+
+
+    <div id="examples-library" class="infopage-block-examples fixed-width" style="clear:both">
+        <div class="heading">Example Library and References</div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Toy Example 1</span> (stabilising)<br>
+                <a href="preloaded/ToyModelStable.json" target="_blank">[Download JSON]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/ToyModelStable.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Toy Example 2</span> (non stabilising)<br>
+                <a href="preloaded/ToyModelUnstable.json" target="_blank">[Download JSON]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/ToyModelUnstable.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Mammalian Epidermis</span><br>
+                <a href="preloaded/SkinModel.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[Go to pubication]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/SkinModel.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Cell fate determination during C. elegans vulval development – VPC</span><br>
+                <a href="preloaded/VPC.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[Go to pubication]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/VPC.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+
+        <div class="example">
+            <div>
+                <span class="bold">Metabolic networks operating intType-2 diabetes</span><br>
+                <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[Go to pubication]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>
+    </div>
+
+    <div class="infopage-block-publications fixed-width">
+        <div class="heading">Publications</div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/CanRes_17.pdf" target="_blank">Cell-Specific Computational Modelling of the PIM pathway in Acute Myeloid Leukemia.</a>
+            </div>
+            Dana Silverbush, Shaun Grosskurth, Dennis Wang, Francoise Powell, Berthold Gottgens, Jonathan Dry, Jasmin Fisher<br>
+            Cancer Research 2/2017: pages 827-838; DOI:10.1158/0008-5472.can-16-1578 <br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="https://www.repository.cam.ac.uk/bitstream/handle/1810/260353/Shorthouse_et_al-2016-Computational_Methods_in_Systems_Biology-AM.pdf?sequence=1&isAllowed=y" target="_blank">Deregulation of Osmotic Regulation Machinery Explains and Predicts Cellular Transformation in Cancer and Disease.</a>
+            </div>
+            David Shorthouse, Angela Riedel, Jacqueline Shields, Benjamin A. Hall<br>
+            CMSB 2016, DOI:10.17863/CAM.4585 IEEE TCSIM best poster award <br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/VMCAI_17.pdf" target="_blank">Bringing LTL Model Checking to Biologists. </a>
+            </div>
+            Zara Ahmed, David Benque, Sergey Berezin, Anna Caroline E. Dahl, Jasmin Fisher, Benjamin A. Hall, Samin Ishtiaq, Jay Nanavati, Nir Piterman, Maik Riechert, Nikita Skoblov<br>
+            Verification, Model Checking, and Abstract Interpretation, 01/2017: pages 1-13; ISBN: 978-3-319-52233-3, DOI:10.1007/978-3-319-52234-0_1 <br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/Biophys_J_Jul15.pdf" target="_blank">Emergent Stem Cell Homeostasis in the C. elegans Germline Is Revealed by Hybrid Modeling.</a>
+            </div>
+            Benjamin A Hall, Nir Piterman, Alex Hajnal, Jasmin Fisher<br>
+            Biophysical Journal 07/2015; 109(2):428-38., DOI:10.1016/j.bpj.2015.06.007 <br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</a>
+            </div>
+            Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
+            Scientific Reports, 5:8190, Nature Publishing Group, February 2015<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://computationalculture.net/article/modelling-biology" target="_blank">Modelling biology - working through (in-)stabilities and frictions</a>
+            </div>
+            Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
+            Computational Culture, Nov 2014<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">Finding instability in biological models</a>
+            </div>
+            Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
+            CAV 2014<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">At the Interface of Biology and Computation</a>
+            </div>
+            Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
+            CHI 2013<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</a>
+            </div>
+            Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
+            CAV 2013<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">BMA: Visual Tool for Modeling and Analyzing Biological Networks</a>
+            </div>
+            Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
+            CAV 2012<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">Proving Stabilization of Biological Systems</a>
+            </div>
+            Cook, Fisher, Krepska, Piterman<br>
+            VMCAI 2011<br>
+        </div>
+
+        <div class="publication">
+            <div class="publication-header">
+                <a class="bold" href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</a>
+            </div>
+            Schaub, Henzinger,  Fisher<br>
+            BMC Systems Biology. 1:4,  2007<br>
+        </div>
+    </div>
+
+    <div class="infopage-block-team fixed-width">
+        <span class="heading">Team</span><br><br>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Jasmin Fisher</span><br>
+                    Systems Biology <a href="http://research.microsoft.com/en-us/people/jfisher/" target="_blank">Microsoft Research</a> &amp; <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
+                </div>
+                <div id="jasminb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('jasmin');"></div>
+            </div>
+            <p style="display:none" id="jasmin">
+                Jasmin Fisher is a Senior Researcher at Microsoft Research Cambridge.
+                She is also a Reader and Group Leader at the Dept of Biochemistry, Cambridge University.
+                Her research focuses on the construction and analysis of executable models that mimic aspects of biological phenomena in order to better understand complex biological systems. She is mainly interested in processes of cell fate determination and signalling networks operating during normal development and cancer.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Nir Piterman</span><br>
+                    Verification and Automated Reasoning <a href="http://www.cs.le.ac.uk/people/npiterman/" target="_blank">University of Leicester</a><br>
+                </div>
+
+                <div id="nirb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nir');"></div>
+            </div>
+            <p style="display:none" id="nir">
+                Nir Piterman is Reader in the Department of Computer Science in the University of Leicester.
+                His research interests include formal verification, automata theory, and applications of formal methods to biological modeling.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Ben Hall</span><br>
+                    Systems Biology <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
+                </div>
+
+                <div id="benb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('ben');"></div>
+            </div>
+            <p style="display:none" id="ben">
+                Ben Hall is a Royal Society University Research Fellow working at the MRC Cancer Unit at the University of Cambridge. His research focuses on developing computational models of the decision making processes of cancer, from the early events of carcinogenesis to the later stages of metastasis. Alongside this, he maintains a long-standing interest in the development of algorithms and tools in formal methods for biology.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Alex Taylor</span><br>
+                    Socio-Digital Systems <a href="https://ast.io" target="_blank">University of London</a><br>
+                </div>
+
+                <div id="alexb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('alex');"></div>
+            </div>
+            <p style="display:none" id="alex">
+                Alex is a sociologist at the Centre for Human Centred Interaction Design, at City, University of London. With a fascination in the entanglements between social life and machines, his research ranges from empirical studies of technology in everyday life to speculative design interventions. He draws on feminist technoscience to ask questions about the roles human-machine composites play in forms of knowing and being, and how they open up possibilities for fundamental transformations in society.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Sergey Berezin</span><br>
+                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+                </div>
+
+                <div id="sergeyb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('sergey');"></div>
+            </div>
+
+            <p style="display:none" id="sergey">
+                Sergey is Associate Professor in Moscow State University. His interests include visualization and processing of large data sets
+                and applications of cloud computing and modern programming technologies to problems of computational sciences.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Nikita Skoblov</span><br>
+                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
+                </div>
+
+                <div id="nikitab" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nikita');"></div>
+            </div>
+
+            <p style="display:none" id="nikita">
+                Nikita is a senior developer working in Moscow State University. His interests includes scientific visualization and visualization of large data sets.
+            </p>
+        </div>
+
+        <div class="team-member">
+            <div class="team-member-header">
+                <div>
+                    <span class="bold">Nicole Kapitza</span><br>
+                    Design <a href="https://www.kapitza.studio" target="_blank">Kapitza Studio</a><br>
+                </div>
+
+                <div id="nicoleb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nicole');"></div>
+            </div>
+
+            <p style="display:none" id="nicole">
+                Nicole is co-founder of the internationally acclaimed multi-disciplinary studio 'Kapitza', renowned for it’s innovative and pioneering font,
+                colour and pattern design. Studio output includes three critically celebrated pattern art books, of which 'Organic' was nominated for the prestigious Designs of the Year award.
+                Kapitza also gained recognition for an extensive font foundry with e-commerce store, a cutting-edge interactive pattern app as well as a diverse range of bespoke consultancy
+                services for clients from advertising, branding, packaging design, fashion, homeware and publishing.
+            </p>
+        </div>
     </div>
 
     <div class="infopage-block-faq fixed-width" id="faq">
@@ -276,307 +558,14 @@
         </div>
     </div>
 
-    <div id="examples-library" class="infopage-block-examples fixed-width" style="clear:both">
-        <div class="heading">Example Library and References</div>
-
-        <div class="example">
-            <div>
-                <span class="bold">Toy Example 1</span> (stabilising)<br>
-                <a href="preloaded/ToyModelStable.json" target="_blank">[Download JSON]</a>
-            </div>
-            <a href="tool.html?Model=preloaded/ToyModelStable.json" target="_blank" class="pink-btn">Load model in tool</a>
-        </div>
-
-        <div class="example">
-            <div>
-                <span class="bold">Toy Example 2</span> (non stabilising)<br>
-                <a href="preloaded/ToyModelUnstable.json" target="_blank">[Download JSON]</a>
-            </div>
-            <a href="tool.html?Model=preloaded/ToyModelUnstable.json" target="_blank" class="pink-btn">Load model in tool</a>
-        </div>
-
-        <div class="example">
-            <div>
-                <span class="bold">Mammalian Epidermis</span><br>
-                <a href="preloaded/SkinModel.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[Go to pubication]</a>
-            </div>
-            <a href="tool.html?Model=preloaded/SkinModel.json" target="_blank" class="pink-btn">Load model in tool</a>
-        </div>
-
-        <div class="example">
-            <div>
-                <span class="bold">Cell fate determination during C. elegans vulval development – VPC</span><br>
-                <a href="preloaded/VPC.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://www.ploscompbiol.org/article/fetchObjectAttachment.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.0030092&amp;representation=PDF" target="_blank">[Go to pubication]</a>
-            </div>
-            <a href="tool.html?Model=preloaded/VPC.json" target="_blank" class="pink-btn">Load model in tool</a>
-        </div>
-
-        <div class="example">
-            <div>
-                <span class="bold">Metabolic networks operating intType-2 diabetes</span><br>
-                <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
-                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[Go to pubication]</a>
-            </div>
-            <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
-        </div>
-    </div>
-
-    <div class="infopage-block-publications fixed-width">
-        <div class="heading">Publications</div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Cell-Specific Computational Modelling of the PIM pathway in Acute Myeloid Leukemia.</span>
-                <!--<div class="publication-ref">
-                <a href="-" target="_blank">[go to publication]</a>
-            </div>-->
-            </div>
-            Dana Silverbush, Shaun Grosskurth, Dennis Wang, Francoise Powell, Berthold Gottgens, Jonathan Dry, Jasmin Fisher<br>
-            Cancer Research 2/2017: pages 827-838; DOI:10.1158/0008-5472.can-16-1578 <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Deregulation of Osmotic Regulation Machinery Explains and Predicts Cellular Transformation in Cancer and Disease. </span>
-                <!--<div class="publication-ref">
-                <a href="-" target="_blank">[go to publication]</a>
-            </div>-->
-            </div>
-            David Shorthouse, Angela Riedel, Jacqueline Shields, Benjamin A. Hall<br>
-            CMSB 2016, DOI:10.17863/CAM.4585 IEEE TCSIM best poster award <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Bringing LTL Model Checking to Biologists. </span>
-                <!--<div class="publication-ref">
-                <a href="-" target="_blank">[go to publication]</a>
-            </div>-->
-            </div>
-            Zara Ahmed, David Benque, Sergey Berezin, Anna Caroline E. Dahl, Jasmin Fisher, Benjamin A. Hall, Samin Ishtiaq, Jay Nanavati, Nir Piterman, Maik Riechert, Nikita Skoblov<br>
-            Verification, Model Checking, and Abstract Interpretation, 01/2017: pages 1-13; ISBN: 978-3-319-52233-3, DOI:10.1007/978-3-319-52234-0_1 <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Emergent Stem Cell Homeostasis in the C. elegans Germline Is Revealed by Hybrid Modeling.</span>
-                <!--<div class="publication-ref">
-                    <a href="-" target="_blank">[go to publication]</a>
-                </div>-->
-            </div>
-            Benjamin A Hall, Nir Piterman, Alex Hajnal, Jasmin Fisher<br>
-            Biophysical Journal 07/2015; 109(2):428-38., DOI:10.1016/j.bpj.2015.06.007 <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
-            Scientific Reports, 5:8190, Nature Publishing Group, February 2015<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Modelling biology - working through (in-)stabilities and frictions</span>
-                <div class="publication-ref">
-                    <a href="http://computationalculture.net/article/modelling-biology" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
-            Computational Culture, Nov 2014<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Finding instability in biological models</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
-            CAV 2014<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">At the Interface of Biology and Computation</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
-            CHI 2013<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
-            CAV 2013<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">BMA: Visual Tool for Modeling and Analyzing Biological Networks</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
-            CAV 2012<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Proving Stabilization of Biological Systems</span>
-                <div class="publication-ref">
-                    <a href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">[go to pubication]</a>
-                </div>
-            </div>
-            Cook, Fisher, Krepska, Piterman<br>
-            VMCAI 2011<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <span class="bold">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</span>
-                <div class="publication-ref">
-                    <a href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">[go to publication]</a>
-                </div>
-            </div>
-            Schaub, Henzinger,  Fisher<br>
-            BMC Systems Biology. 1:4,  2007<br>
-        </div>
-    </div>
-
     <div class="infopage-block-team fixed-width">
-        <span class="heading">Team</span><br><br>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Jasmin Fisher</span><br>
-                    Systems Biology <a href="http://research.microsoft.com/en-us/people/jfisher/" target="_blank">Microsoft Research</a> &amp; <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
-                </div>
-                <div id="jasminb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('jasmin');"></div>
-            </div>
-            <p style="display:none" id="jasmin">
-                Jasmin Fisher is a Senior Researcher at Microsoft Research Cambridge.
-                She is also a Reader and Group Leader at the Dept of Biochemistry, Cambridge University.
-                Her research focuses on the construction and analysis of executable models that mimic aspects of biological phenomena in order to better understand complex biological systems. She is mainly interested in processes of cell fate determination and signalling networks operating during normal development and cancer.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Nir Piterman</span><br>
-                    Verification and Automated Reasoning <a href="http://www.cs.le.ac.uk/people/npiterman/" target="_blank">University of Leicester</a><br>
-                </div>
-
-                <div id="nirb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nir');"></div>
-            </div>
-            <p style="display:none" id="nir">
-                Nir Piterman is Reader in the Department of Computer Science in the University of Leicester.
-                His research interests include formal verification, automata theory, and applications of formal methods to biological modeling.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Ben Hall</span><br>
-                    Systems Biology <a href="http://www.mrc-cu.cam.ac.uk/hall.html" target="_blank">University of Cambridge</a><br>
-                </div>
-
-                <div id="benb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('ben');"></div>
-            </div>
-            <p style="display:none" id="ben">
-                Ben Hall is a Royal Society University Research Fellow working at the MRC Cancer Unit at the University of Cambridge. His research focuses on developing computational models of the decision making processes of cancer, from the early events of carcinogenesis to the later stages of metastasis. Alongside this, he maintains a long-standing interest in the development of algorithms and tools in formal methods for biology.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Alex Taylor</span><br>
-                    Socio-Digital Systems <a href="https://ast.io" target="_blank">University of London</a><br>
-                </div>
-
-                <div id="alexb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('alex');"></div>
-            </div>
-            <p style="display:none" id="alex">
-                Alex is a sociologist at the Centre for Human Centred Interaction Design, at City, University of London. With a fascination in the entanglements between social life and machines, his research ranges from empirical studies of technology in everyday life to speculative design interventions. He draws on feminist technoscience to ask questions about the roles human-machine composites play in forms of knowing and being, and how they open up possibilities for fundamental transformations in society.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Sergey Berezin</span><br>
-                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
-                </div>
-
-                <div id="sergeyb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('sergey');"></div>
-            </div>
-
-            <p style="display:none" id="sergey">
-                Sergey is Associate Professor in Moscow State University. His interests include visualization and processing of large data sets
-                and applications of cloud computing and modern programming technologies to problems of computational sciences.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Nikita Skoblov</span><br>
-                    Architecture and programming <a href="http://itis.cs.msu.ru/" target="_blank">Moscow State University</a><br>
-                </div>
-
-                <div id="nikitab" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nikita');"></div>
-            </div>
-
-            <p style="display:none" id="nikita">
-                Nikita is a senior developer working in Moscow State University. His interests includes scientific visualization and visualization of large data sets.
-            </p>
-        </div>
-
-        <div class="team-member">
-            <div class="team-member-header">
-                <div>
-                    <span class="bold">Nicole Kapitza</span><br>
-                    Design <a href="https://www.kapitza.studio" target="_blank">Kapitza Studio</a><br>
-                </div>
-
-                <div id="nicoleb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nicole');"></div>
-            </div>
-
-            <p style="display:none" id="nicole">
-                Nicole is co-founder of the internationally acclaimed multi-disciplinary studio 'Kapitza', renowned for it’s innovative and pioneering font, 
-                colour and pattern design. Studio output includes three critically celebrated pattern art books, of which 'Organic' was nominated for the prestigious Designs of the Year award. 
-                Kapitza also gained recognition for an extensive font foundry with e-commerce store, a cutting-edge interactive pattern app as well as a diverse range of bespoke consultancy 
-                services for clients from advertising, branding, packaging design, fashion, homeware and publishing. 
-            </p>
-        </div>
-
         <div class="heading alumni">Alumni</div>
-        <span class="bold">Byron Cook</span> - University College London<br>
-        <span class="bold">Samin Ishtiaq</span> - Microsoft Research<br />
-        <span class="bold">Scarlet Schwiderski-Grosche</span> - Microsoft Research<br />
+        <span class="bold"><a href="http://www0.cs.ucl.ac.uk/staff/b.cook/" target="_blank">Byron Cook</a></span> - University College London<br>
+        <span class="bold"><a href="https://www.microsoft.com/en-us/research/people/sishtiaq/" target="_blank">Samin Ishtiaq</a></span> - Microsoft Research<br />
+        <span class="bold"><a href="https://www.microsoft.com/en-us/research/people/scarlets/" target="_blank">Scarlet Schwiderski-Grosche</a></span> - Microsoft Research<br />
+        <span class="bold"><a href="http://www.davidbenque.com/" target="_blank">David Benque</a></span> - Protoplot<br />
         <span class="bold">Inna Zelenina</span> - Moscow State University<br />
         <span class="bold">Svetlana Kostyukova</span> - Moscow State University<br />
-        <span class="bold">David Benque</span> - Protoplot<br />
     </div>
-
 </body>
 </html>
