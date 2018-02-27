@@ -140,8 +140,8 @@
     <Content Include="js\svg.js" />
     <Content Include="js\svgplot.js" />
     <Content Include="js\XmlModelParser.js" />
-    <None Include="preloaded\metabolism.json" />
-    <None Include="preloaded\leukaemia.json" />
+    <Content Include="preloaded\metabolism.json" />
+    <Content Include="preloaded\leukaemia.json" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
