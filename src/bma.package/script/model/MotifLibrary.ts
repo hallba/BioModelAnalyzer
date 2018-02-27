@@ -22,7 +22,7 @@
                     "motifs/Negative_Feedback_Oscillations 1.json",
                     "motifs/Homeostasis.json",
                     "motifs/Mutual_Inhibition.json",
-                    "motifs/MutualActivation.json",
+                    //"motifs/MutualActivation.json",
                     "motifs/Perfect Adaptation A.json",
                     "motifs/Sigmoidal A.json",
                     "motifs/Hyperbolic A.json",
