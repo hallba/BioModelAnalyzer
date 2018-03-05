@@ -28,7 +28,7 @@
 
             this.prevShow = this.prevHide = $();
             this.element.addClass("ui-accordion")
-            // ARIA
+                // ARIA
                 .attr("role", "tablist");
 
             // don't allow collapsible: false and active: false / null
@@ -445,7 +445,7 @@
                     .addClass("ui-accordion-header-active  ui-corner-top");
 
                 clicked
-                //active.next()
+                    //active.next()
                     .addClass("ui-accordion-content-active");
             }
         },
@@ -570,8 +570,13 @@
 
             if (!toHide.length) {
                 that._processAnimation(toShow);
-                toShow.show();
-                that.element.animate(that.showProps, duration, easing, complete);
+                //Workaround for slow show time bug in Google chrome
+                if (!that._isChrome()) {
+                    toShow.show();
+                    that.element.animate(that.showProps, duration, easing, complete);
+                } else {
+                    that.element.animate(that.showProps, 0, easing, complete);
+                }
                 return;
             }
             //context.show()
@@ -606,6 +611,29 @@
             }
             this._trigger("activate", null, data);
             //this.headers.not(this.active).next().hide();
+        },
+
+        _isChrome() {
+            var isChromium = (<any>window).chrome,
+            winNav = window.navigator,
+            vendorName = winNav.vendor,
+            isOpera = winNav.userAgent.indexOf("OPR") > -1,
+            isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+            isIOSChrome = winNav.userAgent.match("CriOS");
+
+            if(isIOSChrome) {
+                return true;
+            } else if (
+                isChromium !== null &&
+                    typeof isChromium !== "undefined" &&
+                    vendorName === "Google Inc." &&
+                    isOpera === false &&
+                    isIEedge === false
+            ) {
+                return true;
+            } else { 
+                return false;
+            }
         }
     });
 } (jQuery));

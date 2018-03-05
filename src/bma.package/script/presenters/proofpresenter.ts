@@ -253,7 +253,7 @@ module BMA {
                 if (stable) {
                     return 'BMA succeeded in checking every possible state of the model in ' + time + ' seconds. After stepping through separate interactions, the model eventually reached a single stable state.'
                 }
-                else return 'After stepping through separate interactions in the model, the analysis failed to determine a final stable state'
+                else return 'The analysis failed to determine whether the model was stable or unstable. Use further testing to determine the end states of the model.'; //'After stepping through separate interactions in the model, the analysis failed to determine a final stable state'
             }
 
             public Stability(ticks) {
