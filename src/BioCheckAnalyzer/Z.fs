@@ -522,6 +522,12 @@ let find_cycle_steps_optimized network bounds =
         let last_not_identical = ctx.MkNot(last_identical)
         s.Assert last_not_identical
 
+        (*
+        printf "###########################\n"
+        printf "%s\n" <| s.ToString()
+        printf "###########################\n"
+        *)
+
         match s.Check() with
         // A path of the requested length does not exists in the model, may stop the earsch now
         | Status.UNSATISFIABLE ->                 
