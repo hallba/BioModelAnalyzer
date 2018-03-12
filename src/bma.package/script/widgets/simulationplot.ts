@@ -115,6 +115,9 @@
                 var max = 0;
 
                 if (options.colors !== undefined) {
+
+                    this.highlightPlot.host.css("z-index", options.colors.length + 10);
+
                     for (var i = 0; i < options.colors.length; i++) {
                         var y = options.colors[i].Plot;
                         var m = that.Max(y);
