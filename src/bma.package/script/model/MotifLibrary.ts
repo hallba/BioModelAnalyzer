@@ -23,7 +23,7 @@
                     "motifs/Homeostasis.json",
                     "motifs/Mutual_Inhibition.json",
                     //"motifs/MutualActivation.json",
-                    "motifs/Perfect Adaptation A.json",
+                    "motifs/Perfect Adaptation.json",
                     "motifs/Sigmoidal A.json",
                     "motifs/Hyperbolic A.json",
                     "motifs/Linear.json",

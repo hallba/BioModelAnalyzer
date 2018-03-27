@@ -8,21 +8,21 @@
         "Id": 2,
         "RangeFrom": 0,
         "RangeTo": 4,
-        "Formula": "2"
+        "Formula": "4"
       },
       {
         "Name": "O",
         "Id": 3,
         "RangeFrom": 0,
         "RangeTo": 4,
-        "Formula": "ceil(var(4)/(3))"
+        "Formula": "ceil(var(4)/3)"
       },
       {
         "Name": "A",
         "Id": 4,
         "RangeFrom": 0,
         "RangeTo": "4",
-        "Formula": "var(2)-(floor(2/3*var(5)))+1"
+        "Formula": "2*(var(2)-1)-(floor(2/3*var(5)))+1"
       },
       {
         "Name": "B",
@@ -40,12 +40,6 @@
         "Type": "Activator"
       },
       {
-        "Id": 7,
-        "FromVariable": 4,
-        "ToVariable": 3,
-        "Type": "Activator"
-      },
-      {
         "Id": 8,
         "FromVariable": 4,
         "ToVariable": 5,
@@ -56,6 +50,12 @@
         "FromVariable": 5,
         "ToVariable": 4,
         "Type": "Inhibitor"
+      },
+      {
+        "Id": 18,
+        "FromVariable": 4,
+        "ToVariable": 3,
+        "Type": "Activator"
       }
     ]
   },
@@ -66,7 +66,7 @@
         "Name": "I",
         "Type": "MembraneReceptor",
         "ContainerId": 1,
-        "PositionX": 1024.4152046783627,
+        "PositionX": 774.4152046783627,
         "PositionY": 409.40423976608184,
         "CellX": 0,
         "CellY": 0,
@@ -78,7 +78,7 @@
         "Name": "O",
         "Type": "MembraneReceptor",
         "ContainerId": 1,
-        "PositionX": 1233.7719298245615,
+        "PositionX": 983.7719298245615,
         "PositionY": 409.40423976608184,
         "CellX": 0,
         "CellY": 0,
@@ -90,7 +90,7 @@
         "Name": "A",
         "Type": "Default",
         "ContainerId": 1,
-        "PositionX": 1113.6363636363637,
+        "PositionX": 863.6363636363637,
         "PositionY": 414.90909090909093,
         "CellX": 0,
         "CellY": 0,
@@ -102,7 +102,7 @@
         "Name": "B",
         "Type": "Default",
         "ContainerId": 1,
-        "PositionX": 1113.6363636363637,
+        "PositionX": 863.6363636363637,
         "PositionY": 338.54545454545456,
         "CellX": 0,
         "CellY": 0,
@@ -115,13 +115,28 @@
         "Id": 1,
         "Name": "Homeostasis",
         "Size": 1,
-        "PositionX": 4,
+        "PositionX": 3,
         "PositionY": 1
       }
     ]
   },
   "ltl": {
     "states": [],
-    "operations": []
+    "operations": [
+      {
+        "_type": "Operation",
+        "operator": { "name": "EVENTUALLY" },
+        "operands": [ { "_type": "SelfLoopKeyframe" } ]
+      }
+    ]
+  },
+  "ltllayout": {
+    "operationAppearances": [
+      {
+        "x": 317.72428884026255,
+        "y": 128.6652078774617,
+        "steps": 10
+      }
+    ]
   }
 }
