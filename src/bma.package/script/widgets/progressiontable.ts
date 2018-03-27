@@ -73,9 +73,11 @@
 
                     input.bind("change", function () {
                         var index = $($(this).parent()).parent().index() - 1;
-                        var interval = that.options.interval[index];
-                        if (this.value < interval[0]) this.value = interval[0];
-                        if (this.value > interval[1]) this.value = interval[1];
+                        var intervalStr = that.options.interval[index];
+                        var interval = [parseFloat(intervalStr[0]), parseFloat(intervalStr[1])];
+                        var val = parseFloat(this.value);
+                        if (val < interval[0]) this.value = interval[0];
+                        if (val > interval[1]) this.value = interval[1];
                     });
 
                     if (that.options.canEditInitialValue) {
