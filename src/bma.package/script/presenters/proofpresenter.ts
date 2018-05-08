@@ -106,6 +106,8 @@ module BMA {
                     var result = that.ajax.Invoke(proofInput)
                         .done(function (res) {
                             //console.log("Proof Result Status: " + res.Status);
+                            if (typeof res === "string")
+                                res = JSON.parse(res);
                             var result = appModel.ProofResult = new BMA.Model.ProofResult(res.Status === "Stabilizing", res.Time, res.Ticks);
 
                             if (res.Ticks !== null) {

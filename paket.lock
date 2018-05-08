@@ -13,7 +13,7 @@ NUGET
     FSharp.Collections.ParallelSeq (1.0.2) - restriction: >= net45
     FSharp.Core (3.1.2.5)
     FSharp.Data (2.1)
-      Zlib.Portable (>= 1.10) - restriction: >= portable-net40+win8+wp8+sl5
+      Zlib.Portable (>= 1.10) - restriction: && (< net40) (>= portable-net40+win8+wp8+sl5)
     FSharpx.Collections.Experimental (1.8.22) - restriction: >= net45
       FSharpx.Core (1.8.22)
     FSharpx.Core (1.8.22) - restriction: >= net45
@@ -37,8 +37,8 @@ NUGET
     Microsoft.AspNet.WebApi (5.2.3)
       Microsoft.AspNet.WebApi.WebHost (>= 5.2.3 < 5.3)
     Microsoft.AspNet.WebApi.Client (5.2.3)
-      Microsoft.Net.Http (>= 2.2.22) - restriction: >= portable-win8+wp8+wp81+wpa81
-      Newtonsoft.Json (>= 6.0.4) - restriction: || (>= net45) (>= portable-win8+wp8+wp81+wpa81)
+      Microsoft.Net.Http (>= 2.2.22) - restriction: && (< net45) (>= portable-net45+win8+wp8+wp81+wpa81)
+      Newtonsoft.Json (>= 6.0.4) - restriction: >= portable-net45+win8+wp8+wp81+wpa81
     Microsoft.AspNet.WebApi.Core (5.2.3)
       Microsoft.AspNet.WebApi.Client (>= 5.2.3)
     Microsoft.AspNet.WebApi.Cors (5.2.3) - restriction: >= net45
@@ -51,16 +51,16 @@ NUGET
     Microsoft.AspNet.WebApi.WebHost (5.2.3)
       Microsoft.AspNet.WebApi.Core (>= 5.2.3 < 5.3)
     Microsoft.Azure.KeyVault.Core (1.0)
-    Microsoft.Bcl (1.1.10) - restriction: >= portable-win8+wp8+wp81+wpa81
+    Microsoft.Bcl (1.1.10) - restriction: && (< net45) (>= portable-net45+win8+wp8+wp81+wpa81)
       Microsoft.Bcl.Build (>= 1.0.14)
-    Microsoft.Bcl.Build (1.0.21) - import_targets: false, restriction: >= portable-win8+wp8+wp81+wpa81
+    Microsoft.Bcl.Build (1.0.21) - import_targets: false, restriction: && (< net45) (>= portable-net45+win8+wp8+wp81+wpa81)
     Microsoft.Data.Edm (5.7)
     Microsoft.Data.OData (5.7)
       Microsoft.Data.Edm (5.7)
       System.Spatial (5.7)
     Microsoft.Data.Services.Client (5.7)
       Microsoft.Data.OData (5.7)
-    Microsoft.Net.Http (2.2.29) - restriction: >= portable-win8+wp8+wp81+wpa81
+    Microsoft.Net.Http (2.2.29) - restriction: && (< net45) (>= portable-net45+win8+wp8+wp81+wpa81)
       Microsoft.Bcl (>= 1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
     Microsoft.Office.Interop.Excel (14.0.0.1)
@@ -105,13 +105,13 @@ NUGET
     Unity (4.0.1) - restriction: >= net45
       CommonServiceLocator (>= 1.3)
     WindowsAzure.Storage (6.1)
-      Microsoft.Azure.KeyVault.Core (>= 1.0) - restriction: || (== wp8) (>= net40)
-      Microsoft.Data.OData (>= 5.6.4) - restriction: || (== win8) (== wp8) (== wpa81) (>= net40)
+      Microsoft.Azure.KeyVault.Core (>= 1.0) - restriction: || (>= net40) (>= wp8)
+      Microsoft.Data.OData (>= 5.6.4) - restriction: || (>= net40) (>= win8) (>= wp8) (>= wpa81)
       Microsoft.Data.Services.Client (>= 5.6.4) - restriction: >= net40
-      Newtonsoft.Json (>= 6.0.8) - restriction: || (== win8) (== wp8) (== wpa81) (>= net40)
+      Newtonsoft.Json (>= 6.0.8) - restriction: || (>= net40) (>= win8) (>= wp8) (>= wpa81)
     z3x64win (4.5.0.1)
     z3x86win (4.5.0.1)
-    Zlib.Portable (1.11) - restriction: >= portable-net40+win8+wp8+sl5
+    Zlib.Portable (1.11) - restriction: && (< net40) (>= portable-net40+win8+wp8+sl5)
 GITHUB
   remote: furf/jquery-ui-touch-punch
     jquery.ui.touch-punch.min.js (4bc009145202d9c7483ba85f3a236a8f3470354d)
@@ -140,3 +140,7 @@ GITHUB
     dist/idd.css (6205dacd87c3494dc652ceee5243ccb31443b624)
     dist/idd.heatmapworker.js (6205dacd87c3494dc652ceee5243ccb31443b624)
     dist/idd.js (6205dacd87c3494dc652ceee5243ccb31443b624)
+  remote: kenwheeler/slick
+    slick/slick-theme.css (0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee)
+    slick/slick.css (0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee)
+    slick/slick.min.js (0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee)
