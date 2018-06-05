@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Loggers\AzureActivityLogger.cs" />
     <Compile Include="Loggers\AzureFailureLogger.cs" />
+    <Compile Include="Loggers\ActivityRecord.cs" />
     <Compile Include="Loggers\DefaultLog.cs" />
     <Compile Include="Loggers\IActivityLogger.cs" />
     <Compile Include="Loggers\IFailureLogger.cs" />
