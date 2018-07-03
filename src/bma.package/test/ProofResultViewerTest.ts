@@ -27,7 +27,7 @@ describe("ProofResultViewer", () => {
         var msg = 'Test Message';
         widget.proofresultviewer({ issucceeded: issucceeded, message: msg });
         var success = widget.find(".stabilize-failed");
-        expect(success.text()).toEqual("Failed to Stabilize");
+        expect(success.text()).toEqual("Failed to Prove Stability");
         var p = widget.find("p").eq(0);
         expect(p.text()).toEqual(msg);
     })
