@@ -340,6 +340,13 @@ function loadScript(version) {
                 ],
                 uiIcon: "ui-icon-arrow-4-diag"
             },
+            {
+                title: "Type", cmd: "Type", children: [
+                    { title: "Activator", cmd: "Activator" },
+                    { title: "Inhibitor", cmd: "Inhibitor" },
+                ],
+                uiIcon: "ui-icon-shuffle"
+            },
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" }
 
         ],
@@ -369,6 +376,12 @@ function loadScript(version) {
             } else if (ui.cmd === "ResizeCellTo3x3") {
                 args.size = 3;
                 commandName += "ResizeCell";
+            } else if (ui.cmd === "Activator") {
+                args.reltype = "Activator";
+                commandName += "ChangeType";
+            } else if (ui.cmd === "Inhibitor") {
+                args.reltype = "Inhibitor";
+                commandName += "ChangeType";
             } else {
                 commandName += ui.cmd;
             }
