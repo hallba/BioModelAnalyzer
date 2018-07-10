@@ -703,10 +703,10 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-line-hover')");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-line-hover')");
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("data-id", renderParams.id);
+                            $(lineRef).attr("data-ishovered", "false");
                         }
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
@@ -714,6 +714,12 @@ module BMA {
 
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
+
+                        //Method is obsolete as bezier is not used for relationships rendering
+                        //TODO: add exception throw
+                        return false;
+
+                        /*
                         if (elementX.x !== elementY.x || elementX.y !== elementY.y) {
                             var dot1 = (pointerX - elementX.x) * (elementY.x - elementX.x) + (pointerY - elementX.y) * (elementY.y - elementX.y);
 
@@ -746,6 +752,7 @@ module BMA {
                             //console.log(len1 + ", " + len2);
                             return len1 < elementX.pixelWidth || len2 < elementX.pixelWidth;
                         }
+                        */
                     },
                     "Activating Relationship",
                     "activate-icon"));
@@ -821,10 +828,10 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-line-hover')");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-line-hover')");
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("data-id", renderParams.id);
+                            $(lineRef).attr("data-ishovered", "false");
                         }
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
@@ -832,6 +839,12 @@ module BMA {
 
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
+
+                        //Method is obsolete as bezier is not used for relationships rendering
+                        //TODO: add exception throw
+                        return false;
+
+                        /*
                         if (elementX.x !== elementY.x || elementX.y !== elementY.y) {
                             var dot1 = (pointerX - elementX.x) * (elementY.x - elementX.x) + (pointerY - elementX.y) * (elementY.y - elementX.y);
 
@@ -866,6 +879,7 @@ module BMA {
                             //console.log(len1 + ", " + len2);
                             return len1 < elementX.pixelWidth || len2 < elementX.pixelWidth;
                         }
+                        */
                     },
                     "Inhibiting Relationship",
                     "inhibit-icon"));

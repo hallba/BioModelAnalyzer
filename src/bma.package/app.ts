@@ -367,6 +367,9 @@ function loadScript(version) {
         select: function (event, ui) {
             var args: any = {};
             var commandName = "DrawingSurface";
+
+            console.log(event.target);
+
             if (ui.cmd === "ResizeCellTo1x1") {
                 args.size = 1;
                 commandName += "ResizeCell";

@@ -88,7 +88,8 @@ module BMA {
 
                 svgElements.push(element.RenderToSvg({
                     layout: { start: start, end: end },
-                    grid: grid
+                    grid: grid,
+                    id: relationship.Id
                 }));
             }
 

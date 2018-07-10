@@ -1113,14 +1113,10 @@ module BMA {
 
                 for (var i = 0; i < relationships.length; i++) {
                     var relationship = relationships[i];
-                    var var1 = layout.GetVariableById(relationship.FromVariableId);
-                    var var2 = layout.GetVariableById(relationship.ToVariableId);
 
-                    var elx = { x: var1.PositionX, y: var1.PositionY, pixelWidth: pixelWidth };
-                    var ely = { x: var2.PositionX, y: var2.PositionY };
+                    var relRef = $("path[data-id='" + relationship.Id + "']", this.driver.GetSVGRef().root());
 
-                    var elem = window.ElementRegistry.GetElementByType(relationship.Type);
-                    if (elem.Contains(x, y, elx, ely)) {
+                    if (relRef.attr("data-ishovered") === "true") {
                         return relationship;
                     }
                 }
