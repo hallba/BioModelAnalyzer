@@ -706,7 +706,7 @@ module BMA {
                                 end = tmpStart;
                             }
 
-                            if (renderParams.hasReverse === true) {
+                            if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
                                 lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg);
                             } else {
                                 lineRef = that.CreateLine(start, end, lw, "Activator", jqSvg);
@@ -835,7 +835,7 @@ module BMA {
                                 end = tmpStart;
                             }
 
-                            if (renderParams.hasReverse === true) {
+                            if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
                                 lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg);
                             } else {
                                 lineRef = that.CreateLine(start, end, lw, "Inhibitor", jqSvg);

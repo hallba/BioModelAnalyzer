@@ -616,6 +616,11 @@ function loadScript(version) {
         svgPlotDriver.SetGridVisibility(param);
     });
 
+    window.Commands.On("Commands.ToggleCurvedRelationships", function (param) {
+        visualSettings.ForceCurvedRelationships = param;
+        window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
+    });
+
     window.Commands.On("ZoomSliderBind", (value) => {
         $("#zoomslider").bmazoomslider({ value: value });
     });
