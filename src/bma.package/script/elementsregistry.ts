@@ -179,6 +179,14 @@ module BMA {
                     { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
             }
 
+            private CreateLine(start, end, lineWidth, endingType, svg) {
+                var jqSvg = svg;
+
+                var path = jqSvg.createPath();
+                return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
+                    { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+            }
+
             private CreateSvgElement(type: string, renderParams: any) {
                 var elem = <SVGElement>document.createElementNS("http://www.w3.org/2000/svg", type);
                 var transform = "";
@@ -682,7 +690,6 @@ module BMA {
 
                             var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * that.relationshipBboxOffset * that.relationshipBboxOffset + dir.y * dir.y * that.relationshipBboxOffset * that.relationshipBboxOffset);
 
-
                             var start = {
                                 x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset,
                                 y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset
@@ -699,7 +706,11 @@ module BMA {
                                 end = tmpStart;
                             }
 
-                            lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg);
+                            if (renderParams.hasReverse === true) {
+                                lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg);
+                            } else {
+                                lineRef = that.CreateLine(start, end, lw, "Activator", jqSvg);
+                            }
                         }
 
                         if (lineRef !== undefined) {
@@ -715,7 +726,7 @@ module BMA {
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
 
-                        //Method is obsolete as bezier is not used for relationships rendering
+                        //Method is obsolete as bezier is now used for rendering of some relationships
                         //TODO: add exception throw
                         return false;
 
@@ -824,7 +835,11 @@ module BMA {
                                 end = tmpStart;
                             }
 
-                            lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg);
+                            if (renderParams.hasReverse === true) {
+                                lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg);
+                            } else {
+                                lineRef = that.CreateLine(start, end, lw, "Inhibitor", jqSvg);
+                            }
                         }
 
                         if (lineRef !== undefined) {
@@ -840,7 +855,7 @@ module BMA {
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
 
-                        //Method is obsolete as bezier is not used for relationships rendering
+                        //Method is obsolete as bezier is now used for rendering of some relationships
                         //TODO: add exception throw
                         return false;
 

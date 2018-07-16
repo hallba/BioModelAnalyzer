@@ -86,10 +86,20 @@ module BMA {
                 var start = GetVariableById(layout, model, relationship.FromVariableId).layout;
                 var end = GetVariableById(layout, model, relationship.ToVariableId).layout;
 
+                var hasReverse = false;
+                for (var j = 0; j < relationships.length; j++) {
+                    var revRel = relationships[j];
+                    if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
+                        hasReverse = true;
+                        break;
+                    }
+                }
+
                 svgElements.push(element.RenderToSvg({
                     layout: { start: start, end: end },
                     grid: grid,
-                    id: relationship.Id
+                    id: relationship.Id,
+                    hasReverse: hasReverse
                 }));
             }
 
