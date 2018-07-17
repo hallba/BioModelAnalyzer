@@ -132,6 +132,7 @@
     <Content Include="images\resize-grabber.svg" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
+    <Content Include="privacy.html" />
     <Content Include="js\idd.heatmapworker.js" />
     <Content Include="js\idd.js" />
     <Content Include="js\ModelHelper.js" />
