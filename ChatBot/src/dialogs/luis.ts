@@ -316,7 +316,7 @@ export function registerLUISDialog (bot: builder.UniversalBot, modelStorage: Mod
             },
             json: true
         }, (error, response, body) => {
-            if (error || body.flaggedTokens.length === 0) {
+	if (error || !body.flaggedTokens) { // body.flaggedTokens.length === 0) {
                 if (error) {
                     console.error(error)
                 } else {
