@@ -20,7 +20,9 @@ export function registerMiddleware (bot: builder.UniversalBot) {
 
             let dialogIdRegEx = /^!\w+/
 
-            if (text && text.toLowerCase().indexOf('cancel') === 0) {
+	    if (!text) { 
+	    	next()
+	    } else if (text.toLowerCase().indexOf('cancel') === 0) {
                 session.send(strings.OK)
                 session.cancelDialog(0)
             } else if (dialogIdRegEx.test(text)) {
