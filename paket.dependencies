@@ -83,3 +83,8 @@ github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.min
 github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.css
 github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick-theme.css
 
+group Common
+
+  source https://nuget.org/api/v2
+
+  nuget FSharp.Core 4.3.1.0
