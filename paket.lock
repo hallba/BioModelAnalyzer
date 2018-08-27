@@ -13,7 +13,7 @@ NUGET
     FSharp.Collections.ParallelSeq (1.0.2) - restriction: >= net45
     FSharp.Core (3.1.2.5)
     FSharp.Data (2.1)
-      Zlib.Portable (>= 1.10) - restriction: && (< net40) (>= portable-net40+win8+wp8+sl5)
+      Zlib.Portable (>= 1.10) - restriction: && (< net40) (>= portable-net40+sl5+win8+wp8)
     FSharpx.Collections.Experimental (1.8.22) - restriction: >= net45
       FSharpx.Core (1.8.22)
     FSharpx.Core (1.8.22) - restriction: >= net45
@@ -111,7 +111,7 @@ NUGET
       Newtonsoft.Json (>= 6.0.8) - restriction: || (>= net40) (>= win8) (>= wp8) (>= wpa81)
     z3x64win (4.5.0.1)
     z3x86win (4.5.0.1)
-    Zlib.Portable (1.11) - restriction: && (< net40) (>= portable-net40+win8+wp8+sl5)
+    Zlib.Portable (1.11) - restriction: && (< net40) (>= portable-net40+sl5+win8+wp8)
 GITHUB
   remote: furf/jquery-ui-touch-punch
     jquery.ui.touch-punch.min.js (4bc009145202d9c7483ba85f3a236a8f3470354d)
