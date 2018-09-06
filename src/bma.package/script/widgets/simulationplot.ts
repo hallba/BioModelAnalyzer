@@ -13,7 +13,7 @@
 
         _create: function () {
             var that = this;
-            
+
             //this.refresh();
 
             this.element.addClass('simulation-plot-box');
@@ -132,7 +132,6 @@
                         polyline.isVisible = options.colors[i].Seen;
                         polyline.draw({ y: y, thickness: 4, lineJoin: 'round' });
 
-
                         var legendItem = $("<div></div>").addClass("simulationplot-legend-legenditem").attr("data-index", i).appendTo(that.legendDiv);
                         if (!options.colors[i].Seen) legendItem.hide();
                         var colorBoxContainer = $("<div></div>").addClass("simulationplot-legend-colorboxcontainer").appendTo(legendItem);
@@ -187,7 +186,7 @@
                 that._chart.removeDiv(this.leftAxis[0]);
                 this.leftAxis.remove();
                 this.leftAxis = that._chart.addAxis("left", "labels", { labels: leftLabels });
-                
+
                 //var bounds = that._chart.aggregateBounds();
                 //console.log(bounds);
                 that._chart.fitToView();
@@ -219,7 +218,17 @@
             var plotName = "plot" + ind;
             var polyline = this._chart.get(plotName);
             this.options.colors[ind].Seen = check;
-            polyline.isVisible = check;
+
+            if (polyline.isVisible !== check) {
+                polyline.isVisible = check;
+
+                if (polyline.isVisible) {
+                    var y = this.options.colors[ind].Plot;
+                    polyline.draw({ y: y, thickness: 4, lineJoin: 'round' });
+                } else {
+                    polyline.draw({ y: [], thickness: 4, lineJoin: 'round' });
+                }
+            }
 
             var legenditem = this.element.find(".simulationplot-legend-legenditem[data-index=" + ind + "]");//.attr("data-index", i)
             if (check) legenditem.show();
@@ -247,7 +256,7 @@
 
         }
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     simulationplot(): JQuery;

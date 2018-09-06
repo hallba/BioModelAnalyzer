@@ -25,7 +25,7 @@
 
                 case false:
                     $('<img src="../../images/failed.svg">').appendTo(this.resultDiv);
-                    $('<div></div>').addClass('stabilize-failed').text('Failed to Stabilize').appendTo(this.resultDiv);
+                    $('<div></div>').addClass('stabilize-failed').text('Failed to Prove Stability').appendTo(this.resultDiv);
                     break;
 
                 case undefined:

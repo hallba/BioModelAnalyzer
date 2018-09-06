@@ -56,6 +56,8 @@
 @sim-blue: rgba(223,223,245,0.5);
 @pink: #F5B3B2;
 @teamgrey: #989899;
+@osgreen: #CCFECB;
+@osgrey: #849384;
 
 @shadow: rgba(0,0,0,0.50);
 
@@ -400,6 +402,38 @@ a:hover {
 
 .contact-us-container {
     margin-top: 35px;
+}
+
+/* Open Source reference block */
+
+.infopage-block-opensource {
+    background-color: @osgreen;
+    color: @osgrey;
+    font-family: 'OpenSans';
+    font-size: 24px;
+    line-height: 31px;
+    padding: 50px;
+}
+
+.infopage-block-opensource .heading {
+    color: @osgrey;
+    margin-bottom: 50px;
+    font-size: 36px;
+    line-height: 100%;
+    font-family: 'OpenSans-Light';
+}
+
+.opensource-btn {
+    font-family: OpenSans-Light;
+    font-size: 24px;
+    line-height: 100%;
+    z-index: 5;
+    margin: 0px;
+    padding: 10px;
+    background-color: @osgreen;
+    color: @osgrey;
+    border: 1px solid @osgrey;
+    .border-radius(10px 10px 10px 10px);
 }
 
 /* Publications Block */

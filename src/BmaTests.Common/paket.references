@@ -1,2 +1,5 @@
 Newtonsoft.Json
 FSharp.Collections.ParallelSeq
+
+group Common
+	FSharp.Core

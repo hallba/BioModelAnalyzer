@@ -18,6 +18,18 @@ module BMA {
             elem.className.baseVal = s;
         }
 
+        export function Highlight(elem: any/*SVGStylable*/, width: number) {
+            elem.setAttribute("data-ishovered", "true");
+            elem.style.strokeWidth = width + "px";
+        }
+
+        export function UnHighlight(elem: any/*SVGStylable*/, width: number) {
+            elem.setAttribute("data-ishovered", "false");
+            elem.style.strokeWidth = width + "px";
+
+            console.log("out");
+        }
+
         export function ChangeStrokeWidth(elem: any/*SVGStylable*/, width: number) {
             elem.style.strokeWidth = width + "px";
         }

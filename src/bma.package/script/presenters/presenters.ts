@@ -321,7 +321,9 @@ module BMA {
 
                     var id = that.GetVariableAtPosition(x, y);
                     var containerId = that.GetContainerAtPosition(x, y);
-                    var relationshipId = that.GetRelationshipAtPosition(x, y, 3 * that.driver.GetPixelWidth());
+                    var relationship = that.GetRelationshipAtPosition(x, y, 3 * that.driver.GetPixelWidth());
+                    var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
+
                     var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
 
                     var showPaste = that.clipboard !== undefined;
@@ -350,11 +352,16 @@ module BMA {
                         { name: "ResizeCellTo1x1", isVisible: true },
                         { name: "ResizeCellTo2x2", isVisible: true },
                         { name: "ResizeCellTo3x3", isVisible: true },
+                        { name: "Type", isVisible: relationshipId !== undefined },
+                        { name: "Activator", isVisible: true },
+                        { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
                     ]);
 
                     that.contextMenu.EnableMenuItems([
-                        { name: "Paste", isEnabled: canPaste }
+                        { name: "Paste", isEnabled: canPaste },
+                        { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
+                        { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
                     ]);
 
                     that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
@@ -380,6 +387,16 @@ module BMA {
                             that.RemoveRelationship(that.contextElement.id);
                         } else if (that.contextElement.type === "container") {
                             that.RemoveContainer(that.contextElement.id);
+                        }
+
+                        that.contextElement = undefined;
+                    }
+                });
+
+                window.Commands.On("DrawingSurfaceChangeType", (args) => {
+                    if (that.contextElement !== undefined) {
+                        if (that.contextElement.type === "relationship") {
+                            that.ChangeRelationshipType(that.contextElement.id, args.reltype);
                         }
 
                         that.contextElement = undefined;
@@ -1029,6 +1046,28 @@ module BMA {
                 }
             }
 
+            private ChangeRelationshipType(id: number, newType: string) {
+
+                var model = this.undoRedoPresenter.Current.model;
+                var layout = this.undoRedoPresenter.Current.layout;
+
+                var relationships = this.undoRedoPresenter.Current.model.Relationships;
+
+                var newRels = [];
+                for (var i = 0; i < relationships.length; i++) {
+                    if (relationships[i].Id !== id) {
+                        newRels.push(relationships[i]);
+                    } else {
+                        var oldRel = relationships[i]
+                        newRels.push(new BMA.Model.Relationship(oldRel.Id, oldRel.FromVariableId, oldRel.ToVariableId, newType));
+                    }
+                }
+
+                var newmodel = new BMA.Model.BioModel(model.Name, model.Variables, newRels);
+                var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables);
+                this.undoRedoPresenter.Dup(newmodel, newlayout);
+            }
+
             private RemoveRelationship(id: number) {
                 var wasRemoved = false;
 
@@ -1109,21 +1148,17 @@ module BMA {
                 return undefined;
             }
 
-            private GetRelationshipAtPosition(x: number, y: number, pixelWidth: number): number {
+            private GetRelationshipAtPosition(x: number, y: number, pixelWidth: number): BMA.Model.Relationship {
                 var relationships = this.undoRedoPresenter.Current.model.Relationships;
                 var layout = this.undoRedoPresenter.Current.layout;
 
                 for (var i = 0; i < relationships.length; i++) {
                     var relationship = relationships[i];
-                    var var1 = layout.GetVariableById(relationship.FromVariableId);
-                    var var2 = layout.GetVariableById(relationship.ToVariableId);
 
-                    var elx = { x: var1.PositionX, y: var1.PositionY, pixelWidth: pixelWidth };
-                    var ely = { x: var2.PositionX, y: var2.PositionY };
+                    var relRef = $("path[data-id='" + relationship.Id + "']", this.driver.GetSVGRef().root());
 
-                    var elem = window.ElementRegistry.GetElementByType(relationship.Type);
-                    if (elem.Contains(x, y, elx, ely)) {
-                        return relationship.Id;
+                    if (relRef.attr("data-ishovered") === "true") {
+                        return relationship;
                     }
                 }
 

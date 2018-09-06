@@ -1,2 +1,5 @@
 Newtonsoft.Json
 Microsoft.Office.Interop.Excel
+
+group Common
+	FSharp.Core

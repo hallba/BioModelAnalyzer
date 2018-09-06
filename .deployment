@@ -1,3 +1,2 @@
 [config]
-command = ChatBot/deploy.cmd
-project = ChatBot/
+project = src/BackendFunctions

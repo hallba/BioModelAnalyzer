@@ -340,6 +340,13 @@ function loadScript(version) {
                 ],
                 uiIcon: "ui-icon-arrow-4-diag"
             },
+            {
+                title: "Type", cmd: "Type", children: [
+                    { title: "Activator", cmd: "Activator" },
+                    { title: "Inhibitor", cmd: "Inhibitor" },
+                ],
+                uiIcon: "ui-icon-shuffle"
+            },
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" }
 
         ],
@@ -360,6 +367,9 @@ function loadScript(version) {
         select: function (event, ui) {
             var args: any = {};
             var commandName = "DrawingSurface";
+
+            console.log(event.target);
+
             if (ui.cmd === "ResizeCellTo1x1") {
                 args.size = 1;
                 commandName += "ResizeCell";
@@ -369,6 +379,12 @@ function loadScript(version) {
             } else if (ui.cmd === "ResizeCellTo3x3") {
                 args.size = 3;
                 commandName += "ResizeCell";
+            } else if (ui.cmd === "Activator") {
+                args.reltype = "Activator";
+                commandName += "ChangeType";
+            } else if (ui.cmd === "Inhibitor") {
+                args.reltype = "Inhibitor";
+                commandName += "ChangeType";
             } else {
                 commandName += ui.cmd;
             }
@@ -602,6 +618,11 @@ function loadScript(version) {
     window.Commands.On("Commands.ToggleGrid", function (param) {
         visualSettings.GridVisibility = param;
         svgPlotDriver.SetGridVisibility(param);
+    });
+
+    window.Commands.On("Commands.ToggleCurvedRelationships", function (param) {
+        visualSettings.ForceCurvedRelationships = param;
+        window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
     });
 
     window.Commands.On("ZoomSliderBind", (value) => {

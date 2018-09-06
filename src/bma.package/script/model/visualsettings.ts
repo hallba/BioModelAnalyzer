@@ -9,6 +9,7 @@ module BMA {
             private textLabelVisibility: boolean;
             private iconsVisibility: boolean;
             private iconsSize: number;
+            private forceCurvedRelationships: boolean;
 
             constructor() {
                 this.lineWidth = 10;
@@ -17,6 +18,7 @@ module BMA {
                 this.textLabelVisibility = true;
                 this.iconsVisibility = true;
                 this.iconsSize = 10;
+                this.forceCurvedRelationships = false;
             }
 
             public get LineWidth(): number {
@@ -69,6 +71,15 @@ module BMA {
                 this.iconsSize = iconsSize;
                 window.Commands.Execute("AppCommands.ChangeIconsSize", this.iconsSize);
             }
+
+            public get ForceCurvedRelationships(): boolean {
+                return this.forceCurvedRelationships;
+            }
+            public set ForceCurvedRelationships(forceCurvedRelationships: boolean) {
+                this.forceCurvedRelationships = forceCurvedRelationships;
+                window.Commands.Execute("AppCommands.ToggleCurvedRelationships", this.forceCurvedRelationships);
+            }
+
 
         }
     }

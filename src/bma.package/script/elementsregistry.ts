@@ -136,6 +136,57 @@ module BMA {
                 this.labelVisibility = value;
             }
 
+            private CreateBezier(start, end, lineWidth, endingType, svg) {
+                var that = this;
+                var jqSvg = svg;
+
+                var nx = 0;
+                var ny = 0;
+                if (end.x === start.x) {
+                    ny = 0;
+                    nx = end.y > start.y ? 1 : -1;
+                } else if (end.y === start.y) {
+                    nx = 0;
+                    ny = end.x > start.x ? 1 : -1;
+                } else {
+                    nx = 1 / (end.x - start.x);
+                    ny = 1 / (start.y - end.y)
+                }
+
+                var normal = { x: nx, y: ny };
+                var nlength = Math.sqrt(normal.x * normal.x + normal.y * normal.y);
+                normal.x = normal.x / nlength;
+                normal.y = normal.y / nlength;
+
+                var lineVector = { x: end.x - start.x, y: end.y - start.y };
+                var lvlength = Math.sqrt(lineVector.x * lineVector.x + lineVector.y * lineVector.y);
+                lineVector.x = lineVector.x / lvlength;
+                lineVector.y = lineVector.y / lvlength;
+                var length05 = 0.5 * that.variableSizeConstant;
+                var length01 = 0.1 * lvlength;
+
+                var pointOffset = 0.15 * that.variableSizeConstant;
+
+                var path = jqSvg.createPath();
+                return jqSvg.path(path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
+                    .curveC(
+                    start.x + normal.x * length05 + lineVector.x * 3 * length01,
+                    start.y + normal.y * length05 + lineVector.y * 3 * length01,
+                    end.x + normal.x * length05 - lineVector.x * 3 * length01,
+                    end.y + normal.y * length05 - lineVector.y * 3 * length01,
+                    end.x + normal.x * pointOffset,
+                    end.y + normal.y * pointOffset),
+                    { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+            }
+
+            private CreateLine(start, end, lineWidth, endingType, svg) {
+                var jqSvg = svg;
+
+                var path = jqSvg.createPath();
+                return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
+                    { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+            }
+
             private CreateSvgElement(type: string, renderParams: any) {
                 var elem = <SVGElement>document.createElementNS("http://www.w3.org/2000/svg", type);
                 var transform = "";
@@ -639,7 +690,6 @@ module BMA {
 
                             var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * that.relationshipBboxOffset * that.relationshipBboxOffset + dir.y * dir.y * that.relationshipBboxOffset * that.relationshipBboxOffset);
 
-
                             var start = {
                                 x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset,
                                 y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset
@@ -650,28 +700,24 @@ module BMA {
                                 y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset
                             };
 
-                            if (!isRevers) {
-                                lineRef = jqSvg.line(
-                                    start.x,
-                                    start.y,
-                                    end.x,
-                                    end.y,
-                                    { stroke: "#808080", strokeWidth: lw + 1, "marker-end": "url(#Activator)" });
+                            if (isRevers) {
+                                var tmpStart = start;
+                                start = end;
+                                end = tmpStart;
+                            }
+
+                            if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
+                                lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg);
                             } else {
-                                lineRef = jqSvg.line(
-                                    end.x,
-                                    end.y,
-                                    start.x,
-                                    start.y,
-                                    { stroke: "#808080", strokeWidth: lw + 1, "marker-end": "url(#Activator)" });
+                                lineRef = that.CreateLine(start, end, lw, "Activator", jqSvg);
                             }
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-line-hover')");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-line-hover')");
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("data-id", renderParams.id);
+                            $(lineRef).attr("data-ishovered", "false");
                         }
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
@@ -679,6 +725,12 @@ module BMA {
 
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
+
+                        //Method is obsolete as bezier is now used for rendering of some relationships
+                        //TODO: add exception throw
+                        return false;
+
+                        /*
                         if (elementX.x !== elementY.x || elementX.y !== elementY.y) {
                             var dot1 = (pointerX - elementX.x) * (elementY.x - elementX.x) + (pointerY - elementX.y) * (elementY.y - elementX.y);
 
@@ -711,6 +763,7 @@ module BMA {
                             //console.log(len1 + ", " + len2);
                             return len1 < elementX.pixelWidth || len2 < elementX.pixelWidth;
                         }
+                        */
                     },
                     "Activating Relationship",
                     "activate-icon"));
@@ -776,28 +829,24 @@ module BMA {
                                 y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset
                             };
 
-                            if (!isRevers) {
-                                lineRef = jqSvg.line(
-                                    start.x,
-                                    start.y,
-                                    end.x,
-                                    end.y,
-                                    { stroke: "#808080", strokeWidth: lw + 1, "marker-end": "url(#Inhibitor)" });
+                            if (isRevers) {
+                                var tmpStart = start;
+                                start = end;
+                                end = tmpStart;
+                            }
+
+                            if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
+                                lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg);
                             } else {
-                                lineRef = jqSvg.line(
-                                    end.x,
-                                    end.y,
-                                    start.x,
-                                    start.y,
-                                    { stroke: "#808080", strokeWidth: lw + 1, "marker-end": "url(#Inhibitor)" });
+                                lineRef = that.CreateLine(start, end, lw, "Inhibitor", jqSvg);
                             }
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-line-hover')");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-line-hover')");
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.ChangeStrokeWidth(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("data-id", renderParams.id);
+                            $(lineRef).attr("data-ishovered", "false");
                         }
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
@@ -805,6 +854,12 @@ module BMA {
 
                     },
                     function (pointerX: number, pointerY: number, elementX, elementY) {
+
+                        //Method is obsolete as bezier is now used for rendering of some relationships
+                        //TODO: add exception throw
+                        return false;
+
+                        /*
                         if (elementX.x !== elementY.x || elementX.y !== elementY.y) {
                             var dot1 = (pointerX - elementX.x) * (elementY.x - elementX.x) + (pointerY - elementX.y) * (elementY.y - elementX.y);
 
@@ -839,6 +894,7 @@ module BMA {
                             //console.log(len1 + ", " + len2);
                             return len1 < elementX.pixelWidth || len2 < elementX.pixelWidth;
                         }
+                        */
                     },
                     "Inhibiting Relationship",
                     "inhibit-icon"));

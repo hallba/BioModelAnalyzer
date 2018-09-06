@@ -1,1 +1,4 @@
 Newtonsoft.Json
+
+group Common
+	FSharp.Core
