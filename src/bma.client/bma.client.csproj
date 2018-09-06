@@ -130,6 +130,7 @@
     <Content Include="images\downarrow.png" />
     <Content Include="images\motif-library.svg" />
     <Content Include="images\resize-grabber.svg" />
+    <Content Include="images\selection.png" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
     <Content Include="js\idd.heatmapworker.js" />
@@ -523,7 +524,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33584</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

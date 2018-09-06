@@ -59,6 +59,16 @@ module BMA {
                     }
                 }
 
+                var isSelected = false;
+                if (args !== undefined && args.selection !== undefined) {
+                    for (var j = 0; j < args.selection.variables.length; j++) {
+                        if (args.selection.variables[j] === variable.Id) {
+                            isSelected = true;
+                            break;
+                        }
+                    }
+                }
+
                 var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
                 var sizeCoef = undefined;
                 var gridCell = undefined;
@@ -74,7 +84,8 @@ module BMA {
                     sizeCoef: sizeCoef,
                     valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
                     labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
-                    isHighlighted: isHighlighted
+                    isHighlighted: isHighlighted,
+                    isSelected: isSelected
                 }));
             }
 

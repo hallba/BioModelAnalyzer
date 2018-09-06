@@ -454,7 +454,11 @@ function loadScript(version) {
 
     //undo/redo panel
     $("#button-pointer").click(function () {
-        window.Commands.Execute("AddElementSelect", undefined);
+        window.Commands.Execute("AddElementSelect", "navigation");
+    });
+
+    $("#button-selector").click(function () {
+        window.Commands.Execute("AddElementSelect", "selection");
     });
 
     $("#undoredotoolbar").buttonset();

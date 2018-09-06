@@ -39,6 +39,9 @@ module BMA {
             private stagingGroup = undefined;
             private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined;
             private stagingContainer: any = undefined;
+            private stagingRect = undefined;
+
+            private selection = undefined;
 
             private editingId = undefined;
 
@@ -93,7 +96,7 @@ module BMA {
                 window.Commands.On("AddElementSelect", (type: string) => {
 
                     that.selectedType = type;
-                    that.navigationDriver.TurnNavigation(type === undefined);
+                    that.navigationDriver.TurnNavigation(type === "navigation");
                     that.stagingLine = undefined;
                     //this.selectedType = this.selectedType === type ? undefined : type;
                     //this.driver.TurnNavigation(this.selectedType === undefined);
@@ -678,6 +681,8 @@ module BMA {
                         }
                         that.variableEditor.Hide();
 
+                        this.stagingRect = undefined;
+
                         if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
                             var id = that.GetVariableAtPosition(gesture.x, gesture.y);
                             if (id !== undefined) {
@@ -687,7 +692,7 @@ module BMA {
                                 this.stagingLine.y0 = gesture.y;
                                 return;
                             }
-                        } else if (that.selectedType === undefined) {
+                        } else if (that.selectedType === "navigation") {
                             var id = this.GetVariableAtPosition(gesture.x, gesture.y);
                             var containerId = this.GetContainerAtPosition(gesture.x, gesture.y);
                             if (id !== undefined) {
@@ -701,6 +706,13 @@ module BMA {
                             } else {
                                 that.navigationDriver.TurnNavigation(true);
                             }
+                        } else if (that.selectedType === "selection") {
+                            this.stagingRect = {
+                                x0: gesture.x,
+                                x1: gesture.x,
+                                y0: gesture.y,
+                                y1: gesture.y
+                            };
                         }
                         this.stagingLine = undefined;
                     });
@@ -741,6 +753,13 @@ module BMA {
                             }
                         } else if (this.stagingContainer !== undefined) {
                             that.stagingContainer.position = { x: gesture.x1, y: gesture.y1 };
+
+                            if (that.svg !== undefined) {
+                                that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                            }
+                        } else if (this.stagingRect !== undefined) {
+                            that.stagingRect.x1 = gesture.x1;
+                            that.stagingRect.y1 = gesture.y1;
 
                             if (that.svg !== undefined) {
                                 that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
@@ -789,12 +808,34 @@ module BMA {
                                 that.RefreshOutput();
                             }
                         }
+
+                        if (that.stagingRect !== undefined) {
+                            that.selection = { variables: [] };
+
+                            var rect = {
+                                x: Math.min(that.stagingRect.x0, that.stagingRect.x1),
+                                y: Math.min(that.stagingRect.y0, that.stagingRect.y1),
+                                width: Math.abs(that.stagingRect.x0 - that.stagingRect.x1),
+                                height: Math.abs(that.stagingRect.y0 - that.stagingRect.y1),
+                            }
+
+                            var variables = that.undoRedoPresenter.Current.layout.Variables;
+
+                            for (var i = 0; i < variables.length; i++) {
+                                var v = variables[i];
+
+                                if (v.PositionX >= rect.x && v.PositionX <= rect.x + rect.width && v.PositionY >= rect.y && v.PositionY <= rect.y + rect.height)
+                                    this.selection.variables.push(v.Id);
+                            }
+
+                            that.RefreshOutput();
+                        }
                     });
             }
 
             private RefreshOutput(model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined) {
                 if (this.svg !== undefined && this.undoRedoPresenter.Current !== undefined) {
-                    var drawingSvg = <SVGElement>this.CreateSvg(undefined, model, layout);
+                    var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection }, model, layout);
                     this.driver.Draw(drawingSvg);
                 }
             }
@@ -1554,6 +1595,20 @@ module BMA {
                             y: this.stagingContainer.position.y - y
                         }
                     }));
+                }
+
+                if (this.stagingRect !== undefined) {
+                    this.svg.rect(
+                        Math.min(this.stagingRect.x0, this.stagingRect.x1),
+                        Math.min(this.stagingRect.y0, this.stagingRect.y1),
+                        Math.abs(this.stagingRect.x0 - this.stagingRect.x1),
+                        Math.abs(this.stagingRect.y0 - this.stagingRect.y1),
+                        {
+                            stroke: "blue",
+                            strokeWidth: 1,
+                            fill: "white",
+                            "fill-opacity": 0.6
+                        });
                 }
 
                 return $(this.svg.toSVG()).children();
