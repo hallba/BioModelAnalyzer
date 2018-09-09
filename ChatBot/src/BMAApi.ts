@@ -37,7 +37,7 @@ const DefaultSimOptions = {
  * @param options.timeout The HTTP request timeout after which to cancel the request.
  */
 export function runFastSimulation (model: BMA.Model, formula: string, options: SimulationOptions = DefaultSimOptions): Promise<AnalyzeLTLSimulationResponse> {
-    console.log(`running "${formula}" against AnalyzeLTLSimulation API`)
+    console.log(`running "${formula}" against AnalyzeLTLSimulation API (F)`)
     let url = BACKEND_URL + 'AnalyzeLTLSimulation'
     let req: AnalyzeLTLSimulationRequest = {
         Formula: formula,
@@ -57,6 +57,7 @@ export function runFastSimulation (model: BMA.Model, formula: string, options: S
                 reject(error)
                 return
             }
+	    //console.log('Fast result = ' + String(body.Status))
 	    body.Status = body.Status === 1; // Translate integer to boolean in Status field
             let resp = body as AnalyzeLTLSimulationResponse
             if (resp.Error) {
@@ -83,11 +84,13 @@ export function runFastSimulation (model: BMA.Model, formula: string, options: S
  */
 export function runThoroughSimulation(model: BMA.Model, formula: string, fastSimResponse: AnalyzeLTLSimulationResponse,
         options: SimulationOptions = DefaultSimOptions): Promise<AnalyzeLTLPolarityResponse> {
-    console.log(`running "${formula}" against AnalyzeLTLPolarity API`)
+    console.log(`running "${formula}" against AnalyzeLTLPolarity API (T)`)
+    //console.log('Previous result was: ' + String(fastSimResponse.Status))
     let url = BACKEND_URL + 'AnalyzeLTLPolarity'
     let req: AnalyzeLTLPolarityRequest = {
         Formula: formula,
-        Polarity: !fastSimResponse.Status,
+	// The previous result is negated below
+	Polarity: !fastSimResponse.Status,
         Number_of_steps: options.steps || DefaultSimOptions.steps,
         Name: model.Name,
         Relationships: model.Relationships,
@@ -104,7 +107,11 @@ export function runThoroughSimulation(model: BMA.Model, formula: string, fastSim
                 reject(error)
                 return
             }
-            let resp = body as AnalyzeLTLSimulationResponse
+	    body.Item1.Status = body.Item1.Status === 1; // Translate integer to boolean in Status field
+	    let resp = body.Item1 as AnalyzeLTLSimulationResponse
+	    //console.log('Thorough result = ' + JSON.stringify(body))
+	    //console.log('T.status = ' + String(body.Item1.Status))
+	    //console.log('T.status = ' + String(resp.Status))
             if (resp.Error) {
                 reject({ message: resp.Error })
                 console.error(resp.ErrorMessages)
