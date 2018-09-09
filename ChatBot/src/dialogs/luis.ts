@@ -309,7 +309,7 @@ export function registerLUISDialog (bot: builder.UniversalBot, modelStorage: Mod
             mode: 'proof',
             mkt: 'en-GB'
         }
-        let spellUrl = 'https://api.cognitive.microsoft.com/bing/v5.0/spellcheck/?' + qs.stringify(params)
+        let spellUrl = 'https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?' + qs.stringify(params)
         request(spellUrl, {
             headers: {
                 'Ocp-Apim-Subscription-Key': config.get('BING_SPELLCHECK_KEY')
