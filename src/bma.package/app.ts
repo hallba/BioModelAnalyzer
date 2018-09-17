@@ -477,6 +477,10 @@ function loadScript(version) {
         window.Commands.Execute("AddElementSelect", "selection");
     });
 
+    $("#button-clearselection").click(() => {
+        window.Commands.Execute("ClearSelection", undefined);
+    });
+
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });

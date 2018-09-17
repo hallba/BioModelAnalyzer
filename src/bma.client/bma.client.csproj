@@ -127,6 +127,7 @@
     <Content Include="images\BMA_Background_Homepage.svg" />
     <Content Include="images\caoruselNext.png" />
     <Content Include="images\caoruselPrev.png" />
+    <Content Include="images\clearselection.png" />
     <Content Include="images\downarrow-grey.png" />
     <Content Include="images\downarrow.png" />
     <Content Include="images\motif-library.svg" />

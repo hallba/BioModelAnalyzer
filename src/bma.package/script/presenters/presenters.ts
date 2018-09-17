@@ -91,6 +91,10 @@ module BMA {
 
                 svgPlotDriver.SetGrid(this.xOrigin, this.yOrigin, this.xStep, this.yStep);
 
+                window.Commands.On("ClearSelection", () => {
+                    that.ClearSelection();
+                });
+
                 window.Commands.On('SaveSVG', () => {
                     that.exportservice.Export(that.driver.GetSVG(), appModel.BioModel.Name, 'svg');
                 });
