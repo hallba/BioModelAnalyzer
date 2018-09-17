@@ -41,7 +41,7 @@ module BMA {
             private stagingContainer: any = undefined;
             private stagingRect = undefined;
 
-            private selection = undefined;
+            private selection: { variables: boolean[]; cells: boolean[]; relationships: boolean[]; } = undefined;
 
             private editingId = undefined;
 
@@ -85,6 +85,8 @@ module BMA {
                 this.contextMenu = contextMenu;
                 this.exportservice = exportservice;
 
+                this.selection = { variables: [], cells: [], relationships: [] };
+
                 that.isContainerEdited = false;
 
                 svgPlotDriver.SetGrid(this.xOrigin, this.yOrigin, this.xStep, this.yStep);
@@ -120,34 +122,19 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
-                    if (that.selectedType !== undefined) {
-                        if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
+                    if (that.selectedType === "selection") {
+                        if (that.stagingRect === undefined) {
                             var id = that.GetVariableAtPosition(args.x, args.y);
-                            if (id !== undefined) {
-                                if (this.stagingLine === undefined) {
-                                    this.stagingLine = {};
-                                    this.stagingLine.id = id;
-                                    this.stagingLine.x0 = args.x;
-                                    this.stagingLine.y0 = args.y;
-                                    return;
-                                }
-                                else {
-                                    this.stagingLine.x1 = args.x;
-                                    this.stagingLine.y1 = args.y;
-                                    that.TryAddStagingLineAsLink();
-                                    this.stagingLine = undefined;
-                                    that.RefreshOutput();
-                                    return;
-                                }
+
+                            if (that.selection.variables[id] === undefined) {
+                                that.selection.variables[id] = true;
+                            } else {
+                                that.selection.variables[id] = undefined;
                             }
-                            else {
-                                this.stagingLine = undefined;
-                            }
+
+                            that.RefreshOutput();
                         }
-                        else {
-                            that.TryAddVariable(args.x, args.y, that.selectedType, undefined);
-                        }
-                    } else {
+                    } else if (that.selectedType === "navigation") {
                         var id = that.GetVariableAtPosition(args.x, args.y);
                         if (id !== undefined) {
 
@@ -182,6 +169,30 @@ module BMA {
                                 //that.RefreshOutput();
                             }
                         }
+                    } else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
+                        var id = that.GetVariableAtPosition(args.x, args.y);
+                        if (id !== undefined) {
+                            if (this.stagingLine === undefined) {
+                                this.stagingLine = {};
+                                this.stagingLine.id = id;
+                                this.stagingLine.x0 = args.x;
+                                this.stagingLine.y0 = args.y;
+                                return;
+                            }
+                            else {
+                                this.stagingLine.x1 = args.x;
+                                this.stagingLine.y1 = args.y;
+                                that.TryAddStagingLineAsLink();
+                                this.stagingLine = undefined;
+                                that.RefreshOutput();
+                                return;
+                            }
+                        }
+                        else {
+                            this.stagingLine = undefined;
+                        }
+                    } else {
+                        that.TryAddVariable(args.x, args.y, that.selectedType, undefined);
                     }
                 });
 
@@ -827,7 +838,6 @@ module BMA {
                         }
 
                         if (that.stagingRect !== undefined) {
-                            that.selection = { variables: [] };
 
                             var rect = {
                                 x: Math.min(that.stagingRect.x0, that.stagingRect.x1),
@@ -841,13 +851,21 @@ module BMA {
                             for (var i = 0; i < variables.length; i++) {
                                 var v = variables[i];
 
-                                if (v.PositionX >= rect.x && v.PositionX <= rect.x + rect.width && v.PositionY >= rect.y && v.PositionY <= rect.y + rect.height)
-                                    this.selection.variables.push(v.Id);
+                                if (this.selection.variables[v.Id] === undefined) {
+                                    if (v.PositionX >= rect.x && v.PositionX <= rect.x + rect.width && v.PositionY >= rect.y && v.PositionY <= rect.y + rect.height)
+                                        this.selection.variables[v.Id] = true;
+                                }
                             }
 
                             that.RefreshOutput();
+                            that.stagingRect = undefined;
                         }
                     });
+            }
+
+            private ClearSelection() {
+                this.selection = { variables: [], cells: [], relationships: [] };
+                this.RefreshOutput();
             }
 
             private RefreshOutput(model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined) {

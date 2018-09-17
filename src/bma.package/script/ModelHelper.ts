@@ -62,7 +62,7 @@ module BMA {
                 var isSelected = false;
                 if (args !== undefined && args.selection !== undefined) {
                     for (var j = 0; j < args.selection.variables.length; j++) {
-                        if (args.selection.variables[j] === variable.Id) {
+                        if (args.selection.variables[variable.Id] === true) {
                             isSelected = true;
                             break;
                         }

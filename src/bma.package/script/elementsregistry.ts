@@ -310,8 +310,8 @@ module BMA {
                             }
                         }
 
-                        $(op).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
-                        $(op).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
+                        //$(op).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
+                        //$(op).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
 
                         /*
                         //Helper bounding ellipses
@@ -449,8 +449,8 @@ module BMA {
                             { stroke: "red", fill: "none" });
                         */
 
-                        $(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
-                        $(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
                         return <SVGElement>svgElem;
@@ -522,8 +522,8 @@ module BMA {
                             }
                         }
 
-                        $(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
-                        $(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
                         return <SVGElement>svgElem;
@@ -630,8 +630,8 @@ module BMA {
                             { stroke: "red", fill: "none" });
                         */
 
-                        $(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
-                        $(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
+                        //$(variable).attr("onmouseout", "BMA.SVGHelper.RemoveClass(this, 'modeldesigner-element-hover')");
 
                         var svgElem: any = $(jqSvg.toSVG()).children();
                         return <SVGElement>svgElem;
