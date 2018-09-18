@@ -40,6 +40,10 @@ module BMA {
             private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined;
             private stagingContainer: any = undefined;
             private stagingRect = undefined;
+            private stagingHighlight: {
+                variables: number[];
+                cell: number
+            }
 
             private selection: { variables: boolean[]; cells: boolean[]; relationships: boolean[]; } = undefined;
 
@@ -84,6 +88,10 @@ module BMA {
                 this.containerEditor = containerEditorDriver;
                 this.contextMenu = contextMenu;
                 this.exportservice = exportservice;
+
+                this.stagingHighlight = {
+                    variables: [], cell: undefined
+                };
 
                 this.selection = { variables: [], cells: [], relationships: [] };
 
@@ -700,6 +708,20 @@ module BMA {
                         }
                     });
                 }
+
+                dragService.GetMouseMoves().subscribe(
+                    (gesture) => {
+                        var x = gesture.x;
+                        var y = gesture.y;
+
+                        var id = that.GetVariableAtPosition(x, y);
+                        this.stagingHighlight.variables[0] = id;
+
+                        if (that.svg !== undefined) {
+                            that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                        }
+                    }
+                );
 
                 dragSubject.dragStart.subscribe(
                     (gesture) => {
@@ -1666,6 +1688,13 @@ module BMA {
                             fill: "white",
                             "fill-opacity": 0.6
                         });
+                }
+
+                if (this.stagingHighlight.variables[0] !== undefined) {
+                    var id = this.stagingHighlight.variables[0]
+                    var variable = this.undoRedoPresenter.Current.layout.GetVariableById(id);
+                    var rad = 1.3 * 35 / 2;
+                    this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, { stroke: "#EF4137", fill: "transparent" });
                 }
 
                 return $(this.svg.toSVG()).children();
