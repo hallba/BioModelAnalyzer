@@ -371,67 +371,87 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceContextMenuOpening", (args) => {
-                    var x = that.driver.GetPlotX(args.left);
-                    var y = that.driver.GetPlotY(args.top);
 
-                    var id = that.GetVariableAtPosition(x, y);
-                    var containerId = that.GetContainerAtPosition(x, y);
-                    var relationship = that.GetRelationshipAtPosition(x, y, 3 * that.driver.GetPixelWidth());
-                    var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
+                    if (this.selectedType === "selection") {
 
-                    var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
+                        that.contextMenu.ShowMenuItems([
+                            { name: "Cut", isVisible: true },
+                            { name: "Copy", isVisible: true },
+                            { name: "Paste", isVisible: true },
+                            { name: "Delete", isVisible: true },
+                            { name: "Size", isVisible: false },
+                            { name: "ResizeCellTo1x1", isVisible: false },
+                            { name: "ResizeCellTo2x2", isVisible: false },
+                            { name: "ResizeCellTo3x3", isVisible: false },
+                            { name: "Type", isVisible: false },
+                            { name: "Activator", isVisible: false },
+                            { name: "Inhibitor", isVisible: false },
+                            { name: "Edit", isVisible: false }
+                        ]);
 
-                    var showPaste = that.clipboard !== undefined;
-                    if (showPaste === true) {
 
-                        if (that.clipboard.Container !== undefined) {
-                            showPaste = that.CanAddContainer(that.clipboard.Container.Id, x, y, that.clipboard.Container.Size, that.clipboard.isCopy);
-                        } else {
-                            var variable = that.clipboard.Variables[0];
-                            showPaste = that.CanAddVariable(x, y, variable.m.Type, undefined);
+                    } else {
+                        var x = that.driver.GetPlotX(args.left);
+                        var y = that.driver.GetPlotY(args.top);
+
+                        var id = that.GetVariableAtPosition(x, y);
+                        var containerId = that.GetContainerAtPosition(x, y);
+                        var relationship = that.GetRelationshipAtPosition(x, y, 3 * that.driver.GetPixelWidth());
+                        var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
+
+                        var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
+
+                        var showPaste = that.clipboard !== undefined;
+                        if (showPaste === true) {
+
+                            if (that.clipboard.Container !== undefined) {
+                                showPaste = that.CanAddContainer(that.clipboard.Container.Id, x, y, that.clipboard.Container.Size, that.clipboard.isCopy);
+                            } else {
+                                var variable = that.clipboard.Variables[0];
+                                showPaste = that.CanAddVariable(x, y, variable.m.Type, undefined);
+                            }
+                        }
+
+                        var canPaste = true;
+                        if (showPaste !== true && id === undefined && containerId === undefined && relationshipId === undefined) {
+                            showPaste = true;
+                            canPaste = false;
+                        }
+
+                        that.contextMenu.ShowMenuItems([
+                            { name: "Cut", isVisible: id !== undefined || containerId !== undefined },
+                            { name: "Copy", isVisible: id !== undefined || containerId !== undefined },
+                            { name: "Paste", isVisible: showPaste },
+                            { name: "Delete", isVisible: id !== undefined || containerId !== undefined || relationshipId !== undefined },
+                            { name: "Size", isVisible: containerId !== undefined },
+                            { name: "ResizeCellTo1x1", isVisible: true },
+                            { name: "ResizeCellTo2x2", isVisible: true },
+                            { name: "ResizeCellTo3x3", isVisible: true },
+                            { name: "Type", isVisible: relationshipId !== undefined },
+                            { name: "Activator", isVisible: true },
+                            { name: "Inhibitor", isVisible: true },
+                            { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
+                        ]);
+
+                        that.contextMenu.EnableMenuItems([
+                            { name: "Paste", isEnabled: canPaste },
+                            { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
+                            { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
+                        ]);
+
+                        that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
+
+                        if (id !== undefined) {
+                            that.contextElement.id = id;
+                            that.contextElement.type = "variable";
+                        } else if (containerId !== undefined) {
+                            that.contextElement.id = containerId;
+                            that.contextElement.type = "container";
+                        } else if (relationshipId !== undefined) {
+                            that.contextElement.id = relationshipId;
+                            that.contextElement.type = "relationship";
                         }
                     }
-
-                    var canPaste = true;
-                    if (showPaste !== true && id === undefined && containerId === undefined && relationshipId === undefined) {
-                        showPaste = true;
-                        canPaste = false;
-                    }
-
-                    that.contextMenu.ShowMenuItems([
-                        { name: "Cut", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "Copy", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "Paste", isVisible: showPaste },
-                        { name: "Delete", isVisible: id !== undefined || containerId !== undefined || relationshipId !== undefined },
-                        { name: "Size", isVisible: containerId !== undefined },
-                        { name: "ResizeCellTo1x1", isVisible: true },
-                        { name: "ResizeCellTo2x2", isVisible: true },
-                        { name: "ResizeCellTo3x3", isVisible: true },
-                        { name: "Type", isVisible: relationshipId !== undefined },
-                        { name: "Activator", isVisible: true },
-                        { name: "Inhibitor", isVisible: true },
-                        { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
-                    ]);
-
-                    that.contextMenu.EnableMenuItems([
-                        { name: "Paste", isEnabled: canPaste },
-                        { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
-                        { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
-                    ]);
-
-                    that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
-
-                    if (id !== undefined) {
-                        that.contextElement.id = id;
-                        that.contextElement.type = "variable";
-                    } else if (containerId !== undefined) {
-                        that.contextElement.id = containerId;
-                        that.contextElement.type = "container";
-                    } else if (relationshipId !== undefined) {
-                        that.contextElement.id = relationshipId;
-                        that.contextElement.type = "relationship";
-                    }
-
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
@@ -459,7 +479,12 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceCopy", (args) => {
-                    that.CopyToClipboard(false);
+                    if (that.selectedType === "selection") {
+                        var toCopy = this.CreateSerializedModelFromSelection();
+                        ModelHelper.CopyToClipboard(toCopy);
+                    } else {
+                        that.CopyToClipboard(false);
+                    }
                 });
 
                 window.Commands.On("DrawingSurfaceCut", (args) => {
@@ -922,6 +947,46 @@ module BMA {
                     });
             }
 
+            private CreateSerializedModelFromSelection(): string {
+                var variables = [];
+                var variablesLayouts = [];
+                var cells = [];
+                var relationships = [];
+
+                var current = this.undoRedoPresenter.Current;
+
+
+                for (var i = 0; i < current.model.Variables.length; i++) {
+                    var varItem = current.model.Variables[i];
+                    if (this.selection.variables[varItem.Id] !== undefined) {
+                        variables.push(varItem);
+                        variablesLayouts.push(current.layout.Variables[i]);
+                    }
+                }
+
+                for (var i = 0; i < current.model.Relationships.length; i++) {
+                    var relItem = current.model.Relationships[i];
+                    if (this.selection.relationships[relItem.Id] !== undefined) {
+                        relationships.push(varItem);
+                    }
+                }
+
+                for (var i = 0; i < current.layout.Containers.length; i++) {
+                    var cItem = current.layout.Containers[i];
+                    if (this.selection.cells[cItem.Id] !== undefined) {
+                        cells.push(varItem);
+                    }
+                }
+
+
+                var model = new BMA.Model.BioModel("clipboard model", variables, relationships);
+                var layout = new BMA.Model.Layout(cells, variablesLayouts);
+
+                var exported = BMA.Model.ExportModelAndLayout(model, layout);
+
+                return JSON.stringify(exported);
+            }
+
             private ClearSelection() {
                 this.selection = { variables: [], cells: [], relationships: [] };
                 this.RefreshOutput();
@@ -970,6 +1035,9 @@ module BMA {
                     }
                     that.contextElement = undefined;
                 }
+
+                //Testing cliboard copy
+                //ModelHelper.CopyToClipboard(JSON.stringify(that.undoRedoPresenter.Current.model.GetJSON()));
             }
 
             private GetLayoutCentralPoint(): { x: number; y: number } {
