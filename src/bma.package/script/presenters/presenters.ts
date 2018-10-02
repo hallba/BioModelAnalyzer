@@ -967,7 +967,7 @@ module BMA {
                 for (var i = 0; i < current.model.Relationships.length; i++) {
                     var relItem = current.model.Relationships[i];
                     if (this.selection.relationships[relItem.Id] !== undefined) {
-                        relationships.push(varItem);
+                        relationships.push(relItem);
                     }
                 }
 
