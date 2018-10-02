@@ -474,12 +474,31 @@ function loadScript(version) {
     });
 
     $("#button-selector").click(function () {
-        window.Commands.Execute("AddElementSelect", "selection");
+        if ($("#button-selector-icon").hasClass("selection-icon")) {
+            window.Commands.Execute("AddElementSelect", "selection");
+        } else {
+            window.Commands.Execute("ClearSelection", undefined);
+        }
+
+        //if ($("#button-selector-icon").hasClass("selection-icon")) {
+        //    $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
+        //} else {
+        //    $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
+        //}
     });
 
-    $("#button-clearselection").click(() => {
-        window.Commands.Execute("ClearSelection", undefined);
+    window.Commands.On("AddElementSelect", (mode) => {
+        if (mode === "selection") {
+            $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
+        } else {
+            $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
+            window.Commands.Execute("ClearSelection", undefined);
+        }
     });
+
+    //$("#button-clearselection").click(() => {
+    //    window.Commands.Execute("ClearSelection", undefined);
+    //});
 
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
