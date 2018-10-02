@@ -23,11 +23,17 @@ module BMA {
                     }
                 }
 
+                var isSelected = false;
+                if (args !== undefined && args.selection !== undefined) {
+                    isSelected = args.selection.cells[containerLayout.Id];
+                }
+
                 svgElements.push(element.RenderToSvg({
                     layout: containerLayout,
                     grid: grid,
                     background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
-                    isHighlighted: isHighlighted
+                    isHighlighted: isHighlighted,
+                    isSelected: isSelected
                 }));
             }
 
@@ -61,12 +67,7 @@ module BMA {
 
                 var isSelected = false;
                 if (args !== undefined && args.selection !== undefined) {
-                    for (var j = 0; j < args.selection.variables.length; j++) {
-                        if (args.selection.variables[variable.Id] === true) {
-                            isSelected = true;
-                            break;
-                        }
-                    }
+                    isSelected = args.selection.variables[variable.Id];
                 }
 
                 var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
@@ -106,11 +107,17 @@ module BMA {
                     }
                 }
 
+                var isSelected = false;
+                if (args !== undefined && args.selection !== undefined) {
+                    isSelected = args.selection.relationships[relationship.Id];
+                }
+
                 svgElements.push(element.RenderToSvg({
                     layout: { start: start, end: end },
                     grid: grid,
                     id: relationship.Id,
-                    hasReverse: hasReverse
+                    hasReverse: hasReverse,
+                    isSelected: isSelected
                 }));
             }
 

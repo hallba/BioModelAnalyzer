@@ -136,7 +136,7 @@ module BMA {
                 this.labelVisibility = value;
             }
 
-            private CreateBezier(start, end, lineWidth, endingType, svg) {
+            private CreateBezier(start, end, lineWidth, endingType, svg, isSelected) {
                 var that = this;
                 var jqSvg = svg;
 
@@ -167,6 +167,8 @@ module BMA {
 
                 var pointOffset = 0.15 * that.variableSizeConstant;
 
+                var stroke = isSelected ? "blue" : "#808080";
+
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
                     .curveC(
@@ -176,15 +178,17 @@ module BMA {
                     end.y + normal.y * length05 - lineVector.y * 3 * length01,
                     end.x + normal.x * pointOffset,
                     end.y + normal.y * pointOffset),
-                    { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
             }
 
-            private CreateLine(start, end, lineWidth, endingType, svg) {
+            private CreateLine(start, end, lineWidth, endingType, svg, isSelected) {
                 var jqSvg = svg;
+
+                var stroke = isSelected ? "blue" : "#808080";
 
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
-                    { fill: 'none', stroke: "#808080", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
             }
 
             private CreateSvgElement(type: string, renderParams: any) {
@@ -283,7 +287,8 @@ module BMA {
                         }
 
                         var op = jqSvg.path(g, cellPath, {
-                            stroke: 'transparent',
+                            stroke: renderParams.isSelected ? 'blue' : 'transparent',
+                            strokeWidth: 1,
                             fill: pathFill,
                             "fill-rule": "evenodd",
                             d: cellData,
@@ -707,9 +712,9 @@ module BMA {
                             }
 
                             if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
-                                lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg);
+                                lineRef = that.CreateBezier(start, end, lw, "Activator", jqSvg, renderParams.isSelected);
                             } else {
-                                lineRef = that.CreateLine(start, end, lw, "Activator", jqSvg);
+                                lineRef = that.CreateLine(start, end, lw, "Activator", jqSvg, renderParams.isSelected);
                             }
                         }
 
@@ -836,9 +841,9 @@ module BMA {
                             }
 
                             if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
-                                lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg);
+                                lineRef = that.CreateBezier(start, end, lw, "Inhibitor", jqSvg, renderParams.isSelected);
                             } else {
-                                lineRef = that.CreateLine(start, end, lw, "Inhibitor", jqSvg);
+                                lineRef = that.CreateLine(start, end, lw, "Inhibitor", jqSvg, renderParams.isSelected);
                             }
                         }
 

@@ -138,13 +138,45 @@ module BMA {
                         if (that.stagingRect === undefined) {
                             var id = that.GetVariableAtPosition(args.x, args.y);
 
-                            if (that.selection.variables[id] === undefined) {
-                                that.selection.variables[id] = true;
-                            } else {
-                                that.selection.variables[id] = undefined;
-                            }
+                            if (id !== undefined) {
+                                if (that.selection.variables[id] === undefined) {
+                                    that.selection.variables[id] = true;
+                                } else {
+                                    that.selection.variables[id] = undefined;
+                                }
 
-                            that.RefreshOutput();
+                                that.RefreshSelectedRelationships();
+                                that.RefreshOutput();
+                            } else {
+                                var cid = that.GetContainerAtPosition(args.x, args.y);
+                                if (cid !== undefined) {
+                                    //If selection doesn't contain that cell, select it and all its contents or clear from it otherwise
+                                    if (that.selection.cells[cid] === undefined) {
+                                        that.selection.cells[cid] = true;
+
+                                        var variables = that.undoRedoPresenter.Current.model.Variables;
+                                        for (var i = 0; i < variables.length; i++) {
+                                            var variable = variables[i];
+                                            if (variable.ContainerId === cid) {
+                                                that.selection.variables[variable.Id] = true;
+                                            }
+                                        }
+                                    } else {
+                                        that.selection.cells[cid] = undefined;
+
+                                        var variables = that.undoRedoPresenter.Current.model.Variables;
+                                        for (var i = 0; i < variables.length; i++) {
+                                            var variable = variables[i];
+                                            if (variable.ContainerId === cid) {
+                                                that.selection.variables[variable.Id] = undefined;
+                                            }
+                                        }
+                                    }
+
+                                    that.RefreshSelectedRelationships();
+                                    that.RefreshOutput();
+                                }
+                            }
                         }
                     } else if (that.selectedType === "navigation") {
                         var id = that.GetVariableAtPosition(args.x, args.y);
@@ -883,6 +915,7 @@ module BMA {
                                 }
                             }
 
+                            that.RefreshSelectedRelationships();
                             that.RefreshOutput();
                             that.stagingRect = undefined;
                         }
@@ -892,6 +925,21 @@ module BMA {
             private ClearSelection() {
                 this.selection = { variables: [], cells: [], relationships: [] };
                 this.RefreshOutput();
+            }
+
+            private RefreshSelectedRelationships() {
+                var relationships = this.undoRedoPresenter.Current.model.Relationships;
+
+                for (var i = 0; i < relationships.length; i++) {
+                    var rel = relationships[i];
+
+                    this.selection.relationships[rel.Id] = undefined;
+
+                    //Checking if relationship should be selected
+                    if (this.selection.variables[rel.ToVariableId] !== undefined && this.selection.variables[rel.FromVariableId] !== undefined) {
+                        this.selection.relationships[rel.Id] = true;
+                    }
+                }
             }
 
             private RefreshOutput(model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined) {
