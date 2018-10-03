@@ -473,28 +473,22 @@ function loadScript(version) {
         window.Commands.Execute("AddElementSelect", "navigation");
     });
 
-    $("#button-selector").click(function () {
-        if ($("#button-selector-icon").hasClass("selection-icon")) {
-            window.Commands.Execute("AddElementSelect", "selection");
-        } else {
-            window.Commands.Execute("ClearSelection", undefined);
-        }
+    //$("#button-selector").click(function () {
+    //    if ($("#button-selector-icon").hasClass("selection-icon")) {
+    //        window.Commands.Execute("AddElementSelect", "selection");
+    //    } else {
+    //        window.Commands.Execute("ClearSelection", undefined);
+    //    }
+    //});
 
-        //if ($("#button-selector-icon").hasClass("selection-icon")) {
-        //    $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
-        //} else {
-        //    $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
-        //}
-    });
-
-    window.Commands.On("AddElementSelect", (mode) => {
-        if (mode === "selection") {
-            $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
-        } else {
-            $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
-            window.Commands.Execute("ClearSelection", undefined);
-        }
-    });
+    //window.Commands.On("AddElementSelect", (mode) => {
+    //    if (mode === "selection") {
+    //        $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
+    //    } else {
+    //        $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
+    //        window.Commands.Execute("ClearSelection", undefined);
+    //    }
+    //});
 
     //$("#button-clearselection").click(() => {
     //    window.Commands.Execute("ClearSelection", undefined);

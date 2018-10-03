@@ -173,30 +173,35 @@ declare var InteractiveDataDisplay: any;
                 }
             });
 
+            var timer = 0;
+            var delay = 200;
+            var prevent = false;
+
             plotDiv.bind("click touchstart", function (arg) {
-                var cs = svgPlot.getScreenToDataTransform();
+                timer = setTimeout(() => {
+                    if (!prevent) {
+                        var cs = svgPlot.getScreenToDataTransform();
 
-                if (arg.originalEvent !== undefined) {
-                    arg = <any>arg.originalEvent;
-                }
+                        if (arg.originalEvent !== undefined) {
+                            arg = <any>arg.originalEvent;
+                        }
 
-                //arg.stopPropagation();
-
-                that._executeCommand("DrawingSurfaceClick",
-                    {
-                        x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
-                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
-                        screenX: arg.pageX - plotDiv.offset().left,
-                        screenY: arg.pageY - plotDiv.offset().top
-                    });
-            });
-
-
-            plotDiv.mousedown(function (e) {
-                //e.stopPropagation();
+                        that._executeCommand("DrawingSurfaceClick",
+                            {
+                                x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
+                                y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+                                screenX: arg.pageX - plotDiv.offset().left,
+                                screenY: arg.pageY - plotDiv.offset().top
+                            });
+                    }
+                    prevent = false;
+                }, delay);
             });
 
             plotDiv.dblclick(function (arg) {
+                clearTimeout(timer);
+                prevent = true;
+
                 var cs = svgPlot.getScreenToDataTransform();
 
                 if (arg.originalEvent !== undefined) {
@@ -206,7 +211,9 @@ declare var InteractiveDataDisplay: any;
                 that._executeCommand("DrawingSurfaceDoubleClick",
                     {
                         x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
-                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top)
+                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+                        screenX: arg.pageX - plotDiv.offset().left,
+                        screenY: arg.pageY - plotDiv.offset().top
                     });
             });
 
@@ -231,7 +238,7 @@ declare var InteractiveDataDisplay: any;
                         var x1 = cs.screenToDataX(mm.pageX - plotDiv.offset().left);
                         var y1 = -cs.screenToDataY(mm.pageY - plotDiv.offset().top);
 
-                        return { x0: x0, y0: y0, x1: x1, y1: y1 };
+                        return { x0: x0, y0: y0, x1: x1, y1: y1, btn: md.button };
 
                     }).takeUntil(stopPanning);
                 });
@@ -251,17 +258,17 @@ declare var InteractiveDataDisplay: any;
                         var x1 = cs.screenToDataX(tm.originalEvent.pageX - plotDiv.offset().left);
                         var y1 = -cs.screenToDataY(tm.originalEvent.pageY - plotDiv.offset().top);
 
-                        return { x0: x0, y0: y0, x1: x1, y1: y1 };
+                        return { x0: x0, y0: y0, x1: x1, y1: y1, btn: 0 };
                     });
                 });
 
                 return mouseDrags.merge(gestures);
             }
 
-            var createDragStartSubject = function (vc) {
+            var createDragStartSubject = function (vc, btnFilter) {
                 var _doc = $(document);
                 var mousedown = Rx.Observable.fromEvent<any>(vc, "mousedown").where(function (md) {
-                    return md.button === 0;
+                    return md.button === btnFilter;
                 });
                 var mouseMove = Rx.Observable.fromEvent<any>(vc, "mousemove");
                 var mouseUp = Rx.Observable.fromEvent<any>(_doc, "mouseup");
@@ -273,7 +280,7 @@ declare var InteractiveDataDisplay: any;
                     var x0 = cs.screenToDataX(md.pageX - plotDiv.offset().left);
                     var y0 = -cs.screenToDataY(md.pageY - plotDiv.offset().top);
 
-                    return mouseMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(mouseUp);
+                    return mouseMove.select(function (mm) { return { x: x0, y: y0}; }).first().takeUntil(mouseUp);
                 });
 
 
@@ -287,7 +294,7 @@ declare var InteractiveDataDisplay: any;
                     var x0 = cs.screenToDataX(md.originalEvent.pageX - plotDiv.offset().left);
                     var y0 = -cs.screenToDataY(md.originalEvent.pageY - plotDiv.offset().top);
 
-                    return touchMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(touchEnd.merge(touchCancel));
+                    return touchMove.select(function (mm) { return { x: x0, y: y0}; }).first().takeUntil(touchEnd.merge(touchCancel));
                 });
 
                 return dragStarts.merge(touchDragStarts);
@@ -310,7 +317,8 @@ declare var InteractiveDataDisplay: any;
             }
 
             this._dragService = {
-                dragStart: createDragStartSubject(that._plot.centralPart),
+                dragStart: createDragStartSubject(that._plot.centralPart, 0),
+                dragStartRight: createDragStartSubject(that._plot.centralPart, 2),
                 drag: createPanSubject(that._plot.centralPart),
                 dragEnd: createDragEndSubject(that._plot.centralPart)
             };

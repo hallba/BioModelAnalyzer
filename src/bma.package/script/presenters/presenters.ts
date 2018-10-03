@@ -88,6 +88,7 @@ module BMA {
                 this.containerEditor = containerEditorDriver;
                 this.contextMenu = contextMenu;
                 this.exportservice = exportservice;
+                this.selectedType = "navigation";
 
                 this.stagingHighlight = {
                     variables: [], cell: undefined
@@ -134,7 +135,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
-                    if (that.selectedType === "selection") {
+                    if (that.selectedType === "navigation") {
                         if (that.stagingRect === undefined) {
                             var id = that.GetVariableAtPosition(args.x, args.y);
 
@@ -199,41 +200,6 @@ module BMA {
                                 }
                             }
                         }
-                    } else if (that.selectedType === "navigation") {
-                        var id = that.GetVariableAtPosition(args.x, args.y);
-                        if (id !== undefined) {
-
-                            if (that.editingId == that.variableEditedId)
-                                that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
-                            that.editingId = id;
-                            that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout,
-                                that.undoRedoPresenter.Current.model, id).model, that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
-                            that.variableEditor.Show(args.screenX, args.screenY);
-                            window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
-                            //if (that.isVariableEdited) {
-                            //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
-                            //    that.editingModel = undefined;
-                            //    that.isVariableEdited = false;
-                            //}
-                            //that.RefreshOutput();
-                        } else {
-                            var cid = that.GetContainerAtPosition(args.x, args.y);
-                            if (cid !== undefined) {
-                                if (that.editingId == that.variableEditedId)
-                                    that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
-                                that.editingId = cid;
-                                that.containerEditor.Initialize(that.undoRedoPresenter.Current.layout.GetContainerById(cid));
-                                that.containerEditor.Show(args.screenX, args.screenY);
-                                window.Commands.Execute("DrawingSurfaceContainerEditorOpened", undefined);
-                                //if (that.isVariableEdited) {
-                                //    //TODO: update appModel threw undoredopresenter
-                                //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
-                                //    that.editingModel = undefined;
-                                //    that.isVariableEdited = false;
-                                //}
-                                //that.RefreshOutput();
-                            }
-                        }
                     } else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
                         var id = that.GetVariableAtPosition(args.x, args.y);
                         if (id !== undefined) {
@@ -258,6 +224,43 @@ module BMA {
                         }
                     } else {
                         that.TryAddVariable(args.x, args.y, that.selectedType, undefined);
+                    }
+                });
+
+                window.Commands.On("DrawingSurfaceDoubleClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
+                    var id = that.GetVariableAtPosition(args.x, args.y);
+                    if (id !== undefined) {
+
+                        if (that.editingId == that.variableEditedId)
+                            that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
+                        that.editingId = id;
+                        that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout,
+                            that.undoRedoPresenter.Current.model, id).model, that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
+                        that.variableEditor.Show(args.screenX, args.screenY);
+                        window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
+                        //if (that.isVariableEdited) {
+                        //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
+                        //    that.editingModel = undefined;
+                        //    that.isVariableEdited = false;
+                        //}
+                        //that.RefreshOutput();
+                    } else {
+                        var cid = that.GetContainerAtPosition(args.x, args.y);
+                        if (cid !== undefined) {
+                            if (that.editingId == that.variableEditedId)
+                                that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
+                            that.editingId = cid;
+                            that.containerEditor.Initialize(that.undoRedoPresenter.Current.layout.GetContainerById(cid));
+                            that.containerEditor.Show(args.screenX, args.screenY);
+                            window.Commands.Execute("DrawingSurfaceContainerEditorOpened", undefined);
+                            //if (that.isVariableEdited) {
+                            //    //TODO: update appModel threw undoredopresenter
+                            //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
+                            //    that.editingModel = undefined;
+                            //    that.isVariableEdited = false;
+                            //}
+                            //that.RefreshOutput();
+                        }
                     }
                 });
 
@@ -392,86 +395,65 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceContextMenuOpening", (args) => {
+                    var x = that.driver.GetPlotX(args.left);
+                    var y = that.driver.GetPlotY(args.top);
 
-                    if (this.selectedType === "selection") {
+                    var id = that.GetVariableAtPosition(x, y);
+                    var containerId = that.GetContainerAtPosition(x, y);
+                    var relationship = that.GetRelationshipAtPosition(x, y);
+                    var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
 
-                        that.contextMenu.ShowMenuItems([
-                            { name: "Cut", isVisible: true },
-                            { name: "Copy", isVisible: true },
-                            { name: "Paste", isVisible: true },
-                            { name: "Delete", isVisible: true },
-                            { name: "Size", isVisible: false },
-                            { name: "ResizeCellTo1x1", isVisible: false },
-                            { name: "ResizeCellTo2x2", isVisible: false },
-                            { name: "ResizeCellTo3x3", isVisible: false },
-                            { name: "Type", isVisible: false },
-                            { name: "Activator", isVisible: false },
-                            { name: "Inhibitor", isVisible: false },
-                            { name: "Edit", isVisible: false }
-                        ]);
+                    var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
 
+                    var showPaste = that.clipboard !== undefined;
+                    if (showPaste === true) {
 
-                    } else {
-                        var x = that.driver.GetPlotX(args.left);
-                        var y = that.driver.GetPlotY(args.top);
-
-                        var id = that.GetVariableAtPosition(x, y);
-                        var containerId = that.GetContainerAtPosition(x, y);
-                        var relationship = that.GetRelationshipAtPosition(x, y);
-                        var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
-
-                        var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
-
-                        var showPaste = that.clipboard !== undefined;
-                        if (showPaste === true) {
-
-                            if (that.clipboard.Container !== undefined) {
-                                showPaste = that.CanAddContainer(that.clipboard.Container.Id, x, y, that.clipboard.Container.Size, that.clipboard.isCopy);
-                            } else {
-                                var variable = that.clipboard.Variables[0];
-                                showPaste = that.CanAddVariable(x, y, variable.m.Type, undefined);
-                            }
+                        if (that.clipboard.Container !== undefined) {
+                            showPaste = that.CanAddContainer(that.clipboard.Container.Id, x, y, that.clipboard.Container.Size, that.clipboard.isCopy);
+                        } else {
+                            var variable = that.clipboard.Variables[0];
+                            showPaste = that.CanAddVariable(x, y, variable.m.Type, undefined);
                         }
+                    }
 
-                        var canPaste = true;
-                        if (showPaste !== true && id === undefined && containerId === undefined && relationshipId === undefined) {
-                            showPaste = true;
-                            canPaste = false;
-                        }
+                    var canPaste = true;
+                    if (showPaste !== true && id === undefined && containerId === undefined && relationshipId === undefined) {
+                        showPaste = true;
+                        canPaste = false;
+                    }
 
-                        that.contextMenu.ShowMenuItems([
-                            { name: "Cut", isVisible: id !== undefined || containerId !== undefined },
-                            { name: "Copy", isVisible: id !== undefined || containerId !== undefined },
-                            { name: "Paste", isVisible: showPaste },
-                            { name: "Delete", isVisible: id !== undefined || containerId !== undefined || relationshipId !== undefined },
-                            { name: "Size", isVisible: containerId !== undefined },
-                            { name: "ResizeCellTo1x1", isVisible: true },
-                            { name: "ResizeCellTo2x2", isVisible: true },
-                            { name: "ResizeCellTo3x3", isVisible: true },
-                            { name: "Type", isVisible: relationshipId !== undefined },
-                            { name: "Activator", isVisible: true },
-                            { name: "Inhibitor", isVisible: true },
-                            { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
-                        ]);
+                    that.contextMenu.ShowMenuItems([
+                        { name: "Cut", isVisible: id !== undefined || containerId !== undefined },
+                        { name: "Copy", isVisible: id !== undefined || containerId !== undefined },
+                        { name: "Paste", isVisible: showPaste },
+                        { name: "Delete", isVisible: id !== undefined || containerId !== undefined || relationshipId !== undefined },
+                        { name: "Size", isVisible: containerId !== undefined },
+                        { name: "ResizeCellTo1x1", isVisible: true },
+                        { name: "ResizeCellTo2x2", isVisible: true },
+                        { name: "ResizeCellTo3x3", isVisible: true },
+                        { name: "Type", isVisible: relationshipId !== undefined },
+                        { name: "Activator", isVisible: true },
+                        { name: "Inhibitor", isVisible: true },
+                        { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
+                    ]);
 
-                        that.contextMenu.EnableMenuItems([
-                            { name: "Paste", isEnabled: canPaste },
-                            { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
-                            { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
-                        ]);
+                    that.contextMenu.EnableMenuItems([
+                        { name: "Paste", isEnabled: canPaste },
+                        { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
+                        { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
+                    ]);
 
-                        that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
+                    that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
 
-                        if (id !== undefined) {
-                            that.contextElement.id = id;
-                            that.contextElement.type = "variable";
-                        } else if (containerId !== undefined) {
-                            that.contextElement.id = containerId;
-                            that.contextElement.type = "container";
-                        } else if (relationshipId !== undefined) {
-                            that.contextElement.id = relationshipId;
-                            that.contextElement.type = "relationship";
-                        }
+                    if (id !== undefined) {
+                        that.contextElement.id = id;
+                        that.contextElement.type = "variable";
+                    } else if (containerId !== undefined) {
+                        that.contextElement.id = containerId;
+                        that.contextElement.type = "container";
+                    } else if (relationshipId !== undefined) {
+                        that.contextElement.id = relationshipId;
+                        that.contextElement.type = "relationship";
                     }
                 });
 
@@ -838,15 +820,19 @@ module BMA {
                             } else {
                                 that.navigationDriver.TurnNavigation(true);
                             }
-                        } else if (that.selectedType === "selection") {
-                            this.stagingRect = {
-                                x0: gesture.x,
-                                x1: gesture.x,
-                                y0: gesture.y,
-                                y1: gesture.y
-                            };
-                        }
+                        } 
                         this.stagingLine = undefined;
+                    });
+
+                dragSubject.dragStartRight.subscribe(
+                    (gesture) => {
+                        that.navigationDriver.TurnNavigation(false);
+                        this.stagingRect = {
+                            x0: gesture.x,
+                            x1: gesture.x,
+                            y0: gesture.y,
+                            y1: gesture.y
+                        };
                     });
 
                 dragSubject.drag.subscribe(
@@ -967,6 +953,8 @@ module BMA {
                             that.RefreshSelectedRelationships(affectedVariables);
                             that.RefreshOutput();
                             that.stagingRect = undefined;
+
+                            that.navigationDriver.TurnNavigation(true);
                         }
                     });
             }
