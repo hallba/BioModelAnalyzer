@@ -145,11 +145,12 @@ module BMA {
                                     that.selection.variables[id] = undefined;
                                 }
 
-                                that.RefreshSelectedRelationships();
+                                that.RefreshSelectedRelationships([id]);
                                 that.RefreshOutput();
                             } else {
                                 var cid = that.GetContainerAtPosition(args.x, args.y);
                                 if (cid !== undefined) {
+                                    var affectedVariables = [];
                                     //If selection doesn't contain that cell, select it and all its contents or clear from it otherwise
                                     if (that.selection.cells[cid] === undefined) {
                                         that.selection.cells[cid] = true;
@@ -159,6 +160,7 @@ module BMA {
                                             var variable = variables[i];
                                             if (variable.ContainerId === cid) {
                                                 that.selection.variables[variable.Id] = true;
+                                                affectedVariables.push(variable.Id);
                                             }
                                         }
                                     } else {
@@ -169,12 +171,31 @@ module BMA {
                                             var variable = variables[i];
                                             if (variable.ContainerId === cid) {
                                                 that.selection.variables[variable.Id] = undefined;
+                                                affectedVariables.push(variable.Id);
                                             }
                                         }
                                     }
 
-                                    that.RefreshSelectedRelationships();
+                                    that.RefreshSelectedRelationships(affectedVariables);
                                     that.RefreshOutput();
+                                } else {
+                                    var relationship = that.GetRelationshipAtPosition(args.x, args.y);
+                                    if (relationship !== undefined) {
+                                        var rid = relationship.Id;
+                                        if (that.selection.relationships[rid] === undefined) {
+                                            //select relationship and its edge variables
+                                            that.selection.relationships[rid] = true;
+                                            that.selection.variables[relationship.FromVariableId] = true;
+                                            that.selection.variables[relationship.ToVariableId] = true;
+
+                                            that.RefreshSelectedRelationships([relationship.FromVariableId, relationship.ToVariableId]);
+                                            that.RefreshOutput();
+                                        } else {
+                                            //unselect relationship
+                                            that.selection.relationships[rid] = undefined;
+                                            that.RefreshOutput();
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -396,7 +417,7 @@ module BMA {
 
                         var id = that.GetVariableAtPosition(x, y);
                         var containerId = that.GetContainerAtPosition(x, y);
-                        var relationship = that.GetRelationshipAtPosition(x, y, 3 * that.driver.GetPixelWidth());
+                        var relationship = that.GetRelationshipAtPosition(x, y);
                         var relationshipId = relationship !== undefined && relationship !== null ? relationship.Id : undefined;
 
                         var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
@@ -931,16 +952,19 @@ module BMA {
 
                             var variables = that.undoRedoPresenter.Current.layout.Variables;
 
+                            var affectedVariables = [];
                             for (var i = 0; i < variables.length; i++) {
                                 var v = variables[i];
 
                                 if (this.selection.variables[v.Id] === undefined) {
-                                    if (v.PositionX >= rect.x && v.PositionX <= rect.x + rect.width && v.PositionY >= rect.y && v.PositionY <= rect.y + rect.height)
+                                    if (v.PositionX >= rect.x && v.PositionX <= rect.x + rect.width && v.PositionY >= rect.y && v.PositionY <= rect.y + rect.height) {
                                         this.selection.variables[v.Id] = true;
+                                        affectedVariables.push(v.Id);
+                                    }
                                 }
                             }
 
-                            that.RefreshSelectedRelationships();
+                            that.RefreshSelectedRelationships(affectedVariables);
                             that.RefreshOutput();
                             that.stagingRect = undefined;
                         }
@@ -992,18 +1016,21 @@ module BMA {
                 this.RefreshOutput();
             }
 
-            private RefreshSelectedRelationships() {
+            private RefreshSelectedRelationships(affectedVariables: number[]) {
                 var relationships = this.undoRedoPresenter.Current.model.Relationships;
 
                 for (var i = 0; i < relationships.length; i++) {
                     var rel = relationships[i];
 
-                    this.selection.relationships[rel.Id] = undefined;
+                    //this.selection.relationships[rel.Id] = undefined;
 
                     //Checking if relationship should be selected
-                    if (this.selection.variables[rel.ToVariableId] !== undefined && this.selection.variables[rel.FromVariableId] !== undefined) {
-                        this.selection.relationships[rel.Id] = true;
-                    }
+                    if (affectedVariables.indexOf(rel.ToVariableId) > -1 || affectedVariables.indexOf(rel.FromVariableId) > -1)
+                        if (this.selection.variables[rel.ToVariableId] !== undefined && this.selection.variables[rel.FromVariableId] !== undefined) {
+                            this.selection.relationships[rel.Id] = true;
+                        } else {
+                            this.selection.relationships[rel.Id] = undefined;
+                        }
                 }
             }
 
@@ -1308,7 +1335,7 @@ module BMA {
                 return undefined;
             }
 
-            private GetRelationshipAtPosition(x: number, y: number, pixelWidth: number): BMA.Model.Relationship {
+            private GetRelationshipAtPosition(x: number, y: number): BMA.Model.Relationship {
                 var relationships = this.undoRedoPresenter.Current.model.Relationships;
                 var layout = this.undoRedoPresenter.Current.layout;
 
