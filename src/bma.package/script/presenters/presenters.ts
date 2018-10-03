@@ -434,7 +434,9 @@ module BMA {
                         { name: "Type", isVisible: relationshipId !== undefined },
                         { name: "Activator", isVisible: true },
                         { name: "Inhibitor", isVisible: true },
-                        { name: "Edit", isVisible: id !== undefined || containerId !== undefined }
+                        { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
+                        { name: "ClearSelection", isVisible: true }
+
                     ]);
 
                     that.contextMenu.EnableMenuItems([
@@ -455,6 +457,10 @@ module BMA {
                         that.contextElement.id = relationshipId;
                         that.contextElement.type = "relationship";
                     }
+                });
+
+                window.Commands.On("DrawingSurfaceClearSelection", (args) => {
+                    that.ClearSelection();
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {

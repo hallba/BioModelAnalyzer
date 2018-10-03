@@ -347,7 +347,8 @@ function loadScript(version) {
                 ],
                 uiIcon: "ui-icon-shuffle"
             },
-            { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" }
+            { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
+            { title: "Clear Selection", cmd: "ClearSelection", uiIcon: "ui-icon-trash" }
 
         ],
         beforeOpen: function (event, ui) {
