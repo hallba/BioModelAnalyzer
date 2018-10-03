@@ -495,6 +495,29 @@ function loadScript(version) {
     //    window.Commands.Execute("ClearSelection", undefined);
     //});
 
+    //adding listener to paste even to read data from clipboard
+    $(document).bind("paste", (e) => {
+        var data = (<any>e).clipboardData || (<any>window).clipboardData || (<any>e).originalEvent.clipboardData;
+        if (data !== undefined) {
+            var contents = data.getData('text/plain');
+            try {
+                var model = BMA.Model.ImportModelAndLayout(JSON.parse(contents));
+
+                var position = {
+                    screenX: e.pageX - $("#drawingSurceContainer").offset().left,
+                    screenY: e.pageY - $("#drawingSurceContainer").offset().top
+                };
+
+
+                window.Commands.Execute("DrawingSurfacePasteFromClipboard", { model: { model: model.Model, layout: model.Layout } });
+            }
+            catch (exc) {
+                console.log("error trying to read clipboard data: " + exc)
+            }
+        
+        }
+    });
+
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });

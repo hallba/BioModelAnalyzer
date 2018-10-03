@@ -313,8 +313,67 @@ module BMA {
             }
 
             return true;
+
         }
 
+        export function GetContainerFromGridCell(layout: BMA.Model.Layout, gridCell: { x: number; y: number }): BMA.Model.ContainerLayout {
+            var layouts = layout.Containers;
+            for (var i = 0; i < layouts.length; i++) {
+                if (layouts[i].PositionX <= gridCell.x && layouts[i].PositionX + layouts[i].Size > gridCell.x &&
+                    layouts[i].PositionY <= gridCell.y && layouts[i].PositionY + layouts[i].Size > gridCell.y) {
+                    return layouts[i];
+                }
+            }
+
+            return undefined;
+        }
+
+
+        export function GetConstantsFromGridCell(source: { model: BMA.Model.BioModel; layout: BMA.Model.Layout }, gridCell: { x: number; y: number }, grid: { x0: number; y0: number; xStep: number; yStep: number }): { container: BMA.Model.Variable; layout: BMA.Model.VariableLayout }[] {
+            var result = [];
+            var variables = source.model.Variables;
+            var variableLayouts = source.layout.Variables;
+            for (var i = 0; i < variables.length; i++) {
+                var variable = variables[i];
+                var variableLayout = variableLayouts[i];
+
+                if (variable.Type !== "Constant")
+                    continue;
+
+                var vGridCell = GetGridCell(variableLayout.PositionX, variableLayout.PositionY, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
+
+                if (gridCell.x === vGridCell.x && gridCell.y === vGridCell.y) {
+                    result.push({ variable: variable, variableLayout: variableLayout });
+                }
+            }
+            return result;
+        }
+
+        //Checks whether target cell is occupied or not in model
+        export function CheckIfTargetCellIsOccupied(model: { model: BMA.Model.BioModel; layout: BMA.Model.Layout }, targetCell: { x: number, y: number }, grid: { x0: number; y0: number; xStep: number; yStep: number }): boolean {
+            return GetContainerFromGridCell(model.layout, targetCell) !== undefined || GetConstantsFromGridCell(model, targetCell, grid).length > 0;
+        }
+
+        //Checks that fitTarget can be inserted into fitSource into target cell of fitSource without creation of an additional space
+        export function CheckModelFit(
+            fitSource: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
+            fitTarget: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
+            grid: { x0: number; y0: number; xStep: number; yStep: number },
+            targetCell: { x: number; y: number }): boolean {
+
+            var gridBBox = GetModelBoundingBox(fitTarget.layout, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
+            var gridBBoxHorCells = gridBBox.width / grid.xStep;
+            var gridBBoxVertCells = gridBBox.height / grid.yStep;
+
+            if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1) {
+                //TODO: insert logic here
+            }
+            else return true;
+
+            return false;
+        }
+
+        //Inserts target model into source model and returns merged result
         export function MergeModels(
             source: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
             target: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },

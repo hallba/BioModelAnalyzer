@@ -28,6 +28,8 @@ module BMA {
             private exportservice: BMA.UIDrivers.IExportService;
             private svg: any;
 
+            private currentGridCell: { x: number, y: number } = undefined;
+
             private xOrigin = 0;
             private yOrigin = 0;
             private xStep = 250;
@@ -128,6 +130,18 @@ module BMA {
 
                             var source = that.undoRedoPresenter.Current;
                             var merged = ModelHelper.MergeModels(source, motif.ModelSource, that.Grid, cell, that.variableIndex);
+                            that.variableIndex = merged.indexOffset + 1;
+                            that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
+                        }
+                    }
+                });
+
+                window.Commands.On("DrawingSurfacePasteFromClipboard", (args: { model: { model: BMA.Model.BioModel, layout: BMA.Model.Layout } }) => {
+                    if (this.currentGridCell !== undefined) {
+                        var cell = this.currentGridCell;
+                        if (that.IsGridCellOccupied(cell)) {
+                            var source = that.undoRedoPresenter.Current;
+                            var merged = ModelHelper.MergeModels(source, args.model, that.Grid, cell, that.variableIndex);
                             that.variableIndex = merged.indexOffset + 1;
                             that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
                         }
@@ -780,6 +794,8 @@ module BMA {
                         var x = gesture.x;
                         var y = gesture.y;
 
+                        this.currentGridCell = this.GetGridCell(x, y);
+
                         var id = that.GetVariableAtPosition(x, y);
                         this.stagingHighlight.variables[0] = id;
 
@@ -1397,6 +1413,11 @@ module BMA {
                         return;
                     }
                 }
+            }
+
+            private IsGridCellOccupied(cellForCheck: { x: number, y: number }): boolean {
+                var that = this;
+                return that.GetContainerFromGridCell(cellForCheck) !== undefined || that.GetConstantsFromGridCell(cellForCheck).length > 0;
             }
 
             private CanAddContainer(id: number, x: number, y: number, size: number, isCopy: boolean = false): boolean {
