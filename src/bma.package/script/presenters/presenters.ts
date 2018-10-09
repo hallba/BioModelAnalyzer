@@ -1031,7 +1031,7 @@ module BMA {
                 for (var i = 0; i < current.layout.Containers.length; i++) {
                     var cItem = current.layout.Containers[i];
                     if (this.selection.cells[cItem.Id] !== undefined) {
-                        cells.push(varItem);
+                        cells.push(cItem);
                     }
                 }
 
