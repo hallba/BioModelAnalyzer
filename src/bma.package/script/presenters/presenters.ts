@@ -139,7 +139,7 @@ module BMA {
                 window.Commands.On("DrawingSurfacePasteFromClipboard", (args: { model: { model: BMA.Model.BioModel, layout: BMA.Model.Layout } }) => {
                     if (this.currentGridCell !== undefined) {
                         var cell = this.currentGridCell;
-                        if (that.IsGridCellOccupied(cell)) {
+                        if (!that.IsGridCellOccupied(cell)) {
                             var source = that.undoRedoPresenter.Current;
                             var merged = ModelHelper.MergeModels(source, args.model, that.Grid, cell, that.variableIndex);
                             that.variableIndex = merged.indexOffset + 1;
@@ -419,6 +419,7 @@ module BMA {
 
                     var cntSize = containerId !== undefined ? that.undoRedoPresenter.Current.layout.GetContainerById(containerId).Size : undefined;
 
+                    /*
                     var showPaste = that.clipboard !== undefined;
                     if (showPaste === true) {
 
@@ -435,12 +436,16 @@ module BMA {
                         showPaste = true;
                         canPaste = false;
                     }
+                    */
+
+                    var isSelectionEmpty = that.selection.variables.length === 0;
+                    var canPaste = !that.IsGridCellOccupied(that.GetGridCell(x, y));
 
                     that.contextMenu.ShowMenuItems([
-                        { name: "Cut", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "Copy", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "Paste", isVisible: showPaste },
-                        { name: "Delete", isVisible: id !== undefined || containerId !== undefined || relationshipId !== undefined },
+                        { name: "Cut", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
+                        { name: "Copy", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
+                        { name: "Paste", isVisible: false /*canPaste*/ },
+                        { name: "Delete", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined || relationshipId !== undefined*/ },
                         { name: "Size", isVisible: containerId !== undefined },
                         { name: "ResizeCellTo1x1", isVisible: true },
                         { name: "ResizeCellTo2x2", isVisible: true },
@@ -454,7 +459,8 @@ module BMA {
                     ]);
 
                     that.contextMenu.EnableMenuItems([
-                        { name: "Paste", isEnabled: canPaste },
+                        //{ name: "Paste", isEnabled: canPaste },
+                        { name: "Delete", isEnabled: false },
                         { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
                         { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
                     ]);
@@ -478,6 +484,8 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
+
+                    /*
                     if (that.contextElement !== undefined) {
                         if (that.contextElement.type === "variable") {
                             that.RemoveVariable(that.contextElement.id);
@@ -489,6 +497,7 @@ module BMA {
 
                         that.contextElement = undefined;
                     }
+                    */
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
@@ -502,19 +511,32 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceCopy", (args) => {
+
+                    var toCopy = this.CreateSerializedModelFromSelection();
+                    ModelHelper.CopyToClipboard(toCopy);
+
+                    /*
                     if (that.selectedType === "selection") {
                         var toCopy = this.CreateSerializedModelFromSelection();
                         ModelHelper.CopyToClipboard(toCopy);
                     } else {
                         that.CopyToClipboard(false);
-                    }
+                    }*/
                 });
 
                 window.Commands.On("DrawingSurfaceCut", (args) => {
-                    that.CopyToClipboard(true);
+
+                    var toCut = this.CreateSerializedModelFromSelection();
+                    ModelHelper.CopyToClipboard(toCut);
+
+                    //that.CopyToClipboard(true);
                 });
 
                 window.Commands.On("DrawingSurfacePaste", (args) => {
+
+                    document.execCommand('Paste');
+
+                    /*
                     if (that.clipboard !== undefined) {
                         that.variableEditor.Hide();
                         if (that.clipboard.Container !== undefined) {
@@ -579,6 +601,7 @@ module BMA {
                     }
 
                     //that.clipboard = undefined;
+                    */
                 });
 
                 window.Commands.On("DrawingSurfaceResizeCell", (args) => {
@@ -1024,6 +1047,10 @@ module BMA {
             private ClearSelection() {
                 this.selection = { variables: [], cells: [], relationships: [] };
                 this.RefreshOutput();
+            }
+
+            private DeleteSelected() {
+                //TODO: implement
             }
 
             private RefreshSelectedRelationships(affectedVariables: number[]) {
