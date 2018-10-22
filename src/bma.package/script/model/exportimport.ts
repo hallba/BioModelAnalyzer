@@ -39,11 +39,63 @@ module BMA {
             return f;
         }
 
+        export function ExportBioModelPart(modelPart: BioModel, model: BioModel) {
+
+            function GetIdByName(id: number, name: string): string[] {
+                var results = model.Variables.filter(function (v2: Variable) {
+                    return v2.Name == name &&
+                        model.Relationships.some(function (r: Relationship) {
+                            return r.ToVariableId == id && r.FromVariableId == v2.Id;
+                            // || r.FromVariableId == id && r.ToVariableId == v2.Id
+                        });
+                });
+                if (results.length == 0) {
+                    var varName = "unnamed";
+                    for (var ind = 0; ind < model.Variables.length; ind++) {
+                        var vi = model.Variables[ind];
+                        if (vi.Id === id) {
+                            varName = vi.Name;
+                            break;
+                        }
+                    }
+                    if (varName === "")
+                        varName = "''";
+                    throw "Unknown variable " + name + " in formula for variable " + varName;
+                }
+                var res = [];
+                res = res.concat(results.map(x => x.Id.toString()));
+                return res;
+            }
+
+            return {
+                Name: modelPart.Name,
+                Variables: modelPart.Variables.map(v => {
+                    return {
+                        Name: v.Name, //this is required when ltl finds var by name
+                        Id: v.Id,
+                        RangeFrom: v.RangeFrom,
+                        RangeTo: v.RangeTo,
+                        Formula: MapVariableNames(v.Formula, name => GetIdByName(v.Id, name))
+                    }
+                }),
+                Relationships: modelPart.Relationships.map(r => {
+                    return {
+                        Id: r.Id,
+                        FromVariable: r.FromVariableId,
+                        ToVariable: r.ToVariableId,
+                        Type: r.Type
+                    }
+                })
+            }
+        }
+
         // Returns object whose JSON representation matches external format:
         // 1) Variables in formulas are identified by IDs
         // 2) Default function avg(pos)-avg(neg) is replaced with null formula
         export function ExportBioModel(model: BioModel) {
+            return ExportBioModelPart(model, model);
 
+            /*
             function GetIdByName(id: number, name: string): string[] {
                 var results = model.Variables.filter(function (v2: Variable) {
                     return v2.Name == name &&
@@ -90,45 +142,74 @@ module BMA {
                     }
                 })
             }
+            */
+        }
+
+        export function ExportLayout(model: BioModel, layout: Layout) {
+            return {
+                Variables: layout.Variables.map(v => {
+                    var mv = model.GetVariableById(v.Id);
+                    return {
+                        Id: v.Id,
+                        Name: mv.Name,
+                        Type: mv.Type,
+                        ContainerId: mv.ContainerId,
+                        PositionX: v.PositionX,
+                        PositionY: v.PositionY,
+                        CellX: v.CellX,
+                        CellY: v.CellY,
+                        Angle: v.Angle,
+                        Description: v.TFDescription,
+                    }
+                }),
+                Containers: layout.Containers.map(c => {
+                    return {
+                        Id: c.Id,
+                        Name: c.Name,
+                        Size: c.Size,
+                        PositionX: c.PositionX,
+                        PositionY: c.PositionY
+                    }
+                })
+            }
         }
 
         export function ExportModelAndLayout(model: BioModel, layout: Layout) {
             return {
                 Model: ExportBioModel(model),
-                Layout: {
-                    Variables: layout.Variables.map(v => {
-                        var mv = model.GetVariableById(v.Id);
-                        return {
-                            Id: v.Id,
-                            Name: mv.Name,
-                            Type: mv.Type,
-                            ContainerId: mv.ContainerId,
-                            PositionX: v.PositionX,
-                            PositionY: v.PositionY,
-                            CellX: v.CellX,
-                            CellY: v.CellY,
-                            Angle: v.Angle,
-                            Description: v.TFDescription,
-                        }
-                    }),
-                    Containers: layout.Containers.map(c => {
-                        return {
-                            Id: c.Id,
-                            Name: c.Name,
-                            Size: c.Size,
-                            PositionX: c.PositionX,
-                            PositionY: c.PositionY
-                        }
-                    })
-                }
+                Layout: ExportLayout(model, layout)
             }
         }
 
         export function ImportModelAndLayout(json: any) {
+            return ImportModelAndLayoutWithinModel(json, undefined, undefined);
+        }
+
+        export function ImportModelAndLayoutWithinModel(json: any, existingModel: BioModel, existingLayout: Layout) {
             var id = {};
             json.Layout.Variables.forEach(v => {
                 id[v.Id] = v;
             });
+
+            if (existingModel !== undefined && existingLayout !== undefined) {
+                for (var i = 0; i < existingModel.Variables.length; i++) {
+                    var mv = existingModel.Variables[i];
+                    var v = existingLayout.Variables[i];
+
+                    id[v.Id] = {
+                        Id: v.Id,
+                        Name: mv.Name,
+                        Type: mv.Type,
+                        ContainerId: mv.ContainerId,
+                        PositionX: v.PositionX,
+                        PositionY: v.PositionY,
+                        CellX: v.CellX,
+                        CellY: v.CellY,
+                        Angle: v.Angle,
+                        Description: v.TFDescription,
+                    }
+                }
+            }
 
             var model = new BioModel(json.Model.Name,
                 json.Model.Variables.map(v => new Variable(v.Id, id[v.Id].ContainerId, id[v.Id].Type, id[v.Id].Name, v.RangeFrom, v.RangeTo,

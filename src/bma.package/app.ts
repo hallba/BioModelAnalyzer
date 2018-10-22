@@ -501,7 +501,6 @@ function loadScript(version) {
         if (data !== undefined) {
             var contents = data.getData('text/plain');
             try {
-                var model = BMA.Model.ImportModelAndLayout(JSON.parse(contents));
 
                 var position = {
                     screenX: e.pageX - $("#drawingSurceContainer").offset().left,
@@ -509,7 +508,7 @@ function loadScript(version) {
                 };
 
 
-                window.Commands.Execute("DrawingSurfacePasteFromClipboard", { model: { model: model.Model, layout: model.Layout } });
+                window.Commands.Execute("DrawingSurfacePasteFromClipboard", { contents: JSON.parse(contents) });
             }
             catch (exc) {
                 console.log("error trying to read clipboard data: " + exc)
@@ -767,7 +766,7 @@ function loadScript(version) {
 
     //Loading presenters
     var undoRedoPresenter = new BMA.Presenters.UndoRedoPresenter(appModel, undoDriver, redoDriver);
-    var drawingSurfacePresenter = new BMA.Presenters.DesignSurfacePresenter(appModel, undoRedoPresenter, svgPlotDriver, svgPlotDriver, svgPlotDriver, variableEditorDriver, containerEditorDriver, contextMenuDriver, exportService, dragndropextender);
+    var drawingSurfacePresenter = new BMA.Presenters.DesignSurfacePresenter(appModel, undoRedoPresenter, svgPlotDriver, svgPlotDriver, svgPlotDriver, variableEditorDriver, containerEditorDriver, contextMenuDriver, exportService, dragndropextender, messagebox);
     var proofPresenter = new BMA.Presenters.ProofPresenter(appModel, proofViewer, popupDriver, proofAnalyzeService, messagebox, logService);
     var furtherTestingPresenter = new BMA.Presenters.FurtherTestingPresenter(appModel, furtherTestingDriver, popupDriver, furtherTestingServiсe, messagebox, logService);
     var simulationPresenter = new BMA.Presenters.SimulationPresenter(appModel, accordionHider, fullSimulationViewer, simulationViewer, popupDriver, simulationService, logService, exportService, messagebox);
@@ -827,7 +826,15 @@ function loadScript(version) {
 
     window.onunload = function () {
         window.localStorage.setItem(version_key, JSON.stringify(version));
-        window.localStorage.setItem(reserved_key, appModel.Serialize());
+
+        try {
+            var serialized = appModel.Serialize();
+            window.localStorage.setItem(reserved_key, serialized);
+        }
+        catch (exc) {
+            console.log("error trying to save current model to local storage: " + exc);
+        }
+
         var log = logService.CloseSession();
         var data = JSON.stringify({
             SessionID: log.SessionID,

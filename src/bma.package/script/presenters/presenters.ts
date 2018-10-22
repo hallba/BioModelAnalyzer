@@ -77,7 +77,8 @@ module BMA {
                 containerEditorDriver: BMA.UIDrivers.IContainerEditor,
                 contextMenu: BMA.UIDrivers.IContextMenu,
                 exportservice: BMA.UIDrivers.IExportService,
-                dragndropExtender: BMA.UIDrivers.IDragnDropExtender
+                dragndropExtender: BMA.UIDrivers.IDragnDropExtender,
+                messageBox: any /*BMA.UIDrivers.IMessageServiñe*/
             ) {
 
                 var that = this;
@@ -136,12 +137,13 @@ module BMA {
                     }
                 });
 
-                window.Commands.On("DrawingSurfacePasteFromClipboard", (args: { model: { model: BMA.Model.BioModel, layout: BMA.Model.Layout } }) => {
+                window.Commands.On("DrawingSurfacePasteFromClipboard", (args: { contents: any }) => {
                     if (this.currentGridCell !== undefined) {
                         var cell = this.currentGridCell;
                         if (!that.IsGridCellOccupied(cell)) {
                             var source = that.undoRedoPresenter.Current;
-                            var merged = ModelHelper.MergeModels(source, args.model, that.Grid, cell, that.variableIndex);
+                            var modelToMerge = BMA.Model.ImportModelAndLayoutWithinModel(args.contents, source.model, source.layout);
+                            var merged = ModelHelper.MergeModels(source, { model: modelToMerge.Model, layout: modelToMerge.Layout }, that.Grid, cell, that.variableIndex);
                             that.variableIndex = merged.indexOffset + 1;
                             that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
                         }
@@ -512,8 +514,13 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceCopy", (args) => {
 
-                    var toCopy = this.CreateSerializedModelFromSelection();
-                    ModelHelper.CopyToClipboard(toCopy);
+                    try {
+                        var toCopy = this.CreateSerializedModelFromSelection();
+                        ModelHelper.CopyToClipboard(toCopy);
+                    }
+                    catch (exc) {
+                        messageBox.Show("Unable to copy selection: " + exc);
+                    }
 
                     /*
                     if (that.selectedType === "selection") {
@@ -526,8 +533,13 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceCut", (args) => {
 
-                    var toCut = this.CreateSerializedModelFromSelection();
-                    ModelHelper.CopyToClipboard(toCut);
+                    try {
+                        var toCut = this.CreateSerializedModelFromSelection();
+                        ModelHelper.CopyToClipboard(toCut);
+                    }
+                    catch (exc) {
+                        messageBox.Show("Unable to cut selection: " + exc);
+                    }
 
                     //that.CopyToClipboard(true);
                 });
@@ -865,7 +877,7 @@ module BMA {
                             } else {
                                 that.navigationDriver.TurnNavigation(true);
                             }
-                        } 
+                        }
                         this.stagingLine = undefined;
                     });
 
@@ -1039,7 +1051,9 @@ module BMA {
                 var model = new BMA.Model.BioModel("clipboard model", variables, relationships);
                 var layout = new BMA.Model.Layout(cells, variablesLayouts);
 
-                var exported = BMA.Model.ExportModelAndLayout(model, layout);
+                var exported = {
+                    Model: BMA.Model.ExportBioModelPart(model, current.model), Layout: BMA.Model.ExportLayout(current.model, layout)
+                };
 
                 return JSON.stringify(exported);
             }
