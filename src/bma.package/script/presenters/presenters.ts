@@ -1032,7 +1032,13 @@ module BMA {
                 for (var i = 0; i < current.model.Variables.length; i++) {
                     var varItem = current.model.Variables[i];
                     if (this.selection.variables[varItem.Id] !== undefined) {
-                        variables.push(varItem);
+
+                        var newVariable = varItem;
+                        if (varItem.Type !== "Constant" && this.selection.cells[varItem.ContainerId] !== true) {
+                            newVariable = new BMA.Model.Variable(varItem.Id, 0, "Constant", varItem.Name, varItem.RangeFrom, varItem.RangeTo, varItem.Formula);
+                        }
+
+                        variables.push(newVariable);
                         variablesLayouts.push(current.layout.Variables[i]);
                     }
                 }
@@ -1056,7 +1062,7 @@ module BMA {
                 var layout = new BMA.Model.Layout(cells, variablesLayouts);
 
                 var exported = {
-                    Model: BMA.Model.ExportBioModelPart(model, current.model), Layout: BMA.Model.ExportLayout(current.model, layout)
+                    Model: BMA.Model.ExportBioModelPart(model, current.model), Layout: BMA.Model.ExportLayout(model, layout)
                 };
 
                 return JSON.stringify(exported);

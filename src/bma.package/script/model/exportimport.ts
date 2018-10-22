@@ -187,9 +187,6 @@ module BMA {
 
         export function ImportModelAndLayoutWithinModel(json: any, existingModel: BioModel, existingLayout: Layout) {
             var id = {};
-            json.Layout.Variables.forEach(v => {
-                id[v.Id] = v;
-            });
 
             if (existingModel !== undefined && existingLayout !== undefined) {
                 for (var i = 0; i < existingModel.Variables.length; i++) {
@@ -210,6 +207,10 @@ module BMA {
                     }
                 }
             }
+
+            json.Layout.Variables.forEach(v => {
+                id[v.Id] = v;
+            });
 
             var model = new BioModel(json.Model.Name,
                 json.Model.Variables.map(v => new Variable(v.Id, id[v.Id].ContainerId, id[v.Id].Type, id[v.Id].Name, v.RangeFrom, v.RangeTo,
