@@ -162,6 +162,7 @@ module BMA {
                                     that.selection.variables[id] = undefined;
                                 }
 
+                                that.RefreshSelectedContainers();
                                 that.RefreshSelectedRelationships([id]);
                                 that.RefreshOutput();
                             } else {
@@ -193,6 +194,7 @@ module BMA {
                                         }
                                     }
 
+                                    that.RefreshSelectedContainers();
                                     that.RefreshSelectedRelationships(affectedVariables);
                                     that.RefreshOutput();
                                 } else {
@@ -205,6 +207,7 @@ module BMA {
                                             that.selection.variables[relationship.FromVariableId] = true;
                                             that.selection.variables[relationship.ToVariableId] = true;
 
+                                            that.RefreshSelectedContainers();
                                             that.RefreshSelectedRelationships([relationship.FromVariableId, relationship.ToVariableId]);
                                             that.RefreshOutput();
                                         } else {
@@ -1007,6 +1010,7 @@ module BMA {
                                 }
                             }
 
+                            that.RefreshSelectedContainers();
                             that.RefreshSelectedRelationships(affectedVariables);
                             that.RefreshOutput();
                             that.stagingRect = undefined;
@@ -1065,6 +1069,35 @@ module BMA {
 
             private DeleteSelected() {
                 //TODO: implement
+            }
+
+            private RefreshSelectedContainers() {
+                var containers = this.undoRedoPresenter.Current.layout.Containers;
+                var variables = this.undoRedoPresenter.Current.model.Variables;
+
+                //Finding non empty containers
+                var containersWithCells = [];
+                for (var i = 0; i < variables.length; i++) {
+                    var v = variables[i];
+                    containersWithCells[v.ContainerId] = true;
+                }
+
+                //Selection all non-empty containers
+                for (var i = 0; i < containers.length; i++) {
+                    var cnt = containers[i];
+
+                    if (containersWithCells[cnt.Id])
+                        this.selection.cells[cnt.Id] = true;
+                }
+
+                //Unselection containers with unselected variables
+                for (var i = 0; i < variables.length; i++) {
+                    var v = variables[i];
+
+                    if (this.selection.variables[v.Id] === undefined) {
+                        this.selection.cells[v.ContainerId] = undefined;
+                    }
+                }
             }
 
             private RefreshSelectedRelationships(affectedVariables: number[]) {
