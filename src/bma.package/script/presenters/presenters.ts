@@ -42,7 +42,7 @@ module BMA {
             private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined; //Used for rendering variable while its being dragged
             private stagingContainer: any = undefined; //Used for rendering container while its being dragged
             private stagingRect = undefined; //Used for rendering of selection rectangle
-            private stagingOffset: { x: number; y: number; x0: number; y0: number } = undefined; //Offset for selection. Used when dragging selection
+            private stagingOffset: { x: number; y: number; x0: number; y0: number; model: BMA.Model.BioModel; layout: BMA.Model.Layout } = undefined; //Offset for selection. Used when dragging selection
             private stagingHighlight: {
                 variables: number[];
                 cell: number
@@ -872,7 +872,8 @@ module BMA {
                             if (that.selection.variables.length > 0) {
                                 //Dragging the selection
                                 that.navigationDriver.TurnNavigation(false);
-                                that.stagingOffset = { x: 0, y: 0, x0: gesture.x, y0: gesture.y };
+                                var selectionModel = that.CreateModelFromSelection();
+                                that.stagingOffset = { x: 0, y: 0, x0: gesture.x, y0: gesture.y, model: selectionModel.model, layout: selectionModel.layout };
                             } else {
                                 var id = this.GetVariableAtPosition(gesture.x, gesture.y);
                                 var containerId = this.GetContainerAtPosition(gesture.x, gesture.y);
@@ -971,7 +972,31 @@ module BMA {
                         }
 
                         if (this.stagingOffset !== undefined) {
-                            //TODO: try to perform drop of selecton under current drop location
+
+                            var current = that.undoRedoPresenter.Current;
+
+
+                            var xGridOffset = Math.round(Math.abs(this.stagingOffset.x - this.stagingOffset.x0) / this.Grid.xStep);
+                            if (this.stagingOffset.x < this.stagingOffset.x0) {
+                                xGridOffset = -xGridOffset;
+                            }
+                            var yGridOffset = Math.round(Math.abs(this.stagingOffset.y - this.stagingOffset.y0) / this.Grid.yStep);
+                            if (this.stagingOffset.y < this.stagingOffset.y0) {
+                                yGridOffset = -yGridOffset;
+                            }
+
+                            var gridOffset = {
+                                x: xGridOffset,
+                                y: yGridOffset
+                            }
+
+                            //console.log("grid offset: (" + gridOffset.x + ", " + gridOffset.y + ")");
+
+                            var updated = ModelHelper.TryMoveSelection(current.model, current.layout, this.stagingOffset.model, this.stagingOffset.layout, gridOffset, this.Grid);
+                            if (updated !== undefined) {
+                                that.undoRedoPresenter.Dup(updated.model, updated.layout);
+                            }
+
                             that.stagingOffset = undefined;
                             that.navigationDriver.TurnNavigation(true);
                         }
@@ -1961,14 +1986,12 @@ module BMA {
                 }
 
                 if (this.stagingOffset !== undefined) {
-                    var selectionModel = this.CreateModelFromSelection();
-
                     this.svg.clear();
                     var translate = {
                         x: this.stagingOffset.x - this.stagingOffset.x0,
                         y: this.stagingOffset.y - this.stagingOffset.y0
                     };
-                    ModelHelper.RenderSVG(this.svg, selectionModel.model, selectionModel.layout, this.Grid, { translate: translate });
+                    ModelHelper.RenderSVG(this.svg, this.stagingOffset.model, this.stagingOffset.layout, this.Grid, { translate: translate });
                 }
 
                 return $(this.svg.toSVG()).children();

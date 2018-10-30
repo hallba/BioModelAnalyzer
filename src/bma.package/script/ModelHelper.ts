@@ -7,6 +7,8 @@ module BMA {
             //Generating svg elements from model and layout
             var svgElements = [];
 
+            var translate = args === undefined ? undefined : args.translate;
+
             var containerLayouts = layout.Containers;
             for (var i = 0; i < containerLayouts.length; i++) {
                 var containerLayout = containerLayouts[i];
@@ -34,7 +36,7 @@ module BMA {
                     background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
                     isHighlighted: isHighlighted,
                     isSelected: isSelected,
-                    translate: args.translate
+                    translate: translate
                 }));
             }
 
@@ -88,7 +90,7 @@ module BMA {
                     labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
                     isHighlighted: isHighlighted,
                     isSelected: isSelected,
-                    translate: args.translate
+                    translate: translate
                 }));
             }
 
@@ -120,10 +122,9 @@ module BMA {
                     id: relationship.Id,
                     hasReverse: hasReverse,
                     isSelected: isSelected,
-                    translate: args.translate
+                    translate: translate
                 }));
             }
-
 
 
             //constructing final svg image
@@ -260,6 +261,13 @@ module BMA {
             return { x: cellX, y: cellY };
         }
 
+        //TODO: get rid of one of those methods
+        export function GetGridCell2(x: number, y: number, grid: { x0: number; y0: number; xStep: number; yStep: number }): { x: number; y: number } {
+            var cellX = Math.ceil((x - grid.x0) / grid.xStep) - 1;
+            var cellY = Math.ceil((y - grid.y0) / grid.yStep) - 1;
+            return { x: cellX, y: cellY };
+        }
+
         /*
         * Retrun cells which will occupied by container after its resize to @containerSize
         */
@@ -309,6 +317,40 @@ module BMA {
                     continue;
 
                 var vGridCell = GetGridCell(variableLayout.PositionX, variableLayout.PositionY, grid);
+
+                if (gridCell.x === vGridCell.x && gridCell.y === vGridCell.y) {
+                    return false;
+                }
+            }
+
+            return true;
+
+        }
+
+        //TODO: get rid of duplicant
+        export function IsGridCellEmpty2(gridCell: { x: number; y: number }, model: BMA.Model.BioModel, layout: BMA.Model.Layout, id: number, grid: { x0: number; y0: number; xStep: number; yStep: number }): boolean {
+            var layouts = layout.Containers;
+            for (var i = 0; i < layouts.length; i++) {
+                if (layouts[i].Id === id)
+                    continue;
+
+                if (layouts[i].PositionX <= gridCell.x && layouts[i].PositionX + layouts[i].Size > gridCell.x &&
+                    layouts[i].PositionY <= gridCell.y && layouts[i].PositionY + layouts[i].Size > gridCell.y) {
+                    return false;
+                }
+            }
+
+            var result = [];
+            var variables = model.Variables;
+            var variableLayouts = layout.Variables;
+            for (var i = 0; i < variables.length; i++) {
+                var variable = variables[i];
+                var variableLayout = variableLayouts[i];
+
+                if (variable.Type !== "Constant")
+                    continue;
+
+                var vGridCell = GetGridCell2(variableLayout.PositionX, variableLayout.PositionY, grid);
 
                 if (gridCell.x === vGridCell.x && gridCell.y === vGridCell.y) {
                     return false;
@@ -687,6 +729,176 @@ module BMA {
                 };
             }
         }
+
+        export function GetContainerGridCells(container: BMA.Model.ContainerLayout): { x: number, y: number }[] {
+            var result = [];
+            for (var i = 0; i < container.Size; i++) {
+                for (var j = 0; j < container.Size; j++) {
+                    var gridCell = {
+                        x: container.PositionX + i,
+                        y: container.PositionY + j
+                    };
+                    result.push(gridCell)
+                }
+            }
+
+            //console.log("Total grid cells for container count: " + result.length);
+
+            return result;
+        }
+
+        export function GetModelGridCells(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number; y0: number; xStep: number; yStep: number }): { x: number; y: number }[] {
+            var result = [];
+
+            var variables = layout.Variables;
+            for (var i = 0; i < variables.length; i++) {
+                var variable = variables[i];
+                var gridCell = GetGridCell2(variable.PositionX, variable.PositionY, grid);
+
+                if (result.indexOf(gridCell) === -1) {
+                    result.push(gridCell);
+                }
+            }
+
+            var containers = layout.Containers;
+            for (var i = 0; i < containers.length; i++) {
+                var container = containers[i];
+
+                var containerCells = GetContainerGridCells(container);
+                for (var j = 0; j < containerCells.length; j++) {
+                    var gridCell = containerCells[j];
+                    if (result.indexOf(gridCell) === -1) {
+                        result.push(gridCell);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        export function CutSubModel(model: BMA.Model.BioModel,
+            layout: BMA.Model.Layout,
+            selection: { variables: boolean[]; cells: boolean[]; relationships: boolean[]; }): { model: BMA.Model.BioModel, layout: BMA.Model.Layout } {
+
+            var variables = [];
+            var variableLayouts = [];
+            var relationships = [];
+            var containers = [];
+
+            for (var i = 0; i < model.Variables.length; i++) {
+                var variable = model.Variables[i];
+                if (selection.variables[variable.Id] !== true) {
+                    variables.push(variable);
+                    variableLayouts.push(layout.Variables[i]);
+                }
+            }
+
+            for (var i = 0; i < model.Relationships.length; i++) {
+                var rel = model.Relationships[i];
+                if (selection.relationships[rel.Id] !== true) {
+                    relationships.push(rel);
+                }
+            }
+
+            for (var i = 0; i < layout.Containers.length; i++) {
+                var cnt = layout.Containers[i];
+                if (selection.cells[cnt.Id] !== true) {
+                    containers.push(cnt);
+                }
+            }
+
+            var model = new BMA.Model.BioModel("cutted model", variables, relationships);
+            var layout = new BMA.Model.Layout(containers, variableLayouts);
+
+            return { model: model, layout: layout };
+        }
+
+        //Performs move for selected submodel inside source model usgin provided gridOffset. Returns modified model if it is possible and undefined otherwise.
+        export function TryMoveSelection(
+            model: BMA.Model.BioModel,
+            layout: BMA.Model.Layout,
+            selectedModel: BMA.Model.BioModel,
+            selectedLayout: BMA.Model.Layout,
+            gridOffset: { x: number; y: number },
+            grid: { x0: number; y0: number; xStep: number; yStep: number }): { model: BMA.Model.BioModel; layout: BMA.Model.Layout } {
+
+            var subModelSourceGridCells = GetModelGridCells(selectedModel, selectedLayout, grid);
+            var subModelTargetGridCells = [];
+
+            for (var i = 0; i < subModelSourceGridCells.length; i++) {
+                var gridCell = subModelSourceGridCells[i];
+                subModelTargetGridCells.push({ x: gridCell.x + gridOffset.x, y: gridCell.y + gridOffset.y });
+            }
+
+            var selection = { variables: [], cells: [], relationships: [] };
+            for (var i = 0; i < selectedModel.Variables.length; i++) {
+                selection.variables[selectedModel.Variables[i].Id] = true;
+            }
+            for (var i = 0; i < selectedModel.Relationships.length; i++) {
+                selection.relationships[selectedModel.Relationships[i].Id] = true;
+            }
+            for (var i = 0; i < selectedLayout.Containers.length; i++) {
+                selection.cells[selectedLayout.Containers[i].Id] = true;
+            }
+
+            var cutted = CutSubModel(model, layout, selection);
+
+            var canMove = true;
+            for (var i = 0; i < subModelTargetGridCells.length; i++) {
+                var gridCellToCheck = subModelTargetGridCells[i];
+                if (!IsGridCellEmpty2(gridCellToCheck, cutted.model, cutted.layout, undefined, grid)) {
+                    canMove = false;
+                    break;
+                }
+            }
+
+            if (canMove) {
+                var variables = [];
+                var variableLayouts = [];
+                var relationships = [];
+                var containers = [];
+
+                for (var i = 0; i < model.Variables.length; i++) {
+                    var variable = model.Variables[i];
+                    var variableLayout = layout.Variables[i];
+                    if (selection.variables[variable.Id] !== true) {
+                        variables.push(variable);
+                        variableLayouts.push(variableLayout);
+                    } else {
+                        variables.push(variable);
+
+                        var newVariableLayout =
+                            new BMA.Model.VariableLayout(
+                                variableLayout.Id,
+                                variableLayout.PositionX + gridOffset.x * grid.xStep,
+                                variableLayout.PositionY + gridOffset.y * grid.yStep,
+                                0,
+                                0,
+                                variableLayout.Angle);
+
+                        variableLayouts.push(newVariableLayout);
+                    }
+                }
+
+                for (var i = 0; i < layout.Containers.length; i++) {
+                    var cnt = layout.Containers[i];
+                    if (selection.cells[cnt.Id] !== true) {
+                        containers.push(cnt);
+                    } else {
+                        var newCnt = new BMA.Model.ContainerLayout(cnt.Id, cnt.Name, cnt.Size, cnt.PositionX + gridOffset.x, cnt.PositionY + gridOffset.y);
+                        containers.push(newCnt);
+                    }
+                }
+
+                var model = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
+                var layout = new BMA.Model.Layout(containers, variableLayouts);
+
+                return { model: model, layout: layout };
+            }
+
+            return undefined;
+        }
+
         /**
          * Calculate updated states array according to model and layout
          * 1) If variable was renamed, corresponding state would be updated
