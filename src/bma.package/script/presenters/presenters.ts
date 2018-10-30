@@ -444,7 +444,7 @@ module BMA {
                     }
                     */
 
-                    var isSelectionEmpty = that.selection.variables.length === 0;
+                    var isSelectionEmpty = that.IsSelectionEmpty();
                     var canPaste = !that.IsGridCellOccupied(that.GetGridCell(x, y));
 
                     that.contextMenu.ShowMenuItems([
@@ -868,8 +868,7 @@ module BMA {
                                 return;
                             }
                         } else if (that.selectedType === "navigation") {
-
-                            if (that.selection.variables.length > 0) {
+                            if (!that.IsSelectionEmpty()) {
                                 //Dragging the selection
                                 that.navigationDriver.TurnNavigation(false);
                                 var selectionModel = that.CreateModelFromSelection();
@@ -1153,6 +1152,23 @@ module BMA {
                     if (this.selection.variables[v.Id] === undefined) {
                         this.selection.cells[v.ContainerId] = undefined;
                     }
+                }
+            }
+
+            private IsSelectionEmpty(): boolean {
+                if (this.selection.variables.length === 0 && this.selection.cells.length === 0)
+                    return true;
+                else {
+                    for (var i = 0; i < this.selection.variables.length; i++) {
+                        if (this.selection.variables[i] === true)
+                            return false;
+                    }
+                    for (var i = 0; i < this.selection.cells.length; i++) {
+                        if (this.selection.cells[i] === true)
+                            return false;
+                    }
+
+                    return true;
                 }
             }
 
