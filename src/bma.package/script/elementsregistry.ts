@@ -385,8 +385,11 @@ module BMA {
                             return undefined;
                         jqSvg.clear();
 
+                        //Checking additional global offset
+                        var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                         var g = jqSvg.group({
-                            transform: "translate(" + renderParams.layout.PositionX + ", " + renderParams.layout.PositionY + ")",
+                            transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
                         var pathFill = "#BBBDBF";
@@ -478,8 +481,11 @@ module BMA {
                             return undefined;
                         jqSvg.clear();
 
+                        //Checking additional global offset
+                        var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                         var g = jqSvg.group({
-                            transform: "translate(" + renderParams.layout.PositionX + ", " + renderParams.layout.PositionY + ")",
+                            transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
                         var pathFill = "#EF4137";
@@ -551,8 +557,11 @@ module BMA {
                             return undefined;
                         jqSvg.clear();
 
+                        //Checking additional global offset
+                        var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                         var g = jqSvg.group({
-                            transform: "translate(" + renderParams.layout.PositionX + ", " + renderParams.layout.PositionY + ")",
+                            transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
                         var angle = 0;
@@ -659,13 +668,16 @@ module BMA {
                             return undefined;
                         jqSvg.clear();
 
+                        //Checking additional global offset
+                        var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                         var lineRef = undefined;
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
 
-                            var x0 = renderParams.layout.start.PositionX;
-                            var y0 = renderParams.layout.start.PositionY;
+                            var x0 = renderParams.layout.start.PositionX + translate.x;
+                            var y0 = renderParams.layout.start.PositionY + translate.y;
                             var w = that.variableWidthConstant * 0.7;
                             var h = that.variableHeightConstant * 0.7;
                             var ew = w * 0.6;
@@ -696,13 +708,13 @@ module BMA {
                             var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * that.relationshipBboxOffset * that.relationshipBboxOffset + dir.y * dir.y * that.relationshipBboxOffset * that.relationshipBboxOffset);
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset + translate.y
                             };
 
                             if (isRevers) {
@@ -781,13 +793,16 @@ module BMA {
                             return undefined;
                         jqSvg.clear();
 
+                        //Checking additional global offset
+                        var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                         var lineRef = undefined;
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
 
-                            var x0 = renderParams.layout.start.PositionX;
-                            var y0 = renderParams.layout.start.PositionY;
+                            var x0 = renderParams.layout.start.PositionX + translate.x;
+                            var y0 = renderParams.layout.start.PositionY + translate.y;
                             var w = that.variableWidthConstant * 0.7;
                             var h = that.variableHeightConstant * 0.7;
                             var ew = w * 0.6;
@@ -825,13 +840,13 @@ module BMA {
 
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset + translate.y
                             };
 
                             if (isRevers) {

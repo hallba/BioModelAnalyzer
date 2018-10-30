@@ -37,11 +37,12 @@ module BMA {
 
             private variableIndex = 1;
 
-            private stagingLine = undefined;
+            private stagingLine = undefined; //Used for rendering relationship during its creation process
             private stagingGroup = undefined;
-            private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined;
-            private stagingContainer: any = undefined;
-            private stagingRect = undefined;
+            private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined; //Used for rendering variable while its being dragged
+            private stagingContainer: any = undefined; //Used for rendering container while its being dragged
+            private stagingRect = undefined; //Used for rendering of selection rectangle
+            private stagingOffset: { x: number; y: number; x0: number; y0: number } = undefined; //Offset for selection. Used when dragging selection
             private stagingHighlight: {
                 variables: number[];
                 cell: number
@@ -550,7 +551,7 @@ module BMA {
                 window.Commands.On("DrawingSurfacePaste", (args) => {
 
                     document.execCommand('Paste');
-
+                    //document.execCommand('Paste');
                     /*
                     if (that.clipboard !== undefined) {
                         that.variableEditor.Hide();
@@ -867,18 +868,25 @@ module BMA {
                                 return;
                             }
                         } else if (that.selectedType === "navigation") {
-                            var id = this.GetVariableAtPosition(gesture.x, gesture.y);
-                            var containerId = this.GetContainerAtPosition(gesture.x, gesture.y);
-                            if (id !== undefined) {
+
+                            if (that.selection.variables.length > 0) {
+                                //Dragging the selection
                                 that.navigationDriver.TurnNavigation(false);
-                                var vl = ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id);
-                                that.stagingVariable = { model: vl.model, layout: vl.layout };
-                            } else if (containerId !== undefined) {
-                                that.navigationDriver.TurnNavigation(false);
-                                var cl = that.undoRedoPresenter.Current.layout.GetContainerById(containerId);
-                                that.stagingContainer = { container: cl };
+                                that.stagingOffset = { x: 0, y: 0, x0: gesture.x, y0: gesture.y };
                             } else {
-                                that.navigationDriver.TurnNavigation(true);
+                                var id = this.GetVariableAtPosition(gesture.x, gesture.y);
+                                var containerId = this.GetContainerAtPosition(gesture.x, gesture.y);
+                                if (id !== undefined) {
+                                    that.navigationDriver.TurnNavigation(false);
+                                    var vl = ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout, that.undoRedoPresenter.Current.model, id);
+                                    that.stagingVariable = { model: vl.model, layout: vl.layout };
+                                } else if (containerId !== undefined) {
+                                    that.navigationDriver.TurnNavigation(false);
+                                    var cl = that.undoRedoPresenter.Current.layout.GetContainerById(containerId);
+                                    that.stagingContainer = { container: cl };
+                                } else {
+                                    that.navigationDriver.TurnNavigation(true);
+                                }
                             }
                         }
                         this.stagingLine = undefined;
@@ -909,6 +917,10 @@ module BMA {
                             }
 
                             return;
+                        } else if (that.stagingOffset !== undefined) {
+                            that.stagingOffset.x = gesture.x1;
+                            that.stagingOffset.y = gesture.y1;
+                            that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         } else if (that.stagingVariable !== undefined) {
                             var vrbl = that.stagingVariable.model;
                             var id = vrbl.Id;
@@ -956,6 +968,12 @@ module BMA {
                             that.TryAddStagingLineAsLink();
                             that.stagingLine = undefined;
                             that.RefreshOutput();
+                        }
+
+                        if (this.stagingOffset !== undefined) {
+                            //TODO: try to perform drop of selecton under current drop location
+                            that.stagingOffset = undefined;
+                            that.navigationDriver.TurnNavigation(true);
                         }
 
                         if (that.stagingVariable !== undefined) {
@@ -1020,14 +1038,13 @@ module BMA {
                     });
             }
 
-            private CreateSerializedModelFromSelection(): string {
+            private CreateModelFromSelection(): { model: BMA.Model.BioModel; layout: BMA.Model.Layout } {
                 var variables = [];
                 var variablesLayouts = [];
                 var cells = [];
                 var relationships = [];
 
                 var current = this.undoRedoPresenter.Current;
-
 
                 for (var i = 0; i < current.model.Variables.length; i++) {
                     var varItem = current.model.Variables[i];
@@ -1061,8 +1078,16 @@ module BMA {
                 var model = new BMA.Model.BioModel("clipboard model", variables, relationships);
                 var layout = new BMA.Model.Layout(cells, variablesLayouts);
 
+                return { model: model, layout: layout };
+            }
+
+            private CreateSerializedModelFromSelection(): string {
+
+                var selectionModel = this.CreateModelFromSelection();
+                var current = this.undoRedoPresenter.Current;
+
                 var exported = {
-                    Model: BMA.Model.ExportBioModelPart(model, current.model), Layout: BMA.Model.ExportLayout(model, layout)
+                    Model: BMA.Model.ExportBioModelPart(selectionModel.model, current.model), Layout: BMA.Model.ExportLayout(selectionModel.model, selectionModel.layout)
                 };
 
                 return JSON.stringify(exported);
@@ -1933,6 +1958,17 @@ module BMA {
                     var variable = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var rad = 1.3 * 35 / 2;
                     this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                }
+
+                if (this.stagingOffset !== undefined) {
+                    var selectionModel = this.CreateModelFromSelection();
+
+                    this.svg.clear();
+                    var translate = {
+                        x: this.stagingOffset.x - this.stagingOffset.x0,
+                        y: this.stagingOffset.y - this.stagingOffset.y0
+                    };
+                    ModelHelper.RenderSVG(this.svg, selectionModel.model, selectionModel.layout, this.Grid, { translate: translate });
                 }
 
                 return $(this.svg.toSVG()).children();

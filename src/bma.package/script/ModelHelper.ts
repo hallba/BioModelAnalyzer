@@ -33,7 +33,8 @@ module BMA {
                     grid: grid,
                     background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
                     isHighlighted: isHighlighted,
-                    isSelected: isSelected
+                    isSelected: isSelected,
+                    translate: args.translate
                 }));
             }
 
@@ -86,7 +87,8 @@ module BMA {
                     valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
                     labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
                     isHighlighted: isHighlighted,
-                    isSelected: isSelected
+                    isSelected: isSelected,
+                    translate: args.translate
                 }));
             }
 
@@ -117,7 +119,8 @@ module BMA {
                     grid: grid,
                     id: relationship.Id,
                     hasReverse: hasReverse,
-                    isSelected: isSelected
+                    isSelected: isSelected,
+                    translate: args.translate
                 }));
             }
 
