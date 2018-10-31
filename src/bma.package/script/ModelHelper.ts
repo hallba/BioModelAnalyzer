@@ -750,13 +750,24 @@ module BMA {
         export function GetModelGridCells(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number; y0: number; xStep: number; yStep: number }): { x: number; y: number }[] {
             var result = [];
 
+            //Matrix for cheching for already collected cells, [x,y] = true means that that cell is already added to result
+            var contained = [];
+
             var variables = layout.Variables;
+            
             for (var i = 0; i < variables.length; i++) {
                 var variable = variables[i];
                 var gridCell = GetGridCell2(variable.PositionX, variable.PositionY, grid);
 
-                if (result.indexOf(gridCell) === -1) {
+                if (contained[gridCell.x] === undefined) {
                     result.push(gridCell);
+                    contained[gridCell.x] = [];
+                    contained[gridCell.x][gridCell.y] = true;
+                } else {
+                    if (contained[gridCell.x][gridCell.y] !== true) {
+                        result.push(gridCell);
+                        contained[gridCell.x][gridCell.y] = true;
+                    }
                 }
             }
 
@@ -767,12 +778,21 @@ module BMA {
                 var containerCells = GetContainerGridCells(container);
                 for (var j = 0; j < containerCells.length; j++) {
                     var gridCell = containerCells[j];
-                    if (result.indexOf(gridCell) === -1) {
+
+                    if (contained[gridCell.x] === undefined) {
                         result.push(gridCell);
+                        contained[gridCell.x] = [];
+                        contained[gridCell.x][gridCell.y] = true;
+                    } else {
+                        if (contained[gridCell.x][gridCell.y] !== true) {
+                            result.push(gridCell);
+                            contained[gridCell.x][gridCell.y] = true;
+                        }
                     }
                 }
             }
 
+            //console.log("model grid cells count: " + result.length);
             return result;
         }
 

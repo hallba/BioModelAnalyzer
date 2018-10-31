@@ -868,7 +868,7 @@ module BMA {
                                 return;
                             }
                         } else if (that.selectedType === "navigation") {
-                            if (!that.IsSelectionEmpty()) {
+                            if (!that.IsSelectionEmpty() && that.IsCursorWithinSelection(gesture.x, gesture.y)) {
                                 //Dragging the selection
                                 that.navigationDriver.TurnNavigation(false);
                                 var selectionModel = that.CreateModelFromSelection();
@@ -1060,6 +1060,24 @@ module BMA {
                             that.navigationDriver.TurnNavigation(true);
                         }
                     });
+            }
+
+            private IsCursorWithinSelection(x: number, y: number): boolean {
+                var selectedModel = this.CreateModelFromSelection();
+                var gridCells = ModelHelper.GetModelGridCells(selectedModel.model, selectedModel.layout, this.Grid);
+
+                var cursorGridCell = this.GetGridCell(x, y);
+
+                if (gridCells.length > 0) {
+                    for (var i = 0; i < gridCells.length; i++) {
+                        var gc = gridCells[i];
+                        if (gc.x === cursorGridCell.x && gc.y === cursorGridCell.y)
+                            return true;
+                    }
+                    return false;
+                } else {
+                    return false;
+                }
             }
 
             private CreateModelFromSelection(): { model: BMA.Model.BioModel; layout: BMA.Model.Layout } {
