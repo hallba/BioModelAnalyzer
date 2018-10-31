@@ -450,7 +450,7 @@ module BMA {
                     that.contextMenu.ShowMenuItems([
                         { name: "Cut", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
                         { name: "Copy", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
-                        { name: "Paste", isVisible: false /*canPaste*/ },
+                        { name: "Paste", isVisible: canPaste },
                         { name: "Delete", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined || relationshipId !== undefined*/ },
                         { name: "Size", isVisible: containerId !== undefined },
                         { name: "ResizeCellTo1x1", isVisible: true },
@@ -465,7 +465,7 @@ module BMA {
                     ]);
 
                     that.contextMenu.EnableMenuItems([
-                        //{ name: "Paste", isEnabled: canPaste },
+                        { name: "Paste", isEnabled: canPaste },
                         { name: "Delete", isEnabled: false },
                         { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
                         { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
@@ -549,9 +549,31 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfacePaste", (args) => {
+                    if (navigator !== undefined && (<any>navigator).clipboard !== undefined) {
+                        (<any>navigator).clipboard.readText()
+                            .then(text => {
 
-                    document.execCommand('Paste');
-                    //document.execCommand('Paste');
+                                try {
+                                    var cell = that.GetGridCell(that.contextElement.x, that.contextElement.y);
+                                    if (!that.IsGridCellOccupied(cell)) {
+                                        var source = that.undoRedoPresenter.Current;
+                                        var modelToMerge = BMA.Model.ImportModelAndLayoutWithinModel(JSON.parse(text), source.model, source.layout);
+                                        var merged = ModelHelper.MergeModels(source, { model: modelToMerge.Model, layout: modelToMerge.Layout }, that.Grid, cell, that.variableIndex);
+                                        that.variableIndex = merged.indexOffset + 1;
+                                        that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
+                                    }
+                                }
+                                catch (exc) {
+                                    console.log('Failed to read clipboard contents: ' + exc);
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Failed to read clipboard contents: ', err);
+                            });
+                    } else {
+                        document.execCommand('Paste');
+                    }
+
                     /*
                     if (that.clipboard !== undefined) {
                         that.variableEditor.Hide();
@@ -1061,6 +1083,32 @@ module BMA {
                         }
                     });
             }
+
+            //private ValidateClipboardContent(): boolean {
+            //    var that = this;
+            //    if (navigator !== undefined && (<any>navigator).clipboard !== undefined) {
+            //        var isOk = false;
+            //        var x = await (<any>navigator).clipboard.readText()
+            //            .then(text => {
+
+            //                try {
+            //                    var source = that.undoRedoPresenter.Current;
+            //                    var modelToMerge = BMA.Model.ImportModelAndLayoutWithinModel(JSON.parse(text), source.model, source.layout);
+            //                    isOk = true;
+            //                }
+            //                catch (exc) {
+            //                    console.log('Failed to read clipboard contents: ' + exc);
+            //                }
+            //            })
+            //            .catch(err => {
+            //                console.error('Failed to read clipboard contents: ', err);
+            //            });
+
+            //        return isOk;
+            //    } else {
+            //        return false;
+            //    }
+            //}
 
             private IsCursorWithinSelection(x: number, y: number): boolean {
                 var selectedModel = this.CreateModelFromSelection();
