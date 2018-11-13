@@ -455,7 +455,7 @@ module BMA {
             var gridBBoxVertCells = gridBBox.height / grid.yStep;
 
 
-            if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1) {
+            if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1 && !CheckModelFit(source, target, grid, targetCell)) {
                 //Creating extra empty space inside model before insertion
                 for (var i = 0; i < containerLayouts.length; i++) {
                     var cnt = containerLayouts[i];

@@ -1195,6 +1195,11 @@ module BMA {
 
             private DeleteSelected() {
                 var that = this;
+
+                if (that.selection.variables[that.editingId] === true || that.selection.cells[that.editingId] || that.selection.relationships[that.editingId]) {
+                    this.editingId = undefined;
+                }
+
                 var variables = [];
                 var variableLayouts = [];
                 var containers = [];
