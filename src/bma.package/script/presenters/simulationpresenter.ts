@@ -123,21 +123,6 @@ module BMA {
                         return;
                     }
 
-                    var invalidVariables = BMA.ModelHelper.CheckVariablesInModel(that.appModel.BioModel);
-                    if (invalidVariables !== undefined && invalidVariables.length > 0) {
-                        var message = "Incorrect target functions for variables: ";
-                        message += invalidVariables[0].name;
-                        for (var i = 1; i < invalidVariables.length; i++) {
-                            message += ", " + invalidVariables[i].name;
-                        }
-
-                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Invalid Model", message: message } });
-                        that.expandedViewer.ActiveMode();
-                        that.simulationStatus = "Ended";
-                        that.simulationAccordeon.ContentLoaded("#icon2", true);
-                        return;
-                    }
-
                     if (that.CurrentModelChanged()) {
                         that.simulationAccordeon.ContentLoaded("#icon2", false);
                         that.expandedSimulationVariables = undefined;

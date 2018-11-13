@@ -80,6 +80,14 @@ module BMA {
                         }
                     }
 
+                    var formula = variable.Formula;
+                    if (formula !== "") {
+                        try {
+                            var parsedFormula = BMA.TFParser.parse(formula);
+                        } catch (ex) {
+                            errorRecord.errors.push(ex)
+                        }
+                    }
                 }
 
                 if (errorRecord.errors.length > 0)

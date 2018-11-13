@@ -988,23 +988,6 @@ module BMA {
                         return;
                     }
 
-                    var invalidVariables = BMA.ModelHelper.CheckVariablesInModel(that.appModel.BioModel);
-                    if (invalidVariables !== undefined && invalidVariables.length > 0) {
-                        var message = "Incorrect target functions for variables: ";
-                        message += invalidVariables[0].name;
-                        for (var i = 1; i < invalidVariables.length; i++) {
-                            message += ", " + invalidVariables[i].name;
-                        }
-                        driver.SetStatus("nottested", "Incorrect Model: " + message);
-                        operation.AnalysisStatus = "nottested";
-                        operation.Tag.data = undefined;
-                        operation.Tag.negdata = undefined;
-                        operation.Tag.steps = driver.GetSteps();
-                        domplot.updateLayout();
-                        that.OnOperationsChanged(false);
-                        return;
-                    }
-
                     var proofInput = {
                         "Name": model.Name,
                         "Relationships": model.Relationships,

@@ -445,6 +445,23 @@ module BMA {
                             }
                         }
 
+                        if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                            var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
+                            jqSvg.text(g, 0, 0, "!", {
+                                transform: transform,
+                                "font-size": 10,
+                                "font-family": textFontFamily,
+                                "src": textFontSrc,
+                                "fill": "red"
+                            });
+                            jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
+                                transform: transform,
+                                "src": textFontSrc,
+                                "stroke": "red",
+                                "fill": "transparent"
+                            });
+                        }
+
                         /*
                         //Helper bounding box
                         jqSvg.rect(

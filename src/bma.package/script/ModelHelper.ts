@@ -80,6 +80,18 @@ module BMA {
                     sizeCoef = container.Size;
                     gridCell = { x: container.PositionX, y: container.PositionY };
                 }
+
+                var isValid = true;
+                if (args !== undefined && args.errors !== undefined) {
+                    for (var j = 0; j < args.errors.length; j++) {
+                        var er = args.errors[j];
+                        if (er.variable.Id === variable.Id) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+
                 svgElements.push(element.RenderToSvg({
                     model: variable,
                     layout: variableLayout,
@@ -90,6 +102,7 @@ module BMA {
                     labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
                     isHighlighted: isHighlighted,
                     isSelected: isSelected,
+                    isValid: isValid,
                     translate: translate
                 }));
             }
@@ -1521,36 +1534,6 @@ module BMA {
             //}
 
             return newState;
-        }
-
-        //Returns list of variables with incorrect target functions
-        export function CheckVariablesInModel(model: BMA.Model.BioModel): any[] {
-            var result = [];
-            var variables = model.Variables;
-            var relationships = model.Relationships;
-            for (var i = 0; i < variables.length; i++) {
-                var variable = variables[i];
-
-                var connectedVariables = [];
-                for (var j = 0; j < relationships.length; j++) {
-                    var rel = relationships[j];
-                    if (rel.ToVariableId === variable.Id) {
-                        connectedVariables.push(model.GetVariableById(rel.FromVariableId));
-                    }
-                }
-                var formula = variable.Formula;
-                if (formula !== "") {
-                    try {
-                        var parsedFormula = BMA.TFParser.parse(formula);
-                    } catch (ex) {
-                        result.push({
-                            name: variable.Name, error: ex
-                        });
-                    }
-                }
-            }
-
-            return result;
         }
 
         // May return false if it failed, but this is not always
