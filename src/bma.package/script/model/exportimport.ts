@@ -41,6 +41,7 @@ module BMA {
 
         export function ExportBioModelPart(modelPart: BioModel, model: BioModel) {
 
+            
             function GetIdByName(id: number, name: string): string[] {
                 var results = model.Variables.filter(function (v2: Variable) {
                     return v2.Name == name &&
@@ -50,6 +51,19 @@ module BMA {
                         });
                 });
                 if (results.length == 0) {
+
+                    var nonConnectedResults = model.Variables.filter(function (v2: Variable) {
+                        return v2.Name == name
+                    });
+                    if (nonConnectedResults.length == 0) {
+                        return [name];
+                    } else {
+                        var ncres = [];
+                        ncres = ncres.concat(nonConnectedResults.map(x => x.Id.toString()));
+                        return ncres;
+                    }
+
+                    /*
                     var varName = "unnamed";
                     for (var ind = 0; ind < model.Variables.length; ind++) {
                         var vi = model.Variables[ind];
@@ -61,11 +75,15 @@ module BMA {
                     if (varName === "")
                         varName = "''";
                     throw "Unknown variable " + name + " in formula for variable " + varName;
+                    */
+
+                } else {
+                    var res = [];
+                    res = res.concat(results.map(x => x.Id.toString()));
+                    return res;
                 }
-                var res = [];
-                res = res.concat(results.map(x => x.Id.toString()));
-                return res;
             }
+            
 
             return {
                 Name: modelPart.Name,
@@ -212,9 +230,18 @@ module BMA {
                 id[v.Id] = v;
             });
 
+            //We do this for support of old models wihch were saved with variable ids instead of names
+            var modelMapper = (s) => {
+                var vId = parseInt(s);
+                if (isNaN(vId))
+                    return s;
+                else
+                    return id[parseInt(s)].Name;
+            };
+
             var model = new BioModel(json.Model.Name,
                 json.Model.Variables.map(v => new Variable(v.Id, id[v.Id].ContainerId, id[v.Id].Type, id[v.Id].Name, v.RangeFrom, v.RangeTo,
-                    MapVariableNames(v.Formula, s => id[parseInt(s)].Name))),
+                    MapVariableNames(v.Formula, modelMapper))),
                 json.Model.Relationships.map(r => new Relationship(r.Id, r.FromVariable, r.ToVariable, r.Type)));
 
 
