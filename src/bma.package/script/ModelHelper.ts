@@ -1052,7 +1052,9 @@ module BMA {
                         }
                         newModel = new BMA.Model.BioModel(newModel.Name, newVariables, newRelations);
                     }
-                } else if (editingVariableIndex != -1) {
+                }
+                //We do not edit variables formula automatically as we allow to save "broken" variables now
+                /*else if (editingVariableIndex != -1) {
                     var oldName = variables[editingVariableIndex].Name;
                     var ids = BMA.ModelHelper.FindAllRelationships(variableId, oldModel.Relationships);
                     var newVariables = [];
@@ -1086,7 +1088,7 @@ module BMA {
                         );
                     }
                     newModel = new BMA.Model.BioModel(newModel.Name, newVariables, newRelations);
-                }
+                }*/
             }
 
             return newModel;

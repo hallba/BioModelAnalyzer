@@ -451,7 +451,7 @@ module BMA {
                         { name: "Cut", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
                         { name: "Copy", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
                         { name: "Paste", isVisible: canPaste },
-                        { name: "Delete", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined || relationshipId !== undefined*/ },
+                        { name: "Delete", isVisible: !isSelectionEmpty || id !== undefined || containerId !== undefined || relationshipId !== undefined },
                         { name: "Size", isVisible: containerId !== undefined },
                         { name: "ResizeCellTo1x1", isVisible: true },
                         { name: "ResizeCellTo2x2", isVisible: true },
@@ -466,7 +466,7 @@ module BMA {
 
                     that.contextMenu.EnableMenuItems([
                         { name: "Paste", isEnabled: canPaste },
-                        { name: "Delete", isEnabled: false },
+                        //{ name: "Delete", isEnabled: false },
                         { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
                         { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
                     ]);
@@ -491,19 +491,23 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
 
-                    /*
-                    if (that.contextElement !== undefined) {
-                        if (that.contextElement.type === "variable") {
-                            that.RemoveVariable(that.contextElement.id);
-                        } else if (that.contextElement.type === "relationship") {
-                            that.RemoveRelationship(that.contextElement.id);
-                        } else if (that.contextElement.type === "container") {
-                            that.RemoveContainer(that.contextElement.id);
-                        }
+                    if (that.IsSelectionEmpty()) {
+                        if (that.contextElement !== undefined) {
+                            if (that.contextElement.type === "variable") {
+                                that.RemoveVariable(that.contextElement.id);
+                            } else if (that.contextElement.type === "relationship") {
+                                that.RemoveRelationship(that.contextElement.id);
+                            } else if (that.contextElement.type === "container") {
+                                that.RemoveContainer(that.contextElement.id);
+                            }
 
-                        that.contextElement = undefined;
+                            that.contextElement = undefined;
+                        }
                     }
-                    */
+                    else {
+                        //TODO: remove selection from model
+                    }
+                    
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
@@ -1502,26 +1506,26 @@ module BMA {
 
                 if (wasRemoved === true) {
                     //updating formula
-                    var fromVariable = model.GetVariableById(fromId);
-                    var newVars = [];
-                    for (var i = 0; i < model.Variables.length; i++) {
-                        var oldFormula = model.Variables[i].Formula;
-                        var newFormula = undefined;
-                        if (model.Variables[i].Id == toId) {
-                            newFormula = oldFormula.replace(new RegExp("var\\(" + fromVariable.Name + "\\)", 'g'), "");
-                        }
-                        newVars.push(new BMA.Model.Variable(
-                            model.Variables[i].Id,
-                            model.Variables[i].ContainerId,
-                            model.Variables[i].Type,
-                            model.Variables[i].Name,
-                            model.Variables[i].RangeFrom,
-                            model.Variables[i].RangeTo,
-                            newFormula === undefined ? oldFormula : newFormula)
-                        );
-                    }
+                    //var fromVariable = model.GetVariableById(fromId);
+                    //var newVars = [];
+                    //for (var i = 0; i < model.Variables.length; i++) {
+                    //    var oldFormula = model.Variables[i].Formula;
+                    //    var newFormula = undefined;
+                    //    if (model.Variables[i].Id == toId) {
+                    //        newFormula = oldFormula.replace(new RegExp("var\\(" + fromVariable.Name + "\\)", 'g'), "");
+                    //    }
+                    //    newVars.push(new BMA.Model.Variable(
+                    //        model.Variables[i].Id,
+                    //        model.Variables[i].ContainerId,
+                    //        model.Variables[i].Type,
+                    //        model.Variables[i].Name,
+                    //        model.Variables[i].RangeFrom,
+                    //        model.Variables[i].RangeTo,
+                    //        newFormula === undefined ? oldFormula : newFormula)
+                    //    );
+                    //}
 
-                    var newmodel = new BMA.Model.BioModel(model.Name, newVars, newRels);
+                    var newmodel = new BMA.Model.BioModel(model.Name, model.Variables, newRels);
                     var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables);
                     this.undoRedoPresenter.Dup(newmodel, newlayout);
                 }
