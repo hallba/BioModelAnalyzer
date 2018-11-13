@@ -10,7 +10,7 @@ module BMA {
             private undoButton: BMA.UIDrivers.ITurnableButton;
             private redoButton: BMA.UIDrivers.ITurnableButton;
 
-            private maxStackCount = 10;
+            private maxStackCount = 50;
 
             constructor(appModel: BMA.Model.AppModel,
                 undoButton: BMA.UIDrivers.ITurnableButton,

@@ -131,8 +131,13 @@ module BMA {
                     if (that.tool.IsInRepo(key)) {
                         that.tool.LoadModel(key).done(function (result) {
                             that.driver.Message("");
-                            appModel.Deserialize(JSON.stringify(result));
-                            that.checker.Snapshot(that.appModel);
+                            try {
+                                appModel.Deserialize(JSON.stringify(result));
+                                that.checker.Snapshot(that.appModel);
+                            } catch (ex) {
+                                that.driver.Message("Unable to desserialize model from storage: " + ex);
+                                appModel.CreateNew();
+                            }
                         }).fail(function (result) {
                             var res = JSON.parse(JSON.stringify(result));
                             that.driver.Message(res);

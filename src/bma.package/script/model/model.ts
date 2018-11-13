@@ -150,6 +150,16 @@ module BMA {
                 window.Commands.Execute("ModelReset", undefined);
             }
 
+            public CreateNew() {
+                this.model = new BMA.Model.BioModel("model 1", [], []);
+                this.layout = new BMA.Model.Layout([], []);
+                this.states = [];
+                this.operations = [];
+                this.operationAppearances = [];
+                this.proofResult = undefined;
+                window.Commands.Execute("ModelReset", undefined);
+            }
+
             public Deserialize(serializedModel: string) {
 
                 if (serializedModel !== undefined && serializedModel !== null) {

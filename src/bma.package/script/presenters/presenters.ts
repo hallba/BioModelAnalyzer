@@ -505,7 +505,39 @@ module BMA {
                         }
                     }
                     else {
-                        //TODO: remove selection from model
+
+                        var variables = [];
+                        var variableLayouts = [];
+                        var containers = [];
+                        var relationships = [];
+                        var current = that.undoRedoPresenter.Current;
+                        for (var i = 0; i < current.model.Variables.length; i++) {
+                            var v = current.model.Variables[i];
+                            var vl = current.layout.Variables[i];
+                            if (that.selection.variables[v.Id] !== true) {
+                                variables.push(v);
+                                variableLayouts.push(vl);
+                            } 
+                        }
+
+                        for (var i = 0; i < current.model.Relationships.length; i++) {
+                            var r = current.model.Relationships[i];
+                            if (that.selection.relationships[r.Id] !== true && that.selection.variables[r.FromVariableId] !== true && that.selection.variables[r.ToVariableId] !== true) {
+                                relationships.push(r);
+                            }
+                        }
+
+                        for (var i = 0; i < current.layout.Containers.length; i++) {
+                            var cnt = current.layout.Containers[i];
+                            if (that.selection.cells[cnt.Id] !== true) {
+                                containers.push(cnt);
+                            }
+                        }
+
+                        this.selection = { variables: [], cells: [], relationships: [] };
+                        var newmodel = new BMA.Model.BioModel(current.model.Name, variables, relationships);
+                        var newlayout = new BMA.Model.Layout(containers, variableLayouts);
+                        that.undoRedoPresenter.Dup(newmodel, newlayout);
                     }
                     
                 });
