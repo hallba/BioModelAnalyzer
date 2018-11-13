@@ -960,6 +960,19 @@ module BMA {
 
                     var formula = BMA.LTLOperations.GetLTLServiceProcessingFormula(operation.Operation);
 
+
+                    var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
+                    if (errors !== undefined) {
+                        driver.SetStatus("nottested", "Incorrect Model: " + BMA.Model.CreateVariablesErrorReport(errors));
+                        operation.AnalysisStatus = "nottested";
+                        operation.Tag.data = undefined;
+                        operation.Tag.negdata = undefined;
+                        operation.Tag.steps = driver.GetSteps();
+                        domplot.updateLayout();
+                        that.OnOperationsChanged(false);
+                        return;
+                    } 
+
                     var model;
                     try {
                         model = BMA.Model.ExportBioModel(that.appModel.BioModel);

@@ -3,6 +3,96 @@
 module BMA {
     export module Model {
 
+
+        export function CreateVariablesErrorReport(errors: { variable: BMA.Model.Variable; errors: string[] }[]): string {
+            var resultContainer = $("<div></div>");
+
+            $("<div>There were one of more errors for the following variables:</div>").appendTo(resultContainer);
+
+            for (var i = 0; i < errors.length; i++) {
+                $("<div>" + errors[i].variable.Name + "</div>").css("margin-left", 5).appendTo(resultContainer);
+                for (var j = 0; j < errors[i].errors.length; j++) {
+                    $("<div>" + errors[i].errors[j] + "</div>").css("margin-left", 10).appendTo(resultContainer);
+                }
+            }
+
+            return resultContainer.prop('outerHTML');
+        }
+
+        //Checks formula for each variable in model and returns all errors for each variable as string array
+        export function CheckModelVariables(model: BMA.Model.BioModel, layout: BMA.Model.Layout): { variable: BMA.Model.Variable; errors: string[] }[] {
+            var result = [];
+
+            for (var i = 0; i < model.Variables.length; i++) {
+                var variable = model.Variables[i];
+
+                var errorRecord = {
+                    variable: variable,
+                    errors: []
+                };
+
+                var f = variable.Formula;
+                if (f.toLowerCase() == "avg(pos)-avg(neg)")
+                    continue;
+                else {
+
+                    // Getting variable names which are referenced in formula
+                    var referencedNames = [];
+                    var varPrefix = "var(";
+                    var startPos = 0;
+                    var index: number;
+                    while ((index = f.indexOf(varPrefix, startPos)) >= 0) {
+                        var endIndex = f.indexOf(")", index);
+                        if (endIndex < 0)
+                            break;
+                        var varName = f.substring(index + varPrefix.length, endIndex);
+
+                        if (referencedNames.indexOf(varName) === -1) {
+                            referencedNames.push(varName);
+                        }
+
+                        startPos = index + 1;
+                    }
+
+                    //Checking referenced variables
+                    if (referencedNames.length > 0) {
+                        for (var j = 0; j < referencedNames.length; j++) {
+                            var refVarName = referencedNames[j];
+
+                            //1. Check that variable with such name exists in model
+                            var results = model.Variables.filter(function (v2: Variable) {
+                                return v2.Name == refVarName
+                            });
+                            if (results.length === 0)
+                                errorRecord.errors.push("Referenced variable " + refVarName + " doesn't exist in model");
+                            else {
+                                //2. Check that variable with such name is connected with this variable via relationship
+                                var results2 = model.Variables.filter(function (v2: Variable) {
+                                    return v2.Name == refVarName &&
+                                        model.Relationships.some(function (r: Relationship) {
+                                            return r.ToVariableId == variable.Id && r.FromVariableId == v2.Id;
+                                        });
+                                });
+                                if (results2.length === 0) {
+                                    errorRecord.errors.push("Referenced variable " + refVarName + " doesn't have connection with this variable");
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                if (errorRecord.errors.length > 0)
+                    result.push(errorRecord);
+
+            }
+
+            if (result.length === 0) {
+                return undefined;
+            } else
+                return result;
+        }
+
         export function MapVariableNames(f: string, mapper: (string) => string[]) {
             var namestory = {};
             if (f !== undefined && f != null) {
@@ -41,7 +131,7 @@ module BMA {
 
         export function ExportBioModelPart(modelPart: BioModel, model: BioModel) {
 
-            
+
             function GetIdByName(id: number, name: string): string[] {
                 var results = model.Variables.filter(function (v2: Variable) {
                     return v2.Name == name &&
@@ -83,7 +173,7 @@ module BMA {
                     return res;
                 }
             }
-            
+
 
             return {
                 Name: modelPart.Name,
@@ -139,7 +229,7 @@ module BMA {
                 res = res.concat(results.map(x => x.Id.toString()));
                 return res;
             }
-
+ 
             return {
                 Name: model.Name,
                 Variables: model.Variables.map(v => {
@@ -487,7 +577,7 @@ module BMA {
                     if (obj.operator && obj.operator.name)
                         op.Operator = window.OperatorsRegistry.GetOperatorByName(obj.operator.name);
                     else throw "Operation must have name of operator";
-                    return op;                    
+                    return op;
                 case "TrueKeyframe":
                     return new BMA.LTLOperations.TrueKeyframe();
                 case "OscillationKeyframe":
@@ -496,7 +586,7 @@ module BMA {
                     return new BMA.LTLOperations.SelfLoopKeyframe();
                 default:
                     break;
-                
+
             }
 
             return undefined;

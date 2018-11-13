@@ -81,6 +81,16 @@ module BMA {
                 window.Commands.On("RunSimulation", function (param) {
                     that.expandedViewer.StandbyMode();
                     that.ClearPlot(param.data);
+
+                    var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
+                    if (errors !== undefined) {
+                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Simulate Error", message: BMA.Model.CreateVariablesErrorReport(errors) } });
+                        that.expandedViewer.ActiveMode();
+                        that.simulationStatus = "Ended";
+                        that.simulationAccordeon.ContentLoaded("#icon2", true);
+                        return;
+                    } 
+
                     try {
                         var stableModel = BMA.Model.ExportBioModel(that.appModel.BioModel);
                         var variables = that.ConvertParam(param.data);
@@ -98,6 +108,13 @@ module BMA {
                 });
 
                 window.Commands.On("SimulationRequested", function (args) {
+
+                    var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
+                    if (errors !== undefined) {
+                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Invalid Model", message: BMA.Model.CreateVariablesErrorReport(errors) } });
+                        return;
+                    } 
+
                     try {
                         var stableModel = BMA.Model.ExportBioModel(that.appModel.BioModel);
                     }

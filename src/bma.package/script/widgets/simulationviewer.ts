@@ -21,7 +21,7 @@
                 var errTitle = $('<div></div>').addClass('proof-state').appendTo(that.errorDiv);
                 $('<img src="../../images/failed.svg">').appendTo(errTitle);
                 $('<div></div>').addClass('stabilize-failed').text(that.options.error.title).appendTo(errTitle);
-                $('<p></p>').text(that.options.error.message).appendTo(that.errorDiv);
+                $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
             } else {
                 that.errorDiv.hide();
             }
