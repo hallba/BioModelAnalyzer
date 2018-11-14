@@ -105,7 +105,7 @@ module BMA {
                 svgPlotDriver.SetGrid(this.xOrigin, this.yOrigin, this.xStep, this.yStep);
 
                 window.Commands.On("ClearSelection", () => {
-                    that.ClearSelection();
+                    that.ClearSelection(true);
                 });
 
                 window.Commands.On('SaveSVG', () => {
@@ -117,6 +117,7 @@ module BMA {
                     that.selectedType = type;
                     that.navigationDriver.TurnNavigation(type === "navigation");
                     that.stagingLine = undefined;
+                    that.ClearSelection(true);
                     //this.selectedType = this.selectedType === type ? undefined : type;
                     //this.driver.TurnNavigation(this.selectedType === undefined);
                 });
@@ -486,7 +487,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceClearSelection", (args) => {
-                    that.ClearSelection();
+                    that.ClearSelection(true);
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
@@ -700,6 +701,7 @@ module BMA {
                             }
 
                             if (args.status === "Set") {
+                                this.ClearSelection(false);
                                 this.ResetVariableIdIndex();
                                 var center = this.GetLayoutCentralPoint();
 
@@ -1188,9 +1190,10 @@ module BMA {
                 return JSON.stringify(exported);
             }
 
-            private ClearSelection() {
+            private ClearSelection(withRefresh: boolean) {
                 this.selection = { variables: [], cells: [], relationships: [] };
-                this.RefreshOutput();
+                if (withRefresh)
+                    this.RefreshOutput();
             }
 
             private DeleteSelected() {
@@ -1228,7 +1231,7 @@ module BMA {
                     }
                 }
 
-                this.selection = { variables: [], cells: [], relationships: [] };
+                this.ClearSelection(false);
                 var newmodel = new BMA.Model.BioModel(current.model.Name, variables, relationships);
                 var newlayout = new BMA.Model.Layout(containers, variableLayouts);
                 that.undoRedoPresenter.Dup(newmodel, newlayout);
