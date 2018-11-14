@@ -282,7 +282,7 @@ module BMA {
         }
 
         /*
-        * Retrun cells which will occupied by container after its resize to @containerSize
+        * Return cells which will occupied by container after its resize to @containerSize
         */
         export function GetContainerExtraCells(container: BMA.Model.ContainerLayout, containerSize: number): { x: number; y: number }[] {
             var result = [];
@@ -424,11 +424,19 @@ module BMA {
             var gridBBoxVertCells = gridBBox.height / grid.yStep;
 
             if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1) {
-                //TODO: insert logic here
+                var targetGridCells = GetModelGridCells(fitTarget.model, fitTarget.layout, grid);
+                for (var i = 0; i < targetGridCells.length; i++) {
+                    var cellToCheck = {
+                        x: targetGridCells[i].x - gridBBox.x / grid.xStep + targetCell.x,
+                        y: targetGridCells[i].y - gridBBox.y / grid.yStep + targetCell.y
+                    }
+                    if (!IsGridCellEmpty2(cellToCheck, fitSource.model, fitSource.layout, undefined, grid))
+                        return false;
+                }
+
+                return true;
             }
             else return true;
-
-            return false;
         }
 
         //Inserts target model into source model and returns merged result
@@ -455,7 +463,7 @@ module BMA {
             var gridBBoxVertCells = gridBBox.height / grid.yStep;
 
 
-            if (gridBBoxHorCells > 1 || gridBBoxVertCells > 1 && !CheckModelFit(source, target, grid, targetCell)) {
+            if (!CheckModelFit(source, target, grid, targetCell)) {
                 //Creating extra empty space inside model before insertion
                 for (var i = 0; i < containerLayouts.length; i++) {
                     var cnt = containerLayouts[i];
