@@ -197,7 +197,7 @@ declare var InteractiveDataDisplay: any;
                     prevent = false;
                 }, delay);
             });
-
+            
             plotDiv.dblclick(function (arg) {
                 clearTimeout(timer);
                 prevent = true;

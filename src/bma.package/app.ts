@@ -497,7 +497,10 @@ function loadScript(version) {
 
     //adding listener to paste even to read data from clipboard
     $(document).bind("paste", (e) => {
-        var data = (<any>e).clipboardData || (<any>window).clipboardData || (<any>e).originalEvent.clipboardData;
+        var data = (<any>e).clipboardData || (<any>window).clipboardData;
+        if (data === undefined && e.originalEvent !== undefined) {
+            data = (<any>e).originalEvent.clipboardData;
+        }
         if (data !== undefined) {
             var contents = data.getData('text/plain');
             try {
@@ -513,13 +516,25 @@ function loadScript(version) {
             catch (exc) {
                 console.log("error trying to read clipboard data: " + exc)
             }
-        
+
         }
     });
 
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });
+
+    $(document).keydown(function (evt) {
+        if (evt.ctrlKey === true) {
+            if (evt.keyCode === 90) {
+                /* Ctrl+Z is pressed */
+                window.Commands.Execute("Undo", undefined);
+            } else if (evt.keyCode === 89) {
+                /* Ctrl+Y is pressed */
+                window.Commands.Execute("Redo", undefined);
+            }
+        }
+    });
 
     //disabling default context menu from browser
     $("#btn-onedrive-switcher").contextmenu(function () {

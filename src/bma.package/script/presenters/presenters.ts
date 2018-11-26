@@ -451,7 +451,7 @@ module BMA {
                     that.contextMenu.ShowMenuItems([
                         { name: "Cut", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
                         { name: "Copy", isVisible: !isSelectionEmpty/*id !== undefined || containerId !== undefined*/ },
-                        { name: "Paste", isVisible: canPaste },
+                        { name: "Paste", isVisible: canPaste && ModelHelper.CanReadFromClipboard() },
                         { name: "Delete", isVisible: !isSelectionEmpty || id !== undefined || containerId !== undefined || relationshipId !== undefined },
                         { name: "Size", isVisible: containerId !== undefined },
                         { name: "ResizeCellTo1x1", isVisible: true },
@@ -555,6 +555,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfacePaste", (args) => {
+
                     if (navigator !== undefined && (<any>navigator).clipboard !== undefined) {
                         (<any>navigator).clipboard.readText()
                             .then(text => {
@@ -577,8 +578,10 @@ module BMA {
                                 console.error('Failed to read clipboard contents: ', err);
                             });
                     } else {
-                        document.execCommand('Paste');
+                        //$(document).trigger("paste");
+                        document.execCommand("Paste");
                     }
+                    
 
                     /*
                     if (that.clipboard !== undefined) {

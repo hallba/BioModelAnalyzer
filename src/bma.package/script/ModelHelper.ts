@@ -1571,5 +1571,9 @@ module BMA {
             }
         }
 
+        export function CanReadFromClipboard() {
+            return ((<any>window).clipboardData && (<any>window).clipboardData.getData) || (<any>navigator).clipboard !== undefined;
+        }
+
     }
 } 
