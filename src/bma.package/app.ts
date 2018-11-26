@@ -329,7 +329,7 @@ function loadScript(version) {
         menu: [
             { title: "Cut", cmd: "Cut", uiIcon: "ui-icon-scissors" },
             { title: "Copy", cmd: "Copy", uiIcon: "ui-icon-copy" },
-            { title: "Paste", cmd: "Paste", uiIcon: "ui-icon-clipboard" },
+            { title: "Paste", cmd: "Paste", uiIcon: "ui-icon-document-b" },
             { title: "Edit", cmd: "Edit", uiIcon: "ui-icon-pencil" },
 
             {
@@ -348,7 +348,7 @@ function loadScript(version) {
                 uiIcon: "ui-icon-shuffle"
             },
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
-            { title: "Clear Selection", cmd: "ClearSelection", uiIcon: "ui-icon-trash" }
+            { title: "Clear Selection", cmd: "ClearSelection", uiIcon: "ui-icon-clipboard" }
 
         ],
         beforeOpen: function (event, ui) {

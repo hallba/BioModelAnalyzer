@@ -461,7 +461,7 @@ module BMA {
                         { name: "Activator", isVisible: true },
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "ClearSelection", isVisible: true }
+                        { name: "ClearSelection", isVisible: !isSelectionEmpty }
 
                     ]);
 
