@@ -508,7 +508,7 @@ module BMA {
                     else {
                         that.DeleteSelected();
                     }
-                    
+
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
@@ -583,7 +583,7 @@ module BMA {
                         //$(document).trigger("paste");
                         //document.execCommand("Paste");
                     }
-                    
+
 
                     /*
                     if (that.clipboard !== undefined) {
@@ -869,12 +869,35 @@ module BMA {
 
                         this.currentGridCell = this.GetGridCell(x, y);
 
+                        var grid = this.Grid;
+
+                        var thickness = Math.max(grid.xStep, grid.yStep) / 20;
+
+                        var rect = {
+                            x: this.currentGridCell.x * grid.xStep + grid.x0,
+                            y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0),
+                            width: grid.xStep,
+                            height: grid.yStep,
+                            fill: "rgba(0,255,255,0.1)" 
+                        };
+
+                        var rect2 = {
+                            x: this.currentGridCell.x * grid.xStep + grid.x0 + thickness,
+                            y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0) + thickness,
+                            width: grid.xStep - 2 * thickness,
+                            height: grid.yStep - 2 * thickness,
+                            fill: "white"
+                        };
+
+
                         var id = that.GetVariableAtPosition(x, y);
                         this.stagingHighlight.variables[0] = id;
 
                         if (that.svg !== undefined) {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         }
+
+                        that.driver.DrawRects([rect, rect2]);
                     }
                 );
 
