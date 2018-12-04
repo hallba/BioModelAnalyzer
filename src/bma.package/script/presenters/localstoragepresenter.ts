@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Research 2016
 // License: MIT. See LICENSE
 module BMA {
+    declare var JSZip: any;
+    declare var saveAs: any;
+
     export module Presenters {
         export class LocalStoragePresenter {
             private appModel: BMA.Model.AppModel;
@@ -85,6 +88,30 @@ module BMA {
                     catch (ex) {
                         that.driver.Message("Couldn't save model: " + ex);
                     }
+                });
+
+                window.Commands.On("ExportLocalModelsZip", function () {
+                    tool.GetModels().done(function (res) {
+
+                        var zip = new JSZip();
+                        for (var i = 0; i < res.length; i++) {
+                            var json = res[i];
+                            var name = json['Model'].Name;
+
+                            zip.file(name + ".json", JSON.stringify(json));
+                        }
+
+                        // Generate the zip file asynchronously
+                        zip.generateAsync({ type: "blob" })
+                            .then(function (content) {
+                                // Force down of the Zip file
+                                saveAs(content, "localModels.zip");
+                            });
+
+
+                    }).fail(function (err) {
+                        messagebox.Show("Failed to load list of local models: " + err);
+                    });
                 });
 
                 that.driver.SetOnCopyToOneDriveCallback(function (key) {

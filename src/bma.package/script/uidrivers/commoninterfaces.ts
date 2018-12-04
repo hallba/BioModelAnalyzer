@@ -189,6 +189,7 @@ module BMA {
 
         export interface IModelRepository {
             GetModelList(): JQueryPromise<string[]>;
+            GetModels(): JQueryPromise<JSON[]>;
             LoadModel(id: string): JQueryPromise<JSON>;
             RemoveModel(id: string);
             SaveModel(id: string, model: JSON);

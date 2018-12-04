@@ -85,6 +85,25 @@ module BMA {
             return p;
         }
 
+        public GetModels(): JQueryPromise<JSON[]> {
+            var deffered = $.Deferred();
+            var that = this;
+
+            var models = [];
+            for (var i = 0; i < window.localStorage.length; i++) {
+                var key = window.localStorage.key(i);
+                var usrkey = this.IsUserKey(key);
+                if (usrkey !== undefined) {
+                    var item = window.localStorage.getItem(key);
+                    models.push(JSON.parse(item));
+                }
+            }
+            deffered.resolve(models);
+
+            var p = <JQueryPromise<JSON[]>>deffered.promise();
+            return p;
+        }
+
         private IsUserKey(key: string): string {
             var sp = key.split('.');
             if (sp[0] === "user") {

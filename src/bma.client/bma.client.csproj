@@ -135,6 +135,7 @@
     <Content Include="images\selection.png" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
+    <Content Include="js\jszip.min.js" />
     <Content Include="privacy.html" />
     <Content Include="js\idd.heatmapworker.js" />
     <Content Include="js\idd.js" />

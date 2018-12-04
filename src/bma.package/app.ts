@@ -318,7 +318,12 @@ function loadScript(version) {
         holdCords.holdY = event.pageY;
     });
 
-
+    //$("#btn-export-model").contextmenu({
+    //    menu: [{ title: "Export Local Models", cmd: "ExportLocalModelsZip", uiIcon: "ui-icon-document-b" }],
+    //    select: function (event, ui) {
+    //        window.Commands.Execute(ui.cmd, undefined);
+    //    }
+    //});
 
     $("#drawingSurceContainer").contextmenu({
         delegate: ".bma-drawingsurface",
