@@ -906,7 +906,9 @@ module BMA {
                         variables.push(variable);
                         variableLayouts.push(variableLayout);
                     } else {
-                        variables.push(variable);
+                        //TODO: add check here if we drop variable either on border or inside of a cell
+                        var newVariable = new BMA.Model.Variable(variable.Id, 0, "Constant", variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula);
+                        variables.push(newVariable);
 
                         var newVariableLayout =
                             new BMA.Model.VariableLayout(
