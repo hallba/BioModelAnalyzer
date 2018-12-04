@@ -117,6 +117,10 @@ module BMA {
                 if (maxHeight != undefined) this.svgPlotDiv.drawingsurface({ maxZoomHeight: maxHeight });
             }
 
+            public DrawRects(rects: { x: number, y: number, width: number, height: number, fill: string }[]) {
+                this.svgPlotDiv.drawingsurface({ "rects": rects });
+            }
+
         }
 
         export class TurnableButtonDriver implements ITurnableButton {
