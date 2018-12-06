@@ -33,6 +33,7 @@ NUGET
       jQuery (>= 1.6.4)
     jqueryui.TypeScript.DefinitelyTyped (0.3.6)
       jquery.TypeScript.DefinitelyTyped
+    JSZip (3.1.5)
     Microsoft.AspNet.Cors (5.2.3) - restriction: >= net45
     Microsoft.AspNet.WebApi (5.2.3)
       Microsoft.AspNet.WebApi.WebHost (>= 5.2.3 < 5.3)
@@ -64,25 +65,25 @@ NUGET
       Microsoft.Bcl (>= 1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
     Microsoft.Office.Interop.Excel (14.0.0.1)
-    Microsoft.Owin (3.0) - restriction: >= net45
+    Microsoft.Owin (3.0.1) - restriction: >= net45
       Owin (>= 1.0)
-    Microsoft.Owin.Diagnostics (3.0) - restriction: >= net45
-      Microsoft.Owin (>= 3.0)
+    Microsoft.Owin.Diagnostics (3.0.1) - restriction: >= net45
+      Microsoft.Owin (>= 3.0.1)
       Owin (>= 1.0)
     Microsoft.Owin.FileSystems (3.0.1) - restriction: >= net45
-    Microsoft.Owin.Host.HttpListener (3.0) - restriction: >= net45
-    Microsoft.Owin.Hosting (3.0) - restriction: >= net45
-      Microsoft.Owin (>= 3.0)
+    Microsoft.Owin.Host.HttpListener (3.0.1) - restriction: >= net45
+    Microsoft.Owin.Hosting (3.0.1) - restriction: >= net45
+      Microsoft.Owin (>= 3.0.1)
       Owin (>= 1.0)
-    Microsoft.Owin.SelfHost (3.0) - restriction: >= net45
-      Microsoft.Owin (>= 3.0)
-      Microsoft.Owin.Diagnostics (>= 3.0)
-      Microsoft.Owin.Host.HttpListener (>= 3.0)
-      Microsoft.Owin.Hosting (>= 3.0)
+    Microsoft.Owin.SelfHost (3.0.1) - restriction: >= net45
+      Microsoft.Owin (>= 3.0.1)
+      Microsoft.Owin.Diagnostics (>= 3.0.1)
+      Microsoft.Owin.Host.HttpListener (>= 3.0.1)
+      Microsoft.Owin.Hosting (>= 3.0.1)
       Owin (>= 1.0)
-    Microsoft.Owin.StaticFiles (3.0) - restriction: >= net45
-      Microsoft.Owin (>= 3.0)
-      Microsoft.Owin.FileSystems (>= 3.0)
+    Microsoft.Owin.StaticFiles (3.0.1) - restriction: >= net45
+      Microsoft.Owin (>= 3.0.1)
+      Microsoft.Owin.FileSystems (>= 3.0.1)
       Owin (>= 1.0)
     Microsoft.VisualStudio.QualityTools.UnitTestFramework (11.0.50727.1)
     Microsoft.WindowsAzure.ConfigurationManager (3.1)
