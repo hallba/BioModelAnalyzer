@@ -323,6 +323,18 @@
             }
         });
 
+        this.getActualMinRect = function () {
+            var screenRect = { x: 0, y: 0, left: 0, top: 0, width: that.master.host.width(), height: that.master.host.height() };
+            var minCS = new InteractiveDataDisplay.CoordinateTransform({ x: 0, y: 0, width: _minZoomWidth, height: _minZoomHeight }, screenRect, that.master.aspectRatio);
+            return minCS.getPlotRect(screenRect);
+        }
+
+        this.getActualMaxRect = function () {
+            var screenRect = { x: 0, y: 0, left: 0, top: 0, width: that.master.host.width(), height: that.master.host.height() };
+            var maxCS = new InteractiveDataDisplay.CoordinateTransform({ x: 0, y: 0, width: _maxZoomWidth, height: _maxZoomHeight }, screenRect, that.master.aspectRatio);
+            return maxCS.getPlotRect(screenRect);
+        }
+
         this.constraint = function (plotRect, screenSize) {
 
             var screenRect = { x: 0, y: 0, left: 0, top: 0, width: that.master.host.width(), height: that.master.host.height() };

@@ -289,7 +289,7 @@ function loadScript(version) {
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
     drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
-    $("#zoomslider").bmazoomslider({ value: 50 });
+    $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100 });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
     $("#modelToolbarSlider").bmaaccordion({ position: "left", z_index: 1 });
@@ -695,6 +695,7 @@ function loadScript(version) {
 
     window.Commands.On('SetPlotSettings', (value) => {
 
+        /*
         if (value.MaxWidth !== undefined) {
             window.PlotSettings.MaxWidth = value.MaxWidth;
             $("#zoomslider").bmazoomslider({ max: (value.MaxWidth - window.PlotSettings.MinWidth) / 24 });
@@ -702,6 +703,7 @@ function loadScript(version) {
         if (value.MinWidth !== undefined) {
             window.PlotSettings.MinWidth = value.MinWidth;
         }
+        */
     });
 
     window.Commands.On("AppModelChanged", () => {

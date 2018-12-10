@@ -386,9 +386,14 @@ declare var InteractiveDataDisplay: any;
 
             that._plot.navigation.setVisibleRect({ x: 0, y: -50, width: width, height: width / 2.5 }, false);
             that._plot.host.bind("visibleRectChanged", function (args) {
-                if (Math.round(that._plot.visibleRect.width) !== that.options.zoom) {
-                    that._executeCommand("VisibleRectChanged", that._plot.visibleRect.width);
-                }
+
+                var plotRect = that._plot.visibleRect;
+
+                var minRect = that._zoomPlot.getActualMinRect();
+                var maxRect = that._zoomPlot.getActualMaxRect();
+                var widthCoef = 100 * (that._plot.visibleRect.width - minRect.width) / (maxRect.width -minRect.width);
+
+                that._executeCommand("ZoomSliderBind", widthCoef);
             })
 
             $(window).resize(function () { that.resize(); });
@@ -458,17 +463,21 @@ declare var InteractiveDataDisplay: any;
                             var oldPlotRect = that._plot.visibleRect;
                             var xCenter = oldPlotRect.x + oldPlotRect.width / 2;
                             var yCenter = oldPlotRect.y + oldPlotRect.height / 2;
-                            var scale = oldPlotRect.width / value;
-                            var newHeight = oldPlotRect.height / scale;
-                            var newrect = {
-                                x: xCenter - value / 2,
+
+                            var minRect = that._zoomPlot.getActualMinRect();
+                            var maxRect = that._zoomPlot.getActualMaxRect();
+
+                            var newWidth = value * (maxRect.width - minRect.width) / 100;
+                            var newHeight = value * (maxRect.height - minRect.height) / 100;
+                            var plotRect = {
+                                x: xCenter - newWidth / 2,
                                 y: yCenter - newHeight / 2,
-                                width: value,
+                                width: newWidth,
                                 height: newHeight
                             };
-                            //console.log(newrect.y);
-                            that._plot.navigation.setVisibleRect(newrect, false);
+
                             that.options.zoom = value;
+                            that._plot.navigation.setVisibleRect(plotRect, true);
                         }
                     }
                     break;

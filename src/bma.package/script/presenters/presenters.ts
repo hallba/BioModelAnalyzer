@@ -802,8 +802,7 @@ module BMA {
 
                 window.Commands.On("ZoomSliderChanged", (args) => {
                     if (args.isExternal !== true) {
-                        var value = args.value * 24 + 800;
-                        navigationDriver.SetZoom(value);
+                        navigationDriver.SetZoom(args.value);
                     }
                 });
 
@@ -819,19 +818,6 @@ module BMA {
                 });
 
                 var plotHost = (<any>this.navigationDriver.GetNavigationSurface()).master;
-
-                window.Commands.On("VisibleRectChanged", function (param) {
-                    //if (param < window.PlotSettings.MinWidth) {
-                    //    param = window.PlotSettings.MinWidth;
-                    //    navigationDriver.SetZoom(param);
-                    //}
-                    //if (param > window.PlotSettings.MaxWidth) {
-                    //    param = window.PlotSettings.MaxWidth;
-                    //    navigationDriver.SetZoom(param);
-                    //}
-                    var zoom = (param - window.PlotSettings.MinWidth) / 24;
-                    window.Commands.Execute("ZoomSliderBind", zoom);
-                });
 
                 window.Commands.On("AccordeonTabOpening", () => {
                     variableEditorDriver.Hide();
