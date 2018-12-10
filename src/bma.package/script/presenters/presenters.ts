@@ -801,9 +801,7 @@ module BMA {
                 var dragSubject = dragService.GetDragSubject();
 
                 window.Commands.On("ZoomSliderChanged", (args) => {
-                    if (args.isExternal !== true) {
-                        navigationDriver.SetZoom(args.value);
-                    }
+                    navigationDriver.SetZoom(args.value);
                 });
 
                 window.Commands.On("HighlightContent", (args) => {
@@ -865,7 +863,7 @@ module BMA {
                             y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0),
                             width: grid.xStep,
                             height: grid.yStep,
-                            fill: "rgba(0,255,255,0.1)" 
+                            fill: "rgba(0,255,255,0.1)"
                         };
 
                         var rect2 = {

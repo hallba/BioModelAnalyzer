@@ -391,7 +391,7 @@ declare var InteractiveDataDisplay: any;
 
                 var minRect = that._zoomPlot.getActualMinRect();
                 var maxRect = that._zoomPlot.getActualMaxRect();
-                var widthCoef = 100 * (that._plot.visibleRect.width - minRect.width) / (maxRect.width -minRect.width);
+                var widthCoef = 100 * (that._plot.visibleRect.width - minRect.width) / (maxRect.width - minRect.width);
 
                 that._executeCommand("ZoomSliderBind", widthCoef);
             })
@@ -467,8 +467,8 @@ declare var InteractiveDataDisplay: any;
                             var minRect = that._zoomPlot.getActualMinRect();
                             var maxRect = that._zoomPlot.getActualMaxRect();
 
-                            var newWidth = value * (maxRect.width - minRect.width) / 100;
-                            var newHeight = value * (maxRect.height - minRect.height) / 100;
+                            var newWidth = value * (maxRect.width - minRect.width) / 100 + minRect.width;
+                            var newHeight = value * (maxRect.height - minRect.height) / 100 + minRect.height;
                             var plotRect = {
                                 x: xCenter - newWidth / 2,
                                 y: yCenter - newHeight / 2,
