@@ -106,7 +106,7 @@
             if (this.options.value !== value) {
                 this.options.value = value;
                 this.isSilent = true;
-                this.zoomslider.slider("option", "value", value);
+                this.zoomslider.slider("option", "value", Math.max(this.options.min, Math.min(this.options.max, value)));
                 this.isSilent = false;
             }
         },

@@ -93,7 +93,7 @@ declare var InteractiveDataDisplay: any;
             if (that.options.showLogo == false)
                 that._logoContainer.hide();
 
-            
+
 
             var svgPlotDiv2 = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
@@ -197,7 +197,7 @@ declare var InteractiveDataDisplay: any;
                     prevent = false;
                 }, delay);
             });
-            
+
             plotDiv.dblclick(function (arg) {
                 clearTimeout(timer);
                 prevent = true;
@@ -280,7 +280,7 @@ declare var InteractiveDataDisplay: any;
                     var x0 = cs.screenToDataX(md.pageX - plotDiv.offset().left);
                     var y0 = -cs.screenToDataY(md.pageY - plotDiv.offset().top);
 
-                    return mouseMove.select(function (mm) { return { x: x0, y: y0}; }).first().takeUntil(mouseUp);
+                    return mouseMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(mouseUp);
                 });
 
 
@@ -294,7 +294,7 @@ declare var InteractiveDataDisplay: any;
                     var x0 = cs.screenToDataX(md.originalEvent.pageX - plotDiv.offset().left);
                     var y0 = -cs.screenToDataY(md.originalEvent.pageY - plotDiv.offset().top);
 
-                    return touchMove.select(function (mm) { return { x: x0, y: y0}; }).first().takeUntil(touchEnd.merge(touchCancel));
+                    return touchMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(touchEnd.merge(touchCancel));
                 });
 
                 return dragStarts.merge(touchDragStarts);
@@ -458,27 +458,24 @@ declare var InteractiveDataDisplay: any;
                     break;
                 case "zoom":
                     if (value !== undefined) {
-                        if (that._plot.visibleRect.width !== value) {
+                        var oldPlotRect = that._plot.visibleRect;
+                        var xCenter = oldPlotRect.x + oldPlotRect.width / 2;
+                        var yCenter = oldPlotRect.y + oldPlotRect.height / 2;
 
-                            var oldPlotRect = that._plot.visibleRect;
-                            var xCenter = oldPlotRect.x + oldPlotRect.width / 2;
-                            var yCenter = oldPlotRect.y + oldPlotRect.height / 2;
+                        var minRect = that._zoomPlot.getActualMinRect();
+                        var maxRect = that._zoomPlot.getActualMaxRect();
 
-                            var minRect = that._zoomPlot.getActualMinRect();
-                            var maxRect = that._zoomPlot.getActualMaxRect();
+                        var newWidth = value * (maxRect.width - minRect.width) / 100 + minRect.width;
+                        var newHeight = value * (maxRect.height - minRect.height) / 100 + minRect.height;
+                        var plotRect = {
+                            x: xCenter - newWidth / 2,
+                            y: yCenter - newHeight / 2,
+                            width: newWidth,
+                            height: newHeight
+                        };
 
-                            var newWidth = value * (maxRect.width - minRect.width) / 100 + minRect.width;
-                            var newHeight = value * (maxRect.height - minRect.height) / 100 + minRect.height;
-                            var plotRect = {
-                                x: xCenter - newWidth / 2,
-                                y: yCenter - newHeight / 2,
-                                width: newWidth,
-                                height: newHeight
-                            };
-
-                            that.options.zoom = value;
-                            that._plot.navigation.setVisibleRect(plotRect, true);
-                        }
+                        that.options.zoom = value;
+                        that._plot.navigation.setVisibleRect(plotRect, true);
                     }
                     break;
                 case "visibleRect":
@@ -501,11 +498,11 @@ declare var InteractiveDataDisplay: any;
                     this._setGestureSource(this._onlyZoomEnabled);
                     break;
                 case "minZoomWidth":
-                    if (value !== undefined) 
+                    if (value !== undefined)
                         this._zoomPlot.minZoomWidth = value;
                     break;
                 case "maxZoomWidth":
-                    if (value !== undefined) 
+                    if (value !== undefined)
                         this._zoomPlot.maxZoomWidth = value;
                     break;
                 case "minZoomHeight":
@@ -643,7 +640,7 @@ declare var InteractiveDataDisplay: any;
         },
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     drawingsurface(): any;
