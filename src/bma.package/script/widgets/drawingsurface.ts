@@ -81,7 +81,7 @@ declare var InteractiveDataDisplay: any;
             var plotDiv = $("<div></div>").width(this.element.width()).height(this.element.height()).attr("data-idd-plot", "plot").appendTo(that.element);
             var gridLinesPlotDiv = $("<div></div>").attr("data-idd-plot", "scalableGridLines").appendTo(plotDiv);
             var rectsPlotDiv = $("<div></div>").attr("data-idd-plot", "rectsPlot").appendTo(plotDiv);
-            var zoomPlotDiv = $("<div></div>").attr("data-idd-plot", "zoomPlot").appendTo(plotDiv);
+            var zoomPlotDiv = $("<div></div>").attr("data-idd-plot", "zoomPlot").attr("data-idd-name", "zoom-plot").appendTo(plotDiv);
 
             var logoСontainer1 = $("<div></div>").height("100%").appendTo(plotDiv);
             var logoСontainer2 = $("<div></div>").height("100%").css("position", "relative").appendTo(logoСontainer1);
@@ -107,7 +107,7 @@ declare var InteractiveDataDisplay: any;
             that._plot = InteractiveDataDisplay.asPlot(plotDiv);
             this._plot.aspectRatio = 1;
 
-            var zoomPlot = that._plot.get(zoomPlotDiv[0]);
+            var zoomPlot = that._plot.get("zoom-plot");
             this._zoomPlot = zoomPlot;
             this._zoomPlot.order = InteractiveDataDisplay.MaxInteger;
             zoomPlotDiv.css("z-index", '');
@@ -435,18 +435,10 @@ declare var InteractiveDataDisplay: any;
                     if (value === true) {
                         if (this._onlyZoomEnabled === true) {
                             this._setGestureSource(false);
-                            //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                            //    return g.Type !== "Zoom" || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth;
-                            //});
-                            //this._plot.navigation.gestureSource = gestureSource;
                             this._onlyZoomEnabled = false;
                         }
                     } else {
                         this._setGestureSource(true);
-                        //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                        //    return g.Type === "Zoom" && (g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
-                        //});
-                        //this._plot.navigation.gestureSource = gestureSource;
                         this._onlyZoomEnabled = true;
                     }
                     break;
@@ -531,10 +523,11 @@ declare var InteractiveDataDisplay: any;
         _setGestureSource: function (onlyZoom) {
             var that = this;
             var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                var constraint = onlyZoom ?
-                    g.Type === "Zoom" && (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth) :
-                    g.Type !== "Zoom" || (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
-                return constraint;
+                return true;
+                //var constraint = onlyZoom ?
+                //    g.Type === "Zoom" && (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth) :
+                //    g.Type !== "Zoom" || (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
+                //return constraint;
             });
             this._plot.navigation.gestureSource = gestureSource;
         },

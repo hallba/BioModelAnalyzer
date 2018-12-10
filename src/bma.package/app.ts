@@ -686,7 +686,7 @@ function loadScript(version) {
     });
 
     window.Commands.On("ZoomSliderBind", (value) => {
-        $("#zoomslider").bmazoomslider({ value: value });
+        $("#zoomslider").bmazoomslider("setValueSilently", value);
     });
 
     //window.Commands.On('ZoomConfigure',(value: { min; max }) => {

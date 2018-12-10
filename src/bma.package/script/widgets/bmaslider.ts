@@ -51,7 +51,7 @@
                         that.options.value = newval;
                         that.zoomslider.slider("option", "value", newval);
                     }
-                    if (command !== undefined && command !== "") {
+                    if (command !== undefined && command !== "" && !that.isSilent) {
                         window.Commands.Execute(command, { value: val, isExternal: isExternal });
                     }
             }
@@ -98,7 +98,17 @@
                     break;
             }
             this._super(key, value);
-        }
+        },
+
+        isSilent: false,
+        setValueSilently: function (value) {
+            if (this.options.value !== value) {
+                this.options.value = value;
+                this.isSilent = true;
+                this.zoomslider.slider("option", "value", value);
+                this.isSilent = false;
+            }
+        },
 
     });
 } (jQuery));

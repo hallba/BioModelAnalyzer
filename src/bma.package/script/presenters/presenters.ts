@@ -697,6 +697,7 @@ module BMA {
                             bbox.height = actualRect.height;
                             var oldMaxWidth = window.PlotSettings.MaxWidth;
                             window.Commands.Execute('SetPlotSettings', { MaxWidth: Math.max(3200, bbox.width * 1.1) });
+                            this.driver.SetConstraints(that.Grid.xStep, Math.max(3200, bbox.width * 1.1), that.Grid.yStep, Math.max(3200, bbox.width * 1.1));
 
                             if (args.status === "Undo" || args.status === "Redo" || args.status === "Set") {
                                 this.variableEditor.Hide();
@@ -748,7 +749,7 @@ module BMA {
                         bbox.height = actualRect.height;
 
                         window.Commands.Execute('SetPlotSettings', { MaxWidth: Math.max(3200, bbox.width * 1.1) });
-                        this.driver.SetConstraints(0, Math.max(3200, bbox.width * 1.1), 0, Math.max(3200, bbox.width * 1.1));
+                        this.driver.SetConstraints(that.Grid.xStep, Math.max(3200, bbox.width * 1.1), that.Grid.yStep, Math.max(3200, bbox.width * 1.1));
                         this.driver.SetVisibleRect(bbox);
                     }
                 });
