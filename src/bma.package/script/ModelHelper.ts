@@ -899,6 +899,16 @@ module BMA {
                 var relationships = [];
                 var containers = [];
 
+                for (var i = 0; i < layout.Containers.length; i++) {
+                    var cnt = layout.Containers[i];
+                    if (selection.cells[cnt.Id] !== true) {
+                        containers.push(cnt);
+                    } else {
+                        var newCnt = new BMA.Model.ContainerLayout(cnt.Id, cnt.Name, cnt.Size, cnt.PositionX + gridOffset.x, cnt.PositionY + gridOffset.y);
+                        containers.push(newCnt);
+                    }
+                }
+
                 for (var i = 0; i < model.Variables.length; i++) {
                     var variable = model.Variables[i];
                     var variableLayout = layout.Variables[i];
@@ -907,7 +917,14 @@ module BMA {
                         variableLayouts.push(variableLayout);
                     } else {
                         //TODO: add check here if we drop variable either on border or inside of a cell
-                        var newVariable = new BMA.Model.Variable(variable.Id, 0, "Constant", variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula);
+                        var type = variable.Type;
+                        var containerId = variable.ContainerId;
+                        if (selection.cells[variable.ContainerId] !== true) {
+                            type = "Constant";
+                            containerId = 0;
+                        }
+
+                        var newVariable = new BMA.Model.Variable(variable.Id, containerId, type, variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula);
                         variables.push(newVariable);
 
                         var newVariableLayout =
@@ -922,16 +939,7 @@ module BMA {
                         variableLayouts.push(newVariableLayout);
                     }
                 }
-
-                for (var i = 0; i < layout.Containers.length; i++) {
-                    var cnt = layout.Containers[i];
-                    if (selection.cells[cnt.Id] !== true) {
-                        containers.push(cnt);
-                    } else {
-                        var newCnt = new BMA.Model.ContainerLayout(cnt.Id, cnt.Name, cnt.Size, cnt.PositionX + gridOffset.x, cnt.PositionY + gridOffset.y);
-                        containers.push(newCnt);
-                    }
-                }
+                
 
                 var model = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
                 var layout = new BMA.Model.Layout(containers, variableLayouts);
