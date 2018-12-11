@@ -936,13 +936,15 @@ module BMA {
 
                 dragSubject.dragStartRight.subscribe(
                     (gesture) => {
-                        that.navigationDriver.TurnNavigation(false);
-                        this.stagingRect = {
-                            x0: gesture.x,
-                            x1: gesture.x,
-                            y0: gesture.y,
-                            y1: gesture.y
-                        };
+                        if (that.selectedType === "navigation") {
+                            that.navigationDriver.TurnNavigation(false);
+                            this.stagingRect = {
+                                x0: gesture.x,
+                                x1: gesture.x,
+                                y0: gesture.y,
+                                y1: gesture.y
+                            };
+                        }
                     });
 
                 dragSubject.drag.subscribe(
