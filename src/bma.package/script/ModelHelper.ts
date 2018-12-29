@@ -775,7 +775,7 @@ module BMA {
             var contained = [];
 
             var variables = layout.Variables;
-            
+
             for (var i = 0; i < variables.length; i++) {
                 var variable = variables[i];
                 var gridCell = GetGridCell2(variable.PositionX, variable.PositionY, grid);
@@ -854,6 +854,27 @@ module BMA {
             return { model: model, layout: layout };
         }
 
+        export function GetContainerFromGridCell(model: BMA.Model.BioModel,
+            layout: BMA.Model.Layout, gridCell: { x: number; y: number }) {
+
+            var layouts = layout.Containers;
+            for (var i = 0; i < layouts.length; i++) {
+                if (layouts[i].PositionX <= gridCell.x && layouts[i].PositionX + layouts[i].Size > gridCell.x &&
+                    layouts[i].PositionY <= gridCell.y && layouts[i].PositionY + layouts[i].Size > gridCell.y) {
+                    return layouts[i];
+                }
+            }
+
+            return undefined;
+        }
+
+        export function Intersects(
+            a: { x: number; y: number; width: number; height: number },
+            b: { x: number; y: number; width: number; height: number }): boolean {
+
+            return (Math.abs(a.x - b.x) * 2 <= (a.width + b.width)) && (Math.abs(a.y - b.y) * 2 <= (a.height + b.height));
+        }
+
         //Performs move for selected submodel inside source model usgin provided gridOffset. Returns modified model if it is possible and undefined otherwise.
         export function TryMoveSelection(
             model: BMA.Model.BioModel,
@@ -885,11 +906,75 @@ module BMA {
             var cutted = CutSubModel(model, layout, selection);
 
             var canMove = true;
-            for (var i = 0; i < subModelTargetGridCells.length; i++) {
-                var gridCellToCheck = subModelTargetGridCells[i];
-                if (!IsGridCellEmpty2(gridCellToCheck, cutted.model, cutted.layout, undefined, grid)) {
-                    canMove = false;
-                    break;
+
+            //Check that we can move containers
+            for (var i = 0; i < selectedLayout.Containers.length; i++) {
+                var cnt = selectedLayout.Containers[i];
+                var gridCells = GetContainerGridCells(cnt);
+                for (var j = 0; j < gridCells.length; j++) {
+                    if (!IsGridCellEmpty2(gridCells[j], cutted.model, cutted.layout, undefined, grid)) {
+                        canMove = false;
+                        break;
+                    }
+                }
+            }
+
+            //If we can move containers, check that we can move variables
+            if (canMove) {
+                for (var i = 0; i < selectedModel.Variables.length; i++) {
+                    var variable = selectedModel.Variables[i];
+                    var variableLayout = selectedLayout.Variables[i];
+
+                    //If membrana or inner protein is moving with its container, nothing to check more, otherwise check if we can paste those variable to a new location
+                    if (selection.cells[variable.ContainerId] !== true) {
+                        var gridCell = GetGridCell2(variableLayout.PositionX, variableLayout.PositionY, grid);
+                        gridCell = {
+                            x: gridCell.x + gridOffset.x,
+                            y: gridCell.y + gridOffset.y
+                        };
+
+                        var newPosition = {
+                            x: variableLayout.PositionX + gridOffset.x * grid.xStep,
+                            y: variableLayout.PositionY + gridOffset.y * grid.yStep
+                        };
+
+                        if (!IsGridCellEmpty2(gridCell, cutted.model, cutted.layout, undefined, grid)) {
+                            var bbox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(variable.Type)).GetBoundingBox(newPosition.x, newPosition.y);
+                            var container = GetContainerFromGridCell(cutted.model, cutted.layout, gridCell);
+
+                            if (container !== undefined) {
+                                var containerElement = <BMA.Elements.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
+
+                                var containerItems = [];
+                                for (var j = 0; j < cutted.model.Variables.length; j++) {
+                                    if (cutted.model.Variables[j].ContainerId === container.Id) {
+                                        containerItems.push({ v: cutted.model.Variables[j], l: cutted.layout.Variables[j] });
+                                    }
+                                }
+
+                                var containsBBox = containerElement.ContainsBBox(bbox, (container.PositionX + 0.5) * grid.xStep, (container.PositionY + 0.5) * grid.yStep, { Size: container.Size, xStep: grid.xStep / 2, yStep: grid.yStep / 2 });
+                                var intersectsBBox = containerElement.IntersectsBorder(newPosition.x, newPosition.y, (container.PositionX + 0.5) * grid.xStep, (container.PositionY + 0.5) * grid.yStep, { Size: container.Size, xStep: grid.xStep / 2, yStep: grid.yStep / 2 })
+                                if ((containsBBox || intersectsBBox) === false) {
+                                    canMove = false;
+                                    break;
+                                }
+
+                                for (var j = 0; j < containerItems.length; j++) {
+                                    var elementBBox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(containerItems[j].v.Type)).GetBoundingBox(containerItems[j].l.PositionX, containerItems[j].l.PositionY);
+                                    if (Intersects(bbox, elementBBox)) {
+                                        canMove = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                canMove = false;
+                                break;
+                            }
+
+                        }
+                    }
+
                 }
             }
 
@@ -916,12 +1001,35 @@ module BMA {
                         variables.push(variable);
                         variableLayouts.push(variableLayout);
                     } else {
-                        //TODO: add check here if we drop variable either on border or inside of a cell
+                        var variableGridCell = GetGridCell2(variableLayout.PositionX, variableLayout.PositionY, grid);
+                        variableGridCell = {
+                            x: variableGridCell.x + gridOffset.x,
+                            y: variableGridCell.y + gridOffset.y
+                        };
+                        var containerInTargetCell = GetContainerFromGridCell(cutted.model, cutted.layout, variableGridCell);
+
                         var type = variable.Type;
                         var containerId = variable.ContainerId;
                         if (selection.cells[variable.ContainerId] !== true) {
-                            type = "Constant";
-                            containerId = 0;
+                            if (containerInTargetCell === undefined) {
+                                type = "Constant";
+                                containerId = 0;
+                            } else {
+                                containerId = containerInTargetCell.Id;
+
+                                var newPosition = {
+                                    x: variableLayout.PositionX + gridOffset.x * grid.xStep,
+                                    y: variableLayout.PositionY + gridOffset.y * grid.yStep
+                                };
+                                var containerElement = <BMA.Elements.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
+                                var bbox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType("Default")).GetBoundingBox(newPosition.x, newPosition.y);
+                                var intersectsBBox = containerElement.IntersectsBorder(newPosition.x, newPosition.y, (containerInTargetCell.PositionX + 0.5) * grid.xStep, (containerInTargetCell.PositionY + 0.5) * grid.yStep, { Size: containerInTargetCell.Size, xStep: grid.xStep / 2, yStep: grid.yStep / 2 })
+                                if (intersectsBBox) {
+                                    type = "MembraneReceptor";
+                                } else {
+                                    type = "Default";
+                                }
+                            }
                         }
 
                         var newVariable = new BMA.Model.Variable(variable.Id, containerId, type, variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula);
@@ -939,7 +1047,7 @@ module BMA {
                         variableLayouts.push(newVariableLayout);
                     }
                 }
-                
+
 
                 var model = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
                 var layout = new BMA.Model.Layout(containers, variableLayouts);
