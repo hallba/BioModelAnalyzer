@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmaBioCheckAnalyzer", "..\.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobsRunner", "..\..\src\Jobs\JobsRunner\JobsRunner.csproj", "{062C2F38-D571-459A-9E67-43C9B074EB9C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendFunctions2", "..\..\src\BackendFunctions\BackendFunctions2.csproj", "{A8431DA5-F782-48E8-95ED-7E2A5C48644C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,8 +116,8 @@ Global
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|x86.Build.0 = Release|Any CPU
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.ActiveCfg = Release|Any CPU
-		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.ActiveCfg = Release|x64
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.Build.0 = Release|x64
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.ActiveCfg = Release|Any CPU
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.Build.0 = Release|Any CPU
 		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -148,10 +150,28 @@ Global
 		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|x86.Build.0 = Release|Any CPU
 		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.ActiveCfg = Release|Any CPU
-		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.Build.0 = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.ActiveCfg = Release|x64
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.Build.0 = Release|x64
 		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x86.ActiveCfg = Release|Any CPU
 		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x86.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x64.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x86.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|Any CPU.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x64.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x64.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x86.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x86.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x64.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x64.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x86.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
