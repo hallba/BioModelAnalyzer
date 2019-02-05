@@ -20,6 +20,9 @@ declare var InteractiveDataDisplay: any;
         _domPlot: null,
         _zoomPlot: null,
 
+        _bmaGesturesStream: null,
+        _bmaZoomGesturesStream: null,
+
         _logoContainer: undefined,
         _versionContainer: undefined,
 
@@ -69,6 +72,8 @@ declare var InteractiveDataDisplay: any;
         _create: function () {
             var that = this;
 
+            
+
             if (window.PlotSettings !== undefined) {
                 this._plotSettings = window.PlotSettings;
             }
@@ -111,8 +116,8 @@ declare var InteractiveDataDisplay: any;
             this._zoomPlot = zoomPlot;
             this._zoomPlot.order = InteractiveDataDisplay.MaxInteger;
             zoomPlotDiv.css("z-index", '');
-            this._zoomPlot.minZoomWidth = 0.01;//0.4;
-            this._zoomPlot.maxZoomWidth = 1e5;//1.7;
+            this._zoomPlot.minZoomWidth = 0.01;
+            this._zoomPlot.maxZoomWidth = 1e5;
             this._zoomPlot.minZoomHeight = 0.01;
             this._zoomPlot.maxZoomHeight = 1e5;
 
@@ -150,6 +155,12 @@ declare var InteractiveDataDisplay: any;
                 if (this.options.lightSvg !== undefined)
                     lightSvgPlot.svg.add(this.options.lightSvg);
             }
+
+            that._bmaGesturesStream = InteractiveDataDisplay.Gestures.getGesturesStream(that._plot.host);
+            that._bmaZoomGesturesStream = that._bmaGesturesStream.where(function (g) {
+                var constraint = g.Type === "Zoom";
+                return constraint;
+            });
 
             plotDiv.droppable({
                 drop: function (event, ui) {
@@ -376,10 +387,6 @@ declare var InteractiveDataDisplay: any;
 
             if (this.options.isNavigationEnabled) {
                 this._setGestureSource(this._onlyZoomEnabled);
-                //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(that._plot.host).where(function (g) {
-                //    return g.Type !== "Zoom" || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth;
-                //});
-                //that._plot.navigation.gestureSource = gestureSource;
             } else {
                 that._plot.navigation.gestureSource = undefined;
             }
@@ -498,20 +505,24 @@ declare var InteractiveDataDisplay: any;
                     this._setGestureSource(this._onlyZoomEnabled);
                     break;
                 case "minZoomWidth":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.minZoomWidth = value;
+                    }
                     break;
                 case "maxZoomWidth":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.maxZoomWidth = value;
+                    }
                     break;
                 case "minZoomHeight":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.minZoomHeight = value;
+                    }
                     break;
                 case "maxZoomHeight":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.maxZoomHeight = value;
+                    }
                     break;
                 case "version":
                     this._versionContainer.text(value);
@@ -528,13 +539,11 @@ declare var InteractiveDataDisplay: any;
 
         _setGestureSource: function (onlyZoom) {
             var that = this;
-            var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                var constraint = onlyZoom ? g.Type === "Zoom" : true;
-                    //g.Type === "Zoom" && (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth) :
-                    //g.Type !== "Zoom" || (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
-                return constraint;
-            });
-            this._plot.navigation.gestureSource = gestureSource;
+            if (!onlyZoom) {
+                this._plot.navigation.gestureSource = that._bmaGesturesStream;
+            } else {
+                this._plot.navigation.gestureSource = that._bmaZoomGesturesStream;
+            }
         },
 
         _setOptions: function (options) {
@@ -637,7 +646,6 @@ declare var InteractiveDataDisplay: any;
         moveDraggableSvgOnBottom: function () {
             this._lightSvgPlot.host.css("z-index", '');
         },
-
     });
 }(jQuery));
 
