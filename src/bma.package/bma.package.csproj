@@ -283,7 +283,6 @@
     <Content Include="images\zoomplus.png" />
     <Content Include="images\zoomplus.svg" />
     <Content Include="Scripts\formulaParser.js" />
-    <Content Include="js\wl.js" />
     <Content Include="package.json" />
     <Content Include="Chutzpah.json" />
     <Content Include="css\BMA_less.less" />

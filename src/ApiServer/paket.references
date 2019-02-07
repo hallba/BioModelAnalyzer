@@ -13,6 +13,4 @@ Newtonsoft.Json
 System.Spatial
 Unity
 WindowsAzure.Storage
-
-group Common
-	FSharp.Core
+FSharp.Core
