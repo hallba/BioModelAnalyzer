@@ -14,4 +14,5 @@ Microsoft.WindowsAzure.ConfigurationManager
 Newtonsoft.Json
 System.Spatial
 Unity
+Unity.Configuration
 WindowsAzure.Storage

@@ -13,7 +13,7 @@ open System.IO
 open FSharp.Data.HttpRequestHeaders
 open FSharp.Data
 open BMAWebApi
-open Microsoft.Practices.Unity
+open Unity
 open bma.BioCheck
 
 type TestFailureLogger() =

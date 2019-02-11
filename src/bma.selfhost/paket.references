@@ -3,4 +3,5 @@ Microsoft.AspNet.WebApi.Owin
 Microsoft.Owin.SelfHost
 Microsoft.Owin.StaticFiles
 Unity
+Unity.Configuration
 FSharp.Core

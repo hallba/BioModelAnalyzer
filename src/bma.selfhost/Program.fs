@@ -8,7 +8,7 @@ open Microsoft.Owin.FileSystems
 open Microsoft.Owin.StaticFiles
 open System.Web.Http
 open System.IO
-open Microsoft.Practices.Unity
+open Unity
 open BMAWebApi
 open System.Diagnostics
 open System.Threading
