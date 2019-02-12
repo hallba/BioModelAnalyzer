@@ -108,6 +108,11 @@ module BMA {
                     that.ClearSelection(true);
                 });
 
+                window.Commands.On("DrawingSurfaceCreateMotifFromSelection", () => {
+                    var selectionSubModel = this.CreateSerializedModelFromSelection();
+                    window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
+                });
+
                 window.Commands.On('SaveSVG', () => {
                     that.exportservice.Export(that.driver.GetSVG(), appModel.BioModel.Name, 'svg');
                 });
@@ -461,8 +466,7 @@ module BMA {
                         { name: "Activator", isVisible: true },
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "ClearSelection", isVisible: !isSelectionEmpty }
-
+                        { name: "Selection", isVisible: !isSelectionEmpty }
                     ]);
 
                     that.contextMenu.EnableMenuItems([

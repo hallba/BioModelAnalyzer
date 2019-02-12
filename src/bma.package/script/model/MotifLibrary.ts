@@ -50,6 +50,11 @@
                 return this.motifs;
             }
 
+            public AddMotif(source) {
+                this.AddFromJSON(source);
+                this.commands.Execute("RefreshMotifs", undefined);
+            }
+
             private AddFromJSON(source) {
                 var that = this;
 

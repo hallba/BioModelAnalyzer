@@ -353,8 +353,12 @@ function loadScript(version) {
                 uiIcon: "ui-icon-shuffle"
             },
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
-            { title: "Clear Selection", cmd: "ClearSelection", uiIcon: "ui-icon-clipboard" }
-
+            {
+                title: "Selection", uiIcon: "ui-icon-clipboard", children: [
+                    { title: "Clear", cmd: "ClearSelection" },
+                    { title: "Create Motif", cmd: "CreateMotifFromSelection" },
+                ]
+            }
         ],
         beforeOpen: function (event, ui) {
             ui.menu.zIndex(50);
@@ -600,6 +604,9 @@ function loadScript(version) {
     window.Commands.On("PreloadedMotifsReady", (args) => {
         $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
     });
+    window.Commands.On("RefreshMotifs", (args) => {
+        $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
+    });
 
     var checkInside = (cursor, target) => {
         var pos = target.offset();
@@ -607,6 +614,10 @@ function loadScript(version) {
         var h = target.outerHeight(true);
         return cursor.x >= pos.left && cursor.x <= pos.left + w && cursor.y >= pos.top && cursor.y <= pos.top + h
     };
+
+    window.Commands.On("CreateMotifFromJSON", (args) => {
+        motifLibrary.AddMotif(args.source);
+    });
 
     //Adding droppable 
     var motifDropConteiner = $("#drawingSurceContainer");
