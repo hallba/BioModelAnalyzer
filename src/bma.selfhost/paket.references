@@ -4,4 +4,5 @@ Microsoft.Owin.SelfHost
 Microsoft.Owin.StaticFiles
 Unity
 Unity.Configuration
+System.Runtime
 FSharp.Core

@@ -10,6 +10,7 @@ Microsoft.Data.Services.Client
 Microsoft.WindowsAzure.ConfigurationManager
 Newtonsoft.Json
 System.Spatial
+System.Runtime
 Unity
 WindowsAzure.Storage
 FSharp.Core

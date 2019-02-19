@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BioCheck.Analyzer.Server</RootNamespace>
     <AssemblyName>BioCheckAnalyzer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Name>BioCheckAnalyzer</Name>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
