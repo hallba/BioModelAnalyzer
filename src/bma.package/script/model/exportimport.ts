@@ -4,10 +4,10 @@ module BMA {
     export module Model {
 
 
-        export function CreateVariablesErrorReport(errors: { variable: BMA.Model.Variable; errors: string[] }[]): string {
+        export function CreateVariablesErrorReport(errors: { variable: BMA.Model.Variable; errors: string[] }[], topMessage: string): string {
             var resultContainer = $("<div></div>");
 
-            $("<div>There were one of more errors for the following variables:</div>").appendTo(resultContainer);
+            $("<div>" + topMessage + "</div>").appendTo(resultContainer);
 
             for (var i = 0; i < errors.length; i++) {
                 $("<div>" + errors[i].variable.Name + "</div>").css("margin-left", 5).appendTo(resultContainer);

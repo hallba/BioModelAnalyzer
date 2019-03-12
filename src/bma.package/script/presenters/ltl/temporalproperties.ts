@@ -963,7 +963,7 @@ module BMA {
 
                     var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
                     if (errors !== undefined) {
-                        driver.SetStatus("nottested", "Incorrect Model: " + BMA.Model.CreateVariablesErrorReport(errors));
+                        driver.SetStatus("nottested", "Incorrect Model: " + BMA.Model.CreateVariablesErrorReport(errors, ""));
                         operation.AnalysisStatus = "nottested";
                         operation.Tag.data = undefined;
                         operation.Tag.negdata = undefined;

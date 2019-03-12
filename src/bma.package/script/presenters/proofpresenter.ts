@@ -70,7 +70,7 @@ module BMA {
                     if (errors !== undefined) {
                         proofResultViewer.SetData({
                             issucceeded: "Invalid Model",
-                            message: BMA.Model.CreateVariablesErrorReport(errors),
+                            message: BMA.Model.CreateVariablesErrorReport(errors, "There were one of more errors for the following variables:"),
                             data: undefined
                         });
                         return;

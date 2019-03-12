@@ -84,7 +84,7 @@ module BMA {
 
                     var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
                     if (errors !== undefined) {
-                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Simulate Error", message: BMA.Model.CreateVariablesErrorReport(errors) } });
+                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Simulate Error", message: BMA.Model.CreateVariablesErrorReport(errors, "There were one of more errors for the following variables:") } });
                         that.expandedViewer.ActiveMode();
                         that.simulationStatus = "Ended";
                         that.simulationAccordeon.ContentLoaded("#icon2", true);
@@ -111,7 +111,7 @@ module BMA {
 
                     var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
                     if (errors !== undefined) {
-                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Invalid Model", message: BMA.Model.CreateVariablesErrorReport(errors) } });
+                        that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Invalid Model", message: BMA.Model.CreateVariablesErrorReport(errors, "There were one of more errors for the following variables:") } });
                         return;
                     } 
 
