@@ -114,7 +114,7 @@ module BMA {
                     var errors = Model.CheckModelVariables(selectionModel.model, selectionModel.layout);
 
                     if (errors != undefined && errors.length > 0) {
-                        messageBox.Show(BMA.Model.CreateVariablesErrorReport(errors, "Unable to create motif from selection selection: "));
+                        messageBox.Show(BMA.Model.CreateVariablesErrorReport(errors, "Unable to create motif from selection: "));
                     } else {
 
                         var current = this.undoRedoPresenter.Current;
