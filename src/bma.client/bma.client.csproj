@@ -131,6 +131,7 @@
     <Content Include="images\clearselection.png" />
     <Content Include="images\downarrow-grey.png" />
     <Content Include="images\downarrow.png" />
+    <Content Include="images\hide.png" />
     <Content Include="images\motif-library.svg" />
     <Content Include="images\resize-grabber.svg" />
     <Content Include="images\selection.png" />

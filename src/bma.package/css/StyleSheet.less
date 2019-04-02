@@ -183,7 +183,7 @@ a.website-link {
     color: @green;
     background-color: white;
     height: 20px;
-    align-self:center;
+    align-self: center;
     margin-left: 10px;
 }
 
@@ -853,10 +853,8 @@ ul.command-list {
     }
 
     .vis-options-toolbar {
-        
         //.calc(margin-left, ~"40% - 370px");
         //margin-left: calc(~"40% - 370px");
-
         & > .accordion-expanded {
             .tool-icon-active;
             /*border-bottom-left-radius:0;
@@ -2789,6 +2787,36 @@ textarea {
     padding-right: 10px;
 }
 
+.ml-card-delete {
+    position: absolute;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: calc(100% - 3px);
+    height: 50px;
+    top: 190px;
+    border: 1px solid @darkred;
+
+    &:hover {
+        background-color: @lightgrey;
+    }
+}
+
+.ml-card-delete-icontrash {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    //background-position-x: center;
+    background-image: url(../images/LTL-delete.svg);
+}
+
+.ml-card-delete-iconhide {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    //background-position-x: center;
+    background-image: url(../images/hide.png);
+}
+
 .ml-card-title {
     margin-left: 1px;
     text-transform: uppercase;
@@ -2806,14 +2834,14 @@ textarea {
 }
 
 .ml-bounding-box {
-   
+    position: relative;
     border-color: @darkgrey;
     border-style: solid;
     border-width: 1px;
     margin: 3px;
     height: 250px;
     width: 350px;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 .ml-bounding-box:hover {
@@ -2850,7 +2878,7 @@ textarea {
     width: 20px;
     height: 35px;
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
     background-position-x: center;
     position: absolute;
     top: calc(~"50% - 18px");

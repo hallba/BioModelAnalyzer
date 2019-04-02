@@ -2,7 +2,9 @@
     $.widget("BMA.motiflibrary", {
         options: {
             motifs: [],
-            container: undefined
+            container: undefined,
+            changePreloadedVisibility: undefined,
+            deleteMotif: undefined
         },
 
         _mlOpen: undefined,
@@ -59,14 +61,30 @@
                             that._isInitialized = true;
                         }
                     }
-                    else
-                    {
+                    else {
                         that._showLoading(mlOpen);
                     }
                 }
                 that._isOpened = !that._isOpened;
             });
 
+        },
+
+        _subscribeToClick: function (div, motif, i) {
+            div.click((e) => {
+                if (motif.IsPreloaded) {
+                    if (this.options.changePreloadedVisibility !== undefined)
+                        this.options.changePreloadedVisibility();
+                } else {
+                    if (this.options.deleteMotif !== undefined)
+                        this.options.deleteMotif(i);
+                }
+            });
+        },
+
+        _subscribeToHover: function (div, divToShow) {
+            divToShow.hide();
+            div.hover((e) => { divToShow.show(); }, (e) => { divToShow.hide(); });
         },
 
         _createCards: function () {
@@ -98,6 +116,18 @@
 
                 //Adding description
                 var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+
+                //Adding delete button
+                var motifDelete = $("<div></div>").addClass("ml-card-delete").appendTo(motifPreview);
+                if (mlmotifs[i].IsPreloaded) {
+                    motifDelete.addClass("ml-card-delete-iconhide");
+                }
+                else {
+                    motifDelete.addClass("ml-card-delete-icontrash");
+                }
+
+                that._subscribeToClick(motifDelete, mlmotifs[i], i);
+                //that._subscribeToHover(motifPreview, motifDelete);
             }
 
 
@@ -148,7 +178,7 @@
 
         _setOption: function (key, value) {
             var that = this;
-            
+
             this._super(key, value);
 
             switch (key) {
@@ -167,7 +197,7 @@
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     motiflibrary(): JQuery;

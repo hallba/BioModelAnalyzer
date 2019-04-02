@@ -600,7 +600,7 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Loading motif library
-    $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0] });
+    $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0], changePreloadedVisibility: () => { motifLibrary.HidePreloadedMotifs(); }, deleteMotif: (i) => { motifLibrary.DeleteMotifByIndex(i); } });
     window.Commands.On("PreloadedMotifsReady", (args) => {
         $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
     });
@@ -617,6 +617,13 @@ function loadScript(version) {
 
     window.Commands.On("CreateMotifFromJSON", (args) => {
         motifLibrary.AddMotif(args.source);
+    });
+
+    window.Commands.On("Commands.TogglePreloadedMotifs", function (param) {
+        if (motifLibrary.IsPreloadedVisible)
+            motifLibrary.HidePreloadedMotifs();
+        else
+            motifLibrary.ShowPreloadedMotifs();
     });
 
     //Adding droppable 

@@ -4,6 +4,12 @@
             private commands: BMA.ICommandRegistry;
 
             private motifs: MotifCard[];
+            private preloadedMotifs: MotifCard[];
+            private customMotifs: MotifCard[];
+
+
+            private isPreloadedHided: boolean;
+
             private svg: any;
 
             private preloadedPaths: string[];
@@ -15,6 +21,9 @@
             constructor(commands: BMA.ICommandRegistry) {
                 this.commands = commands;
                 this.motifs = [];
+                this.preloadedMotifs = [];
+                this.customMotifs = [];
+                this.isPreloadedHided = false;
 
                 this.preloadedPaths = [
                     "motifs/Substrate_depletion_oscillations.json",
@@ -42,6 +51,10 @@
                 });
             }
 
+            public get IsPreloadedVisible() {
+                return !this.isPreloadedHided;
+            }
+
             public get IsInitialized() {
                 return this.preloadedPaths.length == 0;
             }
@@ -51,11 +64,11 @@
             }
 
             public AddMotif(source) {
-                this.AddFromJSON(source);
+                this.AddFromJSON(source, false);
                 this.commands.Execute("RefreshMotifs", undefined);
             }
 
-            private AddFromJSON(source) {
+            private AddFromJSON(source, isPreloaded) {
                 var that = this;
 
                 var parsed = JSON.parse(source);
@@ -63,13 +76,17 @@
                 var imported = BMA.Model.ImportModelAndLayout(parsed);
                 var description = parsed.Model.Description == undefined ? "no description for this motif" : parsed.Model.Description;
 
-                var newMotif = new MotifCard(parsed.Model.Name, description, imported.Model, imported.Layout);
+                var newMotif = new MotifCard(parsed.Model.Name, description, imported.Model, imported.Layout, isPreloaded);
 
                 if (that.svg != undefined) {
                     newMotif.RefreshPreview(that.svg);
                 }
 
                 that.motifs.push(newMotif);
+                if (isPreloaded)
+                    that.preloadedMotifs.push(newMotif);
+                else
+                    that.customMotifs.push(newMotif);
             }
 
             public StartLoadMotifs() {
@@ -88,7 +105,7 @@
                     $.ajax(path, {
                         dataType: "text",
                         success: function (fileContent) {
-                            that.AddFromJSON(fileContent);
+                            that.AddFromJSON(fileContent, true);
                             that.LoadMotif();
                         },
                         error: function (err) {
@@ -99,6 +116,38 @@
                 } else {
                     that.commands.Execute("PreloadedMotifsReady", undefined);
                 }
+            }
+
+            public HidePreloadedMotifs() {
+                this.motifs = [];
+                for (var i = 0; i < this.customMotifs.length; i++)
+                    this.motifs.push(this.customMotifs[i]);
+                this.isPreloadedHided = true;
+                this.commands.Execute("RefreshMotifs", undefined);
+            }
+
+            public ShowPreloadedMotifs() {
+                this.motifs = [];
+                for (var i = 0; i < this.preloadedMotifs.length; i++)
+                    this.motifs.push(this.preloadedMotifs[i]);
+                for (var i = 0; i < this.customMotifs.length; i++)
+                    this.motifs.push(this.customMotifs[i]);
+                this.isPreloadedHided = false;
+                this.commands.Execute("RefreshMotifs", undefined);
+
+            }
+
+            public DeleteMotifByIndex(i) {
+                this.motifs.splice(i, 1);
+
+                if (!this.isPreloadedHided) {
+                    this.customMotifs.splice(i - this.preloadedMotifs.length, 1);
+                } else {
+                    this.customMotifs.splice(i, 1);
+                }
+
+
+                this.commands.Execute("RefreshMotifs", undefined);
             }
         }
 
@@ -111,12 +160,16 @@
 
             private preview: string;
 
-            constructor(name: string, description: string, model: BMA.Model.BioModel, layout: BMA.Model.Layout) {
+            private isPreloaded: boolean;
+
+            constructor(name: string, description: string, model: BMA.Model.BioModel, layout: BMA.Model.Layout, isPreloaded: boolean) {
                 this.name = name;
                 this.description = description;
 
                 this.model = model;
                 this.layout = layout;
+
+                this.isPreloaded = isPreloaded;
             }
 
             public get Name(): string {
@@ -129,6 +182,10 @@
 
             public get Description(): string {
                 return this.description;
+            }
+
+            public get IsPreloaded(): boolean {
+                return this.isPreloaded;
             }
 
             public get ModelSource(): { model: BMA.Model.BioModel, layout: BMA.Model.Layout } {
