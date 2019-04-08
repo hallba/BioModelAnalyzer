@@ -116,6 +116,7 @@
 
                 //Adding description
                 var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+                //motifHeader.editable();
 
                 //Adding delete button
                 var motifDelete = $("<div></div>").addClass("ml-card-delete").appendTo(motifPreview);

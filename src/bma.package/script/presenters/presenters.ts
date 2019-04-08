@@ -245,6 +245,9 @@ module BMA {
                     } else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
                         var id = that.GetVariableAtPosition(args.x, args.y);
                         if (id !== undefined) {
+
+                            this.HideEditors();
+
                             if (this.stagingLine === undefined) {
                                 this.stagingLine = {};
                                 this.stagingLine.id = id;
@@ -1811,24 +1814,34 @@ module BMA {
                 throw "Unknown Variable type";
             }
 
+            private HideEditors() {
+                this.variableEditor.Hide();
+                this.containerEditor.Hide();
+            }
+
             private TryAddVariable(x: number, y: number, variableType: string, id: number): boolean {
                 var that = this;
-                var current = that.undoRedoPresenter.Current;
-                var model = current.model;
-                var layout = current.layout;
 
                 var vt = variableType;
                 if (variableType == "Any") {
                     if (that.CanAddVariable(x, y, "Constant", id) == true) {
                         vt = "Constant";
+                        that.HideEditors();
                     } else if (that.CanAddVariable(x, y, "Default", id) == true) {
                         vt = "Default";
+                        that.HideEditors();
                     } else if (that.CanAddVariable(x, y, "MembraneReceptor", id) == true) {
                         vt = "MembraneReceptor";
+                        that.HideEditors();
                     } else
                         return false;
+                } else if (variableType == "Container") {
+                    that.HideEditors();
                 }
 
+                var current = that.undoRedoPresenter.Current;
+                var model = current.model;
+                var layout = current.layout;
 
                 switch (vt) {
                     case "Container":
