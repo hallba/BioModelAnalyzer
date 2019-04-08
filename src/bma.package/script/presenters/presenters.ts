@@ -138,6 +138,7 @@ module BMA {
                     that.selectedType = type;
                     that.navigationDriver.TurnNavigation(type === "navigation");
                     that.stagingLine = undefined;
+                    that.HideEditors();
                     that.ClearSelection(true);
                     //this.selectedType = this.selectedType === type ? undefined : type;
                     //this.driver.TurnNavigation(this.selectedType === undefined);
@@ -1836,6 +1837,12 @@ module BMA {
                     } else
                         return false;
                 } else if (variableType == "Container") {
+                    that.HideEditors();
+                } else if (variableType == "Constant" && that.CanAddVariable(x, y, "Constant", id)) {
+                    that.HideEditors();
+                } else if (variableType == "Default" && that.CanAddVariable(x, y, "Default", id)) {
+                    that.HideEditors();
+                } else if (variableType == "MembraneReceptor" && that.CanAddVariable(x, y, "MembraneReceptor", id)) {
                     that.HideEditors();
                 }
 
