@@ -176,6 +176,12 @@
                 return this.name;
             }
 
+            public set Name(value: string) {
+                if (this.isPreloaded)
+                    throw "Can't change name of preloaded motfis!";
+                this.name = value;
+            }
+
             public get Preview(): string {
                 return this.preview;
             }
@@ -183,6 +189,13 @@
             public get Description(): string {
                 return this.description;
             }
+
+            public set Description(value: string) {
+                if (this.isPreloaded)
+                    throw "Can't change description of preloaded motfis!";
+                this.description = value;
+            }
+
 
             public get IsPreloaded(): boolean {
                 return this.isPreloaded;

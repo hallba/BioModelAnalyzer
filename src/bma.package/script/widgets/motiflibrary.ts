@@ -87,6 +87,25 @@
             div.hover((e) => { divToShow.show(); }, (e) => { divToShow.hide(); });
         },
 
+        _setEditableHeader: function (div, card) {
+            div.editable({
+                autoselect: true, //select content automatically when editing starts
+                save: function (content) {
+                    card.Name = div.text();
+                },
+            });
+        },
+
+        _setEditableDescription: function (div, card) {
+            div.editable({
+                autoselect: true, //select content automatically when editing starts
+                save: function (content) {
+                    card.Description = div.text();
+                },
+            });
+        },
+
+
         _createCards: function () {
             var that = this;
             var mlmotifs = that.options.motifs;
@@ -104,7 +123,7 @@
                 //Adding name
                 var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
                 if (!mlmotifs[i].IsPreloaded) {
-                    motifHeader.editable();
+                    this._setEditableHeader(motifHeader, mlmotifs[i]);
                 }
 
                 //Adding preview
@@ -120,7 +139,7 @@
                 //Adding description
                 var motifDescription = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
                 if (!mlmotifs[i].IsPreloaded) {
-                    motifDescription.editable();
+                    this._setEditableDescription(motifDescription, mlmotifs[i]);
                 }
 
                 //Adding delete button
