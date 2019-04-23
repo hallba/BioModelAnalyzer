@@ -103,6 +103,9 @@
 
                 //Adding name
                 var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
+                if (!mlmotifs[i].IsPreloaded) {
+                    motifHeader.editable();
+                }
 
                 //Adding preview
                 var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
@@ -115,8 +118,10 @@
                 motifPreviewPicture.css("background-image", image64);
 
                 //Adding description
-                var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
-                //motifHeader.editable();
+                var motifDescription = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+                if (!mlmotifs[i].IsPreloaded) {
+                    motifDescription.editable();
+                }
 
                 //Adding delete button
                 var motifDelete = $("<div></div>").addClass("ml-card-delete").appendTo(motifPreview);

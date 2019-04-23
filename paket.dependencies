@@ -85,3 +85,4 @@ github predictionmachines/InteractiveDataDisplay:6205dacd87c3494dc652ceee5243ccb
 github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.min.js
 github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick.css
 github kenwheeler/slick:0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee slick/slick-theme.css
+github agrinko/jquery-contenteditable:beff30522fd780891a24824699b72bf1da17a82c src/jquery-contenteditable.min.js

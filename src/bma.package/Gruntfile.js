@@ -154,6 +154,7 @@ module.exports = function (grunt) {
                     { src: '../../paket-files/kenwheeler/slick/slick/slick.min.js', dest: '../bma.client/js/slick.min.js' },
                     { src: '../../paket-files/kenwheeler/slick/slick/slick.css', dest: '../bma.client/css/slick.css' },
                     { src: '../../paket-files/kenwheeler/slick/slick/slick-theme.css', dest: '../bma.client/css/slick-theme.css' },
+                    { src: '../../paket-files/agrinko/jquery-contenteditable/src/jquery-contenteditable.min.js', dest: '../bma.client/js/jquery-contenteditable.min.js' },
                     { src: '../../packages/JSZip/content/Scripts/jszip.min.js', dest: '../bma.client/js/jszip.min.js' },
                     { src: '../../packages/RxJS-Main/content/Scripts/rx.js', dest: 'Scripts/rx.js' },
                     { src: '../../packages/RxJS-Main/content/Scripts/rx.js', dest: '../bma.client/Scripts/rx.js' },

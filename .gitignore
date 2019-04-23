@@ -53,6 +53,7 @@ src/bma.client/js/jquery.ui-contextmenu.js
 src/bma.client/js/jquery.ui-contextmenu.min.js
 src/bma.client/js/jquery.mousewheel.js
 src/bma.client/js/jquery.mousewheel.min.js
+src/bma.client/js/jquery-contenteditable.min.js
 src/bma.client/js/svg.js
 src/bma.package/js/FileSaver.js
 src/bma.package/js/jquery.browser.min.js
