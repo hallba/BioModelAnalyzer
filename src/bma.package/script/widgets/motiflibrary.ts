@@ -94,6 +94,9 @@
                     card.Name = div.text();
                 },
             });
+            div.keydown((e) => { e.stopPropagation(); });
+            div.keyup((e) => { e.stopPropagation(); });
+            div.keypress((e) => { e.stopPropagation(); });
         },
 
         _setEditableDescription: function (div, card) {
@@ -103,6 +106,9 @@
                     card.Description = div.text();
                 },
             });
+            div.keydown((e) => { e.stopPropagation(); });
+            div.keyup((e) => { e.stopPropagation(); });
+            div.keypress((e) => { e.stopPropagation(); });
         },
 
 
@@ -152,7 +158,7 @@
                 }
 
                 that._subscribeToClick(motifDelete, mlmotifs[i], i);
-                //that._subscribeToHover(motifPreview, motifDelete);
+                that._subscribeToHover(motifPreview, motifDelete);
             }
 
 
@@ -160,8 +166,8 @@
             var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
             slickContainer.slick({
                 dots: true,
-                infinite: true,
-                centerMode: true,
+                infinite: false, //mlmotifs.length > 2,
+                centerMode: false, //true,
                 variableWidth: true,
                 draggable: false,
                 prevArrow: prev,
