@@ -68,6 +68,12 @@
                 that._isOpened = !that._isOpened;
             });
 
+            $(window).resize((e) => {
+                if (that._isInitialized) {
+                    that._createCards();
+                }
+            });
+
         },
 
         _subscribeToClick: function (div, motif, i) {
@@ -164,15 +170,20 @@
 
             var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>';
             var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
+
+            var slidesToShow = ($(window).width() / 370) | 0;
+
             slickContainer.slick({
                 dots: true,
-                infinite: false, //mlmotifs.length > 2,
-                centerMode: false, //true,
-                variableWidth: true,
+                infinite: false, 
+                centerMode: false, 
                 draggable: false,
                 prevArrow: prev,
                 nextArrow: next,
+                slidesToShow: slidesToShow
             });
+
+            
 
             $('*[draggable!=true]', '.slick-track').unbind('dragstart');
             $(".ml-draggable-element").draggable({
