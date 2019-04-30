@@ -19,6 +19,7 @@ deployment/parameters.json
 #paket
 .paket/paket.exe
 .paket/paket.bootstrapper.exe
+.paket/Paket.Restore.targets
 packages/
 paket-files/
 
