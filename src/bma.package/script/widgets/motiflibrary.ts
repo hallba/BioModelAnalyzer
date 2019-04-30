@@ -34,6 +34,12 @@
             var root = that.element;
             root.addClass("ml-open-container");
 
+            root.droppable({
+                drop: function (event, ui) {
+                    window.Commands.Execute("TryCreateMotifFromSelection", undefined);
+                }
+            });
+
             //Motifs container
             var mlContainer = $("<div></div>").addClass("ml-container").appendTo(root);
             that._mlContainer = mlContainer;

@@ -110,14 +110,7 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceCreateMotifFromSelection", () => {
 
-                    var selectionModel = this.CreateModelFromSelection();
-
-                    var exported = {
-                        Model: BMA.Model.ExportBioModelPart(selectionModel.model, selectionModel.model), Layout: BMA.Model.ExportLayout(selectionModel.model, selectionModel.layout)
-                    };
-
-                    var selectionSubModel = JSON.stringify(exported);
-                    window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
+                    this.CreateMotifFromSelection();
 
                     //var selectionModel = this.CreateModelFromSelection();
                     //var errors = Model.CheckModelVariables(selectionModel.model, selectionModel.layout);
@@ -136,6 +129,12 @@ module BMA {
                     //window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
                     //}
 
+                });
+
+                window.Commands.On("TryCreateMotifFromSelection", () => {
+                    if (!this.IsSelectionEmpty) {
+                        this.CreateMotifFromSelection();
+                    }
                 });
 
                 window.Commands.On('SaveSVG', () => {
@@ -1164,6 +1163,17 @@ module BMA {
             //        return false;
             //    }
             //}
+
+            private CreateMotifFromSelection() {
+                var selectionModel = this.CreateModelFromSelection();
+
+                var exported = {
+                    Model: BMA.Model.ExportBioModelPart(selectionModel.model, selectionModel.model), Layout: BMA.Model.ExportLayout(selectionModel.model, selectionModel.layout)
+                };
+
+                var selectionSubModel = JSON.stringify(exported);
+                window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
+            }
 
             private IsCursorWithinSelection(x: number, y: number): boolean {
                 var selectedModel = this.CreateModelFromSelection();

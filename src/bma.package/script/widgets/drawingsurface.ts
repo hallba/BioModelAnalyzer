@@ -104,6 +104,7 @@ declare var InteractiveDataDisplay: any;
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
             var svgPlotDiv = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
 
+
             this.lightSVGDiv = svgPlotDiv2;
 
             //empty div for event handling

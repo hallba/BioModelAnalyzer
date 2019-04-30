@@ -647,6 +647,10 @@ function loadScript(version) {
         }
     });
 
+    //Adding draggable for motif creation by drag
+    //var draggableEntity = $("<div></div>").width("100%").height("100%").css("background-color", "red").addClass(".plotDraggableEntity").appendTo(motifDropConteiner);
+    //draggableEntity.draggable({ helper: "clone" });
+
     //Start loading preloaded motifs
     motifLibrary.StartLoadMotifs();
 
