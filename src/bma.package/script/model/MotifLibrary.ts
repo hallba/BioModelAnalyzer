@@ -82,11 +82,14 @@
                     newMotif.RefreshPreview(that.svg);
                 }
 
-                that.motifs.push(newMotif);
-                if (isPreloaded)
+                if (isPreloaded) {
+                    that.motifs.push(newMotif);
                     that.preloadedMotifs.push(newMotif);
-                else
-                    that.customMotifs.push(newMotif);
+                }
+                else {
+                    that.motifs.unshift(newMotif);
+                    that.customMotifs.unshift(newMotif);
+                }
             }
 
             public StartLoadMotifs() {
@@ -128,10 +131,10 @@
 
             public ShowPreloadedMotifs() {
                 this.motifs = [];
-                for (var i = 0; i < this.preloadedMotifs.length; i++)
-                    this.motifs.push(this.preloadedMotifs[i]);
                 for (var i = 0; i < this.customMotifs.length; i++)
                     this.motifs.push(this.customMotifs[i]);
+                for (var i = 0; i < this.preloadedMotifs.length; i++)
+                    this.motifs.push(this.preloadedMotifs[i]);
                 this.isPreloadedHided = false;
                 this.commands.Execute("RefreshMotifs", undefined);
 
@@ -139,14 +142,7 @@
 
             public DeleteMotifByIndex(i) {
                 this.motifs.splice(i, 1);
-
-                if (!this.isPreloadedHided) {
-                    this.customMotifs.splice(i - this.preloadedMotifs.length, 1);
-                } else {
-                    this.customMotifs.splice(i, 1);
-                }
-
-
+                this.customMotifs.splice(i, 1);
                 this.commands.Execute("RefreshMotifs", undefined);
             }
         }
