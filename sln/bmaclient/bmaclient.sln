@@ -75,6 +75,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFunctions", "AzureFunc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendUtilities", "..\..\src\BackendUtilities\BackendUtilities.csproj", "{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BMAStanaloneInstaller", "..\..\src\BMAStanaloneInstaller\BMAStanaloneInstaller.wixproj", "{CD311151-77F2-4A52-9ED6-917FA338D943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -347,6 +349,14 @@ Global
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.Build.0 = Release|x64
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.ActiveCfg = Release|Any CPU
 		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.Build.0 = Release|Any CPU
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x64.ActiveCfg = Debug|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x86.ActiveCfg = Debug|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x86.Build.0 = Debug|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|Any CPU.ActiveCfg = Release|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x64.ActiveCfg = Release|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x86.ActiveCfg = Release|x86
+		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
