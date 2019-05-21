@@ -48,7 +48,16 @@
         <File Id="fil60C066ED724CE29B3422A346086FDF92" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.localapp.XML" />
       </Component>
       <Component Id="cmpEF1C221AB0AE9FB16E12E222A156EA0B" Guid="{A80F9254-0050-46AC-B276-EA09410DA4A6}">
-        <File Id="fil3DB687F24C5450F5C3B819B00190F39B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.selfhost.exe" />
+        <File Id="fil3DB687F24C5450F5C3B819B00190F39B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.selfhost.exe">
+          <Shortcut Advertise="yes"
+                        Id="bmaShortcut"
+                        Directory="DesktopFolder"
+                        Name="BioModelAnalyzer"
+                        WorkingDirectory="INSTALLFOLDER"
+                        Icon="Icon.exe">
+            <Icon Id="Icon.exe" SourceFile="$(var.bma.selfhost.TargetPath)" />
+          </Shortcut>
+        </File>
       </Component>
       <Component Id="cmp46B088422A91B7395E4C9522BFE07BD7" Guid="{E29CCB5A-A42A-448A-BB77-BC6A6340B3DF}">
         <File Id="fil7AD673B97D271141389DA947BA060F09" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.selfhost.exe.config" />

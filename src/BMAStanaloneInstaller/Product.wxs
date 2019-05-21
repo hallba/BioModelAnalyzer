@@ -8,7 +8,7 @@
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="BMAStanaloneInstaller" Level="1">
-			<ComponentRef Id="BMAsh" />
+			<!--<ComponentRef Id="BMAsh" />-->
       <ComponentGroupRef Id="selfhostcontent" />
 		</Feature>
 	</Product>
@@ -18,21 +18,8 @@
       <Directory Id="DesktopFolder" Name="Desktop"/>
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLFOLDER" Name="BMA" />
-          <Component Id="BMAsh" Guid="04526E0F-3D0D-40C5-9878-FAFEF6CC170F">
-            <File Id="bma.selfhost.exe"
-                  Checksum="yes"
-                  Source="$(var.bma.selfhost.TargetPath)"
-                  KeyPath="yes">
-              <Shortcut Advertise="yes"
-                        Id="bmaShortcut"
-                        Directory="DesktopFolder"
-                        Name="BioModelAnalyzer"
-                        WorkingDirectory="INSTALLFOLDER"
-                        Icon="Icon.exe">
-                <Icon Id="Icon.exe" SourceFile="$(var.bma.selfhost.TargetPath)" />
-              </Shortcut>
-            </File>
-          </Component>
+          <!--<Component Id="BMAsh" Guid="04526E0F-3D0D-40C5-9878-FAFEF6CC170F">
+          </Component>-->
 			</Directory>
 		</Directory>
 	</Fragment>

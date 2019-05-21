@@ -21,7 +21,7 @@ let startWebApp (address: string) =
         config.Routes.MapHttpRoute("default", "api/{controller}") |> ignore
         app.UseWebApi(config) |> ignore
         let container = new UnityContainer()
-        let logger = new FailureFileLogger("Failures", true)
+        let logger = new FailureFileLogger(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BMA/Failures", true)
         container.RegisterInstance<IFailureLogger>(logger) |> ignore
         config.DependencyResolver <- new UnityResolver(container)
         let fopts = FileServerOptions( RequestPath = PathString.Empty, FileSystem = PhysicalFileSystem(@".\bma.client") )
