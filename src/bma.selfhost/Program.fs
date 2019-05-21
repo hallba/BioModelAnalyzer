@@ -27,7 +27,9 @@ let startWebApp (address: string) =
         let fopts = FileServerOptions( RequestPath = PathString.Empty, FileSystem = PhysicalFileSystem(@".\bma.client") )
         fopts.StaticFileOptions.ServeUnknownFileTypes <- true
         app.UseFileServer(fopts) |> ignore
-    Microsoft.Owin.Hosting.WebApp.Start(address, Action<IAppBuilder>(configure))
+    Microsoft.Owin.Hosting.WebApp.Start(address, Action<IAppBuilder>(configure)) |> ignore
+    Process.Start(address) |> ignore
+    
 
 let helptext = @"This program self-hosts BMA (both API and UI). Available switches:
 -h|--help - displays this text
