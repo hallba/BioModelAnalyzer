@@ -2219,7 +2219,7 @@ module BMA {
                         var newVariablesLayout = [];
                         var newRelations = [];
                         for (var j = 0; j < model.Variables.length; j++) {
-                            if (model.Variables[j].Id === variables[i].Id) {
+                            if (model.Variables[j].Id === variables[editingVariableIndex].Id) {
                                 newVariables.push(new BMA.Model.Variable(
                                     model.Variables[j].Id,
                                     model.Variables[j].ContainerId,
@@ -2284,10 +2284,12 @@ module BMA {
 
                     that.editingModel = BMA.ModelHelper.UpdateFormulasAfterVariableChanged(that.variableEditedId,
                         that.undoRedoPresenter.Current.model, that.editingModel);
-                    if (that.editingModel || that.editingLayout)
+                    if (that.editingModel || that.editingLayout) {
                         that.undoRedoPresenter.Dup(that.editingModel ? that.editingModel : that.appModel.BioModel,
                             that.editingLayout ? that.editingLayout : that.appModel.Layout);
+                    }
                     that.editingModel = undefined;
+                    that.editingLayout = undefined;
                 }
             }
         }
