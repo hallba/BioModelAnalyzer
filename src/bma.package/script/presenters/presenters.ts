@@ -909,6 +909,15 @@ module BMA {
 
                         var id = that.GetVariableAtPosition(x, y);
                         this.stagingHighlight.variables[0] = id;
+                        //To prevent model elements be rendered above highlight circle
+                        if (id != undefined) {
+                            navigationDriver.MoveDraggableOnTop();
+                        } else {
+                            //TODO: check that this doesn't break other needs of navigation driver to be at top
+                            if (that.stagingLine === undefined && that.stagingRect === undefined) {
+                                navigationDriver.MoveDraggableOnBottom();
+                            }
+                        }
 
                         if (that.svg !== undefined) {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());

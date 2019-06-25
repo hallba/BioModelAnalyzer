@@ -431,7 +431,7 @@ module BMA {
                                 fill: pathFill,
                                 "stroke-width": 2,
                                 d: data,
-                                transform: "scale(0.36)"
+                                transform: "scale(0.25)"
                             });
 
                             //if (that.labelVisibility === true) {
