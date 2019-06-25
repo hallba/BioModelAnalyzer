@@ -914,7 +914,7 @@ module BMA {
                             navigationDriver.MoveDraggableOnTop();
                         } else {
                             //TODO: check that this doesn't break other needs of navigation driver to be at top
-                            if (that.stagingLine === undefined && that.stagingRect === undefined) {
+                            if (that.stagingLine === undefined && that.stagingRect === undefined && that.stagingVariable === undefined && that.stagingContainer === undefined && that.stagingOffset === undefined) {
                                 navigationDriver.MoveDraggableOnBottom();
                             }
                         }
