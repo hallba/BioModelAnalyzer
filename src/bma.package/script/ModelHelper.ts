@@ -140,6 +140,48 @@ module BMA {
             }
 
 
+            //Rendering text labels for containers and variables
+            for (var i = 0; i < containerLayouts.length; i++) {
+                var containerLayout = containerLayouts[i];
+                var element = window.ElementRegistry.GetElementByType("Container");
+
+                svgElements.push(element.RenderToSvg({
+                    layout: containerLayout,
+                    grid: grid,
+                    background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
+                    translate: translate,
+                    textOnly: true
+                }));
+            }
+
+            for (var i = 0; i < variables.length; i++) {
+                var variable = variables[i];
+                var variableLayout = variableLayouts[i];
+                var element = window.ElementRegistry.GetElementByType(variable.Type);
+                var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : GetItemById(args.variablesStability, variable.Id);
+
+                var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
+                var sizeCoef = undefined;
+                var gridCell = undefined;
+                if (container !== undefined) {
+                    sizeCoef = container.Size;
+                    gridCell = { x: container.PositionX, y: container.PositionY };
+                }
+
+                svgElements.push(element.RenderToSvg({
+                    model: variable,
+                    layout: variableLayout,
+                    grid: grid,
+                    gridCell: gridCell,
+                    sizeCoef: sizeCoef,
+                    valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                    labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
+                    translate: translate,
+                    textOnly: true
+                }));
+            }
+
+
             //constructing final svg image
             svg.clear();
             var defs = svg.defs("bmaDefs");

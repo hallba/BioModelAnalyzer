@@ -265,44 +265,59 @@ module BMA {
                             transform: "translate(" + x + ", " + y + ")"
                         });
 
-                        jqSvg.rect(g,
-                            - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
-                            - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
-                            renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep / containerPaddingCoef,
-                            renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep / containerPaddingCoef,
-                            0,
-                            0,
-                            {
-                                stroke: "none",
-                                fill: renderParams.background !== undefined ? renderParams.background : "transparent",
+                        if (!renderParams.textOnly) {
+
+                            jqSvg.rect(g,
+                                - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
+                                - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
+                                renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep / containerPaddingCoef,
+                                renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep / containerPaddingCoef,
+                                0,
+                                0,
+                                {
+                                    stroke: "none",
+                                    fill: renderParams.background !== undefined ? renderParams.background : "transparent",
+                                });
+
+                            var scale = 0.45 * renderParams.layout.Size;
+
+                            var cellData = "M249,577 C386.518903,577 498,447.83415 498,288.5 C498,129.16585 386.518903,0 249,0 C111.481097,0 0,129.16585 0,288.5 C0,447.83415 111.481097,577 249,577 Z M262,563 C387.368638,563 489,440.102164 489,288.5 C489,136.897836 387.368638,14 262,14 C136.631362,14 35,136.897836 35,288.5 C35,440.102164 136.631362,563 262,563 Z";
+                            var cellPath = jqSvg.createPath();
+                            var pathFill = "#FAAF40";
+                            if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                                pathFill = "#EDEDED";
+                            }
+
+                            var op = jqSvg.path(g, cellPath, {
+                                stroke: renderParams.isSelected ? 'blue' : 'transparent',
+                                strokeWidth: 1,
+                                fill: pathFill,
+                                "fill-rule": "evenodd",
+                                d: cellData,
+                                transform: "scale(" + scale + ") translate(-250, -290)"
                             });
 
-                        var scale = 0.45 * renderParams.layout.Size;
+                            if (renderParams.translate === undefined) {
+                                jqSvg.ellipse(g,
+                                    containerInnerCenterOffset * renderParams.layout.Size,
+                                    0,
+                                    containerInnerEllipseWidth * renderParams.layout.Size,
+                                    containerInnerEllipseHeight * renderParams.layout.Size, { stroke: "none", fill: "white" });
 
-                        var cellData = "M249,577 C386.518903,577 498,447.83415 498,288.5 C498,129.16585 386.518903,0 249,0 C111.481097,0 0,129.16585 0,288.5 C0,447.83415 111.481097,577 249,577 Z M262,563 C387.368638,563 489,440.102164 489,288.5 C489,136.897836 387.368638,14 262,14 C136.631362,14 35,136.897836 35,288.5 C35,440.102164 136.631362,563 262,563 Z";
-                        var cellPath = jqSvg.createPath();
-                        var pathFill = "#FAAF40";
-                        if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                            pathFill = "#EDEDED";
-                        }
-
-                        var op = jqSvg.path(g, cellPath, {
-                            stroke: renderParams.isSelected ? 'blue' : 'transparent',
-                            strokeWidth: 1,
-                            fill: pathFill,
-                            "fill-rule": "evenodd",
-                            d: cellData,
-                            transform: "scale(" + scale + ") translate(-250, -290)"
-                        });
-
-                        if (renderParams.translate === undefined) {
-                            jqSvg.ellipse(g,
-                                containerInnerCenterOffset * renderParams.layout.Size,
-                                0,
-                                containerInnerEllipseWidth * renderParams.layout.Size,
-                                containerInnerEllipseHeight * renderParams.layout.Size, { stroke: "none", fill: "transparent" });
-
-                            if (that.labelVisibility === true) {
+                                //if (that.labelVisibility === true) {
+                                //    if (renderParams.layout.Name !== undefined && renderParams.layout.Name !== "") {
+                                //        var textLabel = jqSvg.text(g, 0, 0, renderParams.layout.Name, {
+                                //            transform: "translate(" + -(renderParams.layout.Size * renderParams.grid.xStep / 2 - 10 * renderParams.layout.Size) + ", " + -(renderParams.layout.Size * renderParams.grid.yStep / 2 - that.labelSize - 10 * renderParams.layout.Size) + ")",
+                                //            "font-size": that.labelSize * renderParams.layout.Size,
+                                //            "font-family": textFontFamily,
+                                //            "src": textFontSrc,
+                                //            "fill": "black"
+                                //        });
+                                //    }
+                                //}
+                            }
+                        } else {
+                            if (renderParams.translate === undefined && that.labelVisibility === true) {
                                 if (renderParams.layout.Name !== undefined && renderParams.layout.Name !== "") {
                                     var textLabel = jqSvg.text(g, 0, 0, renderParams.layout.Name, {
                                         transform: "translate(" + -(renderParams.layout.Size * renderParams.grid.xStep / 2 - 10 * renderParams.layout.Size) + ", " + -(renderParams.layout.Size * renderParams.grid.yStep / 2 - that.labelSize - 10 * renderParams.layout.Size) + ")",
@@ -392,74 +407,99 @@ module BMA {
                             transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
-                        var pathFill = "#BBBDBF";
-                        if (renderParams.isHighlighted !== undefined) {
-                            if (!renderParams.isHighlighted) {
-                                pathFill = "#EDEDED";
+                        if (!renderParams.textOnly) {
+
+                            var pathFill = "#BBBDBF";
+                            if (renderParams.isHighlighted !== undefined) {
+                                if (!renderParams.isHighlighted) {
+                                    pathFill = "#EDEDED";
+                                }
+                                //else {
+                                //    pathFill = "#EF4137";
+                                //}
                             }
-                            //else {
-                            //    pathFill = "#EF4137";
+
+                            if (renderParams.isHighlighted) {
+                                var rad = 1.3 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                            }
+
+                            var data = "M27.3,43.4l-2.2-0.8c-12-4.4-19.3-11.5-20-19.7c0-0.5-0.1-0.9-0.1-1.4c-5.4-2.6-9-7.3-10.5-12.3c-0.6-2-0.9-4.1-0.8-6.3c-4.7-1.7-8.2-4.7-10.3-8.2c-2.1-3.4-3.2-8.1-2.1-13.4c-6.7-1.8-12.5-4.3-15.9-5.8l-7.4,19.9l26.7,7.9L-17,9.1l-32.8-9.7l11.9-32l3,1.5c3.9,1.9,10.8,4.9,18.1,6.9c1.9-4,5.1-8.1,10-12.1c10.8-8.9,19.7-8.1,23.8-3.4c3.5,4,3.6,11.6-4.2,18.7c-6.3,5.7-16.2,5.7-25.7,3.8c-0.6,3.2-0.2,6.2,1.4,8.9c1.3,2.2,3.4,4,6.3,5.3C-3.4-8.3,0.7-13.2,8-16c15.9-6.1,19.9,0.2,20.7,2.2c2.1,5.2-2.4,11.8-10.1,15C11.5,4.2,5.1,5-0.3,4.4C-0.2,5.5,0,6.5,0.3,7.5c0.9,3.2,3,6.1,6.2,8C8,12.1,11,9,15,6.7C25,1,32.2,1.6,35.7,4.2c2.3,1.7,3.3,4.3,2.7,7.1c-1.1,5.3-7.6,9.7-17.5,11.8c-3.6,0.8-6.8,0.8-9.7,0.4c1,4.9,6,9.5,13.9,12.8l7.4-10.7l17.4,10.1l-3,5.1l-12.6-7.4L27.3,43.4L27.3,43.4z M12.1,17.5c2.2,0.3,4.8,0.3,7.6-0.3c9.4-2,12.6-5.6,12.9-7.2c0.1-0.4,0-0.7-0.4-1c-1.4-1-6.2-1.7-14.1,2.9C15.2,13.4,13.2,15.4,12.1,17.5L12.1,17.5z M0.6-1.5C5-1,10.3-1.7,16.3-4.2c5.4-2.3,7.4-6,6.9-7.3c-0.4-1-4.3-2.2-13,1.1C5-8.5,2-5.1,0.6-1.5L0.6-1.5z M-10.8-22.8c7.8,1.4,15.2,1.3,19.5-2.6c4.7-4.2,5.4-8.4,3.7-10.4c-2.1-2.5-8.3-1.9-15.5,4.1C-6.5-28.9-9.1-25.9-10.8-22.8L-10.8-22.8z";
+                            var path = jqSvg.createPath();
+                            var variable = jqSvg.path(g, path, {
+                                stroke: renderParams.isSelected ? 'blue' : 'transparent',
+                                fill: pathFill,
+                                "stroke-width": 2,
+                                d: data,
+                                transform: "scale(0.36)"
+                            });
+
+                            //if (that.labelVisibility === true) {
+                            //    var offset = 0;
+
+                            //    if (renderParams.model.Name !== "") {
+                            //        var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //        offset += that.labelSize;
+                            //    }
+
+                            //    if (renderParams.valueText !== undefined) {
+                            //        jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //    }
                             //}
-                        }
 
-                        if (renderParams.isHighlighted) {
-                            var rad = 1.3 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                            jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
-                        }
-
-                        var data = "M27.3,43.4l-2.2-0.8c-12-4.4-19.3-11.5-20-19.7c0-0.5-0.1-0.9-0.1-1.4c-5.4-2.6-9-7.3-10.5-12.3c-0.6-2-0.9-4.1-0.8-6.3c-4.7-1.7-8.2-4.7-10.3-8.2c-2.1-3.4-3.2-8.1-2.1-13.4c-6.7-1.8-12.5-4.3-15.9-5.8l-7.4,19.9l26.7,7.9L-17,9.1l-32.8-9.7l11.9-32l3,1.5c3.9,1.9,10.8,4.9,18.1,6.9c1.9-4,5.1-8.1,10-12.1c10.8-8.9,19.7-8.1,23.8-3.4c3.5,4,3.6,11.6-4.2,18.7c-6.3,5.7-16.2,5.7-25.7,3.8c-0.6,3.2-0.2,6.2,1.4,8.9c1.3,2.2,3.4,4,6.3,5.3C-3.4-8.3,0.7-13.2,8-16c15.9-6.1,19.9,0.2,20.7,2.2c2.1,5.2-2.4,11.8-10.1,15C11.5,4.2,5.1,5-0.3,4.4C-0.2,5.5,0,6.5,0.3,7.5c0.9,3.2,3,6.1,6.2,8C8,12.1,11,9,15,6.7C25,1,32.2,1.6,35.7,4.2c2.3,1.7,3.3,4.3,2.7,7.1c-1.1,5.3-7.6,9.7-17.5,11.8c-3.6,0.8-6.8,0.8-9.7,0.4c1,4.9,6,9.5,13.9,12.8l7.4-10.7l17.4,10.1l-3,5.1l-12.6-7.4L27.3,43.4L27.3,43.4z M12.1,17.5c2.2,0.3,4.8,0.3,7.6-0.3c9.4-2,12.6-5.6,12.9-7.2c0.1-0.4,0-0.7-0.4-1c-1.4-1-6.2-1.7-14.1,2.9C15.2,13.4,13.2,15.4,12.1,17.5L12.1,17.5z M0.6-1.5C5-1,10.3-1.7,16.3-4.2c5.4-2.3,7.4-6,6.9-7.3c-0.4-1-4.3-2.2-13,1.1C5-8.5,2-5.1,0.6-1.5L0.6-1.5z M-10.8-22.8c7.8,1.4,15.2,1.3,19.5-2.6c4.7-4.2,5.4-8.4,3.7-10.4c-2.1-2.5-8.3-1.9-15.5,4.1C-6.5-28.9-9.1-25.9-10.8-22.8L-10.8-22.8z";
-                        var path = jqSvg.createPath();
-                        var variable = jqSvg.path(g, path, {
-                            stroke: renderParams.isSelected? 'blue' : 'transparent',
-                            fill: pathFill,
-                            "stroke-width": 2,
-                            d: data,
-                            transform: "scale(0.36)"
-                        });
-
-                        if (that.labelVisibility === true) {
-
-
-
-                            var offset = 0;
-
-                            if (renderParams.model.Name !== "") {
-                                var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
-                                    "font-size": that.labelSize,
+                            if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
+                                jqSvg.text(g, 0, 0, "!", {
+                                    transform: transform,
+                                    "font-size": 10,
                                     "font-family": textFontFamily,
                                     "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    "fill": "red"
                                 });
-                                offset += that.labelSize;
-                            }
-
-                            if (renderParams.valueText !== undefined) {
-                                jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
-                                    "font-size": that.labelSize,
-                                    "font-family": textFontFamily,
+                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
+                                    transform: transform,
                                     "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    "stroke": "red",
+                                    "fill": "transparent"
                                 });
                             }
-                        }
+                        } else {
+                            if (that.labelVisibility === true) {
+                                var offset = 0;
 
-                        if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                            var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
-                            jqSvg.text(g, 0, 0, "!", {
-                                transform: transform,
-                                "font-size": 10,
-                                "font-family": textFontFamily,
-                                "src": textFontSrc,
-                                "fill": "red"
-                            });
-                            jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                transform: transform,
-                                "src": textFontSrc,
-                                "stroke": "red",
-                                "fill": "transparent"
-                            });
+                                if (renderParams.model.Name !== "") {
+                                    var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                    offset += that.labelSize;
+                                }
+
+                                if (renderParams.valueText !== undefined) {
+                                    jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                }
+                            }
                         }
 
                         /*
@@ -505,66 +545,94 @@ module BMA {
                             transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
-                        var pathFill = "#EF4137";
-                        if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                            pathFill = "#EDEDED";
-                        }
+                        if (!renderParams.textOnly) {
 
-                        if (renderParams.isHighlighted) {
-                            var rad = Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                            jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
-                        }
-
-                        var data = "M27.3,43.4l-2.2-0.8c-12-4.4-19.3-11.5-20-19.7c0-0.5-0.1-0.9-0.1-1.4c-5.4-2.6-9-7.3-10.5-12.3c-0.6-2-0.9-4.1-0.8-6.3c-4.7-1.7-8.2-4.7-10.3-8.2c-2.1-3.4-3.2-8.1-2.1-13.4c-6.7-1.8-12.5-4.3-15.9-5.8l-7.4,19.9l26.7,7.9L-17,9.1l-32.8-9.7l11.9-32l3,1.5c3.9,1.9,10.8,4.9,18.1,6.9c1.9-4,5.1-8.1,10-12.1c10.8-8.9,19.7-8.1,23.8-3.4c3.5,4,3.6,11.6-4.2,18.7c-6.3,5.7-16.2,5.7-25.7,3.8c-0.6,3.2-0.2,6.2,1.4,8.9c1.3,2.2,3.4,4,6.3,5.3C-3.4-8.3,0.7-13.2,8-16c15.9-6.1,19.9,0.2,20.7,2.2c2.1,5.2-2.4,11.8-10.1,15C11.5,4.2,5.1,5-0.3,4.4C-0.2,5.5,0,6.5,0.3,7.5c0.9,3.2,3,6.1,6.2,8C8,12.1,11,9,15,6.7C25,1,32.2,1.6,35.7,4.2c2.3,1.7,3.3,4.3,2.7,7.1c-1.1,5.3-7.6,9.7-17.5,11.8c-3.6,0.8-6.8,0.8-9.7,0.4c1,4.9,6,9.5,13.9,12.8l7.4-10.7l17.4,10.1l-3,5.1l-12.6-7.4L27.3,43.4L27.3,43.4z M12.1,17.5c2.2,0.3,4.8,0.3,7.6-0.3c9.4-2,12.6-5.6,12.9-7.2c0.1-0.4,0-0.7-0.4-1c-1.4-1-6.2-1.7-14.1,2.9C15.2,13.4,13.2,15.4,12.1,17.5L12.1,17.5z M0.6-1.5C5-1,10.3-1.7,16.3-4.2c5.4-2.3,7.4-6,6.9-7.3c-0.4-1-4.3-2.2-13,1.1C5-8.5,2-5.1,0.6-1.5L0.6-1.5z M-10.8-22.8c7.8,1.4,15.2,1.3,19.5-2.6c4.7-4.2,5.4-8.4,3.7-10.4c-2.1-2.5-8.3-1.9-15.5,4.1C-6.5-28.9-9.1-25.9-10.8-22.8L-10.8-22.8z";
-                        var path = jqSvg.createPath();
-                        var variable = jqSvg.path(g, path, {
-                            stroke: renderParams.isSelected ? 'blue' : 'transparent',
-                            fill: pathFill,
-                            strokeWidth: 2,
-                            d: data,
-                            transform: "scale(0.25)"
-                        });
-
-                        if (that.labelVisibility === true) {
-                            var offset = 0;
-
-                            if (renderParams.model.Name !== "") {
-                                var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
-                                    "font-size": that.labelSize,
-                                    "font-family": textFontFamily,
-                                    "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
-                                });
-                                offset += that.labelSize;
+                            var pathFill = "#EF4137";
+                            if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                                pathFill = "#EDEDED";
                             }
 
-                            if (renderParams.valueText !== undefined) {
-                                jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
-                                    "font-size": that.labelSize,
+                            if (renderParams.isHighlighted) {
+                                var rad = Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                            }
+
+                            var data = "M27.3,43.4l-2.2-0.8c-12-4.4-19.3-11.5-20-19.7c0-0.5-0.1-0.9-0.1-1.4c-5.4-2.6-9-7.3-10.5-12.3c-0.6-2-0.9-4.1-0.8-6.3c-4.7-1.7-8.2-4.7-10.3-8.2c-2.1-3.4-3.2-8.1-2.1-13.4c-6.7-1.8-12.5-4.3-15.9-5.8l-7.4,19.9l26.7,7.9L-17,9.1l-32.8-9.7l11.9-32l3,1.5c3.9,1.9,10.8,4.9,18.1,6.9c1.9-4,5.1-8.1,10-12.1c10.8-8.9,19.7-8.1,23.8-3.4c3.5,4,3.6,11.6-4.2,18.7c-6.3,5.7-16.2,5.7-25.7,3.8c-0.6,3.2-0.2,6.2,1.4,8.9c1.3,2.2,3.4,4,6.3,5.3C-3.4-8.3,0.7-13.2,8-16c15.9-6.1,19.9,0.2,20.7,2.2c2.1,5.2-2.4,11.8-10.1,15C11.5,4.2,5.1,5-0.3,4.4C-0.2,5.5,0,6.5,0.3,7.5c0.9,3.2,3,6.1,6.2,8C8,12.1,11,9,15,6.7C25,1,32.2,1.6,35.7,4.2c2.3,1.7,3.3,4.3,2.7,7.1c-1.1,5.3-7.6,9.7-17.5,11.8c-3.6,0.8-6.8,0.8-9.7,0.4c1,4.9,6,9.5,13.9,12.8l7.4-10.7l17.4,10.1l-3,5.1l-12.6-7.4L27.3,43.4L27.3,43.4z M12.1,17.5c2.2,0.3,4.8,0.3,7.6-0.3c9.4-2,12.6-5.6,12.9-7.2c0.1-0.4,0-0.7-0.4-1c-1.4-1-6.2-1.7-14.1,2.9C15.2,13.4,13.2,15.4,12.1,17.5L12.1,17.5z M0.6-1.5C5-1,10.3-1.7,16.3-4.2c5.4-2.3,7.4-6,6.9-7.3c-0.4-1-4.3-2.2-13,1.1C5-8.5,2-5.1,0.6-1.5L0.6-1.5z M-10.8-22.8c7.8,1.4,15.2,1.3,19.5-2.6c4.7-4.2,5.4-8.4,3.7-10.4c-2.1-2.5-8.3-1.9-15.5,4.1C-6.5-28.9-9.1-25.9-10.8-22.8L-10.8-22.8z";
+                            var path = jqSvg.createPath();
+                            var variable = jqSvg.path(g, path, {
+                                stroke: renderParams.isSelected ? 'blue' : 'transparent',
+                                fill: pathFill,
+                                strokeWidth: 2,
+                                d: data,
+                                transform: "scale(0.25)"
+                            });
+
+                            //if (that.labelVisibility === true) {
+                            //    var offset = 0;
+
+                            //    if (renderParams.model.Name !== "") {
+                            //        var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //        offset += that.labelSize;
+                            //    }
+
+                            //    if (renderParams.valueText !== undefined) {
+                            //        jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //    }
+                            //}
+
+                            if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
+                                jqSvg.text(g, 0, 0, "!", {
+                                    transform: transform,
+                                    "font-size": 10,
                                     "font-family": textFontFamily,
                                     "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    "fill": "red"
+                                });
+                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
+                                    transform: transform,
+                                    "src": textFontSrc,
+                                    "stroke": "red",
+                                    "fill": "transparent"
                                 });
                             }
-                        }
+                        } else {
+                            if (that.labelVisibility === true) {
+                                var offset = 0;
 
-                        if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                            var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
-                            jqSvg.text(g, 0, 0, "!", {
-                                transform: transform,
-                                "font-size": 10,
-                                "font-family": textFontFamily,
-                                "src": textFontSrc,
-                                "fill": "red"
-                            });
-                            jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                transform: transform,
-                                "src": textFontSrc,
-                                "stroke": "red",
-                                "fill": "transparent"
-                            });
+                                if (renderParams.model.Name !== "") {
+                                    var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                    offset += that.labelSize;
+                                }
+
+                                if (renderParams.valueText !== undefined) {
+                                    jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                }
+                            }
                         }
 
                         //$(variable).attr("onmouseover", "BMA.SVGHelper.AddClass(this, 'modeldesigner-element-hover')");
@@ -598,89 +666,116 @@ module BMA {
                             transform: "translate(" + (renderParams.layout.PositionX + translate.x) + ", " + (renderParams.layout.PositionY + translate.y) + ")",
                         });
 
-                        var angle = 0;
-                        if (renderParams.gridCell !== undefined) {
-                            var containerX = (renderParams.gridCell.x + 0.5) * renderParams.grid.xStep + renderParams.grid.x0 + (renderParams.sizeCoef - 1) * renderParams.grid.xStep / 2;
-                            var containerY = (renderParams.gridCell.y + 0.5) * renderParams.grid.yStep + renderParams.grid.y0 + (renderParams.sizeCoef - 1) * renderParams.grid.yStep / 2;
+                        if (!renderParams.textOnly) {
+                            var angle = 0;
+                            if (renderParams.gridCell !== undefined) {
+                                var containerX = (renderParams.gridCell.x + 0.5) * renderParams.grid.xStep + renderParams.grid.x0 + (renderParams.sizeCoef - 1) * renderParams.grid.xStep / 2;
+                                var containerY = (renderParams.gridCell.y + 0.5) * renderParams.grid.yStep + renderParams.grid.y0 + (renderParams.sizeCoef - 1) * renderParams.grid.yStep / 2;
 
-                            var v = {
-                                x: renderParams.layout.PositionX - containerX,
-                                y: renderParams.layout.PositionY - containerY
-                            };
-                            var len = Math.sqrt(v.x * v.x + v.y * v.y);
+                                var v = {
+                                    x: renderParams.layout.PositionX - containerX,
+                                    y: renderParams.layout.PositionY - containerY
+                                };
+                                var len = Math.sqrt(v.x * v.x + v.y * v.y);
 
-                            v.x = v.x / len;
-                            v.y = v.y / len;
+                                v.x = v.x / len;
+                                v.y = v.y / len;
 
-                            var acos = Math.acos(-v.y);
+                                var acos = Math.acos(-v.y);
 
-                            angle = acos * v.x / Math.abs(v.x);
+                                angle = acos * v.x / Math.abs(v.x);
 
-                            angle = angle * 180 / Math.PI;
-                            if (angle < 0)
-                                angle += 360;
-                        }
-
-                        var pathFill = "#3BB34A";
-                        if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                            pathFill = "#EDEDED";
-                        }
-
-                        if (renderParams.isHighlighted) {
-                            var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                            jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
-                        }
-
-                        var data = "M9.9-10.5c-1.4-1.9-2.3,0.1-5.1,0.8C2.6-9.2,2.4-13.2,0-13.2c-2.4,0-2.4,3.5-4.8,3.5c-2.4,0-3.8-2.7-5.2-0.8l8.2,11.8v12.1c0,1,0.8,1.7,1.7,1.7c1,0,1.7-0.8,1.7-1.7V1.3L9.9-10.5z";
-                        var path = jqSvg.createPath();
-                        var variable = jqSvg.path(g, path, {
-                            stroke: renderParams.isSelected ? 'blue' : 'transparent',
-                            fill: pathFill,
-                            strokeWidth: 1,
-                            d: data,
-                            transform: "scale(1.2) rotate(" + angle + ")"
-                        });
-
-                        if (that.labelVisibility === true) {
-                            var offset = 0;
-
-                            if (renderParams.model.Name !== "") {
-                                var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
-                                    "font-size": that.labelSize,
-                                    "font-family": textFontFamily,
-                                    "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
-                                });
-                                offset += that.labelSize;
+                                angle = angle * 180 / Math.PI;
+                                if (angle < 0)
+                                    angle += 360;
                             }
 
-                            if (renderParams.valueText !== undefined) {
-                                jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                    transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
-                                    "font-size": that.labelSize,
+                            var pathFill = "#3BB34A";
+                            if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                                pathFill = "#EDEDED";
+                            }
+
+                            if (renderParams.isHighlighted) {
+                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                            }
+
+                            var data = "M9.9-10.5c-1.4-1.9-2.3,0.1-5.1,0.8C2.6-9.2,2.4-13.2,0-13.2c-2.4,0-2.4,3.5-4.8,3.5c-2.4,0-3.8-2.7-5.2-0.8l8.2,11.8v12.1c0,1,0.8,1.7,1.7,1.7c1,0,1.7-0.8,1.7-1.7V1.3L9.9-10.5z";
+                            var path = jqSvg.createPath();
+                            var variable = jqSvg.path(g, path, {
+                                stroke: renderParams.isSelected ? 'blue' : 'transparent',
+                                fill: pathFill,
+                                strokeWidth: 1,
+                                d: data,
+                                transform: "scale(1.2) rotate(" + angle + ")"
+                            });
+
+                            //if (that.labelVisibility === true) {
+                            //    var offset = 0;
+
+                            //    if (renderParams.model.Name !== "") {
+                            //        var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //        offset += that.labelSize;
+                            //    }
+
+                            //    if (renderParams.valueText !== undefined) {
+                            //        jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                            //            transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                            //            "font-size": that.labelSize,
+                            //            "font-family": textFontFamily,
+                            //            "src": textFontSrc,
+                            //            "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                            //        });
+                            //    }
+                            //}
+
+                            if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
+                                jqSvg.text(g, 0, 0, "!", {
+                                    transform: transform,
+                                    "font-size": 10,
                                     "font-family": textFontFamily,
                                     "src": textFontSrc,
-                                    "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    "fill": "red"
+                                });
+                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
+                                    transform: transform,
+                                    "src": textFontSrc,
+                                    "stroke": "red",
+                                    "fill": "transparent"
                                 });
                             }
-                        }
+                        } else {
+                            if (that.labelVisibility === true) {
+                                var offset = 0;
 
-                        if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                            var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
-                            jqSvg.text(g, 0, 0, "!", {
-                                transform: transform,
-                                "font-size": 10,
-                                "font-family": textFontFamily,
-                                "src": textFontSrc,
-                                "fill": "red"
-                            });
-                            jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                transform: transform,
-                                "src": textFontSrc,
-                                "stroke": "red",
-                                "fill": "transparent"
-                            });
+                                if (renderParams.model.Name !== "") {
+                                    var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                    offset += that.labelSize;
+                                }
+
+                                if (renderParams.valueText !== undefined) {
+                                    jqSvg.text(g, 0, 0, renderParams.valueText + "", {
+                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                                        "font-size": that.labelSize,
+                                        "font-family": textFontFamily,
+                                        "src": textFontSrc,
+                                        "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
+                                    });
+                                }
+                            }
                         }
 
                         /*
