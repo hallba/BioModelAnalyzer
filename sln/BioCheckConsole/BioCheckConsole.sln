@@ -1,16 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{FCFABC3C-E55D-48AB-9FF7-52054D5662B8}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\paket.dependencies = ..\..\paket.dependencies
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FParsecCS", "..\..\ext\FParsec\fparsec-main-c234349e7b73\Build\VS11\FParsecCS.csproj", "{501423C3-8EA5-4E54-8D9C-EF60272B57FA}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FParsec", "..\..\ext\FParsec\fparsec-main-c234349e7b73\Build\VS11\FParsec.fsproj", "{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioCheckAnalyzerCommon", "..\..\src\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon.csproj", "{61E37D4E-172B-45DD-9289-5C874A8320F0}"
 EndProject
@@ -30,22 +26,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Debug|x64.Build.0 = Debug|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Debug|x86.Build.0 = Debug|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Release|x64.ActiveCfg = Release|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Release|x64.Build.0 = Release|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Release|x86.ActiveCfg = Release|Any CPU
-		{501423C3-8EA5-4E54-8D9C-EF60272B57FA}.Release|x86.Build.0 = Release|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Debug|x64.Build.0 = Debug|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Debug|x86.Build.0 = Debug|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Release|x64.ActiveCfg = Release|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Release|x64.Build.0 = Release|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Release|x86.ActiveCfg = Release|Any CPU
-		{8EA340D3-E9E0-477E-9AC3-FBFDF3BAD41E}.Release|x86.Build.0 = Release|Any CPU
 		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x64.Build.0 = Debug|Any CPU
 		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -89,5 +69,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E65DEEBD-5B53-4A7E-B0CF-89658CE842D6}
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-	<Product Id="*" Name="BMAStanaloneInstaller" Language="1033" Version="1.0.0.1" Manufacturer="test" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
+	<Product Id="*" Name="BMAStanaloneInstaller" Language="1033" Version="1.0.1.0" Manufacturer="test" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -20,6 +20,7 @@
 				<Directory Id="INSTALLFOLDER" Name="BMA">
           <Component Id="BioCheckConsole" Guid="04526E0F-3D0D-40C5-9878-FAFEF6CC170F">
             <File Id="BioCheckConsole.exe" KeyPath="yes" Source="$(var.BioCheckConsole.TargetDir)\BioCheckConsole.exe" />
+            <File Id="BioCheckConsole.exe.config" Source="$(var.BioCheckConsole.TargetDir)\BioCheckConsole.exe.config" />
           </Component>
         </Directory>
 			</Directory>
