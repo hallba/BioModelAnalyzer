@@ -14,3 +14,5 @@ Owin
 Unity
 Microsoft.VisualStudio.QualityTools.UnitTestFramework
 FSharp.Core
+System.Runtime
+FParsec

@@ -10,8 +10,6 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ext\FParsec\fparsec-main-c234349e7b73\Build\VS11\FParsec.fsproj" />
-    <ProjectReference Include="..\..\ext\FParsec\fparsec-main-c234349e7b73\Build\VS11\FParsecCS.csproj" />
     <ProjectReference Include="..\BackendUtilities\BackendUtilities.csproj" />
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon.csproj" />
     <ProjectReference Include="..\BioCheckAnalyzer\BioCheckAnalyzer.fsproj" />

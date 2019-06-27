@@ -6,3 +6,4 @@ Newtonsoft.Json
 System.Spatial
 WindowsAzure.Storage
 FSharp.Core
+System.Runtime

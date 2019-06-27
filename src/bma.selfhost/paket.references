@@ -6,3 +6,4 @@ Unity
 Unity.Configuration
 System.Runtime
 FSharp.Core
+FParsec

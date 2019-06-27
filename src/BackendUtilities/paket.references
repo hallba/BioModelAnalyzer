@@ -6,3 +6,4 @@ Microsoft.WindowsAzure.ConfigurationManager
 Newtonsoft.Json
 System.Spatial
 WindowsAzure.Storage
+System.Runtime

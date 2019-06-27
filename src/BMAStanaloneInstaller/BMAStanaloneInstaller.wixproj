@@ -24,6 +24,14 @@
     <Compile Include="selfhost.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BioCheckConsole\BioCheckConsole.fsproj">
+      <Name>BioCheckConsole</Name>
+      <Project>{0f088352-d63f-48ad-a000-afd456157b7d}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\bma.selfhost\bma.selfhost.fsproj">
       <Name>bma.selfhost</Name>
       <Project>{6d2466fc-fa2a-4822-a049-13f19dfd14f3}</Project>

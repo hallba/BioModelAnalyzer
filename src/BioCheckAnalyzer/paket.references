@@ -1,2 +1,4 @@
 Microsoft.Office.Interop.Excel
 FSharp.Core
+System.Runtime
+FParsec
