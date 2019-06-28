@@ -146,7 +146,6 @@
     <Compile Include="Prover.fs" />
     <Compile Include="Suggest.fs" />
     <Compile Include="UIMain.fs" />
-    <None Include="App.config" />
     <Compile Include="PathFinder.fs" />
     <Compile Include="Attractors.fs" />
     <None Include="paket.references" />
