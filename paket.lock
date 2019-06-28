@@ -1,4 +1,4 @@
-REDIRECTS: ON
+REDIRECTS: OFF
 NUGET
   remote: https://api.nuget.org/v3/index.json
     Chutzpah (4.2.1) - restriction: >= net45
