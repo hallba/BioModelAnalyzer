@@ -193,9 +193,7 @@ NUGET
       System.Xml.XmlDocument (>= 4.3) - restriction: && (< net20) (>= netstandard1.3) (< netstandard2.0)
     Newtonsoft.Json.Bson (1.0.2) - restriction: && (>= netstandard2.0) (< portable-net45+win8+wp8+wp81+wpa81)
       Newtonsoft.Json (>= 12.0.1) - restriction: || (>= net45) (>= netstandard1.3)
-    Node.js (5.3)
-    Npm.js (2.13.1)
-      Node.js (>= 0.12.7)
+    NodeJSAndNpm (10.0.3)
     NUnit (3.12) - restriction: >= net45
     NUnitTestAdapter (2.2) - restriction: >= net45
     Owin (1.0) - restriction: >= net45

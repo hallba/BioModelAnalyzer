@@ -55,7 +55,7 @@ nuget Unity 5.11.1 framework: >= net45
 nuget Unity.Configuration 5.11.1 framework: >= net45
 nuget Unity.Container 5.11.1 framework: >= net45 
 nuget WindowsAzure.Storage 9.3.3
-nuget Npm.js 2.13.1
+nuget NodeJSAndNpm 10.0.3
 nuget z3x86win 4.5.0.1
 nuget z3x64win 4.5.0.1
 nuget Microsoft.Office.Interop.Excel 15.0.4795.1000 
