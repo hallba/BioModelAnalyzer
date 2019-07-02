@@ -74,7 +74,7 @@ namespace BackendUtilities
                 var output = Utilities.RunWithTimeLimit(() => bma.BioCheck.Analysis.Analyze(req), defaultTimeLimit);
                 return output;
             }
-            catch (TimeoutException ex)
+            catch (TimeoutException)
             {
                 return new AnalysisOutput
                 {
