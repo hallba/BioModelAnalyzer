@@ -17,7 +17,7 @@ namespace BackendFunctions2
         [FunctionName("ActivityLog")]
         public static async void Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]ActivityRecord req, TraceWriter log)
         {
-            var connectionString = ""; //System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
             var logger = new ActivityAzureLogger(connectionString);
 
             var entity = new ActivityEntity(req.SessionID, req.UserID)
