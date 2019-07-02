@@ -1,1 +1,1 @@
-"<WiX tools folder>\bin\heat.exe" dir <output folder for bma.selhost project> -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selhostcontent -out selfhost.wxs
+"<WiX tools folder>\bin\heat.exe" dir <output folder for bma.selhost project> -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selfhostcontent -out selfhost.wxs
