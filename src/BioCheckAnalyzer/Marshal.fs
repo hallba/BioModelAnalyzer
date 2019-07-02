@@ -82,7 +82,7 @@ let model_of_xml (xd:XDocument) =
                                     yield (tagId, tagName)] 
                 // by default each node is related to all cells
                 let defaultTags = [for pos in 1 .. ccNames.Length do
-                                        yield (pos, List.nth ccNames (pos-1))]
+                                        yield (pos, ccNames.[pos-1])] //List.nth ccNames (pos-1)
                 // if no tags specified then replace with default tags
                 let tags = if Seq.isEmpty tt then defaultTags else tags
                 // Garvit
@@ -326,6 +326,7 @@ let xml_of_cex_result (r:Result.cex_result) =
     | Result.CExUnknown ->
         let status = new XElement(xn "Status", "Unknown")
         root.Add(status)
+    | _ -> failwith "Unknown type of further testing result"
     doc
 
 let xml_of_ltl_string_result (result : bool) (model : string) =

@@ -53,7 +53,7 @@ type Analyzer () =
                 let network = Marshal.QN_of_Model input_model
                 let results = Stabilize.check_stability_lazy network
                 let results = Seq.toArray results
-                let result = Seq.nth ((Seq.length results) - 1) results 
+                let result = results.[results.Length - 1] //Seq.nth ((Seq.length results) - 1) results 
                 Marshal.AnalysisResult_of_stability_result result
             with Marshal.MarshalInFailed(id,msg) -> Marshal.AnalysisResult_of_error id msg
 
@@ -275,7 +275,7 @@ type Analyzer2() =
                 let network = Marshal.model_of_xml input_model
                 let results = Stabilize.check_stability_lazy network
                 let results = Seq.toArray results
-                let result = Seq.nth ((Seq.length results) - 1) results 
+                let result = results.[results.Length - 1] //Seq.nth ((Seq.length results) - 1) results 
                 Marshal.xml_of_stability_result result
             with Marshal.MarshalInFailed(id,msg) -> Marshal.xml_of_error id msg                
 

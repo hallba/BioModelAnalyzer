@@ -559,7 +559,9 @@ let find_cycle_steps_optimized network bounds =
                 let smallenv = extract_cycle_from_model env
                 Some smallenv
             | Status.UNKNOWN -> None
+            | _ -> failwith "Unsupported status"
         | Status.UNKNOWN -> None
+        | _ -> failwith "Unsupported status"
      
     let cfg = System.Collections.Generic.Dictionary()
     cfg.Add("MODEL", "true")

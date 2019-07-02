@@ -47,7 +47,7 @@ let find_cex_fixpoint qn bounds =
 let stabilization_prover model no_sat concurrencyType = 
     let results = check_stability_lazy model
     let results = Seq.toArray results
-    let result = Seq.nth ((Seq.length results) - 1) results 
+    let result = results.[results.Length - 1] //Seq.nth ((Seq.length results) - 1) results 
     match result with 
     | Result.SRStabilizing(_) -> 
         (result, None) 

@@ -78,7 +78,7 @@ let print_paths (network : QN.node list) (paths : Map<QN.var, int list> list) =
 // If the list of paths is longer than needed remove the prefix of the list
 let change_list_to_length (paths : Map<QN.var, int list> list) (length : int) =
     let changed_length_paths = 
-        if (length < 0) or (length = paths.Length)
+        if (length < 0) || (length = paths.Length)
         then
             paths
         elif (length > paths.Length) 

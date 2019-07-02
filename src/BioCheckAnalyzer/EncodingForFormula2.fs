@@ -39,7 +39,7 @@ let produce_constraints_for_truth_of_formula_at_time (phi : LTLFormulaType) (ran
                     // Find the last value in the range not satisfying the proposition
                     // If the appropriate z3 variable is false then one of the values satisfying
                     // the proposition must be true
-                    let last_value_not_satisfying_prop = List.nth range (first_value_satisfying_proposition-1)
+                    let last_value_not_satisfying_prop = range.[first_value_satisfying_proposition-1] //List.nth range (first_value_satisfying_proposition-1)
                     let z3_var_name = enc_z3_bool_var_at_time_in_val var time last_value_not_satisfying_prop
                     let z3_var = make_z3_bool_var z3_var_name z
                     z.MkNot(z3_var)
@@ -54,7 +54,7 @@ let produce_constraints_for_truth_of_formula_at_time (phi : LTLFormulaType) (ran
                 then
                     z.MkFalse()
                 else
-                    let last_value_satisfying_proposition = List.nth range (first_value_not_satisfying_proposition-1)
+                    let last_value_satisfying_proposition = range.[first_value_not_satisfying_proposition-1] //List.nth range (first_value_not_satisfying_proposition-1)
                     let z3_var_name = enc_z3_bool_var_at_time_in_val var time last_value_satisfying_proposition
                     make_z3_bool_var z3_var_name z
         
@@ -96,7 +96,7 @@ let produce_constraints_for_truth_of_formula_at_time (phi : LTLFormulaType) (ran
         | False -> (z.MkFalse(), map)
         | True  -> (z.MkTrue(), map)
         | Error -> failwith "Error"
-
+        | _ -> failwith "Unknown"
     let _constraint,loc_to_constraint = encode_truth_of_formula phi Map.empty
     loc_to_constraint
 

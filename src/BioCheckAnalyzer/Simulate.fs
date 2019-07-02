@@ -43,8 +43,9 @@ let asyncTick (qn:QN.qn) (state:Map<QN.var,int>) =
                                                     let var' = individualVariableTick qn state node.var
                                                     if var=var' then None else
                                                     Some(state.Add(node.var,var'))                      ) qn
-                 |> List.filter (fun i -> i<>None )
-                 |> List.map (fun (Some(i)) -> i)
+                 |> List.choose id
+                 //|> List.filter (fun i -> i<>None )
+                 //|> List.map (fun (Some(i)) -> i)
     state'
 
 //A fixpoint is a self loop; an EndComponent is a SCC in async space; Unknown is a set of states which may or may not be an EndComponent
@@ -60,7 +61,10 @@ let dfsAsyncFixPoint (qn:QN.qn) (state:Map<QN.var,int>) =
                         else joinUnique tail (head::b)
     //discovered is a list of visited states
     let rec core (qn:QN.qn) (state:Map<QN.var,int>) discovered = 
-        let discoveredList = match discovered with EndComponent(n) -> n
+        let discoveredList = 
+            match discovered with 
+            | EndComponent(n) -> n
+            | _ -> failwith "Invalid format"
         let discovered' = EndComponent(state::discoveredList)
         let state' = asyncTick qn state
         Log.log_debug (sprintf "End component loop start %A" (state::discoveredList))
