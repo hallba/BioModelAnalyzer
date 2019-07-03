@@ -895,16 +895,18 @@ module BMA {
                             y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0),
                             width: grid.xStep,
                             height: grid.yStep,
-                            fill: "rgba(0,255,255,0.1)"
+                            stroke: "rgb(147,228,121)", //"rgba(0,255,255,0.1)"
+                            fill: undefined,
+                            lineWidth: 2.5
                         };
 
-                        var rect2 = {
-                            x: this.currentGridCell.x * grid.xStep + grid.x0 + thickness,
-                            y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0) + thickness,
-                            width: grid.xStep - 2 * thickness,
-                            height: grid.yStep - 2 * thickness,
-                            fill: "white"
-                        };
+                        //var rect2 = {
+                        //    x: this.currentGridCell.x * grid.xStep + grid.x0 + thickness,
+                        //    y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0) + thickness,
+                        //    width: grid.xStep - 2 * thickness,
+                        //    height: grid.yStep - 2 * thickness,
+                        //    fill: "white"
+                        //};
 
 
                         var id = that.GetVariableAtPosition(x, y);
@@ -923,7 +925,7 @@ module BMA {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         }
 
-                        that.driver.DrawRects([rect, rect2]);
+                        that.driver.DrawRects([rect]); //that.driver.DrawRects([rect, rect2]);
                     }
                 );
 
@@ -2193,7 +2195,8 @@ module BMA {
                     var id = this.stagingHighlight.variables[0]
                     var variable = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var rad = 1.3 * 35 / 2;
-                    this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                    this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, {
+                        stroke: "#93E479" /*"#EF4137"*/, fill: "transparent" });
                 }
 
                 if (this.stagingOffset !== undefined) {

@@ -203,7 +203,6 @@
 
             for (var i = 0; i < _rects.length; i++) {
                 var rect = _rects[i];
-                context.fillStyle = rect.fill;
 
                 var x = dataToScreenX(rect.x);
                 var y = dataToScreenY(rect.y + rect.height);
@@ -214,7 +213,19 @@
                 if (rect.opacity !== undefined) {
                     context.globalAlpha = rect.opacity;
                 }
-                context.fillRect(x, y, width, height);
+                if (rect.fill !== undefined) {
+                    context.fillStyle = rect.fill;
+                    context.fillRect(x, y, width, height);
+                }
+                if (rect.stroke !== undefined) {
+                    context.strokeStyle = rect.stroke;
+                    var lineWidth = context.lineWidth;
+                    if (rect.lineWidth !== undefined) {
+                        context.lineWidth = rect.lineWidth;
+                    }
+                    context.strokeRect(x, y, width, height);
+                    context.lineWidth = lineWidth;
+                }
                 context.globalAlpha = alpha;
 
                 if (rect.labels !== undefined && rect.labels.length > 0) {
