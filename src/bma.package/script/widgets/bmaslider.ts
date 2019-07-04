@@ -40,34 +40,35 @@
                 value: that.options.value,
                 change: function (event, ui) {
                     var val = that.zoomslider.slider("option", "value");
-                    var isExternal =
-                        val > that.options.max ||
-                        val < that.options.min;
-                    if (!isExternal) {
-                        that.options.value = val;
+                    if (command !== undefined && command !== "" && !that.isSilent) {
+                        window.Commands.Execute(command, { value: val });
                     }
-                    else {
-                        var newval = val > that.options.max ? that.options.max : that.options.min;
-                        that.options.value = newval;
-                        that.zoomslider.slider("option", "value", newval);
-                    }
-                    if (command !== undefined && command !== "") {
-                        window.Commands.Execute(command, { value: val, isExternal: isExternal });
-                    }
-            }
+                }
             });
-            
+
             this.zoomslider.removeClass().addClass("zoomslider-bar");
             this.zoomslider.find('span').removeClass().addClass('zoomslider-pointer');
 
             zoomplus.bind("click", function () {
-                var val = that.zoomslider.slider("option", "value") - that.options.step;
-                that.zoomslider.slider("option", "value", val);
+                var command = that.element.attr("data-command");
+                var val = Math.max(that.options.min, that.zoomslider.slider("option", "value") - that.options.step);
+
+                if (command !== undefined && command !== "" && !that.isSilent) {
+                    window.Commands.Execute(command, { value: val });
+                } else {
+                    that.zoomslider.slider("option", "value", val);
+                }
             });
 
             zoomminus.bind("click", function () {
-                var val = that.zoomslider.slider("option", "value") + that.options.step;
-                that.zoomslider.slider("option", "value", val);
+                var command = that.element.attr("data-command");
+                var val = Math.min(that.options.max, that.zoomslider.slider("option", "value") + that.options.step);
+
+                if (command !== undefined && command !== "" && !that.isSilent) {
+                    window.Commands.Execute(command, { value: val });
+                } else {
+                    that.zoomslider.slider("option", "value", val);
+                }
             });
         },
 
@@ -82,7 +83,7 @@
         _setOption: function (key, value) {
             var that = this;
             switch (key) {
-                case "value": 
+                case "value":
                     if (this.options.value !== value) {
                         this.options.value = value;
                         this.zoomslider.slider("option", "value", value);
@@ -98,10 +99,20 @@
                     break;
             }
             this._super(key, value);
-        }
+        },
+
+        isSilent: false,
+        setValueSilently: function (value) {
+            if (this.options.value !== value) {
+                this.options.value = value;
+                this.isSilent = true;
+                this.zoomslider.slider("option", "value", Math.max(this.options.min, Math.min(this.options.max, value)));
+                this.isSilent = false;
+            }
+        },
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     bmazoomslider(): JQuery;

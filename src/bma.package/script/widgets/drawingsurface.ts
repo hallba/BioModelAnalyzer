@@ -20,6 +20,9 @@ declare var InteractiveDataDisplay: any;
         _domPlot: null,
         _zoomPlot: null,
 
+        _bmaGesturesStream: null,
+        _bmaZoomGesturesStream: null,
+
         _logoContainer: undefined,
         _versionContainer: undefined,
 
@@ -69,6 +72,8 @@ declare var InteractiveDataDisplay: any;
         _create: function () {
             var that = this;
 
+            
+
             if (window.PlotSettings !== undefined) {
                 this._plotSettings = window.PlotSettings;
             }
@@ -81,7 +86,7 @@ declare var InteractiveDataDisplay: any;
             var plotDiv = $("<div></div>").width(this.element.width()).height(this.element.height()).attr("data-idd-plot", "plot").appendTo(that.element);
             var gridLinesPlotDiv = $("<div></div>").attr("data-idd-plot", "scalableGridLines").appendTo(plotDiv);
             var rectsPlotDiv = $("<div></div>").attr("data-idd-plot", "rectsPlot").appendTo(plotDiv);
-            var zoomPlotDiv = $("<div></div>").attr("data-idd-plot", "zoomPlot").appendTo(plotDiv);
+            var zoomPlotDiv = $("<div></div>").attr("data-idd-plot", "zoomPlot").attr("data-idd-name", "zoom-plot").appendTo(plotDiv);
 
             var logoСontainer1 = $("<div></div>").height("100%").appendTo(plotDiv);
             var logoСontainer2 = $("<div></div>").height("100%").css("position", "relative").appendTo(logoСontainer1);
@@ -93,11 +98,12 @@ declare var InteractiveDataDisplay: any;
             if (that.options.showLogo == false)
                 that._logoContainer.hide();
 
-            
+
 
             var svgPlotDiv2 = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
             var svgPlotDiv = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
+
 
             this.lightSVGDiv = svgPlotDiv2;
 
@@ -107,12 +113,12 @@ declare var InteractiveDataDisplay: any;
             that._plot = InteractiveDataDisplay.asPlot(plotDiv);
             this._plot.aspectRatio = 1;
 
-            var zoomPlot = that._plot.get(zoomPlotDiv[0]);
+            var zoomPlot = that._plot.get("zoom-plot");
             this._zoomPlot = zoomPlot;
             this._zoomPlot.order = InteractiveDataDisplay.MaxInteger;
             zoomPlotDiv.css("z-index", '');
-            this._zoomPlot.minZoomWidth = 0.01;//0.4;
-            this._zoomPlot.maxZoomWidth = 1e5;//1.7;
+            this._zoomPlot.minZoomWidth = 0.01;
+            this._zoomPlot.maxZoomWidth = 1e5;
             this._zoomPlot.minZoomHeight = 0.01;
             this._zoomPlot.maxZoomHeight = 1e5;
 
@@ -151,6 +157,12 @@ declare var InteractiveDataDisplay: any;
                     lightSvgPlot.svg.add(this.options.lightSvg);
             }
 
+            that._bmaGesturesStream = InteractiveDataDisplay.Gestures.getGesturesStream(that._plot.host);
+            that._bmaZoomGesturesStream = that._bmaGesturesStream.where(function (g) {
+                var constraint = g.Type === "Zoom";
+                return constraint;
+            });
+
             plotDiv.droppable({
                 drop: function (event, ui) {
                     var e = <MouseEvent>event;
@@ -173,30 +185,35 @@ declare var InteractiveDataDisplay: any;
                 }
             });
 
+            var timer = 0;
+            var delay = 200;
+            var prevent = false;
+
             plotDiv.bind("click touchstart", function (arg) {
-                var cs = svgPlot.getScreenToDataTransform();
+                timer = setTimeout(() => {
+                    if (!prevent) {
+                        var cs = svgPlot.getScreenToDataTransform();
 
-                if (arg.originalEvent !== undefined) {
-                    arg = <any>arg.originalEvent;
-                }
+                        if (arg.originalEvent !== undefined) {
+                            arg = <any>arg.originalEvent;
+                        }
 
-                //arg.stopPropagation();
-
-                that._executeCommand("DrawingSurfaceClick",
-                    {
-                        x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
-                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
-                        screenX: arg.pageX - plotDiv.offset().left,
-                        screenY: arg.pageY - plotDiv.offset().top
-                    });
-            });
-
-
-            plotDiv.mousedown(function (e) {
-                //e.stopPropagation();
+                        that._executeCommand("DrawingSurfaceClick",
+                            {
+                                x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
+                                y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+                                screenX: arg.pageX - plotDiv.offset().left,
+                                screenY: arg.pageY - plotDiv.offset().top
+                            });
+                    }
+                    prevent = false;
+                }, delay);
             });
 
             plotDiv.dblclick(function (arg) {
+                clearTimeout(timer);
+                prevent = true;
+
                 var cs = svgPlot.getScreenToDataTransform();
 
                 if (arg.originalEvent !== undefined) {
@@ -206,7 +223,9 @@ declare var InteractiveDataDisplay: any;
                 that._executeCommand("DrawingSurfaceDoubleClick",
                     {
                         x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
-                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top)
+                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+                        screenX: arg.pageX - plotDiv.offset().left,
+                        screenY: arg.pageY - plotDiv.offset().top
                     });
             });
 
@@ -231,7 +250,7 @@ declare var InteractiveDataDisplay: any;
                         var x1 = cs.screenToDataX(mm.pageX - plotDiv.offset().left);
                         var y1 = -cs.screenToDataY(mm.pageY - plotDiv.offset().top);
 
-                        return { x0: x0, y0: y0, x1: x1, y1: y1 };
+                        return { x0: x0, y0: y0, x1: x1, y1: y1, btn: md.button };
 
                     }).takeUntil(stopPanning);
                 });
@@ -251,17 +270,17 @@ declare var InteractiveDataDisplay: any;
                         var x1 = cs.screenToDataX(tm.originalEvent.pageX - plotDiv.offset().left);
                         var y1 = -cs.screenToDataY(tm.originalEvent.pageY - plotDiv.offset().top);
 
-                        return { x0: x0, y0: y0, x1: x1, y1: y1 };
+                        return { x0: x0, y0: y0, x1: x1, y1: y1, btn: 0 };
                     });
                 });
 
                 return mouseDrags.merge(gestures);
             }
 
-            var createDragStartSubject = function (vc) {
+            var createDragStartSubject = function (vc, btnFilter) {
                 var _doc = $(document);
                 var mousedown = Rx.Observable.fromEvent<any>(vc, "mousedown").where(function (md) {
-                    return md.button === 0;
+                    return md.button === btnFilter;
                 });
                 var mouseMove = Rx.Observable.fromEvent<any>(vc, "mousemove");
                 var mouseUp = Rx.Observable.fromEvent<any>(_doc, "mouseup");
@@ -310,7 +329,8 @@ declare var InteractiveDataDisplay: any;
             }
 
             this._dragService = {
-                dragStart: createDragStartSubject(that._plot.centralPart),
+                dragStart: createDragStartSubject(that._plot.centralPart, 0),
+                dragStartRight: createDragStartSubject(that._plot.centralPart, 2),
                 drag: createPanSubject(that._plot.centralPart),
                 dragEnd: createDragEndSubject(that._plot.centralPart)
             };
@@ -368,19 +388,20 @@ declare var InteractiveDataDisplay: any;
 
             if (this.options.isNavigationEnabled) {
                 this._setGestureSource(this._onlyZoomEnabled);
-                //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(that._plot.host).where(function (g) {
-                //    return g.Type !== "Zoom" || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth;
-                //});
-                //that._plot.navigation.gestureSource = gestureSource;
             } else {
                 that._plot.navigation.gestureSource = undefined;
             }
 
             that._plot.navigation.setVisibleRect({ x: 0, y: -50, width: width, height: width / 2.5 }, false);
             that._plot.host.bind("visibleRectChanged", function (args) {
-                if (Math.round(that._plot.visibleRect.width) !== that.options.zoom) {
-                    that._executeCommand("VisibleRectChanged", that._plot.visibleRect.width);
-                }
+
+                var plotRect = that._plot.visibleRect;
+
+                var minRect = that._zoomPlot.getActualMinRect();
+                var maxRect = that._zoomPlot.getActualMaxRect();
+                var widthCoef = 100 * (that._plot.visibleRect.width - minRect.width) / (maxRect.width - minRect.width);
+
+                that._executeCommand("ZoomSliderBind", widthCoef);
             })
 
             $(window).resize(function () { that.resize(); });
@@ -427,18 +448,10 @@ declare var InteractiveDataDisplay: any;
                     if (value === true) {
                         if (this._onlyZoomEnabled === true) {
                             this._setGestureSource(false);
-                            //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                            //    return g.Type !== "Zoom" || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth;
-                            //});
-                            //this._plot.navigation.gestureSource = gestureSource;
                             this._onlyZoomEnabled = false;
                         }
                     } else {
                         this._setGestureSource(true);
-                        //var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                        //    return g.Type === "Zoom" && (g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
-                        //});
-                        //this._plot.navigation.gestureSource = gestureSource;
                         this._onlyZoomEnabled = true;
                     }
                     break;
@@ -453,23 +466,24 @@ declare var InteractiveDataDisplay: any;
                     break;
                 case "zoom":
                     if (value !== undefined) {
-                        if (that._plot.visibleRect.width !== value) {
+                        var oldPlotRect = that._plot.visibleRect;
+                        var xCenter = oldPlotRect.x + oldPlotRect.width / 2;
+                        var yCenter = oldPlotRect.y + oldPlotRect.height / 2;
 
-                            var oldPlotRect = that._plot.visibleRect;
-                            var xCenter = oldPlotRect.x + oldPlotRect.width / 2;
-                            var yCenter = oldPlotRect.y + oldPlotRect.height / 2;
-                            var scale = oldPlotRect.width / value;
-                            var newHeight = oldPlotRect.height / scale;
-                            var newrect = {
-                                x: xCenter - value / 2,
-                                y: yCenter - newHeight / 2,
-                                width: value,
-                                height: newHeight
-                            };
-                            //console.log(newrect.y);
-                            that._plot.navigation.setVisibleRect(newrect, false);
-                            that.options.zoom = value;
-                        }
+                        var minRect = that._zoomPlot.getActualMinRect();
+                        var maxRect = that._zoomPlot.getActualMaxRect();
+
+                        var newWidth = value * (maxRect.width - minRect.width) / 100 + minRect.width;
+                        var newHeight = value * (maxRect.height - minRect.height) / 100 + minRect.height;
+                        var plotRect = {
+                            x: xCenter - newWidth / 2,
+                            y: yCenter - newHeight / 2,
+                            width: newWidth,
+                            height: newHeight
+                        };
+
+                        that.options.zoom = value;
+                        that._plot.navigation.setVisibleRect(plotRect, true);
                     }
                     break;
                 case "visibleRect":
@@ -492,20 +506,24 @@ declare var InteractiveDataDisplay: any;
                     this._setGestureSource(this._onlyZoomEnabled);
                     break;
                 case "minZoomWidth":
-                    if (value !== undefined) 
+                    if (value !== undefined) {
                         this._zoomPlot.minZoomWidth = value;
+                    }
                     break;
                 case "maxZoomWidth":
-                    if (value !== undefined) 
+                    if (value !== undefined) {
                         this._zoomPlot.maxZoomWidth = value;
+                    }
                     break;
                 case "minZoomHeight":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.minZoomHeight = value;
+                    }
                     break;
                 case "maxZoomHeight":
-                    if (value !== undefined)
+                    if (value !== undefined) {
                         this._zoomPlot.maxZoomHeight = value;
+                    }
                     break;
                 case "version":
                     this._versionContainer.text(value);
@@ -522,13 +540,11 @@ declare var InteractiveDataDisplay: any;
 
         _setGestureSource: function (onlyZoom) {
             var that = this;
-            var gestureSource = InteractiveDataDisplay.Gestures.getGesturesStream(this._plot.host).where(function (g) {
-                var constraint = onlyZoom ?
-                    g.Type === "Zoom" && (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth) :
-                    g.Type !== "Zoom" || (!that.options.useContraints || g.scaleFactor > 1 && that._plot.visibleRect.width < that._plotSettings.MaxWidth || g.scaleFactor < 1 && that._plot.visibleRect.width > that._plotSettings.MinWidth);
-                return constraint;
-            });
-            this._plot.navigation.gestureSource = gestureSource;
+            if (!onlyZoom) {
+                this._plot.navigation.gestureSource = that._bmaGesturesStream;
+            } else {
+                this._plot.navigation.gestureSource = that._bmaZoomGesturesStream;
+            }
         },
 
         _setOptions: function (options) {
@@ -631,9 +647,8 @@ declare var InteractiveDataDisplay: any;
         moveDraggableSvgOnBottom: function () {
             this._lightSvgPlot.host.css("z-index", '');
         },
-
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     drawingsurface(): any;

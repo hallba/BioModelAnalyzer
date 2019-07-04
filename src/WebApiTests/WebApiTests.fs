@@ -27,10 +27,10 @@ let performFurtherTesting = performSR "FurtherTesting"
 let ``Short-running LTL polarity checks``() =
     checkSomeJobs performShortPolarity comparePolarityResults "" ["LTLQueries/toymodel.request.json"]
 
-[<Test; ExpectedException(typeof<System.TimeoutException>)>]
+[<Test>]
 [<Category("Deployment")>]
 let ``Short LTL polarity causes timeout if the check takes too long``() =
-    performShortPolarity "LTLQueries/Epi-V9.request.json" |> ignore
+    Assert.Throws<System.TimeoutException> (fun () -> performShortPolarity "LTLQueries/Epi-V9.request.json" |> ignore) |> ignore
 
 [<Test; Timeout(600000)>]
 [<Category("Deployment")>]

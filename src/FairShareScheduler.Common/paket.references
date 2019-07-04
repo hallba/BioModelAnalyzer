@@ -5,6 +5,5 @@ Microsoft.Data.Services.Client
 Newtonsoft.Json
 System.Spatial
 WindowsAzure.Storage
-
-group Common
-	FSharp.Core
+FSharp.Core
+System.Runtime

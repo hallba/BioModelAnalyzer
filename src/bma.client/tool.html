@@ -15,12 +15,14 @@
     <link rel="stylesheet" type="text/css" href="css/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick-theme.css" />
 
+    <script src="js/jszip.min.js"></script>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script src="//js.live.net/v5.0/wl.js"></script>
     <script src="js/jquery.browser.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <script src="Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/jquery-contenteditable.min.js"></script>
     <script src="js/jquery.mousewheel.min.js"></script>
     <script src="js/jquery.svg.js"></script>
     <script src="js/jquery.svganim.js"></script>
@@ -39,8 +41,8 @@
     <script src="js/monaco/editor/editor.main.js"></script>
     <script src="codeeditor.js"></script>
 
-    <!--<script src="tool.js"></script>-->
-    <script src="tool.min.js"></script>
+    <script src="tool.js"></script>
+    <!--<script src="tool.min.js"></script>-->
     <script src="app.js"></script>
     <script src="Scripts/formulaParser.js"></script>
 
@@ -95,6 +97,15 @@
             <label for="button-pointer">
                 <div class="pointer-icon" title="Selection tool"></div>
             </label>
+
+            <!--<input type="radio" id="button-selector" name="drawing-button" checked="checked" />
+            <label for="button-selector">
+                <div id="button-selector-icon" class="selection-icon" title="Selection tool"></div>
+            </label>-->
+
+            <!--<button id="button-clearselection">
+                <div class="clearselection-icon" title="Clear Selection"></div>
+            </button>-->
 
             <!--<div class="bma-toolbarpanel-verticalline"></div>-->
 
@@ -153,6 +164,12 @@
                                 <div class="option-name" style="width: 140px;">Curved Relationships</div>
                                 <div>
                                     <div data-behavior="toggle" data-command="Commands.ToggleCurvedRelationships" data-default="false"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="option-name" style="width: 140px;">Hide Default Motifs</div>
+                                <div>
+                                    <div data-behavior="toggle" data-command="Commands.TogglePreloadedMotifs" data-default="false"></div>
                                 </div>
                             </li>
                         </ul>

@@ -8,7 +8,7 @@ open Microsoft.Owin.FileSystems
 open Microsoft.Owin.StaticFiles
 open System.Web.Http
 open System.IO
-open Microsoft.Practices.Unity
+open Unity
 open BMAWebApi
 open System.Diagnostics
 open System.Threading
@@ -21,13 +21,15 @@ let startWebApp (address: string) =
         config.Routes.MapHttpRoute("default", "api/{controller}") |> ignore
         app.UseWebApi(config) |> ignore
         let container = new UnityContainer()
-        let logger = new FailureFileLogger("Failures", true)
+        let logger = new FailureFileLogger(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BMA/Failures", true)
         container.RegisterInstance<IFailureLogger>(logger) |> ignore
         config.DependencyResolver <- new UnityResolver(container)
         let fopts = FileServerOptions( RequestPath = PathString.Empty, FileSystem = PhysicalFileSystem(@".\bma.client") )
         fopts.StaticFileOptions.ServeUnknownFileTypes <- true
         app.UseFileServer(fopts) |> ignore
-    Microsoft.Owin.Hosting.WebApp.Start(address, Action<IAppBuilder>(configure))
+    Microsoft.Owin.Hosting.WebApp.Start(address, Action<IAppBuilder>(configure)) |> ignore
+    Process.Start(address) |> ignore
+    
 
 let helptext = @"This program self-hosts BMA (both API and UI). Available switches:
 -h|--help - displays this text

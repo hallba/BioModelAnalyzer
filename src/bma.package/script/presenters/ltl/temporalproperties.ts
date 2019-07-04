@@ -960,12 +960,10 @@ module BMA {
 
                     var formula = BMA.LTLOperations.GetLTLServiceProcessingFormula(operation.Operation);
 
-                    var model;
-                    try {
-                        model = BMA.Model.ExportBioModel(that.appModel.BioModel);
-                    }
-                    catch (exc) {
-                        driver.SetStatus("nottested", "Incorrect Model: " + exc);
+
+                    var errors = BMA.Model.CheckModelVariables(that.appModel.BioModel, that.appModel.Layout);
+                    if (errors !== undefined) {
+                        driver.SetStatus("nottested", "Incorrect Model: " + BMA.Model.CreateVariablesErrorReport(errors, ""));
                         operation.AnalysisStatus = "nottested";
                         operation.Tag.data = undefined;
                         operation.Tag.negdata = undefined;
@@ -973,16 +971,14 @@ module BMA {
                         domplot.updateLayout();
                         that.OnOperationsChanged(false);
                         return;
-                    }
+                    } 
 
-                    var invalidVariables = BMA.ModelHelper.CheckVariablesInModel(that.appModel.BioModel);
-                    if (invalidVariables !== undefined && invalidVariables.length > 0) {
-                        var message = "Incorrect target functions for variables: ";
-                        message += invalidVariables[0].name;
-                        for (var i = 1; i < invalidVariables.length; i++) {
-                            message += ", " + invalidVariables[i].name;
-                        }
-                        driver.SetStatus("nottested", "Incorrect Model: " + message);
+                    var model;
+                    try {
+                        model = BMA.Model.ExportBioModel(that.appModel.BioModel);
+                    }
+                    catch (exc) {
+                        driver.SetStatus("nottested", "Incorrect Model: " + exc);
                         operation.AnalysisStatus = "nottested";
                         operation.Tag.data = undefined;
                         operation.Tag.negdata = undefined;

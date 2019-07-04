@@ -8,6 +8,7 @@ module BMA {
         export interface ISVGPlot {
             Draw(svg: SVGElement);
             DrawLayer2(svg: SVGElement);
+            DrawRects(rects: { x: number, y: number, width: number, height: number, fill: string }[])
             SetGrid(x0: number, y0: number, xStep: number, yStep: number);
             GetPlotX(left: number);
             GetPlotY(top: number);
@@ -188,6 +189,7 @@ module BMA {
 
         export interface IModelRepository {
             GetModelList(): JQueryPromise<string[]>;
+            GetModels(): JQueryPromise<JSON[]>;
             LoadModel(id: string): JQueryPromise<JSON>;
             RemoveModel(id: string);
             SaveModel(id: string, model: JSON);

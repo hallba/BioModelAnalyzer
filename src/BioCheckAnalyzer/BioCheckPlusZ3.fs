@@ -181,8 +181,8 @@ let constraint_for_valuation_of_vars_is_equivalent (range1 : VariableRange) time
             | x::xs -> (prev,x)::(annotate_with_prev xs x)
         let range1wp = annotate_with_prev range1 -1
         let range2wp = annotate_with_prev range2 -1
-        let last1 = List.nth range1 (range1.Length-1)
-        let last2 = List.nth range2 (range2.Length-1)
+        let last1 = range1.[range1.Length-1] //List.nth range1 (range1.Length-1)
+        let last2 = range2.[range2.Length-1] //List.nth range2 (range2.Length-1)
 
         let rec create_constraint_list list1 list2 = 
             match list1 with

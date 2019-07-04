@@ -34,6 +34,10 @@ module BMA {
                 return <JQueryPromise<string[]>>result.promise();
             }
 
+            GetModels(): JQueryPromise<JSON[]> {
+                throw "Not Implemented";
+            }
+
             LoadModel(id: string): JQueryPromise<JSON> {
                 //var i = parseInt(id);
                 //if (i < this.modelsList.length) {

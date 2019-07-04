@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackendUtilities\BackendUtilities.csproj" />
+    <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon.csproj" />
+    <ProjectReference Include="..\BioCheckAnalyzer\BioCheckAnalyzer.fsproj" />
+    <ProjectReference Include="..\BmaBioCheckAnalyzer\BmaBioCheckAnalyzer.csproj" />
+    <ProjectReference Include="..\Jobs\JobsRunner\JobsRunner.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.Azure.KeyVault.Core" Version="3.0.3" />
+    <PackageReference Update="Microsoft.Data.Edm" Version="5.8.4" />
+    <PackageReference Update="Microsoft.Data.OData" Version="5.8.4" />
+    <PackageReference Update="Microsoft.Data.Services.Client" Version="5.8.4" />
+    <PackageReference Update="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Update="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Update="System.Spatial" Version="5.8.4" />
+    <PackageReference Update="WindowsAzure.Storage" Version="9.3.3" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

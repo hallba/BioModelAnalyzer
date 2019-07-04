@@ -1,4 +1,4 @@
 Microsoft.Office.Interop.Excel
-
-group Common
-	FSharp.Core
+FSharp.Core
+System.Runtime
+FParsec

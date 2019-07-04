@@ -39,6 +39,10 @@
             var items = this.options.items;
             this.repo.empty();
             var that = this;
+
+            var exportBtn = $('<button></button>').width(130).height(30).css("margin-bottom", 10).css("cursor", "pointer").text("Export all as zip").appendTo(this.repo);
+            exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
+
             this.ol = $('<ol></ol>').appendTo(this.repo); 
             
             for (var i = 0; i < items.length; i++) {

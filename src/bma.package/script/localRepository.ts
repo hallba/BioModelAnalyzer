@@ -37,11 +37,17 @@ module BMA {
         }
 
         public SaveModel(id: string, model: JSON) {
+            //if (window.localStorage.getItem("user." + id) !== null) {
+                //if (confirm("Overwrite the file?"))
+                //    this.Save("user." + id, JSON.stringify(model));
+            //}
+            //else this.Save("user." + id, JSON.stringify(model));
+
             if (window.localStorage.getItem("user." + id) !== null) {
-                if (confirm("Overwrite the file?"))
-                    this.Save("user." + id, JSON.stringify(model));
+                //TODO: If we need more obvious confirm from user to overwrite existing file, we should ask him about that in other place
+                console.log("Overwritting existing model with name: " + id);
             }
-            else this.Save("user." + id, JSON.stringify(model));
+            this.Save("user." + id, JSON.stringify(model));
         }
 
         public RemoveModel(id: string) {
@@ -82,6 +88,25 @@ module BMA {
             deffered.resolve(keys);
 
             var p = <JQueryPromise<string[]>>deffered.promise();
+            return p;
+        }
+
+        public GetModels(): JQueryPromise<JSON[]> {
+            var deffered = $.Deferred();
+            var that = this;
+
+            var models = [];
+            for (var i = 0; i < window.localStorage.length; i++) {
+                var key = window.localStorage.key(i);
+                var usrkey = this.IsUserKey(key);
+                if (usrkey !== undefined) {
+                    var item = window.localStorage.getItem(key);
+                    models.push(JSON.parse(item));
+                }
+            }
+            deffered.resolve(models);
+
+            var p = <JQueryPromise<JSON[]>>deffered.promise();
             return p;
         }
 

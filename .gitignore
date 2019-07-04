@@ -19,6 +19,7 @@ deployment/parameters.json
 #paket
 .paket/paket.exe
 .paket/paket.bootstrapper.exe
+.paket/Paket.Restore.targets
 packages/
 paket-files/
 
@@ -37,6 +38,7 @@ src/bma.client/css/slick.css
 src/bma.client/js/script/idd.heatmapworker.js
 
 #dependencies copied by paket and grunt
+src/bma.client/js/jszip.min.js
 src/bma.client/js/slick.min.js
 src/bma.client/js/FileSaver.js
 src/bma.client/js/jquery.browser.min.js
@@ -52,6 +54,7 @@ src/bma.client/js/jquery.ui-contextmenu.js
 src/bma.client/js/jquery.ui-contextmenu.min.js
 src/bma.client/js/jquery.mousewheel.js
 src/bma.client/js/jquery.mousewheel.min.js
+src/bma.client/js/jquery-contenteditable.min.js
 src/bma.client/js/svg.js
 src/bma.package/js/FileSaver.js
 src/bma.package/js/jquery.browser.min.js

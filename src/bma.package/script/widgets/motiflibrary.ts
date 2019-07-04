@@ -2,7 +2,9 @@
     $.widget("BMA.motiflibrary", {
         options: {
             motifs: [],
-            container: undefined
+            container: undefined,
+            changePreloadedVisibility: undefined,
+            deleteMotif: undefined
         },
 
         _mlOpen: undefined,
@@ -32,6 +34,12 @@
             var root = that.element;
             root.addClass("ml-open-container");
 
+            root.droppable({
+                drop: function (event, ui) {
+                    window.Commands.Execute("TryCreateMotifFromSelection", undefined);
+                }
+            });
+
             //Motifs container
             var mlContainer = $("<div></div>").addClass("ml-container").appendTo(root);
             that._mlContainer = mlContainer;
@@ -59,15 +67,62 @@
                             that._isInitialized = true;
                         }
                     }
-                    else
-                    {
+                    else {
                         that._showLoading(mlOpen);
                     }
                 }
                 that._isOpened = !that._isOpened;
             });
 
+            $(window).resize((e) => {
+                if (that._isInitialized) {
+                    that._createCards();
+                }
+            });
+
         },
+
+        _subscribeToClick: function (div, motif, i) {
+            div.click((e) => {
+                if (motif.IsPreloaded) {
+                    if (this.options.changePreloadedVisibility !== undefined)
+                        this.options.changePreloadedVisibility();
+                } else {
+                    if (this.options.deleteMotif !== undefined)
+                        this.options.deleteMotif(i);
+                }
+            });
+        },
+
+        _subscribeToHover: function (div, divToShow) {
+            divToShow.hide();
+            div.hover((e) => { divToShow.show(); }, (e) => { divToShow.hide(); });
+        },
+
+        _setEditableHeader: function (div, card) {
+            div.editable({
+                autoselect: true, //select content automatically when editing starts
+                save: function (content) {
+                    card.Name = div.text();
+                },
+            });
+            div.keydown((e) => { e.stopPropagation(); });
+            div.keyup((e) => { e.stopPropagation(); });
+            div.keypress((e) => { e.stopPropagation(); });
+        },
+
+        _setEditableDescription: function (div, card) {
+            div.editable({
+                autoselect: true, //select content automatically when editing starts
+                save: function (content) {
+                    card.Description = div.text();
+                },
+            });
+            div.keydown((e) => { e.stopPropagation(); });
+            div.keyup((e) => { e.stopPropagation(); });
+            div.keypress((e) => { e.stopPropagation(); });
+        },
+
 
         _createCards: function () {
             var that = this;
@@ -85,6 +140,9 @@
 
                 //Adding name
                 var motifHeader = $("<div></div>").addClass("ml-card-title").text(mlmotifs[i].Name).appendTo(slickCard);
+                if (!mlmotifs[i].IsPreloaded) {
+                    this._setEditableHeader(motifHeader, mlmotifs[i]);
+                }
 
                 //Adding preview
                 var motifPreview = $("<div></div>").addClass("ml-bounding-box").appendTo(slickCard);
@@ -97,21 +155,41 @@
                 motifPreviewPicture.css("background-image", image64);
 
                 //Adding description
-                var motifHeader = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+                var motifDescription = $("<div></div>").addClass("ml-card-description").text(mlmotifs[i].Description).appendTo(slickCard);
+                if (!mlmotifs[i].IsPreloaded) {
+                    this._setEditableDescription(motifDescription, mlmotifs[i]);
+                }
+
+                //Adding delete button
+                var motifDelete = $("<div></div>").addClass("ml-card-delete").appendTo(motifPreview);
+                if (mlmotifs[i].IsPreloaded) {
+                    motifDelete.addClass("ml-card-delete-iconhide");
+                }
+                else {
+                    motifDelete.addClass("ml-card-delete-icontrash");
+                }
+
+                that._subscribeToClick(motifDelete, mlmotifs[i], i);
+                that._subscribeToHover(motifPreview, motifDelete);
             }
 
 
             var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>';
             var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
+
+            var slidesToShow = ($(window).width() / 370) | 0;
+
             slickContainer.slick({
                 dots: true,
-                infinite: true,
-                centerMode: true,
-                variableWidth: true,
+                infinite: false, 
+                centerMode: false, 
                 draggable: false,
                 prevArrow: prev,
                 nextArrow: next,
+                slidesToShow: slidesToShow
             });
+
+            
 
             $('*[draggable!=true]', '.slick-track').unbind('dragstart');
             $(".ml-draggable-element").draggable({
@@ -148,7 +226,7 @@
 
         _setOption: function (key, value) {
             var that = this;
-            
+
             this._super(key, value);
 
             switch (key) {
@@ -167,7 +245,7 @@
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     motiflibrary(): JQuery;

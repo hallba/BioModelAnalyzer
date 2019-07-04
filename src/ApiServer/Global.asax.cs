@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Research 2016
 // License: MIT. See LICENSE
 using BMAWebApi;
+using Microsoft.Practices.Unity.Configuration;
 using System;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+using Unity;
 
 namespace bma.client
 {

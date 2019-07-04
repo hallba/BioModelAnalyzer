@@ -102,6 +102,10 @@ module BMA {
                     master: undefined
                 };
             }
+
+            public DrawRects(rects: { x: number, y: number, width: number, height: number, fill: string }[]) {
+                //nothing to do here
+            }
             
 
             public SetConstraintFunc(f: Function) {

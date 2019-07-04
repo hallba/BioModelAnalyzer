@@ -93,14 +93,14 @@ let produce_constraints_for_truth_of_formula_at_time (ltl_formula : LTLFormulaTy
                     if (index_of_value_satisfying_proposition = (range.Length-1)) then
                         z.MkTrue()
                     else
-                        let value_satisfying_prop = List.nth range index_of_value_satisfying_proposition
+                        let value_satisfying_prop = range.[index_of_value_satisfying_proposition] //List.nth range index_of_value_satisfying_proposition
                         let z3_var_name = enc_z3_bool_var_at_time_in_val var time value_satisfying_prop
                         make_z3_bool_var z3_var_name z
                 let neg_z3_var_before = 
                     if (index_of_value_satisfying_proposition = 0) then 
                         z.MkTrue()
                     else
-                        let value_before = List.nth range (index_of_value_satisfying_proposition-1)
+                        let value_before = range.[index_of_value_satisfying_proposition-1] //List.nth range (index_of_value_satisfying_proposition-1)
                         let z3_var_before = enc_z3_bool_var_at_time_in_val var time value_before
                         z.MkNot(make_z3_bool_var z3_var_before z)
                 z.MkAnd(z3_var,neg_z3_var_before)
@@ -143,7 +143,7 @@ let produce_constraints_for_truth_of_formula_at_time (ltl_formula : LTLFormulaTy
                     // Find the last value in the range not satisfying the proposition
                     // If the appropriate z3 variable is false then one of the values satisfying
                     // the proposition must be true
-                    let last_value_not_satisfying_prop = List.nth range (first_value_satisfying_proposition-1)
+                    let last_value_not_satisfying_prop = range.[first_value_satisfying_proposition-1] //List.nth range (first_value_satisfying_proposition-1)
                     let z3_var_name = enc_z3_bool_var_at_time_in_val var time last_value_not_satisfying_prop
                     let z3_var = make_z3_bool_var z3_var_name z
                     z.MkNot(z3_var)
@@ -164,7 +164,7 @@ let produce_constraints_for_truth_of_formula_at_time (ltl_formula : LTLFormulaTy
                     // Find the last value that satisfies the proposition
                     // If the appropriate z3 variable is true then one of the values satisfying
                     // the proposition is true
-                    let last_value_satisfying_proposition = List.nth range (first_value_not_satisfying_proposition-1)
+                    let last_value_satisfying_proposition = range.[first_value_not_satisfying_proposition-1] //List.nth range (first_value_not_satisfying_proposition-1)
                     let z3_var_name = enc_z3_bool_var_at_time_in_val var time last_value_satisfying_proposition
                     make_z3_bool_var z3_var_name z
 
@@ -265,10 +265,10 @@ let produce_constraints_for_truth_of_formula_at_time (ltl_formula : LTLFormulaTy
                         if step = 0 then
                             z.MkTrue() 
                         else 
-                            BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent (List.nth ranges (last - 1)) (last - 1) range last z
+                            BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent (ranges.[last-1]) (last - 1) range last z //List.nth ranges (last - 1)
                     z.MkOr(loop_closes_at_last, equal_to_prev)
                 else
-                    let equal_to_next = BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent range step (List.nth ranges (step + 1)) (step + 1) z
+                    let equal_to_next = BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent range step (ranges.[step+1]) (step + 1) z //List.nth ranges (step + 1)
                     equal_to_next
             | Oscillation ->
                 // A state in a loop is an oscillation if:
@@ -281,12 +281,12 @@ let produce_constraints_for_truth_of_formula_at_time (ltl_formula : LTLFormulaTy
                         if step = 0 then
                             z.MkFalse()
                         else 
-                            BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent (List.nth ranges (last - 1)) (last - 1) range last  z
+                            BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent (ranges.[last-1]) (last - 1) range last  z //List.nth ranges (last - 1)
                     let not_equal_to_prev = z.MkNot(equal_to_prev)
                     z.MkAnd(not_loop_closes_at_last, not_equal_to_prev)
                 else
                     let in_loop = BioCheckPlusZ3.constraint_for_time_is_part_of_loop step last z
-                    let equal_to_next = BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent range step (List.nth ranges (step + 1)) (step + 1) z
+                    let equal_to_next = BioCheckPlusZ3.constraint_for_valuation_of_vars_is_equivalent range step (ranges.[step+1]) (step + 1) z //List.nth ranges (step + 1)
                     let not_equal_to_next = z.MkNot(equal_to_next)
                     z.MkAnd(in_loop, not_equal_to_next)
             | False ->

@@ -13,6 +13,6 @@ Newtonsoft.Json
 Owin
 Unity
 Microsoft.VisualStudio.QualityTools.UnitTestFramework
-
-group Common
-	FSharp.Core
+FSharp.Core
+System.Runtime
+FParsec

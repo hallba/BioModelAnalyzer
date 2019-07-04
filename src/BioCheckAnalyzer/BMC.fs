@@ -132,7 +132,7 @@ let change_to_right_length (simulation : Map<QN.var, int> list) (loop : int) (de
         let rec extend_length curr_simulation extend_by index =
             if extend_by = 0 then curr_simulation
             else
-                extend_length (List.append curr_simulation ([ List.nth curr_simulation index ])) (extend_by-1) (index+1)
+                extend_length (List.append curr_simulation ([ curr_simulation.[index] ])) (extend_by-1) (index+1) //List.nth curr_simulation index
         ((extend_length simulation (desired_length - simulation.Length) loop) , (loop + desired_length - simulation.Length))
     else // desired_length = simulation.Length
         (simulation, loop)

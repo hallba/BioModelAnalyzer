@@ -3,6 +3,7 @@ Microsoft.AspNet.WebApi.Owin
 Microsoft.Owin.SelfHost
 Microsoft.Owin.StaticFiles
 Unity
-
-group Common
-	FSharp.Core
+Unity.Configuration
+System.Runtime
+FSharp.Core
+FParsec

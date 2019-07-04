@@ -3,6 +3,104 @@
 module BMA {
     export module Model {
 
+
+        export function CreateVariablesErrorReport(errors: { variable: BMA.Model.Variable; errors: string[] }[], topMessage: string): string {
+            var resultContainer = $("<div></div>");
+
+            $("<div>" + topMessage + "</div>").appendTo(resultContainer);
+
+            for (var i = 0; i < errors.length; i++) {
+                $("<div>" + errors[i].variable.Name + "</div>").css("margin-left", 5).appendTo(resultContainer);
+                for (var j = 0; j < errors[i].errors.length; j++) {
+                    $("<div>" + errors[i].errors[j] + "</div>").css("margin-left", 10).appendTo(resultContainer);
+                }
+            }
+
+            return resultContainer.prop('outerHTML');
+        }
+
+        //Checks formula for each variable in model and returns all errors for each variable as string array
+        export function CheckModelVariables(model: BMA.Model.BioModel, layout: BMA.Model.Layout): { variable: BMA.Model.Variable; errors: string[] }[] {
+            var result = [];
+
+            for (var i = 0; i < model.Variables.length; i++) {
+                var variable = model.Variables[i];
+
+                var errorRecord = {
+                    variable: variable,
+                    errors: []
+                };
+
+                var f = variable.Formula;
+                if (f.toLowerCase() == "avg(pos)-avg(neg)")
+                    continue;
+                else {
+
+                    // Getting variable names which are referenced in formula
+                    var referencedNames = [];
+                    var varPrefix = "var(";
+                    var startPos = 0;
+                    var index: number;
+                    while ((index = f.indexOf(varPrefix, startPos)) >= 0) {
+                        var endIndex = f.indexOf(")", index);
+                        if (endIndex < 0)
+                            break;
+                        var varName = f.substring(index + varPrefix.length, endIndex);
+
+                        if (referencedNames.indexOf(varName) === -1) {
+                            referencedNames.push(varName);
+                        }
+
+                        startPos = index + 1;
+                    }
+
+                    //Checking referenced variables
+                    if (referencedNames.length > 0) {
+                        for (var j = 0; j < referencedNames.length; j++) {
+                            var refVarName = referencedNames[j];
+
+                            //1. Check that variable with such name exists in model
+                            var results = model.Variables.filter(function (v2: Variable) {
+                                return v2.Name == refVarName
+                            });
+                            if (results.length === 0)
+                                errorRecord.errors.push("Referenced variable " + refVarName + " doesn't exist in model");
+                            else {
+                                //2. Check that variable with such name is connected with this variable via relationship
+                                var results2 = model.Variables.filter(function (v2: Variable) {
+                                    return v2.Name == refVarName &&
+                                        model.Relationships.some(function (r: Relationship) {
+                                            return r.ToVariableId == variable.Id && r.FromVariableId == v2.Id;
+                                        });
+                                });
+                                if (results2.length === 0) {
+                                    errorRecord.errors.push("Referenced variable " + refVarName + " doesn't have connection with this variable");
+                                }
+                            }
+                        }
+                    }
+
+                    var formula = variable.Formula;
+                    if (formula !== "") {
+                        try {
+                            var parsedFormula = BMA.TFParser.parse(formula);
+                        } catch (ex) {
+                            errorRecord.errors.push(ex)
+                        }
+                    }
+                }
+
+                if (errorRecord.errors.length > 0)
+                    result.push(errorRecord);
+
+            }
+
+            if (result.length === 0) {
+                return undefined;
+            } else
+                return result;
+        }
+
         export function MapVariableNames(f: string, mapper: (string) => string[]) {
             var namestory = {};
             if (f !== undefined && f != null) {
@@ -39,11 +137,81 @@ module BMA {
             return f;
         }
 
+        export function ExportBioModelPart(modelPart: BioModel, model: BioModel) {
+
+
+            function GetIdByName(id: number, name: string): string[] {
+                var results = model.Variables.filter(function (v2: Variable) {
+                    return v2.Name == name &&
+                        model.Relationships.some(function (r: Relationship) {
+                            return r.ToVariableId == id && r.FromVariableId == v2.Id;
+                            // || r.FromVariableId == id && r.ToVariableId == v2.Id
+                        });
+                });
+                if (results.length == 0) {
+
+                    var nonConnectedResults = model.Variables.filter(function (v2: Variable) {
+                        return v2.Name == name
+                    });
+                    if (nonConnectedResults.length == 0) {
+                        return [name];
+                    } else {
+                        var ncres = [];
+                        ncres = ncres.concat(nonConnectedResults.map(x => x.Id.toString()));
+                        return ncres;
+                    }
+
+                    /*
+                    var varName = "unnamed";
+                    for (var ind = 0; ind < model.Variables.length; ind++) {
+                        var vi = model.Variables[ind];
+                        if (vi.Id === id) {
+                            varName = vi.Name;
+                            break;
+                        }
+                    }
+                    if (varName === "")
+                        varName = "''";
+                    throw "Unknown variable " + name + " in formula for variable " + varName;
+                    */
+
+                } else {
+                    var res = [];
+                    res = res.concat(results.map(x => x.Id.toString()));
+                    return res;
+                }
+            }
+
+
+            return {
+                Name: modelPart.Name,
+                Variables: modelPart.Variables.map(v => {
+                    return {
+                        Name: v.Name, //this is required when ltl finds var by name
+                        Id: v.Id,
+                        RangeFrom: v.RangeFrom,
+                        RangeTo: v.RangeTo,
+                        Formula: MapVariableNames(v.Formula, name => GetIdByName(v.Id, name))
+                    }
+                }),
+                Relationships: modelPart.Relationships.map(r => {
+                    return {
+                        Id: r.Id,
+                        FromVariable: r.FromVariableId,
+                        ToVariable: r.ToVariableId,
+                        Type: r.Type
+                    }
+                })
+            }
+        }
+
         // Returns object whose JSON representation matches external format:
         // 1) Variables in formulas are identified by IDs
         // 2) Default function avg(pos)-avg(neg) is replaced with null formula
         export function ExportBioModel(model: BioModel) {
+            return ExportBioModelPart(model, model);
 
+            /*
             function GetIdByName(id: number, name: string): string[] {
                 var results = model.Variables.filter(function (v2: Variable) {
                     return v2.Name == name &&
@@ -69,7 +237,7 @@ module BMA {
                 res = res.concat(results.map(x => x.Id.toString()));
                 return res;
             }
-
+ 
             return {
                 Name: model.Name,
                 Variables: model.Variables.map(v => {
@@ -90,49 +258,88 @@ module BMA {
                     }
                 })
             }
+            */
+        }
+
+        export function ExportLayout(model: BioModel, layout: Layout) {
+            return {
+                Variables: layout.Variables.map(v => {
+                    var mv = model.GetVariableById(v.Id);
+                    return {
+                        Id: v.Id,
+                        Name: mv.Name,
+                        Type: mv.Type,
+                        ContainerId: mv.ContainerId,
+                        PositionX: v.PositionX,
+                        PositionY: v.PositionY,
+                        CellX: v.CellX,
+                        CellY: v.CellY,
+                        Angle: v.Angle,
+                        Description: v.TFDescription,
+                    }
+                }),
+                Containers: layout.Containers.map(c => {
+                    return {
+                        Id: c.Id,
+                        Name: c.Name,
+                        Size: c.Size,
+                        PositionX: c.PositionX,
+                        PositionY: c.PositionY
+                    }
+                })
+            }
         }
 
         export function ExportModelAndLayout(model: BioModel, layout: Layout) {
             return {
                 Model: ExportBioModel(model),
-                Layout: {
-                    Variables: layout.Variables.map(v => {
-                        var mv = model.GetVariableById(v.Id);
-                        return {
-                            Id: v.Id,
-                            Name: mv.Name,
-                            Type: mv.Type,
-                            ContainerId: mv.ContainerId,
-                            PositionX: v.PositionX,
-                            PositionY: v.PositionY,
-                            CellX: v.CellX,
-                            CellY: v.CellY,
-                            Angle: v.Angle,
-                            Description: v.TFDescription,
-                        }
-                    }),
-                    Containers: layout.Containers.map(c => {
-                        return {
-                            Id: c.Id,
-                            Name: c.Name,
-                            Size: c.Size,
-                            PositionX: c.PositionX,
-                            PositionY: c.PositionY
-                        }
-                    })
-                }
+                Layout: ExportLayout(model, layout)
             }
         }
 
         export function ImportModelAndLayout(json: any) {
+            return ImportModelAndLayoutWithinModel(json, undefined, undefined);
+        }
+
+        export function ImportModelAndLayoutWithinModel(json: any, existingModel: BioModel, existingLayout: Layout) {
             var id = {};
+
+            if (existingModel !== undefined && existingLayout !== undefined) {
+                for (var i = 0; i < existingModel.Variables.length; i++) {
+                    var mv = existingModel.Variables[i];
+                    var v = existingLayout.Variables[i];
+
+                    id[v.Id] = {
+                        Id: v.Id,
+                        Name: mv.Name,
+                        Type: mv.Type,
+                        ContainerId: mv.ContainerId,
+                        PositionX: v.PositionX,
+                        PositionY: v.PositionY,
+                        CellX: v.CellX,
+                        CellY: v.CellY,
+                        Angle: v.Angle,
+                        Description: v.TFDescription,
+                    }
+                }
+            }
+
             json.Layout.Variables.forEach(v => {
                 id[v.Id] = v;
             });
 
+            //We do this for support of old models wihch were saved with variable ids instead of names
+            var modelMapper = (s) => {
+                var vId = parseInt(s);
+                if (isNaN(vId))
+                    return s;
+                else
+                    return id[parseInt(s)].Name;
+            };
+
             var model = new BioModel(json.Model.Name,
                 json.Model.Variables.map(v => new Variable(v.Id, id[v.Id].ContainerId, id[v.Id].Type, id[v.Id].Name, v.RangeFrom, v.RangeTo,
-                    MapVariableNames(v.Formula, s => id[parseInt(s)].Name))),
+                    MapVariableNames(v.Formula, modelMapper))),
                 json.Model.Relationships.map(r => new Relationship(r.Id, r.FromVariable, r.ToVariable, r.Type)));
 
 
@@ -378,7 +585,7 @@ module BMA {
                     if (obj.operator && obj.operator.name)
                         op.Operator = window.OperatorsRegistry.GetOperatorByName(obj.operator.name);
                     else throw "Operation must have name of operator";
-                    return op;                    
+                    return op;
                 case "TrueKeyframe":
                     return new BMA.LTLOperations.TrueKeyframe();
                 case "OscillationKeyframe":
@@ -387,7 +594,7 @@ module BMA {
                     return new BMA.LTLOperations.SelfLoopKeyframe();
                 default:
                     break;
-                
+
             }
 
             return undefined;

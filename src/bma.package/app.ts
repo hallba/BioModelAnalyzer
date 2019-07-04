@@ -289,7 +289,7 @@ function loadScript(version) {
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
     drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
-    $("#zoomslider").bmazoomslider({ value: 50 });
+    $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100 });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
     $("#modelToolbarSlider").bmaaccordion({ position: "left", z_index: 1 });
@@ -318,7 +318,12 @@ function loadScript(version) {
         holdCords.holdY = event.pageY;
     });
 
-
+    //$("#btn-export-model").contextmenu({
+    //    menu: [{ title: "Export Local Models", cmd: "ExportLocalModelsZip", uiIcon: "ui-icon-document-b" }],
+    //    select: function (event, ui) {
+    //        window.Commands.Execute(ui.cmd, undefined);
+    //    }
+    //});
 
     $("#drawingSurceContainer").contextmenu({
         delegate: ".bma-drawingsurface",
@@ -329,7 +334,7 @@ function loadScript(version) {
         menu: [
             { title: "Cut", cmd: "Cut", uiIcon: "ui-icon-scissors" },
             { title: "Copy", cmd: "Copy", uiIcon: "ui-icon-copy" },
-            { title: "Paste", cmd: "Paste", uiIcon: "ui-icon-clipboard" },
+            { title: "Paste", cmd: "Paste", uiIcon: "ui-icon-document-b" },
             { title: "Edit", cmd: "Edit", uiIcon: "ui-icon-pencil" },
 
             {
@@ -347,8 +352,13 @@ function loadScript(version) {
                 ],
                 uiIcon: "ui-icon-shuffle"
             },
-            { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" }
-
+            { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
+            {
+                title: "Selection", uiIcon: "ui-icon-clipboard", children: [
+                    { title: "Clear", cmd: "ClearSelection" },
+                    { title: "Create Motif", cmd: "CreateMotifFromSelection" },
+                ]
+            }
         ],
         beforeOpen: function (event, ui) {
             ui.menu.zIndex(50);
@@ -470,12 +480,70 @@ function loadScript(version) {
 
     //undo/redo panel
     $("#button-pointer").click(function () {
-        window.Commands.Execute("AddElementSelect", undefined);
+        window.Commands.Execute("AddElementSelect", "navigation");
+    });
+
+    //$("#button-selector").click(function () {
+    //    if ($("#button-selector-icon").hasClass("selection-icon")) {
+    //        window.Commands.Execute("AddElementSelect", "selection");
+    //    } else {
+    //        window.Commands.Execute("ClearSelection", undefined);
+    //    }
+    //});
+
+    //window.Commands.On("AddElementSelect", (mode) => {
+    //    if (mode === "selection") {
+    //        $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
+    //    } else {
+    //        $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
+    //        window.Commands.Execute("ClearSelection", undefined);
+    //    }
+    //});
+
+    //$("#button-clearselection").click(() => {
+    //    window.Commands.Execute("ClearSelection", undefined);
+    //});
+
+    //adding listener to paste even to read data from clipboard
+    $(document).bind("paste", (e) => {
+        var data = (<any>e).clipboardData || (<any>window).clipboardData;
+        if (data === undefined && e.originalEvent !== undefined) {
+            data = (<any>e).originalEvent.clipboardData;
+        }
+        if (data !== undefined) {
+            var contents = data.getData('text/plain');
+            try {
+
+                var position = {
+                    screenX: e.pageX - $("#drawingSurceContainer").offset().left,
+                    screenY: e.pageY - $("#drawingSurceContainer").offset().top
+                };
+
+
+                window.Commands.Execute("DrawingSurfacePasteFromClipboard", { contents: JSON.parse(contents) });
+            }
+            catch (exc) {
+                console.log("error trying to read clipboard data: " + exc)
+            }
+
+        }
     });
 
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });
+
+    $(document).keydown(function (evt) {
+        if (evt.ctrlKey === true) {
+            if (evt.keyCode === 90) {
+                /* Ctrl+Z is pressed */
+                window.Commands.Execute("Undo", undefined);
+            } else if (evt.keyCode === 89) {
+                /* Ctrl+Y is pressed */
+                window.Commands.Execute("Redo", undefined);
+            }
+        }
+    });
 
     //disabling default context menu from browser
     $("#btn-onedrive-switcher").contextmenu(function () {
@@ -532,8 +600,11 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Loading motif library
-    $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0] });
+    $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0], changePreloadedVisibility: () => { motifLibrary.HidePreloadedMotifs(); }, deleteMotif: (i) => { motifLibrary.DeleteMotifByIndex(i); } });
     window.Commands.On("PreloadedMotifsReady", (args) => {
+        $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
+    });
+    window.Commands.On("RefreshMotifs", (args) => {
         $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
     });
 
@@ -543,6 +614,17 @@ function loadScript(version) {
         var h = target.outerHeight(true);
         return cursor.x >= pos.left && cursor.x <= pos.left + w && cursor.y >= pos.top && cursor.y <= pos.top + h
     };
+
+    window.Commands.On("CreateMotifFromJSON", (args) => {
+        motifLibrary.AddMotif(args.source);
+    });
+
+    window.Commands.On("Commands.TogglePreloadedMotifs", function (param) {
+        if (motifLibrary.IsPreloadedVisible)
+            motifLibrary.HidePreloadedMotifs();
+        else
+            motifLibrary.ShowPreloadedMotifs();
+    });
 
     //Adding droppable 
     var motifDropConteiner = $("#drawingSurceContainer");
@@ -564,6 +646,10 @@ function loadScript(version) {
             }
         }
     });
+
+    //Adding draggable for motif creation by drag
+    //var draggableEntity = $("<div></div>").width("100%").height("100%").css("background-color", "red").addClass(".plotDraggableEntity").appendTo(motifDropConteiner);
+    //draggableEntity.draggable({ helper: "clone" });
 
     //Start loading preloaded motifs
     motifLibrary.StartLoadMotifs();
@@ -622,7 +708,7 @@ function loadScript(version) {
     });
 
     window.Commands.On("ZoomSliderBind", (value) => {
-        $("#zoomslider").bmazoomslider({ value: value });
+        $("#zoomslider").bmazoomslider("setValueSilently", value);
     });
 
     //window.Commands.On('ZoomConfigure',(value: { min; max }) => {
@@ -631,6 +717,7 @@ function loadScript(version) {
 
     window.Commands.On('SetPlotSettings', (value) => {
 
+        /*
         if (value.MaxWidth !== undefined) {
             window.PlotSettings.MaxWidth = value.MaxWidth;
             $("#zoomslider").bmazoomslider({ max: (value.MaxWidth - window.PlotSettings.MinWidth) / 24 });
@@ -638,6 +725,7 @@ function loadScript(version) {
         if (value.MinWidth !== undefined) {
             window.PlotSettings.MinWidth = value.MinWidth;
         }
+        */
     });
 
     window.Commands.On("AppModelChanged", () => {
@@ -722,7 +810,7 @@ function loadScript(version) {
 
     //Loading presenters
     var undoRedoPresenter = new BMA.Presenters.UndoRedoPresenter(appModel, undoDriver, redoDriver);
-    var drawingSurfacePresenter = new BMA.Presenters.DesignSurfacePresenter(appModel, undoRedoPresenter, svgPlotDriver, svgPlotDriver, svgPlotDriver, variableEditorDriver, containerEditorDriver, contextMenuDriver, exportService, dragndropextender);
+    var drawingSurfacePresenter = new BMA.Presenters.DesignSurfacePresenter(appModel, undoRedoPresenter, svgPlotDriver, svgPlotDriver, svgPlotDriver, variableEditorDriver, containerEditorDriver, contextMenuDriver, exportService, dragndropextender, messagebox);
     var proofPresenter = new BMA.Presenters.ProofPresenter(appModel, proofViewer, popupDriver, proofAnalyzeService, messagebox, logService);
     var furtherTestingPresenter = new BMA.Presenters.FurtherTestingPresenter(appModel, furtherTestingDriver, popupDriver, furtherTestingServiсe, messagebox, logService);
     var simulationPresenter = new BMA.Presenters.SimulationPresenter(appModel, accordionHider, fullSimulationViewer, simulationViewer, popupDriver, simulationService, logService, exportService, messagebox);
@@ -782,7 +870,15 @@ function loadScript(version) {
 
     window.onunload = function () {
         window.localStorage.setItem(version_key, JSON.stringify(version));
-        window.localStorage.setItem(reserved_key, appModel.Serialize());
+
+        try {
+            var serialized = appModel.Serialize();
+            window.localStorage.setItem(reserved_key, serialized);
+        }
+        catch (exc) {
+            console.log("error trying to save current model to local storage: " + exc);
+        }
+
         var log = logService.CloseSession();
         var data = JSON.stringify({
             SessionID: log.SessionID,

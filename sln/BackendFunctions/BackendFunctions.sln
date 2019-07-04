@@ -1,0 +1,142 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BioCheckAnalyzer", "..\..\src\BioCheckAnalyzer\BioCheckAnalyzer.fsproj", "{27FCEE47-CED8-4629-9989-7E9A490B090E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioCheckAnalyzerCommon", "..\..\src\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon.csproj", "{61E37D4E-172B-45DD-9289-5C874A8320F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendUtilities", "..\..\src\BackendUtilities\BackendUtilities.csproj", "{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmaBioCheckAnalyzer", "..\..\src\BmaBioCheckAnalyzer\BmaBioCheckAnalyzer.csproj", "{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobsRunner", "..\..\src\Jobs\JobsRunner\JobsRunner.csproj", "{062C2F38-D571-459A-9E67-43C9B074EB9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendFunctions2", "..\..\src\BackendFunctions\BackendFunctions2.csproj", "{A8431DA5-F782-48E8-95ED-7E2A5C48644C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		nuget|Any CPU = nuget|Any CPU
+		nuget|x64 = nuget|x64
+		nuget|x86 = nuget|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Debug|x64.ActiveCfg = Debug|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Debug|x64.Build.0 = Debug|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Debug|x86.ActiveCfg = Debug|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Debug|x86.Build.0 = Debug|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|Any CPU.ActiveCfg = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|Any CPU.Build.0 = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|x64.ActiveCfg = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|x64.Build.0 = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|x86.ActiveCfg = Release|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.nuget|x86.Build.0 = Release|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Release|Any CPU.ActiveCfg = Release|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Release|x64.ActiveCfg = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Release|x64.Build.0 = Release|x64
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Release|x86.ActiveCfg = Release|x86
+		{27FCEE47-CED8-4629-9989-7E9A490B090E}.Release|x86.Build.0 = Release|x86
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x64.ActiveCfg = Debug|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x64.Build.0 = Debug|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Debug|x86.Build.0 = Debug|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|Any CPU.Build.0 = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|x64.ActiveCfg = Release|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|x64.Build.0 = Release|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|x86.ActiveCfg = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.nuget|x86.Build.0 = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|x64.ActiveCfg = Release|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|x64.Build.0 = Release|x64
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|x86.ActiveCfg = Release|Any CPU
+		{61E37D4E-172B-45DD-9289-5C874A8320F0}.Release|x86.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|x64.Build.0 = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Debug|x86.Build.0 = Debug|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|Any CPU.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|x64.ActiveCfg = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|x64.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|x86.ActiveCfg = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.nuget|x86.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.ActiveCfg = Release|x64
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x64.Build.0 = Release|x64
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.ActiveCfg = Release|Any CPU
+		{008A7EA7-5B3C-4803-BBE2-A7F0FEF1695F}.Release|x86.Build.0 = Release|Any CPU
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|x64.ActiveCfg = Debug|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|x64.Build.0 = Debug|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|x86.ActiveCfg = Debug|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Debug|x86.Build.0 = Debug|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|Any CPU.ActiveCfg = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|Any CPU.Build.0 = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|x64.ActiveCfg = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|x64.Build.0 = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|x86.ActiveCfg = Release|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.nuget|x86.Build.0 = Release|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Release|Any CPU.ActiveCfg = Release|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Release|x64.ActiveCfg = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Release|x64.Build.0 = Release|x64
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Release|x86.ActiveCfg = Release|x86
+		{573C06C3-AB0D-4DB5-A2E2-53A40E1BBA57}.Release|x86.Build.0 = Release|x86
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|x64.Build.0 = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Debug|x86.Build.0 = Debug|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|Any CPU.Build.0 = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|x64.ActiveCfg = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|x64.Build.0 = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|x86.ActiveCfg = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.nuget|x86.Build.0 = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.ActiveCfg = Release|x64
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x64.Build.0 = Release|x64
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x86.ActiveCfg = Release|Any CPU
+		{062C2F38-D571-459A-9E67-43C9B074EB9C}.Release|x86.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x64.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Debug|x86.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|Any CPU.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x64.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x64.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x86.ActiveCfg = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.nuget|x86.Build.0 = Debug|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x64.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x64.Build.0 = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x86.ActiveCfg = Release|Any CPU
+		{A8431DA5-F782-48E8-95ED-7E2A5C48644C}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0975DF4D-8C08-4B27-80EE-27DD04B9B32F}
+	EndGlobalSection
+EndGlobal

@@ -41,7 +41,7 @@
         },
 
         refreshMessage: function () {
-            this.proofmessage.text(this.options.message);
+            this.proofmessage.html(this.options.message);
         },
 
         refreshData: function () {

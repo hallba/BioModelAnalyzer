@@ -1,4 +1,6 @@
-﻿The BioModelAnalyzer is a tool that allows biologists to easily and quickly build complex models 
+![BMA Build](https://buildstats.info/appveyor/chart/NikitaSkoblov/biomodelanalyzer)
+
+The BioModelAnalyzer is a tool that allows biologists to easily and quickly build complex models 
 of biological behaviour, and to analyse them using techniques derived from the field of formal 
 verification. Its backend is written in F#, and its graphical frontend is an HTML5 application. 
 It uses the SMT solver Z3.

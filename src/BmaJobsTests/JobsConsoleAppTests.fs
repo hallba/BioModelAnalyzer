@@ -29,15 +29,15 @@ let ``Console app checks LTL Polarity``() =
     checkJob Folders.LTLQueries (performLTLPolarity -1) comparePolarityResults ""
 
 
-[<Test; ExpectedException(typeof<TimeoutException>)>]
+[<Test>]
 [<Category("CI")>]
 let ``Timeout when running too long job for LTL polarity check``() =
-    performLTLPolarity 1 "LTLQueries/Epi-V9.request.json" |> ignore
+    Assert.Throws<System.TimeoutException> (fun () -> performLTLPolarity 1 "LTLQueries/Epi-V9.request.json" |> ignore) |> ignore
 
-[<Test; ExpectedException(typeof<InvalidOperationException>)>]
+[<Test>]
 [<Category("CI")>]
 let ``Console app handles incorrect queries for LTL polarity check``() =
-    Job.RunToCompletion("AnalyzeLTL.exe", "~~query is incorrect~~", -1) |> ignore
+    Assert.Throws<System.InvalidOperationException> (fun () -> Job.RunToCompletion("AnalyzeLTL.exe", "~~query is incorrect~~", -1) |> ignore) |> ignore
 
 [<Test; Timeout(60000)>]
 [<Category("CI")>]
