@@ -6,8 +6,7 @@
   "Compile": {
     "Extensions": [ ".ts" ],
     "ExtensionsWithNoOutput": [ ".d.ts" ],
-    "Executable": "%msbuildexe%",
-    "Arguments": "/t:CompileTS "
+    "Executable": "../../packages/Microsoft.TypeScript.Compiler/tools/tsc.exe"
   },
 
   "References": [
