@@ -2,7 +2,7 @@ redirects: off
 
 source https://api.nuget.org/v3/index.json
 
-nuget Chutzpah 4.2.1 framework: >= net45
+nuget Chutzpah 4.4.5 framework: >= net45
 nuget CommonServiceLocator 2.0.4 framework: >= net45
 nuget CsvTools 1.0.12 framework: >= net45
 nuget CsvTools.Azure 1.0.2 framework: >= net45
@@ -65,7 +65,6 @@ nuget Microsoft.VisualStudio.QualityTools.UnitTestFramework
 nuget JSZip 3.1.5
 nuget System.Runtime 4.3.1.0
 nuget FParsec 1.0.4-RC3
-nuget Chutzpah 4.4.5
 
 github furf/jquery-ui-touch-punch:4bc009145202d9c7483ba85f3a236a8f3470354d jquery.ui.touch-punch.min.js
 github ChenWenBrian/FileSaver.js:ec6eb67080ea703509a74e034226597791f27cb0 FileSaver.js
