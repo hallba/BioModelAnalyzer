@@ -1,7 +1,7 @@
 REDIRECTS: OFF
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Chutzpah (4.2.1) - restriction: >= net45
+    Chutzpah (4.4.5) - restriction: >= net45
     CommonServiceLocator (2.0.4) - restriction: >= net45
     CsvTools (1.0.12) - restriction: >= net45
     CsvTools.Azure (1.0.2) - restriction: >= net45
@@ -131,6 +131,7 @@ NUGET
       Microsoft.Owin (>= 4.0.1)
       Microsoft.Owin.FileSystems (>= 4.0.1)
       Owin (>= 1.0)
+    Microsoft.TypeScript.MSBuild (3.5.2)
     Microsoft.VisualStudio.QualityTools.UnitTestFramework (11.0.50727.1)
     Microsoft.Win32.Primitives (4.3) - restriction: || (&& (< net45) (< netstandard1.4) (>= netstandard1.6) (< win8) (< wpa81)) (&& (< net45) (< netstandard1.5) (>= netstandard1.6) (< win8) (< wpa81)) (&& (< net45) (>= netstandard1.6) (< netstandard2.0) (< win8) (< wpa81)) (&& (< net452) (>= net46) (< netstandard1.4) (>= netstandard1.6)) (&& (>= netstandard1.6) (>= uap10.0))
       Microsoft.NETCore.Platforms (>= 1.1) - restriction: && (< monoandroid) (< monotouch) (< net46) (>= netstandard1.3) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos)
