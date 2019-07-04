@@ -65,6 +65,7 @@ nuget Microsoft.VisualStudio.QualityTools.UnitTestFramework
 nuget JSZip 3.1.5
 nuget System.Runtime 4.3.1.0
 nuget FParsec 1.0.4-RC3
+nuget Chutzpah 4.4.5
 
 github furf/jquery-ui-touch-punch:4bc009145202d9c7483ba85f3a236a8f3470354d jquery.ui.touch-punch.min.js
 github ChenWenBrian/FileSaver.js:ec6eb67080ea703509a74e034226597791f27cb0 FileSaver.js
