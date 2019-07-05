@@ -167,7 +167,7 @@ module BMA {
 
                 var pointOffset = 0.15 * that.variableSizeConstant;
 
-                var stroke = isSelected ? "blue" : "#808080";
+                var stroke = isSelected ? "blue" : "#ccc";
 
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
@@ -178,17 +178,17 @@ module BMA {
                     end.y + normal.y * length05 - lineVector.y * 3 * length01,
                     end.x + normal.x * pointOffset,
                     end.y + normal.y * pointOffset),
-                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
             }
 
             private CreateLine(start, end, lineWidth, endingType, svg, isSelected) {
                 var jqSvg = svg;
 
-                var stroke = isSelected ? "blue" : "#808080";
+                var stroke = isSelected ? "blue" : "#ccc";
 
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
-                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")" });
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
             }
 
             private CreateSvgElement(type: string, renderParams: any) {
@@ -877,7 +877,7 @@ module BMA {
                             var eh = h * 1.6;
                             var x1 = ew * (1 - Math.sqrt(1 - h * h / (eh * eh))) + x0;
 
-                            var pathFill = "#808080";
+                            var pathFill = "#ccc";
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
                             }
@@ -924,8 +924,8 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
                             $(lineRef).attr("data-id", renderParams.id);
                             $(lineRef).attr("data-ishovered", "false");
                         }
@@ -1002,7 +1002,7 @@ module BMA {
                             var eh = h * 1.6;
                             var x1 = ew * (1 - Math.sqrt(1 - h * h / (eh * eh))) + x0;
 
-                            var pathFill = "#808080";
+                            var pathFill = "#ccc";
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
                             }
@@ -1056,8 +1056,8 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
-                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
+                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
                             $(lineRef).attr("data-id", renderParams.id);
                             $(lineRef).attr("data-ishovered", "false");
                         }

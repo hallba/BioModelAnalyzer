@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Research 2016
+﻿// Copyright (c) Microsoft Research 2016
 // License: MIT. See LICENSE
 module BMA {
     export module ModelHelper {
@@ -184,17 +184,24 @@ module BMA {
 
             //constructing final svg image
             svg.clear();
-            var defs = svg.defs("bmaDefs");
-            var activatorMarker = svg.marker(defs, "Activator", 4, 0, 8, 4, "auto", { viewBox: "0 -2 4 4" });
-            svg.polyline(activatorMarker, [[0, 2], [4, 0], [0, -2]], { fill: "none", stroke: "#808080", strokeWidth: "1px" });
-            var inhibitorMarker = svg.marker(defs, "Inhibitor", 0, 0, 2, 6, "auto", { viewBox: "0 -3 2 6" });
-            svg.line(inhibitorMarker, 0, 3, 0, -3, { fill: "none", stroke: "#808080", strokeWidth: "2px" });
+            AddModelDesignerSVGDefs(svg);
 
             for (var i = 0; i < svgElements.length; i++) {
                 svg.add(svgElements[i]);
             }
 
             return svg.toSVG();
+        }
+
+
+
+        export function AddModelDesignerSVGDefs(svg: any) {
+            var defs = svg.defs("bmaDefs");
+            var activatorMarker = svg.marker(defs, "Activator", 2.5, 3, 6, 6, "auto", { viewBox: "0 0 4 8" });
+            svg.polyline(activatorMarker, [[1, 1], [3, 3], [1, 5]], { fill: "none", stroke: "#ccc", strokeWidth: "1px", "stroke-linecap": "round", "stroke-linejoin": "round" });
+
+            var inhibitorMarker = svg.marker(defs, "Inhibitor", -0.5, 0, 6, 6, "auto", { viewBox: "-2 -4 4 8" });
+            svg.polyline(inhibitorMarker, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#ccc", strokeWidth: "1px", "stroke-linecap": "round" });
         }
 
         export function GetVariableColorByStatus(status): string {
