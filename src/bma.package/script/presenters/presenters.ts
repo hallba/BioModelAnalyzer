@@ -2020,7 +2020,7 @@ module BMA {
                                 }
                             }
                         } else {
-                            var pos = SVGHelper.GeEllipsePoint(containerX + 2.5 * container.Size, containerY, 107 * container.Size, 127 * container.Size, x, y);
+                            var pos = SVGHelper.GeEllipsePoint(containerX + 2.5 * container.Size, containerY, 113 * container.Size, 130 * container.Size, x, y);
                             variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
                             variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle));
                         }
