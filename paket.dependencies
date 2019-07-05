@@ -2,7 +2,7 @@ redirects: off
 
 source https://api.nuget.org/v3/index.json
 
-nuget Chutzpah 4.2.1 framework: >= net45
+nuget Chutzpah 4.4.5 framework: >= net45
 nuget CommonServiceLocator 2.0.4 framework: >= net45
 nuget CsvTools 1.0.12 framework: >= net45
 nuget CsvTools.Azure 1.0.2 framework: >= net45
@@ -42,6 +42,7 @@ nuget Microsoft.Owin.SelfHost 4.0.1 framework: >= net45
 nuget Microsoft.Owin.StaticFiles 4.0.1 framework: >= net45
 nuget Microsoft.WindowsAzure.ConfigurationManager 3.2.3
 nuget MSBuild.Extension.Pack 1.9.1 framework: >= net45
+nuget Microsoft.TypeScript.Compiler 3.1.5
 nuget Newtonsoft.Json 12.0.2
 nuget NUnit 3.12.0 framework: >= net45
 nuget NUnitTestAdapter 2.2.0 framework: >= net45

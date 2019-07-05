@@ -18,7 +18,7 @@ open BioModelAnalyzer
 //
 // CL Parsing
 //
-type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors
+type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors | EngineDescribe
 let engine_of_string s = 
     match s with 
     | "PATH" | "path" -> Some EnginePath
@@ -29,6 +29,7 @@ let engine_of_string s =
     | "VMCAIASYNC" | "vmcaiasync" -> Some EngineVMCAIAsync
     | "Simulate" | "simulate" | "SIMULATE"-> Some EngineSimulate
     | "Attractors" | "attractors" | "ATTRACTORS" -> Some EngineAttractors
+    | "Describe" -> Some EngineDescribe
     | _ -> None 
 
 // Command-line args
@@ -59,6 +60,7 @@ let dump_after_ko_edge_xforms = ref false
 
 // -- related to VMCAI engine
 let proof_output = ref "proof_output" // output filename 
+let report: int list ref = ref []
 // -- related to CAV engine
 let formula = ref "True"
 let number_of_steps = ref -1
@@ -81,6 +83,13 @@ let ltloutputfilename = ref ""
 let attractorInitialCsvFilename = ref "" // optional input filename
 let attractorOut = ref "" // output filename
 let attractorMode = ref Attractors.Sync
+// --description of input QN
+type descriptionLevel = All | VarID
+let describe = ref All
+let getDescription s = 
+    match s with 
+    | "varid" -> VarID
+    | _ -> All
 
 let usage i = 
     Printf.printfn "Usage: BioCheckConsole.exe -model input_analysis_file.json"
@@ -88,11 +97,12 @@ let usage i =
     Printf.printfn "                           -log "
     Printf.printfn "                           -loglevel n"
     Printf.printfn "                         [ -engine [ SCM | SYN ] –prove output_file_name.json |"
-    Printf.printfn "                           -engine [ VMCAI | VMCAIASYNC ] –prove output_file_name.json -nosat? |"
+    Printf.printfn "                           -engine [ VMCAI | VMCAIASYNC ] –prove output_file_name.json -nosat? [-report id,id,id] |"
     Printf.printfn "                           -engine CAV –formula f –path length –mc?  -outputmodel? –proof? [-ltloutput filename.json]? |"
     Printf.printfn "                           -engine SIMULATE –simulate_v0 initial_value_input_file.csv –simulate_time t –simulate output_file_name.csv -excel? |"
     Printf.printfn "                           -engine ATTRACTORS -out output_file_name -async? [-initial initial.csv]? |"
     Printf.printfn "                           -engine PATH –model2 model2.json –state initial_state.csv –state2 target_state.csv ]"
+    Printf.printfn "                           -engine Describe –model model.json -type [All | varid]"
     Printf.printfn "                           -dump_before_xforms"
     Printf.printfn "                           -ko id const -dump_after_ko_xforms"
     Printf.printfn "                           -ko_edge id id' const -dump_after_ko_edge_xforms"
@@ -129,6 +139,8 @@ let rec parse_args args =
     | "-async" :: rest -> attractorMode := Attractors.Async; parse_args rest
     | "-out" :: o :: rest -> attractorOut := o; parse_args rest 
     | "-initial" :: i :: rest -> attractorInitialCsvFilename := i; parse_args rest
+    | "-report" :: i :: rest -> report := (i.Split [|','|] |> List.ofArray |> List.map int) ; parse_args rest
+    | "-type" :: i :: rest -> describe :=   getDescription i; parse_args rest
     | _ -> failwith "Bad command line args" 
 
 
@@ -179,6 +191,23 @@ let write_json_to_file (fn:string) o =
 //
 // engine wrappers
 //
+
+let runDescription (qn: QN.node list) =
+    match !describe with
+    | VarID -> 
+        let first = ref true
+        for v in qn do
+            if !first then printf "%d" v.var; first := false else printf ",%d" v.var
+        printf "\n"
+    | All ->
+        let qn' = List.sortBy (fun (v:QN.node) -> v.var) qn
+        for v in qn' do
+            //printf "%s\n" (v.ToString())
+            let min,max = v.range
+            printf "%d,%s,%d,%d\n" v.var v.name min max
+
+
+
 let runSCMEngine qn = 
     Log.log_debug "Running the proof"
     Log.log_debug (sprintf "Num of nodes %d" (List.length qn))
@@ -222,9 +251,34 @@ let runSimulateEngine qn (simul_output : string) start_state_file simulation_tim
         Log.log_debug "Writing excel spreadsheet"
         ModelToExcel.saveSpreadsheet app sheet (simul_output + ".xlsx")
 
+let prettyReport result =
+    let intPrintWithSeperator sep =
+        let first = ref true
+        fun x ->
+            if !first = true then first := false; printf "%d" x else printf "%s%d" sep x
+    match !report with 
+    | [] -> ()
+    | variables -> 
+        let printer = intPrintWithSeperator ","
+        match result with
+        | Result.SRNotStabilizing(_) -> 
+            if !ko <> [] then
+                    List.iter (fun (v,_) -> printer v ) !ko
+            printf "Unstable\n"
+        | Result.SRStabilizing(hist) ->
+                let final = hist.[0] |> snd
+                if !ko <> [] then
+                    List.iter (fun (v,_) -> printer v ) !ko
+                
+                for v in variables do
+                    printer (fst(final.[v]))
+                    //printf "%d," (fst(final.[v]))
+                printf "\n"
+
 let runVMCAIEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
     Log.log_debug "Running the proof"
     let (sr,cex_o) = Stabilize.stabilization_prover qn no_sat concurrencyType
+    prettyReport sr
     match (sr,cex_o) with 
     | (Result.SRStabilizing(_), None) -> 
         write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
@@ -357,6 +411,7 @@ let main args =
                 | Some EngineAttractors ->
                     if (!attractorOut <> "") then runAttractorEngine !attractorMode !attractorOut qn !attractorInitialCsvFilename; true
                     else false
+                | Some EngineDescribe -> runDescription qn; true
                 | none -> false
 
             if (not parameters_were_ok) then
