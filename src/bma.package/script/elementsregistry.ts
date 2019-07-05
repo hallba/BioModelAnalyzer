@@ -868,25 +868,26 @@ module BMA {
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
-
-                            var x0 = renderParams.layout.start.PositionX + translate.x;
-                            var y0 = renderParams.layout.start.PositionY + translate.y;
-                            var w = that.variableWidthConstant * 0.7;
-                            var h = that.variableHeightConstant * 0.7;
-                            var ew = w * 0.6;
-                            var eh = h * 1.6;
-                            var x1 = ew * (1 - Math.sqrt(1 - h * h / (eh * eh))) + x0;
-
                             var pathFill = "#ccc";
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
                             }
 
-                            var path = jqSvg.createPath();
-                            lineRef = jqSvg.path(path.move(x1, y0 - h)
-                                .arc(ew, eh, 0, true, true, x1, y0 + h),
-                                { fill: 'none', stroke: pathFill, strokeWidth: lw + 1, "marker-end": "url(#Activator)" });
+                            var g = jqSvg.group({
+                                transform: "translate(" + renderParams.layout.start.PositionX + ", " + renderParams.layout.start.PositionY + ")",
+                            });
 
+                            var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+                            var path = jqSvg.createPath();
+                            var variable = jqSvg.path(g, path, {
+                                stroke: pathFill,
+                                fill: "none",
+                                strokeWidth: 2 * (lw + 1),
+                                "marker-end": "url(#Activator)",
+                                d: data,
+                                transform: "scale(0.5) translate(-10  -40)",
+                                "stroke-linecap": "round"
+                            });
                         } else {
 
                             var dir = {
@@ -993,31 +994,26 @@ module BMA {
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
-
-                            var x0 = renderParams.layout.start.PositionX + translate.x;
-                            var y0 = renderParams.layout.start.PositionY + translate.y;
-                            var w = that.variableWidthConstant * 0.7;
-                            var h = that.variableHeightConstant * 0.7;
-                            var ew = w * 0.6;
-                            var eh = h * 1.6;
-                            var x1 = ew * (1 - Math.sqrt(1 - h * h / (eh * eh))) + x0;
-
                             var pathFill = "#ccc";
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
                             }
 
-                            var path = jqSvg.createPath();
-                            lineRef = jqSvg.path(path.move(x1, y0 - h)
-                                .arc(ew, eh, 0, true, true, x1, y0 + h),
-                                { fill: 'none', stroke: pathFill, strokeWidth: lw + 1, "marker-end": "url(#Inhibitor)" });
+                            var g = jqSvg.group({
+                                transform: "translate(" + renderParams.layout.start.PositionX + ", " + renderParams.layout.start.PositionY + ")",
+                            });
 
-                            /*
-                            jqSvg.ellipse(
-                                x0 + w * 0.6,
-                                y0,
-                                w * 0.6, h * 1.6, { stroke: "red", fill: "none" });
-                            */
+                            var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+                            var path = jqSvg.createPath();
+                            var variable = jqSvg.path(g, path, {
+                                stroke: pathFill,
+                                fill: "none",
+                                strokeWidth: 2 * (lw + 1),
+                                "marker-end": "url(#Inhibitor)",
+                                d: data,
+                                transform: "scale(0.5) translate(-10  -40)",
+                                "stroke-linecap": "round"
+                            });
                         } else {
 
                             var dir = {

@@ -895,19 +895,10 @@ module BMA {
                             y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0),
                             width: grid.xStep,
                             height: grid.yStep,
-                            stroke: "rgb(147,228,121)", //"rgba(0,255,255,0.1)"
+                            stroke: "rgb(51,204,0)",
                             fill: undefined,
-                            lineWidth: 2.5
+                            lineWidth: 2
                         };
-
-                        //var rect2 = {
-                        //    x: this.currentGridCell.x * grid.xStep + grid.x0 + thickness,
-                        //    y: - ((this.currentGridCell.y + 1) * grid.yStep + grid.y0) + thickness,
-                        //    width: grid.xStep - 2 * thickness,
-                        //    height: grid.yStep - 2 * thickness,
-                        //    fill: "white"
-                        //};
-
 
                         var id = that.GetVariableAtPosition(x, y);
                         this.stagingHighlight.variables[0] = id;
@@ -925,7 +916,7 @@ module BMA {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         }
 
-                        that.driver.DrawRects([rect]); //that.driver.DrawRects([rect, rect2]);
+                        that.driver.DrawRects([rect]); 
                     }
                 );
 
@@ -2143,9 +2134,9 @@ module BMA {
                         this.stagingLine.x1,
                         this.stagingLine.y1,
                         {
-                            stroke: "#808080",
+                            stroke: "#ccc",
                             strokeWidth: 2,
-                            fill: "#808080",
+                            fill: "#ccc",
                             "marker-end": "url(#" + this.selectedType + ")",
                             id: "stagingLine"
                         });
@@ -2192,7 +2183,7 @@ module BMA {
                     var variable = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var rad = 1.3 * 35 / 2;
                     this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, {
-                        stroke: "#93E479" /*"#EF4137"*/, fill: "transparent" });
+                        stroke: "#33cc00", fill: "transparent" });
                 }
 
                 if (this.stagingOffset !== undefined) {
