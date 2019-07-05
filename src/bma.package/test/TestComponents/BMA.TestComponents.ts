@@ -172,12 +172,15 @@ module BMA {
             GetDragSubject() {
                 return {
                     dragStart: { subscribe: function () { } },
+                    dragStartRight: { subscribe: function () { } },
                     drag: { subscribe: function () { } },
-                    dragEnd: { subscribe: function () { } }
+                    dragEnd: { subscribe: function () { } },
                 }
             }
             public GetMouseMoves() {
-                return null;
+                {
+                    return { subscribe: function () { } };
+                }
             }
         }
 

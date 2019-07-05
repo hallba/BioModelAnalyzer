@@ -278,7 +278,9 @@
     <Content Include="images\inhibit-ON.png" />
     <Content Include="images\inhibit.png" />
     <Content Include="images\inhibitor-ON.png" />
-    <Content Include="images\inhibitor-ON.svg" />
+    <Content Include="images\inhibitor-ON.svg">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="images\inhibitor.svg" />
     <Content Include="images\list.png" />
     <Content Include="images\loading.gif" />
@@ -422,6 +424,7 @@
     <None Include="Properties\PublishProfiles\bmainterface - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterfacetest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterfacetest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\bmanewdesign - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmanewdesign - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FileSystemPublishx64.pubxml" />
     <None Include="Properties\PublishProfiles\FileSystemPublishx86.pubxml" />

@@ -86,7 +86,7 @@ describe("DesignSurfacePresenter", () => {
         var drawingSurfacePresenter = new BMA.Presenters.DesignSurfacePresenter(appModel, undoRedoPresenter, svgPlotDriver, navigationDriver, elementPanel, variableEditorDriver, containerEditorDriver, undefined, exportservice, undefined, undefined);
 
         spyOn(navigationDriver, "TurnNavigation");
-        window.Commands.Execute("AddElementSelect", undefined);
+        window.Commands.Execute("AddElementSelect", "navigation");
         expect(navigationDriver.TurnNavigation).toHaveBeenCalledWith(true);
 
         window.Commands.Execute("AddElementSelect", "Container");
@@ -115,7 +115,7 @@ describe("DesignSurfacePresenter", () => {
 
         window.Commands.Execute("AddElementSelect", undefined);
         spyOn(variableEditorDriver, "Initialize");
-        window.Commands.Execute("DrawingSurfaceClick", { x: 150, y: 250, screenX: 1, screenY: 2 });
+        window.Commands.Execute("DrawingSurfaceDoubleClick", { x: 150, y: 250, screenX: 1, screenY: 2 });
         expect(variableEditorDriver.Initialize).toHaveBeenCalled();
     });
 

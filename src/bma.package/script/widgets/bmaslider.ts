@@ -9,7 +9,8 @@
             step: 10,
             value: 0,
             min: 0,
-            max: 100
+            max: 100,
+            suppressDirectChangeOnPlusMinusClick: false
         },
 
         _create: function () {
@@ -54,6 +55,9 @@
                 var val = Math.max(that.options.min, that.zoomslider.slider("option", "value") - that.options.step);
 
                 if (command !== undefined && command !== "" && !that.isSilent) {
+                    if (!that.options.suppressDirectChangeOnPlusMinusClick) {
+                        that.setValueSilently(val);
+                    }
                     window.Commands.Execute(command, { value: val });
                 } else {
                     that.zoomslider.slider("option", "value", val);
@@ -65,6 +69,9 @@
                 var val = Math.min(that.options.max, that.zoomslider.slider("option", "value") + that.options.step);
 
                 if (command !== undefined && command !== "" && !that.isSilent) {
+                    if (!that.options.suppressDirectChangeOnPlusMinusClick) {
+                        that.setValueSilently(val);
+                    }
                     window.Commands.Execute(command, { value: val });
                 } else {
                     that.zoomslider.slider("option", "value", val);
@@ -85,8 +92,9 @@
             switch (key) {
                 case "value":
                     if (this.options.value !== value) {
-                        this.options.value = value;
-                        this.zoomslider.slider("option", "value", value);
+                        var val = Math.min(this.options.max, Math.max(this.options.min, value));
+                        this.options.value = val;
+                        this.zoomslider.slider("option", "value", val);
                     }
                     break;
                 case "min":
@@ -97,8 +105,9 @@
                     this.options.max = value;
                     this.zoomslider.slider("option", "max", value);
                     break;
+                default:
+                    this._super(key, value);
             }
-            this._super(key, value);
         },
 
         isSilent: false,

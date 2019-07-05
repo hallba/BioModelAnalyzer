@@ -289,7 +289,7 @@ function loadScript(version) {
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
     drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
-    $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100 });
+    $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100, suppressDirectChangeOnPlusMinusClick: true });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
     $("#modelToolbarSlider").bmaaccordion({ position: "left", z_index: 1 });

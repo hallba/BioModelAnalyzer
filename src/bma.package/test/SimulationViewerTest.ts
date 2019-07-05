@@ -118,7 +118,6 @@ describe("Simulation Viewer", () => {
         }
         div.simulationviewer({ error: error, data: undefined, plot: undefined });
         var er: JQuery = div.children(':first-child').children(':first-child');
-        //console.log('proof-state ' + er.hasClass('proof-state'));
         expect(er.children(':nth-child(2)').text()).toEqual(error.title);
         expect(er.next().text()).toEqual(error.message);
 

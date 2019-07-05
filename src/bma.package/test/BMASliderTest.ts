@@ -6,7 +6,7 @@ describe("BMASlider", () => {
     window.Commands = new BMA.CommandRegistry();
 
     beforeEach(() => {
-        slider = $("<div></div>").attr("data-command", command);;
+        slider = $("<div></div>").attr("data-command", command);
         slider.bmazoomslider();
     });
 
@@ -65,10 +65,10 @@ describe("BMASlider", () => {
             spyOn(window.Commands, "Execute");
 
             plusButton.click();
-            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: value - step, isExternal: false });
+            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: value - step });
 
             minusButton.click();
-            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: value, isExternal: false });
+            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: value });
         });
 
         it("should set max value when it is greater than max", () => {
@@ -76,7 +76,12 @@ describe("BMASlider", () => {
             spyOn(window.Commands, "Execute");
             slider.bmazoomslider({ value: newvalue });
             minusButton.click();
-            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: newvalue + slider.bmazoomslider("option", "step"), isExternal: true });
+            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: max });
+            expect(slider.bmazoomslider("option", "value")).toEqual(max);
+
+            slider.bmazoomslider({ value: newvalue });
+            expect(slider.bmazoomslider("option", "value")).toEqual(newvalue);
+            slider.bmazoomslider({ value: 100 });
             expect(slider.bmazoomslider("option", "value")).toEqual(max);
         });
 
@@ -85,7 +90,12 @@ describe("BMASlider", () => {
             spyOn(window.Commands, "Execute");
             slider.bmazoomslider({ value: newvalue });
             plusButton.click();
-            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: newvalue - slider.bmazoomslider("option", "step"), isExternal: true });
+            expect(window.Commands.Execute).toHaveBeenCalledWith(command, { value: min });
+            expect(slider.bmazoomslider("option", "value")).toEqual(min);
+
+            slider.bmazoomslider({ value: newvalue });
+            expect(slider.bmazoomslider("option", "value")).toEqual(newvalue);
+            slider.bmazoomslider({ value: -100 });
             expect(slider.bmazoomslider("option", "value")).toEqual(min);
         });
 
@@ -95,7 +105,8 @@ describe("BMASlider", () => {
 
             minusButton.click();
             expect(slider.bmazoomslider("option", "value")).toEqual(jqslider.slider("option", "value"));
-        })
+        });
+
     });
 
 
@@ -110,6 +121,7 @@ describe("BMASlider", () => {
     });
 
     it("should increace and decrease", () => {
+        slider.bmazoomslider({ value: 0 });
         expect(slider.bmazoomslider("option", "value")).toEqual(0);
         slider.children("#zoom-minus").click();
         slider.children("#zoom-minus").click();

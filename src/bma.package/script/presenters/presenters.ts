@@ -109,26 +109,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceCreateMotifFromSelection", () => {
-
                     this.CreateMotifFromSelection();
-
-                    //var selectionModel = this.CreateModelFromSelection();
-                    //var errors = Model.CheckModelVariables(selectionModel.model, selectionModel.layout);
-
-                    //if (errors != undefined && errors.length > 0) {
-                    //    messageBox.Show(BMA.Model.CreateVariablesErrorReport(errors, "Unable to create motif from selection: "));
-                    //} else {
-
-                    //var current = this.undoRedoPresenter.Current;
-
-                    //var exported = {
-                    //    Model: BMA.Model.ExportBioModelPart(selectionModel.model, current.model), Layout: BMA.Model.ExportLayout(selectionModel.model, selectionModel.layout)
-                    //};
-
-                    //var selectionSubModel = JSON.stringify(exported);
-                    //window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
-                    //}
-
                 });
 
                 window.Commands.On("TryCreateMotifFromSelection", () => {
