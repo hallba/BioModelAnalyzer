@@ -1,5 +1,6 @@
 ![BMA Build](https://buildstats.info/appveyor/chart/NikitaSkoblov/biomodelanalyzer)
 ![Build status](https://ci.appveyor.com/api/projects/status/github/hallba/biomodelanalyzer?branch=master&svg=true)
+[![Tests](https://img.shields.io/appveyor/tests/NikitaSkoblov/biomodelanalyzer.svg)](https://ci.appveyor.com/project/NikitaSkoblov/biomodelanalyzer/build/tests)
 
 The BioModelAnalyzer is a tool that allows biologists to easily and quickly build complex models 
 of biological behaviour, and to analyse them using techniques derived from the field of formal 
