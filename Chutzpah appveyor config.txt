@@ -36,7 +36,7 @@ foreach ($testsuite in $testsuites.testsuites.testsuite) {
 }
 
 $ProjectDir = "."
-$PackagesDir = "$ProjectDir\packages"
+$PackagesDir = "$($env:APPVEYOR_BUILD_FOLDER)\packages"
 $OutDir = "$ProjectDir\bin\Debug"
 
 # Install NUnit Test Runner
