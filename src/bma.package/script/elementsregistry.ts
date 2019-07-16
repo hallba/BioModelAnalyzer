@@ -738,7 +738,7 @@ module BMA {
                             } else {
                                 data = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
                             }
-                            var scale = 0.6 * renderParams.sizeCoef;
+                            var scale = 0.6 * (renderParams.sizeCoef === undefined ? 1 : renderParams.sizeCoef);
                             var path = jqSvg.createPath();
                             var variable = jqSvg.path(g, path, {
                                 fill: pathFill,
