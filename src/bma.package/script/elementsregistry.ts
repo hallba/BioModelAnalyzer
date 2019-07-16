@@ -726,7 +726,7 @@ module BMA {
                             }
 
                             if (renderParams.isHighlighted) {
-                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) * renderParams.sizeCoef / 2;
                                 jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
                             }
 
@@ -738,11 +738,12 @@ module BMA {
                             } else {
                                 data = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
                             }
+                            var scale = 0.6 * renderParams.sizeCoef;
                             var path = jqSvg.createPath();
                             var variable = jqSvg.path(g, path, {
                                 fill: pathFill,
                                 d: data,
-                                transform: " scale(0.6) " + "rotate(" + angle + ")" + " translate(-50 -50)" //"scale(1.2) rotate(" + angle + ")"
+                                transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -50)"
                             });
 
                             if (renderParams.isSelected) {
@@ -751,7 +752,7 @@ module BMA {
                                 var variable = jqSvg.path(g, path2, {
                                     fill: "#036",
                                     d: data,
-                                    transform: " scale(0.6) " + "rotate(" + angle + ")" + " translate(-50 -50)" //"scale(1.2) rotate(" + angle + ")"
+                                    transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -50)" //"scale(1.2) rotate(" + angle + ")"
                                 });
                             }
 
@@ -783,7 +784,7 @@ module BMA {
                             //}
 
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
+                                var transform = "translate(" + (that.variableWidthConstant * renderParams.sizeCoef / 1.9) + ", " + (-that.variableHeightConstant * renderParams.sizeCoef / 1.9) + ")";
                                 jqSvg.text(g, 0, 0, "!", {
                                     transform: transform,
                                     "font-size": 10,
@@ -804,7 +805,7 @@ module BMA {
 
                                 if (renderParams.model.Name !== "") {
                                     var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize) + ")",
+                                        transform: "translate(" + -that.variableWidthConstant * renderParams.sizeCoef / 2 + ", " + (that.variableHeightConstant * renderParams.sizeCoef / 2 + that.labelSize) + ")",
                                         "font-size": that.labelSize,
                                         "font-family": textFontFamily,
                                         "src": textFontSrc,
@@ -815,7 +816,7 @@ module BMA {
 
                                 if (renderParams.valueText !== undefined) {
                                     jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                        transform: "translate(" + -that.variableWidthConstant / 2 + ", " + (that.variableHeightConstant / 2 + that.labelSize + offset) + ")",
+                                        transform: "translate(" + -that.variableWidthConstant * renderParams.sizeCoef / 2 + ", " + (that.variableHeightConstant * renderParams.sizeCoef / 2 + that.labelSize + offset) + ")",
                                         "font-size": that.labelSize,
                                         "font-family": textFontFamily,
                                         "src": textFontSrc,
@@ -902,13 +903,13 @@ module BMA {
                             var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * that.relationshipBboxOffset * that.relationshipBboxOffset + dir.y * dir.y * that.relationshipBboxOffset * that.relationshipBboxOffset);
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset + translate.x,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset + translate.y
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset + translate.x,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset + translate.y
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.y
                             };
 
                             if (isRevers) {
@@ -1029,13 +1030,13 @@ module BMA {
 
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset + translate.x,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset + translate.y
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset + translate.x,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset + translate.y
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.y
                             };
 
                             if (isRevers) {

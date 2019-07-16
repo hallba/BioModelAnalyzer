@@ -878,7 +878,7 @@ module BMA {
                             height: grid.yStep,
                             stroke: "rgb(51,204,0)",
                             fill: undefined,
-                            lineWidth: 2
+                            lineWidth: 1
                         };
 
                         var id = that.GetVariableAtPosition(x, y);
@@ -2161,9 +2161,17 @@ module BMA {
 
                 if (this.stagingHighlight.variables[0] !== undefined) {
                     var id = this.stagingHighlight.variables[0]
-                    var variable = this.undoRedoPresenter.Current.layout.GetVariableById(id);
-                    var rad = 1.3 * 35 / 2;
-                    this.svg.ellipse(variable.PositionX, variable.PositionY, rad, rad, {
+                    var variableLayout = this.undoRedoPresenter.Current.layout.GetVariableById(id);
+                    var variable = this.undoRedoPresenter.Current.model.GetVariableById(id);
+
+                    var container: any = variable.Type === "MembraneReceptor" ? this.undoRedoPresenter.Current.layout.GetContainerById(variable.ContainerId) : undefined;
+                    var varSizeCoef = 1;
+                    if (container !== undefined) {
+                        varSizeCoef = container.Size;
+                    }
+
+                    var rad = 16 * varSizeCoef;
+                    this.svg.ellipse(variableLayout.PositionX, variableLayout.PositionY, rad, rad, {
                         stroke: "#33cc00", fill: "transparent" });
                 }
 
