@@ -879,14 +879,15 @@ module BMA {
                             });
 
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+                            var scale = 0.5 * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
                             var variable = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
-                                strokeWidth: 2 * (lw + 1),
+                                strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
                                 "marker-end": "url(#Activator)",
                                 d: data,
-                                transform: "scale(0.5) translate(-10  -40)",
+                                transform: "scale(" + scale + ") translate(-20  -30)",
                                 "stroke-linecap": "round"
                             });
                         } else {
@@ -1005,14 +1006,15 @@ module BMA {
                             });
 
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+                            var scale = 0.5 * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
                             var variable = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
-                                strokeWidth: 2 * (lw + 1),
+                                strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
                                 "marker-end": "url(#Inhibitor)",
                                 d: data,
-                                transform: "scale(0.5) translate(-10  -40)",
+                                transform: "scale(" + scale + ") translate(-20  -30)",
                                 "stroke-linecap": "round"
                             });
                         } else {

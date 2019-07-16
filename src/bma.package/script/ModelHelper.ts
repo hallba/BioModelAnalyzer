@@ -146,7 +146,7 @@ module BMA {
                     id: relationship.Id,
                     hasReverse: hasReverse,
                     isSelected: isSelected,
-                    translate: translate
+                    translate: translate,
                 }));
             }
 
