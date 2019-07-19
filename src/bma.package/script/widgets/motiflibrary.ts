@@ -179,6 +179,14 @@
 
             var slidesToShow = ($(window).width() / 370) | 0;
 
+            //slickContainer.on("afterChange", (e, s, cs) => {
+            //    if (cs === 0) {
+            //        $(".ml_navbutton-prev").addClass("ml-prev-end");
+            //    } else {
+            //        $(".ml_navbutton-prev").removeClass("ml-prev-end");
+            //    }
+            //});
+
             slickContainer.slick({
                 dots: true,
                 infinite: false, 
@@ -188,6 +196,7 @@
                 nextArrow: next,
                 slidesToShow: slidesToShow
             });
+
 
             
 
