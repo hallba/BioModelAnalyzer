@@ -167,7 +167,8 @@ module BMA {
 
                 var pointOffset = 0.15 * that.variableSizeConstant;
 
-                var stroke = isSelected ? "blue" : "#ccc";
+                var stroke = isSelected ? "#666" : "#ccc";
+                var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
@@ -178,17 +179,25 @@ module BMA {
                     end.y + normal.y * length05 - lineVector.y * 3 * length01,
                     end.x + normal.x * pointOffset,
                     end.y + normal.y * pointOffset),
-                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round" });
             }
 
             private CreateLine(start, end, lineWidth, endingType, svg, isSelected) {
                 var jqSvg = svg;
 
-                var stroke = isSelected ? "blue" : "#ccc";
+                var g = jqSvg.group();
 
-                var path = jqSvg.createPath();
-                return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
-                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
+                if (isSelected) {
+                    var spath = jqSvg.createPath();
+                    jqSvg.path(g, spath.move(start.x, start.y).lineTo(end.x, end.y),
+                        { fill: 'none', stroke: "#666", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + "Selected)", "stroke-linecap": "round" });
+                }
+                else {
+                    var path = jqSvg.createPath();
+                    jqSvg.path(g, path.move(start.x, start.y).lineTo(end.x, end.y),
+                        { fill: 'none', stroke: "#ccc", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
+                }
+                return g;
             }
 
             private CalculateRotationAngle(gridCell, grid, sizeCoef, positionX, positionY): number {
@@ -883,6 +892,10 @@ module BMA {
                                 pathFill = "#EDEDED";
                             }
 
+                            if (renderParams.isSelected) {
+                                pathFill = "#666";
+                            }
+
                             var angle = 0;
                             if (renderParams.layout.hasRotation) {
                                 angle = that.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY);
@@ -901,7 +914,7 @@ module BMA {
                                 stroke: pathFill,
                                 fill: "none",
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
-                                "marker-end": "url(#Activator)",
+                                "marker-end": renderParams.isSelected ? "url(#ActivatorSelected)" : "url(#Activator)",
                                 d: data,
                                 transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
                                 "stroke-linecap": "round"
@@ -1017,6 +1030,10 @@ module BMA {
                                 pathFill = "#EDEDED";
                             }
 
+                            if (renderParams.isSelected) {
+                                pathFill = "#666";
+                            }
+
                             var angle = 0;
                             if (renderParams.layout.hasRotation) {
                                 angle = that.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY);
@@ -1035,7 +1052,7 @@ module BMA {
                                 stroke: pathFill,
                                 fill: "none",
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
-                                "marker-end": "url(#Inhibitor)",
+                                "marker-end": renderParams.isSelected ? "url(#InhibitorSelected)" : "url(#Inhibitor)",
                                 d: data,
                                 transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
                                 "stroke-linecap": "round"
