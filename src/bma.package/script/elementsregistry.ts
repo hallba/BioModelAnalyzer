@@ -518,19 +518,27 @@ module BMA {
                             //}
 
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
-                                jqSvg.text(g, 0, 0, "!", {
-                                    transform: transform,
-                                    "font-size": 10,
-                                    "font-family": textFontFamily,
-                                    "src": textFontSrc,
+
+                                var offsetX = 0.3 * that.variableWidthConstant;
+                                var offsetY = - 0.4 * that.variableWidthConstant;
+
+                                var invalidGroup = jqSvg.group(g, {
+                                    transform: "translate(" + offsetX + ", " + offsetY + ") scale(0.25) translate(-20.06 -20.06)",
+                                });
+
+                                jqSvg.ellipse(invalidGroup, 20.06, 20.06, 20.06, 20.06, {
+                                    "stroke": "red",
                                     "fill": "red"
                                 });
-                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                    transform: transform,
-                                    "src": textFontSrc,
+                                jqSvg.ellipse(invalidGroup, 20.06, 32.09, 4, 4, {
                                     "stroke": "red",
-                                    "fill": "transparent"
+                                    "fill": "#fff"
+                                });
+                                jqSvg.line(invalidGroup, 20.06, 8.05, 20.06, 21.07, {
+                                    stroke: "#fff",
+                                    "stroke-linecap": "round",
+                                    "stroke-miterlimit": 10,
+                                    "stroke-width": "6.8px"
                                 });
                             }
                         } else {
@@ -659,19 +667,26 @@ module BMA {
                             //}
 
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                                var transform = "translate(" + (that.variableWidthConstant / 1.9) + ", " + (-that.variableHeightConstant / 1.9) + ")";
-                                jqSvg.text(g, 0, 0, "!", {
-                                    transform: transform,
-                                    "font-size": 10,
-                                    "font-family": textFontFamily,
-                                    "src": textFontSrc,
+                                var offsetX = 0.3 * that.variableWidthConstant;
+                                var offsetY = - 0.4 * that.variableWidthConstant;
+
+                                var invalidGroup = jqSvg.group(g, {
+                                    transform: "translate(" + offsetX + ", " + offsetY + ") scale(0.25) translate(-20.06 -20.06)",
+                                });
+
+                                jqSvg.ellipse(invalidGroup, 20.06, 20.06, 20.06, 20.06, {
+                                    "stroke": "red",
                                     "fill": "red"
                                 });
-                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                    transform: transform,
-                                    "src": textFontSrc,
+                                jqSvg.ellipse(invalidGroup, 20.06, 32.09, 4, 4, {
                                     "stroke": "red",
-                                    "fill": "transparent"
+                                    "fill": "#fff"
+                                });
+                                jqSvg.line(invalidGroup, 20.06, 8.05, 20.06, 21.07, {
+                                    stroke: "#fff",
+                                    "stroke-linecap": "round",
+                                    "stroke-miterlimit": 10,
+                                    "stroke-width": "6.8px"
                                 });
                             }
                         } else {
@@ -802,19 +817,26 @@ module BMA {
                             //}
 
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                                var transform = "translate(" + (that.variableWidthConstant * renderParams.sizeCoef / 1.9) + ", " + (-that.variableHeightConstant * renderParams.sizeCoef / 1.9) + ")";
-                                jqSvg.text(g, 0, 0, "!", {
-                                    transform: transform,
-                                    "font-size": 10,
-                                    "font-family": textFontFamily,
-                                    "src": textFontSrc,
+                                var offsetX = 0.3 * that.variableWidthConstant * renderParams.sizeCoef;
+                                var offsetY = - 0.4 * that.variableWidthConstant * renderParams.sizeCoef;
+
+                                var invalidGroup = jqSvg.group(g, {
+                                    transform: "translate(" + offsetX + ", " + offsetY + ") scale(0.25) translate(-20.06 -20.06)",
+                                });
+
+                                jqSvg.ellipse(invalidGroup, 20.06, 20.06, 20.06, 20.06, {
+                                    "stroke": "red",
                                     "fill": "red"
                                 });
-                                jqSvg.ellipse(g, 1.5, -3.5, 5, 5, {
-                                    transform: transform,
-                                    "src": textFontSrc,
+                                jqSvg.ellipse(invalidGroup, 20.06, 32.09, 4, 4, {
                                     "stroke": "red",
-                                    "fill": "transparent"
+                                    "fill": "#fff"
+                                });
+                                jqSvg.line(invalidGroup, 20.06, 8.05, 20.06, 21.07, {
+                                    stroke: "#fff",
+                                    "stroke-linecap": "round",
+                                    "stroke-miterlimit": 10,
+                                    "stroke-width": "6.8px"
                                 });
                             }
                         } else {
