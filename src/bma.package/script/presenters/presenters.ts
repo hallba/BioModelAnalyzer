@@ -2152,10 +2152,11 @@ module BMA {
                         Math.abs(this.stagingRect.x0 - this.stagingRect.x1),
                         Math.abs(this.stagingRect.y0 - this.stagingRect.y1),
                         {
-                            stroke: "blue",
+                            stroke: "#33cc00",
                             strokeWidth: 1,
                             fill: "white",
-                            "fill-opacity": 0.6
+                            "fill-opacity": 0,
+                            "stroke-dasharray": [6, 6]
                         });
                 }
 
