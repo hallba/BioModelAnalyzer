@@ -191,6 +191,33 @@ module BMA {
                     { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
             }
 
+            private CalculateRotationAngle(gridCell, grid, sizeCoef, positionX, positionY): number {
+                var angle = 0;
+
+                var containerX = (gridCell.x + 0.5) * grid.xStep + grid.x0 + (sizeCoef - 1) * grid.xStep / 2;
+                var containerY = (gridCell.y + 0.5) * grid.yStep + grid.y0 + (sizeCoef - 1) * grid.yStep / 2;
+
+                var v = {
+                    x: positionX - containerX,
+                    y: positionY - containerY
+                };
+                var len = Math.sqrt(v.x * v.x + v.y * v.y);
+
+                v.x = v.x / len;
+                v.y = v.y / len;
+
+                var acos = Math.acos(-v.y);
+
+                angle = acos * v.x / Math.abs(v.x);
+
+                angle = angle * 180 / Math.PI;
+                if (angle < 0)
+                    angle += 360;
+
+
+                return angle;
+            }
+
             private CreateSvgElement(type: string, renderParams: any) {
                 var elem = <SVGElement>document.createElementNS("http://www.w3.org/2000/svg", type);
                 var transform = "";
@@ -699,25 +726,7 @@ module BMA {
                         if (!renderParams.textOnly) {
                             var angle = 0;
                             if (renderParams.gridCell !== undefined) {
-                                var containerX = (renderParams.gridCell.x + 0.5) * renderParams.grid.xStep + renderParams.grid.x0 + (renderParams.sizeCoef - 1) * renderParams.grid.xStep / 2;
-                                var containerY = (renderParams.gridCell.y + 0.5) * renderParams.grid.yStep + renderParams.grid.y0 + (renderParams.sizeCoef - 1) * renderParams.grid.yStep / 2;
-
-                                var v = {
-                                    x: renderParams.layout.PositionX - containerX,
-                                    y: renderParams.layout.PositionY - containerY
-                                };
-                                var len = Math.sqrt(v.x * v.x + v.y * v.y);
-
-                                v.x = v.x / len;
-                                v.y = v.y / len;
-
-                                var acos = Math.acos(-v.y);
-
-                                angle = acos * v.x / Math.abs(v.x);
-
-                                angle = angle * 180 / Math.PI;
-                                if (angle < 0)
-                                    angle += 360;
+                                angle = that.CalculateRotationAngle(renderParams.gridCell, renderParams.grid, renderParams.sizeCoef, renderParams.layout.PositionX, renderParams.layout.PositionY);
                             }
 
                             var pathFill = renderParams.isSelected ? "#39c" : "#09c";
@@ -874,6 +883,13 @@ module BMA {
                                 pathFill = "#EDEDED";
                             }
 
+                            var angle = 0;
+                            if (renderParams.layout.hasRotation) {
+                                angle = that.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY);
+                            }
+
+                            var iconTranslate = renderParams.layout.hasRotation ? "translate(-25  -35)" : "translate(-10  -40)";
+
                             var g = jqSvg.group({
                                 transform: "translate(" + renderParams.layout.start.PositionX + ", " + renderParams.layout.start.PositionY + ")",
                             });
@@ -887,7 +903,7 @@ module BMA {
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
                                 "marker-end": "url(#Activator)",
                                 d: data,
-                                transform: "scale(" + scale + ") translate(-20  -30)",
+                                transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
                                 "stroke-linecap": "round"
                             });
                         } else {
@@ -1001,6 +1017,13 @@ module BMA {
                                 pathFill = "#EDEDED";
                             }
 
+                            var angle = 0;
+                            if (renderParams.layout.hasRotation) {
+                                angle = that.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY);
+                            }
+
+                            var iconTranslate = renderParams.layout.hasRotation ? "translate(-25  -35)" : "translate(-10  -40)";
+
                             var g = jqSvg.group({
                                 transform: "translate(" + renderParams.layout.start.PositionX + ", " + renderParams.layout.start.PositionY + ")",
                             });
@@ -1014,7 +1037,7 @@ module BMA {
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
                                 "marker-end": "url(#Inhibitor)",
                                 d: data,
-                                transform: "scale(" + scale + ") translate(-20  -30)",
+                                transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
                                 "stroke-linecap": "round"
                             });
                         } else {

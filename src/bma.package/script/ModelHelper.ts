@@ -112,12 +112,18 @@ module BMA {
                 var relationship = relationships[i];
                 var element = window.ElementRegistry.GetElementByType(relationship.Type);
 
+                var hasRotation = false;
+                var gridCell = undefined;
+
                 var start = GetVariableById(layout, model, relationship.FromVariableId);
                 var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
                 var startVarSizeCoef = 1;
                 if (container !== undefined) {
                     startVarSizeCoef = container.Size;
+                    gridCell = { x: container.PositionX, y: container.PositionY };
                 }
+
+                hasRotation = start.model.Type === "MembraneReceptor";
 
                 var end = GetVariableById(layout, model, relationship.ToVariableId); 
                 var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
@@ -141,7 +147,7 @@ module BMA {
                 }
 
                 svgElements.push(element.RenderToSvg({
-                    layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef },
+                    layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
                     grid: grid,
                     id: relationship.Id,
                     hasReverse: hasReverse,

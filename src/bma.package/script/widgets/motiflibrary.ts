@@ -197,9 +197,6 @@
                 slidesToShow: slidesToShow
             });
 
-
-            
-
             $('*[draggable!=true]', '.slick-track').unbind('dragstart');
             $(".ml-draggable-element").draggable({
                 helper: "clone", appendTo: that.options.container, containment: that.options.container, cursor: "pointer", scope: "ml-card"
