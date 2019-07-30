@@ -65,7 +65,7 @@ declare var InteractiveDataDisplay: any;
             if (this.options.lightSvg !== undefined && this._lightSvgPlot !== undefined) {
                 this._lightSvgPlot.svg.configure({ "pointer-events": "none" }, false);
                 this._lightSvgPlot.svg.clear();
-                this._lightSvgPlot.svg.add(this.options.svg);
+                //this._lightSvgPlot.svg.add(this.options.svg);
             }
         },
 
@@ -296,10 +296,10 @@ declare var InteractiveDataDisplay: any;
                 return mouseDrags.merge(gestures);
             }
 
-            var createDragStartSubject = function (vc, btnFilter) {
+            var createDragStartSubject = function (vc, btnFilter, withShift) {
                 var _doc = $(document);
                 var mousedown = Rx.Observable.fromEvent<any>(vc, "mousedown").where(function (md) {
-                    return md.button === btnFilter;
+                    return md.button === btnFilter && !md.shiftKey || withShift && md.shiftKey && md.button === 0;
                 });
                 var mouseMove = Rx.Observable.fromEvent<any>(vc, "mousemove");
                 var mouseUp = Rx.Observable.fromEvent<any>(_doc, "mouseup");
@@ -348,8 +348,8 @@ declare var InteractiveDataDisplay: any;
             }
 
             this._dragService = {
-                dragStart: createDragStartSubject(that._plot.centralPart, 0),
-                dragStartRight: createDragStartSubject(that._plot.centralPart, 2),
+                dragStart: createDragStartSubject(that._plot.centralPart, 0, false),
+                dragStartRight: createDragStartSubject(that._plot.centralPart, 2, true),
                 drag: createPanSubject(that._plot.centralPart),
                 dragEnd: createDragEndSubject(that._plot.centralPart)
             };
@@ -460,7 +460,7 @@ declare var InteractiveDataDisplay: any;
                         this._lightSvgPlot.svg.clear();
                         if (value !== undefined) {
                             this._lightSvgPlot.svg.add(value);
-                        }
+                        } 
                     }
                     break;
                 case "isNavigationEnabled":
@@ -659,12 +659,19 @@ declare var InteractiveDataDisplay: any;
             this._plot.visibleRectConstraint = constraint;
         },
 
+        //_clickProagator: function (event) {
+        //    alert("click!");
+        //},
+
         moveDraggableSvgOnTop: function () {
             this._lightSvgPlot.host.css("z-index", InteractiveDataDisplay.ZIndexDOMMarkers + 10);
+            //this._lightSvgPlot.host.on("click", this._clickProagator);
+
         },
 
         moveDraggableSvgOnBottom: function () {
             this._lightSvgPlot.host.css("z-index", '');
+            //this._lightSvgPlot.host.off("click", this._clickProagator);
         },
     });
 }(jQuery));

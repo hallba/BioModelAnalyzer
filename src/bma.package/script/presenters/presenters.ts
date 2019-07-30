@@ -1024,8 +1024,7 @@ module BMA {
                 dragSubject.dragEnd.subscribe(
                     (gesture) => {
                         navigationDriver.MoveDraggableOnBottom();
-
-                        that.driver.DrawLayer2(undefined);
+                        //that.driver.DrawLayer2(undefined);
 
                         if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor") && that.stagingLine !== undefined && that.stagingLine.x1 !== undefined) {
                             that.TryAddStagingLineAsLink();
