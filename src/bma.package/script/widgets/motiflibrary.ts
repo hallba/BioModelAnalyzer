@@ -174,18 +174,30 @@
             }
 
 
-            var prev = '<div class="ml-navbutton ml-navbutton-prev"></div>';
+            var prev = '<div class="ml-navbutton ml-navbutton-prev-end"></div>';
             var next = '<div class="ml-navbutton ml-navbutton-next"></div>';
+            var nextend = '<div class="ml-navbutton ml-navbutton-next-end"></div>';
 
             var slidesToShow = ($(window).width() / 370) | 0;
 
-            //slickContainer.on("afterChange", (e, s, cs) => {
-            //    if (cs === 0) {
-            //        $(".ml_navbutton-prev").addClass("ml-prev-end");
-            //    } else {
-            //        $(".ml_navbutton-prev").removeClass("ml-prev-end");
-            //    }
+            //var lastCurrentSlide = -1;
+            //slickContainer.on("beforeChange", (e, s, cs) => {
+            //    lastCurrentSlide = cs;
             //});
+
+            slickContainer.on("afterChange", (e, s, cs) => {
+                if (cs === 0) {
+                    $(".ml-navbutton-prev").addClass("ml-navbutton-prev-end").removeClass("ml-navbutton-prev");
+                } else {
+                    $(".ml-navbutton-prev-end").addClass("ml-navbutton-prev").removeClass("ml-navbutton-prev-end");
+                }
+
+                if (cs > mlmotifs.length - 1 - slidesToShow) {
+                    $(".ml-navbutton-next").addClass("ml-navbutton-next-end").removeClass("ml-navbutton-next");
+                } else {
+                    $(".ml-navbutton-next-end").addClass("ml-navbutton-next").removeClass("ml-navbutton-next-end");
+                }
+            });
 
             slickContainer.slick({
                 dots: true,
@@ -193,7 +205,7 @@
                 centerMode: false, 
                 draggable: false,
                 prevArrow: prev,
-                nextArrow: next,
+                nextArrow: mlmotifs.length > slidesToShow ? next : nextend,
                 slidesToShow: slidesToShow
             });
 

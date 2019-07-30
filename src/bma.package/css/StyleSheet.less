@@ -2789,10 +2789,10 @@ textarea {
 
 .ml-card-delete {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    bottom: 3px;
-    right: 3px;
+    width: 30px;
+    height: 30px;
+    bottom: 5px;
+    right: 5px;
     cursor: pointer;
 }
 
@@ -2873,8 +2873,9 @@ textarea {
     width: 20px;
     height: 35px;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position-x: center;
+    background-position-y: center;
     position: absolute;
     top: calc(~"50% - 18px");
     cursor: pointer;
@@ -2887,5 +2888,15 @@ textarea {
 
 .ml-navbutton-next {
     background-image: url(../images/ml/BMA_Scroll_Right.svg);
+    right: -20px;
+}
+
+.ml-navbutton-prev-end {
+    background-image: url(../images/ml/BMA_Scroll_Left_End.svg);
+    left: -20px;
+}
+
+.ml-navbutton-next-end {
+    background-image: url(../images/ml/BMA_Scroll_Right_End.svg);
     right: -20px;
 }
