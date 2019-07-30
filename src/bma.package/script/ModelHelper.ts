@@ -221,10 +221,18 @@ module BMA {
             svg.polyline(inhibitorMarker, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#ccc", strokeWidth: "1px", "stroke-linecap": "round" });
 
             var activatorMarkerSelected = svg.marker(defs, "ActivatorSelected", 3, 3, 4, 6, "auto", { viewBox: "0 0 4 6" });
-            svg.polyline(activatorMarkerSelected, [[1, 1], [3, 3], [1, 5]], { fill: "none", stroke: "#666", strokeWidth: "1px", "stroke-linecap": "round", "stroke-linejoin": "round" });
+            svg.polyline(activatorMarkerSelected, [[1, 1], [3, 3], [1, 5]], { fill: "none", stroke: "#999999", strokeWidth: "1px", "stroke-linecap": "round", "stroke-linejoin": "round" });
 
             var inhibitorMarkerSelected = svg.marker(defs, "InhibitorSelected", -0.5, 0, 6, 6, "auto", { viewBox: "-2 -4 4 8" });
-            svg.polyline(inhibitorMarkerSelected, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#666", strokeWidth: "1px", "stroke-linecap": "round" });
+            svg.polyline(inhibitorMarkerSelected, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#999999", strokeWidth: "1px", "stroke-linecap": "round" });
+
+            var activatorMarkerHighlighted = svg.marker(defs, "ActivatorHighlighted", 3, 3, 4, 6, "auto", { viewBox: "0 0 4 6" });
+            svg.polyline(activatorMarkerHighlighted, [[1, 1], [3, 3], [1, 5]], { fill: "none", stroke: "#33cc00", strokeWidth: "1px", "stroke-linecap": "round", "stroke-linejoin": "round" });
+
+            var inhibitorMarkerHighlighted = svg.marker(defs, "InhibitorHighlighted", -0.5, 0, 6, 6, "auto", { viewBox: "-2 -4 4 8" });
+            svg.polyline(inhibitorMarkerHighlighted, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#33cc00", strokeWidth: "1px", "stroke-linecap": "round" });
+
+
         }
 
         export function GetVariableColorByStatus(status): string {

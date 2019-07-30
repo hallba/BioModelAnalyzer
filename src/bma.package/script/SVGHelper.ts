@@ -20,14 +20,36 @@ module BMA {
 
         export function Highlight(elem: any/*SVGStylable*/, width: number) {
             elem.setAttribute("data-ishovered", "true");
-            elem.style.strokeWidth = width + "px";
+            elem.setAttribute("data-prevstroke", elem.getAttribute("stroke"));
+            elem.setAttribute("stroke", "#33cc00");
+
+            var marker = elem.getAttribute("marker-end");
+            elem.setAttribute("data-prevmarker", marker);
+            if (marker.includes("Activator")) {
+                elem.setAttribute("marker-end", "url(#ActivatorHighlighted)");
+            } else if (marker.includes("Inhibitor")) {
+                elem.setAttribute("marker-end", "url(#InhibitorHighlighted)");
+            }
+
+            //elem.style.strokeWidth = width + "px";
         }
 
         export function UnHighlight(elem: any/*SVGStylable*/, width: number) {
             elem.setAttribute("data-ishovered", "false");
-            elem.style.strokeWidth = width + "px";
 
-            console.log("out");
+            var prevStroke = elem.getAttribute("data-prevstroke");
+            if (prevStroke !== "") {
+                elem.setAttribute("stroke", prevStroke);
+                elem.setAttribute("data-prevstroke", "");
+            }
+
+            var marker = elem.getAttribute("data-prevmarker");
+            if (marker !== "") {
+                elem.setAttribute("marker-end", marker);
+                elem("data-prevmarker", "");
+            }
+
+            //elem.style.strokeWidth = width + "px";
         }
 
         export function ChangeStrokeWidth(elem: any/*SVGStylable*/, width: number) {

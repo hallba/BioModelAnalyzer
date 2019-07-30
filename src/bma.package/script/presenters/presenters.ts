@@ -953,6 +953,7 @@ module BMA {
                     (gesture) => {
                         if (that.selectedType === "navigation") {
                             that.navigationDriver.TurnNavigation(false);
+                            navigationDriver.MoveDraggableOnTop();
                             this.stagingRect = {
                                 x0: gesture.x,
                                 x1: gesture.x,

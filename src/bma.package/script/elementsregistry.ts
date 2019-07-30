@@ -167,7 +167,7 @@ module BMA {
 
                 var pointOffset = 0.15 * that.variableSizeConstant;
 
-                var stroke = isSelected ? "#666" : "#ccc";
+                var stroke = isSelected ? "#999999" : "#ccc";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
                 var path = jqSvg.createPath();
@@ -185,19 +185,11 @@ module BMA {
             private CreateLine(start, end, lineWidth, endingType, svg, isSelected) {
                 var jqSvg = svg;
 
-                var g = jqSvg.group();
-
-                if (isSelected) {
-                    var spath = jqSvg.createPath();
-                    jqSvg.path(g, spath.move(start.x, start.y).lineTo(end.x, end.y),
-                        { fill: 'none', stroke: "#666", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + "Selected)", "stroke-linecap": "round" });
-                }
-                else {
-                    var path = jqSvg.createPath();
-                    jqSvg.path(g, path.move(start.x, start.y).lineTo(end.x, end.y),
-                        { fill: 'none', stroke: "#ccc", strokeWidth: lineWidth + 1, "marker-end": "url(#" + endingType + ")", "stroke-linecap": "round" });
-                }
-                return g;
+                var stroke = isSelected ? "#999999" : "#ccc";
+                var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
+                var path = jqSvg.createPath();
+                return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
+                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round" });
             }
 
             private CalculateRotationAngle(gridCell, grid, sizeCoef, positionX, positionY): number {
@@ -910,12 +902,9 @@ module BMA {
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
                             var pathFill = "#ccc";
-                            if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                                pathFill = "#EDEDED";
-                            }
 
                             if (renderParams.isSelected) {
-                                pathFill = "#666";
+                                pathFill = "#999999";
                             }
 
                             var angle = 0;
@@ -932,7 +921,7 @@ module BMA {
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
                             var scale = 0.5 * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
-                            var variable = jqSvg.path(g, path, {
+                            lineRef = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
@@ -978,8 +967,8 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
                             $(lineRef).attr("data-id", renderParams.id);
                             $(lineRef).attr("data-ishovered", "false");
                         }
@@ -1048,12 +1037,9 @@ module BMA {
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
                             var pathFill = "#ccc";
-                            if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                                pathFill = "#EDEDED";
-                            }
-
+                            
                             if (renderParams.isSelected) {
-                                pathFill = "#666";
+                                pathFill = "#999999";
                             }
 
                             var angle = 0;
@@ -1070,7 +1056,7 @@ module BMA {
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
                             var scale = 0.5 * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
-                            var variable = jqSvg.path(g, path, {
+                            lineRef = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
                                 strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
@@ -1117,8 +1103,8 @@ module BMA {
                         }
 
                         if (lineRef !== undefined) {
-                            //$(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 2)");
-                            //$(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseover", "BMA.SVGHelper.Highlight(this, window.ElementRegistry.LineWidth + 1)");
+                            $(lineRef).attr("onmouseout", "BMA.SVGHelper.UnHighlight(this, window.ElementRegistry.LineWidth + 1)");
                             $(lineRef).attr("data-id", renderParams.id);
                             $(lineRef).attr("data-ishovered", "false");
                         }
