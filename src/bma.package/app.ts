@@ -323,6 +323,10 @@ function loadScript(version) {
             window.Commands.Execute("DrawingSurfaceCopy", undefined);
         } else if (event.ctrlKey && event.key == "x") {
             window.Commands.Execute("DrawingSurfaceCut", undefined);
+        } else if (event.ctrlKey && event.key == "z") {
+            window.Commands.Execute("Undo", undefined);
+        } else if (event.ctrlKey && event.key == "y") {
+            window.Commands.Execute("Redo", undefined);
         }
     });
 
