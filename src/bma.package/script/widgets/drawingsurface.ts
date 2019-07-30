@@ -72,7 +72,7 @@ declare var InteractiveDataDisplay: any;
         _create: function () {
             var that = this;
 
-            
+
 
             if (window.PlotSettings !== undefined) {
                 this._plotSettings = window.PlotSettings;
@@ -185,42 +185,17 @@ declare var InteractiveDataDisplay: any;
                 }
             });
 
-            var timer = 0;
-            var delay = 200;
-            var prevent = false;
 
             plotDiv.bind("click touchstart", function (arg) {
-                timer = setTimeout(() => {
-                    if (!prevent) {
-                        var cs = svgPlot.getScreenToDataTransform();
-
-                        if (arg.originalEvent !== undefined) {
-                            arg = <any>arg.originalEvent;
-                        }
-
-                        that._executeCommand("DrawingSurfaceClick",
-                            {
-                                x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
-                                y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
-                                screenX: arg.pageX - plotDiv.offset().left,
-                                screenY: arg.pageY - plotDiv.offset().top
-                            });
-                    }
-                    prevent = false;
-                }, delay);
-            });
-
-            plotDiv.dblclick(function (arg) {
-                clearTimeout(timer);
-                prevent = true;
-
                 var cs = svgPlot.getScreenToDataTransform();
 
                 if (arg.originalEvent !== undefined) {
                     arg = <any>arg.originalEvent;
                 }
 
-                that._executeCommand("DrawingSurfaceDoubleClick",
+                var commandName = arg.shiftKey ? "DrawingSurfaceShiftClick" : "DrawingSurfaceClick";
+
+                that._executeCommand(commandName,
                     {
                         x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
                         y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
@@ -228,6 +203,50 @@ declare var InteractiveDataDisplay: any;
                         screenY: arg.pageY - plotDiv.offset().top
                     });
             });
+
+            //var timer = 0;
+            //var delay = 200;
+            //var prevent = false;
+
+            //plotDiv.bind("click touchstart", function (arg) {
+            //    timer = setTimeout(() => {
+            //        if (!prevent) {
+            //            var cs = svgPlot.getScreenToDataTransform();
+
+            //            if (arg.originalEvent !== undefined) {
+            //                arg = <any>arg.originalEvent;
+            //            }
+
+            //            that._executeCommand("DrawingSurfaceClick",
+            //                {
+            //                    x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
+            //                    y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+            //                    screenX: arg.pageX - plotDiv.offset().left,
+            //                    screenY: arg.pageY - plotDiv.offset().top
+            //                });
+            //        }
+            //        prevent = false;
+            //    }, delay);
+            //});
+
+            //plotDiv.dblclick(function (arg) {
+            //    clearTimeout(timer);
+            //    prevent = true;
+
+            //    var cs = svgPlot.getScreenToDataTransform();
+
+            //    if (arg.originalEvent !== undefined) {
+            //        arg = <any>arg.originalEvent;
+            //    }
+
+            //    that._executeCommand("DrawingSurfaceDoubleClick",
+            //        {
+            //            x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
+            //            y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+            //            screenX: arg.pageX - plotDiv.offset().left,
+            //            screenY: arg.pageY - plotDiv.offset().top
+            //        });
+            //});
 
             //Subject that converts input mouse events into Pan gestures 
             var createPanSubject = function (vc) {

@@ -163,7 +163,7 @@ module BMA {
                     }
                 });
 
-                window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
+                window.Commands.On("DrawingSurfaceShiftClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
                     if (that.selectedType === "navigation") {
                         if (that.stagingRect === undefined) {
                             var id = that.GetVariableAtPosition(args.x, args.y);
@@ -232,7 +232,12 @@ module BMA {
                                 }
                             }
                         }
-                    } else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
+                    }
+                });
+
+                window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
+                    if (that.selectedType === "navigation") { }
+                    else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
                         var id = that.GetVariableAtPosition(args.x, args.y);
                         if (id !== undefined) {
 
@@ -262,7 +267,7 @@ module BMA {
                     }
                 });
 
-                window.Commands.On("DrawingSurfaceDoubleClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
+                window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
                     var id = that.GetVariableAtPosition(args.x, args.y);
                     if (id !== undefined) {
 
@@ -897,7 +902,7 @@ module BMA {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         }
 
-                        that.driver.DrawRects([rect]); 
+                        that.driver.DrawRects([rect]);
                     }
                 );
 
@@ -2174,7 +2179,8 @@ module BMA {
 
                     var rad = 16 * varSizeCoef;
                     this.svg.ellipse(variableLayout.PositionX, variableLayout.PositionY, rad, rad, {
-                        stroke: "#33cc00", fill: "transparent" });
+                        stroke: "#33cc00", fill: "transparent"
+                    });
                 }
 
                 if (this.stagingOffset !== undefined) {

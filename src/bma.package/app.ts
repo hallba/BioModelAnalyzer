@@ -318,6 +318,14 @@ function loadScript(version) {
         holdCords.holdY = event.pageY;
     });
 
+    $(document).keydown(function (event) {
+        if (event.ctrlKey && event.key == "c") {
+            window.Commands.Execute("DrawingSurfaceCopy", undefined);
+        } else if (event.ctrlKey && event.key == "x") {
+            window.Commands.Execute("DrawingSurfaceCut", undefined);
+        }
+    });
+
     //$("#btn-export-model").contextmenu({
     //    menu: [{ title: "Export Local Models", cmd: "ExportLocalModelsZip", uiIcon: "ui-icon-document-b" }],
     //    select: function (event, ui) {

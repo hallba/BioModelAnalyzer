@@ -46,7 +46,7 @@ module BMA {
             var marker = elem.getAttribute("data-prevmarker");
             if (marker !== "") {
                 elem.setAttribute("marker-end", marker);
-                elem("data-prevmarker", "");
+                elem.setAttribute("data-prevmarker", "");
             }
 
             //elem.style.strokeWidth = width + "px";
