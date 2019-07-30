@@ -236,7 +236,42 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
-                    if (that.selectedType === "navigation") { }
+                    if (that.selectedType === "navigation") {
+                        var id = that.GetVariableAtPosition(args.x, args.y);
+                        if (id !== undefined) {
+
+                            if (that.editingId == that.variableEditedId)
+                                that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
+                            that.editingId = id;
+                            that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout,
+                                that.undoRedoPresenter.Current.model, id).model, that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
+                            that.variableEditor.Show(args.screenX, args.screenY);
+                            window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
+                            //if (that.isVariableEdited) {
+                            //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
+                            //    that.editingModel = undefined;
+                            //    that.isVariableEdited = false;
+                            //}
+                            //that.RefreshOutput();
+                        } else {
+                            var cid = that.GetContainerAtPosition(args.x, args.y);
+                            if (cid !== undefined) {
+                                if (that.editingId == that.variableEditedId)
+                                    that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
+                                that.editingId = cid;
+                                that.containerEditor.Initialize(that.undoRedoPresenter.Current.layout.GetContainerById(cid));
+                                that.containerEditor.Show(args.screenX, args.screenY);
+                                window.Commands.Execute("DrawingSurfaceContainerEditorOpened", undefined);
+                                //if (that.isVariableEdited) {
+                                //    //TODO: update appModel threw undoredopresenter
+                                //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
+                                //    that.editingModel = undefined;
+                                //    that.isVariableEdited = false;
+                                //}
+                                //that.RefreshOutput();
+                            }
+                        }
+                    }
                     else if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor")) {
                         var id = that.GetVariableAtPosition(args.x, args.y);
                         if (id !== undefined) {
@@ -264,43 +299,6 @@ module BMA {
                         }
                     } else {
                         that.TryAddVariable(args.x, args.y, that.selectedType, undefined);
-                    }
-                });
-
-                window.Commands.On("DrawingSurfaceClick", (args: { x: number; y: number; screenX: number; screenY: number }) => {
-                    var id = that.GetVariableAtPosition(args.x, args.y);
-                    if (id !== undefined) {
-
-                        if (that.editingId == that.variableEditedId)
-                            that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
-                        that.editingId = id;
-                        that.variableEditor.Initialize(ModelHelper.GetVariableById(that.undoRedoPresenter.Current.layout,
-                            that.undoRedoPresenter.Current.model, id).model, that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout);
-                        that.variableEditor.Show(args.screenX, args.screenY);
-                        window.Commands.Execute("DrawingSurfaceVariableEditorOpened", undefined);
-                        //if (that.isVariableEdited) {
-                        //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
-                        //    that.editingModel = undefined;
-                        //    that.isVariableEdited = false;
-                        //}
-                        //that.RefreshOutput();
-                    } else {
-                        var cid = that.GetContainerAtPosition(args.x, args.y);
-                        if (cid !== undefined) {
-                            if (that.editingId == that.variableEditedId)
-                                that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
-                            that.editingId = cid;
-                            that.containerEditor.Initialize(that.undoRedoPresenter.Current.layout.GetContainerById(cid));
-                            that.containerEditor.Show(args.screenX, args.screenY);
-                            window.Commands.Execute("DrawingSurfaceContainerEditorOpened", undefined);
-                            //if (that.isVariableEdited) {
-                            //    //TODO: update appModel threw undoredopresenter
-                            //    that.undoRedoPresenter.Dup(that.editingModel, appModel.Layout);
-                            //    that.editingModel = undefined;
-                            //    that.isVariableEdited = false;
-                            //}
-                            //that.RefreshOutput();
-                        }
                     }
                 });
 
