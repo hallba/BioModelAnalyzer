@@ -210,7 +210,27 @@ module BMA {
             return svg.toSVG();
         }
 
+        export function AdjustReceptorsPosition(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: any): { model: BMA.Model.BioModel, layout: BMA.Model.Layout } {
+            var variables = model.Variables;
+            var variableLayouts = layout.Variables;
+            var newVariableLayouts = [];
 
+            for (var i = 0; i < variableLayouts.length; i++) {
+                if (variables[i].Type == "MembraneReceptor") {
+                    var vl = variableLayouts[i];
+                    var container = layout.GetContainerById(variables[i].ContainerId);
+                    var containerX = (container.PositionX + 0.5) * grid.xStep + grid.xOrigin + (container.Size - 1) * grid.xStep / 2;
+                    var containerY = (container.PositionY + 0.5) * grid.yStep + grid.yOrigin + (container.Size - 1) * grid.yStep / 2;
+
+                    var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, variableLayouts[i].PositionX, variableLayouts[i].PositionY);
+                    newVariableLayouts.push(new BMA.Model.VariableLayout(vl.Id, pos.x, pos.y, 0, 0, vl.Angle, vl.TFDescription));
+                } else {
+                    newVariableLayouts.push(variableLayouts[i]);
+                }
+            }
+
+            return { model: model, layout: new BMA.Model.Layout(layout.Containers, newVariableLayouts) };
+        }
 
         export function AddModelDesignerSVGDefs(svg: any) {
             var defs = svg.defs("bmaDefs");

@@ -136,8 +136,12 @@ module BMA {
                             ml.layout.containers[i].positionY));
                     }
 
-                    this.model = new BMA.Model.BioModel(ml.model.name, variables, relationships);
-                    this.layout = new BMA.Model.Layout(containers, variableLayouts);
+                    var model = new BMA.Model.BioModel(ml.model.name, variables, relationships);
+                    var layout = new BMA.Model.Layout(containers, variableLayouts);
+
+                    var adjusted = ModelHelper.AdjustReceptorsPosition(model, layout, window.GridSettings);
+                    this.model = adjusted.model;
+                    this.layout = adjusted.layout;
                 } else {
                     this.model = new BMA.Model.BioModel("model 1", [], []);
                     this.layout = new BMA.Model.Layout([], []);
@@ -166,8 +170,9 @@ module BMA {
                     var parsed = JSON.parse(serializedModel);
 
                     var imported = BMA.Model.ImportModelAndLayout(parsed);
-                    this.model = imported.Model;
-                    this.layout = imported.Layout;
+                    var adjusted = ModelHelper.AdjustReceptorsPosition(imported.Model, imported.Layout, window.GridSettings);
+                    this.model = adjusted.model;
+                    this.layout = adjusted.layout;
                     this.states = [];
                     this.operations = [];
                     this.operationAppearances = [];
@@ -216,8 +221,9 @@ module BMA {
             }
 
             public Reset(model: BMA.Model.BioModel, layout: BMA.Model.Layout) {
-                this.model = model;
-                this.layout = layout;
+                var adjusted = ModelHelper.AdjustReceptorsPosition(model, layout, window.GridSettings);
+                this.model = adjusted.model;
+                this.layout = adjusted.layout;
                 this.states = [];
                 this.operations = [];
                 //var statesChanged = BMA.ModelHelper.UpdateStatesWithModel(this.model, this.layout, this.states);

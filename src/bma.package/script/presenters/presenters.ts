@@ -102,6 +102,10 @@ module BMA {
 
                 that.isContainerEdited = false;
 
+                this.xOrigin = window.GridSettings.xOrigin;
+                this.yOrigin = window.GridSettings.yOrigin;
+                this.xStep = window.GridSettings.xStep;
+                this.yStep = window.GridSettings.yStep;
                 svgPlotDriver.SetGrid(this.xOrigin, this.yOrigin, this.xStep, this.yStep);
 
                 window.Commands.On("ClearSelection", () => {

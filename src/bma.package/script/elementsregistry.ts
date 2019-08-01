@@ -326,11 +326,15 @@ module BMA {
                             });
 
                             if (renderParams.translate === undefined) {
+
+                                var xThickness = containerOuterEllipseWidth - containerInnerEllipseWidth;
+                                var yThickness = containerOuterEllipseHeight - containerInnerEllipseHeight;
+
                                 jqSvg.ellipse(g,
                                     containerInnerCenterOffset * renderParams.layout.Size,
                                     0,
-                                    containerInnerEllipseWidth * renderParams.layout.Size,
-                                    containerInnerEllipseHeight * renderParams.layout.Size, { stroke: "none", fill: "white" });
+                                    containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1),
+                                    containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1), { stroke: "none", fill: "white" });
 
                                 //Test geometry for container outer ellipse check
                                 //jqSvg.ellipse(g,
