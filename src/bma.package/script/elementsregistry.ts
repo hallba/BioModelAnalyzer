@@ -264,7 +264,7 @@ module BMA {
 
                 var containerInnerEllipseWidth = 106;
                 var containerInnerEllipseHeight = 123.5;
-                var containerOuterEllipseWidth = 118;
+                var containerOuterEllipseWidth = 119;
                 var containerOuterEllipseHeight = 136.5;
                 var containerInnerCenterOffset = 0;
                 var containerOuterCenterOffset = 0;
@@ -751,7 +751,7 @@ module BMA {
                             }
 
                             if (renderParams.isHighlighted) {
-                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) * renderParams.sizeCoef / 2;
+                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) * 0.5;// * renderParams.sizeCoef;
                                 jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
                             }
 
@@ -763,12 +763,12 @@ module BMA {
                             } else {
                                 data = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
                             }
-                            var scale = 0.6 * (renderParams.sizeCoef === undefined ? 1 : renderParams.sizeCoef);
+                            var scale = 0.6;// * (renderParams.sizeCoef === undefined ? 1 : renderParams.sizeCoef);
                             var path = jqSvg.createPath();
                             var variable = jqSvg.path(g, path, {
                                 fill: pathFill,
                                 d: data,
-                                transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -50)"
+                                transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -47)"
                             });
 
                             if (renderParams.isSelected) {
@@ -777,7 +777,7 @@ module BMA {
                                 var variable = jqSvg.path(g, path2, {
                                     fill: "#036",
                                     d: data,
-                                    transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -50)" //"scale(1.2) rotate(" + angle + ")"
+                                    transform: " scale(" + scale + ") " + "rotate(" + angle + ")" + " translate(-50 -47)" //"scale(1.2) rotate(" + angle + ")"
                                 });
                             }
 
@@ -809,8 +809,8 @@ module BMA {
                             //}
 
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                                var offsetX = 0.3 * that.variableWidthConstant * renderParams.sizeCoef;
-                                var offsetY = - 0.4 * that.variableWidthConstant * renderParams.sizeCoef;
+                                var offsetX = 0.3 * that.variableWidthConstant;// * renderParams.sizeCoef;
+                                var offsetY = - 0.4 * that.variableWidthConstant;// * renderParams.sizeCoef;
 
                                 var invalidGroup = jqSvg.group(g, {
                                     transform: "translate(" + offsetX + ", " + offsetY + ") scale(0.25) translate(-20.06 -20.06)",
@@ -837,7 +837,7 @@ module BMA {
 
                                 if (renderParams.model.Name !== "") {
                                     var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                        transform: "translate(" + -that.variableWidthConstant * renderParams.sizeCoef / 2 + ", " + (that.variableHeightConstant * renderParams.sizeCoef / 2 + that.labelSize) + ")",
+                                        transform: "translate(" + -that.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (that.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.labelSize) + ")",
                                         "font-size": that.labelSize,
                                         "font-family": textFontFamily,
                                         "src": textFontSrc,
@@ -848,7 +848,7 @@ module BMA {
 
                                 if (renderParams.valueText !== undefined) {
                                     jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                        transform: "translate(" + -that.variableWidthConstant * renderParams.sizeCoef / 2 + ", " + (that.variableHeightConstant * renderParams.sizeCoef / 2 + that.labelSize + offset) + ")",
+                                        transform: "translate(" + -that.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (that.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.labelSize + offset) + ")",
                                         "font-size": that.labelSize,
                                         "font-family": textFontFamily,
                                         "src": textFontSrc,
@@ -919,12 +919,12 @@ module BMA {
                             });
 
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
-                            var scale = 0.5 * renderParams.layout.startSizeCoef;
+                            var scale = 0.5;// * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
                             lineRef = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
-                                strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
+                                strokeWidth: 2 * (lw + 1),// / renderParams.layout.startSizeCoef,
                                 "marker-end": renderParams.isSelected ? "url(#ActivatorSelected)" : "url(#Activator)",
                                 d: data,
                                 transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
@@ -944,13 +944,13 @@ module BMA {
                             var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * that.relationshipBboxOffset * that.relationshipBboxOffset + dir.y * dir.y * that.relationshipBboxOffset * that.relationshipBboxOffset);
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.x,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.y
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset/* * renderParams.layout.startSizeCoef*/ + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset/* * renderParams.layout.startSizeCoef*/ + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.x,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.y
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset/* * renderParams.layout.endSizeCoef*/ + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset/* * renderParams.layout.endSizeCoef*/ + translate.y
                             };
 
                             if (isRevers) {
@@ -1054,12 +1054,12 @@ module BMA {
                             });
 
                             var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
-                            var scale = 0.5 * renderParams.layout.startSizeCoef;
+                            var scale = 0.5;// * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
                             lineRef = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
-                                strokeWidth: 2 * (lw + 1) / renderParams.layout.startSizeCoef,
+                                strokeWidth: 2 * (lw + 1),// / renderParams.layout.startSizeCoef,
                                 "marker-end": renderParams.isSelected ? "url(#InhibitorSelected)" : "url(#Inhibitor)",
                                 d: data,
                                 transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
@@ -1080,13 +1080,13 @@ module BMA {
 
 
                             var start = {
-                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.x,
-                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset * renderParams.layout.startSizeCoef + translate.y
+                                x: renderParams.layout.start.PositionX + dir.x * that.relationshipBboxOffset /** renderParams.layout.startSizeCoef*/ + translate.x,
+                                y: renderParams.layout.start.PositionY + dir.y * that.relationshipBboxOffset /** renderParams.layout.startSizeCoef*/ + translate.y
                             };
 
                             var end = {
-                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.x,
-                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset * renderParams.layout.endSizeCoef + translate.y
+                                x: renderParams.layout.end.PositionX - dir.x * that.relationshipBboxOffset /** renderParams.layout.endSizeCoef*/ + translate.x,
+                                y: renderParams.layout.end.PositionY - dir.y * that.relationshipBboxOffset /** renderParams.layout.endSizeCoef*/ + translate.y
                             };
 
                             if (isRevers) {

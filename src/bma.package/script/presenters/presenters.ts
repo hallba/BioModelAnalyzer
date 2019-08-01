@@ -1989,13 +1989,15 @@ module BMA {
                         if (id !== undefined) {
                             for (var i = 0; i < variables.length; i++) {
                                 if (variables[i].Id === id) {
+                                    var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, x, y);
+
                                     var vrbl = variables[i];
                                     variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, angle, variableLayouts[i].TFDescription);
+                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, pos.x, pos.y, 0, 0, angle, variableLayouts[i].TFDescription);
                                 }
                             }
                         } else {
-                            var pos = SVGHelper.GeEllipsePoint(containerX + 2.5 * container.Size, containerY, 113 * container.Size, 130 * container.Size, x, y);
+                            var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, x, y);
                             variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
                             variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle));
                         }
@@ -2168,11 +2170,11 @@ module BMA {
                     var variableLayout = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var variable = this.undoRedoPresenter.Current.model.GetVariableById(id);
 
-                    var container: any = variable.Type === "MembraneReceptor" ? this.undoRedoPresenter.Current.layout.GetContainerById(variable.ContainerId) : undefined;
+                    //var container: any = variable.Type === "MembraneReceptor" ? this.undoRedoPresenter.Current.layout.GetContainerById(variable.ContainerId) : undefined;
                     var varSizeCoef = 1;
-                    if (container !== undefined) {
-                        varSizeCoef = container.Size;
-                    }
+                    //if (container !== undefined) {
+                    //    varSizeCoef = container.Size;
+                    //}
 
                     var rad = 16 * varSizeCoef;
                     this.svg.ellipse(variableLayout.PositionX, variableLayout.PositionY, rad, rad, {
