@@ -74,9 +74,10 @@
                 var parsed = JSON.parse(source);
 
                 var imported = BMA.Model.ImportModelAndLayout(parsed);
+                var adjusted = ModelHelper.AdjustReceptorsPosition(imported.Model, imported.Layout, window.GridSettings);
                 var description = parsed.Model.Description == undefined ? "no description for this motif" : parsed.Model.Description;
 
-                var newMotif = new MotifCard(parsed.Model.Name, description, imported.Model, imported.Layout, isPreloaded);
+                var newMotif = new MotifCard(parsed.Model.Name, description, adjusted.model, adjusted.layout, isPreloaded);
 
                 if (that.svg != undefined) {
                     newMotif.RefreshPreview(that.svg);
@@ -203,7 +204,7 @@
 
             public RefreshPreview(svg: any) {
                 var that = this;
-                var grid = { x0: 0, y0: 0, xStep: 250, yStep: 280 };
+                var grid = { x0: 0, y0: 0, xStep: window.GridSettings.xStep, yStep: window.GridSettings.yStep };
 
                 var bbox = ModelHelper.GetModelSVGBoundingBox(that.model, that.layout, { xOrigin: 0, yOrigin: 0, xStep: grid.xStep, yStep: grid.yStep });
 
