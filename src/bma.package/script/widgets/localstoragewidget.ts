@@ -40,46 +40,51 @@
             this.repo.empty();
             var that = this;
 
-            var exportBtn = $('<button></button>').width(130).height(30).css("margin-bottom", 10).css("cursor", "pointer").text("Export all as zip").appendTo(this.repo);
-            exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
+            if (items.length > 0) {
 
-            this.ol = $('<ol></ol>').appendTo(this.repo); 
-            
-            for (var i = 0; i < items.length; i++) {
-                var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
-                    var ind = $(this).index();
-                    if (that.options.onloadmodel !== undefined) {
-                        that.options.onloadmodel("user." + items[ind]);//.done(function () {
-                        //    that.repo.find(".ui-selected").removeClass("ui-selected");
-                        //    $(that.options.selectedLi).addClass("ui-selected");
-                        //    if (that.options.oncancelselection !== undefined)
-                        //        that.options.oncancelselection();
-                        //});
-                    }
-                });
-                //var a = $('<a></a>').addClass('delete').appendTo(li);
-                var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
-                var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
-                removeBtn.bind("click", function (event) {
-                    if (that.options.onremovemodel !== undefined) 
-                        that.options.onremovemodel("user." + items[$(this).parent().index()]);
-                    //event.stopPropagation();
-                    //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
-                })
+                var exportBtn = $('<div></div>').addClass("export-zip-btn").appendTo(this.repo);
+                exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
+
+                this.ol = $('<ol></ol>').height(150).css("overflow-y", "scroll").appendTo(this.repo);
+
+                for (var i = 0; i < items.length; i++) {
+                    var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
+                        var ind = $(this).index();
+                        if (that.options.onloadmodel !== undefined) {
+                            that.options.onloadmodel("user." + items[ind]);//.done(function () {
+                            //    that.repo.find(".ui-selected").removeClass("ui-selected");
+                            //    $(that.options.selectedLi).addClass("ui-selected");
+                            //    if (that.options.oncancelselection !== undefined)
+                            //        that.options.oncancelselection();
+                            //});
+                        }
+                    });
+                    //var a = $('<a></a>').addClass('delete').appendTo(li);
+                    var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
+                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
+                    removeBtn.bind("click", function (event) {
+                        if (that.options.onremovemodel !== undefined)
+                            that.options.onremovemodel("user." + items[$(this).parent().index()]);
+                        //event.stopPropagation();
+                        //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
+                    })
+                }
+                //this.ol.selectable({
+                //    stop: function () {
+                //        var ind = that.repo.find(".ui-selected").index();
+                //        if (that.options.onloadmodel !== undefined) {
+                //            that.options.onloadmodel("user." + items[ind]);
+                //            if (that.options.oncancelselection !== undefined)
+                //                that.options.oncancelselection();
+                //        }
+                //        //window.Commands.Execute("LocalStorageLoadModel", "user."+items[ind]);
+                //    }
+                //});
+
+                this.createContextMenu();
+            } else {
+                this.repo.text("There are no models in the repository.");
             }
-            //this.ol.selectable({
-            //    stop: function () {
-            //        var ind = that.repo.find(".ui-selected").index();
-            //        if (that.options.onloadmodel !== undefined) {
-            //            that.options.onloadmodel("user." + items[ind]);
-            //            if (that.options.oncancelselection !== undefined)
-            //                that.options.oncancelselection();
-            //        }
-            //        //window.Commands.Execute("LocalStorageLoadModel", "user."+items[ind]);
-            //    }
-            //});
-
-            this.createContextMenu();
         },
 
         CancelSelection: function () {
