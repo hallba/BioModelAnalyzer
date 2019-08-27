@@ -619,6 +619,9 @@ function loadScript(version) {
     window.Commands.On("RefreshMotifs", (args) => {
         $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
     });
+    window.Commands.On("ProcessPreloadedMotifsHide", (args) => {
+        $("#visibilityOptionsContent").visibilitysettings({ "settingsState": { name: "Hide Default Motifs", toggle: true }});
+    });
 
     var checkInside = (cursor, target) => {
         var pos = target.offset();

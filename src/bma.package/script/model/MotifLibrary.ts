@@ -127,6 +127,7 @@
                 for (var i = 0; i < this.customMotifs.length; i++)
                     this.motifs.push(this.customMotifs[i]);
                 this.isPreloadedHided = true;
+                this.commands.Execute("ProcessPreloadedMotifsHide", undefined);
                 this.commands.Execute("RefreshMotifs", undefined);
             }
 
