@@ -673,6 +673,24 @@ function loadScript(version) {
     var visualSettings = new BMA.Model.AppVisualSettings();
     (<any>window).VisualSettings = visualSettings;
 
+    window.Commands.On("Commands.ToggleOldColorScheme", (args) => {
+        (<any>window).VisualSettings.IsOldColorSchemeEnabled = !(<any>window).VisualSettings.IsOldColorSchemeEnabled;
+
+        if ((<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+            $(".cell-icon").removeClass("cell-icon").addClass("cell-icon-old");
+            $(".constant-icon").removeClass("constant-icon").addClass("constant-icon-old");
+            $(".variable-icon").removeClass("variable-icon").addClass("variable-icon-old");
+            $(".receptor-icon").removeClass("receptor-icon").addClass("receptor-icon-old");
+        } else {
+            $(".cell-icon-old").removeClass("cell-icon-old").addClass("cell-icon");
+            $(".constant-icon-old").removeClass("constant-icon-old").addClass("constant-icon");
+            $(".variable-icon-old").removeClass("variable-icon-old").addClass("variable-icon");
+            $(".receptor-icon-old").removeClass("receptor-icon-old").addClass("receptor-icon");
+        }
+
+        window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
+    });
+
     window.Commands.On("OneDriveLoggedIn", () => {
         $("#btn-onedrive-switcher").addClass("logged-in").removeClass("turned-off");
     });

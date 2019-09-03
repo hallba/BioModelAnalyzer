@@ -10,6 +10,7 @@ module BMA {
             private iconsVisibility: boolean;
             private iconsSize: number;
             private forceCurvedRelationships: boolean;
+            private enableOldColorScheme: boolean;
 
             constructor() {
                 this.lineWidth = 10;
@@ -19,6 +20,7 @@ module BMA {
                 this.iconsVisibility = true;
                 this.iconsSize = 10;
                 this.forceCurvedRelationships = false;
+                this.enableOldColorScheme = false;
             }
 
             public get LineWidth(): number {
@@ -78,6 +80,14 @@ module BMA {
             public set ForceCurvedRelationships(forceCurvedRelationships: boolean) {
                 this.forceCurvedRelationships = forceCurvedRelationships;
                 window.Commands.Execute("AppCommands.ToggleCurvedRelationships", this.forceCurvedRelationships);
+            }
+
+            public get IsOldColorSchemeEnabled(): boolean {
+                return this.enableOldColorScheme;
+            }
+            public set IsOldColorSchemeEnabled(enableOldColorScheme: boolean) {
+                this.enableOldColorScheme = enableOldColorScheme;
+                //window.Commands.Execute("AppCommands.ToggleCurvedRelationships", this.forceCurvedRelationships);
             }
 
 

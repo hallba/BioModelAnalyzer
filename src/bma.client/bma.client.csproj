@@ -127,6 +127,8 @@
     <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\BMA_Background_Homepage.svg" />
     <Content Include="images\clearselection.png" />
+    <Content Include="images\constant-old.svg" />
+    <Content Include="images\container-old.svg" />
     <Content Include="images\downarrow-grey.png" />
     <Content Include="images\downarrow.png" />
     <Content Include="images\hide.png" />
@@ -138,10 +140,12 @@
     <Content Include="images\ml\BMA_Scroll_Right.svg" />
     <Content Include="images\ml\BMA_Scroll_Right_End.svg" />
     <Content Include="images\motif-library.svg" />
+    <Content Include="images\receptor-old.svg" />
     <Content Include="images\resize-grabber.svg" />
     <Content Include="images\selection.png" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
+    <Content Include="images\variable-old.svg" />
     <Content Include="js\jquery-contenteditable.min.js" />
     <Content Include="js\jszip.min.js" />
     <Content Include="privacy.html" />
