@@ -1034,6 +1034,8 @@ module BMA {
                             that.TryAddStagingLineAsLink();
                             that.stagingLine = undefined;
                             that.RefreshOutput();
+                        } else if (that.stagingLine !== undefined) {
+                            that.stagingLine = undefined;
                         }
 
                         if (this.stagingOffset !== undefined) {
@@ -2117,7 +2119,7 @@ module BMA {
                 this.svg.clear();
                 ModelHelper.AddModelDesignerSVGDefs(this.svg);
 
-                if (this.stagingLine !== undefined) {
+                if (this.stagingLine !== undefined && this.stagingLine.x0 !== undefined && this.stagingLine.y0 !== undefined && this.stagingLine.x1 !== undefined && this.stagingLine.y1 !== undefined) {
                     this.svg.line(
                         this.stagingLine.x0,
                         this.stagingLine.y0,
