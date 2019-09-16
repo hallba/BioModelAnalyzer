@@ -1034,9 +1034,7 @@ module BMA {
                             that.TryAddStagingLineAsLink();
                             that.stagingLine = undefined;
                             that.RefreshOutput();
-                        } else if (that.stagingLine !== undefined) {
-                            that.stagingLine = undefined;
-                        }
+                        } 
 
                         if (this.stagingOffset !== undefined) {
 
