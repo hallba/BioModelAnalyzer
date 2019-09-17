@@ -2124,9 +2124,9 @@ module BMA {
                         this.stagingLine.x1,
                         this.stagingLine.y1,
                         {
-                            stroke: "#ccc",
+                            stroke: "#aaa",
                             strokeWidth: 2,
-                            fill: "#ccc",
+                            fill: "#aaa",
                             "marker-end": "url(#" + this.selectedType + ")",
                             id: "stagingLine"
                         });

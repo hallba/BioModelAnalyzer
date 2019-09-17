@@ -167,7 +167,7 @@ module BMA {
 
                 var pointOffset = 0.15 * that.variableSizeConstant;
 
-                var stroke = isSelected ? "#999999" : "#ccc";
+                var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
                 var path = jqSvg.createPath();
@@ -185,7 +185,7 @@ module BMA {
             private CreateLine(start, end, lineWidth, endingType, svg, isSelected) {
                 var jqSvg = svg;
 
-                var stroke = isSelected ? "#999999" : "#ccc";
+                var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
                 var path = jqSvg.createPath();
                 return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
@@ -935,7 +935,7 @@ module BMA {
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
-                            var pathFill = "#ccc";
+                            var pathFill = "#aaa";//"#ccc";
 
                             if (renderParams.isSelected) {
                                 pathFill = "#999999";
@@ -1070,7 +1070,7 @@ module BMA {
                         var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                         if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
-                            var pathFill = "#ccc";
+                            var pathFill = "#aaa"; //"#ccc";
                             
                             if (renderParams.isSelected) {
                                 pathFill = "#999999";

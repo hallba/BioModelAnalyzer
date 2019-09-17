@@ -1,8 +1,16 @@
 <svg id="Layer_7" data-name="Layer 7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.58 43.67" width="36px" height="36px">
   <defs>
-    <style>.cls-1,.cls-2{fill:none;stroke:#ccc;stroke-linecap:round;stroke-width:6.1px;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linejoin:round;}</style>
+    <style>.cls-1,.cls-2{fill:none;stroke:#aaa;stroke-linecap:round;stroke-width:6.1px;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linejoin:round;}</style>
   </defs>
   <title>BMA_Arrow_Activating</title>
   <line class="cls-1" x1="13.29" y1="40.62" x2="13.29" y2="3.06"/>
   <polyline class="cls-2" points="3.05 13.29 13.29 3.05 23.53 13.29"/>
 </svg>
+<!--<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="-30 -30 234.85 234.84">
+  <defs>
+    <style>.cls-1,.cls-2{fill:none;stroke:#aaa;stroke-linecap:round;stroke-width:12px;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linejoin:round;}</style>
+  </defs>
+  <title>BMA_Arrow_Inhibiting</title>
+  <line class="cls-1" x1="6" y1="168.84" x2="168.82" y2="6.03"/>
+  <polyline class="cls-2" points="140.56 6 168.85 6 168.85 34.27"/>
+</svg>-->

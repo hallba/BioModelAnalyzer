@@ -1,8 +1,16 @@
 <svg id="Layer_7" data-name="Layer 7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.53 43.67" width="36px" height="36px">
   <defs>
-    <style>.cls-1{fill:none;stroke:#ccc;stroke-linecap:round;stroke-miterlimit:10;stroke-width:6.1px;}</style>
+    <style>.cls-1{fill:none;stroke:#aaa;stroke-linecap:round;stroke-miterlimit:10;stroke-width:6.1px;}</style>
   </defs>
   <title>BMA_Arrow_Inhibiting</title>
   <line class="cls-1" x1="10.76" y1="40.62" x2="10.76" y2="3.06"/>
   <line class="cls-1" x1="3.05" y1="3.05" x2="18.48" y2="3.05"/>
 </svg>
+<!--<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="-30 -30 247.75 247.75">
+  <defs>
+    <style>.cls-1{fill:none;stroke:#aaa;stroke-linecap:round;stroke-miterlimit:10;stroke-width:12px;}</style>
+  </defs>
+  <title>BMA_Arrow_Inhibiting</title>
+  <line class="cls-1" x1="6" y1="181.75" x2="161.11" y2="26.64"/>
+  <line class="cls-1" x1="140.61" y1="6" x2="181.75" y2="47.14"/>
+</svg>-->

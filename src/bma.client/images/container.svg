@@ -1,10 +1,17 @@
-<svg id="Layer_30" data-name="Layer 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456.12 521.79" width="36px" height="36px">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 44.8 48.97">
+  <defs>
+    <style>.cls-1{fill:none;stroke:#d0e9f0;stroke-miterlimit:10;stroke-width:4px;}</style>
+  </defs>
+  <title>Cell_Border</title>
+  <ellipse class="cls-1" cx="18.4" cy="20.48" rx="16.4" ry="18.48"/>
+</svg>
+<!--<svg id="Layer_30" data-name="Layer 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456.12 521.79" width="36px" height="36px">
   <defs>
     <style>.cls-1{fill:#d0e9f0;}</style>
   </defs>
   <title>BMA_Cell_Border</title>
   <path class="cls-1" d="M640.36,249.05c113.22,0,205.33,106.84,205.33,238.16S753.58,725.37,640.36,725.37,435,618.53,435,487.21s92.11-238.16,205.32-238.16m0-22.73c-126,0-228.06,116.8-228.06,260.89S514.41,748.1,640.36,748.1,868.43,631.3,868.43,487.21,766.32,226.32,640.36,226.32Z" transform="translate(-412.3 -226.32)"/>
-</svg>
+</svg>-->
 <!--<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     --><!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch --><!--
