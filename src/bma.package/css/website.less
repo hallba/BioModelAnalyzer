@@ -56,8 +56,15 @@
 @sim-blue: rgba(223,223,245,0.5);
 @pink: #F5B3B2;
 @teamgrey: #989899;
-@osgreen: #CCFECB;
-@osgrey: #849384;
+//@osgreen: #CCFECB;
+//@osgrey: #849384;
+
+@bluetext: #0099cc;
+@greyvideob: #cccccc;
+@lightblueb: #d0e9f0;
+@pinktext: #ff66cc;
+@purpletext: #990066;
+@pubgrey: #666666;
 
 @shadow: rgba(0,0,0,0.50);
 
@@ -103,7 +110,7 @@ img {
 /* ---  Links  --- */
 
 a {
-    color: #82BD82;
+    color: @bluetext; //#82BD82;
     text-decoration: none;
 }
 
@@ -114,7 +121,7 @@ a:hover {
 
 /* New class to enable link style change by hover*/
 .hoverEnabled a {
-    color: #82BD82;
+    color: @bluetext; //#82BD82;
     text-decoration: none;
     display: block;
     padding: 10px 0px 10px 0px; /* Top right bottom left */
@@ -141,13 +148,13 @@ a:hover {
     &:hover {
         text-decoration: none;
         background-color: white;
-        color: @green;
+        color: @bluetext;
     }
 
     position: absolute;
     top: 40px;
     left: 40px;
-    background-color: @green;
+    background-color: @bluetext;
 }
 
 .showmore-btn {
@@ -163,17 +170,17 @@ a:hover {
     &:hover {
         text-decoration: none;
         background-color: white;
-        color: @pink;
+        color: @pinktext;
     }
 
     position: absolute;
     top: 120px;
     left: 40px;
-    background-color: @pink;
+    background-color: @pinktext;
 }
 
 .pink-btn {
-    color: @pink;
+    color: @pinktext;
     font-family: OpenSans-Light;
     font-size: 24px;
     line-height: 100%;
@@ -181,7 +188,7 @@ a:hover {
     margin: 0px;
     padding: 7px 15px 7px 15px;
     background-color: white;
-    border: 1px solid @pink;
+    border: 1px solid @pinktext;
     white-space: nowrap;
     resize: none;
     .border-radius(10px 10px 10px 10px);
@@ -247,7 +254,7 @@ a:hover {
 }
 
 .infopage-block-intro .heading {
-    color: @green;
+    color: @bluetext;
     font-family: 'OpenSans-Light';
     font-size: 36px;
     line-height: 100%;
@@ -276,14 +283,24 @@ a:hover {
     .border-radius(10px 10px 10px 10px);
 }
 
+.bluetext {
+    color: @bluetext;
+    border: 1px solid @bluetext;
+}
+
 .green {
     color: @green;
-    border: 1px solid green;
+    border: 1px solid @green;
 }
 
 .red {
     color: @darkred;
     border: 1px solid @darkred;
+}
+
+.purpletext {
+    color: @purpletext;
+    border: 1px solid @purpletext;
 }
 
 .pink {
@@ -292,6 +309,14 @@ a:hover {
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.pinktext {
+    color: @pinktext;
+    border: 1px solid @pinktext;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 
 .white {
     color: white;
@@ -302,7 +327,7 @@ a:hover {
 /* Videos Block */
 
 .infopage-block-video {
-    background-color: #98989A;
+    background-color: @greyvideob; //#98989A;
     color: black;
     font-family: 'OpenSans';
     font-size: 24px;
@@ -357,7 +382,7 @@ a:hover {
 /* F.A.Q. Block */
 
 .infopage-block-faq {
-    background-color: @pink;
+    background-color: @bluetext;
     color: white;
     font-family: 'OpenSans';
     font-size: 24px;
@@ -366,7 +391,7 @@ a:hover {
 }
 
 .infopage-block-faq .heading {
-    color: @darkred;
+    color: white;
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 100%;
@@ -375,7 +400,7 @@ a:hover {
 
 .infopage-block-faq .bold {
     color: white;
-    font-family: OpenSans-Bold;
+    font-family: 'OpenSans'; //OpenSans-Bold;
 }
 
 .FAQ_question {
@@ -400,6 +425,14 @@ a:hover {
     background: @pink;
 }
 
+.white-bluetext {
+    margin-top: 15px;
+    color: white;
+    border: 1px solid white;
+    background: @bluetext;
+}
+
+
 .contact-us-container {
     margin-top: 35px;
 }
@@ -407,8 +440,8 @@ a:hover {
 /* Open Source reference block */
 
 .infopage-block-opensource {
-    background-color: @osgreen;
-    color: @osgrey;
+    background-color: @lightblueb;
+    color: @pubgrey;
     font-family: 'OpenSans';
     font-size: 24px;
     line-height: 31px;
@@ -416,7 +449,7 @@ a:hover {
 }
 
 .infopage-block-opensource .heading {
-    color: @osgrey;
+    color: @pubgrey;
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 100%;
@@ -430,17 +463,17 @@ a:hover {
     z-index: 5;
     margin: 0px;
     padding: 10px;
-    background-color: @osgreen;
-    color: @osgrey;
-    border: 1px solid @osgrey;
+    background-color: @lightblueb;
+    color: @pubgrey;
+    border: 1px solid @pubgrey;
     .border-radius(10px 10px 10px 10px);
 }
 
 /* Publications Block */
 
 .infopage-block-publications {
-    background-color: @green;
-    color: white;
+    background-color: @lightblueb;
+    color: @pubgrey;
     font-family: 'OpenSans';
     font-size: 24px;
     line-height: 31px;
@@ -448,7 +481,7 @@ a:hover {
 }
 
 .infopage-block-publications .heading {
-    color: white;
+    color: @pubgrey;
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 100%;
@@ -471,12 +504,12 @@ a:hover {
 }
 
 .publication-header .bold {
-    color: white;
+    color: @pubgrey;
     font-family: OpenSans-Bold;
 }
 
 .publication-header a {
-    color: white;
+    color: @pubgrey;
 }
 
 .publication-ref {
@@ -535,7 +568,7 @@ a:hover {
 }
 
 .infopage-block-examples .heading {
-    color: @pink;
+    color: @pinktext;
     font-family: OpenSans-Light;
     font-size: 36px;
     line-height: 100%;
