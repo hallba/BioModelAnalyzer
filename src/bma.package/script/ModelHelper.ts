@@ -81,17 +81,6 @@ module BMA {
                     gridCell = { x: container.PositionX, y: container.PositionY };
                 }
 
-                var isValid = true;
-                if (args !== undefined && args.errors !== undefined) {
-                    for (var j = 0; j < args.errors.length; j++) {
-                        var er = args.errors[j];
-                        if (er.variable.Id === variable.Id) {
-                            isValid = false;
-                            break;
-                        }
-                    }
-                }
-
                 svgElements.push(element.RenderToSvg({
                     model: variable,
                     layout: variableLayout,
@@ -102,7 +91,6 @@ module BMA {
                     labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
                     isHighlighted: isHighlighted,
                     isSelected: isSelected,
-                    isValid: isValid,
                     translate: translate
                 }));
             }
@@ -125,7 +113,7 @@ module BMA {
 
                 hasRotation = start.model.Type === "MembraneReceptor";
 
-                var end = GetVariableById(layout, model, relationship.ToVariableId); 
+                var end = GetVariableById(layout, model, relationship.ToVariableId);
                 var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
                 var endVarSizeCoef = 1;
                 if (container2 !== undefined) {
@@ -158,46 +146,59 @@ module BMA {
 
 
             //Rendering text labels for containers and variables
-            for (var i = 0; i < containerLayouts.length; i++) {
-                var containerLayout = containerLayouts[i];
-                var element = window.ElementRegistry.GetElementByType("Container");
+            if (!(args !== undefined && args.skipText === true)) {
+                for (var i = 0; i < containerLayouts.length; i++) {
+                    var containerLayout = containerLayouts[i];
+                    var element = window.ElementRegistry.GetElementByType("Container");
 
-                svgElements.push(element.RenderToSvg({
-                    layout: containerLayout,
-                    grid: grid,
-                    background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
-                    translate: translate,
-                    textOnly: true
-                }));
-            }
-
-            for (var i = 0; i < variables.length; i++) {
-                var variable = variables[i];
-                var variableLayout = variableLayouts[i];
-                var element = window.ElementRegistry.GetElementByType(variable.Type);
-                var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : GetItemById(args.variablesStability, variable.Id);
-
-                var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
-                var sizeCoef = undefined;
-                var gridCell = undefined;
-                if (container !== undefined) {
-                    sizeCoef = container.Size;
-                    gridCell = { x: container.PositionX, y: container.PositionY };
+                    svgElements.push(element.RenderToSvg({
+                        layout: containerLayout,
+                        grid: grid,
+                        background: args === undefined || args.containersStability === undefined ? undefined : GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
+                        translate: translate,
+                        textOnly: true
+                    }));
                 }
 
-                svgElements.push(element.RenderToSvg({
-                    model: variable,
-                    layout: variableLayout,
-                    grid: grid,
-                    gridCell: gridCell,
-                    sizeCoef: sizeCoef,
-                    valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
-                    labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
-                    translate: translate,
-                    textOnly: true
-                }));
-            }
+                for (var i = 0; i < variables.length; i++) {
+                    var variable = variables[i];
+                    var variableLayout = variableLayouts[i];
+                    var element = window.ElementRegistry.GetElementByType(variable.Type);
+                    var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : GetItemById(args.variablesStability, variable.Id);
 
+                    var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
+                    var sizeCoef = undefined;
+                    var gridCell = undefined;
+                    if (container !== undefined) {
+                        sizeCoef = container.Size;
+                        gridCell = { x: container.PositionX, y: container.PositionY };
+                    }
+
+                    var isValid = true;
+                    if (args !== undefined && args.errors !== undefined) {
+                        for (var j = 0; j < args.errors.length; j++) {
+                            var er = args.errors[j];
+                            if (er.variable.Id === variable.Id) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    svgElements.push(element.RenderToSvg({
+                        model: variable,
+                        layout: variableLayout,
+                        grid: grid,
+                        gridCell: gridCell,
+                        sizeCoef: sizeCoef,
+                        valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                        labelColor: additionalInfo === undefined ? undefined : GetVariableColorByStatus(additionalInfo.state),
+                        translate: translate,
+                        isValid: isValid,
+                        textOnly: true
+                    }));
+                }
+            }
 
             //constructing final svg image
             svg.clear();
@@ -257,16 +258,16 @@ module BMA {
 
         export function GetVariableColorByStatus(status): string {
             if (status)
-                return "green";//"#D9FFB3";
+                return "#00cccc"; //"green";//"#D9FFB3";
             else
-                return "red";
+                return "#ff0066"; //"red";
         }
 
         export function GetContainerColorByStatus(status): string {
             if (status)
-                return "#E9FFCC";
+                return "#d2faf0"; //"#E9FFCC";
             else
-                return "#FFDDDB";
+                return "#fee9f4"; //"#FFDDDB";
         }
 
         export function GetItemById(arr, id) {

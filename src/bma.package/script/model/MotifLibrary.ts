@@ -219,7 +219,7 @@
                     viewBox: bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height,
                     preserveAspectRatio: "xMidYMid meet"
                 }, false);
-                this.preview = ModelHelper.RenderSVG(svg, that.model, that.layout, grid, undefined);
+                this.preview = ModelHelper.RenderSVG(svg, that.model, that.layout, grid, { skipText: true });
             }
         }
     }

@@ -527,6 +527,8 @@ module BMA {
                             //    }
                             //}
 
+                            
+                        } else {
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
 
                                 var offsetX = 0.3 * that.variableWidthConstant;
@@ -551,7 +553,7 @@ module BMA {
                                     "stroke-width": "6.8px"
                                 });
                             }
-                        } else {
+
                             if (that.labelVisibility === true) {
                                 var offset = 0;
 
@@ -684,6 +686,8 @@ module BMA {
                             //    }
                             //}
 
+                            
+                        } else {
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
                                 var offsetX = 0.3 * that.variableWidthConstant;
                                 var offsetY = - 0.4 * that.variableWidthConstant;
@@ -707,7 +711,7 @@ module BMA {
                                     "stroke-width": "6.8px"
                                 });
                             }
-                        } else {
+
                             if (that.labelVisibility === true) {
                                 var offset = 0;
 
@@ -841,7 +845,7 @@ module BMA {
                             //        });
                             //    }
                             //}
-
+                        } else {
                             if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
                                 var offsetX = 0.3 * that.variableWidthConstant;// * renderParams.sizeCoef;
                                 var offsetY = - 0.4 * that.variableWidthConstant;// * renderParams.sizeCoef;
@@ -865,7 +869,7 @@ module BMA {
                                     "stroke-width": "6.8px"
                                 });
                             }
-                        } else {
+
                             if (that.labelVisibility === true) {
                                 var offset = 0;
 
