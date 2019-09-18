@@ -956,17 +956,17 @@ module BMA {
                                 transform: "translate(" + renderParams.layout.start.PositionX + ", " + renderParams.layout.start.PositionY + ")",
                             });
 
-                            var data = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+                            var data = "M 39.07 60.27 32.0 60.27 32.0 67.33 M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07 ";
                             var scale = 0.5;// * renderParams.layout.startSizeCoef;
                             var path = jqSvg.createPath();
                             lineRef = jqSvg.path(g, path, {
                                 stroke: pathFill,
                                 fill: "none",
                                 strokeWidth: 2 * (lw + 1),// / renderParams.layout.startSizeCoef,
-                                "marker-end": renderParams.isSelected ? "url(#ActivatorSelected)" : "url(#Activator)",
                                 d: data,
                                 transform: "scale(" + scale + ") rotate(" + angle + ") " + iconTranslate,
-                                "stroke-linecap": "round"
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round"
                             });
                         } else {
 
