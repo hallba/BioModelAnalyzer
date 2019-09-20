@@ -15,7 +15,7 @@ namespace BackendFunctions2
     public static class Analyze
     {
         [FunctionName("Analyze")]
-        public static async Task<AnalysisOutput> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]AnalysisInput req, TraceWriter log)
+        public static AnalysisOutput Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]AnalysisInput req, TraceWriter log)
         {
             var defaultTimeLimit = TimeSpan.FromMinutes(2);
 

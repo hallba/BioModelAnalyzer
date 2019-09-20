@@ -15,7 +15,7 @@ namespace BackendFunctions2
     public static class AnalyzeLTLPolarity
     {
         [FunctionName("AnalyzeLTLPolarity")]
-        public static async Task<System.Tuple<LTLAnalysisResult, LTLAnalysisResult>> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]LTLPolarityAnalysisInputDTO req, TraceWriter log)
+        public static System.Tuple<LTLAnalysisResult, LTLAnalysisResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]LTLPolarityAnalysisInputDTO req, TraceWriter log)
         {
             return bma.LTL.Analysis.Polarity(req);
         }

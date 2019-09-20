@@ -15,7 +15,7 @@ namespace BackendFunctions2
     public static class FurtherTesting
     {
         [FunctionName("FurtherTesting")]
-        public static async Task<FurtherTestingOutput> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]FurtherTestingInput req, TraceWriter log)
+        public static FurtherTestingOutput Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]FurtherTestingInput req, TraceWriter log)
         {
             return Analysis.FindCounterExamples(req);
         }

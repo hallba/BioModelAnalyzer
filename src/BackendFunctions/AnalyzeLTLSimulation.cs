@@ -14,7 +14,7 @@ namespace BackendFunctions2
     public static class AnalyzeLTLSimulation
     {
         [FunctionName("AnalyzeLTLSimulation")]
-        public static async Task<LTLAnalysisResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]LTLSimulationAnalysisInputDTO req, TraceWriter log)
+        public static LTLAnalysisResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]LTLSimulationAnalysisInputDTO req, TraceWriter log)
         {
             return Analysis.Simulate(req);
         }

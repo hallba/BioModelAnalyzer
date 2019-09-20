@@ -15,7 +15,7 @@ namespace BackendFunctions2
     public static class Simulate
     {
         [FunctionName("Simulate")]
-        public static async Task<SimulationOutput> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]SimulationInput req, TraceWriter log)
+        public static SimulationOutput Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]SimulationInput req, TraceWriter log)
         {
             return Simulation.Simulate(req);
         }

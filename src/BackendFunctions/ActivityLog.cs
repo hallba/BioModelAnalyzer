@@ -15,29 +15,39 @@ namespace BackendFunctions2
     public static class ActivityLog
     {
         [FunctionName("ActivityLog")]
-        public static async void Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]ActivityRecord req, TraceWriter log)
+        public static void Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]ActivityRecord req, TraceWriter log)
         {
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
-            var logger = new ActivityAzureLogger(connectionString);
 
-            var entity = new ActivityEntity(req.SessionID, req.UserID)
+            try
             {
-                LogInTime = req.LogInTime,
-                LogOutTime = req.LogOutTime,
-                FurtherTestingCount = req.FurtherTestingCount,
-                ClientVersion = req.ClientVersion,
-                ImportModelCount = req.ImportModelCount,
-                NewModelCount = req.NewModelCount,
-                RunProofCount = req.RunProofCount,
-                RunSimulationCount = req.RunSimulationCount,
-                SaveModelCount = req.SaveModelCount,
-                ProofErrorCount = req.ProofErrorCount,
-                SimulationErrorCount = req.SimulationErrorCount,
-                FurtherTestingErrorCount = req.FurtherTestingErrorCount,
-                AnalyzeLTLCount = req.AnalyzeLTLCount,
-                AnalyzeLTLErrorCount = req.AnalyzeLTLErrorCount
-            };
-            logger.Add(entity);
+                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
+                var logger = new ActivityAzureLogger(connectionString);
+
+                var entity = new ActivityEntity(req.SessionID, req.UserID)
+                {
+                    LogInTime = req.LogInTime,
+                    LogOutTime = req.LogOutTime,
+                    FurtherTestingCount = req.FurtherTestingCount,
+                    ClientVersion = req.ClientVersion,
+                    ImportModelCount = req.ImportModelCount,
+                    NewModelCount = req.NewModelCount,
+                    RunProofCount = req.RunProofCount,
+                    RunSimulationCount = req.RunSimulationCount,
+                    SaveModelCount = req.SaveModelCount,
+                    ProofErrorCount = req.ProofErrorCount,
+                    SimulationErrorCount = req.SimulationErrorCount,
+                    FurtherTestingErrorCount = req.FurtherTestingErrorCount,
+                    AnalyzeLTLCount = req.AnalyzeLTLCount,
+                    AnalyzeLTLErrorCount = req.AnalyzeLTLErrorCount
+                };
+                logger.Add(entity);
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                log.Error(exc.Message, exc);
+                throw exc;
+            }
         }
     }
 }
