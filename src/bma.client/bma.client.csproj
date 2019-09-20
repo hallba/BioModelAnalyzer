@@ -132,6 +132,9 @@
     <Content Include="images\downarrow-grey.png" />
     <Content Include="images\downarrow.png" />
     <Content Include="images\hide.png" />
+    <Content Include="images\logo\BMA_Background_Homepage.svg" />
+    <Content Include="images\logo\BMA_Logo_APP.svg" />
+    <Content Include="images\logo\BMA_Logo_Homepage.svg" />
     <Content Include="images\ml\BMA_Hide_Carousel.svg" />
     <Content Include="images\Icon_Zip.svg" />
     <Content Include="images\ml\BMA_Delete_Carousel.svg" />
