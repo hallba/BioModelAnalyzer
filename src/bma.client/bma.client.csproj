@@ -126,6 +126,9 @@
     <Content Include="css\slick-theme.css" />
     <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\BMA_Background_Homepage.svg" />
+    <Content Include="images\BMA_Icon_LTL.svg" />
+    <Content Include="images\BMA_Icon_Proof_Analysis.svg" />
+    <Content Include="images\BMA_Icon_Simulation.svg" />
     <Content Include="images\clearselection.png" />
     <Content Include="images\constant-old.svg" />
     <Content Include="images\container-old.svg" />
@@ -247,7 +250,6 @@
     <Content Include="images\activate.png" />
     <Content Include="images\activate.svg" />
     <Content Include="images\analyze.png" />
-    <Content Include="images\analyze.svg" />
     <Content Include="images\background.svg" />
     <Content Include="images\bifurcations-ON.svg" />
     <Content Include="images\bifurcations.png" />
@@ -277,7 +279,6 @@
     <Content Include="images\formula_not_validated.png" />
     <Content Include="images\formula_validated.png" />
     <Content Include="images\graphic.png" />
-    <Content Include="images\graphic.svg" />
     <Content Include="images\home-logo.png" />
     <Content Include="images\icon-copy.svg" />
     <Content Include="images\icon-cut.svg" />
@@ -370,7 +371,6 @@
     <Content Include="images\svgtest.txt" />
     <Content Include="images\switchToGraphic.png" />
     <Content Include="images\switchToText.png" />
-    <Content Include="images\tabicon-LTL.svg" />
     <Content Include="images\template.png" />
     <Content Include="images\tick-128.png" />
     <Content Include="images\title-TOU.png" />
