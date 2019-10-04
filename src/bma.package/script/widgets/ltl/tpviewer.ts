@@ -177,9 +177,9 @@
                     if (operations[i].status === "partialsuccesspartialfail") {
                         context.fillStyle = "darkgray";
                     } else if (operations[i].status === "fail" || operations[i].status === "partialfail") {
-                        context.fillStyle = "rgb(254, 233, 244)";//"rgb(254, 172, 158)";
+                        context.fillStyle = "rgb(255, 0, 102)";//"rgb(254, 172, 158)";
                     } else if (operations[i].status === "success" || operations[i].status === "partialsuccess") {
-                        context.fillStyle = "rgb(210,250,240)"; // "green";
+                        context.fillStyle = "rgb(0,204,204)"; // "green";
                     }
 
                     var text = operations[i].steps + " steps";
@@ -190,7 +190,7 @@
                 } else if (operations[i].status === "nottested" && operations[i].message !== undefined && operations[i].message !== null) {
                     context.font = "14px OpenSans";
                     context.textBaseline = "middle";
-                    context.fillStyle = "rgb(254, 233, 244)";//"rgb(254, 172, 158)";
+                    context.fillStyle = "rgb(255, 0, 102)";//"rgb(254, 172, 158)";
                     var text = <string>operations[i].message;
                     if (text !== "Timed out" && text.length > 0) {
                         if (text.indexOf("Incorrect Model") > -1) {
