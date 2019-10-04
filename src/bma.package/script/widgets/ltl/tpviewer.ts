@@ -177,9 +177,9 @@
                     if (operations[i].status === "partialsuccesspartialfail") {
                         context.fillStyle = "darkgray";
                     } else if (operations[i].status === "fail" || operations[i].status === "partialfail") {
-                        context.fillStyle = "rgb(254, 172, 158)";
+                        context.fillStyle = "rgb(254, 233, 244)";//"rgb(254, 172, 158)";
                     } else if (operations[i].status === "success" || operations[i].status === "partialsuccess") {
-                        context.fillStyle = "green";
+                        context.fillStyle = "rgb(210,250,240)"; // "green";
                     }
 
                     var text = operations[i].steps + " steps";
@@ -190,7 +190,7 @@
                 } else if (operations[i].status === "nottested" && operations[i].message !== undefined && operations[i].message !== null) {
                     context.font = "14px OpenSans";
                     context.textBaseline = "middle";
-                    context.fillStyle = "rgb(254, 172, 158)";
+                    context.fillStyle = "rgb(254, 233, 244)";//"rgb(254, 172, 158)";
                     var text = <string>operations[i].message;
                     if (text !== "Timed out" && text.length > 0) {
                         if (text.indexOf("Incorrect Model") > -1) {
@@ -219,7 +219,7 @@
                 case "processing":
                     return "white";
                 case "success":
-                    return "rgb(217,255,182)";
+                    return "rgb(210,250,240)"; //"rgb(217,255,182)";
                 case "partialsuccess":
                     var canvas = <HTMLCanvasElement>(this._canvas[0]);
                     var context = canvas.getContext("2d");
@@ -249,7 +249,7 @@
                     var context = canvas.getContext("2d");
                     return context.createPattern(this._images[2], "repeat");
                 case "fail":
-                    return "rgb(254, 172, 158)";
+                    return "rgb(254, 233, 244)"; //"rgb(254, 172, 158)";
                 default:
                     return "white";
             }

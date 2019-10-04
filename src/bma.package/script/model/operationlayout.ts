@@ -87,7 +87,7 @@ module BMA {
                         break;
                     case "success":
                         this.status = value;
-                        this.Fill = "rgb(217,255,182)";
+                        this.Fill = "rgb(210,250,240)"; //"rgb(217,255,182)";
                         break;
                     case "partialsuccess":
                         this.status = value;
@@ -119,7 +119,7 @@ module BMA {
                         break;
                     case "fail":
                         this.status = value;
-                        this.Fill = "rgb(254, 172, 158)";
+                        this.Fill = "rgb(254, 233, 244)";//"rgb(254, 172, 158)";
                         break;
                     default:
                         throw "Invalid status!";

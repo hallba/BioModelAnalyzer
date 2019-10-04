@@ -268,7 +268,7 @@ module BMA {
                 var containerOuterEllipseHeight = 136.5;
                 var containerInnerCenterOffset = 0;
                 var containerOuterCenterOffset = 0;
-                var containerPaddingCoef = 100;
+                var containerPaddingCoef = 0.001;
 
                 var textFontFamily = "OpenSans";
                 var textFontSrc = "local('Segoe UI'), local('Frutiger'), local('Frutiger Linotype'), local('Dejavu Sans'), local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('sans serif'), local('sans-serif')";
@@ -296,10 +296,10 @@ module BMA {
                         if (!renderParams.textOnly) {
 
                             jqSvg.rect(g,
-                                - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
-                                - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep / containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
-                                renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep / containerPaddingCoef,
-                                renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep / containerPaddingCoef,
+                                - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep * containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
+                                - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep * containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
+                                renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep * containerPaddingCoef,
+                                renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep * containerPaddingCoef,
                                 0,
                                 0,
                                 {
