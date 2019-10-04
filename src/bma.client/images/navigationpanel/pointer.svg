@@ -1,0 +1,12 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.98 75.98">
+  <defs>
+    <style>.cls-1,.cls-2{fill:none;stroke:#999;stroke-linecap:round;stroke-width:5.4px;}.cls-1{stroke-miterlimit:10;}.cls-2{stroke-linejoin:round;}</style>
+  </defs>
+  <title>BMA_Icon_Panning_Arrow</title>
+  <line class="cls-1" x1="3.08" y1="37.99" x2="72.44" y2="37.99"/>
+  <polyline class="cls-2" points="65.34 30.05 73.28 37.99 65.34 45.92"/>
+  <polyline class="cls-2" points="10.64 30.05 2.7 37.99 10.63 45.92"/>
+  <line class="cls-1" x1="37.99" y1="72.9" x2="37.99" y2="3.54"/>
+  <polyline class="cls-2" points="30.05 10.64 37.99 2.7 45.92 10.63"/>
+  <polyline class="cls-2" points="30.05 65.34 37.99 73.28 45.92 65.34"/>
+</svg>

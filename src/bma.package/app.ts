@@ -541,9 +541,15 @@ function loadScript(version) {
         }
     });
 
+    $("#navigationtoolbar").buttonset();
+
     $("#undoredotoolbar").buttonset();
     $("#button-undo").click(() => { window.Commands.Execute("Undo", undefined); });
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });
+
+    $(".navigationpanel-info").click(() => {
+        window.location.href = "index.html?Section=About";
+    });
 
     $(document).keydown(function (evt) {
         if (evt.ctrlKey === true) {
@@ -620,7 +626,7 @@ function loadScript(version) {
         $("#motifLibrary").motiflibrary("option", "motifs", motifLibrary.Motifs);
     });
     window.Commands.On("ProcessPreloadedMotifsHide", (args) => {
-        $("#visibilityOptionsContent").visibilitysettings({ "settingsState": { name: "Hide Default Motifs", toggle: true }});
+        $("#visibilityOptionsContent").visibilitysettings({ "settingsState": { name: "Hide Default Motifs", toggle: true } });
     });
 
     var checkInside = (cursor, target) => {

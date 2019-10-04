@@ -838,7 +838,8 @@ ul.command-list {
         .tool-icon-active;
     }
 
-    .undoredo-toolbar {
+    .navigation-toolbar {
+        display: flex;
         //.calc(margin-left, ~"5% - 40px");
         //margin-left: calc(~"5% - 40px");
     }
@@ -875,7 +876,8 @@ ul.command-list {
 /*accessible for draggable-helper-element */
 
 .pointer-icon {
-    background-image: url("../images/pointer.svg");
+    background-size: 35px;
+    background-image: url("../images/navigationpanel/pointer.svg");
 }
 
 .selection-icon {
@@ -891,11 +893,13 @@ ul.command-list {
 }
 
 .undo-icon {
-    background-image: url("../images/undo.svg");
+    background-size: 35px;
+    background-image: url("../images/navigationpanel/BMA_Icon_Undo.svg");
 }
 
 .redo-icon {
-    background-image: url("../images/redo.svg");
+    background-size: 35px;
+    background-image: url("../images/navigationpanel/BMA_Icon_Redo.svg");
 }
 
 .cell-icon {
@@ -986,8 +990,8 @@ ul.command-list {
     }
 
     .view-options-icon {
-        background-image: url("../images/visicon2.svg");
-        background-size: 45px;
+        background-image: url("../images/navigationpanel/BMA_Icon_Settings.svg");
+        background-size: 35px;
     }
 }
 
@@ -1000,7 +1004,8 @@ ul.command-list {
     }
 
     .pointer-icon {
-        background-image: url("../images/pointer ON.svg");
+        background-size: 35px;
+        background-image: url("../images/navigationpanel/pointer ON.svg");
     }
 
     .cell-icon {
@@ -1028,7 +1033,8 @@ ul.command-list {
     }
 
     .view-options-icon {
-        background-image: url("../images/visicon2-ON.svg");
+        background-size: 35px;
+        background-image: url("../images/navigationpanel/BMA_Icon_Settings ON.svg");
         //border-bottom-left-radius: 0px;
     }
 }
@@ -2926,4 +2932,28 @@ textarea {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+//Zoom control
+
+.zoompanel-button {
+    background-repeat: no-repeat;
+    background-size: 35px;
+    background-position: center;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    margin: 0 0.2em;
+    border: 1px solid #AAA;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:hover {
+        background-color: @lightgrey;
+    }
+}
+
+.navigationpanel-info {
+    background-image: url(../images/navigationpanel/BMA_Icon_Info.svg);
 }

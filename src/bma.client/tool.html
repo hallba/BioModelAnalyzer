@@ -34,7 +34,7 @@
     <script src="js/jquery.ui-contextmenu.min.js"></script>
     <script src="js/FileSaver.js"></script>
     <script type="text/javascript" src="js/slick.min.js"></script>
-    
+
     <script>var require = { paths: { 'vs': 'js/monaco' } };</script>
     <script src="js/monaco/loader.js"></script>
     <script src="js/monaco/editor/editor.main.nls.js"></script>
@@ -76,9 +76,6 @@
                     height: 8px;
                     background-color: #606060;
                 }
-
-
-        
     </style>
 
 </head>
@@ -92,34 +89,45 @@
         <a id="downloadLink" style="display: none"></a>
         <input style="display: none;" type="file" id="fileLoader">
 
-        <div id="undoredotoolbar" class="undoredo-toolbar">
+        <div id="navigationtoolbar" class="navigation-toolbar">
             <input type="radio" id="button-pointer" name="drawing-button" checked="checked" />
             <label for="button-pointer">
                 <div class="pointer-icon" title="Selection tool"></div>
             </label>
 
+            <div id="zoomslider" data-command="ZoomSliderChanged"></div>
+
+
             <!--<input type="radio" id="button-selector" name="drawing-button" checked="checked" />
             <label for="button-selector">
                 <div id="button-selector-icon" class="selection-icon" title="Selection tool"></div>
             </label>-->
-
             <!--<button id="button-clearselection">
                 <div class="clearselection-icon" title="Clear Selection"></div>
             </button>-->
-
             <!--<div class="bma-toolbarpanel-verticalline"></div>-->
-
-            <button id="button-undo">
+            <!--<button id="button-undo">
                 <div class="undo-icon" title="Undo"></div>
             </button>
             <button id="button-redo">
                 <div class="redo-icon" title="Redo"></div>
-            </button>
+            </button>-->
         </div>
 
         <div id="modelelemtoolbar" class="elements-toolbar"></div>
 
         <div class="vis-and-zoom">
+            <div id="undoredotoolbar" style="display: flex;">
+                <button id="button-undo">
+                    <div class="undo-icon" title="Undo"></div>
+                </button>
+                <button id="button-redo">
+                    <div class="redo-icon" title="Redo"></div>
+                </button>
+            </div>
+            <!--<div id="button-undo" class="zoompanel-icon undo-icon" title="Undo"></div>
+            <div id="button-redo" class="zoompanel-icon redo-icon" title="Redo"></div>-->
+
             <div class="vis-options-toolbar" id="visibilityOptionsSlider">
                 <div class="tool-icon">
                     <span class="ui-button-text">
@@ -129,12 +137,12 @@
                 <div>
                     <div id="visibilityOptionsContent" class="window vis-options">
                         <ul>
-                            <li>
+                            <!--<li>
                                 <div class="option-name">Zoom Reset</div>
                                 <div class="default-button">
                                     <button data-behavior="action" data-command="ModelFitToView" id="fitToViewBtn">FIT TO VIEW</button>
                                 </div>
-                            </li>
+                            </li>-->
                             <li id="li1">
                                 <div class="option-name">Text Labels</div>
                                 <div>
@@ -183,11 +191,12 @@
                     </div>
                 </div>
             </div>
-            <div id="zoomslider" data-command="ZoomSliderChanged"></div>
-            <div class="website-link-container">
+
+            <div class="zoompanel-button navigationpanel-info"></div>
+            <!--<div class="website-link-container">
                 <a href="index.html?Section=About" class="website-link" target="_blank">About</a> |
                 <a href="index.html?Section=Help" class="website-link" target="_blank">Help</a>
-            </div>
+            </div>-->
         </div>
     </div>
 

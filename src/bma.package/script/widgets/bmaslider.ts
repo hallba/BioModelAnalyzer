@@ -19,19 +19,22 @@
 
             var command = this.element.attr("data-command");
 
-            var zoomplus = $('<img>')
-                .attr("id", "zoom-plus")
-                .attr("src", "images/zoomplus.svg")
-                .addClass("hoverable")
+            var zoomplus = $('<div></div>')
+                .addClass("zoompanel-button")
+                .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_In.svg')")
                 .appendTo(that.element);
 
-            this.zoomslider = $('<div></div>')
+            this.zoomslider = $('<div></div>').css("display", "none")
                 .appendTo(that.element);
 
-            var zoomminus = $('<img>')
-                .attr("id", "zoom-minus")
-                .attr("src", "images/zoomminus.svg")
-                .addClass("hoverable")
+            var fitToView = $('<div></div>')
+                .addClass("zoompanel-button")
+                .css("background-image", "url('images/navigationpanel/BMA_Icon_Fit_To_View.svg')")
+                .appendTo(that.element);
+
+            var zoomminus = $('<div></div>')
+                .addClass("zoompanel-button")
+                .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_Out.svg')")
                 .appendTo(that.element);
 
             this.zoomslider.slider({
@@ -49,6 +52,10 @@
 
             this.zoomslider.removeClass().addClass("zoomslider-bar");
             this.zoomslider.find('span').removeClass().addClass('zoomslider-pointer');
+
+            fitToView.bind("click", function () {
+                window.Commands.Execute("ModelFitToView", undefined);
+            });
 
             zoomplus.bind("click", function () {
                 var command = that.element.attr("data-command");
