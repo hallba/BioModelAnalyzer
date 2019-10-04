@@ -175,7 +175,7 @@
                     context.textBaseline = "middle";
 
                     if (operations[i].status === "partialsuccesspartialfail") {
-                        context.fillStyle = "darkgray";
+                        context.fillStyle = "black"; //"darkgray";
                     } else if (operations[i].status === "fail" || operations[i].status === "partialfail") {
                         context.fillStyle = "rgb(255, 0, 102)";//"rgb(254, 172, 158)";
                     } else if (operations[i].status === "success" || operations[i].status === "partialsuccess") {

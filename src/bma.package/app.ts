@@ -548,7 +548,8 @@ function loadScript(version) {
     $("#button-redo").click(() => { window.Commands.Execute("Redo", undefined); });
 
     $(".navigationpanel-info").click(() => {
-        window.location.href = "index.html?Section=About";
+        var win = window.open("index.html?Section=About", '_blank');
+        win.focus();
     });
 
     $(document).keydown(function (evt) {
