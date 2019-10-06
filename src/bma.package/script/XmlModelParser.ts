@@ -2,6 +2,90 @@
 // License: MIT. See LICENSE
 module BMA
 {
+    export function ParseGINML(xml: XMLDocument, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): { Model: Model.BioModel; Layout: Model.Layout }
+    {
+        var $xml = $(xml);
+
+        var idCounter = 0;
+        var variableMapper = {};
+
+        var $variables = $xml.children("gxl").children("graph").children("node");
+        var modelVars = <Model.Variable[]>($variables.map((idx, elt) => {
+            var $elt = $(elt);
+
+            var containerId = -1;
+
+            var id = $elt.attr("id");
+            variableMapper[id] = idCounter++;
+
+            var rangeTo = parseInt($elt.attr("maxvalue"));
+
+            return new Model.Variable(
+                variableMapper[id],
+                containerId,
+                "Constant",
+                id,
+                0,
+                rangeTo,
+                "");
+        }).get());
+
+        var containers = [];
+
+        var $relations = $xml.children("gxl").children("graph").children("edge");
+        var modelRels = <Model.Relationship[]>($relations.map((idx, elt) => {
+            var $elt = $(elt);
+
+            var from = variableMapper[$elt.attr("from")];
+            var to = variableMapper[$elt.attr("to")];
+
+            var type = "";
+            var sign = $elt.attr("sign");
+            if (sign == "positive")
+                type = "Activator";
+            else if (sign = "negative")
+                type = "Inhibitor";
+            else
+                throw "Unsupported type of relationship!";
+
+            return new Model.Relationship(
+                idCounter++,
+                from,
+                to,
+                type);
+        }).get());
+
+        var varLayouts = <Model.VariableLayout[]>($variables.map((idx, elt) => {
+            var $elt = $(elt);
+
+            var id = $elt.attr("id");
+
+            var xLoc = parseInt(($elt.children("nodevisualsetting").attr("x")));
+            var yLoc = parseInt(($elt.children("nodevisualsetting").attr("y")));
+
+            var x = xLoc;
+            var y = yLoc;
+
+            return new Model.VariableLayout(variableMapper[id],
+                x,
+                y,
+                0,
+                0,
+                0);
+        }).get());
+
+        return {
+            Model: new Model.BioModel(
+                $xml.children("Model").attr("Name"),
+                modelVars,
+                modelRels),
+            Layout: new Model.Layout(
+                containers,
+                varLayouts)
+        }
+    }
+
+    //Importing model for BMA legacy XML format
     export function ParseXmlModel(xml: XMLDocument, grid: { xOrigin: number; yOrigin: number; xStep: number; yStep: number }): { Model: Model.BioModel; Layout: Model.Layout }
     {
         var $xml = $(xml);

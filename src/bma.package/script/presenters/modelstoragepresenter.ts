@@ -100,20 +100,29 @@ module BMA {
                             fileReader.onload = function () {
                                 var fileContent = fileReader.result;
 
-                                try {
-                                var data = $.parseXML(fileContent);
-                                var model = BMA.ParseXmlModel(data, window.GridSettings);
-                                appModel.Reset(model.Model, model.Layout);
-                                
+                                var s = fileName.name.split('.');
+                                if (s.length > 1 && s[s.length - 1] == "ginml") {
+                                    var data = $.parseXML(fileContent);
+                                    var model = BMA.ParseGINML(data, window.GridSettings);
+                                    appModel.Reset(model.Model, model.Layout);
                                 }
-                                catch (exc) {
-                                    console.log("XML parsing failed: " + exc + ". Trying JSON");
+                                else {
+
                                     try {
-                                        appModel.Deserialize(fileReader.result);
+                                        var data = $.parseXML(fileContent);
+                                        var model = BMA.ParseXmlModel(data, window.GridSettings);
+                                        appModel.Reset(model.Model, model.Layout);
+
                                     }
-                                    catch (exc2) {
-                                        console.log("JSON failed: " + exc + ". Trying legacy JSON version");
-                                        appModel.DeserializeLegacyJSON(fileReader.result);
+                                    catch (exc) {
+                                        console.log("XML parsing failed: " + exc + ". Trying JSON");
+                                        try {
+                                            appModel.Deserialize(fileReader.result);
+                                        }
+                                        catch (exc2) {
+                                            console.log("JSON failed: " + exc + ". Trying legacy JSON version");
+                                            appModel.DeserializeLegacyJSON(fileReader.result);
+                                        }
                                     }
                                 }
                                 checker.Snapshot(appModel);
