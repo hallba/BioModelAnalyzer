@@ -762,9 +762,17 @@ module BMA {
                     if (this.undoRedoPresenter.Current !== undefined) {
                         var bbox = BMA.ModelHelper.GetModelBoundingBox(this.undoRedoPresenter.Current.layout, { xOrigin: this.Grid.x0, yOrigin: this.Grid.y0, xStep: this.Grid.xStep, yStep: this.Grid.yStep });
 
+                        var center = {
+                            x: bbox.x + bbox.width / 2,
+                            y: bbox.y + bbox.height / 2
+                        };
+
                         var screenRect = { x: 0, y: 0, left: 0, top: 0, width: plotHost.host.width(), height: plotHost.host.height() };
                         var cs = new InteractiveDataDisplay.CoordinateTransform({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }, screenRect, plotHost.aspectRatio);
                         var actualRect = cs.getPlotRect(screenRect);
+
+                        bbox.x = center.x - actualRect.width / 2;
+                        bbox.y = center.y - actualRect.height / 2;
                         bbox.width = actualRect.width;
                         bbox.height = actualRect.height;
 
