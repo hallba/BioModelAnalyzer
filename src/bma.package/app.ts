@@ -897,7 +897,7 @@ function loadScript(version) {
     var lastversion = window.localStorage.getItem(version_key);
     if (lastversion !== JSON.stringify(version)) {
         var userDialog = $('<div></div>').appendTo('body').userdialog({
-            message: "BMA client was updated to version " + versionText,
+            message: "BMA client was updated to version " + versionText + '<br/><a href="ReleaseNotes.html" target="_blank">Whats new in BMA</a>',
             actions: [
                 {
                     button: 'Ok',
