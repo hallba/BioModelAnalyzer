@@ -19,7 +19,7 @@
 
             switch (options.issucceeded) {
                 case true:
-                    $('<img src="../../images/succeeded.svg">').appendTo(this.resultDiv);
+                    $('<img src="../../ianalysis/BMA_Stable_Icon.svg">').appendTo(this.resultDiv);
                     $('<div></div>').addClass('stabilize-prooved').text('Stabilizes').appendTo(this.resultDiv);
                     break;
 
