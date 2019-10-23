@@ -1,1 +1,8 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70"><defs><style>.cls-1{fill:#0cc;}.cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:10.08px;}</style></defs><title>BMA_Stable_Icon</title><circle class="cls-1" cx="35" cy="35" r="35"/><polyline class="cls-2" points="15.92 36.9 29.24 50.22 55.01 24.46"/></svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <style>.cls-1{fill:#0cc;}.cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:10.08px;}</style>
+  </defs>
+  <title>BMA_Stable_Icon</title>
+  <circle class="cls-1" cx="35" cy="35" r="35"/>
+  <polyline class="cls-2" points="15.92 36.9 29.24 50.22 55.01 24.46"/>
+</svg>

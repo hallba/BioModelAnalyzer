@@ -128,6 +128,7 @@
     <Content Include="images\analysis\BMA_Further_Testing_Icon.svg" />
     <Content Include="images\analysis\BMA_Oscillation_Icon.svg" />
     <Content Include="images\analysis\BMA_Proof_Analysis_Icon.svg" />
+    <Content Include="images\analysis\BMA_Unstable_Icon.svg" />
     <Content Include="images\analysis\BMA_Stable_Icon.svg" />
     <Content Include="images\BMA-logo-version-number.svg" />
     <Content Include="images\BMA_Background_Homepage.svg" />
@@ -289,8 +290,6 @@
     <Content Include="images\expand-collapse.svg" />
     <Content Include="images\expand.png" />
     <Content Include="images\export.png" />
-    <Content Include="images\failed.png" />
-    <Content Include="images\failed.svg" />
     <Content Include="images\formula_not_validated.png" />
     <Content Include="images\formula_validated.png" />
     <Content Include="images\graphic.png" />

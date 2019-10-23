@@ -19,22 +19,22 @@
 
             switch (options.issucceeded) {
                 case true:
-                    $('<img src="../../ianalysis/BMA_Stable_Icon.svg">').appendTo(this.resultDiv);
+                    $('<img src="../../images/analysis/BMA_Stable_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
                     $('<div></div>').addClass('stabilize-prooved').text('Stabilizes').appendTo(this.resultDiv);
                     break;
 
                 case false:
-                    $('<img src="../../images/failed.svg">').appendTo(this.resultDiv);
+                    $('<img src="../../images/analysis/BMA_Unstable_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
                     $('<div></div>').addClass('stabilize-failed').text('Failed to Prove Stability').appendTo(this.resultDiv);
                     break;
 
                 case undefined:
-                    $('<img src="../../images/failed.svg">').appendTo(this.resultDiv);
+                    $('<img src="../../images/analysis/BMA_Unstable_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
                     $('<div></div>').addClass('stabilize-failed').text('Service Error').appendTo(this.resultDiv);
                     break;
 
                 default:
-                    $('<img src="../../images/failed.svg">').appendTo(this.resultDiv);
+                    $('<img src="../../images/analysis/BMA_Unstable_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
                     $('<div></div>').addClass('stabilize-failed').text(options.issucceeded).appendTo(this.resultDiv);
                     break;
             }

@@ -19,7 +19,7 @@
             if (that.options.error !== undefined) {
                 that.errorDiv.show();
                 var errTitle = $('<div></div>').addClass('proof-state').appendTo(that.errorDiv);
-                $('<img src="../../images/failed.svg">').appendTo(errTitle);
+                $('<img src="../../images/analysis/BMA_Unstable_Icon.svg">').width(30).height(30).appendTo(errTitle);
                 $('<div></div>').addClass('stabilize-failed').text(that.options.error.title).appendTo(errTitle);
                 $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
             } else {
