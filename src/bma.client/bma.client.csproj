@@ -124,10 +124,13 @@
     <Content Include="css\website.css" />
     <Content Include="css\slick.css" />
     <Content Include="css\slick-theme.css" />
+    <Content Include="images\analysis\BMA_Bifurcation_Icon_ON.svg" />
     <Content Include="images\analysis\BMA_Bifurcation_Icon.svg" />
     <Content Include="images\analysis\BMA_Further_Testing_Icon.svg" />
+    <Content Include="images\analysis\BMA_Oscillation_Icon_ON.svg" />
     <Content Include="images\analysis\BMA_Oscillation_Icon.svg" />
     <Content Include="images\analysis\BMA_Proof_Analysis_Icon.svg" />
+    <Content Include="images\analysis\BMA_Failed_Icon.svg" />
     <Content Include="images\analysis\BMA_Unstable_Icon.svg" />
     <Content Include="images\analysis\BMA_Stable_Icon.svg" />
     <Content Include="images\BMA-logo-version-number.svg" />
