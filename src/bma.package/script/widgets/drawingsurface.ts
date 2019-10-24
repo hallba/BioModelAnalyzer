@@ -186,7 +186,7 @@ declare var InteractiveDataDisplay: any;
             });
 
 
-            plotDiv.bind("click touchstart", function (arg) {
+            plotDiv.bind("click", function (arg) {
                 var cs = svgPlot.getScreenToDataTransform();
 
                 if (arg.originalEvent !== undefined) {
@@ -194,6 +194,24 @@ declare var InteractiveDataDisplay: any;
                 }
 
                 var commandName = arg.shiftKey ? "DrawingSurfaceShiftClick" : "DrawingSurfaceClick";
+
+                that._executeCommand(commandName,
+                    {
+                        x: cs.screenToDataX(arg.pageX - plotDiv.offset().left),
+                        y: -cs.screenToDataY(arg.pageY - plotDiv.offset().top),
+                        screenX: arg.pageX - plotDiv.offset().left,
+                        screenY: arg.pageY - plotDiv.offset().top
+                    });
+            });
+
+            plotDiv.bind("touchstart", function (arg) {
+                var cs = svgPlot.getScreenToDataTransform();
+
+                if (arg.originalEvent !== undefined) {
+                    arg = <any>arg.originalEvent;
+                }
+
+                var commandName = "DrawingSurfaceClick";
 
                 that._executeCommand(commandName,
                     {
@@ -296,7 +314,7 @@ declare var InteractiveDataDisplay: any;
                 return mouseDrags.merge(gestures);
             }
 
-            var createDragStartSubject = function (vc, btnFilter, withShift) {
+            var createDragStartSubject = function (vc, btnFilter, withShift, withTouch) {
                 var _doc = $(document);
                 var mousedown = Rx.Observable.fromEvent<any>(vc, "mousedown").where(function (md) {
                     return md.button === btnFilter && !md.shiftKey || withShift && md.shiftKey && md.button === 0;
@@ -314,21 +332,23 @@ declare var InteractiveDataDisplay: any;
                     return mouseMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(mouseUp);
                 });
 
+                if (withTouch) {
+                    var touchStart = Rx.Observable.fromEvent<any>(vc, "touchstart");
+                    var touchMove = Rx.Observable.fromEvent<any>(vc, "touchmove");
+                    var touchEnd = Rx.Observable.fromEvent<any>(_doc, "touchend");
+                    var touchCancel = Rx.Observable.fromEvent<any>(_doc, "touchcancel");
 
-                var touchStart = Rx.Observable.fromEvent<any>(vc, "touchstart");
-                var touchMove = Rx.Observable.fromEvent<any>(vc, "touchmove");
-                var touchEnd = Rx.Observable.fromEvent<any>(_doc, "touchend");
-                var touchCancel = Rx.Observable.fromEvent<any>(_doc, "touchcancel");
+                    var touchDragStarts = touchStart.selectMany(function (md) {
+                        var cs = svgPlot.getScreenToDataTransform();
+                        var x0 = cs.screenToDataX(md.originalEvent.pageX - plotDiv.offset().left);
+                        var y0 = -cs.screenToDataY(md.originalEvent.pageY - plotDiv.offset().top);
 
-                var touchDragStarts = touchStart.selectMany(function (md) {
-                    var cs = svgPlot.getScreenToDataTransform();
-                    var x0 = cs.screenToDataX(md.originalEvent.pageX - plotDiv.offset().left);
-                    var y0 = -cs.screenToDataY(md.originalEvent.pageY - plotDiv.offset().top);
+                        return touchMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(touchEnd.merge(touchCancel));
+                    });
 
-                    return touchMove.select(function (mm) { return { x: x0, y: y0 }; }).first().takeUntil(touchEnd.merge(touchCancel));
-                });
-
-                return dragStarts.merge(touchDragStarts);
+                    return dragStarts.merge(touchDragStarts);
+                } else
+                    return dragStarts;
             }
 
             var createDragEndSubject = function (vc) {
@@ -348,8 +368,8 @@ declare var InteractiveDataDisplay: any;
             }
 
             this._dragService = {
-                dragStart: createDragStartSubject(that._plot.centralPart, 0, false),
-                dragStartRight: createDragStartSubject(that._plot.centralPart, 2, true),
+                dragStart: createDragStartSubject(that._plot.centralPart, 0, false, true),
+                dragStartRight: createDragStartSubject(that._plot.centralPart, 2, true, false),
                 drag: createPanSubject(that._plot.centralPart),
                 dragEnd: createDragEndSubject(that._plot.centralPart)
             };
