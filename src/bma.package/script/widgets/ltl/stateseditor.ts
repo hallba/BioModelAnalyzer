@@ -449,10 +449,10 @@
         createVariablePicker: function (variableTd, variable) {
             var that = this;
 
-            var containerImg = $("<div></div>").addClass("state-container-image")/*attr("src", "../images/state-container.svg")*/.addClass("hidden").appendTo(variableTd);
+            var containerImg = $("<div></div>").addClass("state-container-image").addClass("hidden").appendTo(variableTd);
             var selectedContainer = $("<div></div>").addClass("hidden").addClass("state-container-name").addClass("state-text").appendTo(variableTd);
 
-            var variableImg = $("<div></div>").addClass("state-variable-image")/*attr("src", "../images/state-variable.svg")*/.appendTo(variableTd);
+            var variableImg = $("<div></div>").addClass("state-variable-image").appendTo(variableTd);
             var selectedVariable = $("<div></div>").addClass("only-variable").addClass("state-text").appendTo(variableTd);
             var expandButton = $("<div></div>").addClass('arrow-down').appendTo(variableTd);
 

@@ -479,8 +479,8 @@ module BMA {
                             }
 
                             if (renderParams.isHighlighted) {
-                                var rad = 1.3 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                                var rad = 16;//1.3 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
                             }
 
                             //Geometry Fill
@@ -639,8 +639,8 @@ module BMA {
                             }
 
                             if (renderParams.isHighlighted) {
-                                var rad = Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                                var rad = 16;//Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
                             }
 
                             //Geometry Fill
@@ -789,8 +789,8 @@ module BMA {
                             }
 
                             if (renderParams.isHighlighted) {
-                                var rad = 1.1 * Math.max(that.variableHeightConstant, that.variableWidthConstant) * 0.5;// * renderParams.sizeCoef;
-                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#EF4137", fill: "transparent" });
+                                var rad = 16;// * renderParams.sizeCoef;
+                                jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
                             }
 
 
