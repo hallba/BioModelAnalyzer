@@ -6,21 +6,21 @@
     <link rel="stylesheet" type="text/css" href="css/website.css" />
 </head>
 <body>
-    <div id="release-notes" class="infopage-block-intro fixed-width">
+    <div id="release-notes" class="infopage-block-intro fixed-width" style="height:100%;">
         <span class="heading">BMA 1.6.0000</span>
-        <p class="intro-text">
-            <ol class="release-notes-list">
-                <li class="release-notes-record">New design (new color scheme, new geometry for basic primitives, new top navigation panel, new zoom panel, updated fit to view, possibility to switch to old colors for model primitives, new colors in analysis tabs, new icons)</li>
-                <li class="release-notes-record">Selection tool (select with rectangle, select with shift+click, selection drag'n'drop, selection clear via context menu or top panel mode switch, selection cut/copy/paste</li>
-                <li class="release-notes-record">Updated Copy/Cut/Paste (uses system clipboard, creates text representation of copied content, can paste as text from notepad or other sources)</li>
-                <li class="release-notes-record">Current grid cell highlight (under mouse cursor)</li>
-                <li class="release-notes-record">Current variable highlight (under mouse cursor)</li>
-                <li class="release-notes-record">Highlight for variables with incorrect target function</li>
-                <li class="release-notes-record">User created motifs (create new motif from selection, hide preloaded motifs</li>
-                <li class="release-notes-record">Updated backend</li>
-                <li class="release-notes-record">(experimental) Import from GINML models</li>
-            </ol>
-        </p>
+        <div class="intro-text">
+            <p>This release brings a major new features in the tool, and with it a substantial redesign of the canvas. Several new tools are available to users:</p>
+            <span class="subheading">Select, cut, copy, and paste</span>
+            <p>
+                Users can create selections complex through right-click and drag when navigating the canvas, or right clicking variables. Selections can later be cleared by clicking the navigate icon or through the right-clickable context menu.
+                Selected variables and edges can be copied and pasted within the canvas, or sent through the right click menu to the motif carousel. Moreover, selected regions can be copied to text files and analysed outside of the main tool, and externally created model-text can be pasted into the UI.
+            </p>
+            <span class="subheading">Design rethink</span>
+            <p>To enable more complex user interaction with the canvas and improve accessibility variable icons and colours have been extensively redesigned. This includes new hover and selection highlights for variables, interactions, and grid cells, alongside a reordering of the top menu and introduction of a “fit to view” button. For users who need the old colour scheme for ongoing work, this is available as an option in the settings menu. Finally, variables with broken target functions are now highlighted in the canvas simplifying model refinement.</p>
+            <span class="subheading">BMA fundamentals</span>
+            <p>The backend service has been updated, and initial support for GINML import added to the user interface.</p>
+
+        </div>
     </div>
 </body>
 </html>
