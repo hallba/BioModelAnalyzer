@@ -41,9 +41,9 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FairShareScheduler", "..\..
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FairShareScheduler.Common", "..\..\src\FairShareScheduler.Common\FairShareScheduler.Common.fsproj", "{850DF26E-27B2-4766-99DE-B815616C0D90}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BMAStanaloneInstaller", "..\..\src\BMAStanaloneInstaller\BMAStanaloneInstaller.wixproj", "{CD311151-77F2-4A52-9ED6-917FA338D943}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BioCheckConsole", "..\..\src\BioCheckConsole\BioCheckConsole.fsproj", "{0F088352-D63F-48AD-A000-AFD456157B7D}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "bma.install", "..\..\src\bma.install\bma.install.wixproj", "{EE068CCF-C3E4-480D-97FC-5C680A89417C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -326,21 +326,6 @@ Global
 		{850DF26E-27B2-4766-99DE-B815616C0D90}.Release|x64.Build.0 = Release|Any CPU
 		{850DF26E-27B2-4766-99DE-B815616C0D90}.Release|x86.ActiveCfg = Release|Any CPU
 		{850DF26E-27B2-4766-99DE-B815616C0D90}.Release|x86.Build.0 = Release|Any CPU
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x64.ActiveCfg = Debug|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x86.ActiveCfg = Debug|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Debug|x86.Build.0 = Debug|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|Any CPU.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|Any CPU.Build.0 = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|x64.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|x64.Build.0 = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|x86.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.nuget|x86.Build.0 = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|Any CPU.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x64.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x64.Build.0 = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x86.ActiveCfg = Release|x86
-		{CD311151-77F2-4A52-9ED6-917FA338D943}.Release|x86.Build.0 = Release|x86
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Debug|x64.ActiveCfg = Debug|x64
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Debug|x64.Build.0 = Debug|x64
@@ -357,6 +342,21 @@ Global
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Release|x64.Build.0 = Release|x64
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Release|x86.ActiveCfg = Release|x86
 		{0F088352-D63F-48AD-A000-AFD456157B7D}.Release|x86.Build.0 = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Debug|x64.ActiveCfg = Debug|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Debug|x86.ActiveCfg = Debug|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Debug|x86.Build.0 = Debug|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|Any CPU.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|Any CPU.Build.0 = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|x64.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|x64.Build.0 = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|x86.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.nuget|x86.Build.0 = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Release|Any CPU.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Release|x64.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Release|x64.Build.0 = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Release|x86.ActiveCfg = Release|x86
+		{EE068CCF-C3E4-480D-97FC-5C680A89417C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
