@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>BioCheckAnalyzer</AssemblyName>
+    <PackageId>BioCheckAnalyzer</PackageId>
+    <Authors>Ben Hall, Nir Piterman, Nikita Skoblov, Sergey Berezin</Authors>
+    <Company>University of Cambridge</Company>
+    <Product>BioCheckAnalyzer</Product>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FParsec" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Z3.x64" Version="4.8.6" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Version.fs" />
+    <Compile Include="Log.fs" />
+    <Compile Include="Util.fs" />
+    <!--<Compile Include="Test.fs" />-->
+    <Compile Include="Expr.fs" />
+    <Compile Include="ParsecExpr.fs" />
+    <Compile Include="QN.fs" />
+    <Compile Include="Result.fs" />
+    <Compile Include="Marshal.fs" />
+    <Compile Include="VariableEncoding.fs" />
+    <Compile Include="Z3Util.fs" />
+    <Compile Include="Z.fs" />
+    <Compile Include="Counterexample.fs" />
+    <Compile Include="FNewLemmas.fs" />
+    <Compile Include="GenLemmas.fs" />
+    <Compile Include="Stabilize.fs" />
+    <Compile Include="Simulate.fs" />
+    <!--<Compile Include="ModelToExcel.fs" />-->
+    <Compile Include="BioCheckZ3.fs" />
+    <Compile Include="BioCheckPlusZ3.fs" />
+    <Compile Include="Z3rangelist.fs" />
+    <Compile Include="stepZ3rangelist.fs" />
+    <Compile Include="Paths.fs" />
+    <Compile Include="LTL.fs" />
+    <Compile Include="EncodingForFormula.fs" />
+    <Compile Include="EncodingForFormula2.fs" />
+    <Compile Include="InitEncodingForSys.fs" />
+    <Compile Include="IncEncodingForSys.fs" />
+    <Compile Include="BMC.fs" />
+    <Compile Include="Rangelist.fs" />
+    <Compile Include="GGraph.fs" />
+    <Compile Include="Oracle.fs" />
+    <Compile Include="Cut.fs" />
+    <Compile Include="Shrink.fs" />
+    <Compile Include="Prover.fs" />
+    <Compile Include="Suggest.fs" />
+    <Compile Include="UIMain.fs" />
+    <Compile Include="PathFinder.fs" />
+    <Compile Include="Attractors.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
+  </ItemGroup>
+
+</Project>

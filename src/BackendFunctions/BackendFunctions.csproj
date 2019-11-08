@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ActivityLog.cs" />
+    <Compile Include="Analyze.cs" />
+    <Compile Include="AnalyzeLTLPolarity.cs" />
+    <Compile Include="AnalyzeLTLSimulation.cs" />
+    <Compile Include="FurtherTesting.cs" />
+    <Compile Include="Simulate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="host.json" />
+    <Content Include="local.settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackendUtilities\BackendUtilities_Core.csproj" />
+    <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
+    <ProjectReference Include="..\BioCheckAnalyzer\BioCheckAnalyzer_Standart.fsproj" />
+    <ProjectReference Include="..\BmaBioCheckAnalyzer\BmaBioCheckAnalyzer_Standart.csproj" />
+    <ProjectReference Include="..\Jobs\JobsRunner\JobsRunner_Standart.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  
+</Project>
