@@ -1,12 +1,13 @@
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using BackendUtilities;
+using System.IO;
 using bma.LTL;
 
 namespace BackendFunctions2
@@ -14,9 +15,12 @@ namespace BackendFunctions2
     public static class AnalyzeLTLSimulation
     {
         [FunctionName("AnalyzeLTLSimulation")]
-        public static LTLAnalysisResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]LTLSimulationAnalysisInputDTO req, TraceWriter log)
+        public static async Task<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
         {
-            return Analysis.Simulate(req);
+            var content = await new StreamReader(req.Body).ReadToEndAsync();
+            var input = JsonConvert.DeserializeObject<LTLSimulationAnalysisInputDTO>(content);
+
+            return JsonConvert.SerializeObject(Analysis.Simulate(input));
         }
     }
 }

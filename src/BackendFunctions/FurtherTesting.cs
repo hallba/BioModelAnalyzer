@@ -1,23 +1,26 @@
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using bma.BioCheck;
 using BackendUtilities;
-using System;
+using System.IO;
 
 namespace BackendFunctions2
 {
     public static class FurtherTesting
     {
         [FunctionName("FurtherTesting")]
-        public static FurtherTestingOutput Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]FurtherTestingInput req, TraceWriter log)
+        public static async Task<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
         {
-            return Analysis.FindCounterExamples(req);
+            var content = await new StreamReader(req.Body).ReadToEndAsync();
+            var input = JsonConvert.DeserializeObject<FurtherTestingInput>(content);
+
+            return JsonConvert.SerializeObject(Analysis.FindCounterExamples(input));
         }
     }
 }

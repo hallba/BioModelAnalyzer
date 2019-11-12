@@ -1,21 +1,21 @@
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using bma.BioCheck;
 using BackendUtilities;
-using System;
+using System.IO;
 
 namespace BackendFunctions2
 {
     public static class ActivityLog
     {
         [FunctionName("ActivityLog")]
-        public static void Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]ActivityRecord req, TraceWriter log)
+        public static async Task Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
         {
 
             try
@@ -23,29 +23,32 @@ namespace BackendFunctions2
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
                 var logger = new ActivityAzureLogger(connectionString);
 
-                var entity = new ActivityEntity(req.SessionID, req.UserID)
+                var content = await new StreamReader(req.Body).ReadToEndAsync();
+                var input = JsonConvert.DeserializeObject<ActivityRecord>(content);
+
+                var entity = new ActivityEntity(input.SessionID, input.UserID)
                 {
-                    LogInTime = req.LogInTime,
-                    LogOutTime = req.LogOutTime,
-                    FurtherTestingCount = req.FurtherTestingCount,
-                    ClientVersion = req.ClientVersion,
-                    ImportModelCount = req.ImportModelCount,
-                    NewModelCount = req.NewModelCount,
-                    RunProofCount = req.RunProofCount,
-                    RunSimulationCount = req.RunSimulationCount,
-                    SaveModelCount = req.SaveModelCount,
-                    ProofErrorCount = req.ProofErrorCount,
-                    SimulationErrorCount = req.SimulationErrorCount,
-                    FurtherTestingErrorCount = req.FurtherTestingErrorCount,
-                    AnalyzeLTLCount = req.AnalyzeLTLCount,
-                    AnalyzeLTLErrorCount = req.AnalyzeLTLErrorCount
+                    LogInTime = input.LogInTime,
+                    LogOutTime = input.LogOutTime,
+                    FurtherTestingCount = input.FurtherTestingCount,
+                    ClientVersion = input.ClientVersion,
+                    ImportModelCount = input.ImportModelCount,
+                    NewModelCount = input.NewModelCount,
+                    RunProofCount = input.RunProofCount,
+                    RunSimulationCount = input.RunSimulationCount,
+                    SaveModelCount = input.SaveModelCount,
+                    ProofErrorCount = input.ProofErrorCount,
+                    SimulationErrorCount = input.SimulationErrorCount,
+                    FurtherTestingErrorCount = input.FurtherTestingErrorCount,
+                    AnalyzeLTLCount = input.AnalyzeLTLCount,
+                    AnalyzeLTLErrorCount = input.AnalyzeLTLErrorCount
                 };
                 logger.Add(entity);
             }
             catch(Exception exc)
             {
                 Console.WriteLine(exc.Message);
-                log.Error(exc.Message, exc);
+                log.LogError(exc.Message, exc);
                 throw exc;
             }
         }
