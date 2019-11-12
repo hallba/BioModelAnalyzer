@@ -9,18 +9,19 @@ using Newtonsoft.Json;
 using bma.BioCheck;
 using BackendUtilities;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace BackendFunctions2
 {
     public static class ActivityLog
     {
         [FunctionName("ActivityLog")]
-        public static async Task Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req, ILogger log, ExecutionContext context)
         {
-
             try
             {
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ClientActivity"].ConnectionString;
+                var config = new ConfigurationBuilder().SetBasePath(context.FunctionAppDirectory).AddJsonFile("local.settings.json", optional: true, reloadOnChange: true).AddEnvironmentVariables().Build();
+                var connectionString = config.GetConnectionString("ClientActivity");
                 var logger = new ActivityAzureLogger(connectionString);
 
                 var content = await new StreamReader(req.Body).ReadToEndAsync();
@@ -43,11 +44,11 @@ namespace BackendFunctions2
                     AnalyzeLTLCount = input.AnalyzeLTLCount,
                     AnalyzeLTLErrorCount = input.AnalyzeLTLErrorCount
                 };
+
                 logger.Add(entity);
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
-                Console.WriteLine(exc.Message);
                 log.LogError(exc.Message, exc);
                 throw exc;
             }
