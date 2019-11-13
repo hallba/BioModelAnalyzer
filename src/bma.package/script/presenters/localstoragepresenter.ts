@@ -93,12 +93,27 @@ module BMA {
                 window.Commands.On("ExportLocalModelsZip", function () {
                     tool.GetModels().done(function (res) {
 
+                        var isValid = (function () {
+                            var rg1 = /^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+                            var rg2 = /^\./; // cannot start with dot (.)
+                            var rg3 = /^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+                            return function isValid(fname) {
+                                return rg1.test(fname) && !rg2.test(fname) && !rg3.test(fname);
+                            }
+                        })();
+
                         var zip = new JSZip();
                         for (var i = 0; i < res.length; i++) {
                             var json = res[i];
                             var name = json['Model'].Name;
+                            var fileName = name + ".json";
 
-                            zip.file(name + ".json", JSON.stringify(json));
+                            if (!isValid(fileName)) {
+                                console.log("found invalid model name: " + name);
+                                fileName = "unnamed " + i + ".json";
+                            }
+
+                            zip.file(fileName, JSON.stringify(json));
                         }
 
                         // Generate the zip file asynchronously
