@@ -10,7 +10,7 @@ using BackendUtilities;
 using System.IO;
 using bma.LTL;
 
-namespace BackendFunctions2
+namespace BackendFunctions
 {
     public static class AnalyzeLTLPolarity
     {

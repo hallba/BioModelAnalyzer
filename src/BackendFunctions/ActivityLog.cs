@@ -11,7 +11,7 @@ using BackendUtilities;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace BackendFunctions2
+namespace BackendFunctions
 {
     public static class ActivityLog
     {
