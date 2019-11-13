@@ -31,6 +31,15 @@
             toggleInfo(id, "up-arrow-grey", "down-arrow-grey");
         }
 
+        function toggleMorePublications(id) {
+            toggleInfo(id, "up-arrow-grey", "down-arrow-grey");
+
+            if ($("#viewmoretb").text() === "View More")
+                $("#viewmoretb").text("View Less");
+            else
+                $("#viewmoretb").text("View More");
+        }
+
         function scrollToBlockElement(id) {
             document.getElementById(id).scrollIntoView(true);
             /*
@@ -199,13 +208,13 @@
         </div>
 
         <!--<div class="example">
-        <div>
-            <span class="bold">Metabolic networks operating in type-2 diabetes</span><br>
-            <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
-            <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[Go to publication]</a>
-        </div>
-        <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
-    </div>-->
+            <div>
+                <span class="bold">Metabolic networks operating in type-2 diabetes</span><br>
+                <a href="preloaded/diabetes_new_mod.json" target="_blank">[Download JSON]</a>
+                <span class="reference-paper">Reference paper </span><a href="http://research.microsoft.com/pubs/105045/TCSB_10.pdf" target="_blank">[Go to publication]</a>
+            </div>
+            <a href="tool.html?Model=preloaded/diabetes_new_mod.json" target="_blank" class="pink-btn">Load model in tool</a>
+        </div>-->
 
 
     </div>
@@ -237,108 +246,117 @@
             In Automated Reasoning for Systems Biology and Medicine 2018 <br>
         </div>
 
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="https://www.repository.cam.ac.uk/handle/1810/280164" target="_blank">A toolbox for discrete modelling of cell signaling dynamics.</a>
+
+        <div id="morepublications" style="display:none;">
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="https://www.repository.cam.ac.uk/handle/1810/280164" target="_blank">A toolbox for discrete modelling of cell signaling dynamics.</a>
+                </div>
+                Yasmin Z. Paterson, David Shorthouse, Markus W. Pleijzier, Nir Piterman, Claus Bendtsen , Benjamin A. Hall, Jasmin Fisher
+                Integrative Biology 6/2018 DOI: 10.1039/c8ib00026c <br>
             </div>
-            Yasmin Z. Paterson, David Shorthouse, Markus W. Pleijzier, Nir Piterman, Claus Bendtsen , Benjamin A. Hall, Jasmin Fisher
-            Integrative Biology 6/2018 DOI: 10.1039/c8ib00026c <br>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/CanRes_17.pdf" target="_blank">Cell-Specific Computational Modelling of the PIM pathway in Acute Myeloid Leukemia.</a>
+                </div>
+                Dana Silverbush, Shaun Grosskurth, Dennis Wang, Francoise Powell, Berthold Gottgens, Jonathan Dry, Jasmin Fisher<br>
+                Cancer Research 2/2017: pages 827-838; DOI:10.1158/0008-5472.can-16-1578 <br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="https://www.repository.cam.ac.uk/bitstream/handle/1810/260353/Shorthouse_et_al-2016-Computational_Methods_in_Systems_Biology-AM.pdf?sequence=1&isAllowed=y" target="_blank">Deregulation of Osmotic Regulation Machinery Explains and Predicts Cellular Transformation in Cancer and Disease.</a>
+                </div>
+                David Shorthouse, Angela Riedel, Jacqueline Shields, Benjamin A. Hall<br>
+                CMSB 2016, DOI:10.17863/CAM.4585 IEEE TCSIM best poster award <br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/VMCAI_17.pdf" target="_blank">Bringing LTL Model Checking to Biologists. </a>
+                </div>
+                Zara Ahmed, David Benque, Sergey Berezin, Anna Caroline E. Dahl, Jasmin Fisher, Benjamin A. Hall, Samin Ishtiaq, Jay Nanavati, Nir Piterman, Maik Riechert, Nikita Skoblov<br>
+                Verification, Model Checking, and Abstract Interpretation, 01/2017: pages 1-13; ISBN: 978-3-319-52233-3, DOI:10.1007/978-3-319-52234-0_1 <br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/Biophys_J_Jul15.pdf" target="_blank">Emergent Stem Cell Homeostasis in the C. elegans Germline Is Revealed by Hybrid Modeling.</a>
+                </div>
+                Benjamin A Hall, Nir Piterman, Alex Hajnal, Jasmin Fisher<br>
+                Biophysical Journal 07/2015; 109(2):428-38., DOI:10.1016/j.bpj.2015.06.007 <br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</a>
+                </div>
+                Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
+                Scientific Reports, 5:8190, February 2015<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://computationalculture.net/article/modelling-biology" target="_blank">Modelling biology - working through (in-)stabilities and frictions</a>
+                </div>
+                Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
+                Computational Culture, Nov 2014<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">Finding instability in biological models</a>
+                </div>
+                Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
+                CAV 2014<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">At the Interface of Biology and Computation</a>
+                </div>
+                Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
+                CHI 2013<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</a>
+                </div>
+                Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
+                CAV 2013<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">BMA: Visual Tool for Modeling and Analyzing Biological Networks</a>
+                </div>
+                Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
+                CAV 2012<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">Proving Stabilization of Biological Systems</a>
+                </div>
+                Cook, Fisher, Krepska, Piterman<br>
+                VMCAI 2011<br>
+            </div>
+
+            <div class="publication">
+                <div class="publication-header">
+                    <a class="bold" href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</a>
+                </div>
+                Schaub, Henzinger,  Fisher<br>
+                BMC Systems Biology. 1:4,  2007<br>
+            </div>
         </div>
 
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/CanRes_17.pdf" target="_blank">Cell-Specific Computational Modelling of the PIM pathway in Acute Myeloid Leukemia.</a>
-            </div>
-            Dana Silverbush, Shaun Grosskurth, Dennis Wang, Francoise Powell, Berthold Gottgens, Jonathan Dry, Jasmin Fisher<br>
-            Cancer Research 2/2017: pages 827-838; DOI:10.1158/0008-5472.can-16-1578 <br>
-        </div>
 
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="https://www.repository.cam.ac.uk/bitstream/handle/1810/260353/Shorthouse_et_al-2016-Computational_Methods_in_Systems_Biology-AM.pdf?sequence=1&isAllowed=y" target="_blank">Deregulation of Osmotic Regulation Machinery Explains and Predicts Cellular Transformation in Cancer and Disease.</a>
-            </div>
-            David Shorthouse, Angela Riedel, Jacqueline Shields, Benjamin A. Hall<br>
-            CMSB 2016, DOI:10.17863/CAM.4585 IEEE TCSIM best poster award <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/VMCAI_17.pdf" target="_blank">Bringing LTL Model Checking to Biologists. </a>
-            </div>
-            Zara Ahmed, David Benque, Sergey Berezin, Anna Caroline E. Dahl, Jasmin Fisher, Benjamin A. Hall, Samin Ishtiaq, Jay Nanavati, Nir Piterman, Maik Riechert, Nikita Skoblov<br>
-            Verification, Model Checking, and Abstract Interpretation, 01/2017: pages 1-13; ISBN: 978-3-319-52233-3, DOI:10.1007/978-3-319-52234-0_1 <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/Biophys_J_Jul15.pdf" target="_blank">Emergent Stem Cell Homeostasis in the C. elegans Germline Is Revealed by Hybrid Modeling.</a>
-            </div>
-            Benjamin A Hall, Nir Piterman, Alex Hajnal, Jasmin Fisher<br>
-            Biophysical Journal 07/2015; 109(2):428-38., DOI:10.1016/j.bpj.2015.06.007 <br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/apps/pubs/default.aspx?id=226356" target="_blank">Drug Target Optimization in Chronic Myeloid Leukemia Using Innovative Computational Platform</a>
-            </div>
-            Chuang R., Hall B.A., Benque D., Cook B., Ishtiaq S., Piterman N., Taylor A., Vardi M., Koschmieder S., Gottgens B., and Fisher J.<br>
-            Scientific Reports, 5:8190, February 2015<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://computationalculture.net/article/modelling-biology" target="_blank">Modelling biology - working through (in-)stabilities and frictions</a>
-            </div>
-            Taylor, Fisher, Cook, Ishtiaq, Piterman<br>
-            Computational Culture, Nov 2014<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/pubs/214284/cav2014.pdf" target="_blank">Finding instability in biological models</a>
-            </div>
-            Cook, Fisher, Hall, Ishtiaq, Juniwal, Piterman<br>
-            CAV 2014<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/pubs/188487/CHI2013.pdf" target="_blank">At the Interface of Biology and Computation</a>
-            </div>
-            Taylor, Piterman, Ishtiaq, Fisher, Cook, Cockerton, Bourton, Benque<br>
-            CHI 2013<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/pubs/180287/ClaessenCAV2013.pdf" target="_blank">Model-Checking Signal Transduction Networks through Decreasing Reachability Sets</a>
-            </div>
-            Claessen, Fisher, Ishtiaq, Piterman, Wang<br>
-            CAV 2013<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/pubs/161930/CAV12.pdf" target="_blank">BMA: Visual Tool for Modeling and Analyzing Biological Networks</a>
-            </div>
-            Benque, Bourton, Cockerton, Cook, Fisher, Ishtiaq, Piterman, Taylor, Vardi<br>
-            CAV 2012<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://research.microsoft.com/en-us/um/cambridge/projects/terminator/biocheck11-final.pdf" target="_blank">Proving Stabilization of Biological Systems</a>
-            </div>
-            Cook, Fisher, Krepska, Piterman<br>
-            VMCAI 2011<br>
-        </div>
-
-        <div class="publication">
-            <div class="publication-header">
-                <a class="bold" href="http://www.biomedcentral.com/content/pdf/1752-0509-1-4.pdf" target="_blank">Qualitative Networks: A Symbolic Approach to Analyze Biological Signaling Networks.</a>
-            </div>
-            Schaub, Henzinger,  Fisher<br>
-            BMC Systems Biology. 1:4,  2007<br>
+        <div class="publication-viewmore">
+            <span id="viewmoretb" class="bold" onclick="toggleMorePublications('morepublications');">View More</span>
+            <div id="morepublicationsb" class="expand-btn down-arrow-grey" onclick="toggleMorePublications('morepublications');"></div>
         </div>
     </div>
 
@@ -368,7 +386,7 @@
                 <div id="nirb" class="expand-btn down-arrow-grey" onclick="toggleTeamMemberInfo('nir');"></div>
             </div>
             <p style="display:none" id="nir">
-                Nir Piterman is an associate professor in the Department of Computer Science and Engineering at the University of Gothenburg. 
+                Nir Piterman is an associate professor in the Department of Computer Science and Engineering at the University of Gothenburg.
                 His research interests include formal verification, automata theory, and applications of formal methods to biological modeling.
             </p>
         </div>
