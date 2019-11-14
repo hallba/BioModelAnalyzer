@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="BMAStanaloneInstaller" Language="1033" Version="1.0.2.0" Manufacturer="test" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
+  <Product Id="*" Name="BioModelAnalyzer" Language="1033" Version="1.6.0.0" Manufacturer="Ben Hall" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <Icon Id="BMA.ico" SourceFile="BMA.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="BMA.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
@@ -23,6 +26,7 @@
           <Component Id="BioCheckConsole" Guid="04526E0F-3D0D-40C5-9878-FAFEF6CC170F">
             <File Id="BioCheckConsole.exe" KeyPath="yes" Source="$(var.BioCheckConsole.TargetDir)\BioCheckConsole.exe"/>
             <File Id="BioCheckConsole.exe.config" Source="$(var.BioCheckConsole.TargetDir)\BioCheckConsole.exe.config" />
+            <File Id="Attractors.dll" Source="$(var.Attractors.TargetDir)\Attractors.dll" />
           </Component>
         </Directory>
       </Directory>
