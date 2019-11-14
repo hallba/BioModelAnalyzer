@@ -443,6 +443,7 @@
     <Content Include="fonts\OpenSans-SemiBoldItalic.ttf" />
     <Content Include="preloaded\CancerSignalling.json" />
     <Content Include="motifs\Perfect Adaptation C.json" />
+    <Content Include="installer\bma.install.msi" />
     <None Include="Properties\PublishProfiles\bmademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />
