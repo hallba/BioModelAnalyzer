@@ -37,7 +37,7 @@
                   Name="BioModelAnalyzer"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon="Icon.exe">
-            <Icon Id="Icon.exe" SourceFile="$(var.bma.selfhost.TargetPath)" />
+            <Icon Id="Icon.exe" SourceFile="BMA.ico" />
           </Shortcut>
         </File>
       </Component>

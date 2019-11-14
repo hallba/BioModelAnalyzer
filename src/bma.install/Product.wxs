@@ -37,7 +37,7 @@
             Target="[SystemFolder]cmd.exe" 
             Arguments="/k &quot;[INSTALLFOLDER]BioCheckConsole.exe&quot;"
             Icon="Icon2.exe">
-        <Icon Id="Icon2.exe" SourceFile="BMA Console.bat" />
+        <Icon Id="Icon2.exe" SourceFile="BMA.ico" />
       </Shortcut>
       <RemoveFolder Id="RemoveProgramMenuFolder" On="uninstall" />
       <RegistryValue Root="HKCU"
