@@ -119,9 +119,9 @@ describe("DesignSurfacePresenter", () => {
         window.Commands.Execute("DrawingSurfaceClick", { x: 150, y: 250, screenX: 1, screenY: 2 });
         expect(appModel.BioModel.Variables.length).toEqual(1);
 
-        window.Commands.Execute("AddElementSelect", undefined);
+        window.Commands.Execute("AddElementSelect", "navigation");
         spyOn(variableEditorDriver, "Initialize");
-        window.Commands.Execute("DrawingSurfaceDoubleClick", { x: 150, y: 250, screenX: 1, screenY: 2 });
+        window.Commands.Execute("DrawingSurfaceClick", { x: 150, y: 250, screenX: 1, screenY: 2 });
         expect(variableEditorDriver.Initialize).toHaveBeenCalled();
     });
 
