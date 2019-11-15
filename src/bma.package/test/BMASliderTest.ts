@@ -56,8 +56,8 @@ describe("BMASlider", () => {
                 min: min,
                 max: max
             });
-            plusButton = slider.children("#zoom-plus");
-            minusButton = slider.children("#zoom-minus");
+            plusButton = slider.children(".zoom-plus");
+            minusButton = slider.children(".zoom-minus");
             jqslider = slider.children("div").eq(0);
         });
 
@@ -123,10 +123,10 @@ describe("BMASlider", () => {
     it("should increace and decrease", () => {
         slider.bmazoomslider({ value: 0 });
         expect(slider.bmazoomslider("option", "value")).toEqual(0);
-        slider.children("#zoom-minus").click();
-        slider.children("#zoom-minus").click();
+        slider.children(".zoom-minus").click();
+        slider.children(".zoom-minus").click();
         expect(slider.bmazoomslider("option", "value")).toEqual(20);
-        slider.children("#zoom-plus").click();
+        slider.children(".zoom-plus").click();
         expect(slider.bmazoomslider("option", "value")).toEqual(10);
     });
 })

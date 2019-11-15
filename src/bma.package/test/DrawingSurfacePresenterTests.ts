@@ -20,6 +20,12 @@ describe("DesignSurfacePresenter", () => {
             MaxWidth: 3200,
             MinWidth: 800
         };
+        window.GridSettings = {
+            xOrigin: 0,
+            yOrigin: 0,
+            xStep: 250,
+            yStep: 280
+        };
     });
 
     it("codeditor widget initializes correctly", () => {

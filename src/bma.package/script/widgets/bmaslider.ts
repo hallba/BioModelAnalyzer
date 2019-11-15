@@ -19,12 +19,12 @@
 
             var command = this.element.attr("data-command");
 
-            var zoomplus = $('<div></div>')
-                .addClass("zoompanel-button")
-                .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_In.svg')")
+            this.zoomslider = $('<div></div>').css("display", "none")
                 .appendTo(that.element);
 
-            this.zoomslider = $('<div></div>').css("display", "none")
+            var zoomplus = $('<div></div>')
+                .addClass("zoompanel-button zoom-plus")
+                .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_In.svg')")
                 .appendTo(that.element);
 
             var fitToView = $('<div></div>')
@@ -33,7 +33,7 @@
                 .appendTo(that.element);
 
             var zoomminus = $('<div></div>')
-                .addClass("zoompanel-button")
+                .addClass("zoompanel-button zoom-minus")
                 .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_Out.svg')")
                 .appendTo(that.element);
 
