@@ -525,6 +525,8 @@
       <Paket>True</Paket>
     </Content>
     <Content Include="Tutorial.pdf" />
+    <Content Include="Student sheet v3.2.docx" />
+    <Content Include="Teachers sheet v3.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
