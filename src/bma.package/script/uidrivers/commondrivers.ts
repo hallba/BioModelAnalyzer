@@ -213,6 +213,10 @@ module BMA {
                     onformulachangedcallback: callback
                 });
             }
+
+            public IsVisible(): boolean {
+                return this.variableEditor.is(":visible");
+            }
         }
 
         export class ContainerEditorDriver implements IContainerEditor {

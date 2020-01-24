@@ -205,6 +205,10 @@ module BMA {
             SetOnVariableEditedCallback(callback: Function) { };
 
             SetOnFormulaEditedCallback(callback: Function) { };
+
+            IsVisible() {
+                return false;
+            }
         }
 
     }

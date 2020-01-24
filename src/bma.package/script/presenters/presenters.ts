@@ -543,12 +543,15 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceCopy", (args) => {
 
-                    try {
-                        var toCopy = this.CreateSerializedModelFromSelection();
-                        ModelHelper.CopyToClipboard(toCopy);
-                    }
-                    catch (exc) {
-                        messageBox.Show("Unable to copy selection: " + exc);
+                    //We copy only if variable editor is not opened.
+                    if (!that.variableEditor.IsVisible()) {
+                        try {
+                            var toCopy = this.CreateSerializedModelFromSelection();
+                            ModelHelper.CopyToClipboard(toCopy);
+                        }
+                        catch (exc) {
+                            messageBox.Show("Unable to copy selection: " + exc);
+                        }
                     }
 
                     /*
@@ -562,13 +565,16 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceCut", (args) => {
 
-                    try {
-                        var toCut = this.CreateSerializedModelFromSelection();
-                        ModelHelper.CopyToClipboard(toCut);
-                        that.DeleteSelected();
-                    }
-                    catch (exc) {
-                        messageBox.Show("Unable to cut selection: " + exc);
+                    //We cut only if variable editor is not opened.
+                    if (!that.variableEditor.IsVisible()) {
+                        try {
+                            var toCut = this.CreateSerializedModelFromSelection();
+                            ModelHelper.CopyToClipboard(toCut);
+                            that.DeleteSelected();
+                        }
+                        catch (exc) {
+                            messageBox.Show("Unable to cut selection: " + exc);
+                        }
                     }
 
                     //that.CopyToClipboard(true);

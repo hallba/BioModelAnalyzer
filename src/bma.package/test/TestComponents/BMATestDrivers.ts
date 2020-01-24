@@ -178,6 +178,10 @@ module BMA {
             public SetOnVariableEditedCallback(callback: Function) { };
 
             public SetOnFormulaEditedCallback(callback: Function) { };
+
+            public IsVisible() {
+                return false;
+            };
         }
 
 

@@ -54,6 +54,7 @@ module BMA {
             Initialize(variable: BMA.Model.Variable, model: BMA.Model.BioModel, layout: BMA.Model.Layout);
             Show(x: number, y: number);
             Hide();
+            IsVisible(): boolean;
             SetValidation(val: boolean, message: string);
             SetOnClosingCallback(callback: Function);
             SetOnVariableEditedCallback(callback: Function);
