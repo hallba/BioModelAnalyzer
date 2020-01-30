@@ -411,7 +411,9 @@ module BMA {
                                         layout.Variables[i].CellX,
                                         layout.Variables[i].CellY,
                                         layout.Variables[i].Angle,
-                                        layout.Variables[i].TFDescription
+                                        layout.Variables[i].TFDescription,
+                                        layout.Variables[i].Stroke,
+                                        layout.Variables[i].Fill
                                     )
                                 );
                             }
@@ -467,6 +469,7 @@ module BMA {
                     */
 
                     var isSelectionEmpty = that.IsSelectionEmpty();
+                    var selectionHasVariables = that.SelectionHasVariables();
                     var canPaste = !that.IsGridCellOccupied(that.GetGridCell(x, y));
 
                     that.contextMenu.ShowMenuItems([
@@ -482,7 +485,8 @@ module BMA {
                         { name: "Activator", isVisible: true },
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
-                        { name: "Selection", isVisible: !isSelectionEmpty }
+                        { name: "Selection", isVisible: !isSelectionEmpty },
+                        { name: "Fill", isVisible: selectionHasVariables }
                     ]);
 
                     that.contextMenu.EnableMenuItems([
@@ -709,6 +713,22 @@ module BMA {
                     }
 
                     that.contextElement = undefined;
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorDefault", () => {
+                    that.SetFillColorForSelection(undefined);
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorRed", () => {
+                    that.SetFillColorForSelection("red");
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorGreen", () => {
+                    that.SetFillColorForSelection("green");
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorBlue", () => {
+                    that.SetFillColorForSelection("blue");
                 });
 
                 window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
@@ -1017,7 +1037,7 @@ module BMA {
                                 stagingVariableType = "MembraneReceptor";
                             }
                             that.stagingVariable.model = new BMA.Model.Variable(id, vrbl.ContainerId, stagingVariableType, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                            that.stagingVariable.layout = new BMA.Model.VariableLayout(that.stagingVariable.layout.Id, gesture.x1, gesture.y1, 0, 0, 0, that.stagingVariable.layout.TFDescription);
+                            that.stagingVariable.layout = new BMA.Model.VariableLayout(that.stagingVariable.layout.Id, gesture.x1, gesture.y1, 0, 0, 0, that.stagingVariable.layout.TFDescription, that.stagingVariable.layout.Stroke, that.stagingVariable.layout.Fill);
 
                             if (that.svg !== undefined) {
                                 that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
@@ -1167,6 +1187,64 @@ module BMA {
             //        return false;
             //    }
             //}
+
+            private SetFillColorForSelection(color: string) {
+                var that = this;
+
+                if (that.SelectionHasVariables()) {
+                    var oldLayout = that.undoRedoPresenter.Current.layout;
+                    var variableLayouts = [];
+                    for (var i = 0; i < oldLayout.Variables.length; i++) {
+                        var varItem = oldLayout.Variables[i];
+                        if (that.selection.variables[varItem.Id] !== undefined) {
+                            variableLayouts.push(new BMA.Model.VariableLayout(
+                                varItem.Id,
+                                varItem.PositionX,
+                                varItem.PositionY,
+                                varItem.CellX,
+                                varItem.CellY,
+                                varItem.Angle,
+                                varItem.TFDescription,
+                                varItem.Stroke,
+                                color));
+                        } else {
+                            variableLayouts.push(varItem);
+                        }
+                    }
+
+                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts);
+                    that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
+                }
+            }
+
+            private SetStrokeColorForSelection(color: string) {
+                var that = this;
+
+                if (that.SelectionHasVariables()) {
+                    var oldLayout = that.undoRedoPresenter.Current.layout;
+                    var variableLayouts = [];
+                    for (var i = 0; i < oldLayout.Variables.length; i++) {
+                        var varItem = oldLayout.Variables[i];
+                        if (that.selection.variables[varItem.Id] !== undefined) {
+                            variableLayouts.push(new BMA.Model.VariableLayout(
+                                varItem.Id,
+                                varItem.PositionX,
+                                varItem.PositionY,
+                                varItem.CellX,
+                                varItem.CellY,
+                                varItem.Angle,
+                                varItem.TFDescription,
+                                color,
+                                varItem.Fill));
+                        } else {
+                            variableLayouts.push(varItem);
+                        }
+                    }
+
+                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts);
+                    that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
+                }
+            }
 
             private CreateMotifFromSelection() {
                 var selectionModel = this.CreateModelFromSelection();
@@ -1343,6 +1421,17 @@ module BMA {
 
                     return true;
                 }
+            }
+
+            private SelectionHasVariables(): boolean {
+                if (this.selection.variables.length > 0) {
+                    for (var i = 0; i < this.selection.variables.length; i++) {
+                        if (this.selection.variables[i] === true)
+                            return true;
+                    }
+                }
+
+                return false;
             }
 
             private RefreshSelectedRelationships(affectedVariables: number[]) {
@@ -1907,7 +1996,8 @@ module BMA {
 
                                                 variableLayouts[j] = new BMA.Model.VariableLayout(variableLayouts[j].Id,
                                                     vlX - oldContainerOffset.x + newContainerOffset.x,
-                                                    vlY - oldContainerOffset.y + newContainerOffset.y, 0, 0, variableLayouts[j].Angle, variableLayouts[j].TFDescription);
+                                                    vlY - oldContainerOffset.y + newContainerOffset.y, 0, 0,
+                                                    variableLayouts[j].Angle, variableLayouts[j].TFDescription, variableLayouts[j].Stroke, variableLayouts[j].Fill);
                                             }
                                         }
                                     }
@@ -1935,12 +2025,12 @@ module BMA {
                                 if (variables[i].Id === id) {
                                     var vrbl = variables[i];
                                     variables[i] = new BMA.Model.Variable(vrbl.Id, 0, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription);
+                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription, variableLayouts[i].Stroke, variableLayouts[i].Fill);
                                 }
                             }
                         } else {
                             variables.push(new BMA.Model.Variable(this.variableIndex, 0, vt, "", 0, 1, ""));
-                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0));
+                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0, "", undefined, undefined));
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
@@ -1962,12 +2052,12 @@ module BMA {
                                 if (variables[i].Id === id) {
                                     var vrbl = variables[i];
                                     variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription);
+                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, x, y, 0, 0, 0, variableLayouts[i].TFDescription, variableLayouts[i].Stroke, variableLayouts[i].Fill);
                                 }
                             }
                         } else {
                             variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
-                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0));
+                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, x, y, 0, 0, 0, "", undefined, undefined));
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
@@ -2011,13 +2101,13 @@ module BMA {
 
                                     var vrbl = variables[i];
                                     variables[i] = new BMA.Model.Variable(vrbl.Id, container.Id, vt, vrbl.Name, vrbl.RangeFrom, vrbl.RangeTo, vrbl.Formula);
-                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, pos.x, pos.y, 0, 0, angle, variableLayouts[i].TFDescription);
+                                    variableLayouts[i] = new BMA.Model.VariableLayout(id, pos.x, pos.y, 0, 0, angle, variableLayouts[i].TFDescription, variableLayouts[i].Stroke, variableLayouts[i].Fill);
                                 }
                             }
                         } else {
                             var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, x, y);
                             variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
-                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle));
+                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle, "", undefined, undefined));
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
@@ -2274,7 +2364,9 @@ module BMA {
                                 layout.Variables[j].CellY,
                                 layout.Variables[j].Angle,
                                 (j == editingVariableIndex && params.TFdescription !== undefined) ?
-                                    params.TFdescription : layout.Variables[j].TFDescription)
+                                    params.TFdescription : layout.Variables[j].TFDescription,
+                                layout.Variables[j].Stroke,
+                                layout.Variables[j].Fill)
                             );
                         }
 

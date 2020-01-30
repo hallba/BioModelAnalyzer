@@ -276,6 +276,8 @@ module BMA {
                         CellY: v.CellY,
                         Angle: v.Angle,
                         Description: v.TFDescription,
+                        Stroke: v.Stroke,
+                        Fill: v.Fill
                     }
                 }),
                 Containers: layout.Containers.map(c => {
@@ -353,7 +355,7 @@ module BMA {
             }
 
             var layout = new Layout(containers,
-                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description)));
+                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description, v.Stroke, v.Fill)));
 
 
             return {

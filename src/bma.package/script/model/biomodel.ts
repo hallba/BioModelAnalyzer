@@ -292,6 +292,8 @@ module BMA {
             private cellY: number;
             private angle: number;
             private TFdescription: string;
+            private fill: string;
+            private stroke: string;
 
             public get Id(): number {
                 return this.id;
@@ -321,7 +323,15 @@ module BMA {
                 return this.TFdescription ? this.TFdescription : "";
             }
 
-            constructor(id: number, positionX: number, positionY: number, cellX: number, cellY: number, angle: number, TFdescription: string = "") {
+            public get Fill(): string {
+                return this.fill;
+            }
+
+            public get Stroke(): string {
+                return this.stroke;
+            }
+
+            constructor(id: number, positionX: number, positionY: number, cellX: number, cellY: number, angle: number, TFdescription: string = "", stroke: string, fill: string) {
                 this.id = id;
                 this.positionX = positionX;
                 this.positionY = positionY;
@@ -329,6 +339,8 @@ module BMA {
                 this.cellY = cellY;
                 this.angle = angle;
                 this.TFdescription = TFdescription;
+                this.stroke = stroke;
+                this.fill = fill;
             }
         }
 

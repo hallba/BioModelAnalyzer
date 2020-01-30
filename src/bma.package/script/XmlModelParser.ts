@@ -71,7 +71,7 @@ module BMA
                 y,
                 0,
                 0,
-                0);
+                0, "", undefined, undefined);
         }).get());
 
         return {
@@ -196,7 +196,7 @@ module BMA
                 y,
                 Number.NaN,
                 Number.NaN,
-                parseFloat(angle));
+                parseFloat(angle), "", undefined, undefined);
         }).get();
 
         return {

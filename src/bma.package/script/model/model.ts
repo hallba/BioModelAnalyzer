@@ -114,7 +114,8 @@ module BMA {
                             ml.layout.variables[i].positionY,
                             ml.layout.variables[i].cellX,
                             ml.layout.variables[i].cellY,
-                            ml.layout.variables[i].angle));
+                            ml.layout.variables[i].angle,
+                            "", undefined, undefined));
                     }
 
                     var relationships = [];

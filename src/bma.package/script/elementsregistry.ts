@@ -464,6 +464,14 @@ module BMA {
                             var pathFill = "#CCC";
                             var selectedPathFill = '#7c7c7c';
 
+                            if (renderParams.layout.fill !== undefined) {
+                                pathFill = renderParams.layout.fill;
+                            }
+
+                            if (renderParams.layout.stroke !== undefined) {
+                                selectedPathFill = renderParams.layout.stroke;
+                            }
+
                             if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
                                 pathFill = "#bbbdbf";
                                 selectedPathFill = "gray";
@@ -628,6 +636,14 @@ module BMA {
                             var pathFill = "#f6c"; //"#EF4137";
                             var selectedPathFill = '#906';
 
+                            if (renderParams.layout.fill !== undefined) {
+                                pathFill = renderParams.layout.fill;
+                            }
+
+                            if (renderParams.layout.stroke !== undefined) {
+                                selectedPathFill = renderParams.layout.stroke;
+                            }
+
                             if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
                                 pathFill = "#ef4137";
                                 selectedPathFill = "gray";
@@ -777,6 +793,14 @@ module BMA {
 
                             var pathFill = renderParams.isSelected ? "#39c" : "#09c";
                             var selectedPathFill = "#036";
+
+                            if (renderParams.layout.fill !== undefined) {
+                                pathFill = renderParams.layout.fill;
+                            }
+
+                            if (renderParams.layout.stroke !== undefined) {
+                                selectedPathFill = renderParams.layout.stroke;
+                            }
 
                             if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
                                 pathFill = "#3bb34a";

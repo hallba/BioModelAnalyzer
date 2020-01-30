@@ -224,7 +224,7 @@ module BMA {
                     var containerY = (container.PositionY + 0.5) * grid.yStep + grid.yOrigin + (container.Size - 1) * grid.yStep / 2;
 
                     var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, variableLayouts[i].PositionX, variableLayouts[i].PositionY);
-                    newVariableLayouts.push(new BMA.Model.VariableLayout(vl.Id, pos.x, pos.y, 0, 0, vl.Angle, vl.TFDescription));
+                    newVariableLayouts.push(new BMA.Model.VariableLayout(vl.Id, pos.x, pos.y, 0, 0, vl.Angle, vl.TFDescription, vl.Stroke, vl.Fill));
                 } else {
                     newVariableLayouts.push(variableLayouts[i]);
                 }
@@ -600,7 +600,7 @@ module BMA {
                         }
                     }
 
-                    variableLayouts[i] = new BMA.Model.VariableLayout(variableLayout.Id, varPosX, varPosY, variableLayout.CellX, variableLayout.CellY, variableLayout.Angle, variableLayout.TFDescription);
+                    variableLayouts[i] = new BMA.Model.VariableLayout(variableLayout.Id, varPosX, varPosY, variableLayout.CellX, variableLayout.CellY, variableLayout.Angle, variableLayout.TFDescription, variableLayout.Stroke, variableLayout.Fill);
                 }
             }
 
@@ -633,7 +633,7 @@ module BMA {
                 var offsetX = variableLayout.PositionX + targetOffsetX;
                 var offsetY = variableLayout.PositionY + targetOffsetY;
                 variables.push(new BMA.Model.Variable(variableIndex, cntDic[variable.ContainerId], variable.Type, variable.Name, variable.RangeFrom, variable.RangeTo, variable.Formula));
-                variableLayouts.push(new BMA.Model.VariableLayout(variableIndex++, offsetX, offsetY, 0, 0, variableLayout.Angle, variableLayout.TFDescription));
+                variableLayouts.push(new BMA.Model.VariableLayout(variableIndex++, offsetX, offsetY, 0, 0, variableLayout.Angle, variableLayout.TFDescription, variableLayout.Stroke, variableLayout.Fill));
             }
 
             for (var i = 0; i < target.model.Relationships.length; i++) {
@@ -699,14 +699,14 @@ module BMA {
                     var v = variables[i];
                     var vl = variableLayouts[i];
                     if (variables[i].ContainerId === container.Id) {
-                        newVL.push(new BMA.Model.VariableLayout(vl.Id, cntX + (vl.PositionX - cntX) * containerSize / container.Size, cntY + (vl.PositionY - cntY) * containerSize / container.Size, 0, 0, vl.Angle));
+                        newVL.push(new BMA.Model.VariableLayout(vl.Id, cntX + (vl.PositionX - cntX) * containerSize / container.Size, cntY + (vl.PositionY - cntY) * containerSize / container.Size, 0, 0, vl.Angle, vl.TFDescription, vl.Stroke, vl.Fill));
                     } else {
                         if (shouldMove) {
                             if (v.Type === "Constant") {
                                 newVL.push(new BMA.Model.VariableLayout(vl.Id,
                                     vl.PositionX > cntX + grid.xStep ? vl.PositionX + sizeDiff * grid.xStep : vl.PositionX,
                                     vl.PositionY > cntY + grid.yStep ? vl.PositionY + sizeDiff * grid.yStep : vl.PositionY,
-                                    0, 0, vl.Angle));
+                                    0, 0, vl.Angle, vl.TFDescription, vl.Stroke, vl.Fill));
                             } else {
                                 var vCnt = layout.GetContainerById(v.ContainerId);
                                 var vCntX = vCnt.PositionX * grid.xStep + grid.xOrigin;
@@ -718,7 +718,7 @@ module BMA {
                                 newVL.push(new BMA.Model.VariableLayout(vl.Id,
                                     unsizedVposX > cntX + grid.xStep ? vl.PositionX + sizeDiff * grid.xStep : vl.PositionX,
                                     unsizedVposY > cntY + grid.yStep ? vl.PositionY + sizeDiff * grid.yStep : vl.PositionY,
-                                    0, 0, vl.Angle));
+                                    0, 0, vl.Angle, vl.TFDescription, vl.Stroke, vl.Fill));
                             }
                         } else {
                             newVL.push(vl);
@@ -1143,7 +1143,10 @@ module BMA {
                                 variableLayout.PositionY + gridOffset.y * grid.yStep,
                                 0,
                                 0,
-                                variableLayout.Angle);
+                                variableLayout.Angle,
+                                variableLayout.TFDescription,
+                                variableLayout.Stroke,
+                                variableLayout.Fill);
 
                         variableLayouts.push(newVariableLayout);
                     }

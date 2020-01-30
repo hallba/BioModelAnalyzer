@@ -369,6 +369,14 @@ function loadScript(version) {
                 title: "Selection", uiIcon: "ui-icon-clipboard", children: [
                     { title: "Clear", cmd: "ClearSelection" },
                     { title: "Create Motif", cmd: "CreateMotifFromSelection" },
+                    {
+                        title: "Fill", children: [
+                            { title: "Default", cmd: "SetColorDefault" },
+                            { title: "Red", cmd: "SetColorRed" },
+                            { title: "Green", cmd: "SetColorGreen" },
+                            { title: "Blue", cmd: "SetColorBlue" }
+                        ]
+                    }
                 ]
             }
         ],
