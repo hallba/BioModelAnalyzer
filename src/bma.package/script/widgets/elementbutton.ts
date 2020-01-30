@@ -2,7 +2,7 @@
 // License: MIT. See LICENSE
 /// <reference path="..\..\Scripts\typings\jquery\jquery.d.ts"/>
 /// <reference path="..\..\Scripts\typings\jqueryui\jqueryui.d.ts"/>
-/// <reference path="..\elementsregistry.ts"/>
+/// <reference path="../rendering/elementsregistry.ts"/>
 
 
 (function ($) {

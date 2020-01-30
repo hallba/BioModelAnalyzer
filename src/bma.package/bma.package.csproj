@@ -343,6 +343,9 @@
     <TypeScriptCompile Include="script\model\MotifLibrary.ts" />
     <TypeScriptCompile Include="script\presenters\onedrivestoragepresenter.ts" />
     <TypeScriptCompile Include="script\presenters\storagepresenter.ts" />
+    <TypeScriptCompile Include="script\rendering\ContainerRenderInfo.ts" />
+    <TypeScriptCompile Include="script\rendering\RenderHelper.ts" />
+    <TypeScriptCompile Include="script\rendering\renderingconstants.ts" />
     <TypeScriptCompile Include="script\widgets\codeeditor.ts" />
     <TypeScriptCompile Include="script\widgets\modelstoragewidget.ts" />
     <TypeScriptCompile Include="script\widgets\motiflibrary.ts" />
@@ -352,7 +355,7 @@
     <TypeScriptCompile Include="test\ConvertTargetFunctionToOperationTests.ts" />
     <TypeScriptCompile Include="script\changeschecker.ts" />
     <TypeScriptCompile Include="script\Commands.ts" />
-    <TypeScriptCompile Include="script\elementsregistry.ts" />
+    <TypeScriptCompile Include="script\rendering\elementsregistry.ts" />
     <TypeScriptCompile Include="script\functionsregistry.ts" />
     <TypeScriptCompile Include="script\jisonparser.ts" />
     <TypeScriptCompile Include="script\jqextensions.ts" />

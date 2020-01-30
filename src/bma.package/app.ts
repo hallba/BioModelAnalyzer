@@ -7,7 +7,9 @@
 /// <reference path="script\model\exportimport.ts"/>
 /// <reference path="script\model\visualsettings.ts"/>
 /// <reference path="script\commands.ts"/>
-/// <reference path="script\elementsregistry.ts"/>
+/// <reference path="script\rendering\elementsregistry.ts"/>
+/// <reference path="script\rendering\RenderHelper.ts"/>
+/// <reference path="script\rendering\renderingconstants.ts"/>
 /// <reference path="script\functionsregistry.ts"/>
 /// <reference path="script\keyframesregistry.ts"/>
 /// <reference path="script\operatorsregistry.ts"/>
