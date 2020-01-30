@@ -464,17 +464,17 @@ module BMA {
                             var pathFill = "#CCC";
                             var selectedPathFill = '#7c7c7c';
 
+                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+                                pathFill = "#bbbdbf";
+                                selectedPathFill = "gray";
+                            }
+
                             if (renderParams.layout.fill !== undefined) {
                                 pathFill = renderParams.layout.fill;
                             }
 
                             if (renderParams.layout.stroke !== undefined) {
                                 selectedPathFill = renderParams.layout.stroke;
-                            }
-
-                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-                                pathFill = "#bbbdbf";
-                                selectedPathFill = "gray";
                             }
 
                             if (renderParams.isHighlighted !== undefined) {
@@ -636,6 +636,11 @@ module BMA {
                             var pathFill = "#f6c"; //"#EF4137";
                             var selectedPathFill = '#906';
 
+                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+                                pathFill = "#ef4137";
+                                selectedPathFill = "gray";
+                            }
+
                             if (renderParams.layout.fill !== undefined) {
                                 pathFill = renderParams.layout.fill;
                             }
@@ -643,12 +648,6 @@ module BMA {
                             if (renderParams.layout.stroke !== undefined) {
                                 selectedPathFill = renderParams.layout.stroke;
                             }
-
-                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-                                pathFill = "#ef4137";
-                                selectedPathFill = "gray";
-                            }
-
 
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
@@ -794,6 +793,11 @@ module BMA {
                             var pathFill = renderParams.isSelected ? "#39c" : "#09c";
                             var selectedPathFill = "#036";
 
+                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+                                pathFill = "#3bb34a";
+                                selectedPathFill = "gray";
+                            }
+
                             if (renderParams.layout.fill !== undefined) {
                                 pathFill = renderParams.layout.fill;
                             }
@@ -801,12 +805,6 @@ module BMA {
                             if (renderParams.layout.stroke !== undefined) {
                                 selectedPathFill = renderParams.layout.stroke;
                             }
-
-                            if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-                                pathFill = "#3bb34a";
-                                selectedPathFill = "gray";
-                            }
-
 
                             if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
                                 pathFill = "#EDEDED";
