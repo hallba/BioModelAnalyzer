@@ -486,7 +486,7 @@ module BMA {
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
                         { name: "Selection", isVisible: !isSelectionEmpty },
-                        { name: "Fill", isVisible: selectionHasVariables }
+                        { name: "SetFillColor", isVisible: selectionHasVariables }
                     ]);
 
                     that.contextMenu.EnableMenuItems([

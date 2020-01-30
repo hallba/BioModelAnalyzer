@@ -366,11 +366,11 @@ function loadScript(version) {
             },
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
             {
-                title: "Selection", uiIcon: "ui-icon-clipboard", children: [
+                title: "Selection", cmd: "Selection", uiIcon: "ui-icon-clipboard", children: [
                     { title: "Clear", cmd: "ClearSelection" },
                     { title: "Create Motif", cmd: "CreateMotifFromSelection" },
                     {
-                        title: "Fill", children: [
+                        title: "Set Fill", cmd: "SetFillColor", children: [
                             { title: "Default", cmd: "SetColorDefault" },
                             { title: "Red", cmd: "SetColorRed" },
                             { title: "Green", cmd: "SetColorGreen" },
