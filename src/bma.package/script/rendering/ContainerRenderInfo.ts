@@ -40,10 +40,10 @@
                 if (!renderParams.textOnly) {
 
                     jqSvg.rect(g,
-                        - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep * BMA.SVGRendering.Constants.containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
-                        - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep * BMA.SVGRendering.Constants.containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
-                        renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep * BMA.SVGRendering.Constants.containerPaddingCoef,
-                        renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep * BMA.SVGRendering.Constants.containerPaddingCoef,
+                        - renderParams.grid.xStep * renderParams.layout.Size / 2 + renderParams.grid.xStep * BMA.SVGRendering.SVGRenderingConstants.containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.x),
+                        - renderParams.grid.yStep * renderParams.layout.Size / 2 + renderParams.grid.yStep * BMA.SVGRendering.SVGRenderingConstants.containerPaddingCoef + (renderParams.translate === undefined ? 0 : renderParams.translate.y),
+                        renderParams.grid.xStep * renderParams.layout.Size - 2 * renderParams.grid.xStep * BMA.SVGRendering.SVGRenderingConstants.containerPaddingCoef,
+                        renderParams.grid.yStep * renderParams.layout.Size - 2 * renderParams.grid.yStep * BMA.SVGRendering.SVGRenderingConstants.containerPaddingCoef,
                         0,
                         0,
                         {
@@ -78,14 +78,14 @@
 
                     if (renderParams.translate === undefined) {
 
-                        var xThickness = BMA.SVGRendering.Constants.containerOuterEllipseWidth - BMA.SVGRendering.Constants.containerInnerEllipseWidth;
-                        var yThickness = BMA.SVGRendering.Constants.containerOuterEllipseHeight - BMA.SVGRendering.Constants.containerInnerEllipseHeight;
+                        var xThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseWidth - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth;
+                        var yThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseHeight - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight;
 
                         jqSvg.ellipse(g,
-                            BMA.SVGRendering.Constants.containerInnerCenterOffset * renderParams.layout.Size,
+                            BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size,
                             0,
-                            BMA.SVGRendering.Constants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1),
-                            BMA.SVGRendering.Constants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1), { stroke: "none", fill: "white" });
+                            BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1),
+                            BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1), { stroke: "none", fill: "white" });
 
                         //Test geometry for container outer ellipse check
                         //jqSvg.ellipse(g,
@@ -118,8 +118,8 @@
                             var textLabel = jqSvg.text(g, 0, 0, renderParams.layout.Name, {
                                 transform: "translate(" + -(renderParams.layout.Size * renderParams.grid.xStep / 2 - 10 * renderParams.layout.Size) + ", " + -(renderParams.layout.Size * renderParams.grid.yStep / 2 - that.labelSize - 10 * renderParams.layout.Size) + ")",
                                 "font-size": that.labelSize * renderParams.layout.Size,
-                                "font-family": textFontFamily,
-                                "src": textFontSrc,
+                                "font-family": BMA.SVGRendering.SVGRenderingConstants.textFontFamily,
+                                "src": BMA.SVGRendering.SVGRenderingConstants.textFontSrc,
                                 "fill": "black"
                             });
                         }

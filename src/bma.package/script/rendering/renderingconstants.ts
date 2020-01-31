@@ -1,12 +1,21 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class Constants {
-            public readonly variableWidthConstant = 35;
-            public readonly variableHeightConstant = 30;
-            public readonly variableSizeConstant = 30;
-            public readonly relationshipBboxOffset = 20;
-            public readonly containerRadius = 100;
-            public readonly containerPaddingCoef = 0.001;
+        export class SVGRenderingConstants {
+            static readonly variableWidthConstant = 35;
+            static readonly variableHeightConstant = 30;
+            static readonly variableSizeConstant = 30;
+            static readonly relationshipBboxOffset = 20;
+            static readonly containerRadius = 100;
+            static readonly containerInnerEllipseWidth = 106;
+            static readonly containerInnerEllipseHeight = 123.5;
+            static readonly containerOuterEllipseWidth = 119;
+            static readonly containerOuterEllipseHeight = 136.5;
+            static readonly containerInnerCenterOffset = 0;
+            static readonly containerOuterCenterOffset = 0;
+            static readonly containerPaddingCoef = 0.001;
+
+            static readonly textFontFamily = "OpenSans";
+            static readonly textFontSrc = "local('Segoe UI'), local('Frutiger'), local('Frutiger Linotype'), local('Dejavu Sans'), local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('sans serif'), local('sans-serif')";
         }
 
         export interface Element {

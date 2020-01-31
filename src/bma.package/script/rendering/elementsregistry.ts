@@ -262,17 +262,7 @@ module BMA {
                     }
                 });
 
-                var containerInnerEllipseWidth = 106;
-                var containerInnerEllipseHeight = 123.5;
-                var containerOuterEllipseWidth = 119;
-                var containerOuterEllipseHeight = 136.5;
-                var containerInnerCenterOffset = 0;
-                var containerOuterCenterOffset = 0;
-                var containerPaddingCoef = 0.001;
-
-                var textFontFamily = "OpenSans";
-                var textFontSrc = "local('Segoe UI'), local('Frutiger'), local('Frutiger Linotype'), local('Dejavu Sans'), local('Helvetica Neue'), local('HelveticaNeue'), local('Arial'), local('sans serif'), local('sans-serif')";
-
+                
                 this.elements.push(new BorderContainerElement(
                     "Container",
                     function (renderParams) {
