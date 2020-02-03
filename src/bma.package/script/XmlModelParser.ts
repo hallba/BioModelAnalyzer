@@ -62,6 +62,13 @@ module BMA
 
             var xLoc = parseInt(($elt.children("nodevisualsetting").attr("x")));
             var yLoc = parseInt(($elt.children("nodevisualsetting").attr("y")));
+            var fill = $elt.children("nodevisualsetting").attr("backgroundColor");
+
+            if (isNaN(xLoc) || isNaN(yLoc)) {
+                var xLoc = parseInt(($elt.children("nodevisualsetting").children().attr("x")));
+                var yLoc = parseInt(($elt.children("nodevisualsetting").children().attr("y")));
+                var fill = $elt.children("nodevisualsetting").children().attr("backgroundColor");
+            }
 
             var x = xLoc;
             var y = yLoc;
@@ -71,7 +78,7 @@ module BMA
                 y,
                 0,
                 0,
-                0, "", undefined, undefined);
+                0, "", undefined, fill);
         }).get());
 
         return {
