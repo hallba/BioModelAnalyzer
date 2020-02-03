@@ -3,7 +3,6 @@
         export module RenderHelper {
             //Creates svg with bezier curve corresponding to input parameters
             export function CreateBezier(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
-                var that = this;
                 var jqSvg = svg;
 
                 var nx = 0;
@@ -28,23 +27,25 @@
                 var lvlength = Math.sqrt(lineVector.x * lineVector.x + lineVector.y * lineVector.y);
                 lineVector.x = lineVector.x / lvlength;
                 lineVector.y = lineVector.y / lvlength;
-                var length05 = 0.5 * that.variableSizeConstant;
+                var length05 = 0.5 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
                 var length01 = 0.1 * lvlength;
 
-                var pointOffset = 0.15 * that.variableSizeConstant;
+                var pointOffset = 0.15 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
 
                 var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
                 var path = jqSvg.createPath();
-                return jqSvg.path(path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
+                var pathData = path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
                     .curveC(
                         start.x + normal.x * length05 + lineVector.x * 3 * length01,
                         start.y + normal.y * length05 + lineVector.y * 3 * length01,
                         end.x + normal.x * length05 - lineVector.x * 3 * length01,
                         end.y + normal.y * length05 - lineVector.y * 3 * length01,
                         end.x + normal.x * pointOffset,
-                        end.y + normal.y * pointOffset),
+                        end.y + normal.y * pointOffset);
+                //console.log("path data: " + pathData._path);
+                return jqSvg.path(pathData,
                     { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round" });
             }
 
@@ -55,7 +56,9 @@
                 var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
                 var path = jqSvg.createPath();
-                return jqSvg.path(path.move(start.x, start.y).lineTo(end.x, end.y),
+                var pathData = path.move(start.x, start.y).lineTo(end.x, end.y);
+                //console.log("path data: " + pathData._path);
+                return jqSvg.path(pathData,
                     { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round" });
             }
 
