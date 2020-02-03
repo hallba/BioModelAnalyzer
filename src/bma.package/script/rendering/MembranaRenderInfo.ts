@@ -1,39 +1,10 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class MembranaRenderInfo implements BboxElement {
+        export class MembranaRenderInfo extends ElementRenderInfo implements BboxElement {
             private jqSvg: any;
-            private labelVisibility: boolean;
-            private labelSize: number;
-
-            public get LabelVisibility(): boolean {
-                return this.labelVisibility;
-            }
-
-            public set LabelVisibility(value: boolean) {
-                this.labelVisibility = value;
-            }
-
-            public get LabelSize(): number {
-                return this.labelSize;
-            }
-
-            public set LabelSize(value: number) {
-                this.labelSize = value;
-            }
-
-            public get Type(): string {
-                return "MembraneReceptor";
-            }
-
-            public get Description(): string {
-                return "Membrane Receptor";
-            }
-
-            public get IconClass(): string {
-                return "receptor-icon";
-            }
 
             constructor(svg: any) {
+                super("MembraneReceptor", "Membrane Receptor", "receptor-icon");
                 this.jqSvg = svg;
             }
 
@@ -168,24 +139,24 @@
                         });
                     }
 
-                    if (that.labelVisibility === true) {
+                    if (that.LabelVisibility === true) {
                         var offset = 0;
 
                         if (renderParams.model.Name !== "") {
                             var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.labelSize) + ")",
-                                "font-size": that.labelSize,
+                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.LabelSize) + ")",
+                                "font-size": that.LabelSize,
                                 "font-family": BMA.SVGRendering.SVGRenderingConstants.textFontFamily,
                                 "src": BMA.SVGRendering.SVGRenderingConstants.textFontSrc,
                                 "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                             });
-                            offset += that.labelSize;
+                            offset += that.LabelSize;
                         }
 
                         if (renderParams.valueText !== undefined) {
                             jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.labelSize + offset) + ")",
-                                "font-size": that.labelSize,
+                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * 0.5 /** renderParams.sizeCoef*/ + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant * 0.5 /** renderParams.sizeCoef*/ + that.LabelSize + offset) + ")",
+                                "font-size": that.LabelSize,
                                 "font-family": BMA.SVGRendering.SVGRenderingConstants.textFontFamily,
                                 "src": BMA.SVGRendering.SVGRenderingConstants.textFontSrc,
                                 "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"

@@ -1,39 +1,10 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class DefaultRenderInfo implements BboxElement {
+        export class DefaultRenderInfo extends ElementRenderInfo implements BboxElement {
             private jqSvg: any;
-            private labelVisibility: boolean;
-            private labelSize: number;
-
-            public get LabelVisibility(): boolean {
-                return this.labelVisibility;
-            }
-
-            public set LabelVisibility(value: boolean) {
-                this.labelVisibility = value;
-            }
-
-            public get LabelSize(): number {
-                return this.labelSize;
-            }
-
-            public set LabelSize(value: number) {
-                this.labelSize = value;
-            }
-
-            public get Type(): string {
-                return "Default";
-            }
-
-            public get Description(): string {
-                return "Intracellular Protein";
-            }
-
-            public get IconClass(): string {
-                return "variable-icon";
-            }
 
             constructor(svg: any) {
+                super("Default", "Intracellular Protein", "variable-icon");
                 this.jqSvg = svg;
             }
 
@@ -156,24 +127,24 @@
                         });
                     }
 
-                    if (that.labelVisibility === true) {
+                    if (that.LabelVisibility === true) {
                         var offset = 0;
 
                         if (renderParams.model.Name !== "") {
                             var textLabel = jqSvg.text(g, 0, 0, renderParams.model.Name, {
-                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2 + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.labelSize) + ")",
-                                "font-size": that.labelSize,
+                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2 + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize) + ")",
+                                "font-size": that.LabelSize,
                                 "font-family": BMA.SVGRendering.SVGRenderingConstants.textFontFamily,
                                 "src": BMA.SVGRendering.SVGRenderingConstants.textFontSrc,
                                 "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"
                             });
-                            offset += that.labelSize;
+                            offset += that.LabelSize;
                         }
 
                         if (renderParams.valueText !== undefined) {
                             jqSvg.text(g, 0, 0, renderParams.valueText + "", {
-                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2 + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.labelSize + offset) + ")",
-                                "font-size": that.labelSize,
+                                transform: "translate(" + -BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2 + ", " + (BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset) + ")",
+                                "font-size": that.LabelSize,
                                 "font-family": BMA.SVGRendering.SVGRenderingConstants.textFontFamily,
                                 "src": BMA.SVGRendering.SVGRenderingConstants.textFontSrc,
                                 "fill": renderParams.labelColor !== undefined ? renderParams.labelColor : "black"

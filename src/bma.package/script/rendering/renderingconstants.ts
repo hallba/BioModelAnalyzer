@@ -42,5 +42,48 @@
             IntersectsBorder(pointerX: number, pointerY: number, elementX, elementY, elementParams): boolean
             ContainsBBox(bbox: { x: number, y: number, width: number, height: number }, elementX: number, elementY: number, elementParams): boolean
         }
+
+        export class ElementRenderInfo {
+            private type: string;
+            private description: string;
+            private iconClass: string;
+
+            private labelVisibility: boolean;
+            private labelSize: number;
+
+            public get LabelVisibility(): boolean {
+                return this.labelVisibility;
+            }
+
+            public set LabelVisibility(value: boolean) {
+                this.labelVisibility = value;
+            }
+
+            public get LabelSize(): number {
+                return this.labelSize;
+            }
+
+            public set LabelSize(value: number) {
+                this.labelSize = value;
+            }
+
+            public get Type(): string {
+                return this.type;
+            }
+
+            public get Description(): string {
+                return this.description;
+            }
+
+            public get IconClass(): string {
+                return this.iconClass;
+            }
+
+            constructor(type: string, description: string, iconClass: string) {
+                this.type = type;
+                this.description = description;
+                this.iconClass = iconClass;
+            }
+        }
     }
 }

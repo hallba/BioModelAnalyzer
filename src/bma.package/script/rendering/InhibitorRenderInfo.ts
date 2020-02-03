@@ -1,26 +1,8 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class InhibitorRenderInfo implements StrokeElement {
+        export class InhibitorRenderInfo extends ElementRenderInfo implements StrokeElement {
             private jqSvg: any;
-            private labelVisibility: boolean;
-            private labelSize: number;
             private lineWidth: number;
-
-            public get LabelVisibility(): boolean {
-                return this.labelVisibility;
-            }
-
-            public set LabelVisibility(value: boolean) {
-                this.labelVisibility = value;
-            }
-
-            public get LabelSize(): number {
-                return this.labelSize;
-            }
-
-            public set LabelSize(value: number) {
-                this.labelSize = value;
-            }
 
             public get LineWidth(): number {
                 return this.lineWidth;
@@ -30,19 +12,8 @@
                 this.lineWidth = value;
             }
 
-            public get Type(): string {
-                return "Inhibitor";
-            }
-
-            public get Description(): string {
-                return "Inhibiting Relationship";
-            }
-
-            public get IconClass(): string {
-                return "inhibit-icon";
-            }
-
-            constructor(svg: any) {
+           constructor(svg: any) {
+                super("Inhibitor", "Inhibiting Relationship", "inhibit-icon");
                 this.jqSvg = svg;
             }
 

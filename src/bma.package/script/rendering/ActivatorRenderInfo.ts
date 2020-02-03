@@ -1,26 +1,8 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class ActivatorRenderInfo implements StrokeElement {
+        export class ActivatorRenderInfo extends ElementRenderInfo implements StrokeElement {
             private jqSvg: any;
-            private labelVisibility: boolean;
-            private labelSize: number;
             private lineWidth: number;
-
-            public get LabelVisibility(): boolean {
-                return this.labelVisibility;
-            }
-
-            public set LabelVisibility(value: boolean) {
-                this.labelVisibility = value;
-            }
-
-            public get LabelSize(): number {
-                return this.labelSize;
-            }
-
-            public set LabelSize(value: number) {
-                this.labelSize = value;
-            }
 
             public get LineWidth(): number {
                 return this.lineWidth;
@@ -30,19 +12,8 @@
                 this.lineWidth = value;
             }
 
-            public get Type(): string {
-                return "Activator";
-            }
-
-            public get Description(): string {
-                return "Activating Relationship";
-            }
-
-            public get IconClass(): string {
-                return "activate-icon";
-            }
-
             constructor(svg: any) {
+                super("Activator", "Activating Relationship", "activate-icon");
                 this.jqSvg = svg;
             }
 
