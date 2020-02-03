@@ -1,6 +1,27 @@
 ﻿module BMA {
     export module SVGRendering {
-        export class ContainerRenderInfo implements Element {
+        export class ContainerRenderInfo implements BorderContainerElement {
+            private jqSvg: any;
+            private labelVisibility: boolean;
+            private labelSize: number;
+
+            public get LabelVisibility(): boolean {
+                return this.labelVisibility;
+            }
+
+            public set LabelVisibility(value: boolean) {
+                this.labelVisibility = value;
+            }
+
+            public get LabelSize(): number {
+                return this.labelSize;
+            }
+
+            public set LabelSize(value: number) {
+                this.labelSize = value;
+            }
+
+
             public get Type(): string {
                 return "Container";
             }
@@ -13,13 +34,47 @@
                 return "cell-icon";
             }
 
-            private jqSvg: any;
 
             constructor(svg: any) {
                 this.jqSvg = svg;
             }
 
+            public ContainsBBox(bbox: { x: number, y: number, width: number, height: number }, elementX: number, elementY: number, elementParams): boolean {
+                var iscontaining = function (x, y) {
+                    var dstX = Math.abs(x - (elementX + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * elementParams.Size + elementParams.xStep * (elementParams.Size - 1)));
+                    var dstY = Math.abs(y - elementY - elementParams.yStep * (elementParams.Size - 1));
+                    return Math.pow(dstX / (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * elementParams.Size), 2) + Math.pow(dstY / (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * elementParams.Size), 2) < 1
+                }
+
+                var leftTop = iscontaining(bbox.x, bbox.y);
+                var leftBottom = iscontaining(bbox.x, bbox.y + bbox.height);
+                var rightTop = iscontaining(bbox.x + bbox.width, bbox.y);
+                var rightBottom = iscontaining(bbox.x + bbox.width, bbox.y + bbox.height);
+
+                return leftTop && leftBottom && rightTop && rightBottom;
+            }
+
+            public IntersectsBorder(pointerX: number, pointerY: number, elementX, elementY, elementParams): boolean {
+                var innerCenterX = elementX + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * elementParams.Size + elementParams.xStep * (elementParams.Size - 1);
+                var dstXInner = Math.abs(pointerX - innerCenterX);
+
+                var outerCenterX = elementX + BMA.SVGRendering.SVGRenderingConstants.containerOuterCenterOffset * elementParams.Size + elementParams.xStep * (elementParams.Size - 1);
+                var dstXOuter = Math.abs(pointerX - outerCenterX);
+
+                var centerY = elementY + elementParams.yStep * (elementParams.Size - 1);
+                var dstY = Math.abs(pointerY - centerY);
+
+                var outerCheck = Math.pow(dstXOuter / (BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseWidth * elementParams.Size), 2) + Math.pow(dstY / (BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseHeight * elementParams.Size), 2) < 1;
+                var innerCheck = Math.pow(dstXInner / (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * elementParams.Size), 2) + Math.pow(dstY / (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * elementParams.Size), 2) > 1;
+                return outerCheck && innerCheck;
+            }
+
+            public Contains(pointerX: number, pointerY: number, elementX, elementY) {
+                return false;
+            }
+
             public RenderToSvg(renderParams: any) {
+                var that = this;
                 var jqSvg = this.jqSvg;
                 if (jqSvg === undefined)
                     return undefined;

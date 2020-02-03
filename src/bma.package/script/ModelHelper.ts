@@ -766,7 +766,7 @@ module BMA {
                 var vrbl = variables[i];
                 var vLayout = layout.Variables[i];
 
-                var elementBBox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(vrbl.Type)).GetBoundingBox(vLayout.PositionX, vLayout.PositionY);
+                var elementBBox = (<BMA.SVGRendering.BboxElement>window.ElementRegistry.GetElementByType(vrbl.Type)).GetBoundingBox(vLayout.PositionX, vLayout.PositionY);
 
                 var xLeft = elementBBox.x;
                 var xRight = elementBBox.x + elementBBox.width;
@@ -1040,11 +1040,11 @@ module BMA {
                         };
 
                         if (!IsGridCellEmpty2(gridCell, cutted.model, cutted.layout, undefined, grid)) {
-                            var bbox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(variable.Type)).GetBoundingBox(newPosition.x, newPosition.y);
+                            var bbox = (<BMA.SVGRendering.BboxElement>window.ElementRegistry.GetElementByType(variable.Type)).GetBoundingBox(newPosition.x, newPosition.y);
                             var container = GetContainerFromGridCell(cutted.model, cutted.layout, gridCell);
 
                             if (container !== undefined) {
-                                var containerElement = <BMA.Elements.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
+                                var containerElement = <BMA.SVGRendering.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
 
                                 var containerItems = [];
                                 for (var j = 0; j < cutted.model.Variables.length; j++) {
@@ -1061,7 +1061,7 @@ module BMA {
                                 }
 
                                 for (var j = 0; j < containerItems.length; j++) {
-                                    var elementBBox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType(containerItems[j].v.Type)).GetBoundingBox(containerItems[j].l.PositionX, containerItems[j].l.PositionY);
+                                    var elementBBox = (<BMA.SVGRendering.BboxElement>window.ElementRegistry.GetElementByType(containerItems[j].v.Type)).GetBoundingBox(containerItems[j].l.PositionX, containerItems[j].l.PositionY);
                                     if (Intersects(bbox, elementBBox)) {
                                         canMove = false;
                                         break;
@@ -1122,8 +1122,8 @@ module BMA {
                                     x: variableLayout.PositionX + gridOffset.x * grid.xStep,
                                     y: variableLayout.PositionY + gridOffset.y * grid.yStep
                                 };
-                                var containerElement = <BMA.Elements.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
-                                var bbox = (<BMA.Elements.BboxElement>window.ElementRegistry.GetElementByType("Default")).GetBoundingBox(newPosition.x, newPosition.y);
+                                var containerElement = <BMA.SVGRendering.BorderContainerElement>window.ElementRegistry.GetElementByType("Container");
+                                var bbox = (<BMA.SVGRendering.BboxElement>window.ElementRegistry.GetElementByType("Default")).GetBoundingBox(newPosition.x, newPosition.y);
                                 var intersectsBBox = containerElement.IntersectsBorder(newPosition.x, newPosition.y, (containerInTargetCell.PositionX + 0.5) * grid.xStep, (containerInTargetCell.PositionY + 0.5) * grid.yStep, { Size: containerInTargetCell.Size, xStep: grid.xStep / 2, yStep: grid.yStep / 2 })
                                 if (intersectsBBox) {
                                     type = "MembraneReceptor";

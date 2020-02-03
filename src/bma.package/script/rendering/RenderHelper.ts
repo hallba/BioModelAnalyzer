@@ -1,5 +1,5 @@
 ﻿module BMA {
-    module SVGRendering {
+    export module SVGRendering {
         export module RenderHelper {
             //Creates svg with bezier curve corresponding to input parameters
             export function CreateBezier(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {

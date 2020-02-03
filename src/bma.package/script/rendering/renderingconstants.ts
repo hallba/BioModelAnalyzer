@@ -23,12 +23,24 @@
             readonly Description: string;
             readonly IconClass: string;
 
-            GetBoundingBox(x: number, y: number): { x: number; y: number; width: number; height: number }
-            IntersectsBorder(pointerX: number, pointerY: number, elementX, elementY, elementParams): boolean
-            ContainsBBox(bbox: { x: number, y: number, width: number, height: number }, elementX: number, elementY: number, elementParams): boolean
-
+            LabelVisibility: boolean;
+            LabelSize: number;
+            
             RenderToSvg(renderParams: any): SVGElement;
             Contains(pointerX: number, pointerY: number, elementX, elementY): boolean;
+        }
+
+        export interface StrokeElement extends Element {
+            LineWidth: number;
+        }
+
+        export interface BboxElement extends Element {
+            GetBoundingBox(x: number, y: number): { x: number; y: number; width: number; height: number }
+        }
+
+        export interface BorderContainerElement extends Element {
+            IntersectsBorder(pointerX: number, pointerY: number, elementX, elementY, elementParams): boolean
+            ContainsBBox(bbox: { x: number, y: number, width: number, height: number }, elementX: number, elementY: number, elementParams): boolean
         }
     }
 }
