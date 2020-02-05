@@ -719,16 +719,20 @@ module BMA {
                     that.SetFillColorForSelection(undefined);
                 });
 
-                window.Commands.On("DrawingSurfaceSetColorRed", () => {
-                    that.SetFillColorForSelection("red");
+                window.Commands.On("DrawingSurfaceSetColorOrange", () => {
+                    that.SetFillColorForSelection("BMA_Orange");
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorPurple", () => {
+                    that.SetFillColorForSelection("BMA_Purple");
+                });
+
+                window.Commands.On("DrawingSurfaceSetColorMint", () => {
+                    that.SetFillColorForSelection("BMA_Mint");
                 });
 
                 window.Commands.On("DrawingSurfaceSetColorGreen", () => {
-                    that.SetFillColorForSelection("green");
-                });
-
-                window.Commands.On("DrawingSurfaceSetColorBlue", () => {
-                    that.SetFillColorForSelection("blue");
+                    that.SetFillColorForSelection("BMA_Green");
                 });
 
                 window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {

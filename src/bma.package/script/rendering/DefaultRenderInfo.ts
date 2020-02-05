@@ -33,16 +33,19 @@
 
                 if (!renderParams.textOnly) {
 
-                    var pathFill = "#f6c"; //"#EF4137";
-                    var selectedPathFill = '#906';
+                    var pathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
+                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultStrokeColor;
 
-                    if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-                        pathFill = "#ef4137";
-                        selectedPathFill = "gray";
-                    }
+                    //if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+                    //    pathFill = "#bbbdbf";
+                    //    selectedPathFill = "gray";
+                    //}
 
                     if (renderParams.layout.fill !== undefined) {
-                        pathFill = renderParams.layout.fill;
+                        var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Default");
+
+                        pathFill = renderColors.fill;
+                        selectedPathFill = renderColors.stroke;
                     }
 
                     if (renderParams.layout.stroke !== undefined) {

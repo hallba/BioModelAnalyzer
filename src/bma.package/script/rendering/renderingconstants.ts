@@ -1,5 +1,101 @@
 ﻿module BMA {
     export module SVGRendering {
+        export class BMAColorConstants {
+            static readonly bmaOrangeInnerFillColor = "#ff9900";
+            static readonly bmaOrangeOuterFillColor = "#ffcc99";
+            static readonly bmaOrangeInnerStrokeColor = "#ff6600";
+            static readonly bmaOrangeOuterStrokeColor = "#f99746";
+            static readonly bmaOrangeCode = "BMA_Orange";
+
+            static readonly bmaPurpleInnerFillColor = "#9966ff";
+            static readonly bmaPurpleOuterFillColor = "#ccccff";
+            static readonly bmaPurpleInnerStrokeColor = "#330099";
+            static readonly bmaPurpleOuterStrokeColor = "#8b8bfc";
+            static readonly bmaPurpleCode = "BMA_Purple";
+
+            static readonly bmaMintInnerFillColor = "#00cccc";
+            static readonly bmaMintOuterFillColor = "#7df4eb";
+            static readonly bmaMintInnerStrokeColor = "#006666";
+            static readonly bmaMintOuterStrokeColor = "#52c6b8";
+            static readonly bmaMintCode = "BMA_Mint";
+
+            static readonly bmaGreenInnerFillColor = "#33cc00";
+            static readonly bmaGreenOuterFillColor = "#abffab";
+            static readonly bmaGreenInnerStrokeColor = "#006600";
+            static readonly bmaGreenOuterStrokeColor = "#5ce05c";
+            static readonly bmaGreenCode = "BMA_Green";
+
+            static readonly bmaConstantFillColor = "#CCC";
+            static readonly bmaConstantStrokeColor = '#7c7c7c';
+            static readonly bmaDefaultFillColor = "#f6c"; //"#EF4137";
+            static readonly bmaDefaultStrokeColor = '#906';
+            static readonly bmaMembranaFillColor = "#09c";
+            static readonly bmaMembranaFillSelectedColor = "#39c";
+            static readonly bmaMembranaStrokeColor = "#036";
+        }
+
+        export function GetColorsForRendering(colorCode: string, type: "Default" | "Constant" | "Membrana"): { fill: string, stroke: string } {
+            switch (colorCode)
+            {
+                case BMAColorConstants.bmaGreenCode:
+                    if (type != "Constant") {
+                        return {
+                            fill: BMAColorConstants.bmaGreenInnerFillColor,
+                            stroke: BMAColorConstants.bmaGreenInnerStrokeColor
+                        };
+                    } else {
+                        return {
+                            fill: BMAColorConstants.bmaGreenOuterFillColor,
+                            stroke: BMAColorConstants.bmaGreenOuterStrokeColor
+                        };
+                    }
+                case BMAColorConstants.bmaMintCode:
+                    if (type != "Constant") {
+                        return {
+                            fill: BMAColorConstants.bmaMintInnerFillColor,
+                            stroke: BMAColorConstants.bmaMintInnerStrokeColor
+                        };
+                    } else {
+                        return {
+                            fill: BMAColorConstants.bmaMintOuterFillColor,
+                            stroke: BMAColorConstants.bmaMintOuterStrokeColor
+                        };
+                    }
+                case BMAColorConstants.bmaOrangeCode:
+                    if (type != "Constant") {
+                        return {
+                            fill: BMAColorConstants.bmaOrangeInnerFillColor,
+                            stroke: BMAColorConstants.bmaOrangeInnerStrokeColor
+                        };
+                    } else {
+                        return {
+                            fill: BMAColorConstants.bmaOrangeOuterFillColor,
+                            stroke: BMAColorConstants.bmaOrangeOuterStrokeColor
+                        };
+                    }
+                case BMAColorConstants.bmaPurpleCode:
+                    if (type != "Constant") {
+                        return {
+                            fill: BMAColorConstants.bmaPurpleInnerFillColor,
+                            stroke: BMAColorConstants.bmaPurpleInnerStrokeColor
+                        };
+                    } else {
+                        return {
+                            fill: BMAColorConstants.bmaPurpleOuterFillColor,
+                            stroke: BMAColorConstants.bmaPurpleOuterStrokeColor
+                        };
+                    }
+                default:
+                    var color = ParseColorString(colorCode);
+                    var stroke = "rgb(" + 0.3 * color.r + ", " + 0.3 * color.g + ", " + color.b + ")";
+
+                    return {
+                        fill: colorCode,
+                        stroke: stroke
+                    };
+            }
+        }
+
         export class SVGRenderingConstants {
             static readonly variableWidthConstant = 35;
             static readonly variableHeightConstant = 30;

@@ -374,9 +374,11 @@ function loadScript(version) {
                     {
                         title: "Set Fill", cmd: "SetFillColor", children: [
                             { title: "Default", cmd: "SetColorDefault" },
-                            { title: "Red", cmd: "SetColorRed" },
+                            { title: "Orange", cmd: "SetColorOrange" },
+                            { title: "Purple", cmd: "SetColorPurple" },
+                            { title: "Mint", cmd: "SetColorMint" },
                             { title: "Green", cmd: "SetColorGreen" },
-                            { title: "Blue", cmd: "SetColorBlue" }
+
                         ]
                     }
                 ]

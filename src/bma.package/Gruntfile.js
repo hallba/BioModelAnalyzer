@@ -26,6 +26,7 @@ module.exports = function (grunt) {
                     "script/keyframesregistry.js",
                     "script/localRepository.js",
                     "script/changeschecker.js",
+                    "script/rendering/ColorHelper.js",
                     "script/rendering/elementsregistry.js",
                     "script/rendering/renderingconstants.js",
                     "script/rendering/ActivatorRenderInfo.js",

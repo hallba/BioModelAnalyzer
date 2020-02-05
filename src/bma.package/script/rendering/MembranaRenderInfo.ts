@@ -37,16 +37,19 @@
                         angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.gridCell, renderParams.grid, renderParams.sizeCoef, renderParams.layout.PositionX, renderParams.layout.PositionY);
                     }
 
-                    var pathFill = renderParams.isSelected ? "#39c" : "#09c";
-                    var selectedPathFill = "#036";
+                    var pathFill = renderParams.isSelected ? BMA.SVGRendering.BMAColorConstants.bmaMembranaFillSelectedColor : BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
+                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultStrokeColor;
 
-                    if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-                        pathFill = "#3bb34a";
-                        selectedPathFill = "gray";
-                    }
+                    //if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+                    //    pathFill = "#bbbdbf";
+                    //    selectedPathFill = "gray";
+                    //}
 
                     if (renderParams.layout.fill !== undefined) {
-                        pathFill = renderParams.layout.fill;
+                        var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Membrana");
+
+                        pathFill = renderColors.fill;
+                        selectedPathFill = renderColors.stroke;
                     }
 
                     if (renderParams.layout.stroke !== undefined) {

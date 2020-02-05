@@ -343,6 +343,7 @@
     <TypeScriptCompile Include="script\model\MotifLibrary.ts" />
     <TypeScriptCompile Include="script\presenters\onedrivestoragepresenter.ts" />
     <TypeScriptCompile Include="script\presenters\storagepresenter.ts" />
+    <TypeScriptCompile Include="script\rendering\ColorHelper.ts" />
     <TypeScriptCompile Include="script\rendering\InhibitorRenderInfo.ts" />
     <TypeScriptCompile Include="script\rendering\ActivatorRenderInfo.ts" />
     <TypeScriptCompile Include="script\rendering\MembranaRenderInfo.ts" />
