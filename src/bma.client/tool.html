@@ -114,7 +114,29 @@
             </button>-->
         </div>
 
-        <div id="modelelemtoolbar" class="elements-toolbar"></div>
+        <div style="display: flex;">
+            <div id="modelelemtoolbar" class="elements-toolbar"></div>
+
+            <!--Palette for color selection-->
+            <div class="vis-options-toolbar" id="colorPickerButton">
+                <div class="tool-icon">
+                    <span class="ui-button-text">
+                        <div title="Color Picker" class="colorpicker-icon"></div>
+                    </span>
+                </div>
+                <div>
+                    <div class="window vis-options">
+                        <ul>
+                            <li>Default</li>
+                            <li>Orange</li>
+                            <li>Purple</li>
+                            <li>Green</li>
+                            <li>Mint</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="vis-and-zoom">
             <div id="undoredotoolbar" style="display: flex;">

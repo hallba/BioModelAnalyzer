@@ -154,6 +154,7 @@
     <Content Include="images\ml\BMA_Scroll_Right.svg" />
     <Content Include="images\ml\BMA_Scroll_Right_End.svg" />
     <Content Include="images\motif-library.svg" />
+    <Content Include="images\navigationpanel\BMA_Colour_Palette_Icon.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Fit_To_View.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Info.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Settings ON.svg" />

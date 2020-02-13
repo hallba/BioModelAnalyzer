@@ -630,6 +630,8 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
+    $("#colorPickerButton").bmaaccordion();
+
     //Loading motif library
     $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0], changePreloadedVisibility: () => { motifLibrary.HidePreloadedMotifs(); }, deleteMotif: (i) => { motifLibrary.DeleteMotifByIndex(i); } });
     window.Commands.On("PreloadedMotifsReady", (args) => {
