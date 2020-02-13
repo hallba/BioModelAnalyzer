@@ -630,6 +630,7 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
+    $("#colorPickerContent").visibilitysettings();
     $("#colorPickerButton").bmaaccordion();
 
     //Loading motif library
