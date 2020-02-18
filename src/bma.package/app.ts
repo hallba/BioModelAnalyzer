@@ -371,16 +371,16 @@ function loadScript(version) {
                 title: "Selection", cmd: "Selection", uiIcon: "ui-icon-clipboard", children: [
                     { title: "Clear", cmd: "ClearSelection" },
                     { title: "Create Motif", cmd: "CreateMotifFromSelection" },
-                    {
-                        title: "Set Fill", cmd: "SetFillColor", children: [
-                            { title: "Default", cmd: "SetColorDefault" },
-                            { title: "Orange", cmd: "SetColorOrange" },
-                            { title: "Purple", cmd: "SetColorPurple" },
-                            { title: "Mint", cmd: "SetColorMint" },
-                            { title: "Green", cmd: "SetColorGreen" },
+                    //{
+                    //    title: "Set Fill", cmd: "SetFillColor", children: [
+                    //        { title: "Default", cmd: "SetColorDefault" },
+                    //        { title: "Orange", cmd: "SetColorOrange" },
+                    //        { title: "Purple", cmd: "SetColorPurple" },
+                    //        { title: "Mint", cmd: "SetColorMint" },
+                    //        { title: "Green", cmd: "SetColorGreen" },
 
-                        ]
-                    }
+                    //    ]
+                    //}
                 ]
             }
         ],
@@ -630,8 +630,12 @@ function loadScript(version) {
 
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
-    $("#colorPickerContent").visibilitysettings();
+    //Setting color picker for selected variables
     $("#colorPickerButton").bmaaccordion();
+    $("#colorPickerContent").children("ul").children("li").click(function (e) {
+        var command = $(this).attr("data-command");
+        window.Commands.Execute(command, undefined);
+    });
 
     //Loading motif library
     $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0], changePreloadedVisibility: () => { motifLibrary.HidePreloadedMotifs(); }, deleteMotif: (i) => { motifLibrary.DeleteMotifByIndex(i); } });

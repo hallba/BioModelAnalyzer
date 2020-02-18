@@ -2964,6 +2964,11 @@ textarea {
 
 //Color picker
 
+.color-option {
+    display: flex;
+    align-items: center;
+}
+
 .color-box {
     width: 20px;
     height: 20px;
@@ -2990,3 +2995,38 @@ textarea {
         background-color: lightgray;
     }
 }
+
+.window.col-options {
+    position: absolute;
+    width: 100px;
+    //border-top-left-radius: 0;
+    margin: 0 0.2em;
+    z-index: 7;
+
+    .option-name {
+        //display: inline-block;
+        width: 90px;
+        .text-overflow-ellipsis;
+    }
+
+    ul > li {
+        display: block;
+        cursor: pointer;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            background-color: @lightgrey;
+        }
+            /*& > * {
+            display: inline-block;
+        }*/
+        }
+
+        ul.button-list > li {
+            //display: inline-block;
+            //margin-top: 0px;
+        }
+    }

@@ -69,6 +69,8 @@ module BMA {
                 isCopy: boolean
             };
 
+            private messageBox: any = undefined;
+
             constructor(appModel: BMA.Model.AppModel,
                 undoRedoPresenter: BMA.Presenters.UndoRedoPresenter,
                 svgPlotDriver: BMA.UIDrivers.ISVGPlot,
@@ -93,6 +95,8 @@ module BMA {
                 this.contextMenu = contextMenu;
                 this.exportservice = exportservice;
                 this.selectedType = "navigation";
+
+                this.messageBox = messageBox;
 
                 this.stagingHighlight = {
                     variables: [], cell: undefined
@@ -469,7 +473,7 @@ module BMA {
                     */
 
                     var isSelectionEmpty = that.IsSelectionEmpty();
-                    var selectionHasVariables = that.SelectionHasVariables();
+                    //var selectionHasVariables = that.SelectionHasVariables();
                     var canPaste = !that.IsGridCellOccupied(that.GetGridCell(x, y));
 
                     that.contextMenu.ShowMenuItems([
@@ -486,7 +490,7 @@ module BMA {
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
                         { name: "Selection", isVisible: !isSelectionEmpty },
-                        { name: "SetFillColor", isVisible: selectionHasVariables }
+                        //{ name: "SetFillColor", isVisible: selectionHasVariables }
                     ]);
 
                     that.contextMenu.EnableMenuItems([
@@ -720,6 +724,12 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceSetColorOrange", () => {
+                    var selectionHasVariables = that.SelectionHasVariables();
+                    if (selectionHasVariables) {
+                        that.SetFillColorForSelection(undefined);
+                    } else {
+                        messageBox.Show("Please, select some variable before selection");
+                    }
                     that.SetFillColorForSelection("BMA_Orange");
                 });
 
@@ -1218,6 +1228,8 @@ module BMA {
 
                     var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts);
                     that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
+                } else {
+                    that.messageBox.Show("Select some variables before setting color");
                 }
             }
 
