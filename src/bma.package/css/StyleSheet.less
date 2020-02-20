@@ -993,10 +993,7 @@ ul.command-list {
         background-size: 28px;
     }
 
-    .colorpicker-icon {
-        background-image: url("../images/navigationpanel/BMA_Colour_Palette_Icon.svg");
-        background-size: 28px;
-    }
+    
 }
 
 .tool-icon-active() {
@@ -2963,6 +2960,46 @@ textarea {
 }
 
 //Color picker
+
+.color-icon {
+    width: @toolbar-icon-height;
+    height: @toolbar-icon-height;
+    margin: 0 0.2em;
+    border: 1px solid @midgrey;
+    .border-radius(@toolbar-icon-border-radius);
+    background: none;
+    background-color: white;
+    display: inline-block;
+    vertical-align: top;
+
+    span {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+
+        div {
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+            background-position: center;
+            border: none;
+            margin: auto;
+        }
+    }
+
+    &:not(.ui-state-active):hover {
+        cursor: pointer;
+    }
+
+    .colorpicker-icon {
+        background-image: url("../images/navigationpanel/BMA_Colour_Palette_Icon.svg");
+        background-size: 28px;
+    }
+}
+
 
 .color-option {
     display: flex;

@@ -59,6 +59,7 @@ module.exports = function (grunt) {
                     "script/presenters/onedrivestoragepresenter.js",
                     "script/UserLog.js",
                     "script/widgets/accordeon.js",
+                    "script/widgets/hoverpopup.js",
                     "script/widgets/bmaslider.js",
                     "script/widgets/coloredtableviewer.js",
                     "script/widgets/containernameeditor.js",

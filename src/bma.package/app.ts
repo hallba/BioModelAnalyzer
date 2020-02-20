@@ -631,7 +631,7 @@ function loadScript(version) {
     var expandedSimulation = $('<div></div>').simulationexpanded();
 
     //Setting color picker for selected variables
-    $("#colorPickerButton").bmaaccordion();
+    $("#colorPickerButton").hoverpopup();
     $("#colorPickerContent").children("ul").children("li").click(function (e) {
         var command = $(this).attr("data-command");
         window.Commands.Execute(command, undefined);
