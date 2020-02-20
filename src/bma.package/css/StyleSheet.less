@@ -134,7 +134,7 @@ body {
 @shadow: rgba(0,0,0,0.50);
 @sim-yellow: #FFFCB5;
 @sim-blue: rgba(223,223,245,0.5);
-
+@pinktext: #ff66cc;
 
 /* Typography */
 
@@ -2973,7 +2973,7 @@ textarea {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 3px 3px 3px 3px;
 
     &.orange {
         background-color: #ff9900;
@@ -2992,7 +2992,7 @@ textarea {
     }
 
     &.default {
-        background-color: lightgray;
+        background-color: @pinktext;
     }
 }
 
@@ -3017,9 +3017,9 @@ textarea {
             margin-bottom: 10px;
         }
 
-        &:hover {
+        /*&:hover {
             background-color: @lightgrey;
-        }
+        }*/
             /*& > * {
             display: inline-block;
         }*/
