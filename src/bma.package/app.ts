@@ -76,6 +76,7 @@ interface Window {
     PlotSettings: any;
     GridSettings: any;
     BMAServiceURL: string;
+    DefaultProteinColors: { Default: string, Constant: string, MembranaReceptor: string };
     MotifLibrary: BMA.Model.MotifLibrary;
 }
 
@@ -288,6 +289,12 @@ function loadScript(version) {
         yStep: 280
     };
 
+    window.DefaultProteinColors = {
+        "Constant": undefined,
+        "Default": undefined,
+        "MembranaReceptor": undefined,
+    };
+
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
     drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
@@ -464,18 +471,56 @@ function loadScript(version) {
 
     //Preparing elements panel
     var elementPanel = $("#modelelemtoolbar");
+    //Creating color selector for defalt variable colors
+    var colorSelector = $("#variableColorPickerContent").css("position", "absolute");
+    colorSelector.hide();
+    // If the document is clicked somewhere
+    $(document).bind("mousedown", function (e) {
+        // If the clicked element is not the menu
+        if (!($(e.target).parents("#variableColorPickerContent").length > 0)) {
+            // Hide it
+            colorSelector.hide();
+        }
+    });
+
     var elements = window.ElementRegistry.Elements;
+
+    var defaultColorContextType = undefined;
+    var subscribeToColorPickerContext = function (elem) {
+        elem.on("contextmenu", function (e) {
+            e.preventDefault();
+            var pos = elem.offset();
+            colorSelector.css("top", pos.top + label.outerHeight()).css("left", pos.left);
+
+            defaultColorContextType = elem.attr("data-type");
+
+            colorSelector.show();
+        });
+    }
+
+    colorSelector.children("ul").children("li").click(function (e) {
+        var color = $(this).attr("data-color");
+        if (defaultColorContextType !== undefined) {
+            window.DefaultProteinColors[defaultColorContextType] = color;
+
+            //TODO: switch color of icon
+        }
+    });
+
     for (var i = 0; i < elements.length; i++) {
         var elem = elements[i];
-        $("<input></input>")
+        var input = $("<input></input>")
             .attr("type", "radio")
             .attr("id", "btn-" + elem.Type)
             .attr("name", "drawing-button")
             .attr("data-type", elem.Type)
             .appendTo(elementPanel);
 
-        var label = $("<label></label>").addClass("drawingsurface-droppable").attr("for", "btn-" + elem.Type).appendTo(elementPanel);
+        var label = $("<label></label>").addClass("drawingsurface-droppable").attr("for", "btn-" + elem.Type).attr("data-type", elem.Type).appendTo(elementPanel);
         var img = $("<div></div>").addClass(elem.IconClass).attr("title", elem.Description).appendTo(label);
+        if (elem.Type !== "Activator" && elem.Type !== "Inhibitor" && elem.Type !== "Cell") {
+            subscribeToColorPickerContext(label);
+        }
     }
 
     elementPanel.children("input").not('[data-type="Activator"]').not('[data-type="Inhibitor"]').next().draggable({
