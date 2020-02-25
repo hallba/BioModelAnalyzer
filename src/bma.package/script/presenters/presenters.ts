@@ -2123,7 +2123,7 @@ module BMA {
                         } else {
                             var pos = SVGHelper.GeEllipsePoint(containerX, containerY, 119 * container.Size, 136.5 * container.Size, x, y);
                             variables.push(new BMA.Model.Variable(this.variableIndex, container.Id, vt, "", 0, 1, ""));
-                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle, "", undefined, window.DefaultProteinColors.MembranaReceptor));
+                            variableLayouts.push(new BMA.Model.VariableLayout(this.variableIndex++, pos.x, pos.y, 0, 0, angle, "", undefined, window.DefaultProteinColors.MembraneReceptor));
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);

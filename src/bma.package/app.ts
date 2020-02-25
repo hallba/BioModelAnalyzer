@@ -76,7 +76,7 @@ interface Window {
     PlotSettings: any;
     GridSettings: any;
     BMAServiceURL: string;
-    DefaultProteinColors: { Default: string, Constant: string, MembranaReceptor: string };
+    DefaultProteinColors: { Default: string, Constant: string, MembraneReceptor: string };
     MotifLibrary: BMA.Model.MotifLibrary;
 }
 
@@ -292,7 +292,7 @@ function loadScript(version) {
     window.DefaultProteinColors = {
         "Constant": undefined,
         "Default": undefined,
-        "MembranaReceptor": undefined,
+        "MembraneReceptor": undefined,
     };
 
     //Loading widgets
