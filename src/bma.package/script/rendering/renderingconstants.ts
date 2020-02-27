@@ -124,6 +124,7 @@
             
             RenderToSvg(renderParams: any): SVGElement;
             Contains(pointerX: number, pointerY: number, elementX, elementY): boolean;
+            GetIconSVG(iconFill: string): string;
         }
 
         export interface StrokeElement extends Element {

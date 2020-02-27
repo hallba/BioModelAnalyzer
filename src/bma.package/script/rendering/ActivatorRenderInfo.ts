@@ -147,6 +147,10 @@
                 var svgElem: any = $(jqSvg.toSVG()).children();
                 return <SVGElement>svgElem;
             }
+
+            public GetIconSVG(iconFill: string): string {
+                return undefined;
+            }
         }
     }
 }

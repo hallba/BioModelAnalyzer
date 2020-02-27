@@ -517,8 +517,14 @@ function loadScript(version) {
             .appendTo(elementPanel);
 
         var label = $("<label></label>").addClass("drawingsurface-droppable").attr("for", "btn-" + elem.Type).attr("data-type", elem.Type).appendTo(elementPanel);
-        var img = $("<div></div>").addClass(elem.IconClass).attr("title", elem.Description).appendTo(label);
-        if (elem.Type !== "Activator" && elem.Type !== "Inhibitor" && elem.Type !== "Cell") {
+        var img = $("<div></div>").css("display", "flex").css("justify-content", "center").css("align-items", "center").width(50).height(50).attr("title", elem.Description).appendTo(label);
+        var iconSvg = elem.GetIconSVG(undefined);
+        if (iconSvg == undefined) {
+            img.addClass(elem.IconClass);
+        } else {
+            img.html(iconSvg);
+        }
+        if (elem.Type !== "Activator" && elem.Type !== "Inhibitor" && elem.Type !== "Container") {
             subscribeToColorPickerContext(label);
         }
     }
