@@ -483,6 +483,8 @@ function loadScript(version) {
         }
     });
 
+    colorSelector.on("mouseleave", function (e) { colorSelector.hide(); });
+
     var elements = window.ElementRegistry.Elements;
 
     var defaultColorContextElement = undefined;
