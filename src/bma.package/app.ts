@@ -485,27 +485,58 @@ function loadScript(version) {
 
     var elements = window.ElementRegistry.Elements;
 
-    var defaultColorContextType = undefined;
+    var defaultColorContextElement = undefined;
     var subscribeToColorPickerContext = function (elem) {
         elem.on("contextmenu", function (e) {
             e.preventDefault();
             var pos = elem.offset();
             colorSelector.css("top", pos.top + label.outerHeight()).css("left", pos.left);
-
-            defaultColorContextType = elem.attr("data-type");
-
+            defaultColorContextElement = elem;
             colorSelector.show();
         });
     }
 
     colorSelector.children("ul").children("li").click(function (e) {
         var color = $(this).attr("data-color");
-        if (defaultColorContextType !== undefined) {
-            window.DefaultProteinColors[defaultColorContextType] = color;
+        if (defaultColorContextElement !== undefined) {
+            //Changing default color of element
+            var type = defaultColorContextElement.attr("data-type");
+            window.DefaultProteinColors[type] = color;
 
-            //TODO: switch color of icon
+            //Changing icon of element
+            var elem = window.ElementRegistry.GetElementByType(type);
+            var c = color === "undefined" ? undefined : BMA.SVGRendering.GetColorsForRendering(color, type).fill;
+            var iconSvg = elem.GetIconSVG(c);
+            if (iconSvg != undefined) {
+                defaultColorContextElement.children().children().html(iconSvg);
+                if (defaultColorContextElement.attr("aria-pressed") === "true") {
+                    defaultColorContextElement.children().children().children().hide();
+                }
+            }
         }
     });
+
+    var subscribeToToggle = function (elem) {
+        const config = { attributes: true };
+
+        // Callback function to execute when mutations are observed
+        const callback = function (mutationsList, observer) {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'attributes') {
+                    var svg = elem.children().children().children();
+                    if (elem.attr("aria-pressed") === "true") {
+                        svg.hide();
+                    } else {
+                        svg.show();
+                    }
+                }
+            }
+        };
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(callback);
+        // Start observing the target node for configured mutations
+        observer.observe(elem[0], config);
+    }
 
     for (var i = 0; i < elements.length; i++) {
         var elem = elements[i];
@@ -519,10 +550,10 @@ function loadScript(version) {
         var label = $("<label></label>").addClass("drawingsurface-droppable").attr("for", "btn-" + elem.Type).attr("data-type", elem.Type).appendTo(elementPanel);
         var img = $("<div></div>").css("display", "flex").css("justify-content", "center").css("align-items", "center").width(50).height(50).attr("title", elem.Description).appendTo(label);
         var iconSvg = elem.GetIconSVG(undefined);
-        if (iconSvg == undefined) {
-            img.addClass(elem.IconClass);
-        } else {
+        img.addClass(elem.IconClass);
+        if (iconSvg != undefined) {
             img.html(iconSvg);
+            subscribeToToggle(label);
         }
         if (elem.Type !== "Activator" && elem.Type !== "Inhibitor" && elem.Type !== "Container") {
             subscribeToColorPickerContext(label);
@@ -750,23 +781,23 @@ function loadScript(version) {
     var visualSettings = new BMA.Model.AppVisualSettings();
     (<any>window).VisualSettings = visualSettings;
 
-    window.Commands.On("Commands.ToggleOldColorScheme", (args) => {
-        (<any>window).VisualSettings.IsOldColorSchemeEnabled = !(<any>window).VisualSettings.IsOldColorSchemeEnabled;
+    //window.Commands.On("Commands.ToggleOldColorScheme", (args) => {
+    //    (<any>window).VisualSettings.IsOldColorSchemeEnabled = !(<any>window).VisualSettings.IsOldColorSchemeEnabled;
 
-        if ((<any>window).VisualSettings.IsOldColorSchemeEnabled) {
-            $(".cell-icon").removeClass("cell-icon").addClass("cell-icon-old");
-            $(".constant-icon").removeClass("constant-icon").addClass("constant-icon-old");
-            $(".variable-icon").removeClass("variable-icon").addClass("variable-icon-old");
-            $(".receptor-icon").removeClass("receptor-icon").addClass("receptor-icon-old");
-        } else {
-            $(".cell-icon-old").removeClass("cell-icon-old").addClass("cell-icon");
-            $(".constant-icon-old").removeClass("constant-icon-old").addClass("constant-icon");
-            $(".variable-icon-old").removeClass("variable-icon-old").addClass("variable-icon");
-            $(".receptor-icon-old").removeClass("receptor-icon-old").addClass("receptor-icon");
-        }
+    //    if ((<any>window).VisualSettings.IsOldColorSchemeEnabled) {
+    //        $(".cell-icon").removeClass("cell-icon").addClass("cell-icon-old");
+    //        $(".constant-icon").removeClass("constant-icon").addClass("constant-icon-old");
+    //        $(".variable-icon").removeClass("variable-icon").addClass("variable-icon-old");
+    //        $(".receptor-icon").removeClass("receptor-icon").addClass("receptor-icon-old");
+    //    } else {
+    //        $(".cell-icon-old").removeClass("cell-icon-old").addClass("cell-icon");
+    //        $(".constant-icon-old").removeClass("constant-icon-old").addClass("constant-icon");
+    //        $(".variable-icon-old").removeClass("variable-icon-old").addClass("variable-icon");
+    //        $(".receptor-icon-old").removeClass("receptor-icon-old").addClass("receptor-icon");
+    //    }
 
-        window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
-    });
+    //    window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
+    //});
 
     window.Commands.On("OneDriveLoggedIn", () => {
         $("#btn-onedrive-switcher").addClass("logged-in").removeClass("turned-off");

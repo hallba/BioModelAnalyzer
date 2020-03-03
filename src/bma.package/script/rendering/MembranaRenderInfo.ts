@@ -188,7 +188,27 @@
             }
 
             public GetIconSVG(iconFill: string): string {
-                return undefined;
+                var that = this;
+                var jqSvg = this.jqSvg;
+                if (jqSvg === undefined)
+                    return undefined;
+                jqSvg.clear();
+
+                var fill = iconFill === undefined ? "#09c" : iconFill;
+
+                jqSvg.configure({ viewBox: '0 0 24.09 39.88', width: "36px", height: "36px" }, true);
+
+                var defs = jqSvg.defs("icon");
+                jqSvg.style(defs, ".icon-mr { fill:" + fill + ";}");
+
+                var path1 = jqSvg.createPath();
+                jqSvg.path(path1, {
+                    class: "icon-mr",
+                    d: "M60.47,33.25a3.66,3.66,0,1,0-7.31,0c0,3.79-2,6.64-4.73,6.64S43.7,37,43.7,33.25a3.66,3.66,0,0,0-7.32,0c0,6.47,3.42,11.64,8.39,13.36V65.8a3.66,3.66,0,1,0,7.31,0V46.61C57.05,44.89,60.47,39.72,60.47,33.25Z",
+                    transform: "translate(-36.38 -29.59)"
+                });
+
+                return jqSvg.toSVG();
             }
         }
     }
