@@ -489,12 +489,17 @@ function loadScript(version) {
 
     var defaultColorContextElement = undefined;
     var subscribeToColorPickerContext = function (elem) {
-        elem.on("contextmenu", function (e) {
-            e.preventDefault();
+        elem.on("mouseenter", function (e) {
             var pos = elem.offset();
             colorSelector.css("top", pos.top + label.outerHeight()).css("left", pos.left);
             defaultColorContextElement = elem;
             colorSelector.show();
+        });
+
+        elem.on("mouseleave", function (e) {
+            if (!colorSelector.is(":hover")) {
+                colorSelector.hide();
+            }
         });
     }
 
