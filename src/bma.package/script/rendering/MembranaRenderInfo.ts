@@ -38,7 +38,7 @@
                     }
 
                     var pathFill = renderParams.isSelected ? BMA.SVGRendering.BMAColorConstants.bmaMembranaFillSelectedColor : BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
-                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultStrokeColor;
+                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaMembranaStrokeColor;
 
                     //if ((<any>window).VisualSettings !== undefined && (<any>window).VisualSettings.IsOldColorSchemeEnabled) {
                     //    pathFill = "#bbbdbf";
