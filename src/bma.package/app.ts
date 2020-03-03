@@ -505,7 +505,7 @@ function loadScript(version) {
 
             //Changing icon of element
             var elem = window.ElementRegistry.GetElementByType(type);
-            var c = color === "undefined" ? undefined : BMA.SVGRendering.GetColorsForRendering(color, type).fill;
+            var c = color === undefined ? undefined : BMA.SVGRendering.GetColorsForRendering(color, type).fill;
             var iconSvg = elem.GetIconSVG(c);
             if (iconSvg != undefined) {
                 defaultColorContextElement.children().children().html(iconSvg);
