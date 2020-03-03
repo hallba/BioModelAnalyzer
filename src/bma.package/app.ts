@@ -564,7 +564,11 @@ function loadScript(version) {
 
         helper: function (event, ui) {
             var classes = $(this).children().children().attr("class").split(" ");
-            return $('<div></div>').addClass(classes[0]).addClass("draggable-helper-element").appendTo('body');
+            var svg = $(this).children().children().html();
+            var helper = $('<div></div>').addClass(classes[0]).addClass("draggable-helper-element").appendTo('body');
+            helper.html(svg);
+            helper.children().show();
+            return helper;
         },
 
         scroll: false,
