@@ -1006,16 +1006,16 @@ module BMA {
 
                 dragSubject.dragStartRight.subscribe(
                     (gesture) => {
-                        if (that.selectedType === "navigation") {
-                            that.navigationDriver.TurnNavigation(false);
-                            navigationDriver.MoveDraggableOnTop();
-                            this.stagingRect = {
-                                x0: gesture.x,
-                                x1: gesture.x,
-                                y0: gesture.y,
-                                y1: gesture.y
-                            };
-                        }
+                        that.navigationDriver.TurnNavigation(false);
+                        navigationDriver.MoveDraggableOnTop();
+                        this.stagingRect = {
+                            x0: gesture.x,
+                            x1: gesture.x,
+                            y0: gesture.y,
+                            y1: gesture.y
+                        };
+
+                        that.stagingLine = undefined;
                     });
 
                 dragSubject.drag.subscribe(
@@ -1082,7 +1082,7 @@ module BMA {
                             that.TryAddStagingLineAsLink();
                             that.stagingLine = undefined;
                             that.RefreshOutput();
-                        } 
+                        }
 
                         if (this.stagingOffset !== undefined) {
 
@@ -1171,7 +1171,9 @@ module BMA {
                             that.RefreshOutput();
                             that.stagingRect = undefined;
 
-                            that.navigationDriver.TurnNavigation(true);
+                            if (that.selectedType === "navigation") {
+                                that.navigationDriver.TurnNavigation(true);
+                            }
                         }
                     });
             }
