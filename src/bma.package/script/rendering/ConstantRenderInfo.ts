@@ -63,7 +63,7 @@
 
                     if (renderParams.isHighlighted) {
                         var rad = 16;//1.3 * Math.max(that.variableHeightConstant, that.variableWidthConstant) / 2;
-                        jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
+                        jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "none" });
                     }
 
                     //Geometry Fill

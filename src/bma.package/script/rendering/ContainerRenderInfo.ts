@@ -72,7 +72,7 @@
                         0,
                         {
                             stroke: "none",
-                            fill: renderParams.background !== undefined ? renderParams.background : "transparent",
+                            fill: renderParams.background !== undefined ? renderParams.background : "none",
                         });
 
                     var scale = 0.52 * renderParams.layout.Size;
