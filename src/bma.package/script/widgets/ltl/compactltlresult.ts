@@ -44,119 +44,119 @@
 
                     //if (this.options.isexpanded) {
 
-                        var ltltestdiv = $("<div></div>").addClass("LTL-test-results").addClass("default").appendTo(opDiv);
-                        if (that.options.message) {
-                            if (that.options.message == "Server Error") {
-                                var errorMessage = $("<div>" + that.options.message + "</div>").addClass("red").addClass("errorMessage").appendTo(ltltestdiv);
-                            } else {
-                                var errorMessage = $("<div>Error</div>").addClass("red").addClass("errorMessage").appendTo(ltltestdiv);
-                                errorMessage.tooltip({
-                                    content: function () {
-                                        //var text = $('<div></div>').addClass('operators-info');
-                                        var message = $("<div>" + that.options.message + "</div>").addClass("tooltip-red");
-                                        return message;
-                                    },
-                                    show: null,
-                                    hide: false,
-                                    items: "div.errorMessage",
-                                    close: function (event, ui) {
-                                        errorMessage.data("ui-tooltip").liveRegion.children().remove();
-                                    },
-                                });
+                    var ltltestdiv = $("<div></div>").addClass("LTL-test-results").addClass("default").appendTo(opDiv);
+                    if (that.options.message) {
+                        if (that.options.message == "Server Error") {
+                            var errorMessage = $("<div>" + that.options.message + "</div>").addClass("red").addClass("errorMessage").appendTo(ltltestdiv);
+                        } else {
+                            var errorMessage = $("<div>Error</div>").addClass("red").addClass("errorMessage").appendTo(ltltestdiv);
+                            errorMessage.tooltip({
+                                content: function () {
+                                    //var text = $('<div></div>').addClass('operators-info');
+                                    var message = $("<div>" + that.options.message + "</div>").addClass("tooltip-red");
+                                    return message;
+                                },
+                                show: null,
+                                hide: false,
+                                items: "div.errorMessage",
+                                close: function (event, ui) {
+                                    errorMessage.data("ui-tooltip").liveRegion.children().remove();
+                                },
+                            });
+                        }
+                    }
+                    var d = $("<div></div>").addClass("number-of-steps").appendTo(ltltestdiv);
+                    var input = $("<input></input>").attr("type", "text").attr("value", that.options.steps).appendTo(d);
+                    input.after("steps");
+
+                    input.bind("change", function () {
+                        this.value = this.value.replace(/\D+/g, "");
+                        var parsed = parseFloat(this.value);
+                        if (isNaN(parsed)) this.value = that.options.steps;
+                        else if (parsed > that.options.maxsteps) this.value = that.options.maxsteps;
+                        else if (parsed < 1) this.value = 1;
+
+                        if (that.options.steps !== parseFloat(this.value)) {
+                            that.options.steps = parseFloat(this.value);
+                            if (that.options.onstepschanged !== undefined) {
+                                that.options.onstepschanged(that.options.steps);
                             }
                         }
-                        var d = $("<div></div>").addClass("number-of-steps").appendTo(ltltestdiv);
-                        var input = $("<input></input>").attr("type", "text").attr("value", that.options.steps).appendTo(d);
-                        input.after("steps");
-
-                        input.bind("change", function () {
-                            this.value = this.value.replace(/\D+/g, "");
-                            var parsed = parseFloat(this.value);
-                            if (isNaN(parsed)) this.value = that.options.steps;
-                            else if (parsed > that.options.maxsteps) this.value = that.options.maxsteps;
-                            else if (parsed < 1) this.value = 1;
-                            
-                            if (that.options.steps !== parseFloat(this.value)) {
-                                that.options.steps = parseFloat(this.value);
-                                if (that.options.onstepschanged !== undefined) {
-                                    that.options.onstepschanged(that.options.steps);
-                                }
-                            }
-
-                            if (that.options.steps == 1) {
-                                minusd.addClass("testing");
-                                minusb.addClass("testing");
-                            }
-
-                            if (that.options.steps == that.options.maxsteps) {
-                                plusd.addClass("testing");
-                                plusb.addClass("testing");
-                            }
-                        });
-
-                        var box = $("<div></div>").addClass("pill-button-box").appendTo(ltltestdiv);
-                        var minusd = $("<div></div>").addClass("pill-button").appendTo(box);
-                        var minusb = $("<button>-</button>").appendTo(minusd);
 
                         if (that.options.steps == 1) {
                             minusd.addClass("testing");
                             minusb.addClass("testing");
                         }
 
-                        minusb.click((e) => {
-                            if (that.options.steps > 1) {
-                                that.options.steps--;
-                                input.val(that.options.steps);
-                                if (that.options.onstepschanged !== undefined) {
-                                    that.options.onstepschanged(that.options.steps);
-                                }
+                        if (that.options.steps == that.options.maxsteps) {
+                            plusd.addClass("testing");
+                            plusb.addClass("testing");
+                        }
+                    });
 
-                                plusd.removeClass("testing");
-                                plusb.removeClass("testing");
-                            }
-                            if (that.options.steps == 1) {
-                                minusd.addClass("testing");
-                                minusb.addClass("testing");
-                            }
-                        });
+                    var box = $("<div></div>").addClass("pill-button-box").appendTo(ltltestdiv);
+                    var minusd = $("<div></div>").addClass("pill-button").appendTo(box);
+                    var minusb = $("<button>-</button>").appendTo(minusd);
 
-                        var plusd = $("<div></div>").addClass("pill-button").appendTo(box);
-                        var plusb = $("<button>+</button>").appendTo(plusd);
+                    if (that.options.steps == 1) {
+                        minusd.addClass("testing");
+                        minusb.addClass("testing");
+                    }
+
+                    minusb.click((e) => {
+                        if (that.options.steps > 1) {
+                            that.options.steps--;
+                            input.val(that.options.steps);
+                            if (that.options.onstepschanged !== undefined) {
+                                that.options.onstepschanged(that.options.steps);
+                            }
+
+                            plusd.removeClass("testing");
+                            plusb.removeClass("testing");
+                        }
+                        if (that.options.steps == 1) {
+                            minusd.addClass("testing");
+                            minusb.addClass("testing");
+                        }
+                    });
+
+                    var plusd = $("<div></div>").addClass("pill-button").appendTo(box);
+                    var plusb = $("<button>+</button>").appendTo(plusd);
+
+                    if (that.options.steps == that.options.maxsteps) {
+                        plusd.addClass("testing");
+                        plusb.addClass("testing");
+                    }
+
+                    plusb.click((e) => {
+                        if (that.options.steps < that.options.maxsteps) {
+                            that.options.steps++;
+                            input.val(that.options.steps);
+                            if (that.options.onstepschanged !== undefined) {
+                                that.options.onstepschanged(that.options.steps);
+                            }
+                            minusd.removeClass("testing");
+                            minusb.removeClass("testing");
+                        }
 
                         if (that.options.steps == that.options.maxsteps) {
                             plusd.addClass("testing");
                             plusb.addClass("testing");
                         }
+                    });
 
-                        plusb.click((e) => {
-                            if (that.options.steps < that.options.maxsteps) {
-                                that.options.steps++;
-                                input.val(that.options.steps);
-                                if (that.options.onstepschanged !== undefined) {
-                                    that.options.onstepschanged(that.options.steps);
-                                }
-                                minusd.removeClass("testing");
-                                minusb.removeClass("testing");
-                            }
-
-                            if (that.options.steps == that.options.maxsteps) {
-                                plusd.addClass("testing");
-                                plusb.addClass("testing");
-                            }
-                        });
-
-                        var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 5).appendTo(ltltestdiv);
-                        var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
-                        var btn = $("<button>TEST </button>").css("margin-top", "0px").appendTo(li);
-                        btn.click(function () {
-                            if (that.options.ontestrequested !== undefined) {
-                                that.options.ontestrequested();
-                                minusd.addClass("testing");
-                                plusd.addClass("testing");
-                                plusb.addClass("testing").unbind("click");
-                                minusb.addClass("testing").unbind("click");
-                            }
-                        });
+                    var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 5).appendTo(ltltestdiv);
+                    var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
+                    var btn = $("<button>TEST </button>").css("margin-top", "0px").appendTo(li);
+                    btn.click(function () {
+                        if (that.options.ontestrequested !== undefined) {
+                            that.options.ontestrequested();
+                            minusd.addClass("testing");
+                            plusd.addClass("testing");
+                            plusb.addClass("testing").unbind("click");
+                            minusb.addClass("testing").unbind("click");
+                        }
+                    });
 
                     //} else {
 
@@ -175,31 +175,31 @@
                 case "processing":
                     //if (this.options.isexpanded) {
 
-                        var ltltestdiv = $("<div></div>").addClass("LTL-test-results").addClass("default").appendTo(opDiv);
-                        var d = $("<div>" + that.options.steps + " steps</div>").addClass("number-of-steps")
-                            .appendTo(ltltestdiv);
-                        var box = $("<div></div>").addClass("pill-button-box").appendTo(ltltestdiv);
-                        var minusd = $("<div></div>").addClass("pill-button").appendTo(box);
-                        var minusb = $("<button>-</button>").appendTo(minusd);
-                        minusd.addClass("testing");
-                        minusb.addClass("testing");
-                        var plusd = $("<div></div>").addClass("pill-button").appendTo(box);
-                        var plusb = $("<button>+</button>").appendTo(plusd);
-                        plusd.addClass("testing");
-                        plusb.addClass("testing");
-                        var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 5).appendTo(ltltestdiv);
-                        var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
-                        var btn = $("<button></button>").appendTo(li);
-                        li.addClass("spin");
-                        that.createWaitAnim().appendTo(btn);
+                    var ltltestdiv = $("<div></div>").addClass("LTL-test-results").addClass("default").appendTo(opDiv);
+                    var d = $("<div>" + that.options.steps + " steps</div>").addClass("number-of-steps")
+                        .appendTo(ltltestdiv);
+                    var box = $("<div></div>").addClass("pill-button-box").appendTo(ltltestdiv);
+                    var minusd = $("<div></div>").addClass("pill-button").appendTo(box);
+                    var minusb = $("<button>-</button>").appendTo(minusd);
+                    minusd.addClass("testing");
+                    minusb.addClass("testing");
+                    var plusd = $("<div></div>").addClass("pill-button").appendTo(box);
+                    var plusb = $("<button>+</button>").appendTo(plusd);
+                    plusd.addClass("testing");
+                    plusb.addClass("testing");
+                    var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 5).appendTo(ltltestdiv);
+                    var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
+                    var btn = $("<button></button>").appendTo(li);
+                    li.addClass("spin");
+                    that.createWaitAnim().appendTo(btn);
                     //} else {
-                        ////var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 0).appendTo(opDiv);
-                        ////var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
-                        ////var btn = $("<button></button>").appendTo(li);
-                        ////li.addClass("spin");
-                        ////that.createWaitAnim().appendTo(btn);
+                    ////var ul = $("<ul></ul>").addClass("button-list").addClass("LTL-test").css("margin-top", 0).appendTo(opDiv);
+                    ////var li = $("<li></li>").addClass("action-button-small").addClass("grey").appendTo(ul);
+                    ////var btn = $("<button></button>").appendTo(li);
+                    ////li.addClass("spin");
+                    ////that.createWaitAnim().appendTo(btn);
                     //}
-                        break;
+                    break;
                 case "processinglra":
                     var ltltestdiv = $("<div></div>").addClass("LTL-test-results").css("width", 150).addClass("default").appendTo(opDiv);
                     var d = $("<div>" + that.options.steps + " steps</div>").addClass("number-of-steps")
@@ -319,7 +319,8 @@
 
                         var ul = $("<ul></ul>").addClass("button-list").css("margin", "5px 0 5px 0").appendTo(ltlresdiv);
                         var li = $("<li></li>").appendTo(ul);
-                        var btn = $("<button><img src='../images/small-tick.svg'> example </button>").addClass("LTL-sim-true").appendTo(li);
+                        var btn = <JQuery>this.createSuccessBtn();
+                        btn.appendTo(li);
                         btn.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested();
@@ -345,7 +346,7 @@
                     break;
                 case "partialsuccess":
                     if (this.options.isexpanded) {
-                        
+
                         var ltlresdiv = $("<div></div>").addClass("LTL-test-results").addClass("true").appendTo(opDiv);
                         ltlresdiv.html("True for SOME traces<br>");
 
@@ -399,8 +400,8 @@
                                     that.options.onexpanded();
                                 }
 
-                               plusd.removeClass("testing");
-                               plusb.removeClass("testing");
+                                plusd.removeClass("testing");
+                                plusb.removeClass("testing");
                             }
                         });
 
@@ -432,7 +433,8 @@
 
                         var ul = $("<ul></ul>").addClass("button-list").css("margin", "5px 0 5px 0").appendTo(ltlresdiv);
                         var li = $("<li></li>").appendTo(ul);
-                        var btn = $("<button><img src='../images/small-tick.svg'> example </button>").addClass("LTL-sim-true").appendTo(li);
+                        var btn = <JQuery>this.createSuccessBtn();
+                        btn.appendTo(li);
                         btn.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested();
@@ -457,7 +459,7 @@
                     break;
                 case "partialsuccesspartialfail":
                     if (this.options.isexpanded) {
-                        
+
                         var ltlresdiv = $("<div></div>").addClass("LTL-test-results").addClass("some").appendTo(opDiv);
                         ltlresdiv.html("True/False for SOME traces<br>");
 
@@ -544,7 +546,8 @@
 
                         var ul = $("<ul></ul>").addClass("button-list").css("margin-top", 5).appendTo(ltlresdiv);
                         var liOk = $("<li></li>").css("margin-bottom", 5).appendTo(ul);
-                        var btnOk = $("<button><img src='../images/small-tick.svg'>  example </button>").addClass("LTL-sim-true").appendTo(liOk);
+                        var btnOk = <JQuery>this.createSuccessBtn();
+                        btnOk.appendTo(liOk);
                         btnOk.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested(true);
@@ -552,7 +555,8 @@
                         });
 
                         var liX = $("<li></li>").css("margin-bottom", 5).appendTo(ul);
-                        var btnX = $("<button><img src='../images/small-cross.svg'> example </button>").addClass("LTL-sim-false").appendTo(liX);
+                        var btnX = <JQuery>this.createFailBtn();
+                        btnX.appendTo(liX);
                         btnX.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested(false);
@@ -665,7 +669,8 @@
 
                         var ul = $("<ul></ul>").addClass("button-list").css("margin-top", 5).css("margin-bottom", 5).appendTo(ltlresdiv);
                         var li = $("<li></li>").appendTo(ul);
-                        var btn = $("<button><img src='../images/small-cross.svg'> example</button>").addClass("LTL-sim-false").appendTo(li);
+                        var btn = <JQuery>this.createFailBtn();
+                        btn.appendTo(li);
                         btn.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested();
@@ -691,7 +696,7 @@
                 case "fail":
 
                     if (this.options.isexpanded) {
-                        
+
                         var ltlresdiv = $("<div></div>").addClass("LTL-test-results").addClass("false").appendTo(opDiv);
                         var fr = $("<div>False for ALL traces</div>").appendTo(ltlresdiv);
                         var sr = $("<div></div>").appendTo(ltlresdiv);
@@ -743,8 +748,8 @@
                                 if (that.options.onexpanded !== undefined) {
                                     that.options.onexpanded();
                                 }
-                               plusd.removeClass("testing");
-                               plusb.removeClass("testing");
+                                plusd.removeClass("testing");
+                                plusb.removeClass("testing");
                             }
                         });
 
@@ -776,7 +781,8 @@
 
                         var ul = $("<ul></ul>").addClass("button-list").css("margin-top", 5).css("margin-bottom", 5).appendTo(ltlresdiv);
                         var li = $("<li></li>").appendTo(ul);
-                        var btn = $("<button><img src='../images/small-cross.svg'> example</button>").addClass("LTL-sim-false").appendTo(li);
+                        var btn = <JQuery>this.createFailBtn();
+                        btn.appendTo(li);
                         btn.click(function () {
                             if (that.options.onshowresultsrequested !== undefined) {
                                 that.options.onshowresultsrequested();
@@ -819,6 +825,14 @@
                     that.createWaitAnim().appendTo(btn);
                     break;
             }
+        },
+
+        createSuccessBtn: function () {
+            return $("<button><img src='../images/analysis/BMA_Stable_Icon.svg' width='13px' height='13px'> example </button>").addClass("LTL-sim-true");
+        },
+
+        createFailBtn: function () {
+            return $("<button><img src='../images/analysis/BMA_Failed_Icon.svg' width='13px' height='13px'> example</button>").addClass("LTL-sim-false");
         },
 
         createWaitAnim: function () {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="BioModelAnalyzer" Language="1033" Version="1.6.0.0" Manufacturer="Ben Hall" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
+  <Product Id="*" Name="BioModelAnalyzer" Language="1033" Version="1.7.0.19" Manufacturer="Ben Hall" UpgradeCode="bd7bae52-02e5-4e54-a04c-a7baa81c493a">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Icon Id="BMA.ico" SourceFile="BMA.ico"/>
