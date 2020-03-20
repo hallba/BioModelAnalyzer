@@ -828,11 +828,11 @@
         },
 
         createSuccessBtn: function () {
-            return $("<button><img src='../images/analysis/BMA_Stable_Icon.svg' width='13px' height='13px'> example </button>").addClass("LTL-sim-true");
+            return $("<button><img src='../images/analysis/BMA_Stable_Icon.svg' width='12px' height='12px' style='margin-right: 5px;'> example </button>").addClass("LTL-sim-true");
         },
 
         createFailBtn: function () {
-            return $("<button><img src='../images/analysis/BMA_Failed_Icon.svg' width='13px' height='13px'> example</button>").addClass("LTL-sim-false");
+            return $("<button><img src='../images/analysis/BMA_Failed_Icon.svg' width='12px' height='12px' style='margin-right: 5px;'> example</button>").addClass("LTL-sim-false");
         },
 
         createWaitAnim: function () {

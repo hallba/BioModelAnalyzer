@@ -4,6 +4,7 @@
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="cmplLXsnq2HevIVvjn9GWLnUvcDgWA" Guid="{7B20AA26-E9EF-4EDD-89CB-6E7008CB0B3A}">
         <File Id="filpSQTxf4O9jOiOLNgWr5__Yi1Afk" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Analyze.exe" />
+        <File Id="versionexe" KeyPath="no" Source="$(var.bma.selfhost.TargetDir)\version.txt" />
       </Component>
       <Component Id="cmppWWc9EV8_H6FgAE_kMESlfqDJMg" Guid="{F35DD9BA-D193-43EB-8DC4-C079AF5E06F9}">
         <File Id="filo9_3j63qrb_QQQ34.26N3YyC4ns" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Analyze.exe.config" />
