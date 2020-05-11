@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>listview demo</title>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.css">
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#b1").click(function (e) {
+                $("<li>Жигули</li>").appendTo($("#mainlist"));
+                $('#mainlist').listview('refresh');
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <form class="ui-filterable">
+        <input id="filterBasic-input" data-type="search">
+    </form>
+    <ul id="mainlist" data-role="listview" data-filter="true" data-input="#filterBasic-input">
+        <li>Acura</li>
+        <li>Audi</li>
+        <li>BMW</li>
+        <li>Cadillac</li>
+        <li>Ferrari</li>
+    </ul>
+    <button id="b1">Add new</button>
+</body>
+</html>

@@ -10,7 +10,7 @@ module BMA
         var variableMapper = {};
 
         var $variables = $xml.children("gxl").children("graph").children("node");
-        var modelVars = <Model.Variable[]>($variables.map((idx, elt) => {
+        var modelVars = <any>($variables.map((idx, elt) => {
             var $elt = $(elt);
 
             var containerId = -1;
@@ -33,7 +33,7 @@ module BMA
         var containers = [];
 
         var $relations = $xml.children("gxl").children("graph").children("edge");
-        var modelRels = <Model.Relationship[]>($relations.map((idx, elt) => {
+        var modelRels = <any>($relations.map((idx, elt) => {
             var $elt = $(elt);
 
             var from = variableMapper[$elt.attr("from")];
@@ -55,7 +55,7 @@ module BMA
                 type);
         }).get());
 
-        var varLayouts = <Model.VariableLayout[]>($variables.map((idx, elt) => {
+        var varLayouts = <any>($variables.map((idx, elt) => {
             var $elt = $(elt);
 
             var id = $elt.attr("id");
@@ -98,7 +98,7 @@ module BMA
         var $xml = $(xml);
 
         var $variables = $xml.children("Model").children("Variables").children("Variable");
-        var modelVars = <Model.Variable[]>($variables.map((idx, elt) => {
+        var modelVars = <any>($variables.map((idx, elt) => {
             var $elt = $(elt);
 
             var containerId = $elt.children("ContainerId").text();
@@ -115,7 +115,7 @@ module BMA
         }).get());
 
         var $relations = $xml.children("Model").children("Relationships").children("Relationship");
-        var modelRels = <Model.Relationship[]>($relations.map((idx, elt) => {
+        var modelRels = <any>($relations.map((idx, elt) => {
             var $elt = $(elt);
             return new Model.Relationship(
                 parseInt($elt.attr("Id")),
@@ -125,7 +125,7 @@ module BMA
         }).get());
 
         var $containers = $xml.children("Model").children("Containers").children("Container");
-        var containers = <Model.ContainerLayout[]>($containers.map((idx, elt) => {
+        var containers = <any>($containers.map((idx, elt) => {
             var $elt = $(elt);
 
             var size = $elt.children("Size").text();
@@ -139,7 +139,7 @@ module BMA
                 parseInt($elt.children("PositionY").text()));
         }).get());
 
-        var varLayouts = $variables.map((idx, elt) => {
+        var varLayouts = <any>$variables.map((idx, elt) => {
             var $elt = $(elt);
 
             var id = parseInt($elt.attr("Id"));

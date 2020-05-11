@@ -1,14 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
   <PropertyGroup>
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Analysis.cs" />
     <Compile Include="LogService.cs" />
@@ -16,14 +14,12 @@
     <Compile Include="LtlModel.cs" />
     <Compile Include="Simulation.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
     <ProjectReference Include="..\BioCheckAnalyzer\BioCheckAnalyzer_Standart.fsproj" />
   </ItemGroup>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

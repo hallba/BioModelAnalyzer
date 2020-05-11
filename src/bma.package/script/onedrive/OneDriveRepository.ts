@@ -130,7 +130,7 @@ module BMA.OneDrive {
         public GetModelList(): JQueryPromise<BMA.UIDrivers.ModelInfo[]> {
             var that = this;
             var myModels = this.UseBmaFolder(false)
-                .then<OneDriveFile[]>(function (folderId) {
+                .then<OneDriveFile[]>(<any>(function (folderId) {
                     if (folderId) {
                         return that.EnumerateModels(folderId);
                     } else { // no bma folder
@@ -138,7 +138,7 @@ module BMA.OneDrive {
                         d.resolve(new Array<OneDriveFile>(0));
                         return d;
                     }
-                });
+                }));
             //var sharedModels = that.oneDrive.EnumerateSharedWithMeFiles()
             //    .then<SharedOneDriveFile[]>(function (files) {
             //        var jsonFiles = [];

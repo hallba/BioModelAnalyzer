@@ -19,10 +19,10 @@ nuget jasmine-jquery.TypeScript.DefinitelyTyped 0.5.3 framework: >= net45
 nuget jasmine-js 1.3.1.1 framework: >= net45
 nuget jasmine-matchers.TypeScript.DefinitelyTyped 0.0.4 framework: >= net45
 nuget jasmine.TypeScript.DefinitelyTyped 0.7.8 framework: >= net45
-nuget jQuery 2.1.4
-nuget jquery.TypeScript.DefinitelyTyped 2.1.9
-nuget jQuery.UI.Combined 1.11.4
-nuget jqueryui.TypeScript.DefinitelyTyped 0.3.6
+nuget jQuery 3.4.1
+nuget jquery.TypeScript.DefinitelyTyped 3.1.2
+nuget jQuery.UI.Combined 1.12.1
+nuget jqueryui.TypeScript.DefinitelyTyped 1.5.1
 nuget Microsoft.AspNet.Cors 5.2.7 framework: >= net45
 nuget Microsoft.AspNet.WebApi 5.2.7
 nuget Microsoft.AspNet.WebApi.Client 5.2.7

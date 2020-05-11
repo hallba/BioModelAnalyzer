@@ -122,7 +122,7 @@ module BMA {
                                         return d.promise();
                                     }
                                     $.when(deferredProofPropagation()).done(function (res) {
-                                        that.expandedProofPropagation = res;
+                                        that.expandedProofPropagation = <any>res;
                                     })
 
                                     var deferredProofVariables = function () {
@@ -132,7 +132,7 @@ module BMA {
                                         return d.promise();
                                     }
                                     $.when(deferredProofVariables()).done(function (res) {
-                                        that.expandedProofVariables = res;
+                                        that.expandedProofVariables = <any>res;
                                     })
 
                                     window.Commands.Execute("DrawingSurfaceSetProofResults", that.stability);

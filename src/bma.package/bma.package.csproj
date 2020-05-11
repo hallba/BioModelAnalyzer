@@ -59,6 +59,27 @@
     <Content Include="images\caoruselNext.png" />
     <Content Include="images\caoruselPrev.png" />
     <Content Include="images\downarrow.png" />
+    <Content Include="Scripts\jquery-3.4.1-vsdoc.js">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.js">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.min.js">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.min.map">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.slim.js">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map">
+      <Paket>True</Paket>
+    </Content>
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js">
@@ -113,9 +134,6 @@
     <TypeScriptCompile Include="Scripts\typings\jasmine-matchers\jasmine-matchers.d.ts">
       <Paket>True</Paket>
     </TypeScriptCompile>
-    <Content Include="Scripts\jquery-2.1.4-vsdoc.js">
-      <Paket>True</Paket>
-    </Content>
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts">
       <Paket>True</Paket>
     </TypeScriptCompile>
@@ -309,12 +327,6 @@
     <Content Include="css\website.less" />
     <Content Include="css\partials\style-guide.less" />
     <None Include="postbuild.cmd" />
-    <Content Include="Scripts\jquery-2.1.4.js">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="Scripts\jquery-2.1.4.min.js">
-      <Paket>True</Paket>
-    </Content>
     <Content Include="Scripts\targetFuncParser.js" />
     <Content Include="data\2var_unstable.xml">
       <SubType>Designer</SubType>
@@ -326,9 +338,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />
-    <Content Include="Scripts\jquery-2.1.4.min.map">
-      <Paket>True</Paket>
-    </Content>
     <Content Include="data\Firing_neuron_3_cells.json" />
     <Content Include="data\Firing_neuron_2_cells_without_ids.json" />
     <None Include="web.Debug.config">

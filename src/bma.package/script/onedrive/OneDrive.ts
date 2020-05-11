@@ -154,13 +154,14 @@ module BMA.OneDrive {
 
         public LoadFile(fileId: string): JQueryPromise<JSON> {
             var that = this;
-            return this.oneDriveApi("GET", "/drive/items/" + fileId, null, OneDrive.selectDownloadFields)
+            var result: any = this.oneDriveApi("GET", "/drive/items/" + fileId, null, OneDrive.selectDownloadFields)
                 .then(function (file) {
                     return that.get(file["@content.downloadUrl"])
                         .then(function (data, status, xhr: JQueryXHR) {
                             return data;
                         });
                 });
+            return result;
         }
 
         public FileExists(fileId: string): JQueryPromise<boolean> {

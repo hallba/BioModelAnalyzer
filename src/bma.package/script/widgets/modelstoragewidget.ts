@@ -29,12 +29,16 @@
                 if (that.options.updatemodellistcallback !== undefined)
                     that.options.updatemodellistcallback();
             }).hide();
+
+            /*
             var closediv = $('<div></div>').addClass('close-icon').appendTo(that.element);
             var closing = $('<img src="../../images/close.png">').appendTo(closediv);
             closing.bind("click", function () {
                 that.element.hide();
             });
             that.element.draggable({ containment: "parent", scroll: false });
+            */
+
             this.message = $('<div></div>')
             //.addClass('localstorage-widget-message')
                 .appendTo(this.element);

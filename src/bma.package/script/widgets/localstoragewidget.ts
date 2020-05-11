@@ -45,7 +45,17 @@
                 var exportBtn = $('<div></div>').addClass("export-zip-btn").appendTo(this.repo);
                 exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
 
-                this.ol = $('<ol></ol>').height(150).css("overflow-y", "scroll").appendTo(this.repo);
+
+                var form = $("<form></form>").addClass("ui-filterable").appendTo(this.repo);
+                var input = $("<input></input>").attr("id", "localrepo-filterinput").attr("data-type", "search").appendTo(form);
+
+                this.ol = $('<ol></ol>')
+                    .attr("data-role", "listview")
+                    .attr("data-filter", "true")
+                    .attr("data-input", "#localrepo-filterinput")
+                    .height(150)
+                    .css("overflow-y", "scroll");
+                    
 
                 for (var i = 0; i < items.length; i++) {
                     var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
@@ -69,6 +79,10 @@
                         //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
                     })
                 }
+
+                this.ol.appendTo(this.repo);
+                //this.ol.listview('refresh');
+
                 //this.ol.selectable({
                 //    stop: function () {
                 //        var ind = that.repo.find(".ui-selected").index();
