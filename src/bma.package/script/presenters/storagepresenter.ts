@@ -202,6 +202,19 @@ module BMA {
                     }
                 });
 
+                that.driver.SetLinkToModelByName(function (mname) {
+                    var deffered = $.Deferred();
+
+                    localRepository.LoadModel("user." + mname).done(function (res) {
+                        var imported = BMA.Model.ImportModelAndLayout(res);
+                        deffered.resolve(imported);
+                    }).fail(function () {
+                        deffered.reject();
+                    });
+
+                    return deffered;
+                });
+
             }
 
             public RequestLoadModel() {

@@ -80,6 +80,7 @@ module.exports = function (grunt) {
                     "script/widgets/formulaeditor.js",
                     "script/widgets/tftexteditor.js",
                     "script/widgets/motiflibrary.js",
+                    "script/widgets/previewviewer.js",
                     "script/widgets/ltl/keyframetable.js",
                     "script/widgets/ltl/keyframecompact.js",
                     "script/widgets/ltl/ltlstatesviewer.js",

@@ -12,6 +12,7 @@
             onremovemodel: undefined,
             onloadmodel: undefined,
             enableContextMenu: true,
+            onelementselected: undefined
         },
 
         _create: function () {
@@ -35,6 +36,12 @@
             this.refresh();
         },
 
+        _notifyOnClick: function (item) {
+            if (this.options.onelementselected != undefined) {
+                this.options.onelementselected(item.attr("data-name"));
+            }
+        },
+
         _createHTML: function (items) {
             var items = this.options.items;
             this.repo.empty();
@@ -50,6 +57,11 @@
                 for (var i = 0; i < items.length; i++) {
                     var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
                         var ind = $(this).index();
+
+                        if (that.options.onelementselected != undefined) {
+                            that.options.onelementselected(items[ind]);
+                        }
+
                         if (that.options.onloadmodel !== undefined) {
                             that.options.onloadmodel("user." + items[ind]);//.done(function () {
                             //    that.repo.find(".ui-selected").removeClass("ui-selected");
@@ -59,15 +71,18 @@
                             //});
                         }
                     });
+                    li.attr("data-name", items[i]);
                     //var a = $('<a></a>').addClass('delete').appendTo(li);
                     var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
                     var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
                     removeBtn.bind("click", function (event) {
+                        event.stopPropagation();
+
                         if (that.options.onremovemodel !== undefined)
                             that.options.onremovemodel("user." + items[$(this).parent().index()]);
                         //event.stopPropagation();
                         //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
-                    })
+                    });
                 }
                 //this.ol.selectable({
                 //    stop: function () {

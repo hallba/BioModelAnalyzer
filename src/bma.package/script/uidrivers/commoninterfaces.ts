@@ -163,6 +163,7 @@ module BMA {
             Hide();
             SetAuthorizationStatus(status: boolean);
             SetOnUpdateModelList(callback: Function);
+            SetLinkToModelByName(callback: Function);
             //SetOnSignInCallback(callback: Function);
             //SetOnSignOutCallback(callback: Function);
         }

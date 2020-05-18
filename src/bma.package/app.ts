@@ -700,9 +700,7 @@ function loadScript(version) {
         .localstoragewidget();
     var oneDriveStorageWidget = $("<div></div>")
         /*.appendTo('#drawingSurceContainer')*/.onedrivestoragewidget();
-    var modelStorageWidget = $('<div></div>')
-        .addClass('window')
-        .appendTo('#drawingSurceContainer')
+    var modelStorageWidget = $('#modelrepositorycontent')//$('<div></div>').addClass('window').appendTo('#drawingSurceContainer')
         .modelstoragewidget({
             localStorageWidget: localStorageWidget,
             oneDriveWidget: oneDriveStorageWidget

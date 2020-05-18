@@ -13,6 +13,7 @@
             isAuthorized: false,
             onsigninonedrive: undefined,
             onsignoutonedrive: undefined,
+            getmodelbyname: undefined,
             activeRepo: "local",
         },
 
@@ -29,12 +30,12 @@
                 if (that.options.updatemodellistcallback !== undefined)
                     that.options.updatemodellistcallback();
             }).hide();
-            var closediv = $('<div></div>').addClass('close-icon').appendTo(that.element);
-            var closing = $('<img src="../../images/close.png">').appendTo(closediv);
-            closing.bind("click", function () {
-                that.element.hide();
-            });
-            that.element.draggable({ containment: "parent", scroll: false });
+            //var closediv = $('<div></div>').addClass('close-icon').appendTo(that.element);
+            //var closing = $('<img src="../../images/close.png">').appendTo(closediv);
+            //closing.bind("click", function () {
+            //    that.element.hide();
+            //});
+            //that.element.draggable({ containment: "parent", scroll: false });
             this.message = $('<div></div>')
             //.addClass('localstorage-widget-message')
                 .appendTo(this.element);
@@ -86,6 +87,21 @@
                     }
                 });
             }
+
+
+            var preivewDiv = $("<div></div>").width(250).height(100).appendTo(this.element);
+            preivewDiv.previewviewer();
+
+            that.localStorage.localstoragewidget({
+                onelementselected: function (mname) {
+                    if (that.options.getmodelbyname !== undefined) {
+                        that.options.getmodelbyname(mname).done(function (model) {
+                            preivewDiv.previewviewer({ model: model });
+                        });
+                    }
+                }
+            });
+
 
             //this.oneDriveStorage.onedrivestoragewidget();
             //if (this.options.items) {
