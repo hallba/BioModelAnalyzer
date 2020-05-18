@@ -6,6 +6,8 @@
 (function ($) {
     $.widget("BMA.modelstoragewidget", {
 
+        _previewDiv: undefined,
+
 
         options: {
             items: [],
@@ -15,6 +17,8 @@
             onsignoutonedrive: undefined,
             getmodelbyname: undefined,
             activeRepo: "local",
+
+            dragcontainer: "#drawingSurfaceContainer"
         },
 
         _create: function () {
@@ -37,7 +41,7 @@
             //});
             //that.element.draggable({ containment: "parent", scroll: false });
             this.message = $('<div></div>')
-            //.addClass('localstorage-widget-message')
+                //.addClass('localstorage-widget-message')
                 .appendTo(this.element);
 
             //this.switcher = $("<div></div>").addClass("repository-switcher").appendTo(this.element).hide();
@@ -56,7 +60,7 @@
             //});
 
             this.localStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
-            this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element); 
+            this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
 
             if (that.options.localStorageWidget) {
                 $(that.localStorage).replaceWith(that.options.localStorageWidget);
@@ -89,14 +93,23 @@
             }
 
 
-            var preivewDiv = $("<div></div>").width(350).height(250).appendTo(this.element);
-            preivewDiv.previewviewer();
+            var previewDiv = $("<div></div>").width(350).height(250).appendTo(this.element);
+            previewDiv.previewviewer();
+            previewDiv.hide();
+
+            that._previewDiv = previewDiv;
+
+            previewDiv.draggable({
+                helper: "clone", appendTo: "body", cursor: "pointer", containment: that.options.dragcontainer, scope: "ml-card"
+            });
 
             that.localStorage.localstoragewidget({
                 onelementselected: function (mname) {
                     if (that.options.getmodelbyname !== undefined) {
                         that.options.getmodelbyname(mname).done(function (model) {
-                            preivewDiv.previewviewer({ model: model });
+                            previewDiv.attr("data-mname", mname);
+                            previewDiv.previewviewer({ model: model });
+                            previewDiv.show();
                         });
                     }
                 }
@@ -111,7 +124,7 @@
             //if (this.options.oneDriveItems) {
             //    this.oneDriveStorage.onedrivestoragewidget({ items: that.options.oneDriveItems });
             //}
-            
+
             this.oneDriveStorage.hide();
 
             //this.repo = $('<div></div>')
@@ -164,11 +177,15 @@
         },
 
         refresh: function () {
-           // this._createHTML();
+            // this._createHTML();
         },
 
         Message: function (msg) {
             this.message.text(msg);
+        },
+
+        GetPreviewModel: function () {
+            return this._previewDiv.previewviewer("option", "model");
         },
 
         //AddItem: function (item) {

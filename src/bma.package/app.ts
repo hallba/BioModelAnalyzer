@@ -694,7 +694,7 @@ function loadScript(version) {
     });
 
 
-
+    //Creating model storage widgets
     var localStorageWidget = $('<div></div>')
         //.appendTo('#drawingSurceContainer')
         .localstoragewidget();
@@ -705,6 +705,29 @@ function loadScript(version) {
             localStorageWidget: localStorageWidget,
             oneDriveWidget: oneDriveStorageWidget
         });
+
+    //Adding droppable 
+    var modelDropContainer = $("#drawingSurceContainer");
+    modelDropContainer.droppable({
+        greedy: true,
+        scope: "ml-card",
+        drop: function (event, ui) {
+            var e = <MouseEvent>event;
+            var cursor = { x: e.pageX, y: e.pageY };
+            var position = {
+                screenX: e.pageX - modelDropContainer.offset().left,
+                screenY: e.pageY - modelDropContainer.offset().top,
+            };
+
+
+            var ms = modelStorageWidget.modelstoragewidget("GetPreviewModel");
+            if (ms !== undefined) {
+                window.Commands.Execute("ModelDropped", {
+                    position: position, modelSource: { model: ms.Model, layout: ms.Layout }
+                });
+            }
+        }
+    });
 
     $("#editor").bmaeditor();
 
@@ -728,6 +751,7 @@ function loadScript(version) {
         window.Commands.Execute(command, undefined);
     });
 
+    /*
     //Loading motif library
     $("#motifLibrary").motiflibrary({ container: $("#drawingSurceContainer")[0], changePreloadedVisibility: () => { motifLibrary.HidePreloadedMotifs(); }, deleteMotif: (i) => { motifLibrary.DeleteMotifByIndex(i); } });
     window.Commands.On("PreloadedMotifsReady", (args) => {
@@ -779,12 +803,9 @@ function loadScript(version) {
         }
     });
 
-    //Adding draggable for motif creation by drag
-    //var draggableEntity = $("<div></div>").width("100%").height("100%").css("background-color", "red").addClass(".plotDraggableEntity").appendTo(motifDropConteiner);
-    //draggableEntity.draggable({ helper: "clone" });
-
     //Start loading preloaded motifs
     motifLibrary.StartLoadMotifs();
+    */
 
     //Visual Settings Presenter
     var visualSettings = new BMA.Model.AppVisualSettings();
@@ -792,7 +813,6 @@ function loadScript(version) {
 
     //window.Commands.On("Commands.ToggleOldColorScheme", (args) => {
     //    (<any>window).VisualSettings.IsOldColorSchemeEnabled = !(<any>window).VisualSettings.IsOldColorSchemeEnabled;
-
     //    if ((<any>window).VisualSettings.IsOldColorSchemeEnabled) {
     //        $(".cell-icon").removeClass("cell-icon").addClass("cell-icon-old");
     //        $(".constant-icon").removeClass("constant-icon").addClass("constant-icon-old");
@@ -804,7 +824,6 @@ function loadScript(version) {
     //        $(".variable-icon-old").removeClass("variable-icon-old").addClass("variable-icon");
     //        $(".receptor-icon-old").removeClass("receptor-icon-old").addClass("receptor-icon");
     //    }
-
     //    window.Commands.Execute("DrawingSurfaceRefreshOutput", {});
     //});
 

@@ -158,6 +158,21 @@ module BMA {
                     }
                 });
 
+                window.Commands.On("ModelDropped", (args: { position: { screenX: number; screenY: number; }, modelSource: { model: BMA.Model.BioModel; layout: BMA.Model.Layout } }) => {
+                    var plotX = svgPlotDriver.GetPlotX(args.position.screenX);
+                    var plotY = svgPlotDriver.GetPlotY(args.position.screenY);
+
+                    if (!dragndropExtender.HandleDrop({ x: plotX, y: plotY }, undefined)) {
+                        var cell = that.GetGridCell(plotX, plotY);
+                        if (that.CanAddContainer(undefined, plotX, plotY, 1, false)) {
+                            var source = that.undoRedoPresenter.Current;
+                            var merged = ModelHelper.MergeModels(source, args.modelSource, that.Grid, cell, that.variableIndex);
+                            that.variableIndex = merged.indexOffset + 1;
+                            that.undoRedoPresenter.Dup(merged.result.model, merged.result.layout);
+                        }
+                    }
+                });
+
                 window.Commands.On("DrawingSurfacePasteFromClipboard", (args: { contents: any }) => {
                     if (this.currentGridCell !== undefined) {
                         var cell = this.currentGridCell;

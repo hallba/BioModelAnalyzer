@@ -62,14 +62,17 @@
                             that.options.onelementselected(items[ind]);
                         }
 
-                        if (that.options.onloadmodel !== undefined) {
-                            that.options.onloadmodel("user." + items[ind]);//.done(function () {
+                        //if (that.options.onloadmodel !== undefined) {
+                        //    that.options.onloadmodel("user." + items[ind]);
+
+                            //Old code
+                            //.done(function () {
                             //    that.repo.find(".ui-selected").removeClass("ui-selected");
                             //    $(that.options.selectedLi).addClass("ui-selected");
                             //    if (that.options.oncancelselection !== undefined)
                             //        that.options.oncancelselection();
                             //});
-                        }
+                        //}
                     });
                     li.attr("data-name", items[i]);
                     //var a = $('<a></a>').addClass('delete').appendTo(li);
