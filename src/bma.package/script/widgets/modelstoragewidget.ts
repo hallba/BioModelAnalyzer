@@ -89,7 +89,7 @@
             }
 
 
-            var preivewDiv = $("<div></div>").width(250).height(100).appendTo(this.element);
+            var preivewDiv = $("<div></div>").width(350).height(250).appendTo(this.element);
             preivewDiv.previewviewer();
 
             that.localStorage.localstoragewidget({

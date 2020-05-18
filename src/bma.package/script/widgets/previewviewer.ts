@@ -11,14 +11,18 @@
             model: undefined
         },
 
-        _renderDiv: undefined,
         _svg: undefined,
 
         _create: function () {
             var that = this;
-            that._renderDiv = $("<div></div>").width("100%").height("100%").appendTo(this.element);
-            that._renderDiv.svg({
+            that.element.css("border", "1px solid black");
+            that.element.svg({
                 onLoad: (svg) => {
+                    svg.configure({
+                        width: that.element.width(),
+                        height: that.element.height()
+                    });
+
                     that._svg = svg;
                     that._renderPreview();
                 }
