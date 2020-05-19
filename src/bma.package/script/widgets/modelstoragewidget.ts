@@ -101,7 +101,11 @@
                 .css("border-top", "1px solid black")
                 .appendTo(this.element);
 
+            var previewFull = $("<div></div>").css("display", "block").appendTo(previewDivContainer);
+
+            var previewHeder = $("<div></div>").appendTo(previewFull);
             var previewFrame = $("<div></div>").css("border", "1px solid black").width(350).height(250).appendTo(previewDivContainer);
+            var previewDescription = $("<div></div>").appendTo(previewFull);
 
             var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewFrame);
             previewDiv.previewviewer();
@@ -117,6 +121,7 @@
                 onelementselected: function (mname) {
                     if (that.options.getmodelbyname !== undefined) {
                         that.options.getmodelbyname(mname).done(function (model) {
+                            previewHeder.text(mname);
                             previewDiv.attr("data-mname", mname);
                             previewDiv.previewviewer({ model: model });
                             previewDiv.show();

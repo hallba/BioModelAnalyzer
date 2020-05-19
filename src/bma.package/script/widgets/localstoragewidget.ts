@@ -55,7 +55,7 @@
                 this.ol = $('<ol></ol>').css("max-height", 150).css("overflow-y", "scroll").appendTo(this.repo);
 
                 for (var i = 0; i < items.length; i++) {
-                    var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
+                    var li = $('<li></li>').appendTo(this.ol).click(function () {
                         var ind = $(this).index();
 
                         if (that.options.onelementselected != undefined) {
@@ -78,9 +78,8 @@
                         //}
                     });
                     li.attr("data-name", items[i]);
-                    //var a = $('<a></a>').addClass('delete').appendTo(li);
                     var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
-                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
+                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
 
