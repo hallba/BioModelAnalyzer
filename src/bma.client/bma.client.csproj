@@ -166,6 +166,15 @@
     <Content Include="images\navigationpanel\BMA_Icon_Zoom_In.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Zoom_Out.svg" />
     <Content Include="images\receptor-old.svg" />
+    <Content Include="images\repository\Export_Icon.svg" />
+    <Content Include="images\repository\Export_Zip.svg" />
+    <Content Include="images\repository\Import_Model_Icon.svg" />
+    <Content Include="images\repository\New_Model_Icon.svg" />
+    <Content Include="images\repository\One_Drive_Off.svg" />
+    <Content Include="images\repository\One_Drive_On_Active.svg" />
+    <Content Include="images\repository\One_Drive_On_Inactive.svg" />
+    <Content Include="images\repository\Save_As_Icon.svg" />
+    <Content Include="images\repository\Save_Model_Icon.svg" />
     <Content Include="images\resize-grabber.svg" />
     <Content Include="images\selection.png" />
     <Content Include="images\uparrow-grey.png" />
@@ -225,9 +234,6 @@
     <Content Include="app.css" />
     <Content Include="app.js" />
     <Content Include="css\bma.css" />
-    <Content Include="images\onedrive-login.png" />
-    <Content Include="images\onedrive-logout.png" />
-    <Content Include="images\onedrive-off.png" />
     <Content Include="js\monaco\base\common\worker\simpleWorker.js" />
     <Content Include="js\monaco\base\common\worker\simpleWorker.nls.js" />
     <Content Include="js\monaco\base\worker\workerMain.js" />
@@ -316,8 +322,6 @@
     <Content Include="images\list.png" />
     <Content Include="images\loading.gif" />
     <Content Include="images\Loading_Animation.gif" />
-    <Content Include="images\local.png" />
-    <Content Include="images\local.svg" />
     <Content Include="images\logo-crop.png" />
     <Content Include="images\LTL-copy.svg" />
     <Content Include="images\LTL-delete.svg" />
@@ -337,10 +341,6 @@
     <Content Include="images\minimize.png" />
     <Content Include="images\MSR-logo.png" />
     <Content Include="images\MSRLogoDigitalBlack.png" />
-    <Content Include="images\new.png" />
-    <Content Include="images\new.svg" />
-    <Content Include="images\open.png" />
-    <Content Include="images\open.svg" />
     <Content Include="images\oscillation-state.svg" />
     <Content Include="images\oscillations-ON.svg" />
     <Content Include="images\oscillations.png" />
@@ -365,11 +365,7 @@
     <Content Include="images\redo.svg" />
     <Content Include="images\remove.gif" />
     <Content Include="images\runbutton.png" />
-    <Content Include="images\save.png" />
-    <Content Include="images\save.svg" />
     <Content Include="images\saveicon.png" />
-    <Content Include="images\savelocally.png" />
-    <Content Include="images\savelocally.svg" />
     <Content Include="images\screen-fit.svg" />
     <Content Include="images\selfloop-state.svg" />
     <Content Include="images\state-container.svg" />

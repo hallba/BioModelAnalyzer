@@ -49,10 +49,10 @@
 
             if (items.length > 0) {
 
-                var exportBtn = $('<div></div>').addClass("export-zip-btn").appendTo(this.repo);
-                exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
+                //var exportBtn = $('<div></div>').addClass("export-zip-btn").appendTo(this.repo);
+                //exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
 
-                this.ol = $('<ol></ol>').height(150).css("overflow-y", "scroll").appendTo(this.repo);
+                this.ol = $('<ol></ol>').css("max-height", 150).css("overflow-y", "scroll").appendTo(this.repo);
 
                 for (var i = 0; i < items.length; i++) {
                     var li = $('<li></li>')/*.text(items[i])*/.appendTo(this.ol).click(function () {
@@ -61,6 +61,9 @@
                         if (that.options.onelementselected != undefined) {
                             that.options.onelementselected(items[ind]);
                         }
+
+                        that.repo.find(".ui-selected").removeClass("ui-selected");
+                        that.ol.children().eq(ind).addClass("ui-selected");
 
                         //if (that.options.onloadmodel !== undefined) {
                         //    that.options.onloadmodel("user." + items[ind]);

@@ -2,6 +2,75 @@
 // License: MIT. See LICENSE
 module BMA {
     export module ModelHelper {
+
+        //Creates model and layout from JSON and preperly serializes it back. Validates all inner model structures. Creates all missing model sections
+        export function ProcessModelJSON(serializedModel: string) {
+            if (serializedModel !== undefined && serializedModel !== null) {
+                var parsed = JSON.parse(serializedModel);
+
+                var imported = BMA.Model.ImportModelAndLayout(parsed);
+                var adjusted = ModelHelper.AdjustReceptorsPosition(imported.Model, imported.Layout, window.GridSettings);
+                this.model = adjusted.model;
+                this.layout = adjusted.layout;
+                this.states = [];
+                this.operations = [];
+                this.operationAppearances = [];
+
+                if (parsed.ltl !== undefined) {
+                    var ltl = BMA.Model.ImportLTLContents(parsed.ltl);
+                    var statesAreChanged = false;
+                    if (ltl.states !== undefined) {
+                        var statesChanged = BMA.ModelHelper.UpdateStatesWithModel(this.model, this.layout, ltl.states);
+                        this.states = statesChanged.states;
+                        statesAreChanged = statesChanged.isChanged;
+                        if (statesChanged.shouldNotify) window.Commands.Execute("InvalidStatesImported", {});
+                    } else {
+                        this.states = [];
+                    }
+
+                    if (ltl.operations !== undefined) {
+                        if (statesAreChanged) {
+                            for (var i = 0; i < ltl.operations.length; i++) {
+                                var op = ltl.operations[i];
+                                BMA.LTLOperations.RefreshStatesInOperation(op, this.states);
+                            }
+                        }
+                        this.operations = ltl.operations;
+                    } else {
+                        this.operations = [];
+                    }
+                }
+
+                if (parsed.ltllayout !== undefined) {
+                    if (parsed.ltllayout.operationAppearances !== undefined) {
+                        this.operationAppearances = parsed.ltllayout.operationAppearances;
+                    }
+                }
+
+            } else {
+                this.model = new BMA.Model.BioModel("model 1", [], []);
+                this.layout = new BMA.Model.Layout([], []);
+                this.states = [];
+                this.operations = [];
+                this.operationAppearances = [];
+            }
+
+            this.proofResult = undefined;
+
+            var exported = BMA.Model.ExportModelAndLayout(this.model, this.layout);
+            var ltl2 = BMA.Model.ExportLTLContents(this.states, this.operations);
+            (<any>exported).ltl = ltl2;
+
+            if (this.operationAppearances !== undefined && this.operationAppearances.length > 0 && this.operationAppearances.length === this.operations.length) {
+                var ltllayout = {
+                    operationAppearances: this.operationAppearances
+                };
+                (<any>exported).ltllayout = ltllayout;
+            }
+
+            return JSON.stringify(exported);
+        }
+
         //Renders svg from model or motif
         export function RenderSVG(svg: any, model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: any, args: any): any {
             //Generating svg elements from model and layout

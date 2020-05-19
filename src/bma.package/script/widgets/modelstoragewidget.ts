@@ -26,10 +26,10 @@
             var items = this.options.items;
             this.element.addClass('model-repository');
 
-            var header = $('<span></span>')
-                .text("Repository")
-                .addClass('window-title')
-                .appendTo(that.element);
+            //var header = $('<span></span>')
+            //    .text("Repository")
+            //    .addClass('window-title')
+            //    .appendTo(that.element);
             this.refreshDiv = $("<div></div>").addClass("refresh").appendTo(that.element).click(function () {
                 if (that.options.updatemodellistcallback !== undefined)
                     that.options.updatemodellistcallback();
@@ -92,8 +92,15 @@
                 });
             }
 
+            var previewDivContainer = $("<div></div>")
+                .css("display", "flex")
+                .css("align-items", "center")
+                .css("flex-direction", "column")
+                .css("padding-top", 10)
+                .css("padding-bottom", 10)
+                .appendTo(this.element);
 
-            var previewDiv = $("<div></div>").width(350).height(250).appendTo(this.element);
+            var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewDivContainer);
             previewDiv.previewviewer();
             previewDiv.hide();
 

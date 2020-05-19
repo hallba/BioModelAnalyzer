@@ -61,9 +61,8 @@ module BMA {
             var model = window.localStorage.getItem(id);
             if (model !== null) {
                 try {
-                    var app = new BMA.Model.AppModel();
-                    app.Deserialize(model);
-                    deffered.resolve(JSON.parse(app.Serialize()));
+                    var serialized = BMA.ModelHelper.ProcessModelJSON(model);
+                    deffered.resolve(JSON.parse(serialized));
                 }
                 catch (ex) { that.messagebox.Show(ex); deffered.reject(ex); }
             }

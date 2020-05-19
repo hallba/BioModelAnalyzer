@@ -46,7 +46,7 @@ module BMA {
 
                 var oneDriveRepository = undefined;
 
-                that.driver.Hide();
+                //that.driver.Hide();
 
                 this.localStoragePresenter = new BMA.Presenters.LocalStoragePresenter(that.appModel, that.localStorageDriver,
                     localRepository, messagebox, checker, logService, waitScreen);
