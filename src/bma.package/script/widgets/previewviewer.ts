@@ -15,7 +15,6 @@
 
         _create: function () {
             var that = this;
-            that.element.css("border", "1px solid black");
             that.element.svg({
                 onLoad: (svg) => {
                     svg.configure({

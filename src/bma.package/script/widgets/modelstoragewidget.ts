@@ -98,9 +98,12 @@
                 .css("flex-direction", "column")
                 .css("padding-top", 10)
                 .css("padding-bottom", 10)
+                .css("border-top", "1px solid black")
                 .appendTo(this.element);
 
-            var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewDivContainer);
+            var previewFrame = $("<div></div>").css("border", "1px solid black").width(350).height(250).appendTo(previewDivContainer);
+
+            var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewFrame);
             previewDiv.previewviewer();
             previewDiv.hide();
 
