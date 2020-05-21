@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity adapts in response to a negative feedback loop",
     "Name": "Homeostasis",
     "Variables": [
       {
@@ -60,6 +59,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity adapts in response to a negative feedback loop",
     "Variables": [
       {
         "Id": 2,

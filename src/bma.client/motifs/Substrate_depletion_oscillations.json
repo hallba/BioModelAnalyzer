@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Depletion of substrate leads to oscillations in activity",
     "Name": "Substrate depletion oscillations",
     "Variables": [
       {
@@ -60,6 +59,7 @@
     ]
   },
   "Layout": {
+    "Description": "Depletion of substrate leads to oscillations in activity",
     "Variables": [
       {
         "Id": 2,

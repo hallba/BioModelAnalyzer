@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity initially rises quickly with input before reaching a plateau",
     "Name": "Hyperbolic",
     "Variables": [
       {
@@ -41,6 +40,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity initially rises quickly with input before reaching a plateau",
     "Variables": [
       {
         "Id": 5,

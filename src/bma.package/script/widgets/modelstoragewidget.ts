@@ -59,6 +59,9 @@
             //    that.oneDriveStorage.show();
             //});
 
+            this.preloadedmotifs = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
+            
+
             this.localStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
             this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
 
@@ -103,11 +106,11 @@
 
             var previewFull = $("<div></div>").css("display", "block").appendTo(previewDivContainer);
 
-            var previewHeder = $("<div></div>").appendTo(previewFull);
-            var previewFrame = $("<div></div>").css("border", "1px solid black").width(350).height(250).appendTo(previewFull);
-            var previewDescription = $("<div></div>").appendTo(previewFull);
+            var previewHeder = $("<div></div>").addClass("ml-card-title").text("<model/motif name>").appendTo(previewFull);
+            var previewFrame = $("<div></div>").addClass("ml-bounding-box").appendTo(previewFull);
+            var previewDescription = $("<div></div>").addClass("ml-card-description").text("<model/motif description>").appendTo(previewFull);
 
-            var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewFrame);
+            var previewDiv = $("<div></div>").addClass("ml-preview").appendTo(previewFrame);
             previewDiv.previewviewer();
             previewDiv.hide();
 
@@ -125,13 +128,25 @@
 
                             var descr = model.Layout.Description;
                             if (descr == undefined || descr == "")
-                                descr = "no description for this model";
+                                descr = "no description for this model or motif";
                             previewDescription.text(descr);
-                            previewDiv.attr("data-mname", mname);
                             previewDiv.previewviewer({ model: model });
                             previewDiv.show();
                         });
                     }
+                }
+            });
+
+            this.preloadedmotifs.motifstoragewidget({
+                onelementselected: function (motif) {
+                    previewHeder.text(motif.name);
+
+                    var descr = motif.layout.Description;
+                    if (descr == undefined || descr == "")
+                        descr = "no description for this model or motif";
+                    previewDescription.text(descr);
+                    previewDiv.previewviewer({ model: { Model: motif.model, Layout: motif.layout } });
+                    previewDiv.show();
                 }
             });
 

@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity is determined by a switch that responds to the crossing of critical thresholds.",
     "Name": "Mutual Inhibition",
     "Variables": [
       {
@@ -92,6 +91,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity is determined by a switch that responds to the crossing of critical thresholds.",
     "Variables": [
       {
         "Id": 3,

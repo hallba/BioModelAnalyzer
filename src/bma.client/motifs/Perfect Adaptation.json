@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity modulated by a negative feed forward loop",
     "Name": "Perfect Adaptation",
     "Variables": [
       {
@@ -73,6 +72,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity modulated by a negative feed forward loop",
     "Variables": [
       {
         "Id": 12,

@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity rises with input",
     "Name": "Linear",
     "Variables": [
       {
@@ -41,6 +40,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity rises with input",
     "Variables": [
       {
         "Id": 2,

@@ -1,6 +1,5 @@
 {
   "Model": {
-    "Description": "Activity oscillates with high input due to negative feedback loop",
     "Name": "Oscillatory negative feedback",
     "Variables": [
       {
@@ -60,6 +59,7 @@
     ]
   },
   "Layout": {
+    "Description": "Activity oscillates with high input due to negative feedback loop",
     "Variables": [
       {
         "Id": 4,
