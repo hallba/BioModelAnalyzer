@@ -27,7 +27,7 @@ describe("BMA.UIDrivers.StatesEditorDriver.ConvertationTest",() => {
     var CL2 = new BMA.Model.ContainerLayout(3, "", 24, 81, 56);
     var containers = [CL1, CL2];
     var layoutVariables = [VL1, VL2];//, VL3];
-    var layout = new BMA.Model.Layout(containers, layoutVariables);
+    var layout = new BMA.Model.Layout(containers, layoutVariables, "");
 
     beforeEach(() => {
         statesEditorDriver = new BMA.UIDrivers.StatesEditorDriver(ltlCommands, popup);

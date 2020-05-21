@@ -49,7 +49,7 @@ module BMA {
 
             } else {
                 this.model = new BMA.Model.BioModel("model 1", [], []);
-                this.layout = new BMA.Model.Layout([], []);
+                this.layout = new BMA.Model.Layout([], [], "");
                 this.states = [];
                 this.operations = [];
                 this.operationAppearances = [];
@@ -299,7 +299,7 @@ module BMA {
                 }
             }
 
-            return { model: model, layout: new BMA.Model.Layout(layout.Containers, newVariableLayouts) };
+            return { model: model, layout: new BMA.Model.Layout(layout.Containers, newVariableLayouts, layout.Description) };
         }
 
         export function AddModelDesignerSVGDefs(svg: any) {
@@ -610,6 +610,7 @@ module BMA {
         }
 
         //Inserts target model into source model and returns merged result
+        //Model description is taken from source model
         export function MergeModels(
             source: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
             target: { model: BMA.Model.BioModel; layout: BMA.Model.Layout },
@@ -711,7 +712,7 @@ module BMA {
             }
 
             var newmodel = new BMA.Model.BioModel(model.Name, variables, relationships);
-            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts);
+            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts, source.layout.Description); 
 
             return {
                 result: {
@@ -795,7 +796,7 @@ module BMA {
                     }
                 }
 
-                var newlayout = new BMA.Model.Layout(newCnt, newVL);
+                var newlayout = new BMA.Model.Layout(newCnt, newVL, layout.Description);
                 var newModel = new BMA.Model.BioModel(model.Name, model.Variables, model.Relationships);
 
                 return { model: newModel, layout: newlayout };
@@ -1019,7 +1020,7 @@ module BMA {
             }
 
             var model = new BMA.Model.BioModel("cutted model", variables, relationships);
-            var layout = new BMA.Model.Layout(containers, variableLayouts);
+            var layout = new BMA.Model.Layout(containers, variableLayouts, "");
 
             return { model: model, layout: layout };
         }
@@ -1053,6 +1054,8 @@ module BMA {
             selectedLayout: BMA.Model.Layout,
             gridOffset: { x: number; y: number },
             grid: { x0: number; y0: number; xStep: number; yStep: number }): { model: BMA.Model.BioModel; layout: BMA.Model.Layout } {
+
+            var description = layout.Description;
 
             var subModelSourceGridCells = GetModelGridCells(selectedModel, selectedLayout, grid);
             var subModelTargetGridCells = [];
@@ -1223,7 +1226,7 @@ module BMA {
 
 
                 var model = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
-                var layout = new BMA.Model.Layout(containers, variableLayouts);
+                var layout = new BMA.Model.Layout(containers, variableLayouts, description);
 
                 return { model: model, layout: layout };
             }

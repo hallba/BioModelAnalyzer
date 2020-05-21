@@ -202,6 +202,7 @@ module BMA {
         }
 
         export class Layout {
+            private description: string;
             private variables: VariableLayout[];
             private containers: ContainerLayout[];
 
@@ -213,8 +214,12 @@ module BMA {
                 return this.variables.slice(0);
             }
 
+            public get Description(): string {
+                return this.description;
+            }
+
             public Clone(): Layout {
-                return new Layout(this.containers.slice(0), this.variables.slice(0));
+                return new Layout(this.containers.slice(0), this.variables.slice(0), this.description);
             }
 
             public GetVariableById(id: number) {
@@ -238,9 +243,10 @@ module BMA {
             }
 
 
-            constructor(containers: ContainerLayout[], varialbes: VariableLayout[]) {
+            constructor(containers: ContainerLayout[], varialbes: VariableLayout[], description: string) {
                 this.containers = containers;
                 this.variables = varialbes;
+                this.description = description;
             }
         }
 

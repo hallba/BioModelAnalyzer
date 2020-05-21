@@ -450,7 +450,7 @@ module BMA {
                                 );
                             }
 
-                            that.editingLayout = new BMA.Model.Layout(containersLayout, variablesLayout);
+                            that.editingLayout = new BMA.Model.Layout(containersLayout, variablesLayout, layout.Description);
                             that.isContainerEdited = true;
                             that.RefreshOutput(undefined, that.editingLayout);
                         }
@@ -1243,7 +1243,7 @@ module BMA {
                         }
                     }
 
-                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts);
+                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts, oldLayout.Description);
                     that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
                 } else {
                     that.messageBox.Show("Select some variables before setting color");
@@ -1274,7 +1274,7 @@ module BMA {
                         }
                     }
 
-                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts);
+                    var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts, oldLayout.Description);
                     that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
                 }
             }
@@ -1346,7 +1346,7 @@ module BMA {
 
 
                 var model = new BMA.Model.BioModel("clipboard model", variables, relationships);
-                var layout = new BMA.Model.Layout(cells, variablesLayouts);
+                var layout = new BMA.Model.Layout(cells, variablesLayouts, "");
 
                 return { model: model, layout: layout };
             }
@@ -1406,7 +1406,7 @@ module BMA {
 
                 this.ClearSelection(false);
                 var newmodel = new BMA.Model.BioModel(current.model.Name, variables, relationships);
-                var newlayout = new BMA.Model.Layout(containers, variableLayouts);
+                var newlayout = new BMA.Model.Layout(containers, variableLayouts, current.layout.Description);
                 that.undoRedoPresenter.Dup(newmodel, newlayout);
             }
 
@@ -1611,7 +1611,7 @@ module BMA {
                 if (wasRemoved === true) {
                     var newmodel = new BMA.Model.BioModel(model.Name, newVars, newRels);
                     newmodel = BMA.ModelHelper.UpdateFormulasAfterVariableChanged(id, model, newmodel);
-                    var newlayout = new BMA.Model.Layout(layout.Containers, newVarLs);
+                    var newlayout = new BMA.Model.Layout(layout.Containers, newVarLs, layout.Description);
                     this.undoRedoPresenter.Dup(newmodel, newlayout);
                 }
             }
@@ -1680,7 +1680,7 @@ module BMA {
                     for (var i = 0; i < removed.length; i++) {
                         newmodel = BMA.ModelHelper.UpdateFormulasAfterVariableChanged(removed[i], model, newmodel);
                     }
-                    var newlayout = new BMA.Model.Layout(newCnt, newVL);
+                    var newlayout = new BMA.Model.Layout(newCnt, newVL, layout.Description);
                     this.undoRedoPresenter.Dup(newmodel, newlayout);
                 }
             }
@@ -1703,7 +1703,7 @@ module BMA {
                 }
 
                 var newmodel = new BMA.Model.BioModel(model.Name, model.Variables, newRels);
-                var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables);
+                var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables, layout.Description);
                 this.undoRedoPresenter.Dup(newmodel, newlayout);
             }
 
@@ -1752,7 +1752,7 @@ module BMA {
                     //}
 
                     var newmodel = new BMA.Model.BioModel(model.Name, model.Variables, newRels);
-                    var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables);
+                    var newlayout = new BMA.Model.Layout(layout.Containers, layout.Variables, layout.Description);
                     this.undoRedoPresenter.Dup(newmodel, newlayout);
                 }
             }
@@ -2040,7 +2040,7 @@ module BMA {
                             }
 
                             var newmodel = new BMA.Model.BioModel(model.Name, model.Variables, model.Relationships);
-                            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts);
+                            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts, layout.Description);
                             that.undoRedoPresenter.Dup(newmodel, newlayout);
                             return true;
                         }
@@ -2067,7 +2067,7 @@ module BMA {
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
-                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts);
+                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts, layout.Description);
                         that.undoRedoPresenter.Dup(newmodel, newlayout);
                         return true;
                     case "Default":
@@ -2094,7 +2094,7 @@ module BMA {
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
-                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts);
+                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts, layout.Description);
                         that.undoRedoPresenter.Dup(newmodel, newlayout);
                         return true;
                     case "MembraneReceptor":
@@ -2144,7 +2144,7 @@ module BMA {
                         }
 
                         var newmodel = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
-                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts);
+                        var newlayout = new BMA.Model.Layout(layout.Containers, variableLayouts, layout.Description);
                         that.undoRedoPresenter.Dup(newmodel, newlayout);
                         return true;
                 }
@@ -2412,7 +2412,7 @@ module BMA {
                             //that.isVariableEdited = true;
                         }
                         if (!(layout.Variables[editingVariableIndex].TFDescription == newVariablesLayout[editingVariableIndex].TFDescription)) {
-                            that.editingLayout = new BMA.Model.Layout(layout.Containers, newVariablesLayout);
+                            that.editingLayout = new BMA.Model.Layout(layout.Containers, newVariablesLayout, layout.Description);
                             //that.variableEditedId = that.editingId;
                             //that.isVariableEdited = true;
                         }

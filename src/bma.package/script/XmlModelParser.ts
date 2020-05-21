@@ -88,7 +88,8 @@ module BMA
                 modelRels),
             Layout: new Model.Layout(
                 containers,
-                varLayouts)
+                varLayouts,
+                "")
         }
     }
 
@@ -213,7 +214,8 @@ module BMA
                 modelRels),
             Layout: new Model.Layout(
                 containers,
-                varLayouts)
+                varLayouts,
+                "")
         }
     }
 } 

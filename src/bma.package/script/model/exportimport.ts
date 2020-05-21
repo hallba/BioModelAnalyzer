@@ -354,8 +354,13 @@ module BMA {
                 }
             }
 
+            var description = json.Layout.Description;
+            if (description === undefined || description === null) {
+                description = "";
+            }
+
             var layout = new Layout(containers,
-                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description, v.Stroke, v.Fill)));
+                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description, v.Stroke, v.Fill)), description);
 
 
             return {

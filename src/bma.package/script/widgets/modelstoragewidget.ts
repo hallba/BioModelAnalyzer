@@ -104,7 +104,7 @@
             var previewFull = $("<div></div>").css("display", "block").appendTo(previewDivContainer);
 
             var previewHeder = $("<div></div>").appendTo(previewFull);
-            var previewFrame = $("<div></div>").css("border", "1px solid black").width(350).height(250).appendTo(previewDivContainer);
+            var previewFrame = $("<div></div>").css("border", "1px solid black").width(350).height(250).appendTo(previewFull);
             var previewDescription = $("<div></div>").appendTo(previewFull);
 
             var previewDiv = $("<div></div>").width(350).height(250).appendTo(previewFrame);
@@ -122,6 +122,11 @@
                     if (that.options.getmodelbyname !== undefined) {
                         that.options.getmodelbyname(mname).done(function (model) {
                             previewHeder.text(mname);
+
+                            var descr = model.Layout.Description;
+                            if (descr == undefined || descr == "")
+                                descr = "no description for this model";
+                            previewDescription.text(descr);
                             previewDiv.attr("data-mname", mname);
                             previewDiv.previewviewer({ model: model });
                             previewDiv.show();
