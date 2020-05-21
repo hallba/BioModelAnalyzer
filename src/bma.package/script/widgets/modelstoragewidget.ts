@@ -122,6 +122,7 @@
 
             that.localStorage.localstoragewidget({
                 onelementselected: function (mname) {
+                    that.preloadedmotifs.motifstoragewidget("CancelSelection");
                     if (that.options.getmodelbyname !== undefined) {
                         that.options.getmodelbyname(mname).done(function (model) {
                             previewHeder.text(mname);
@@ -139,8 +140,8 @@
 
             this.preloadedmotifs.motifstoragewidget({
                 onelementselected: function (motif) {
+                    that.localStorage.localstoragewidget("CancelSelection");
                     previewHeder.text(motif.name);
-
                     var descr = motif.layout.Description;
                     if (descr == undefined || descr == "")
                         descr = "no description for this model or motif";
