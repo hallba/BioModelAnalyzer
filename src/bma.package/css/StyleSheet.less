@@ -992,8 +992,6 @@ ul.command-list {
         background-image: url("../images/navigationpanel/BMA_Icon_Settings.svg");
         background-size: 28px;
     }
-
-    
 }
 
 .tool-icon-active() {
@@ -2462,9 +2460,9 @@ textarea {
                     height: 60px;
                     margin-left: 5px;
                     margin-right: 5px;
-                    background-position-x: center;
-                    background-position-y: center;
                     background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain;
                     border: none;
                     cursor: pointer;
 
@@ -3060,17 +3058,70 @@ textarea {
         &:not(:last-child) {
             margin-bottom: 10px;
         }
-
         /*&:hover {
             background-color: @lightgrey;
         }*/
-            /*& > * {
+        /*& > * {
             display: inline-block;
         }*/
-        }
-
-        ul.button-list > li {
-            //display: inline-block;
-            //margin-top: 0px;
-        }
     }
+
+    ul.button-list > li {
+        //display: inline-block;
+        //margin-top: 0px;
+    }
+}
+
+//Search bar
+.repository-search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    justify-content:center;
+
+    .icon {
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 25px;
+        height: 25px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        cursor: pointer;
+    }
+
+    .searchLabel {
+        color: darkorange;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .upArrow {
+        background-image: url("../images/search/A_Z_Sort_Icon.svg");
+    }
+
+    .downArrow {
+        background-image: url("../images/search/Z_A_Sort_Icon.svg");
+    }
+
+    .motifSort {
+        background-image: url("../images/search/Motif_Sort.svg");
+    }
+
+    .modelSort {
+        background-image: url("../images/search/Model_Icon_Sort.svg");
+    }
+
+    .userSort {
+        background-image: url("../images/search/User_Icon_Sort.svg");
+    }
+
+    input {
+        width: 50px;
+        border: 1px dashed @lightgrey;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}

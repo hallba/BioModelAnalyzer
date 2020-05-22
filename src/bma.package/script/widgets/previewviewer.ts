@@ -78,11 +78,9 @@
     });
 } (jQuery));
 
-interface ElementButton extends JQuery {
-    
-}
-
 interface JQuery {
-    elementbutton(): JQuery;
-    elementbutton(settings: Object): JQuery;
-} 
+    previewviewer(): JQuery;
+    previewviewer(settings: Object): JQuery;
+    previewviewer(optionLiteral: string, optionName: string): any;
+    previewviewer(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+}

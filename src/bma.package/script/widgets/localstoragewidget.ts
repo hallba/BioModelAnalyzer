@@ -52,7 +52,7 @@
                 //var exportBtn = $('<div></div>').addClass("export-zip-btn").appendTo(this.repo);
                 //exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
 
-                this.ol = $('<ol></ol>').css("max-height", 150).css("overflow-y", "scroll").appendTo(this.repo);
+                this.ol = $('<ol></ol>').appendTo(this.repo);
 
                 for (var i = 0; i < items.length; i++) {
                     var li = $('<li></li>').appendTo(this.ol).click(function () {

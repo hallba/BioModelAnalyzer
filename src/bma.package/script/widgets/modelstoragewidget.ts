@@ -59,11 +59,13 @@
             //    that.oneDriveStorage.show();
             //});
 
-            this.preloadedmotifs = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
-            
+            var searchBar = $("<div></div>").searchbar().appendTo(this.element);
 
-            this.localStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
-            this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(this.element);
+            var storagerepoconteiner = $("<div></div>").addClass("localstorage-repo-container").appendTo(this.element);
+
+            this.preloadedmotifs = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
+            this.localStorage = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
+            this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
 
             if (that.options.localStorageWidget) {
                 $(that.localStorage).replaceWith(that.options.localStorageWidget);

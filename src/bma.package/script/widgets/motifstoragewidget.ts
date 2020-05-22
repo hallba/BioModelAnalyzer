@@ -82,7 +82,7 @@
             var that = this;
 
 
-            this.ol = $('<ol></ol>').css("max-height", 150).css("overflow-y", "scroll").appendTo(this.repo);
+            this.ol = $('<ol></ol>').appendTo(this.repo);
 
             for (var i = 0; i < that.motifs.length; i++) {
                 var li = $('<li></li>').appendTo(this.ol).click(function () {

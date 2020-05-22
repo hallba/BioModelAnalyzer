@@ -181,6 +181,11 @@
     <Content Include="images\repository\Save_Model_Icon.svg" />
     <Content Include="images\repository\User_Icon_List.svg" />
     <Content Include="images\resize-grabber.svg" />
+    <Content Include="images\search\A_Z_Sort_Icon.svg" />
+    <Content Include="images\search\Model_Icon_Sort.svg" />
+    <Content Include="images\search\Motif_Sort.svg" />
+    <Content Include="images\search\User_Icon_Sort.svg" />
+    <Content Include="images\search\Z_A_Sort_Icon.svg" />
     <Content Include="images\selection.png" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
