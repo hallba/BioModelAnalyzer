@@ -8,7 +8,6 @@
 
         options: {
             ontextfilterupdated: undefined
-
         },
 
         _create: function () {
@@ -24,6 +23,12 @@
 
             var searchTextBox = $("<input type='text'></input>").appendTo(this.element);
             $("<div>Search</div>").addClass("searchLabel").appendTo(this.element);
+
+            searchTextBox.bind("input", function (e) {
+                if (that.options.ontextfilterupdated !== undefined) {
+                    that.options.ontextfilterupdated(searchTextBox.val());
+                }
+            });
         },
 
         _setOption: function (key, value) {

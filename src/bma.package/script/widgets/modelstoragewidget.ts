@@ -153,6 +153,16 @@
                 }
             });
 
+            searchBar.searchbar({
+                ontextfilterupdated: function (searchstr) {
+                    that.localStorage.localstoragewidget({
+                        filterString: searchstr
+                    });
+                    that.preloadedmotifs.motifstoragewidget({
+                        filterString: searchstr
+                    });
+                }
+            });
 
             //this.oneDriveStorage.onedrivestoragewidget();
             //if (this.options.items) {

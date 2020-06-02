@@ -9,7 +9,8 @@
 
         options: {
             enableContextMenu: false,
-            onelementselected: undefined
+            onelementselected: undefined,
+            filterText: undefined,
         },
 
         _create: function () {
@@ -85,26 +86,30 @@
             this.ol = $('<ol></ol>').appendTo(this.repo);
 
             for (var i = 0; i < that.motifs.length; i++) {
-                var li = $('<li></li>').appendTo(this.ol).click(function () {
-                    var ind = $(this).index();
+                var fs = that.options.filterString;
+                if (fs === undefined || fs === "" || that.motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
 
-                    if (that.options.onelementselected != undefined) {
-                        that.options.onelementselected(that.motifs[ind]);
-                    }
+                    var li = $('<li></li>').appendTo(this.ol).click(function () {
+                        var ind = $(this).index();
 
-                    that.repo.find(".ui-selected").removeClass("ui-selected");
-                    that.ol.children().eq(ind).addClass("ui-selected");
-                });
-                var modelName = $("<div>" + that.motifs[i].name + "</div>").appendTo(li);
+                        if (that.options.onelementselected != undefined) {
+                            that.options.onelementselected(that.motifs[ind]);
+                        }
 
-                //TODO: change to hide
-                var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
-                removeBtn.bind("click", function (event) {
-                    event.stopPropagation();
+                        that.repo.find(".ui-selected").removeClass("ui-selected");
+                        that.ol.children().eq(ind).addClass("ui-selected");
+                    });
+                    var modelName = $("<div>" + that.motifs[i].name + "</div>").appendTo(li);
 
-                    //if (that.options.onremovemodel !== undefined)
-                    //    that.options.onremovemodel("user." + items[$(this).parent().index()]);
-                });
+                    //TODO: change to hide
+                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
+                    removeBtn.bind("click", function (event) {
+                        event.stopPropagation();
+
+                        //if (that.options.onremovemodel !== undefined)
+                        //    that.options.onremovemodel("user." + items[$(this).parent().index()]);
+                    });
+                }
             }
 
             //this.createContextMenu();
@@ -156,6 +161,10 @@
                     break;
                 case "enableContextMenu":
                     this.options.enableContextMenu = value;
+                    break;
+                case "filterString":
+                    this.options.filterString = value;
+                    this._createHTML();
                     break;
             }
             this._super(key, value);

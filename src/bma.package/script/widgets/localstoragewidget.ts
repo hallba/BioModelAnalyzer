@@ -12,7 +12,8 @@
             onremovemodel: undefined,
             onloadmodel: undefined,
             enableContextMenu: true,
-            onelementselected: undefined
+            onelementselected: undefined,
+            filterString: undefined,
         },
 
         _create: function () {
@@ -55,18 +56,20 @@
                 this.ol = $('<ol></ol>').appendTo(this.repo);
 
                 for (var i = 0; i < items.length; i++) {
-                    var li = $('<li></li>').appendTo(this.ol).click(function () {
-                        var ind = $(this).index();
+                    var fs = that.options.filterString;
+                    if (fs === undefined || fs === "" || items[i].toLowerCase().includes(fs.toLowerCase())) {
+                        var li = $('<li></li>').appendTo(this.ol).click(function () {
+                            var ind = $(this).index();
 
-                        if (that.options.onelementselected != undefined) {
-                            that.options.onelementselected(items[ind]);
-                        }
+                            if (that.options.onelementselected != undefined) {
+                                that.options.onelementselected(items[ind]);
+                            }
 
-                        that.repo.find(".ui-selected").removeClass("ui-selected");
-                        that.ol.children().eq(ind).addClass("ui-selected");
+                            that.repo.find(".ui-selected").removeClass("ui-selected");
+                            that.ol.children().eq(ind).addClass("ui-selected");
 
-                        //if (that.options.onloadmodel !== undefined) {
-                        //    that.options.onloadmodel("user." + items[ind]);
+                            //if (that.options.onloadmodel !== undefined) {
+                            //    that.options.onloadmodel("user." + items[ind]);
 
                             //Old code
                             //.done(function () {
@@ -75,19 +78,20 @@
                             //    if (that.options.oncancelselection !== undefined)
                             //        that.options.oncancelselection();
                             //});
-                        //}
-                    });
-                    li.attr("data-name", items[i]);
-                    var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
-                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
-                    removeBtn.bind("click", function (event) {
-                        event.stopPropagation();
+                            //}
+                        });
+                        li.attr("data-name", items[i]);
+                        var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
+                        var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
+                        removeBtn.bind("click", function (event) {
+                            event.stopPropagation();
 
-                        if (that.options.onremovemodel !== undefined)
-                            that.options.onremovemodel("user." + items[$(this).parent().index()]);
-                        //event.stopPropagation();
-                        //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
-                    });
+                            if (that.options.onremovemodel !== undefined)
+                                that.options.onremovemodel("user." + items[$(this).parent().index()]);
+                            //event.stopPropagation();
+                            //window.Commands.Execute("LocalStorageRemoveModel", "user."+items[$(this).parent().index()]);
+                        });
+                    }
                 }
                 //this.ol.selectable({
                 //    stop: function () {
@@ -189,6 +193,10 @@
                     break;
                 case "oncancelselection":
                     this.options.oncancelselection = value;
+                    break;
+                case "filterString":
+                    this.options.filterString = value;
+                    this.refresh();
                     break;
             }
             this._super(key, value);
