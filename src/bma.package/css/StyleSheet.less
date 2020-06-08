@@ -2441,58 +2441,69 @@ textarea {
     background-color: white;
 
     .model-icons {
-        //.tab-left;
-        //.tab-left-radius;
-        width: 550px;
+        width: 450px;
         display: inline-block;
         margin-right: -4px;
 
-
-        ul {
-            .tab-left;
+        .model-repo-buttons {
+            padding-left: 20px;
+            padding-right: 30px;
+            padding-top: 25px;
+            padding-bottom: 12.5px;
+            display: flex;
+            flex-direction: row;
+            background-color: white;
+            .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
             border-bottom: 1px solid @darkgrey;
-            padding-left: 15px;
-            padding-right: 15px;
-            padding-top: 35px;
-            padding-bottom: 25px;
 
-            li {
-                display: inline-block;
+            div {
+                background-color: transparent;
+                width: 35px;
+                height: 55px;
+                margin-left: 12.5px;
+                margin-right: 12.5px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                border: none;
+                cursor: pointer;
 
-                div {
-                    background-color: transparent;
-                    width: 40px;
-                    height: 70px;
-                    margin-left: 15px;
-                    margin-right: 15px;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    background-size: contain;
-                    border: none;
-                    cursor: pointer;
+                &.local-save-btn {
+                    background-image: url("../images/repository/Save_Model_Icon.svg");
+                }
 
-                    &.local-save-btn {
-                        background-image: url("../images/repository/Save_Model_Icon.svg");
+                &.local-save-as-btn {
+                    background-image: url("../images/repository/Save_As_Icon.svg");
+                }
+
+                &.new-btn {
+                    background-image: url("../images/repository/New_Model_Icon.svg");
+                }
+
+                &.import-btn {
+                    background-image: url("../images/repository/Import_Model_Icon.svg");
+                }
+
+                &.export-btn {
+                    background-image: url("../images/repository/Export_Icon.svg");
+                }
+
+                &.export-all-btn {
+                    background-image: url("../images/repository/Export_Zip.svg");
+                    margin-right: 0px;
+                }
+
+                &.onedrive-switch-btn {
+                    width: 45px;
+                    margin-left: 0;
+                    background: url("../images/repository/One_Drive_On_Inactive.svg") no-repeat;
+
+                    &.logged-in {
+                        background: url("../images/repository/One_Drive_On_Active.svg") no-repeat;
                     }
 
-                    &.local-save-as-btn {
-                        background-image: url("../images/repository/Save_As_Icon.svg");
-                    }
-
-                    &.new-btn {
-                        background-image: url("../images/repository/New_Model_Icon.svg");
-                    }
-
-                    &.import-btn {
-                        background-image: url("../images/repository/Import_Model_Icon.svg");
-                    }
-
-                    &.export-btn {
-                        background-image: url("../images/repository/Export_Icon.svg");
-                    }
-
-                    &.export-all-btn {
-                        background-image: url("../images/repository/Export_Zip.svg");
+                    &.turned-off {
+                        background: url("../images/repository/One_Drive_Off.svg") no-repeat;
                     }
                 }
             }
@@ -2547,7 +2558,7 @@ textarea {
 }
 
 .model-repository {
-    width: 550px;
+    width: 450px;
     z-index: 7;
     background-color: white;
     .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
