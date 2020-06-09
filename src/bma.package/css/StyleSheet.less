@@ -2582,7 +2582,7 @@ textarea {
             display: flex;
             flex-direction: row;
             align-items: center;
-
+            justify-content: space-between;
             //&:nth-child(odd) {
             //    background-color: @lightgrey;
             //}
@@ -2609,6 +2609,31 @@ textarea {
             .icon-delete {
                 background-image: url('../images/repository/Bin_Icon.svg');
                 .background-img;
+            }
+
+            .repo-model-name {
+                max-width: 250px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .repo-icon {
+                width: 25px;
+                height: 25px;
+                margin-left: 5px;
+                margin-right: 15px;
+                .background-img;
+            }
+
+            .repo-motif-icon {
+                .repo-icon;
+                background-image: url('../images/repository/Motif_Icon_List.svg');
+            }
+
+            .repo-model-icon {
+                .repo-icon;
+                background-image: url('../images/repository/Model_Icon_List.svg');
             }
         }
     }
@@ -3152,3 +3177,5 @@ textarea {
         margin-right: 2px;
     }
 }
+
+

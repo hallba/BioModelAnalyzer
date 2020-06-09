@@ -81,7 +81,11 @@
                             //}
                         });
                         li.attr("data-name", items[i]);
-                        var modelName = $("<div>" + items[i] + "</div>").appendTo(li);
+
+                        var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
+                        var icon = $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
+                        var modelName = $("<div>" + items[i] + "</div>").addClass("repo-model-name").appendTo(cnt);
+
                         var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
                         removeBtn.bind("click", function (event) {
                             event.stopPropagation();

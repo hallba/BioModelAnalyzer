@@ -99,7 +99,10 @@
                         that.repo.find(".ui-selected").removeClass("ui-selected");
                         that.ol.children().eq(ind).addClass("ui-selected");
                     });
-                    var modelName = $("<div>" + that.motifs[i].name + "</div>").appendTo(li);
+
+                    var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
+                    var icon = $("<div></div>").addClass("repo-motif-icon").prependTo(cnt);
+                    var modelName = $("<div>" + that.motifs[i].name + "</div>").addClass("repo-model-name").appendTo(cnt);
 
                     //TODO: change to hide
                     var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
