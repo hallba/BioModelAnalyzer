@@ -2558,22 +2558,31 @@ textarea {
 }
 
 .model-repository {
-    width: 450px;
     z-index: 7;
     background-color: white;
     .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
     .tab-left-radius;
 
+
     ol {
         list-style-type: none;
         .default-text;
         line-height: 25px;
+        padding-left: 20px;
+        padding-right: 30px;
 
         li {
+            height: 40px;
+            font-size: 12px;
+            padding-right: 25px;
             vertical-align: middle;
             padding-left: 5px;
             cursor: pointer;
             border-top: 1px solid @lightgrey;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
             //&:nth-child(odd) {
             //    background-color: @lightgrey;
             //}
@@ -2878,8 +2887,8 @@ textarea {
     border-style: solid;
     border-width: 1px;
     margin: 3px;
-    height: 250px;
-    width: 350px;
+    height: 286px;
+    width: 400px;
     box-sizing: border-box;
 }
 
@@ -3093,15 +3102,17 @@ textarea {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    justify-content:center;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 30px;
+    justify-content: space-around;
 
     .icon {
         margin-left: 2px;
         margin-right: 2px;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
@@ -3135,7 +3146,7 @@ textarea {
     }
 
     input {
-        width: 50px;
+        width: 130px;
         border: 1px dashed @lightgrey;
         margin-left: 2px;
         margin-right: 2px;

@@ -15,8 +15,10 @@
 
             this.element.addClass("repository-search");
 
-            var upDiv = $("<div></div>").addClass("icon upArrow").appendTo(this.element);
-            var downDiv = $("<div></div>").addClass("icon downArrow").appendTo(this.element);
+            var upDownDiv = $("<div></div>").css("display", "flex").width(50).appendTo(this.element);
+            var upDiv = $("<div></div>").addClass("icon upArrow").appendTo(upDownDiv);
+            var downDiv = $("<div></div>").addClass("icon downArrow").appendTo(upDownDiv);
+
             var motifSortDiv = $("<div></div>").addClass("icon motifSort").appendTo(this.element);
             var modelSortDiv = $("<div></div>").addClass("icon modelSort").appendTo(this.element);
             var userSortDiv = $("<div></div>").addClass("icon userSort").appendTo(this.element);
