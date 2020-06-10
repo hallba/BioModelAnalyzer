@@ -1256,7 +1256,7 @@ ul.command-list {
     }
 }
 
-.modelstorage-toolbar-expand-bttn {
+/*.modelstorage-toolbar-expand-bttn {
     right: 0;
     width: 50px;
     height: 50px;
@@ -1266,7 +1266,7 @@ ul.command-list {
     background-repeat: no-repeat;
     background-position: center;
     .border-radius(0 @window-radius @window-radius 0);
-}
+}*/
 
 .modelstorage-toolbar-content {
     overflow: hidden;
@@ -2412,7 +2412,6 @@ textarea {
 
 
 /* Model Toolbar */
-
 .tab-left-radius() {
     -webkit-border-bottom-right-radius: @window-radius;
     -moz-border-radius-bottomright: @window-radius;
@@ -2420,7 +2419,7 @@ textarea {
     border-radius: 0 0 @window-radius 0;
 }
 
-.tab-left-double-radius() {
+.tab-left-double-radius {
     -webkit-border-top-right-radius: @window-radius;
     -moz-border-radius-topright: @window-radius;
     border-top-right-radius: @window-radius;
@@ -2439,11 +2438,17 @@ textarea {
 
 .model-toolbar {
     background-color: white;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    .box-shadow(@x:5px, @y:4px, @blur:6px, @color:@shadow);
+    .tab-left-double-radius();
+    overflow: hidden;
 
     .model-icons {
         width: 450px;
         display: inline-block;
-        margin-right: -4px;
+        margin-right: 0px;
 
         .model-repo-buttons {
             padding-left: 20px;
@@ -2453,7 +2458,6 @@ textarea {
             display: flex;
             flex-direction: row;
             background-color: white;
-            .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
             border-bottom: 1px solid @darkgrey;
 
             div {
@@ -2511,20 +2515,13 @@ textarea {
     }
 
     .model-name {
-        .tab-left-double-radius;
-        .box-shadow(@x:5px, @y:4px, @blur:6px, @color:@shadow);
         background-color: white; //.gradient(@side:left, @color1:@lightgrey, @color2:white);
         vertical-align: top;
-        left: -5px;
         //width:220px;
-        display: inline-block;
-
-
-        ul > li {
-            display: table-cell;
-            vertical-align: middle;
-            height: 50px;
-        }
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
         input {
             border: none;
@@ -2560,9 +2557,6 @@ textarea {
 .model-repository {
     z-index: 7;
     background-color: white;
-    .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
-    .tab-left-radius;
-
 
     ol {
         list-style-type: none;
@@ -3177,5 +3171,3 @@ textarea {
         margin-right: 2px;
     }
 }
-
-

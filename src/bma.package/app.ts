@@ -301,9 +301,21 @@ function loadScript(version) {
     $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100, suppressDirectChangeOnPlusMinusClick: true });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
-    $("#modelToolbarSlider").bmaaccordion({ position: "left", z_index: 1 });
     $("#visibilityOptionsContent").visibilitysettings();
     $("#visibilityOptionsSlider").bmaaccordion();
+
+
+    $("#modelToolbarContent").hide();
+    $(".expand-btn").click(function () {
+        if ($("#modelToolbarContent").is(":visible")) {
+            $("#modelToolbarContent").hide();
+            $(".expand-btn").css("transform", "scaleX(1)");
+        }
+        else {
+            $("#modelToolbarContent").show();
+            $(".expand-btn").css("transform", "scaleX(-1)");
+        }
+    });
 
     $("#modelNameEditor").val(appModel.BioModel.Name);
     $("#modelNameEditor").click(function (e) {

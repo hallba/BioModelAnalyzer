@@ -235,30 +235,22 @@
 
         <div id="drawingSurface" class="bma-drawingsurface"></div>
 
-        <div class="modeltoolbar-container">
-            <div id="modelToolbarSlider" class="tab-left model-toolbar">
-                <div id="modelToolbarHeader" class="model-name">
-                    <ul>
-                        <li>
-                            <div>
-                                <input id="modelNameEditor" type="text" value="Model 1">
-                            </div>
-                        <li>
-                            <div class="expand-btn"></div>
-                    </ul>
+        <div id="modelToolbarSlider" class="tab-left model-toolbar">
+            <div class="model-name">
+                <input id="modelNameEditor" type="text" value="Model 1">
+                <div class="expand-btn"></div>
+            </div>
+            <div id="modelToolbarContent" class="model-icons">
+                <div class="model-repo-buttons">
+                    <div id="btn-onedrive-switcher" class="onedrive-switch-btn"></div> <!--ONE DRIVE-->
+                    <div id="btn-new-model" data-command="NewModel" class="new-btn"></div><!--NEW-->
+                    <div id="btn-import-model" data-command="ImportModel" class="import-btn"></div><!--IMPORT-->
+                    <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-btn"></div><!--SAVE-->
+                    <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-as-btn"></div><!--SAVE AS-->
+                    <div id="btn-export-model" data-command="ExportModel" class="export-btn"></div><!--EXPORT-->
+                    <div id="btn-export-model" data-command="ExportLocalModelsZip" class="export-all-btn"></div><!--EXPORT ALL-->
                 </div>
-                <div id="modelToolbarContent" class="model-icons">
-                    <div class="model-repo-buttons">
-                        <div id="btn-onedrive-switcher" class="onedrive-switch-btn"></div> <!--ONE DRIVE-->
-                        <div id="btn-new-model" data-command="NewModel" class="new-btn"></div><!--NEW-->
-                        <div id="btn-import-model" data-command="ImportModel" class="import-btn"></div><!--IMPORT-->
-                        <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-btn"></div><!--SAVE-->
-                        <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-as-btn"></div><!--SAVE AS-->
-                        <div id="btn-export-model" data-command="ExportModel" class="export-btn"></div><!--EXPORT-->
-                        <div id="btn-export-model" data-command="ExportLocalModelsZip" class="export-all-btn"></div><!--EXPORT ALL-->
-                    </div>
-                    <div id="modelrepositorycontent">
-                    </div>
+                <div id="modelrepositorycontent">
                 </div>
             </div>
         </div>
