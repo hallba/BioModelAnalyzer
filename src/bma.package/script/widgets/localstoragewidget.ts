@@ -54,9 +54,9 @@
                 //exportBtn.click(function (e) { window.Commands.Execute("ExportLocalModelsZip", undefined); });
 
                 this.ol = $('<ol></ol>').appendTo(this.repo);
+                var fs = that.options.filterString;
 
                 for (var i = 0; i < items.length; i++) {
-                    var fs = that.options.filterString;
                     if (fs === undefined || fs === "" || items[i].toLowerCase().includes(fs.toLowerCase())) {
                         var li = $('<li></li>').appendTo(this.ol).click(function () {
                             var ind = $(this).index();

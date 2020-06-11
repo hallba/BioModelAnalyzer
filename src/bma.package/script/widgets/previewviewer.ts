@@ -12,9 +12,17 @@
         },
 
         _svg: undefined,
+        loading: undefined,
 
         _create: function () {
             var that = this;
+
+            that.loading = $("<div></div>").addClass("preview-loading");
+            var anim = $("<div></div>").addClass("spinner").appendTo(that.loading);
+            $("<div></div>").addClass("bounce1").appendTo(anim);
+            $("<div></div>").addClass("bounce2").appendTo(anim);
+            $("<div></div>").addClass("bounce3").appendTo(anim);
+
             that.element.svg({
                 onLoad: (svg) => {
                     svg.configure({
@@ -23,10 +31,11 @@
                     });
 
                     that._svg = svg;
+
+                    that.loading.appendTo(that.element);
                     that._renderPreview();
                 }
             });
-
         },
 
         _renderPreview: function () {
@@ -55,7 +64,17 @@
 
                 svg.clear();
                 svg.add($(preview).children());
+
+                that.loading.hide();
             }
+        },
+
+        showLoading: function () {
+            this.loading.show();
+        },
+
+        hideLoading: function () {
+            this.loading.hide();
         },
 
         destroy: function () {

@@ -2460,6 +2460,7 @@ textarea {
             flex-direction: row;
             background-color: white;
             border-bottom: 1px solid @darkgrey;
+            border-top: 1px solid @darkgrey;
 
             div {
                 background-color: transparent;
@@ -2501,14 +2502,14 @@ textarea {
                 &.onedrive-switch-btn {
                     width: 45px;
                     margin-left: 0;
-                    background: url("../images/repository/One_Drive_On_Inactive.svg") no-repeat;
+                    background: url("../images/repository/One_Drive_Off.svg") no-repeat;
 
                     &.logged-in {
                         background: url("../images/repository/One_Drive_On_Active.svg") no-repeat;
                     }
 
                     &.turned-off {
-                        background: url("../images/repository/One_Drive_Off.svg") no-repeat;
+                        background: url("../images/repository/One_Drive_On_Inactive.svg") no-repeat;
                     }
                 }
             }
@@ -2548,6 +2549,18 @@ textarea {
             cursor: pointer;
         }
     }
+
+    .preview-loading {
+        background-color: #efefef;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: absolute;
+        top: 0;
+        left: 0
+    }
 }
 
 .ui-accordion-header-active .expand-btn {
@@ -2578,12 +2591,9 @@ textarea {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            //&:nth-child(odd) {
-            //    background-color: @lightgrey;
-            //}
+
             &.ui-selected {
-                background-color: #efefef; //@midgrey;
-                color: white;
+                background-color: #efefef;
             }
 
             button.delete {
@@ -2592,7 +2602,6 @@ textarea {
                 background-color: transparent;
                 height: 25px;
                 width: 20px;
-                //padding-top: 2px;
                 float: right;
                 cursor: pointer;
 
@@ -2917,8 +2926,8 @@ textarea {
 }
 
 .ml-preview {
-    height: 250px;
-    width: 350px;
+    height: 286px;
+    width: 400px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

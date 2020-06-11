@@ -163,7 +163,8 @@ module BMA {
             Hide();
             SetAuthorizationStatus(status: boolean);
             SetOnUpdateModelList(callback: Function);
-            SetLinkToModelByName(callback: Function);
+            SetLinkToModelByName(callback: Function); //For local loading
+            SetLinkToModelByInfo(callback: Function); //For OneDrive loading
             //SetOnSignInCallback(callback: Function);
             //SetOnSignOutCallback(callback: Function);
         }

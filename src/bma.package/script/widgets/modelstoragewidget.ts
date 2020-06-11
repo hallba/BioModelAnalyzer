@@ -15,7 +15,8 @@
             isAuthorized: false,
             onsigninonedrive: undefined,
             onsignoutonedrive: undefined,
-            getmodelbyname: undefined,
+            getmodelbyname: undefined, //for loading from local storage
+            getmodelbyinfo: undefined, //for loading from onedrive
             activeRepo: "local",
 
             dragcontainer: "#drawingSurfaceContainer"
@@ -126,6 +127,7 @@
                 onelementselected: function (mname) {
                     that.preloadedmotifs.motifstoragewidget("CancelSelection");
                     if (that.options.getmodelbyname !== undefined) {
+                        previewDiv.previewviewer("showLoading");
                         that.options.getmodelbyname(mname).done(function (model) {
                             previewHeder.text(mname);
 
@@ -140,9 +142,32 @@
                 }
             });
 
+            that.oneDriveStorage.onedrivestoragewidget({
+                onelementselected: function (minfo) {
+                    that.preloadedmotifs.motifstoragewidget("CancelSelection");
+                    if (that.options.getmodelbyinfo !== undefined) {
+                        previewDiv.previewviewer("showLoading");
+                        that.options.getmodelbyinfo(minfo).done(function (model) {
+                            previewHeder.text(minfo.name);
+
+                            var descr = model.Layout.Description;
+                            if (descr == undefined || descr == "")
+                                descr = "no description for this model or motif";
+                            previewDescription.text(descr);
+                            previewDiv.previewviewer({ model: model });
+                            previewDiv.show();
+                        });
+                    } else {
+                        console.log("can't load models from OneDrive");
+                    }
+                }
+            });
+
             this.preloadedmotifs.motifstoragewidget({
                 onelementselected: function (motif) {
                     that.localStorage.localstoragewidget("CancelSelection");
+                    that.oneDriveStorage.onedrivestoragewidget("CancelSelection");
+                    previewDiv.previewviewer("showLoading");
                     previewHeder.text(motif.name);
                     var descr = motif.layout.Description;
                     if (descr == undefined || descr == "")
@@ -159,6 +184,9 @@
                         filterString: searchstr
                     });
                     that.preloadedmotifs.motifstoragewidget({
+                        filterString: searchstr
+                    });
+                    that.oneDriveStorage.onedrivestoragewidget({
                         filterString: searchstr
                     });
                 }

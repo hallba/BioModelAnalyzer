@@ -44,7 +44,7 @@ module BMA {
                 this.localRepository = localRepository;
                 this.oneDrivePresenter = undefined;
 
-                var oneDriveRepository = undefined;
+                var oneDriveRepository: BMA.OneDrive.OneDriveRepository = undefined;
 
                 //that.driver.Hide();
 
@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                //connector.Enable(onLogin, onLoginFailed, onLogout);
+                connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
@@ -206,6 +206,19 @@ module BMA {
                     var deffered = $.Deferred();
 
                     localRepository.LoadModel("user." + mname).done(function (res) {
+                        var imported = BMA.Model.ImportModelAndLayout(res);
+                        deffered.resolve(imported);
+                    }).fail(function () {
+                        deffered.reject();
+                    });
+
+                    return deffered;
+                });
+
+                that.driver.SetLinkToModelByInfo(function (minfo) {
+                    var deffered = $.Deferred();
+
+                    oneDriveRepository.LoadModel(minfo.id).done(function (res) {
                         var imported = BMA.Model.ImportModelAndLayout(res);
                         deffered.resolve(imported);
                     }).fail(function () {

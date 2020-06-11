@@ -10,6 +10,8 @@
         options: {
             items: [],
             activeShare: [],
+            filterString: undefined,
+            onelementselected: undefined,
         },
 
         _create: function () {
@@ -102,21 +104,21 @@
             $("<div></div>").addClass("bounce3").appendTo(anim);
 
             this.ol = $('<ol></ol>').appendTo(this.repo);
+            var fs = that.options.filterString;
 
             for (var i = 0; i < items.length; i++) {
-                if (items[i].shared === undefined) {
+                if (items[i].shared === undefined && (fs === undefined || fs === "" || items[i].name.toLowerCase().includes(fs.toLowerCase()))) {
                     var li = $('<li></li>')/*.text(items[i].name)*/.appendTo(this.ol).click(function () {
                         var ind = $(this).index();
-                        if (that.options.onloadmodel !== undefined) {
-                            that.options.onloadmodel(items[ind]);//.done(function () {
-                            //    that.repo.find(".ui-selected").removeClass("ui-selected");
-                            //    $(that.options.selectedLi).addClass("ui-selected");
-                            //    if (that.options.oncancelselection !== undefined)
-                            //        that.options.oncancelselection();
-                            //});
+
+                        if (that.options.onelementselected != undefined) {
+                            that.options.onelementselected(items[ind]);
                         }
+
+                        that.repo.find(".ui-selected").removeClass("ui-selected");
+                        that.ol.children().eq(ind).addClass("ui-selected");
+
                     });
-                    var modelName = $("<div>" + items[i].name + "</div>").appendTo(li);
                 //} 
                 //var a = $('<a></a>').addClass('delete').appendTo(li);
                 //if (items[i].shared) {
@@ -140,6 +142,11 @@
                 //        },
                 //    });
                 //} else {
+
+                    var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
+                    var icon = $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
+                    var modelName = $("<div>" + items[i].name + "</div>").addClass("repo-model-name").appendTo(cnt);
+
                     var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
@@ -268,6 +275,10 @@
                     break;
                 case "oncancelselection":
                     this.options.oncancelselection = value;
+                    break;
+                case "filterString":
+                    this.options.filterString = value;
+                    this.refresh();
                     break;
             }
             this._super(key, value);
