@@ -2530,8 +2530,11 @@ textarea {
             background-color: transparent;
             .window-title;
             padding-bottom: 0;
-            width: 160px;
+            width: 100%;
             margin: 0 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
 
             &:focus {
                 outline: none;
@@ -2605,24 +2608,29 @@ textarea {
 
             &.ui-selected {
                 background-color: #efefef;
+
+                button.remove {
+                    display: inline-block;
+                }
             }
 
-            button.delete {
+            button.remove {
                 border: none;
-                display: inline-block;
+                display: none;
                 background-color: transparent;
                 height: 25px;
                 width: 20px;
                 float: right;
                 cursor: pointer;
-
-                &:hover {
-                    background-color: @midgrey;
-                }
             }
 
             .icon-delete {
                 background-image: url('../images/repository/Bin_Icon.svg');
+                .background-img;
+            }
+
+            .icon-hide {
+                background-image: url('../images/repository/Hide_Icon.svg');
                 .background-img;
             }
 

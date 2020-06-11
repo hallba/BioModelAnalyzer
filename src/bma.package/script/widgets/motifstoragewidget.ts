@@ -11,6 +11,7 @@
             enableContextMenu: false,
             onelementselected: undefined,
             filterText: undefined,
+            externalOL: undefined
         },
 
         _create: function () {
@@ -83,7 +84,7 @@
             var that = this;
 
 
-            this.ol = $('<ol></ol>').appendTo(this.repo);
+            this.ol = that.options.externalOL === undefined ? $('<ol></ol>').appendTo(this.repo) : that.options.externaalOL;
 
             for (var i = 0; i < that.motifs.length; i++) {
                 var fs = that.options.filterString;
@@ -105,7 +106,7 @@
                     var modelName = $("<div>" + that.motifs[i].name + "</div>").addClass("repo-model-name").appendTo(cnt);
 
                     //TODO: change to hide
-                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
+                    var removeBtn = $('<button></button>').addClass("remove icon-hide").appendTo(li);
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
 
@@ -120,41 +121,6 @@
 
         CancelSelection: function () {
             this.repo.find(".ui-selected").removeClass("ui-selected");
-        },
-
-        createContextMenu: function () {
-            var that = this;
-            this.repo.contextmenu({
-                delegate: "li",
-                autoFocus: true,
-                preventContextMenuForPopup: true,
-                preventSelect: true,
-                menu: [
-                    { title: "Move to OneDrive", cmd: "MoveToOneDrive" },
-                    { title: "Copy to OneDrive", cmd: "CopyToOneDrive" },
-                ],
-                beforeOpen: function (event, ui) {
-                    if (that.options.enableContextMenu) {
-                        ui.menu.zIndex(50);
-                    } else
-                        return false;
-                },
-                select: function (event, ui) {
-                    var args: any = {};
-                    var idx = $(ui.target.context).index();
-
-                    if (that.options.setoncopytoonedrive !== undefined) {
-                        that.options.setoncopytoonedrive("user." + that.options.items[idx]).done(function () {
-
-                            if (ui.cmd == "MoveToOneDrive") {
-                                if (that.options.onremovemodel !== undefined)
-                                    that.options.onremovemodel("user." + that.options.items[idx]);
-                                //window.Commands.Execute("LocalStorageRemoveModel", "user." + that.options.items[idx]);
-                            }
-                        });
-                    }
-                }
-            });
         },
 
         _setOption: function (key, value) {

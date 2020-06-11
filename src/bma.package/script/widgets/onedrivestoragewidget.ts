@@ -147,7 +147,7 @@
                     var icon = $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
                     var modelName = $("<div>" + items[i].name + "</div>").addClass("repo-model-name").appendTo(cnt);
 
-                    var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
+                    var removeBtn = $('<button></button>').addClass("remove icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
                         if (that.options.onremovemodel !== undefined)

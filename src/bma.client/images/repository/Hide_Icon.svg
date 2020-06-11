@@ -1,0 +1,9 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.26 24.04">
+  <defs>
+    <style>.cls-1,.cls-2{fill:none;stroke:#666;stroke-linecap:round;stroke-width:2px;}.cls-1{stroke-linejoin:round;}.cls-2{stroke-miterlimit:10;}</style>
+  </defs>
+  <title>BMA_Eye_Icon</title>
+  <path class="cls-1" d="M35.14,50.85s5.21-10,14.63-10,14.63,10,14.63,10-5.88,10-14.63,10S35.14,50.85,35.14,50.85Z" transform="translate(-34.14 -38.79)"/>
+  <circle class="cls-2" cx="15.63" cy="12.06" r="5.52"/>
+  <path class="cls-2" d="M60.83,39.79l-22,22.05" transform="translate(-34.14 -38.79)"/>
+</svg>

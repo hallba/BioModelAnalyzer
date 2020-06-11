@@ -58,6 +58,7 @@
 
                 for (var i = 0; i < items.length; i++) {
                     if (fs === undefined || fs === "" || items[i].toLowerCase().includes(fs.toLowerCase())) {
+
                         var li = $('<li></li>').appendTo(this.ol).click(function () {
                             var ind = $(this).index();
 
@@ -86,7 +87,7 @@
                         var icon = $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
                         var modelName = $("<div>" + items[i] + "</div>").addClass("repo-model-name").appendTo(cnt);
 
-                        var removeBtn = $('<button></button>').addClass("delete icon-delete").appendTo(li);
+                        var removeBtn = $('<button></button>').addClass("remove icon-delete").appendTo(li);
                         removeBtn.bind("click", function (event) {
                             event.stopPropagation();
 
