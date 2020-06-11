@@ -17,6 +17,7 @@
             onsignoutonedrive: undefined,
             getmodelbyname: undefined, //for loading from local storage
             getmodelbyinfo: undefined, //for loading from onedrive
+            loadmodelcallback: undefined, //for loading selected model to BMA
             activeRepo: "local",
 
             dragcontainer: "#drawingSurfaceContainer"
@@ -114,7 +115,13 @@
             var previewDescription = $("<div></div>").addClass("ml-card-description").text("<model/motif description>").appendTo(previewFull);
 
             var previewDiv = $("<div></div>").addClass("ml-preview").appendTo(previewFrame);
-            previewDiv.previewviewer();
+            previewDiv.previewviewer({
+                onloadmodelcallback: function () {
+                    if (that.options.loadmodelcallback !== undefined) {
+                        that.options.loadmodelcallback(previewDiv.previewviewer('option', 'model'));
+                    }
+                }
+            });
             previewDiv.hide();
 
             that._previewDiv = previewDiv;

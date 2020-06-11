@@ -8,7 +8,8 @@
 (function ($) {
     $.widget("BMA.previewviewer", {
         options: {
-            model: undefined
+            model: undefined,
+            onloadmodelcallback: undefined
         },
 
         _svg: undefined,
@@ -23,6 +24,13 @@
             $("<div></div>").addClass("bounce2").appendTo(anim);
             $("<div></div>").addClass("bounce3").appendTo(anim);
 
+            that.loadModelBtn = $("<div></div>").addClass("preview-loadmodel-btn").click(function (e) {
+                e.stopPropagation();
+                if (that.options.onloadmodelcallback !== undefined) {
+                    that.options.onloadmodelcallback(that.options.model);
+                }
+            }).mousedown(function (e) { e.stopPropagation(); });
+
             that.element.svg({
                 onLoad: (svg) => {
                     svg.configure({
@@ -32,6 +40,7 @@
 
                     that._svg = svg;
 
+                    that.loadModelBtn.appendTo(that.element);
                     that.loading.appendTo(that.element);
                     that._renderPreview();
                 }

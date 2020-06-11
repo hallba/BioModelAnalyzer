@@ -228,6 +228,13 @@ module BMA {
                     return deffered;
                 });
 
+                that.driver.SetLoadModelRequest(function (model: { Model: BMA.Model.BioModel; Layout: BMA.Model.Layout }) {
+                    that.RequestLoadModel().done(function () {
+                        that.appModel.Reset(model.Model, model.Layout);
+                        that.checker.Snapshot(that.appModel);
+                    });
+                });
+
             }
 
             public RequestLoadModel() {

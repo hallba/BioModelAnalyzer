@@ -705,6 +705,12 @@ module BMA {
                 });
             }
 
+            public SetLoadModelRequest(callback: Function) {
+                this.widget.modelstoragewidget({
+                    loadmodelcallback: callback
+                });
+            }
+
             //public SetOnSignInCallback(callback: Function) {
             //    this.widget.modelstoragewidget({
             //        onsigninonedrive: callback

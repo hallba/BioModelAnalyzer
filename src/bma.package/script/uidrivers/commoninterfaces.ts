@@ -165,6 +165,7 @@ module BMA {
             SetOnUpdateModelList(callback: Function);
             SetLinkToModelByName(callback: Function); //For local loading
             SetLinkToModelByInfo(callback: Function); //For OneDrive loading
+            SetLoadModelRequest(callback: Function);
             //SetOnSignInCallback(callback: Function);
             //SetOnSignOutCallback(callback: Function);
         }
