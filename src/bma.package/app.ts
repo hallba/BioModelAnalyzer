@@ -695,6 +695,12 @@ function loadScript(version) {
         //window.Commands.Execute("SwitchOneDrive", undefined);
     });
 
+
+    $(".onedrive-refresh-btn").mousedown(function (args) {
+        args.stopPropagation();
+        window.Commands.Execute("RequestOneDriveModelListUpdate", undefined);
+    });
+
     $("#btn-local-save").click(function (args) {
         window.Commands.Execute("SaveModel", undefined);
     });
@@ -841,14 +847,17 @@ function loadScript(version) {
 
     window.Commands.On("OneDriveLoggedIn", () => {
         $("#btn-onedrive-switcher").addClass("logged-in").removeClass("turned-off");
+        $(".onedrive-refresh-btn").addClass("logged-in").removeClass("turned-off");
     });
 
     window.Commands.On("OneDriveLoggedOut", () => {
         $("#btn-onedrive-switcher").removeClass("logged-in").removeClass("turned-off");
+        $(".onedrive-refresh-btn").removeClass("logged-in").removeClass("turned-off");
     });
 
     window.Commands.On("OneDriveTurnedOff", () => {
         $("#btn-onedrive-switcher").removeClass("logged-in").addClass("turned-off");
+        $(".onedrive-refresh-btn").removeClass("logged-in").addClass("turned-off");
     });
 
     window.Commands.On("Commands.ToggleLabels", function (param) {

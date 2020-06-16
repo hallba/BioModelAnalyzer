@@ -106,6 +106,10 @@ module BMA {
                         }
                     })
                 });
+
+                window.Commands.On("RequestOneDriveModelListUpdate", (args) => {
+                    that.UpdateModelsList();
+                });
             }
 
             public SetOnCopyCallback(callback: Function) {

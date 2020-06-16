@@ -2222,12 +2222,39 @@ textarea {
     width: 5px;
     height: 5px;
     background-color: @midgrey;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
     padding: 5px;
     border-radius: 5px;
     background-color: @midgrey;
+}
+
+.repo-scrollbar() {
+    &::-webkit-scrollbar {
+        width: 30px;
+        height: 18px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        height: 6px;
+        border: 10px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        -webkit-border-radius: 20px;
+        background-color: @midgrey;
+    }
+
+    &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
 }
 
 .tab-scrollbar() {
@@ -2474,6 +2501,10 @@ textarea {
                 border: none;
                 cursor: pointer;
 
+                &.onedrive-container {
+                    position: relative;
+                }
+
                 &.local-save-btn {
                     background-image: url("../images/repository/Save_Model_Icon.svg");
                 }
@@ -2510,6 +2541,24 @@ textarea {
 
                     &.turned-off {
                         background: url("../images/repository/One_Drive_On_Inactive.svg") no-repeat;
+                    }
+                }
+
+                &.onedrive-refresh-btn {
+                    position: absolute;
+                    top: -10px;
+                    width: 20px;
+                    height: 20px;
+                    .background-img;
+                    background: url("../images/repository/One_Drive_Reload-01.svg") no-repeat;
+                    display: none;
+
+                    &.logged-in {
+                        display: block;
+                    }
+
+                    &.turned-off {
+                        display: none;
                     }
                 }
             }
@@ -2586,12 +2635,16 @@ textarea {
     z-index: 7;
     background-color: white;
 
+    .localstorage-repo-container {
+        .repo-scrollbar;
+    }
+
     ol {
         list-style-type: none;
         .default-text;
         line-height: 25px;
         padding-left: 20px;
-        padding-right: 30px;
+        padding-right: 0px;
 
         li {
             height: 40px;
@@ -2607,6 +2660,14 @@ textarea {
             justify-content: space-between;
 
             &.ui-selected {
+                background-color: #efefef;
+
+                button.remove {
+                    display: inline-block;
+                }
+            }
+
+            &:hover {
                 background-color: #efefef;
 
                 button.remove {

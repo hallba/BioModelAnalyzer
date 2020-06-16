@@ -178,6 +178,7 @@
     <Content Include="images\repository\One_Drive_Off.svg" />
     <Content Include="images\repository\One_Drive_On_Active.svg" />
     <Content Include="images\repository\One_Drive_On_Inactive.svg" />
+    <Content Include="images\repository\One_Drive_Reload-01.svg" />
     <Content Include="images\repository\Save_As_Icon.svg" />
     <Content Include="images\repository\Save_Model_Icon.svg" />
     <Content Include="images\repository\User_Icon_List.svg" />
