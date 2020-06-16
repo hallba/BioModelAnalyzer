@@ -242,16 +242,47 @@
             </div>
             <div id="modelToolbarContent" class="model-icons">
                 <div class="model-repo-buttons">
-                    <div class="onedrive-container">
+                    <div class="btn-container">
                         <div class="onedrive-refresh-btn"></div> <!--ONE DRIVE REFRESH-->
                         <div id="btn-onedrive-switcher" class="onedrive-switch-btn"></div> <!--ONE DRIVE-->
                     </div>
-                    <div id="btn-new-model" data-command="NewModel" class="new-btn"></div><!--NEW-->
-                    <div id="btn-import-model" data-command="ImportModel" class="import-btn"></div><!--IMPORT-->
-                    <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-btn"></div><!--SAVE-->
-                    <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-as-btn"></div><!--SAVE AS-->
-                    <div id="btn-export-model" data-command="ExportModel" class="export-btn"></div><!--EXPORT-->
-                    <div id="btn-export-model" data-command="ExportLocalModelsZip" class="export-all-btn"></div><!--EXPORT ALL-->
+
+                    <div class="btn-container">
+                        <!--NEW-->
+                        <div class="tooltip-div">New</div>
+                        <div id="btn-new-model" data-command="NewModel" class="new-btn"></div>
+                    </div>
+
+                    <div class="btn-container">
+                        <!--IMPORT-->
+                        <div class="tooltip-div">Import</div>
+                        <div id="btn-import-model" data-command="ImportModel" class="import-btn"></div>
+                    </div>
+
+                    <div class="btn-container">
+                        <!--SAVE-->
+                        <div class="tooltip-div">Save</div>
+                        <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-btn"></div>
+                    </div>
+
+                    <div class="btn-container">
+                        <!--SAVE AS-->
+                        <div class="tooltip-div">Save As</div>
+                        <div id="btn-local-save" data-command="LocalStorageSaveModel" class="local-save-as-btn"></div>
+                    </div>
+
+                    <div class="btn-container">
+                        <!--EXPORT-->
+                        <div class="tooltip-div">Export</div>
+                        <div id="btn-export-model" data-command="ExportModel" class="export-btn"></div>
+                    </div>
+
+                    <div class="btn-container">
+                        <!--EXPORT ALL-->
+                        <div class="tooltip-div" style="left:-7px;">Zip Export</div>
+                        <div id="btn-export-model" data-command="ExportLocalModelsZip" class="export-all-btn"></div>
+                    </div>
+
                 </div>
                 <div id="modelrepositorycontent">
                 </div>

@@ -2501,8 +2501,24 @@ textarea {
                 border: none;
                 cursor: pointer;
 
-                &.onedrive-container {
+                &.btn-container {
                     position: relative;
+
+                    .tooltip-div {
+                        display: none;
+                        position: absolute;
+                        top: -20px;
+                        font-size: 10px;
+                        color: #999999;
+                        text-align: center;
+                        white-space: nowrap;
+                    }
+
+                    &:hover {
+                        .tooltip-div {
+                            display: block;
+                        }
+                    }
                 }
 
                 &.local-save-btn {
