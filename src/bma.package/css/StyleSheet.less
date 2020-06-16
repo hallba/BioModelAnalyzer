@@ -2491,10 +2491,6 @@ textarea {
 
             div {
                 background-color: transparent;
-                width: 35px;
-                height: 55px;
-                margin-left: 12.5px;
-                margin-right: 12.5px;
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
@@ -2503,52 +2499,68 @@ textarea {
 
                 &.btn-container {
                     position: relative;
+                    margin-left: 12.5px;
+                    margin-right: 12.5px;
 
                     .tooltip-div {
                         display: none;
                         position: absolute;
+                        width: 100px;
+                        left: -32px;
                         top: -20px;
                         font-size: 10px;
                         color: #999999;
-                        text-align: center;
-                        white-space: nowrap;
                     }
 
                     &:hover {
                         .tooltip-div {
-                            display: block;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            white-space: nowrap;
                         }
                     }
                 }
 
                 &.local-save-btn {
                     background-image: url("../images/repository/Save_Model_Icon.svg");
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.local-save-as-btn {
                     background-image: url("../images/repository/Save_As_Icon.svg");
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.new-btn {
                     background-image: url("../images/repository/New_Model_Icon.svg");
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.import-btn {
                     background-image: url("../images/repository/Import_Model_Icon.svg");
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.export-btn {
                     background-image: url("../images/repository/Export_Icon.svg");
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.export-all-btn {
                     background-image: url("../images/repository/Export_Zip.svg");
-                    margin-right: 0px;
+                    width: 35px;
+                    height: 55px;
                 }
 
                 &.onedrive-switch-btn {
                     width: 45px;
-                    margin-left: 0;
+                    height: 55px;
                     background: url("../images/repository/One_Drive_Off.svg") no-repeat;
 
                     &.logged-in {
@@ -2563,6 +2575,7 @@ textarea {
                 &.onedrive-refresh-btn {
                     position: absolute;
                     top: -10px;
+                    left: 13px;
                     width: 20px;
                     height: 20px;
                     .background-img;
@@ -2733,6 +2746,8 @@ textarea {
 
             .repo-model-icon {
                 .repo-icon;
+                width: 20px;
+                height: 20px;
                 background-image: url('../images/repository/Model_Icon_List.svg');
             }
         }
