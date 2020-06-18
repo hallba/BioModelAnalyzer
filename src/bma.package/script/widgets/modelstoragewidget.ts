@@ -7,6 +7,7 @@
     $.widget("BMA.modelstoragewidget", {
 
         _previewDiv: undefined,
+        motifs: undefined,
 
 
         options: {
@@ -65,7 +66,6 @@
 
             var storagerepoconteiner = $("<div></div>").addClass("localstorage-repo-container").appendTo(this.element);
 
-            this.preloadedmotifs = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
             this.localStorage = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
             this.oneDriveStorage = $("<div></div>").addClass("localstorage-repo").appendTo(storagerepoconteiner);
 
@@ -130,58 +130,62 @@
                 helper: "clone", appendTo: "body", cursor: "pointer", containment: that.options.dragcontainer, scope: "ml-card"
             });
 
-            that.localStorage.localstoragewidget({
-                onelementselected: function (mname) {
-                    that.preloadedmotifs.motifstoragewidget("CancelSelection");
-                    if (that.options.getmodelbyname !== undefined) {
-                        previewDiv.previewviewer("showLoading");
-                        that.options.getmodelbyname(mname).done(function (model) {
-                            previewHeder.text(mname);
+            var loadMotifToPreview = function (motif) {
+                previewDiv.previewviewer("showLoading");
+                previewHeder.text(motif.name);
+                var descr = motif.layout.Description;
+                if (descr == undefined || descr == "")
+                    descr = "no description for this model or motif";
+                previewDescription.text(descr);
+                previewDiv.previewviewer({ model: { Model: motif.model, Layout: motif.layout } });
+                previewDiv.show();
+            }
 
-                            var descr = model.Layout.Description;
-                            if (descr == undefined || descr == "")
-                                descr = "no description for this model or motif";
-                            previewDescription.text(descr);
-                            previewDiv.previewviewer({ model: model });
-                            previewDiv.show();
-                        });
+            that.localStorage.localstoragewidget({
+                onelementselected: function (content) {
+                    if (content.source === "storage") {
+                        var mname = content.item;
+                        if (that.options.getmodelbyname !== undefined) {
+                            previewDiv.previewviewer("showLoading");
+                            that.options.getmodelbyname(mname).done(function (model) {
+                                previewHeder.text(mname);
+
+                                var descr = model.Layout.Description;
+                                if (descr == undefined || descr == "")
+                                    descr = "no description for this model or motif";
+                                previewDescription.text(descr);
+                                previewDiv.previewviewer({ model: model });
+                                previewDiv.show();
+                            });
+                        }
+                    } else {
+                        loadMotifToPreview(content.item);
                     }
                 }
             });
 
             that.oneDriveStorage.onedrivestoragewidget({
-                onelementselected: function (minfo) {
-                    that.preloadedmotifs.motifstoragewidget("CancelSelection");
-                    if (that.options.getmodelbyinfo !== undefined) {
-                        previewDiv.previewviewer("showLoading");
-                        that.options.getmodelbyinfo(minfo).done(function (model) {
-                            previewHeder.text(minfo.name);
+                onelementselected: function (content) {
+                    if (content.source === "storage") {
+                        var minfo = content.item;
+                        if (that.options.getmodelbyinfo !== undefined) {
+                            previewDiv.previewviewer("showLoading");
+                            that.options.getmodelbyinfo(minfo).done(function (model) {
+                                previewHeder.text(minfo.name);
 
-                            var descr = model.Layout.Description;
-                            if (descr == undefined || descr == "")
-                                descr = "no description for this model or motif";
-                            previewDescription.text(descr);
-                            previewDiv.previewviewer({ model: model });
-                            previewDiv.show();
-                        });
+                                var descr = model.Layout.Description;
+                                if (descr == undefined || descr == "")
+                                    descr = "no description for this model or motif";
+                                previewDescription.text(descr);
+                                previewDiv.previewviewer({ model: model });
+                                previewDiv.show();
+                            });
+                        } else {
+                            console.log("can't load models from OneDrive");
+                        }
                     } else {
-                        console.log("can't load models from OneDrive");
+                        loadMotifToPreview(content.item);
                     }
-                }
-            });
-
-            this.preloadedmotifs.motifstoragewidget({
-                onelementselected: function (motif) {
-                    that.localStorage.localstoragewidget("CancelSelection");
-                    that.oneDriveStorage.onedrivestoragewidget("CancelSelection");
-                    previewDiv.previewviewer("showLoading");
-                    previewHeder.text(motif.name);
-                    var descr = motif.layout.Description;
-                    if (descr == undefined || descr == "")
-                        descr = "no description for this model or motif";
-                    previewDescription.text(descr);
-                    previewDiv.previewviewer({ model: { Model: motif.model, Layout: motif.layout } });
-                    previewDiv.show();
                 }
             });
 
@@ -190,77 +194,70 @@
                     that.localStorage.localstoragewidget({
                         filterString: searchstr
                     });
-                    that.preloadedmotifs.motifstoragewidget({
-                        filterString: searchstr
-                    });
                     that.oneDriveStorage.onedrivestoragewidget({
                         filterString: searchstr
                     });
                 }
             });
 
-            //this.oneDriveStorage.onedrivestoragewidget();
-            //if (this.options.items) {
-            //    this.localStorage.localstoragewidget({ items: that.options.items });
-            //}
-
-            //if (this.options.oneDriveItems) {
-            //    this.oneDriveStorage.onedrivestoragewidget({ items: that.options.oneDriveItems });
-            //}
-
             this.oneDriveStorage.hide();
 
-            //this.repo = $('<div></div>')
-            //    .addClass("localstorage-repo")
-            ////.addClass('localstorage-widget')
-            //    .appendTo(this.element);
-
-            //if (Silverlight && Silverlight.isInstalled()) {
-            //    var slWidget = $('<div></div>').appendTo(this.element);
-
-            //    var getSilverlightMethodCall =
-            //        "javascript:Silverlight.getSilverlight(\"5.0.61118.0\");"
-            //    var installImageUrl =
-            //        "http://go.microsoft.com/fwlink/?LinkId=161376";
-            //    var imageAltText = "Get Microsoft Silverlight";
-            //    var altHtml =
-            //        "<a href='{1}' style='text-decoration: none;'>" +
-            //        "<img src='{2}' alt='{3}' " +
-            //        "style='border-style: none'/></a>";
-            //    altHtml = altHtml.replace('{1}', getSilverlightMethodCall);
-            //    altHtml = altHtml.replace('{2}', installImageUrl);
-            //    altHtml = altHtml.replace('{3}', imageAltText);
-
-            //    Silverlight.createObject(
-            //        "ClientBin/BioCheck.xap",
-            //        slWidget[0], "slPlugin",
-            //        {
-            //            width: "250", height: "50",
-            //            background: "white", alt: altHtml,
-            //            version: "5.0.61118.0"
-            //        },
-            //        // See the event handlers in the full example.
-            //        { onError: onSilverlightError },
-            //        "param1=value1,param2=value2", "row3");
-            //}
-
-            /*this.singinOneDriveBtn = $("<div></div>").attr("id", "signin").addClass("signin").appendTo(this.element);*//*.click(function () {
-                if ($(this).text() == "Sign in with OneDrive") {
-                    if (that.options.onsigninonedrive !== undefined) {
-                        that.options.onsigninonedrive();
-                    }
-                } else {
-                    if (that.options.onsignoutonedrive !== undefined) {
-                        that.options.onsignoutonedrive();
-                    }
-                }
-            }); */
-
-            this.refresh();
+            this.loadMotifs(function () {
+                that.localStorage.localstoragewidget({
+                    motifs: that.motifs
+                });
+                that.oneDriveStorage.onedrivestoragewidget({
+                    motifs: that.motifs
+                });
+            });
         },
 
-        refresh: function () {
-            // this._createHTML();
+        loadMotifs: function (callback) {
+            var that = this;
+            that.motifs = [];
+
+            var preloadedPaths = [
+                "motifs/Substrate_depletion_oscillations.json",
+                "motifs/Activator-Inhibitor_Oscillation.json",
+                "motifs/Negative_Feedback_Oscillations 1.json",
+                "motifs/Homeostasis.json",
+                "motifs/Mutual_Inhibition.json",
+                "motifs/Perfect Adaptation.json",
+                "motifs/Sigmoidal A.json",
+                "motifs/Hyperbolic A.json",
+                "motifs/Linear.json",
+            ];
+
+            var loadMotif = function (mpathes) {
+                if (mpathes.length > 0) {
+                    var path = mpathes.pop();
+
+                    $.ajax(path, {
+                        dataType: "text",
+                        success: function (fileContent) {
+                            that.AddFromJSON(fileContent);
+                            loadMotif(mpathes);
+                        },
+                        error: function (err) {
+                            console.log("failed to load motif " + path + " :" + err);
+                            loadMotif(mpathes);
+                        }
+                    });
+                } else {
+                    callback();
+                }
+            }
+
+            loadMotif(preloadedPaths);
+        },
+
+        AddFromJSON(source) {
+            var that = this;
+            var parsed = JSON.parse(source);
+            var imported = BMA.Model.ImportModelAndLayout(parsed);
+            var adjusted = BMA.ModelHelper.AdjustReceptorsPosition(imported.Model, imported.Layout, window.GridSettings);
+            var newMotif = { name: parsed.Model.Name, model: adjusted.model, layout: adjusted.layout };
+            that.motifs.push(newMotif);
         },
 
         Message: function (msg) {

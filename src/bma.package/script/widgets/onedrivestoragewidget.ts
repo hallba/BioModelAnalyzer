@@ -9,6 +9,7 @@
 
         options: {
             items: [],
+            motifs: [],
             activeShare: [],
             filterString: undefined,
             onelementselected: undefined,
@@ -38,7 +39,7 @@
         createContextMenu: function () {
             var that = this;
             this.repo.contextmenu({
-                delegate: "li",
+                delegate: "li .storage-source",
                 autoFocus: true,
                 preventContextMenuForPopup: true,
                 preventSelect: true,
@@ -84,7 +85,7 @@
                                 }
                             });
 
-                            
+
                         }
                     }
 
@@ -93,9 +94,13 @@
         },
 
         _createHTML: function (items) {
-            var items = this.options.items;
-            this.repo.empty();
             var that = this;
+
+            var items = this.options.items;
+            var motifs = this.options.motifs;
+            var fs = that.options.filterString;
+
+            this.repo.empty();
 
             this.loading = $("<div></div>").appendTo(this.repo);
             var anim = $("<div></div>").addClass("spinner").appendTo(that.loading);
@@ -103,55 +108,83 @@
             $("<div></div>").addClass("bounce2").appendTo(anim);
             $("<div></div>").addClass("bounce3").appendTo(anim);
 
-            this.ol = $('<ol></ol>').appendTo(this.repo);
-            var fs = that.options.filterString;
+            var itemsToAdd = [];
+            if (motifs !== undefined && motifs.length > 0) {
+                for (var i = 0; i < motifs.length; i++) {
+                    if (fs === undefined || fs === "" || motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
+                        itemsToAdd.push({ item: motifs[i], source: "motifs" });
+                    }
+                }
+            }
+            if (items.length > 0) {
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].shared === undefined && (fs === undefined || fs === "" || items[i].name.toLowerCase().includes(fs.toLowerCase()))) {
+                        itemsToAdd.push({ item: items[i], source: "storage" });
+                    }
+                }
+            }
 
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].shared === undefined && (fs === undefined || fs === "" || items[i].name.toLowerCase().includes(fs.toLowerCase()))) {
-                    var li = $('<li></li>')/*.text(items[i].name)*/.appendTo(this.ol).click(function () {
+            this.ol = $('<ol></ol>').appendTo(this.repo);
+            if (itemsToAdd.length > 0) {
+                for (var i = 0; i < itemsToAdd.length; i++) {
+                    var isStorage = itemsToAdd[i].source === "storage";
+
+                    var li = $('<li></li>').appendTo(this.ol).click(function () {
                         var ind = $(this).index();
 
                         if (that.options.onelementselected != undefined) {
-                            that.options.onelementselected(items[ind]);
+                            that.options.onelementselected(itemsToAdd[ind]);
                         }
 
                         that.repo.find(".ui-selected").removeClass("ui-selected");
                         that.ol.children().eq(ind).addClass("ui-selected");
 
                     });
-                //} 
-                //var a = $('<a></a>').addClass('delete').appendTo(li);
-                //if (items[i].shared) {
-                //    var ownerName = items[i].shared.owner && items[i].shared.owner.user && items[i].shared.owner.user.displayName ?
-                //        items[i].shared.owner.user.displayName : "Unknown";
-                //    var sharedIcon = $("<div>S</div>").addClass("share-icon").appendTo(li);
-                //    sharedIcon.tooltip({
-                //        //tooltipClass: "share-icon",
-                //        //position: {
-                //        //    at: "left-48px bottom",
-                //        //    collision: 'none',
-                //        //},
-                //        content: function () {
-                //            return ownerName;
-                //        },
-                //        show: null,
-                //        hide: false,
-                //        items: "div.share-icon",
-                //        close: function (event, ui) {
-                //            sharedIcon.data("ui-tooltip").liveRegion.children().remove();
-                //        },
-                //    });
-                //} else {
+
+                    //} 
+                    //var a = $('<a></a>').addClass('delete').appendTo(li);
+                    //if (items[i].shared) {
+                    //    var ownerName = items[i].shared.owner && items[i].shared.owner.user && items[i].shared.owner.user.displayName ?
+                    //        items[i].shared.owner.user.displayName : "Unknown";
+                    //    var sharedIcon = $("<div>S</div>").addClass("share-icon").appendTo(li);
+                    //    sharedIcon.tooltip({
+                    //        //tooltipClass: "share-icon",
+                    //        //position: {
+                    //        //    at: "left-48px bottom",
+                    //        //    collision: 'none',
+                    //        //},
+                    //        content: function () {
+                    //            return ownerName;
+                    //        },
+                    //        show: null,
+                    //        hide: false,
+                    //        items: "div.share-icon",
+                    //        close: function (event, ui) {
+                    //            sharedIcon.data("ui-tooltip").liveRegion.children().remove();
+                    //        },
+                    //    });
+                    //} else {
 
                     var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
-                    var icon = $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
-                    var modelName = $("<div>" + items[i].name + "</div>").addClass("repo-model-name").appendTo(cnt);
+
+                    if (isStorage) {
+                        $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
+                        li.attr("data-source", "storage");
+                        li.addClass("storage-source");
+                    } else {
+                        $("<div></div>").addClass("repo-motif-icon").prependTo(cnt);
+                        li.attr("data-source", "motif");
+                    }
+
+                    var modelName = $("<div>" + itemsToAdd[i].item.name + "</div>").addClass("repo-model-name").appendTo(cnt);
 
                     var removeBtn = $('<button></button>').addClass("remove icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
+
+                        var itemToAdd = itemsToAdd[$(this).parent().index()];
                         if (that.options.onremovemodel !== undefined)
-                            that.options.onremovemodel(items[$(this).parent().index()].id);
+                            that.options.onremovemodel(itemToAdd.item.id);
                         //window.Commands.Execute("LocalStorageRemoveModel", "user." + items[$(this).parent().index()]);
                     });
                 }
@@ -165,7 +198,7 @@
                 this.ol.show();
             }
 
-            
+
             //this.ol.selectable({
             //    start: function () {
             //    },
@@ -261,6 +294,10 @@
                     this.options.items = value;
                     this.refresh();
                     break;
+                case "motifs":
+                    this.options.motifs = value;
+                    this.refresh();
+                    break;
                 case "onloadmodel":
                     this.options.onloadmodel = value;
                     break;
@@ -289,7 +326,7 @@
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     onedrivestoragewidget(): JQuery;
@@ -297,4 +334,4 @@ interface JQuery {
     onedrivestoragewidget(optionLiteral: string, optionName: string): any;
     onedrivestoragewidget(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
- 
+
