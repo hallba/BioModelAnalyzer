@@ -88,19 +88,7 @@
                 this.ol = $('<ol></ol>').appendTo(this.repo);
 
                 for (var i = 0; i < itemsToAdd.length; i++) {
-                    if (that.options.filterBySource !== undefined) {
-                        if (that.options.filterBySource === "user" && itemsToAdd[i].source != "storage") {
-                            continue;
-                        }
-                    }
-
-                    if (that.options.filterByType !== undefined) {
-                        if (that.options.filterByType === "model" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Model) {
-                            continue;
-                        } else if (that.options.filterByType === "motif" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Motif) {
-                            continue;
-                        }
-                    }
+                    
 
                     var isStorage = itemsToAdd[i].source === "storage";
 
@@ -142,6 +130,21 @@
                         if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
                             that.options.onremovemodel(itemToAdd);
                     });
+
+
+                    if (that.options.filterBySource !== undefined) {
+                        if (that.options.filterBySource === "user" && itemsToAdd[i].source != "storage") {
+                            li.hide();
+                        }
+                    }
+
+                    if (that.options.filterByType !== undefined) {
+                        if (that.options.filterByType === "model" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Model) {
+                            li.hide();
+                        } else if (that.options.filterByType === "motif" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Motif) {
+                            li.hide();
+                        }
+                    }
                 }
             }
         },
