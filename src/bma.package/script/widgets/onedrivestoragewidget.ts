@@ -185,7 +185,6 @@
                         var itemToAdd = itemsToAdd[$(this).parent().index()];
                         if (that.options.onremovemodel !== undefined)
                             that.options.onremovemodel(itemToAdd.item.id);
-                        //window.Commands.Execute("LocalStorageRemoveModel", "user." + items[$(this).parent().index()]);
                     });
                 }
             }

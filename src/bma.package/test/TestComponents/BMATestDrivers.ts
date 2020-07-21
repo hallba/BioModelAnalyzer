@@ -78,6 +78,12 @@ module BMA {
                 else return undefined;
             }
             //OnRepositoryUpdated();
+
+            GetMotifList(): JQueryPromise<string[]> { throw "not implemented"; }
+            GetMotifs(): JQueryPromise<JSON[]> { throw "not implemented"; }
+            LoadMotif(id: string): JQueryPromise<JSON> { throw "not implemented"; }
+            RemoveMotif(id: string) { throw "not implemented"; }
+            SaveMotif(id: string, motif: JSON) { throw "not implemented"; }
         }
 
         export class LocalStorageTestDriver implements BMA.UIDrivers.ILocalStorageDriver {

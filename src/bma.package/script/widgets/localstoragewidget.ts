@@ -57,14 +57,15 @@
             if (motifs !== undefined && motifs.length > 0) {
                 for (var i = 0; i < motifs.length; i++) {
                     if (fs === undefined || fs === "" || motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: motifs[i], source: "motifs" });
+                        itemsToAdd.push({ item: motifs[i], source: "motifs", type: BMA.UIDrivers.StorageContentType.Motif });
                     }
                 }
             }
             if (items.length > 0) {
                 for (var i = 0; i < items.length; i++) {
-                    if (fs === undefined || fs === "" || items[i].toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: items[i], source: "storage" });
+                    var itemName = items[i].name;
+                    if (fs === undefined || fs === "" || itemName.toLowerCase().includes(fs.toLowerCase())) {
+                        itemsToAdd.push({ item: itemName, source: "storage", type: items[i].type });
                     }
                 }
             }
@@ -91,7 +92,7 @@
 
                     var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
 
-                    if (isStorage) {
+                    if (itemsToAdd[i].type === BMA.UIDrivers.StorageContentType.Model) {
                         $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
                     } else {
                         $("<div></div>").addClass("repo-motif-icon").prependTo(cnt);
@@ -113,7 +114,7 @@
 
                         var itemToAdd = itemsToAdd[$(this).parent().index()];
                         if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
-                            that.options.onremovemodel("user." + itemToAdd.item);
+                            that.options.onremovemodel(itemToAdd);
                     });
                 }
             }
@@ -132,7 +133,7 @@
             var that = this;
             var idx;
             for (var i = 0; i < that.options.items.length; i++) {
-                if (("user." + that.options.items[i]) == key) {
+                if ((that.options.items[i]) == key) {
                     idx = i;
                     break;
                 }
@@ -165,12 +166,11 @@
                     var idx = $(ui.target.context).index();
 
                     if (that.options.setoncopytoonedrive !== undefined) {
-                        that.options.setoncopytoonedrive("user." + that.options.items[idx]).done(function () {
+                        that.options.setoncopytoonedrive(that.options.items[idx]).done(function () {
 
                             if (ui.cmd == "MoveToOneDrive") {
                                 if (that.options.onremovemodel !== undefined)
-                                    that.options.onremovemodel("user." + that.options.items[idx]);
-                                //window.Commands.Execute("LocalStorageRemoveModel", "user." + that.options.items[idx]);
+                                    that.options.onremovemodel(that.options.items[idx]);
                             }
                         });
                     }

@@ -1286,8 +1286,8 @@ module BMA {
                     Model: BMA.Model.ExportBioModelPart(selectionModel.model, selectionModel.model), Layout: BMA.Model.ExportLayout(selectionModel.model, selectionModel.layout)
                 };
 
-                var selectionSubModel = JSON.stringify(exported);
-                window.Commands.Execute("CreateMotifFromJSON", { source: selectionSubModel });
+                var selectionSubModel = JSON.parse(JSON.stringify(exported));
+                window.Commands.Execute("LocalStorageSaveMotif", { motifSource: selectionSubModel });
             }
 
             private IsCursorWithinSelection(x: number, y: number): boolean {

@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                connector.Enable(onLogin, onLoginFailed, onLogout);
+                //connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
@@ -202,15 +202,25 @@ module BMA {
                     }
                 });
 
-                that.driver.SetLinkToModelByName(function (mname) {
+                that.driver.SetLinkToModelByName(function (arg: { name: string, type: BMA.UIDrivers.StorageContentType }) {
                     var deffered = $.Deferred();
 
-                    localRepository.LoadModel("user." + mname).done(function (res) {
-                        var imported = BMA.Model.ImportModelAndLayout(res);
-                        deffered.resolve(imported);
-                    }).fail(function () {
-                        deffered.reject();
-                    });
+                    if (arg.type == BMA.UIDrivers.StorageContentType.Model) {
+
+                        localRepository.LoadModel(arg.name).done(function (res) {
+                            var imported = BMA.Model.ImportModelAndLayout(res);
+                            deffered.resolve(imported);
+                        }).fail(function () {
+                            deffered.reject();
+                        });
+                    } else {
+                        localRepository.LoadMotif(arg.name).done(function (res) {
+                            var imported = BMA.Model.ImportModelAndLayout(res);
+                            deffered.resolve(imported);
+                        }).fail(function () {
+                            deffered.reject();
+                        });
+                    }
 
                     return deffered;
                 });

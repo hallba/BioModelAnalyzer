@@ -34,7 +34,7 @@ module BMA {
                 this.checker = checker;
                 this.waitScreen = waitScreen;
 
-                that.tool.GetModelList().done(function (keys) {
+                that.GetModelMotifList().done(function (keys) {
                     that.driver.SetItems(keys);
                     that.driver.Message("");
                     //that.driver.Hide();
@@ -44,7 +44,7 @@ module BMA {
                 });
 
                 window.Commands.On("LocalStorageChanged", function () {
-                    that.tool.GetModelList().done(function (keys) {
+                    that.GetModelMotifList().done(function (keys) {
                         if (keys === undefined || keys.length == 0)
                             that.driver.Message("The model repository is empty");
                         else that.driver.Message('');
@@ -63,11 +63,14 @@ module BMA {
                 //});
 
                 that.driver.SetOnRemoveModel(function (key) {
-                    that.tool.RemoveModel(key);
+                    if (key.type === BMA.UIDrivers.StorageContentType.Model)
+                        that.tool.RemoveModel(key.item);
+                    else
+                        that.tool.RemoveMotif(key.item);
                 });
 
                 window.Commands.On("LocalStorageRequested", function () {
-                    that.tool.GetModelList().done(function (keys) {
+                    that.GetModelMotifList().done(function (keys) {
                         that.driver.SetItems(keys);
                         that.driver.Message("");
                         //that.driver.Show();
@@ -89,6 +92,22 @@ module BMA {
                         that.driver.Message("Couldn't save model: " + ex);
                     }
                 });
+
+                window.Commands.On("LocalStorageSaveMotif", function (args: { motifSource: JSON }) {
+                    try {
+                        //logService.LogSaveModel();
+                        var key = "clipboard model";
+                        that.tool.SaveMotif(key, args.motifSource);
+                        window.Commands.Execute("LocalStorageChanged", {});
+                        //that.checker.Snapshot(that.appModel);
+                        //TODO: add to log 
+                    }
+                    catch (ex) {
+                        that.driver.Message("Couldn't save model: " + ex);
+                    }
+                });
+
+
 
                 window.Commands.On("ExportLocalModelsZip", function () {
                     tool.GetModels().done(function (res) {
@@ -232,6 +251,39 @@ module BMA {
                     window.Commands.Execute("LocalStorageChanged", {});
                     that.waitScreen.Hide();
                 }
+            }
+
+            private GetModelMotifList(): JQueryPromise<{ name: string, type: BMA.UIDrivers.StorageContentType }[]> {
+                var that = this;
+
+                var deffered = $.Deferred();
+
+                var items = [];
+
+                $.when(that.tool.GetModelList(), that.tool.GetMotifList()).then(function (modelKeys, motifKeys) {
+                    for (var i = 0; i < modelKeys.length; i++) {
+                        items.push({
+                            name: modelKeys[i],
+                            type: BMA.UIDrivers.StorageContentType.Model
+                        });
+                    }
+
+                    for (var i = 0; i < motifKeys.length; i++) {
+                        items.push({
+                            name: motifKeys[i],
+                            type: BMA.UIDrivers.StorageContentType.Motif
+                        });
+                    }
+
+                    deffered.resolve(items);
+                }).fail(function (errorThrown) {
+                    var res = JSON.parse(JSON.stringify(errorThrown));
+                    console.log("error loading models and motifs: " + res.statusText);
+                    deffered.reject();
+                });
+                
+                var p = <JQueryPromise<{ name: string, type: BMA.UIDrivers.StorageContentType }[]>>deffered.promise();
+                return p;
             }
         }
     }

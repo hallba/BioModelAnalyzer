@@ -185,7 +185,6 @@ module BMA {
         }
 
 
-
         export interface ModelInfo {
             id: string;
             name: string;
@@ -198,7 +197,13 @@ module BMA {
             RemoveModel(id: string);
             SaveModel(id: string, model: JSON);
             IsInRepo(id: string);
-            
+
+            GetMotifList(): JQueryPromise<string[]>;
+            GetMotifs(): JQueryPromise<JSON[]>;
+            LoadMotif(id: string): JQueryPromise<JSON>;
+            RemoveMotif(id: string);
+            SaveMotif(id: string, motif: JSON);
+
             //OnRepositoryUpdated();
         }
 

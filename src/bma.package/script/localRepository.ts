@@ -2,6 +2,9 @@
 // License: MIT. See LICENSE
 module BMA {
     export class LocalRepositoryTool implements BMA.UIDrivers.IModelRepository {
+
+        private readonly modelPrefix = "user.";
+        private readonly motifPrefix = "userm.";
         
         private messagebox: BMA.UIDrivers.IMessageServiсe;
 
@@ -10,7 +13,7 @@ module BMA {
         }
 
         public IsInRepo(id: string) {
-            return window.localStorage.getItem(id) !== null;
+            return window.localStorage.getItem(this.modelPrefix + id) !== null || window.localStorage.getItem(this.motifPrefix + id) !== null;
         }
 
         public Save(key: string, appModel: string) {
@@ -37,28 +40,63 @@ module BMA {
         }
 
         public SaveModel(id: string, model: JSON) {
-            //if (window.localStorage.getItem("user." + id) !== null) {
-                //if (confirm("Overwrite the file?"))
-                //    this.Save("user." + id, JSON.stringify(model));
-            //}
-            //else this.Save("user." + id, JSON.stringify(model));
-
-            if (window.localStorage.getItem("user." + id) !== null) {
+            var that = this;
+            if (window.localStorage.getItem(that.modelPrefix + id) !== null) {
                 //TODO: If we need more obvious confirm from user to overwrite existing file, we should ask him about that in other place
                 console.log("Overwritting existing model with name: " + id);
             }
-            this.Save("user." + id, JSON.stringify(model));
+            this.Save(that.modelPrefix + id, JSON.stringify(model));
+        }
+
+        public SaveMotif(id: string, model: JSON) {
+            var that = this;
+
+            var actualName = id;
+            var ind = 0;
+            while (window.localStorage.getItem(that.motifPrefix + actualName) !== null) {
+                ind++;
+                actualName = id + "(" + ind + ")";
+            }
+
+            this.Save(that.motifPrefix + actualName, JSON.stringify(model));
         }
 
         public RemoveModel(id: string) {
-            window.localStorage.removeItem(id);
-            window.Commands.Execute("LocalStorageChanged", {});
+            var that = this;
+            if (window.localStorage.getItem(that.modelPrefix + id) !== null) {
+                window.localStorage.removeItem(that.modelPrefix + id);
+                window.Commands.Execute("LocalStorageChanged", {});
+            }
+        }
+
+        public RemoveMotif(id: string) {
+            var that = this;
+            if (window.localStorage.getItem(that.motifPrefix + id) !== null) {
+                window.localStorage.removeItem(that.motifPrefix + id);
+                window.Commands.Execute("LocalStorageChanged", {});
+            }
         }
 
         public LoadModel(id: string): JQueryPromise<JSON> {
             var that = this;
             var deffered = $.Deferred();
-            var model = window.localStorage.getItem(id);
+            var model = window.localStorage.getItem(that.modelPrefix + id);
+            if (model !== null) {
+                try {
+                    var serialized = BMA.ModelHelper.ProcessModelJSON(model);
+                    deffered.resolve(JSON.parse(serialized));
+                }
+                catch (ex) { that.messagebox.Show(ex); deffered.reject(ex); }
+            }
+            else deffered.resolve(null);
+
+            return <JQueryPromise<JSON>>deffered.promise();
+        }
+
+        public LoadMotif(id: string): JQueryPromise<JSON> {
+            var that = this;
+            var deffered = $.Deferred();
+            var model = window.localStorage.getItem(that.motifPrefix + id);
             if (model !== null) {
                 try {
                     var serialized = BMA.ModelHelper.ProcessModelJSON(model);
@@ -76,7 +114,26 @@ module BMA {
             var keys:string[] = [];
             for (var i = 0; i < window.localStorage.length; i++) {
                 var key = window.localStorage.key(i);
-                var usrkey = this.IsUserKey(key);
+                var usrkey = this.IsModelKey(key);
+                if (usrkey !== undefined) {
+                    var item = window.localStorage.getItem(key);
+                    if (this.ParseItem(item)) {
+                        keys.push(usrkey);
+                    }
+                }
+            }
+            deffered.resolve(keys);
+
+            var p = <JQueryPromise<string[]>>deffered.promise();
+            return p;
+        }
+
+        public GetMotifList(): JQueryPromise<string[]> {
+            var deffered = $.Deferred();
+            var keys: string[] = [];
+            for (var i = 0; i < window.localStorage.length; i++) {
+                var key = window.localStorage.key(i);
+                var usrkey = this.IsMotifKey(key);
                 if (usrkey !== undefined) {
                     var item = window.localStorage.getItem(key);
                     if (this.ParseItem(item)) {
@@ -97,7 +154,7 @@ module BMA {
             var models = [];
             for (var i = 0; i < window.localStorage.length; i++) {
                 var key = window.localStorage.key(i);
-                var usrkey = this.IsUserKey(key);
+                var usrkey = this.IsModelKey(key);
                 if (usrkey !== undefined) {
                     var item = window.localStorage.getItem(key);
                     models.push(JSON.parse(item));
@@ -109,9 +166,41 @@ module BMA {
             return p;
         }
 
-        private IsUserKey(key: string): string {
+        public GetMotifs(): JQueryPromise<JSON[]> {
+            var deffered = $.Deferred();
+            var that = this;
+
+            var models = [];
+            for (var i = 0; i < window.localStorage.length; i++) {
+                var key = window.localStorage.key(i);
+                var usrkey = this.IsMotifKey(key);
+                if (usrkey !== undefined) {
+                    var item = window.localStorage.getItem(key);
+                    models.push(JSON.parse(item));
+                }
+            }
+            deffered.resolve(models);
+
+            var p = <JQueryPromise<JSON[]>>deffered.promise();
+            return p;
+        }
+
+        private IsModelKey(key: string): string {
             var sp = key.split('.');
-            if (sp[0] === "user") {
+            if (sp[0] + '.' === this.modelPrefix) {
+                var q = sp[1];
+                for (var i = 2; i < sp.length; i++) {
+                    q = q.concat('.');
+                    q = q.concat(sp[i]);
+                }
+                return q;
+            }
+            else return undefined;
+        }
+
+        private IsMotifKey(key: string): string {
+            var sp = key.split('.');
+            if (sp[0] + '.' === this.motifPrefix) {
                 var q = sp[1];
                 for (var i = 2; i < sp.length; i++) {
                     q = q.concat('.');

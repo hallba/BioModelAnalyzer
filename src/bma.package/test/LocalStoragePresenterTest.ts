@@ -36,7 +36,7 @@ describe("BMA.Presenters.LocalStoragePresenter", () => {
     var checker = new BMA.ChangesChecker();
     var logService = new BMA.SessionLog();
 
-    modelRepositoryTest.SaveModel("user." + name, JSON.parse(appModel.Serialize()));
+    modelRepositoryTest.SaveModel(name, JSON.parse(appModel.Serialize()));
 
     it("should be defined", () => {
         var localStorageTestPresenter = new BMA.Presenters.LocalStoragePresenter(appModel, localStorageTestDriver, modelRepositoryTest, messagebox, checker, logService, testWaitScreen);

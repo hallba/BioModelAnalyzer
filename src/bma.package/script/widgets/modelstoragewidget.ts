@@ -144,11 +144,11 @@
             that.localStorage.localstoragewidget({
                 onelementselected: function (content) {
                     if (content.source === "storage") {
-                        var mname = content.item;
+                        var mname = { name: content.item, type: content.type };
                         if (that.options.getmodelbyname !== undefined) {
                             previewDiv.previewviewer("showLoading");
                             that.options.getmodelbyname(mname).done(function (model) {
-                                previewHeder.text(mname);
+                                previewHeder.text(mname.name);
 
                                 var descr = model.Layout.Description;
                                 if (descr == undefined || descr == "")

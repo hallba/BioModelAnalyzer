@@ -58,13 +58,18 @@ module BMA.OneDrive {
     //
     //************************************************************************************************
     export class OneDriveRepository {
-        private static bmaFolder = "BioModelAnalyzer";
+        private static bmaModelFolder = "BioModelAnalyzer";
+        private static bmaMotifFolder = "BioModelAnalyzerMotifs";
+
         private oneDrive: IOneDrive;
-        private folderId: string;
+        private modelfolderId: string;
+        private motiffolderId: string;
+
 
         constructor(oneDrive: IOneDrive) {
             this.oneDrive = oneDrive;
-            this.folderId = null;
+            this.modelfolderId = null;
+            this.motiffolderId = null;
         }
 
         private static UpdateName(file: OneDriveFile): OneDriveFile {
@@ -87,23 +92,57 @@ module BMA.OneDrive {
         }
 
         /// If folder is missing and createIfNotFound is false, returns null.
-        private UseBmaFolder(createIfNotFound: boolean): JQueryPromise<string> {
+        private UseBmaModelFolder(createIfNotFound: boolean): JQueryPromise<string> {
             var d = $.Deferred();
-            if (this.folderId) {
-                d.resolve(this.folderId);
+            if (this.modelfolderId) {
+                d.resolve(this.modelfolderId);
             } else {
                 var that = this;
-                this.oneDrive.FindFolder(OneDriveRepository.bmaFolder)
+                this.oneDrive.FindFolder(OneDriveRepository.bmaModelFolder)
                     .done(function (folderId: string) {
                         if (folderId) {
-                            that.folderId = folderId;
+                            that.modelfolderId = folderId;
                             d.resolve(folderId);
                         } else {
                             console.log("BMA folder not found");
                             if (createIfNotFound) {
-                                that.oneDrive.CreateFolder(OneDriveRepository.bmaFolder)
+                                that.oneDrive.CreateFolder(OneDriveRepository.bmaModelFolder)
                                     .done(function (folderId) {
-                                        that.folderId = folderId;
+                                        that.modelfolderId = folderId;
+                                        d.resolve(folderId);
+                                    })
+                                    .fail(function (err) {
+                                        console.error("Failed to create a folder for BMA on the OneDrive: " + err);
+                                        d.reject(err);
+                                    });
+                            }
+                            else d.resolve(null); // folder not found
+                        }
+                    })
+                    .fail(function (err) {
+                        d.reject(err); // failed when tried to find the bma folder
+                    });
+            }
+            return <JQueryPromise<string>>d.promise();
+        }
+
+        private UseBmaMotifFolder(createIfNotFound: boolean): JQueryPromise<string> {
+            var d = $.Deferred();
+            if (this.motiffolderId) {
+                d.resolve(this.motiffolderId);
+            } else {
+                var that = this;
+                this.oneDrive.FindFolder(OneDriveRepository.bmaMotifFolder)
+                    .done(function (folderId: string) {
+                        if (folderId) {
+                            that.motiffolderId = folderId;
+                            d.resolve(folderId);
+                        } else {
+                            console.log("BMA folder not found");
+                            if (createIfNotFound) {
+                                that.oneDrive.CreateFolder(OneDriveRepository.bmaMotifFolder)
+                                    .done(function (folderId) {
+                                        that.motiffolderId = folderId;
                                         d.resolve(folderId);
                                     })
                                     .fail(function (err) {
@@ -129,7 +168,35 @@ module BMA.OneDrive {
 
         public GetModelList(): JQueryPromise<BMA.UIDrivers.ModelInfo[]> {
             var that = this;
-            var myModels = this.UseBmaFolder(false)
+            var myModels = this.UseBmaModelFolder(false)
+                .then<OneDriveFile[]>(function (folderId) {
+                    if (folderId) {
+                        return that.EnumerateModels(folderId);
+                    } else { // no bma folder
+                        var d = $.Deferred();
+                        d.resolve(new Array<OneDriveFile>(0));
+                        return d;
+                    }
+                });
+            //var sharedModels = that.oneDrive.EnumerateSharedWithMeFiles()
+            //    .then<SharedOneDriveFile[]>(function (files) {
+            //        var jsonFiles = [];
+            //        for (var i = 0; i < files.length; i++) {
+            //            if (files[i]["file"]["mimeType"].indexOf("application/json") === 0) {
+            //                jsonFiles.push(OneDriveRepository.UpdateName(files[i]));
+            //            }
+            //        }
+            //        return jsonFiles;                  
+            //    });
+            return $.when(myModels/*, sharedModels*/)
+                .then(function (myFiles: OneDriveFile[], sharedFiles: OneDriveFile[]) {
+                    return myFiles; //.concat(sharedFiles);
+                });
+        }
+
+        public GetMotifList(): JQueryPromise<BMA.UIDrivers.ModelInfo[]> {
+            var that = this;
+            var myModels = this.UseBmaMotifFolder(false)
                 .then<OneDriveFile[]>(function (folderId) {
                     if (folderId) {
                         return that.EnumerateModels(folderId);
@@ -163,18 +230,34 @@ module BMA.OneDrive {
             return this.oneDrive.LoadFile(fileId);
         }
 
+        public LoadMotif(fileId: string): JQueryPromise<JSON> {
+            return this.oneDrive.LoadFile(fileId);
+        }
+
         /// Saves model to the BMA folder using `modelName` plus extension ".json" as file name.
         /// Creates the BMA folder, unless it exists.
         /// Returns information about the saved file.
         public SaveModel(modelName: string, modelContent: JSON): JQueryPromise<BMA.UIDrivers.ModelInfo> {
             var that = this;
-            return this.UseBmaFolder(true)
+            return this.UseBmaModelFolder(true)
                 .then<OneDriveFile>(function (folderId: string) {
                     return that.oneDrive.SaveFile(folderId, modelName + ".json", modelContent).then(OneDriveRepository.UpdateName);
                 });
         }
 
+        public SaveMotif(motifName: string, motifContent: JSON): JQueryPromise<BMA.UIDrivers.ModelInfo> {
+            var that = this;
+            return this.UseBmaMotifFolder(true)
+                .then<OneDriveFile>(function (folderId: string) {
+                    return that.oneDrive.SaveFile(folderId, motifName + ".json", motifContent).then(OneDriveRepository.UpdateName);
+                });
+        }
+
         public RemoveModel(fileId: string): JQueryPromise<boolean> {
+            return this.oneDrive.RemoveFile(fileId);
+        }
+
+        public RemoveMotif(fileId: string): JQueryPromise<boolean> {
             return this.oneDrive.RemoveFile(fileId);
         }
     }

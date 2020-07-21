@@ -67,7 +67,6 @@ module.exports = function (grunt) {
                     "script/widgets/progressiontable.js",
                     "script/widgets/proofresultviewer.js",
                     "script/widgets/furthertestingviewer.js",
-                    "script/widgets/motifstoragewidget.js",
                     "script/widgets/localstoragewidget.js",
                     "script/widgets/modelstoragewidget.js",
                     "script/widgets/onedrivestoragewidget.js",

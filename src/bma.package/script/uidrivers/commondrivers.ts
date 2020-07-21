@@ -6,6 +6,11 @@
 
 module BMA {
     export module UIDrivers {
+        export enum StorageContentType {
+            Model = 0,
+            Motif = 1
+        }
+
         export class SVGPlotDriver implements ISVGPlot, IElementsPanel, INavigationPanel, IAreaHightlighter {
             private svgPlotDiv: JQuery;
 

@@ -353,7 +353,6 @@
     <TypeScriptCompile Include="script\rendering\RenderHelper.ts" />
     <TypeScriptCompile Include="script\rendering\renderingconstants.ts" />
     <TypeScriptCompile Include="script\widgets\searchbar.ts" />
-    <TypeScriptCompile Include="script\widgets\motifstoragewidget.ts" />
     <TypeScriptCompile Include="script\widgets\previewviewer.ts" />
     <TypeScriptCompile Include="script\widgets\hoverpopup.ts" />
     <TypeScriptCompile Include="script\widgets\codeeditor.ts" />
