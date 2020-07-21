@@ -15,6 +15,9 @@
             enableContextMenu: true,
             onelementselected: undefined,
             filterString: undefined,
+            sortByName: undefined, //could be also "up" and "down"
+            filterByType: undefined, //coule be also "model", "motif"
+            filterBySource: undefined, //could also be "user"
         },
 
         _create: function () {
@@ -57,7 +60,7 @@
             if (motifs !== undefined && motifs.length > 0) {
                 for (var i = 0; i < motifs.length; i++) {
                     if (fs === undefined || fs === "" || motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: motifs[i], source: "motifs", type: BMA.UIDrivers.StorageContentType.Motif });
+                        itemsToAdd.push({ item: motifs[i], source: "motifs", type: BMA.UIDrivers.StorageContentType.Motif, name: motifs[i].name });
                     }
                 }
             }
@@ -65,7 +68,7 @@
                 for (var i = 0; i < items.length; i++) {
                     var itemName = items[i].name;
                     if (fs === undefined || fs === "" || itemName.toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: itemName, source: "storage", type: items[i].type });
+                        itemsToAdd.push({ item: itemName, source: "storage", type: items[i].type, name: itemName });
                     }
                 }
             }
@@ -73,9 +76,31 @@
             //TODO: perform sorting if needed
 
             if (itemsToAdd.length > 0) {
+                if (that.options.sortByName !== undefined) {
+                    if (that.options.sortByName === "up") {
+                        itemsToAdd = itemsToAdd.sort(function (a, b) { return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1 });
+                    } else {
+                        itemsToAdd = itemsToAdd.sort(function (a, b) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 });
+                    }
+                }
+
+
                 this.ol = $('<ol></ol>').appendTo(this.repo);
 
                 for (var i = 0; i < itemsToAdd.length; i++) {
+                    if (that.options.filterBySource !== undefined) {
+                        if (that.options.filterBySource === "user" && itemsToAdd[i].source != "storage") {
+                            continue;
+                        }
+                    }
+
+                    if (that.options.filterByType !== undefined) {
+                        if (that.options.filterByType === "model" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Model) {
+                            continue;
+                        } else if (that.options.filterByType === "motif" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Motif) {
+                            continue;
+                        }
+                    }
 
                     var isStorage = itemsToAdd[i].source === "storage";
 
@@ -100,6 +125,7 @@
 
                     var name = isStorage ? itemsToAdd[i].item : itemsToAdd[i].item.name;
                     var modelName = $("<div>" + name + "</div>").addClass("repo-model-name").appendTo(cnt);
+                    li.attr("data-name", name);
 
                     var removeBtn = $('<button></button>').addClass("remove").appendTo(li);
 
@@ -208,6 +234,18 @@
                     break;
                 case "filterString":
                     this.options.filterString = value;
+                    this.refresh();
+                    break;
+                case "filterByType":
+                    this.options.filterByType = value;
+                    this.refresh();
+                    break;
+                case "filterBySource":
+                    this.options.filterBySource = value;
+                    this.refresh();
+                    break;
+                case "sortByName":
+                    this.options.sortByName = value;
                     this.refresh();
                     break;
             }
