@@ -200,18 +200,23 @@
                 },
                 onUpSort: function () {
                     that.localStorage.localstoragewidget({ sortByName: "up" });
+                    that.oneDriveStorage.onedrivestoragewidget({ sortByName: "up" });
                 },
                 onDownSort: function () {
                     that.localStorage.localstoragewidget({ sortByName: "down" });
+                    that.oneDriveStorage.onedrivestoragewidget({ sortByName: "down" });
                 },
                 onModelFilterChanged: function (isEnabled) {
                     that.localStorage.localstoragewidget({ filterByType: isEnabled ? "model" : undefined });
+                    that.oneDriveStorage.onedrivestoragewidget({ filterByType: isEnabled ? "model" : undefined });
                 },
                 onMotifFilterChanged: function (isEnabled) {
                     that.localStorage.localstoragewidget({ filterByType: isEnabled ? "motif" : undefined });
+                    that.oneDriveStorage.onedrivestoragewidget({ filterByType: isEnabled ? "motif" : undefined });
                 },
                 onUserFilterChanged: function (isEnabled) {
                     that.localStorage.localstoragewidget({ filterBySource: isEnabled ? "user" : undefined });
+                    that.oneDriveStorage.onedrivestoragewidget({ filterBySource: isEnabled ? "user" : undefined });
                 }
             });
 
