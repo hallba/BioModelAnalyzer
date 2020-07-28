@@ -102,7 +102,23 @@ module BMA {
                         }
                         catch (ex) {
                             that.driver.Message("Couldn't save model: " + ex);
-                            //that.messagebox.Show("Couldn't save model: " + ex);
+                        }
+                    })
+                });
+
+                that.commandsIds.push({
+                    commandName: "OneDriveStorageSaveMotif", id: window.Commands.On("OneDriveStorageSaveMotif", function (args) {
+                        try {
+                            //logService.LogSaveModel();
+                            //var key = appModel.BioModel.Name;
+                            var key = "clipboard model";
+                            that.tool.SaveMotif(key, args.motifSource).done(function () {
+                                window.Commands.Execute("OneDriveStorageChanged", {});
+                            });
+                            //todo: add log here
+                        }
+                        catch (ex) {
+                            that.driver.Message("Couldn't save motif: " + ex);
                         }
                     })
                 });
@@ -119,7 +135,7 @@ module BMA {
             public UpdateModelsList() {
                 var that = this;
                 that.driver.SetOnLoading(true);
-                that.tool.GetModelList().done(function (modelsInfo) {
+                that.tool.GetModelMotifList().done(function (modelsInfo) {
                     if (modelsInfo === undefined || modelsInfo.length == 0)
                         that.driver.Message("The model repository is empty");
                     else that.driver.Message('');

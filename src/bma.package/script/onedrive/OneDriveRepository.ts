@@ -222,6 +222,24 @@ module BMA.OneDrive {
                 });
         }
 
+        public GetModelMotifList(): JQueryPromise<BMA.UIDrivers.TypedModelInfo[]> {
+            var that = this;
+            return $.when(that.GetModelList(), that.GetMotifList()).then(function (models, motifs) {
+                var result = [];
+                for (var i = 0; i < models.length; i++) {
+                    var newModel = models[i];
+                    newModel.type = BMA.UIDrivers.StorageContentType.Model;
+                    result.push(newModel);
+                }
+                for (var i = 0; i < motifs.length; i++) {
+                    var newMotif = motifs[i];
+                    newMotif.type = BMA.UIDrivers.StorageContentType.Motif;
+                    result.push(newMotif);
+                }
+                return result;
+            });
+        }
+
         public IsInRepo(fileId: string): JQueryPromise<boolean> {
             return this.oneDrive.FileExists(fileId);
         }

@@ -73,8 +73,7 @@
                 }
             }
 
-            //TODO: perform sorting if needed
-
+            this.ol = $('<ol></ol>').appendTo(this.repo);
             if (itemsToAdd.length > 0) {
                 if (that.options.sortByName !== undefined) {
                     if (that.options.sortByName === "up") {
@@ -85,7 +84,6 @@
                 }
 
 
-                this.ol = $('<ol></ol>').appendTo(this.repo);
 
                 for (var i = 0; i < itemsToAdd.length; i++) {
                     

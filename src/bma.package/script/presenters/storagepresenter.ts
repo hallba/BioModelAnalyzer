@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                //connector.Enable(onLogin, onLoginFailed, onLogout);
+                connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
@@ -160,6 +160,12 @@ module BMA {
                     if (that.activePresenter == "local")
                         window.Commands.Execute("LocalStorageSaveModel", undefined);
                     else window.Commands.Execute("OneDriveStorageSaveModel", undefined);
+                });
+
+                window.Commands.On("SaveMotif", function (args) {
+                    if (that.activePresenter == "local")
+                        window.Commands.Execute("LocalStorageSaveMotif", args);
+                    else window.Commands.Execute("OneDriveStorageSaveMotif", args);
                 });
 
                 window.Commands.On("NewModel", function () {

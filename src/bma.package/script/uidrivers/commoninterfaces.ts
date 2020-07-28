@@ -190,6 +190,10 @@ module BMA {
             name: string;
         }
 
+        export interface TypedModelInfo extends ModelInfo {
+            type: BMA.UIDrivers.StorageContentType
+        }
+
         export interface IModelRepository {
             GetModelList(): JQueryPromise<string[]>;
             GetModels(): JQueryPromise<JSON[]>;

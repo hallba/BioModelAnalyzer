@@ -13,6 +13,9 @@
             activeShare: [],
             filterString: undefined,
             onelementselected: undefined,
+            sortByName: undefined, //could be also "up" and "down"
+            filterByType: undefined, //coule be also "model", "motif"
+            filterBySource: undefined, //could also be "user"
         },
 
         _create: function () {
@@ -112,20 +115,30 @@
             if (motifs !== undefined && motifs.length > 0) {
                 for (var i = 0; i < motifs.length; i++) {
                     if (fs === undefined || fs === "" || motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: motifs[i], source: "motifs" });
+                        itemsToAdd.push({ item: motifs[i], source: "motifs", type: BMA.UIDrivers.StorageContentType.Motif, name: motifs[i].name });
                     }
                 }
             }
             if (items.length > 0) {
                 for (var i = 0; i < items.length; i++) {
+                    var itemName = items[i].name;
                     if (items[i].shared === undefined && (fs === undefined || fs === "" || items[i].name.toLowerCase().includes(fs.toLowerCase()))) {
-                        itemsToAdd.push({ item: items[i], source: "storage" });
+                        itemsToAdd.push({ item: items[i], source: "storage", type: items[i].type, name: itemName });
                     }
                 }
             }
 
             this.ol = $('<ol></ol>').appendTo(this.repo);
             if (itemsToAdd.length > 0) {
+                if (that.options.sortByName !== undefined) {
+                    if (that.options.sortByName === "up") {
+                        itemsToAdd = itemsToAdd.sort(function (a, b) { return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1 });
+                    } else {
+                        itemsToAdd = itemsToAdd.sort(function (a, b) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 });
+                    }
+                }
+
+
                 for (var i = 0; i < itemsToAdd.length; i++) {
                     var isStorage = itemsToAdd[i].source === "storage";
 
@@ -167,18 +180,17 @@
 
                     var cnt = $("<div></div>").css("display", "flex").css("flex-direction", "row").css("align-items", "center").appendTo(li);
 
-                    if (isStorage) {
+                    if (itemsToAdd[i].type === BMA.UIDrivers.StorageContentType.Model) {
                         $("<div></div>").addClass("repo-model-icon").prependTo(cnt);
-                        li.attr("data-source", "storage");
-                        li.addClass("storage-source");
                     } else {
                         $("<div></div>").addClass("repo-motif-icon").prependTo(cnt);
-                        li.attr("data-source", "motif");
                     }
 
-                    var modelName = $("<div>" + itemsToAdd[i].item.name + "</div>").addClass("repo-model-name").appendTo(cnt);
+                    var name = itemsToAdd[i].item.name;
+                    var modelName = $("<div>" + name + "</div>").addClass("repo-model-name").appendTo(cnt);
+                    li.attr("data-name", name);
 
-                    var removeBtn = $('<button></button>').addClass("remove icon-delete").appendTo(li);// $('<img alt="" src="../images/icon-delete.svg">').appendTo(a);//
+                    var removeBtn = $('<button></button>').addClass("remove").appendTo(li);
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
 
@@ -186,6 +198,26 @@
                         if (that.options.onremovemodel !== undefined)
                             that.options.onremovemodel(itemToAdd.item.id);
                     });
+
+                    if (itemsToAdd[i].source === "storage") {
+                        removeBtn.addClass("icon-delete");
+                    } else {
+                        removeBtn.addClass("icon-hide");
+                    }
+
+                    if (that.options.filterBySource !== undefined) {
+                        if (that.options.filterBySource === "user" && itemsToAdd[i].source != "storage") {
+                            li.hide();
+                        }
+                    }
+
+                    if (that.options.filterByType !== undefined) {
+                        if (that.options.filterByType === "model" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Model) {
+                            li.hide();
+                        } else if (that.options.filterByType === "motif" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Motif) {
+                            li.hide();
+                        }
+                    }
                 }
             }
 
@@ -314,6 +346,18 @@
                     break;
                 case "filterString":
                     this.options.filterString = value;
+                    this.refresh();
+                    break;
+                case "filterByType":
+                    this.options.filterByType = value;
+                    this.refresh();
+                    break;
+                case "filterBySource":
+                    this.options.filterBySource = value;
+                    this.refresh();
+                    break;
+                case "sortByName":
+                    this.options.sortByName = value;
                     this.refresh();
                     break;
             }

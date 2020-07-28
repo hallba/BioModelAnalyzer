@@ -1287,7 +1287,7 @@ module BMA {
                 };
 
                 var selectionSubModel = JSON.parse(JSON.stringify(exported));
-                window.Commands.Execute("LocalStorageSaveMotif", { motifSource: selectionSubModel });
+                window.Commands.Execute("SaveMotif", { motifSource: selectionSubModel });
             }
 
             private IsCursorWithinSelection(x: number, y: number): boolean {
