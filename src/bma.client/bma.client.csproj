@@ -167,6 +167,7 @@
     <Content Include="images\navigationpanel\BMA_Icon_Zoom_Out.svg" />
     <Content Include="images\receptor-old.svg" />
     <Content Include="images\repository\Bin_Icon.svg" />
+    <Content Include="images\repository\Export_Zip_Inactive.svg" />
     <Content Include="images\repository\Hide_Icon.svg" />
     <Content Include="images\repository\Export_Icon.svg" />
     <Content Include="images\repository\Export_Zip.svg" />

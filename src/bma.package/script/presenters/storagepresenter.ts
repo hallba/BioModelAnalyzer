@@ -153,6 +153,12 @@ module BMA {
                     else window.Commands.Execute("OneDriveStorageRequested", undefined);
                 });
 
+                window.Commands.On("ExportModelsZip", function () {
+                    if (that.activePresenter == "local")
+                        window.Commands.Execute("ExportLocalModelsZip", undefined);
+                    //We can export only local models atm, for OneDrive there are other ways to get array of models.
+                });
+
                 window.Commands.On("SaveModel", function () {
                     if (variableEditorDriver != undefined)
                         variableEditorDriver.Hide();
@@ -161,6 +167,8 @@ module BMA {
                         window.Commands.Execute("LocalStorageSaveModel", undefined);
                     else window.Commands.Execute("OneDriveStorageSaveModel", undefined);
                 });
+
+
 
                 window.Commands.On("SaveMotif", function (args) {
                     var userDialog = $('<div></div>').appendTo('body').userdialog({

@@ -351,13 +351,6 @@ function loadScript(version) {
         }
     });
 
-    //$("#btn-export-model").contextmenu({
-    //    menu: [{ title: "Export Local Models", cmd: "ExportLocalModelsZip", uiIcon: "ui-icon-document-b" }],
-    //    select: function (event, ui) {
-    //        window.Commands.Execute(ui.cmd, undefined);
-    //    }
-    //});
-
     $("#drawingSurceContainer").contextmenu({
         delegate: ".bma-drawingsurface",
         autoFocus: true,
@@ -848,16 +841,22 @@ function loadScript(version) {
     window.Commands.On("OneDriveLoggedIn", () => {
         $("#btn-onedrive-switcher").addClass("logged-in").removeClass("turned-off");
         $(".onedrive-refresh-btn").addClass("logged-in").removeClass("turned-off");
+
+        $("#btn-export-models-zip").addClass("inactive");
     });
 
     window.Commands.On("OneDriveLoggedOut", () => {
         $("#btn-onedrive-switcher").removeClass("logged-in").removeClass("turned-off");
         $(".onedrive-refresh-btn").removeClass("logged-in").removeClass("turned-off");
+
+        $("#btn-export-models-zip").removeClass("inactive");
     });
 
     window.Commands.On("OneDriveTurnedOff", () => {
         $("#btn-onedrive-switcher").removeClass("logged-in").addClass("turned-off");
         $(".onedrive-refresh-btn").removeClass("logged-in").addClass("turned-off");
+
+        $("#btn-export-models-zip").removeClass("inactive");
     });
 
     window.Commands.On("Commands.ToggleLabels", function (param) {
@@ -964,6 +963,11 @@ function loadScript(version) {
     $("#btn-import-model").click(function (args) {
         variableEditorDriver.Hide();
         window.Commands.Execute("ImportModel", undefined);
+    });
+
+    $("#btn-export-models-zip").click(function (args) {
+        variableEditorDriver.Hide();
+        window.Commands.Execute("ExportModelsZip", undefined);
     });
 
     //var localSettings = new BMA.OneDrive.OneDriveSettings("79832916-6a39-4c73-b13e-ee28c25d46a7", "http://localhost:81/html/callback.html", "signin");
