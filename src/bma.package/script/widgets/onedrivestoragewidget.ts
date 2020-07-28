@@ -190,6 +190,10 @@
                     var modelName = $("<div>" + name + "</div>").addClass("repo-model-name").appendTo(cnt);
                     li.attr("data-name", name);
 
+                    if (isStorage) {
+                        $("<div></div>").addClass("repo-user-icon").appendTo(li);
+                    }
+
                     var removeBtn = $('<button></button>').addClass("remove").appendTo(li);
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
