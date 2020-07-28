@@ -111,8 +111,8 @@ module BMA {
                         try {
                             //logService.LogSaveModel();
                             //var key = appModel.BioModel.Name;
-                            var key = "clipboard model";
-                            that.tool.SaveMotif(key, args.motifSource).done(function () {
+                            var key = args.name;
+                            that.tool.SaveMotif(key, args.motif).done(function () {
                                 window.Commands.Execute("OneDriveStorageChanged", {});
                             });
                             //todo: add log here

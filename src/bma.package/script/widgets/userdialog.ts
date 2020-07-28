@@ -8,10 +8,11 @@
         options: {
             message: '',
             actions: [
-                { button: 'Yes', callback: function () { }},
-                { button: 'No', callback: function () { }},
-                { button: 'Cancel', callback: function () { }}
-            ]
+                { button: 'Yes', callback: function () { } },
+                { button: 'No', callback: function () { } },
+                { button: 'Cancel', callback: function () { } }
+            ],
+            showInput: false
         },
 
         _create: function () {
@@ -23,6 +24,10 @@
                 .html(this.options.message)
                 .addClass('window-title')
                 .appendTo(that.element);
+            this.input = $("<input></input>").addClass("ud-text").width(220).css("display", "block").appendTo(that.element);
+            if (!that.options.showInput) {
+                this.input.hide();
+            }
             this.buttons = $('<div><div>')
                 .addClass("button-list")
                 .appendTo(that.element);
@@ -50,22 +55,22 @@
         },
 
         _popup_position: function () {
-            var my_popup = $('.dialog'); 
+            var my_popup = $('.dialog');
             my_popup.each(function () {
-                var my_popup_w = $(this).outerWidth(), 
+                var my_popup_w = $(this).outerWidth(),
                     my_popup_h = $(this).outerHeight(),
 
-                    win_w = $(window).outerWidth(), 
+                    win_w = $(window).outerWidth(),
                     win_h = $(window).outerHeight(),
                     popup_half_w = (win_w - my_popup_w) / 2,
                     popup_half_h = (win_h - my_popup_h) / 2;
-                if (win_w > my_popup_w) { 
+                if (win_w > my_popup_w) {
                     my_popup.css({ 'left': popup_half_w });
                 }
-                if (win_w < my_popup_w) {                 
+                if (win_w < my_popup_w) {
                     my_popup.css({ 'left': 5, });
                 }
-                if (win_h > my_popup_h) { 
+                if (win_h > my_popup_h) {
                     my_popup.css({ 'top': popup_half_h });
                 }
                 if (win_h < my_popup_h) {
@@ -91,6 +96,10 @@
 
         Hide: function () {
             this.element.hide();
+        },
+
+        GetInputText: function () {
+            return this.input.val();
         },
 
         _destroy: function () {

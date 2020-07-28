@@ -93,11 +93,11 @@ module BMA {
                     }
                 });
 
-                window.Commands.On("LocalStorageSaveMotif", function (args: { motifSource: JSON }) {
+                window.Commands.On("LocalStorageSaveMotif", function (args: { name: string, motif: JSON }) {
                     try {
                         //logService.LogSaveModel();
-                        var key = "clipboard model";
-                        that.tool.SaveMotif(key, args.motifSource);
+                        var key = args.name;
+                        that.tool.SaveMotif(key, args.motif);
                         window.Commands.Execute("LocalStorageChanged", {});
                         //that.checker.Snapshot(that.appModel);
                         //TODO: add to log 

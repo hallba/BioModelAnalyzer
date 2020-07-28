@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                connector.Enable(onLogin, onLoginFailed, onLogout);
+                //connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
@@ -163,9 +163,27 @@ module BMA {
                 });
 
                 window.Commands.On("SaveMotif", function (args) {
-                    if (that.activePresenter == "local")
-                        window.Commands.Execute("LocalStorageSaveMotif", args);
-                    else window.Commands.Execute("OneDriveStorageSaveMotif", args);
+                    var userDialog = $('<div></div>').appendTo('body').userdialog({
+                        message: "Enter a name for the new motif",
+                        actions: [
+                            {
+                                button: 'OK',
+                                callback: function () {
+                                    var name:any = userDialog.userdialog("GetInputText");
+                                    if (name == "" || name == null || name == undefined)
+                                        name = "clipboard motif";
+                                    userDialog.detach();
+
+                                    var motif = args.motifSource;
+                                    motif.Model.Name = name;
+
+                                    if (that.activePresenter == "local")
+                                        window.Commands.Execute("LocalStorageSaveMotif", { name: name, motif: motif });
+                                    else window.Commands.Execute("OneDriveStorageSaveMotif", { name: name, motif: motif });
+                                }
+                            }],
+                        showInput: true
+                    });
                 });
 
                 window.Commands.On("NewModel", function () {
