@@ -47,8 +47,10 @@
             userSortDiv.click(function () {
                 if (that._isUserFilterEnabled) {
                     that._isUserFilterEnabled = false;
+                    userSortDiv.removeClass("selected");
                 } else {
                     that._isUserFilterEnabled = true;
+                    userSortDiv.addClass("selected");
                 }
                 if (that.options.onUserFilterChanged !== undefined) {
                     that.options.onUserFilterChanged(that._isUserFilterEnabled);
@@ -58,8 +60,13 @@
             motifSortDiv.click(function () {
                 if (that._isMotifFilterEnabled) {
                     that._isMotifFilterEnabled = false;
+                    motifSortDiv.removeClass("selected");
                 } else {
                     that._isMotifFilterEnabled = true;
+                    motifSortDiv.addClass("selected");
+
+                    that._isModelFilterEnabled = false;
+                    modelSortDiv.removeClass("selected");
                 }
                 if (that.options.onMotifFilterChanged !== undefined) {
                     that.options.onMotifFilterChanged(that._isMotifFilterEnabled);
@@ -69,8 +76,13 @@
             modelSortDiv.click(function () {
                 if (that._isModelFilterEnabled) {
                     that._isModelFilterEnabled = false;
+                    modelSortDiv.removeClass("selected");
                 } else {
                     that._isModelFilterEnabled = true;
+                    modelSortDiv.addClass("selected");
+
+                    that._isMotifFilterEnabled = false;
+                    motifSortDiv.removeClass("selected");
                 }
                 if (that.options.onModelFilterChanged !== undefined) {
                     that.options.onModelFilterChanged(that._isModelFilterEnabled);

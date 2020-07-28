@@ -181,6 +181,11 @@
     <Content Include="images\repository\One_Drive_Reload-01.svg" />
     <Content Include="images\repository\Save_As_Icon.svg" />
     <Content Include="images\repository\Save_Model_Icon.svg" />
+    <Content Include="images\search\selected\A_Z_Sort_Icon_Hover-01.svg" />
+    <Content Include="images\search\selected\Model_Icon_Sort_Hover-01.svg" />
+    <Content Include="images\search\selected\Motif_Sort_Hover-01.svg" />
+    <Content Include="images\search\selected\User_Icon_Sort_Hover-01.svg" />
+    <Content Include="images\search\selected\Z_A_Sort_Icon_Hover-01.svg" />
     <Content Include="images\repository\User_Icon_List.svg" />
     <Content Include="images\resize-grabber.svg" />
     <Content Include="images\search\A_Z_Sort_Icon.svg" />
