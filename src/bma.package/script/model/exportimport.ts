@@ -288,7 +288,8 @@ module BMA {
                         PositionX: c.PositionX,
                         PositionY: c.PositionY
                     }
-                })
+                }),
+                Description: layout.Description
             }
         }
 

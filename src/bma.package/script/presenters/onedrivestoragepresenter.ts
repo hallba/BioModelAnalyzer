@@ -107,6 +107,26 @@ module BMA {
                 });
 
                 that.commandsIds.push({
+                    commandName: "OneDriveStorageUpdateModel", id: window.Commands.On("OneDriveStorageUpdateModel", function (args) {
+                        try {
+                            logService.LogSaveModel();
+
+                            var oldModelName = args.oldName;
+                            that.tool.RemoveModel(oldModelName).done(function () {
+                                var key = args.name;
+                                that.tool.SaveModel(key, args.model).done(function () {
+                                    window.Commands.Execute("OneDriveStorageChanged", {});
+                                    that.checker.Snapshot(that.appModel);
+                                });
+                            });
+                        }
+                        catch (ex) {
+                            that.driver.Message("Couldn't update model: " + ex);
+                        }
+                    })
+                });
+
+                that.commandsIds.push({
                     commandName: "OneDriveStorageSaveMotif", id: window.Commands.On("OneDriveStorageSaveMotif", function (args) {
                         try {
                             //logService.LogSaveModel();

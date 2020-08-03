@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                connector.Enable(onLogin, onLoginFailed, onLogout);
+                //connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
@@ -192,6 +192,12 @@ module BMA {
                             }],
                         showInput: true
                     });
+                });
+
+                window.Commands.On("UpdateModel", function (args) {
+                    if (that.activePresenter == "local")
+                        window.Commands.Execute("LocalStorageUpdateModel", args);
+                    else window.Commands.Execute("OneDriveStorageUpdateModel", args);
                 });
 
                 window.Commands.On("NewModel", function () {

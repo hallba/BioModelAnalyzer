@@ -107,7 +107,19 @@ module BMA {
                     }
                 });
 
-
+                window.Commands.On("LocalStorageUpdateModel", function (args: { oldName: string, name: string, model: JSON }) {
+                    try {
+                        //logService.LogSaveModel();
+                        that.tool.RemoveModel(args.oldName);
+                        that.tool.SaveModel(args.name, args.model);
+                        window.Commands.Execute("LocalStorageChanged", {});
+                        //that.checker.Snapshot(that.appModel);
+                        //TODO: add to log 
+                    }
+                    catch (ex) {
+                        that.driver.Message("Couldn't save model: " + ex);
+                    }
+                });
 
                 window.Commands.On("ExportLocalModelsZip", function () {
                     tool.GetModels().done(function (res) {

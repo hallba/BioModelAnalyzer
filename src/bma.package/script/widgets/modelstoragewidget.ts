@@ -8,7 +8,7 @@
 
         _previewDiv: undefined,
         motifs: undefined,
-
+        selectedItem: undefined,
 
         options: {
             items: [],
@@ -114,6 +114,14 @@
             var previewFrame = $("<div></div>").addClass("ml-bounding-box").appendTo(previewFull);
             var previewDescription = $("<div></div>").addClass("ml-card-description").text("<model/motif description>").appendTo(previewFull);
 
+            previewHeder.keydown((e) => { e.stopPropagation(); });
+            previewHeder.keyup((e) => { e.stopPropagation(); });
+            previewHeder.keypress((e) => { e.stopPropagation(); });
+
+            previewDescription.keydown((e) => { e.stopPropagation(); });
+            previewDescription.keyup((e) => { e.stopPropagation(); });
+            previewDescription.keypress((e) => { e.stopPropagation(); });
+
             var previewDiv = $("<div></div>").addClass("ml-preview").appendTo(previewFrame);
             previewDiv.previewviewer({
                 onloadmodelcallback: function () {
@@ -125,6 +133,43 @@
             previewDiv.hide();
 
             that._previewDiv = previewDiv;
+
+            var updateName = function (newName) {
+                if (that.selectedItem !== undefined) {
+
+                    var oldName = that.selectedItem.model.Model.Name;
+                    var newModel = new BMA.Model.BioModel(newName, that.selectedItem.model.Model.Variables, that.selectedItem.model.Model.Relationships);
+                    var exported = {
+                        Model: BMA.Model.ExportBioModelPart(newModel, newModel), Layout: BMA.Model.ExportLayout(newModel, that.selectedItem.model.Layout)
+                    };
+
+                    var modelSource = JSON.parse(JSON.stringify(exported));
+
+                    var cmdName = that.selectedItem.type == BMA.UIDrivers.StorageContentType.Model ? "UpdateModel" : "UpdateMotif";
+                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: newName });
+                }
+            };
+            var updateDescription = function (newDescription) {
+                if (that.selectedItem !== undefined) {
+
+                    var oldLayout: BMA.Model.Layout = <BMA.Model.Layout>that.selectedItem.model.Layout;
+                    var updatedLayout = new BMA.Model.Layout(oldLayout.Containers, oldLayout.Variables, newDescription);
+                    var exported = {
+                        Model: BMA.Model.ExportBioModelPart(that.selectedItem.model.Model, that.selectedItem.model.Model), Layout: BMA.Model.ExportLayout(that.selectedItem.model.Model, updatedLayout)
+                    };
+
+                    var modelSource = JSON.parse(JSON.stringify(exported));
+                    var oldName = that.selectedItem.model.Model.Name;
+
+                    var cmdName = that.selectedItem.type == BMA.UIDrivers.StorageContentType.Model ? "UpdateModel" : "UpdateMotif";
+                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: oldName });
+                }
+            };
+
+
+            this.previewHeder = previewHeder;
+            this.previewDiv = previewDiv;
+            this.previewDescription = previewDescription;
 
             previewDiv.draggable({
                 helper: "clone", appendTo: "body", cursor: "pointer", containment: that.options.dragcontainer, scope: "ml-card"
@@ -156,10 +201,25 @@
                                 previewDescription.text(descr);
                                 previewDiv.previewviewer({ model: model });
                                 previewDiv.show();
+
+                                that.selectedItem = {
+                                    model: model,
+                                    type: mname.type
+                                };
+
+                                that._setEditableDiv(previewHeder, updateName);
+                                that._setEditableDiv(previewDescription, updateDescription);
                             });
+                        } else {
+                            that.selectedItem = undefined;
                         }
                     } else {
+                        if (that.previewHeder.hasClass("ui-editable")) {
+                            that.previewHeder.editable('destroy');
+                            that.previewDescription.editable('destroy');
+                        }
                         loadMotifToPreview(content.item);
+                        that.selectedItem = undefined;
                     }
                 }
             });
@@ -179,12 +239,28 @@
                                 previewDescription.text(descr);
                                 previewDiv.previewviewer({ model: model });
                                 previewDiv.show();
+
+                                that.selectedItem = {
+                                    model: model,
+                                    type: minfo.type
+                                };
+
+                                that._setEditableDiv(previewHeder, updateName);
+                                that._setEditableDiv(previewDescription, updateDescription);
                             });
+
+
                         } else {
                             console.log("can't load models from OneDrive");
+                            that.selectedItem = undefined;
                         }
                     } else {
+                        if (that.previewHeder.hasClass("ui-editable")) {
+                            that.previewHeder.editable('destroy');
+                            that.previewDescription.editable('destroy');
+                        }
                         loadMotifToPreview(content.item);
+                        that.selectedItem = undefined;
                     }
                 }
             });
@@ -229,6 +305,21 @@
                 that.oneDriveStorage.onedrivestoragewidget({
                     motifs: that.motifs
                 });
+            });
+        },
+
+        clearPreview: function () {
+            this.previewHeder.text("<model/motif name>");
+            this.previewDiv.previewviewer({ model: undefined });
+            this.previewDescription.text("<model/motif description>");
+        },
+
+        _setEditableDiv: function (div, callback) {
+            div.editable({
+                autoselect: true, //select content automatically when editing starts
+                save: function (content) {
+                    callback(div.text());
+                },
             });
         },
 
@@ -346,6 +437,7 @@
                         //that.oneDriveStorageBtn.addClass("active");
                         that.localStorage.hide();
                         that.oneDriveStorage.show();
+                        that.clearPreview();
 
                         //that.refreshDiv.show();
                         //that.singinOneDriveBtn.text("Sign out OneDrive");
@@ -355,6 +447,7 @@
                         //that.oneDriveStorageBtn.removeClass("active");
                         that.localStorage.show();
                         that.oneDriveStorage.hide();
+                        that.clearPreview();
 
                         //that.refreshDiv.hide();
 
@@ -400,7 +493,7 @@
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     modelstoragewidget(): JQuery;
@@ -408,4 +501,4 @@ interface JQuery {
     modelstoragewidget(optionLiteral: string, optionName: string): any;
     modelstoragewidget(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
- 
+
