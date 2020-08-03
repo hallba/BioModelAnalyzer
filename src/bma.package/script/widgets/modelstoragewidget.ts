@@ -146,7 +146,7 @@
                     var modelSource = JSON.parse(JSON.stringify(exported));
 
                     var cmdName = that.selectedItem.type == BMA.UIDrivers.StorageContentType.Model ? "UpdateModel" : "UpdateMotif";
-                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: newName });
+                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: newName, id: that.selectedItem.id });
                 }
             };
             var updateDescription = function (newDescription) {
@@ -162,7 +162,7 @@
                     var oldName = that.selectedItem.model.Model.Name;
 
                     var cmdName = that.selectedItem.type == BMA.UIDrivers.StorageContentType.Model ? "UpdateModel" : "UpdateMotif";
-                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: oldName });
+                    window.Commands.Execute(cmdName, { model: modelSource, oldName: oldName, name: oldName, id: that.selectedItem.id });
                 }
             };
 
@@ -242,7 +242,8 @@
 
                                 that.selectedItem = {
                                     model: model,
-                                    type: minfo.type
+                                    type: minfo.type,
+                                    id: minfo.id
                                 };
 
                                 that._setEditableDiv(previewHeder, updateName);

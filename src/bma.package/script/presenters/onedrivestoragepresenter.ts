@@ -107,21 +107,41 @@ module BMA {
                 });
 
                 that.commandsIds.push({
-                    commandName: "OneDriveStorageUpdateModel", id: window.Commands.On("OneDriveStorageUpdateModel", function (args) {
+                    commandName: "OneDriveStorageUpdateModel", id: window.Commands.On("OneDriveStorageUpdateModel", function (args: { oldName: string, name: string, model: JSON, id: string }) {
                         try {
                             logService.LogSaveModel();
 
-                            var oldModelName = args.oldName;
+                            var oldModelName = args.id;
                             that.tool.RemoveModel(oldModelName).done(function () {
                                 var key = args.name;
                                 that.tool.SaveModel(key, args.model).done(function () {
                                     window.Commands.Execute("OneDriveStorageChanged", {});
-                                    that.checker.Snapshot(that.appModel);
+                                    //that.checker.Snapshot(that.appModel);
                                 });
                             });
                         }
                         catch (ex) {
                             that.driver.Message("Couldn't update model: " + ex);
+                        }
+                    })
+                });
+
+                that.commandsIds.push({
+                    commandName: "OneDriveStorageUpdateMotif", id: window.Commands.On("OneDriveStorageUpdateMotif", function (args: { oldName: string, name: string, model: JSON, id: string }) {
+                        try {
+                            logService.LogSaveModel();
+
+                            var oldModelName = args.id;
+                            that.tool.RemoveMotif(oldModelName).done(function () {
+                                var key = args.name;
+                                that.tool.SaveMotif(key, args.model).done(function () {
+                                    window.Commands.Execute("OneDriveStorageChanged", {});
+                                    //that.checker.Snapshot(that.appModel);
+                                });
+                            });
+                        }
+                        catch (ex) {
+                            that.driver.Message("Couldn't update motif: " + ex);
                         }
                     })
                 });

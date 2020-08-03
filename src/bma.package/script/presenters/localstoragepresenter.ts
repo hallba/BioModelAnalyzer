@@ -117,7 +117,21 @@ module BMA {
                         //TODO: add to log 
                     }
                     catch (ex) {
-                        that.driver.Message("Couldn't save model: " + ex);
+                        that.driver.Message("Couldn't update model: " + ex);
+                    }
+                });
+
+                window.Commands.On("LocalStorageUpdateMotif", function (args: { oldName: string, name: string, model: JSON }) {
+                    try {
+                        //logService.LogSaveModel();
+                        that.tool.RemoveMotif(args.oldName);
+                        that.tool.SaveMotif(args.name, args.model);
+                        window.Commands.Execute("LocalStorageChanged", {});
+                        //that.checker.Snapshot(that.appModel);
+                        //TODO: add to log 
+                    }
+                    catch (ex) {
+                        that.driver.Message("Couldn't update motif: " + ex);
                     }
                 });
 
