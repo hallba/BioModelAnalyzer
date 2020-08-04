@@ -106,6 +106,10 @@
 
             this.repo.empty();
 
+            if (that.options.onelementunselected !== undefined) {
+                that.options.onelementunselected();
+            }
+
             this.loading = $("<div></div>").appendTo(this.repo);
             var anim = $("<div></div>").addClass("spinner").appendTo(that.loading);
             $("<div></div>").addClass("bounce1").appendTo(anim);

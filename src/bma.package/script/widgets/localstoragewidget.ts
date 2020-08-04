@@ -57,6 +57,9 @@
             var fs = that.options.filterString;
             this.repo.empty();
 
+            if (that.options.onelementunselected !== undefined) {
+                that.options.onelementunselected();
+            }
 
             var itemsToAdd = [];
             if (motifs !== undefined && motifs.length > 0) {
