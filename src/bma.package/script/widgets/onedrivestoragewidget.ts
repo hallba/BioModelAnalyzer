@@ -13,6 +13,7 @@
             activeShare: [],
             filterString: undefined,
             onelementselected: undefined,
+            onelementunselected: undefined,
             sortByName: undefined, //could be also "up" and "down"
             filterByType: undefined, //coule be also "model", "motif"
             filterBySource: undefined, //could also be "user"
@@ -198,9 +199,18 @@
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
 
+                        if ($(this).parent().hasClass("ui-selected")) {
+                            that.CancelSelection();
+                            if (that.options.onelementunselected !== undefined) {
+                                that.options.onelementunselected();
+                            }
+                        }
+
                         var itemToAdd = itemsToAdd[$(this).parent().index()];
-                        if (that.options.onremovemodel !== undefined)
+                        if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
                             that.options.onremovemodel(itemToAdd.item.id);
+                        if (that.options.onhidepreloadedcontent !== undefined && itemToAdd.source != "storage")
+                            that.options.onhidepreloadedcontent();
                     });
 
                     if (itemsToAdd[i].source === "storage") {

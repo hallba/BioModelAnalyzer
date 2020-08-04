@@ -75,6 +75,10 @@
                 svg.add($(preview).children());
 
                 that.loading.hide();
+            } else {
+                var that = this;
+                var svg = that._svg;
+                svg.clear();
             }
         },
 

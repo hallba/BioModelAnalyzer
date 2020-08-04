@@ -44,6 +44,8 @@
             var modelSortDiv = $("<div></div>").addClass("icon modelSort").appendTo(this.element);
             var userSortDiv = $("<div></div>").addClass("icon userSort").appendTo(this.element);
 
+            this.userSortDiv = userSortDiv;
+
             userSortDiv.click(function () {
                 if (that._isUserFilterEnabled) {
                     that._isUserFilterEnabled = false;
@@ -100,9 +102,18 @@
         },
 
         _setOption: function (key, value) {
+            var that = this;
             switch (key) {
-                case "ontextfilterupdated":
-                    this.options.onloadmodel = value;
+                case "userSort":
+                    that._isUserFilterEnabled = true;
+                    if (that._isUserFilterEnabled) {
+                        that.userSortDiv.addClass("selected");
+                    } else {
+                        that.userSortDiv.removeClass("selected");
+                    }
+                    if (that.options.onUserFilterChanged !== undefined) {
+                        that.options.onUserFilterChanged(that._isUserFilterEnabled);
+                    }
                     break;
             }
             this._super(key, value);

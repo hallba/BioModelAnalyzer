@@ -14,6 +14,8 @@
             onloadmodel: undefined,
             enableContextMenu: true,
             onelementselected: undefined,
+            onelementunselected: undefined,
+            onhidepreloadedcontent: undefined,
             filterString: undefined,
             sortByName: undefined, //could be also "up" and "down"
             filterByType: undefined, //coule be also "model", "motif"
@@ -86,7 +88,7 @@
 
 
                 for (var i = 0; i < itemsToAdd.length; i++) {
-                    
+
 
                     var isStorage = itemsToAdd[i].source === "storage";
 
@@ -128,9 +130,18 @@
                     removeBtn.bind("click", function (event) {
                         event.stopPropagation();
 
+                        if ($(this).parent().hasClass("ui-selected")) {
+                            that.CancelSelection();
+                            if (that.options.onelementunselected !== undefined) {
+                                that.options.onelementunselected();
+                            }
+                        }
+
                         var itemToAdd = itemsToAdd[$(this).parent().index()];
                         if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
                             that.options.onremovemodel(itemToAdd);
+                        if (that.options.onhidepreloadedcontent !== undefined && itemToAdd.source != "storage")
+                            that.options.onhidepreloadedcontent();
                     });
 
 
@@ -233,6 +244,9 @@
                     break;
                 case "enableContextMenu":
                     this.options.enableContextMenu = value;
+                    break;
+                case "onelementunselected":
+                    this.options.onelementunselected = value;
                     break;
                 case "oncancelselection":
                     this.options.oncancelselection = value;

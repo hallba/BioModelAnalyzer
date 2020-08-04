@@ -221,6 +221,17 @@
                         loadMotifToPreview(content.item);
                         that.selectedItem = undefined;
                     }
+                },
+                onelementunselected: function () {
+                    if (that.previewHeder.hasClass("ui-editable")) {
+                        that.previewHeder.editable('destroy');
+                        that.previewDescription.editable('destroy');
+                    }
+                    that.selectedItem = undefined;
+                    that.clearPreview();
+                },
+                onhidepreloadedcontent: function () {
+                    searchBar.searchbar({ userSort: true });
                 }
             });
 
@@ -263,6 +274,17 @@
                         loadMotifToPreview(content.item);
                         that.selectedItem = undefined;
                     }
+                },
+                onelementunselected: function () {
+                    if (that.previewHeder.hasClass("ui-editable")) {
+                        that.previewHeder.editable('destroy');
+                        that.previewDescription.editable('destroy');
+                    }
+                    that.selectedItem = undefined;
+                    that.clearPreview();
+                },
+                onhidepreloadedcontent: function () {
+                    searchBar.searchbar({ userSort: true });
                 }
             });
 
