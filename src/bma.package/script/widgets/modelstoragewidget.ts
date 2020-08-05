@@ -7,7 +7,7 @@
     $.widget("BMA.modelstoragewidget", {
 
         _previewDiv: undefined,
-        motifs: undefined,
+        preloaded: undefined,
         selectedItem: undefined,
 
         options: {
@@ -323,10 +323,10 @@
 
             this.loadMotifs(function () {
                 that.localStorage.localstoragewidget({
-                    motifs: that.motifs
+                    preloaded: that.preloaded
                 });
                 that.oneDriveStorage.onedrivestoragewidget({
-                    motifs: that.motifs
+                    preloaded: that.preloaded
                 });
             });
         },
@@ -348,28 +348,37 @@
 
         loadMotifs: function (callback) {
             var that = this;
-            that.motifs = [];
+            that.preloaded = [];
 
             var preloadedPaths = [
-                "motifs/Substrate_depletion_oscillations.json",
-                "motifs/Activator-Inhibitor_Oscillation.json",
-                "motifs/Negative_Feedback_Oscillations 1.json",
-                "motifs/Homeostasis.json",
-                "motifs/Mutual_Inhibition.json",
-                "motifs/Perfect Adaptation.json",
-                "motifs/Sigmoidal A.json",
-                "motifs/Hyperbolic A.json",
-                "motifs/Linear.json",
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Substrate_depletion_oscillations.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Activator-Inhibitor_Oscillation.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Negative_Feedback_Oscillations 1.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Homeostasis.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Mutual_Inhibition.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Perfect Adaptation.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Sigmoidal A.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Hyperbolic A.json" },
+                { type: BMA.UIDrivers.StorageContentType.Motif, url: "motifs/Linear.json" },
+
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/CancerSignalling.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/diabetes_new_mod.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/leukaemia.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/metabolism.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/SkinModel.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/ToyModelStable.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/ToyModelUnstable.json" },
+                { type: BMA.UIDrivers.StorageContentType.Model, url: "preloaded/VPC.json" }
             ];
 
             var loadMotif = function (mpathes) {
                 if (mpathes.length > 0) {
                     var path = mpathes.pop();
 
-                    $.ajax(path, {
+                    $.ajax(path.url, {
                         dataType: "text",
                         success: function (fileContent) {
-                            that.AddFromJSON(fileContent);
+                            that.AddFromJSON(fileContent, path.type);
                             loadMotif(mpathes);
                         },
                         error: function (err) {
@@ -385,13 +394,13 @@
             loadMotif(preloadedPaths);
         },
 
-        AddFromJSON(source) {
+        AddFromJSON(source, type) {
             var that = this;
             var parsed = JSON.parse(source);
             var imported = BMA.Model.ImportModelAndLayout(parsed);
             var adjusted = BMA.ModelHelper.AdjustReceptorsPosition(imported.Model, imported.Layout, window.GridSettings);
             var newMotif = { name: parsed.Model.Name, model: adjusted.model, layout: adjusted.layout };
-            that.motifs.push(newMotif);
+            that.preloaded.push({ content: newMotif, type: type });
         },
 
         Message: function (msg) {

@@ -9,7 +9,7 @@
 
         options: {
             items: [],
-            motifs: [],
+            preloaded: [],
             onremovemodel: undefined,
             onloadmodel: undefined,
             enableContextMenu: true,
@@ -53,7 +53,7 @@
             var that = this;
 
             var items = this.options.items;
-            var motifs = this.options.motifs;
+            var preloaded = this.options.preloaded;
             var fs = that.options.filterString;
             this.repo.empty();
 
@@ -62,10 +62,10 @@
             }
 
             var itemsToAdd = [];
-            if (motifs !== undefined && motifs.length > 0) {
-                for (var i = 0; i < motifs.length; i++) {
-                    if (fs === undefined || fs === "" || motifs[i].name.toLowerCase().includes(fs.toLowerCase())) {
-                        itemsToAdd.push({ item: motifs[i], source: "motifs", type: BMA.UIDrivers.StorageContentType.Motif, name: motifs[i].name });
+            if (preloaded !== undefined && preloaded.length > 0) {
+                for (var i = 0; i < preloaded.length; i++) {
+                    if (fs === undefined || fs === "" || preloaded[i].content.name.toLowerCase().includes(fs.toLowerCase())) {
+                        itemsToAdd.push({ item: preloaded[i].content, source: "preloaded", type: preloaded[i].type, name: preloaded[i].content.name });
                     }
                 }
             }
@@ -229,8 +229,8 @@
                     this.options.items = value;
                     this.refresh();
                     break;
-                case "motifs":
-                    this.options.motifs = value;
+                case "preloaded":
+                    this.options.preloaded = value;
                     this.refresh();
                     break;
                 case "onloadmodel":
