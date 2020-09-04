@@ -78,6 +78,7 @@
                 }
             }
 
+            var noElementsAdded = true;
             this.ol = $('<ol></ol>').appendTo(this.repo);
             if (itemsToAdd.length > 0) {
                 if (that.options.sortByName !== undefined) {
@@ -88,11 +89,7 @@
                     }
                 }
 
-
-
                 for (var i = 0; i < itemsToAdd.length; i++) {
-
-
                     var isStorage = itemsToAdd[i].source === "storage";
 
                     var li = $('<li></li>').appendTo(this.ol).click(function () {
@@ -148,19 +145,31 @@
                     });
 
 
+                    var isHidden = false;
                     if (that.options.filterBySource !== undefined) {
                         if (that.options.filterBySource === "user" && itemsToAdd[i].source != "storage") {
                             li.hide();
-                        }
+                            isHidden = true;
+                        } 
                     }
 
                     if (that.options.filterByType !== undefined) {
                         if (that.options.filterByType === "model" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Model) {
                             li.hide();
+                            isHidden = true;
                         } else if (that.options.filterByType === "motif" && itemsToAdd[i].type != BMA.UIDrivers.StorageContentType.Motif) {
                             li.hide();
-                        }
+                            isHidden = true;
+                        } 
                     }
+
+                    if (noElementsAdded && !isHidden) {
+                        noElementsAdded = false;
+                    }
+                }
+
+                if (noElementsAdded) {
+                    $('<li></li>').appendTo(this.ol).text("No models and/or motifs to display");
                 }
             }
         },
