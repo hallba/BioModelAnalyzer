@@ -25,8 +25,14 @@
             this.element.addClass("repository-search");
 
             var upDownDiv = $("<div></div>").css("display", "flex").width(50).appendTo(this.element);
-            var upDiv = $("<div></div>").addClass("icon upArrow").appendTo(upDownDiv);
-            var downDiv = $("<div></div>").addClass("icon downArrow").appendTo(upDownDiv);
+
+            var upContainer = $("<div></div>").addClass("btn-container").appendTo(upDownDiv);
+            var upTooltip = $("<div></div>").text("Z-A").addClass("tooltip-div").appendTo(upContainer);
+            var upDiv = $("<div></div>").addClass("icon upArrow").appendTo(upContainer);
+
+            var downContainer = $("<div></div>").addClass("btn-container").appendTo(upDownDiv);
+            var downTooltip = $("<div></div>").text("A-Z").addClass("tooltip-div").appendTo(downContainer);
+            var downDiv = $("<div></div>").addClass("icon downArrow").appendTo(downContainer);
 
             upDiv.click(function () {
                 if (that.options.onUpSort !== undefined) {
@@ -40,9 +46,17 @@
                 }
             });
 
-            var motifSortDiv = $("<div></div>").addClass("icon motifSort").appendTo(this.element);
-            var modelSortDiv = $("<div></div>").addClass("icon modelSort").appendTo(this.element);
-            var userSortDiv = $("<div></div>").addClass("icon userSort").appendTo(this.element);
+            var motifSortContainer = $("<div></div>").addClass("btn-container").appendTo(this.element);
+            var motifSortTooltip = $("<div></div>").text("motif").addClass("tooltip-div").width(26).appendTo(motifSortContainer);
+            var motifSortDiv = $("<div></div>").addClass("icon motifSort").appendTo(motifSortContainer);
+
+            var modelSortContainer = $("<div></div>").addClass("btn-container").appendTo(this.element);
+            var modelSortTooltip = $("<div></div>").text("model").addClass("tooltip-div").appendTo(modelSortContainer);
+            var modelSortDiv = $("<div></div>").addClass("icon modelSort").appendTo(modelSortContainer);
+
+            var userSortContainer = $("<div></div>").addClass("btn-container").appendTo(this.element);
+            var userSortTooltip = $("<div></div>").text("user").addClass("tooltip-div").appendTo(userSortContainer);
+            var userSortDiv = $("<div></div>").addClass("icon userSort").appendTo(userSortContainer);
 
             this.userSortDiv = userSortDiv;
 

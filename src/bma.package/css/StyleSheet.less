@@ -3306,6 +3306,28 @@ textarea {
     padding-right: 30px;
     justify-content: space-around;
 
+    .btn-container {
+        position: relative;
+
+        .tooltip-div {
+            display: none;
+            position: absolute;
+            top: -20px;
+            font-size: 10px;
+            color: #999999;
+        }
+
+        &:hover {
+            .tooltip-div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+                width: 25px;
+            }
+        }
+    }
+
     .icon {
         margin-left: 2px;
         margin-right: 2px;
@@ -3375,6 +3397,8 @@ textarea {
             background-image: url("../images/search/selected/User_Icon_Sort_Hover-01.svg");
         }
     }
+
+
 
     input {
         width: 130px;
