@@ -105,7 +105,7 @@
                 .css("flex-direction", "column")
                 .css("padding-top", 10)
                 .css("padding-bottom", 10)
-                .css("border-top", "1px solid black")
+                .css("border-top", "1px solid #666666")
                 .appendTo(this.element);
 
             var previewFull = $("<div></div>").css("display", "block").appendTo(previewDivContainer);

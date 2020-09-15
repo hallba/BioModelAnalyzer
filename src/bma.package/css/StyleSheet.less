@@ -133,6 +133,7 @@ body {
 @midgrey: #AAA;
 @midgrey2: #cccccc;
 @darkgrey: #606060;
+@darkgrey2: #666666;
 @shadow: rgba(0,0,0,0.50);
 @sim-yellow: #FFFCB5;
 @sim-blue: rgba(223,223,245,0.5);
@@ -2499,8 +2500,7 @@ textarea {
             display: flex;
             flex-direction: row;
             background-color: white;
-            border-bottom: 1px solid @darkgrey;
-            border-top: 1px solid @darkgrey;
+            border-bottom: 1px solid @darkgrey2;
 
             div {
                 background-color: transparent;
@@ -2612,9 +2612,8 @@ textarea {
     }
 
     .model-name {
-        background-color: white; //.gradient(@side:left, @color1:@lightgrey, @color2:white);
-        vertical-align: top;
-        //width:220px;
+        max-width:420px;
+        height:50px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -2639,7 +2638,7 @@ textarea {
 
         .expand-btn {
             width: 30px;
-            height: 50px;
+            height: 35px;
             border: none;
             background-image: url('../images/expand-collapse.svg');
             background-repeat: no-repeat;
@@ -3092,7 +3091,7 @@ textarea {
 
 .ml-bounding-box {
     position: relative;
-    border-color: @darkgrey;
+    border-color: #999999;
     border-style: solid;
     border-width: 1px;
     margin: 3px;
@@ -3102,7 +3101,7 @@ textarea {
 }
 
 .ml-bounding-box:hover {
-    border-width: 3px;
+    border-width: 2px;
 }
 
 .ml-preview {
