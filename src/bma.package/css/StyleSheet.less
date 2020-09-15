@@ -133,8 +133,7 @@ body {
 @midgrey: #AAA;
 @midgrey2: #cccccc;
 @darkgrey: #606060;
-@darkgrey2: #666666;
-@shadow: rgba(0,0,0,0.50);
+@shadow: #666666;
 @sim-yellow: #FFFCB5;
 @sim-blue: rgba(223,223,245,0.5);
 @pinktext: #ff66cc;
@@ -2178,7 +2177,7 @@ textarea {
 }
 
 .tab-right-shadow() {
-    .box-shadow(@x:-9px, @y:5px, @blur:10px, @color:@shadow);
+    .box-shadow(@x:-1px, @y:1px, @blur:2px, @color:@shadow);
 }
 
 .tab-right {
@@ -2483,7 +2482,7 @@ textarea {
     position: absolute;
     left: 0;
     top: 50px;
-    .box-shadow(@x:5px, @y:4px, @blur:6px, @color:@shadow);
+    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:@shadow);
     .tab-left-double-radius();
     overflow: hidden;
 
@@ -2500,7 +2499,7 @@ textarea {
             display: flex;
             flex-direction: row;
             background-color: white;
-            border-bottom: 1px solid @darkgrey2;
+            border-bottom: 1px solid @shadow;
 
             div {
                 background-color: transparent;
