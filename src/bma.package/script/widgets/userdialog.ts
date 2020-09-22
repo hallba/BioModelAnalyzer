@@ -19,7 +19,7 @@
             var that = this;
             this.element.addClass("window dialog").css("z-index", InteractiveDataDisplay.ZIndexDOMMarkers + 100);
             this.element.draggable({ containment: "parent", scroll: false, cancel: ".ud-text" });
-            this._add_close_button();
+            //this._add_close_button();
             this.message = $('<div><div>')
                 .html(this.options.message)
                 .addClass('window-title')
@@ -35,6 +35,11 @@
             if (actions !== undefined) {
                 for (var i = 0; i < actions.length; i++) {
                     var bttn = $('<button></button>').text(actions[i].button).appendTo(that.buttons);
+
+                    if (i == 0) {
+                        bttn.css("background-color", "#00cccc").css("color", "#ffffff;");
+                    }
+
                     bttn.bind('click', actions[i].callback);
                 }
             }

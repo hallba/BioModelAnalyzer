@@ -1145,7 +1145,7 @@ ul.command-list {
     //width:400px;
     background: white;
     border-radius: @window-radius;
-    .box-shadow(@x:2px, @y:5px, @blur:10px, @color:@shadow);
+    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:#999999);
 
     p {
         margin: 0;
@@ -1229,7 +1229,7 @@ ul.command-list {
 /* File I/O Tab */
 
 .modelstorage-toolbar-shadow() {
-    .box-shadow(@x:5px; @y:4px; @blur:6px; @color:@shadow)
+    .box-shadow(@x:1px; @y:1px; @blur:2px; @color:#999999)
 }
 
 .modelstorage-toolbar-header {
@@ -2177,7 +2177,7 @@ textarea {
 }
 
 .tab-right-shadow() {
-    .box-shadow(@x:-1px, @y:1px, @blur:2px, @color:@shadow);
+    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:#999999);
 }
 
 .tab-right {
@@ -2432,9 +2432,17 @@ textarea {
     background-color: #efefef;
     color: #333333;
 
+    .window-title {
+        margin-left: 7px;
+        margin-right: 7px;
+    }
+
     .button-list {
-        float: right;
+        //float: right;
         font-size: 15px;
+        margin-top: 5px;
+        margin-left: 7px;
+        margin-right: 7px;
 
         button {
             .default-button;
@@ -2445,7 +2453,7 @@ textarea {
 
             &:hover {
                 color: #ffffff;
-                background-color: #00cccc;
+                background-color: @darkgrey;
             }
         }
     }
@@ -2474,7 +2482,7 @@ textarea {
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: white; //@lightgrey;
-    .box-shadow(@x:5px, @y:4px, @blur:8px, @color:@shadow);
+    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:#999999);
 }
 
 .model-toolbar {
@@ -2482,7 +2490,7 @@ textarea {
     position: absolute;
     left: 0;
     top: 50px;
-    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:@shadow);
+    .box-shadow(@x:1px, @y:1px, @blur:2px, @color:#999999);
     .tab-left-double-radius();
     overflow: hidden;
 
@@ -2611,8 +2619,8 @@ textarea {
     }
 
     .model-name {
-        max-width:420px;
-        height:50px;
+        max-width: 420px;
+        height: 50px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
