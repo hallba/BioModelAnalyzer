@@ -148,8 +148,10 @@
                 for (var i = 0; i < itemsToAdd.length; i++) {
                     var isStorage = itemsToAdd[i].source === "storage";
 
-                    var li = $('<li></li>').appendTo(this.ol).click(function () {
-                        var ind = $(this).index();
+                    var li = $('<li></li>').appendTo(this.ol);
+                    
+                    that._subscribeToClickAndDoubleClick(li, function (s) {
+                        var ind = s.index();
 
                         if (that.options.onelementselected != undefined) {
                             that.options.onelementselected(itemsToAdd[ind]);
@@ -157,7 +159,15 @@
 
                         that.repo.find(".ui-selected").removeClass("ui-selected");
                         that.ol.children().eq(ind).addClass("ui-selected");
+                    }, function (s) {
+                        var ind = s.index();
 
+                        if (that.options.onelementselectedwithload != undefined) {
+                            that.options.onelementselectedwithload(itemsToAdd[ind]);
+                        }
+
+                        that.repo.find(".ui-selected").removeClass("ui-selected");
+                        that.ol.children().eq(ind).addClass("ui-selected");
                     });
 
                     //} 
@@ -276,6 +286,25 @@
             //});
 
             this.createContextMenu();
+        },
+
+        _subscribeToClickAndDoubleClick: function (source, clickCallback, doubleClickCallback) {
+            var DELAY = 700, clicks = 0, timer = null;
+            source.on("click", function (e) {
+                clicks++;  //count clicks
+                if (clicks === 1) {
+                    timer = setTimeout(function () {
+                        clickCallback(source);  //perform single-click action    
+                        clicks = 0;             //after action performed, reset counter
+                    }, DELAY);
+                } else {
+                    clearTimeout(timer);    //prevent single-click action
+                    doubleClickCallback(source);  //perform double-click action
+                    clicks = 0;             //after action performed, reset counter
+                }
+            }).on("dblclick", function (e) {
+                e.preventDefault();  //cancel system double-click event
+            });
         },
 
         Message: function (msg) {

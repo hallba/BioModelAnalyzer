@@ -186,41 +186,56 @@
                 previewDiv.show();
             }
 
-            that.localStorage.localstoragewidget({
-                onelementselected: function (content) {
-                    if (content.source === "storage") {
-                        var mname = { name: content.item, type: content.type };
-                        if (that.options.getmodelbyname !== undefined) {
-                            previewDiv.previewviewer("showLoading");
-                            that.options.getmodelbyname(mname).done(function (model) {
-                                previewHeder.text(mname.name);
+            var loadLocalModelToPreview = function (content, loadToCanvas) {
+                if (content.source === "storage") {
+                    var mname = { name: content.item, type: content.type };
+                    if (that.options.getmodelbyname !== undefined) {
+                        previewDiv.previewviewer("showLoading");
+                        that.options.getmodelbyname(mname).done(function (model) {
+                            previewHeder.text(mname.name);
 
-                                var descr = model.Layout.Description;
-                                if (descr == undefined || descr == "")
-                                    descr = "no description for this model or motif";
-                                previewDescription.text(descr);
-                                previewDiv.previewviewer({ model: model });
-                                previewDiv.show();
+                            var descr = model.Layout.Description;
+                            if (descr == undefined || descr == "")
+                                descr = "no description for this model or motif";
+                            previewDescription.text(descr);
+                            previewDiv.previewviewer({ model: model });
+                            previewDiv.show();
 
-                                that.selectedItem = {
-                                    model: model,
-                                    type: mname.type
-                                };
+                            that.selectedItem = {
+                                model: model,
+                                type: mname.type
+                            };
 
-                                that._setEditableDiv(previewHeder, updateName);
-                                that._setEditableDiv(previewDescription, updateDescription);
-                            });
-                        } else {
-                            that.selectedItem = undefined;
-                        }
+                            that._setEditableDiv(previewHeder, updateName);
+                            that._setEditableDiv(previewDescription, updateDescription);
+
+                            if (loadToCanvas && that.options.loadmodelcallback !== undefined) {
+                                that.options.loadmodelcallback(previewDiv.previewviewer('option', 'model'));
+                            }
+                        });
                     } else {
-                        if (that.previewHeder.hasClass("ui-editable")) {
-                            that.previewHeder.editable('destroy');
-                            that.previewDescription.editable('destroy');
-                        }
-                        loadMotifToPreview(content.item);
                         that.selectedItem = undefined;
                     }
+                } else {
+                    if (that.previewHeder.hasClass("ui-editable")) {
+                        that.previewHeder.editable('destroy');
+                        that.previewDescription.editable('destroy');
+                    }
+                    loadMotifToPreview(content.item);
+                    that.selectedItem = undefined;
+
+                    if (loadToCanvas && that.options.loadmodelcallback !== undefined) {
+                        that.options.loadmodelcallback(previewDiv.previewviewer('option', 'model'));
+                    }
+                }
+            };
+
+            that.localStorage.localstoragewidget({
+                onelementselected: function (content) {
+                    loadLocalModelToPreview(content, false);
+                },
+                onelementselectedwithload: function (content) {
+                    loadLocalModelToPreview(content, true);
                 },
                 onelementunselected: function () {
                     if (that.previewHeder.hasClass("ui-editable")) {
@@ -235,45 +250,60 @@
                 }
             });
 
-            that.oneDriveStorage.onedrivestoragewidget({
-                onelementselected: function (content) {
-                    if (content.source === "storage") {
-                        var minfo = content.item;
-                        if (that.options.getmodelbyinfo !== undefined) {
-                            previewDiv.previewviewer("showLoading");
-                            that.options.getmodelbyinfo(minfo).done(function (model) {
-                                previewHeder.text(minfo.name);
+            var loadOneDriveModelToPreview = function (content, loadToCanvas) {
+                if (content.source === "storage") {
+                    var minfo = content.item;
+                    if (that.options.getmodelbyinfo !== undefined) {
+                        previewDiv.previewviewer("showLoading");
+                        that.options.getmodelbyinfo(minfo).done(function (model) {
+                            previewHeder.text(minfo.name);
 
-                                var descr = model.Layout.Description;
-                                if (descr == undefined || descr == "")
-                                    descr = "no description for this model or motif";
-                                previewDescription.text(descr);
-                                previewDiv.previewviewer({ model: model });
-                                previewDiv.show();
+                            var descr = model.Layout.Description;
+                            if (descr == undefined || descr == "")
+                                descr = "no description for this model or motif";
+                            previewDescription.text(descr);
+                            previewDiv.previewviewer({ model: model });
+                            previewDiv.show();
 
-                                that.selectedItem = {
-                                    model: model,
-                                    type: minfo.type,
-                                    id: minfo.id
-                                };
+                            that.selectedItem = {
+                                model: model,
+                                type: minfo.type,
+                                id: minfo.id
+                            };
 
-                                that._setEditableDiv(previewHeder, updateName);
-                                that._setEditableDiv(previewDescription, updateDescription);
-                            });
+                            that._setEditableDiv(previewHeder, updateName);
+                            that._setEditableDiv(previewDescription, updateDescription);
+
+                            if (loadToCanvas && that.options.loadmodelcallback !== undefined) {
+                                that.options.loadmodelcallback(previewDiv.previewviewer('option', 'model'));
+                            }
+                        });
 
 
-                        } else {
-                            console.log("can't load models from OneDrive");
-                            that.selectedItem = undefined;
-                        }
                     } else {
-                        if (that.previewHeder.hasClass("ui-editable")) {
-                            that.previewHeder.editable('destroy');
-                            that.previewDescription.editable('destroy');
-                        }
-                        loadMotifToPreview(content.item);
+                        console.log("can't load models from OneDrive");
                         that.selectedItem = undefined;
                     }
+                } else {
+                    if (that.previewHeder.hasClass("ui-editable")) {
+                        that.previewHeder.editable('destroy');
+                        that.previewDescription.editable('destroy');
+                    }
+                    loadMotifToPreview(content.item);
+                    that.selectedItem = undefined;
+
+                    if (loadToCanvas && that.options.loadmodelcallback !== undefined) {
+                        that.options.loadmodelcallback(previewDiv.previewviewer('option', 'model'));
+                    }
+                }
+            };
+
+            that.oneDriveStorage.onedrivestoragewidget({
+                onelementselected: function (content) {
+                    loadOneDriveModelToPreview(content, false);
+                },
+                onelementselectedwithload: function (content) {
+                    loadOneDriveModelToPreview(content, true);
                 },
                 onelementunselected: function () {
                     if (that.previewHeder.hasClass("ui-editable")) {
