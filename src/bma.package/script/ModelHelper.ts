@@ -814,9 +814,10 @@ module BMA {
                 var cnt = cells[i];
 
                 var xLeft = cnt.PositionX * grid.xStep + grid.xOrigin;
-                var xRight = xLeft + grid.xStep;
+                var xRight = xLeft + grid.xStep * cnt.Size;
+
                 var yBottom = cnt.PositionY * grid.yStep + grid.yOrigin;
-                var yTop = yBottom + grid.yStep;
+                var yTop = yBottom + grid.yStep * cnt.Size;
 
                 if (xLeft < bottomLeft.x)
                     bottomLeft.x = xLeft;

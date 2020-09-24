@@ -138,7 +138,7 @@ module BMA {
                 };
 
                 //TODO: Renable before producrion publish
-                //connector.Enable(onLogin, onLoginFailed, onLogout);
+                connector.Enable(onLogin, onLoginFailed, onLogout);
 
                 //that.driver.SetOnSignInCallback(function () {
                 //});
