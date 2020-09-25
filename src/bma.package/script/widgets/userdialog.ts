@@ -37,7 +37,9 @@
                     var bttn = $('<button></button>').text(actions[i].button).appendTo(that.buttons);
 
                     if (i == 0) {
-                        bttn.css("background-color", "#00cccc").css("color", "#ffffff;");
+                        bttn.addClass("main-button");
+                    } else {
+                        bttn.addClass("secondary-button");
                     }
 
                     bttn.bind('click', actions[i].callback);
