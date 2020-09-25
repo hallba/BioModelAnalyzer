@@ -210,28 +210,24 @@
                         $("<div></div>").addClass("repo-user-icon").appendTo(li);
                     }
 
-                    var removeBtn = $('<button></button>').addClass("remove").appendTo(li);
-                    removeBtn.bind("click", function (event) {
-                        event.stopPropagation();
-
-                        if ($(this).parent().hasClass("ui-selected")) {
-                            that.CancelSelection();
-                            if (that.options.onelementunselected !== undefined) {
-                                that.options.onelementunselected();
-                            }
-                        }
-
-                        var itemToAdd = itemsToAdd[$(this).parent().index()];
-                        if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
-                            that.options.onremovemodel(itemToAdd.item.id);
-                        if (that.options.onhidepreloadedcontent !== undefined && itemToAdd.source != "storage")
-                            that.options.onhidepreloadedcontent();
-                    });
-
                     if (itemsToAdd[i].source === "storage") {
-                        removeBtn.addClass("icon-delete");
-                    } else {
-                        removeBtn.addClass("icon-hide");
+                        var removeBtn = $('<button></button>').addClass("remove").addClass("icon-delete").appendTo(li);
+                        removeBtn.bind("click", function (event) {
+                            event.stopPropagation();
+
+                            if ($(this).parent().hasClass("ui-selected")) {
+                                that.CancelSelection();
+                                if (that.options.onelementunselected !== undefined) {
+                                    that.options.onelementunselected();
+                                }
+                            }
+
+                            var itemToAdd = itemsToAdd[$(this).parent().index()];
+                            if (that.options.onremovemodel !== undefined && itemToAdd.source === "storage")
+                                that.options.onremovemodel(itemToAdd.item.id);
+                            if (that.options.onhidepreloadedcontent !== undefined && itemToAdd.source != "storage")
+                                that.options.onhidepreloadedcontent();
+                        });
                     }
 
                     var isHidden = false;
