@@ -509,6 +509,8 @@ function loadScript(version) {
     }
 
     colorSelector.children("ul").children("li").click(function (e) {
+        colorSelector.children("ul").find(".color-box").removeClass("clicked");
+        $(this).find(".color-box").addClass("clicked");
         var color = $(this).attr("data-color");
         if (defaultColorContextElement !== undefined) {
             //Changing default color of element
@@ -757,7 +759,10 @@ function loadScript(version) {
 
     //Setting color picker for selected variables
     $("#colorPickerButton").hoverpopup();
-    $("#colorPickerContent").children("ul").children("li").click(function (e) {
+    var cpcnt = $("#colorPickerContent");
+    cpcnt.children("ul").children("li").click(function (e) {
+        cpcnt.children("ul").find(".color-box").removeClass("clicked");
+        $(this).find(".color-box").addClass("clicked");
         var command = $(this).attr("data-command");
         window.Commands.Execute(command, undefined);
     });

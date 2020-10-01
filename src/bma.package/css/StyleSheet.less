@@ -13,7 +13,6 @@ button::-moz-focus-inner {
         width: 8px;
         height: 8px;
         background-color: @darkgrey;
-
     }
 }
 
@@ -3268,26 +3267,67 @@ textarea {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 5px 5px 5px 5px;
+    border: 2px solid white;
 
     &.orange {
         background-color: #ff9900;
+
+        &:hover {
+            border: 2px solid #FF6600;
+        }
+
+        &.clicked {
+            border: 2px solid #FF6600;
+        }
     }
 
     &.mint {
         background-color: #00cccc;
+
+        &:hover {
+            border: 2px solid #026666;
+        }
+
+        &.clicked {
+            border: 2px solid #026666;
+        }
     }
 
     &.green {
         background-color: #33cc00;
+
+        &:hover {
+            border: 2px solid #006600;
+        }
+
+        &.clicked {
+            border: 2px solid #006600;
+        }
     }
 
     &.purple {
         background-color: #9966ff;
+
+        &:hover {
+            border: 2px solid #330099;
+        }
+
+        &.clicked {
+            border: 2px solid #330099;
+        }
     }
 
     &.default {
         background-color: @pinktext;
+
+        &:hover {
+            border: 2px solid #990065;
+        }
+
+        &.clicked {
+            border: 2px solid #990065;
+        }
     }
 }
 
@@ -3324,7 +3364,6 @@ textarea {
         //margin-top: 0px;
     }
 }
-
 //Search bar
 .repository-search {
     display: flex;
