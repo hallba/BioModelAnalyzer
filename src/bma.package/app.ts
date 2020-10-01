@@ -697,7 +697,10 @@ function loadScript(version) {
     });
 
     $("#btn-local-save").click(function (args) {
+        $("#btn-save-anim").show();
         window.Commands.Execute("SaveModel", undefined);
+
+        setTimeout(function () { $("#btn-save-anim").hide(); }, 2000);
     });
     $("#btn-new-model").click(function (args) {
         window.Commands.Execute("NewModel", undefined);
