@@ -7,6 +7,36 @@
 </head>
 <body>
     <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
+        <span class="heading">BMA 1.8.0053</span>
+        <div class="intro-text">
+            <p>TThis major update brings a plethora of changes to BioModelAnalzyer focused on model storage and motif use!</p>
+            <span class="subheading">New combined model and motif library</span>
+            <p>
+                Motif libraries support the construction of large models from the reuse of small networks that capturing fundamental biological phenomena. Our previous releases allowed users to interact through a dedicated carousel, allowing users to preview the motifs but gave limited options for sorting and storage. Similarly, users with large model libraries may struggle to sort and find single models.
+                In this release we have developed a new interface to the model repository that combines the unique interface of the model carousel with new sorting and searching functions. In addition to providing a library of developer created models and motifs, users can build and store models and motifs. Models can be opened directly to the canvas, or treated as a motif and dragged into an already open model for reuse and mixing models. Large libraries are made more manageable through search and sorting functions, and models can be annotated with short descriptions.
+            </p>
+            <p>
+                - Motif library was removed from interface..<br />
+                - Model repository interface completely reworked. Now it has new layout and structure.<br />
+                - All motifs are displayed together with models in repository menu.<br />
+                - Added possibility to create user motifs and save them to storage.<br />
+                - Preloaded models from launch page added to model repository.<br />
+                - Added possibility to filter and search the repository.<br />
+                - Added possibility to preview model and motif berfore its loading to model designer.<br />
+                - Added possibility to add model contents to existing model rather that just replace it.<br />
+                - Added possibility to load motif by replacing current model designer content with motif contents.<br />
+                - Added possibility to edit model/motif name and description for user created models and motifs.
+            </p>
+            <span class="subheading">Design updates and bug fixes</span>
+            <p>
+                - Fixed issue with model fitting to screen for some models with 2x2 and 3x3 cells.<br />
+                - Color options in palette popup for variables now show last selected result and highlight options on hover.<br />
+                - BMA styles updated which includes loading animation, shadows spec, design of popups and some other elements.<br />
+                - Save button now displays animation when using it.
+            </p>
+        </div>
+    </div>
+    <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
         <span class="heading">BMA 1.7.0019</span>
         <div class="intro-text">
             <p>This release brings some new features and refinements to existing tools!</p>
@@ -17,7 +47,7 @@
             </p>
             <span class="subheading">Bugfixes</span>
             <p>
-                - Cut/copy/paste now works when selecting text from the variable target function editor.<br/>
+                - Cut/copy/paste now works when selecting text from the variable target function editor.<br />
                 - Variable names in LTL states tooltip are extended to increase readability.<br />
                 - All user modes (pan, variable drop, cell drop, and edge drop) can now be used to create selections.
             </p>
