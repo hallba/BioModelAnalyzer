@@ -372,7 +372,7 @@ let main args =
             res := -1
 
         else 
-            let qn = read_ModelFile_as_QN (System.IO.Path.Combine(!modelsdir,!model))//(!modelsdir + "\\" + !model) 
+            let qn = read_ModelFile_as_QN (System.IO.Path.Combine(!modelsdir,!model)) //(!modelsdir + "\\" + !model) 
 
             // Apply QN xforms 
             if !dump_before_xforms then print_qn qn "\n"
