@@ -341,7 +341,7 @@ let runCAVEngine qn length_of_path formula model_check output_proof output_model
 
 let runPATHEngine qnX modelsdir other_model_name start_state dest_state =
     Log.log_debug "Running path search"
-    let qnY = read_ModelFile_as_QN (modelsdir + "\\" + other_model_name)
+    let qnY = read_ModelFile_as_QN (System.IO.Path.Combine(modelsdir,other_model_name)) //(modelsdir + "\\" + other_model_name)
     let X   = Array.fold (fun m (l:string) -> let ss = l.Split(',') in  Map.add ((int)ss.[0]) ((int)ss.[1]) m) Map.empty (System.IO.File.ReadAllLines start_state)
     let Y   = Array.fold (fun m (l:string) -> let ss = l.Split(',') in  Map.add ((int)ss.[0]) ((int)ss.[1]) m) Map.empty (System.IO.File.ReadAllLines dest_state)
     match (PathFinder.routes qnX qnY X Y) with
@@ -372,7 +372,7 @@ let main args =
             res := -1
 
         else 
-            let qn = read_ModelFile_as_QN (!modelsdir + "\\" + !model) 
+            let qn = read_ModelFile_as_QN (System.IO.Path.Combine(!modelsdir,!model))//(!modelsdir + "\\" + !model) 
 
             // Apply QN xforms 
             if !dump_before_xforms then print_qn qn "\n"
