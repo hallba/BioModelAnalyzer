@@ -124,6 +124,8 @@
     <Content Include="css\website.css" />
     <Content Include="css\slick.css" />
     <Content Include="css\slick-theme.css" />
+    <Content Include="html\bigModelSimple.txt" />
+    <Content Include="html\chartSample.html" />
     <Content Include="images\analysis\BMA_Bifurcation_Icon_ON.svg" />
     <Content Include="images\analysis\BMA_Bifurcation_Icon.svg" />
     <Content Include="images\analysis\BMA_Further_Testing_Icon.svg" />
@@ -266,7 +268,6 @@
     <Content Include="help.html" />
     <Content Include="html\BandPlotSample.html" />
     <Content Include="html\callback.html" />
-    <Content Include="html\chartSample.html" />
     <Content Include="html\FormulaEditorSample.html" />
     <Content Include="html\LRATestingPage.html" />
     <Content Include="html\LayoutSample.html" />
