@@ -124,7 +124,6 @@
     <Content Include="css\website.css" />
     <Content Include="css\slick.css" />
     <Content Include="css\slick-theme.css" />
-    <Content Include="html\bigModelSimple.txt" />
     <Content Include="html\chartSample.html" />
     <Content Include="images\analysis\BMA_Bifurcation_Icon_ON.svg" />
     <Content Include="images\analysis\BMA_Bifurcation_Icon.svg" />
@@ -459,6 +458,7 @@
     <Content Include="preloaded\CancerSignalling.json" />
     <Content Include="motifs\Perfect Adaptation C.json" />
     <Content Include="installer\bma.install.msi" />
+    <Content Include="html\BMAReconModel.txt" />
     <None Include="Properties\PublishProfiles\bmademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />

@@ -108,6 +108,119 @@
                 elem.setAttribute("fill", color);
                 return elem;
             }
+
+            //Renders model to html canvas
+            export function RenderModelToCanvas(canvas: HTMLCanvasElement, model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { xOrigin: number, yOrigin: number, xStep: number, yStep: number }) {
+                var getGridCell = function (x, y) {
+                    var cellX = Math.ceil((x - grid.xOrigin) / grid.xStep) - 1;
+                    var cellY = Math.ceil((y - grid.yOrigin) / grid.yStep) - 1;
+                    return { x: cellX, y: cellY };
+                }
+
+                //finding bbox
+                var xMin = Infinity;
+                var yMin = Infinity;
+                var xMax = -Infinity;
+                var yMax = -Infinity;
+                for (var i = 0; i < layout.Variables.length; i++) {
+                    var vrbl = layout.Variables[i];
+                    var cell = getGridCell(vrbl.PositionX, vrbl.PositionY);
+
+                    if (cell.x > xMax)
+                        xMax = cell.x;
+                    if (cell.x < xMin)
+                        xMin = cell.x;
+                    if (cell.y > yMax)
+                        yMax = cell.y;
+                    if (cell.y < yMin)
+                        yMin = cell.y;
+                }
+                xMin -= 1;
+                yMin -= 1;
+                xMax += 1;
+                yMax += 1;
+
+                var width = (xMax - xMin) * grid.xStep;
+                var height = (yMax - yMin) * grid.yStep;
+                canvas.width = width;
+                canvas.height = height;
+                var context = canvas.getContext("2d");
+                context.clearRect(0, 0, width, height);
+
+
+                //Render Variables
+                var variableGeometry = new Path2D("M54.88 71.29 a 4.58 4.58 0 0 1 -3.28 -1.36 a 4.65 4.65 0 0 1 0 -6.57 l 11.11 -11 A 1.65 1.65 0 0 0 60.38 50 L 49.3 61.06 a 4.65 4.65 0 0 1 -7.93 -3.28 a 4.66 4.66 0 0 1 1.36 -3.29 l 11.12 -11 a 1.65 1.65 0 0 0 -1.17 -2.8 a 1.67 1.67 0 0 0 -1.17 0.48 L 40.44 52.2 a 4.65 4.65 0 0 1 -6.57 -6.57 L 45 34.59 a 1.63 1.63 0 0 0 0.48 -1.16 A 1.67 1.67 0 0 0 45 32.26 a 1.65 1.65 0 0 0 -1.17 -0.48 a 1.63 1.63 0 0 0 -1.16 0.48 L 29.28 45.63 a 1.5 1.5 0 1 1 -2.12 -2.12 L 40.53 30.14 a 4.65 4.65 0 0 1 7.93 3.29 a 4.58 4.58 0 0 1 -1.36 3.28 L 36 47.75 a 1.65 1.65 0 0 0 0 2.33 a 1.65 1.65 0 0 0 2.33 0 L 49.39 39 A 4.65 4.65 0 0 1 56 39 a 4.65 4.65 0 0 1 0 6.57 l -11.11 11 a 1.64 1.64 0 0 0 0 2.32 a 1.66 1.66 0 0 0 1.17 0.47 a 1.64 1.64 0 0 0 1.16 -0.47 L 58.26 47.87 a 4.65 4.65 0 0 1 6.57 0 a 4.65 4.65 0 0 1 0 6.57 l -11.12 11 a 1.65 1.65 0 0 0 2.34 2.33 l 13.29 -13.3 a 1.51 1.51 0 0 1 2.13 0 a 1.5 1.5 0 0 1 0 2.12 l -13.3 13.3 A 4.62 4.62 0 0 1 54.88 71.29 Z");
+                var coords = {}
+                context.beginPath();
+                for (var i = 0; i < layout.Variables.length; i++) {
+                    var variable = model.Variables[i];
+                    var vrbl = layout.Variables[i];
+
+                    var x = vrbl.PositionX - xMin * grid.xStep;
+                    var y = yMax * grid.yStep - vrbl.PositionY;
+
+                    coords[vrbl.Id] = { x: x, y: y };
+
+                    if (variable.Type == "Constant") {
+                        context.fillStyle = "#00cccc";
+                    } else {
+                        context.fillStyle = "#f6c";
+                    }
+
+                    context.translate(x, y);
+                    context.scale(0.6, 0.6);
+                    context.translate(-50, -50);
+                    context.fill(variableGeometry);
+
+                    context.setTransform(1, 0, 0, 1, 0, 0);
+                }
+
+                //Render relationships
+                for (var i = 0; i < model.Relationships.length; i++) {
+                    var rel = model.Relationships[i];
+                    if (rel.FromVariableId === rel.ToVariableId) {
+                        //draw self-relationship
+                    } else {
+                        var c0 = coords[rel.FromVariableId];
+                        var c1 = coords[rel.ToVariableId];
+
+                        context.strokeStyle = "#aaa";
+                        drawLineWithArrows(context, c0.x, c0.y, c1.x, c1.y, 3, 8, false, true);
+                    }
+                }
+            }
+
+            // x0,y0: the line's starting point
+            // x1,y1: the line's ending point
+            // width: the distance the arrowhead perpendicularly extends away from the line
+            // height: the distance the arrowhead extends backward from the endpoint
+            // arrowStart: true/false directing to draw arrowhead at the line's starting point
+            // arrowEnd: true/false directing to draw arrowhead at the line's ending point
+            export function drawLineWithArrows(ctx, x0, y0, x1, y1, aWidth, aLength, arrowStart, arrowEnd) {
+                var dx = x1 - x0;
+                var dy = y1 - y0;
+                var angle = Math.atan2(dy, dx);
+                var length = Math.sqrt(dx * dx + dy * dy);
+
+                ctx.translate(x0, y0);
+                ctx.rotate(angle);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(length, 0);
+                if (arrowStart) {
+                    ctx.moveTo(aLength, -aWidth);
+                    ctx.lineTo(0, 0);
+                    ctx.lineTo(aLength, aWidth);
+                }
+                if (arrowEnd) {
+                    ctx.moveTo(length - aLength, -aWidth);
+                    ctx.lineTo(length, 0);
+                    ctx.lineTo(length - aLength, aWidth);
+                }
+
+                ctx.stroke();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            }
         }
     }
 }
