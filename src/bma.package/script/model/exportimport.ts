@@ -337,13 +337,34 @@ module BMA {
                 if (isNaN(vId))
                     return s;
                 else
-                    return id[parseInt(s)].Name;
+                    if (id[parseInt(s)] !== undefined)
+                        return id[parseInt(s)].Name;
+                    else
+                        return "_missing_";
             };
 
-            var model = new BioModel(json.Model.Name,
-                json.Model.Variables.map(v => new Variable(v.Id, id[v.Id].ContainerId, id[v.Id].Type, id[v.Id].Name, v.RangeFrom, v.RangeTo,
-                    MapVariableNames(v.Formula, modelMapper))),
-                json.Model.Relationships.map(r => new Relationship(r.Id, r.FromVariable, r.ToVariable, r.Type)));
+            var variables = [];
+            for (var i = 0; i < json.Model.Variables.length; i++) {
+                var _v = json.Model.Variables[i];
+
+                var formula = "";
+                try {
+                    formula = MapVariableNames(_v.Formula, modelMapper);
+                } catch (ex) {
+                    console.log("error mapping variables in target function for variable " + id[_v.Id].Name + ": " + _v.Formula + " " + ex);
+                }
+                var newVar = new Variable(_v.Id, id[_v.Id].ContainerId, id[_v.Id].Type, id[_v.Id].Name, _v.RangeFrom, _v.RangeTo, formula);
+                variables.push(newVar);
+            }
+
+            var relationships = [];
+            for (var i = 0; i < json.Model.Relationships.length; i++) {
+                var _r = json.Model.Relationships[i];
+                var newRel = new Relationship(_r.Id, _r.FromVariable, _r.ToVariable, _r.Type);
+                relationships.push(newRel);
+            }
+
+            var model = new BioModel(json.Model.Name, variables, relationships);
 
 
             var containers = json.Layout.Containers.map(c => new ContainerLayout(c.Id, c.Name, c.Size, c.PositionX, c.PositionY));

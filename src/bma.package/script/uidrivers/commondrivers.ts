@@ -22,6 +22,10 @@ module BMA {
                 this.svgPlotDiv.drawingsurface({ svg: svg });
             }
 
+            DrawCanvas(data: { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } }) {
+                this.svgPlotDiv.drawingsurface({ modelCanvasSnapshot: data });
+            }
+
             public DrawLayer2(svg: SVGElement) {
                 this.svgPlotDiv.drawingsurface({ lightSvg: svg });
             }

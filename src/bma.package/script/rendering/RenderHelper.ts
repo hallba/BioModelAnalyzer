@@ -110,12 +110,8 @@
             }
 
             //Renders model to html canvas
-            export function RenderModelToCanvas(canvas: HTMLCanvasElement, model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { xOrigin: number, yOrigin: number, xStep: number, yStep: number }) {
-                var getGridCell = function (x, y) {
-                    var cellX = Math.ceil((x - grid.xOrigin) / grid.xStep) - 1;
-                    var cellY = Math.ceil((y - grid.yOrigin) / grid.yStep) - 1;
-                    return { x: cellX, y: cellY };
-                }
+            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } } {
+                var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
 
                 //finding bbox
                 var xMin = Infinity;
@@ -124,7 +120,7 @@
                 var yMax = -Infinity;
                 for (var i = 0; i < layout.Variables.length; i++) {
                     var vrbl = layout.Variables[i];
-                    var cell = getGridCell(vrbl.PositionX, vrbl.PositionY);
+                    var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
 
                     if (cell.x > xMax)
                         xMax = cell.x;
@@ -188,6 +184,12 @@
                         drawLineWithArrows(context, c0.x, c0.y, c1.x, c1.y, 3, 8, false, true);
                     }
                 }
+
+                return {
+                    canvas: canvas,
+                    bbox: { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width, height: height },
+                    grid: grid
+                };
             }
 
             // x0,y0: the line's starting point

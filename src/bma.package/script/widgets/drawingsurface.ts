@@ -19,6 +19,7 @@ declare var InteractiveDataDisplay: any;
         _mouseMoves: null,
         _domPlot: null,
         _zoomPlot: null,
+        _modelCanvasPlot: null,
 
         _bmaGesturesStream: null,
         _bmaZoomGesturesStream: null,
@@ -103,7 +104,7 @@ declare var InteractiveDataDisplay: any;
             var svgPlotDiv2 = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
             var domPlotDiv = $("<div></div>").attr("data-idd-plot", "dom").appendTo(plotDiv);
             var svgPlotDiv = $("<div></div>").attr("data-idd-plot", "svgPlot").appendTo(plotDiv);
-
+            var modelCanvasPlotDiv = $("<div></div>").attr("data-idd-plot", "modelCanvasPlot").appendTo(plotDiv);
 
             this.lightSVGDiv = svgPlotDiv2;
 
@@ -112,6 +113,8 @@ declare var InteractiveDataDisplay: any;
 
             that._plot = InteractiveDataDisplay.asPlot(plotDiv);
             this._plot.aspectRatio = 1;
+
+            
 
             var zoomPlot = that._plot.get("zoom-plot");
             this._zoomPlot = zoomPlot;
@@ -127,6 +130,11 @@ declare var InteractiveDataDisplay: any;
             this._svgPlot.order = InteractiveDataDisplay.MaxInteger;
             svgPlotDiv.css("z-index", '');
             //this._svgPlot.IsAutomaticSizeUpdate = false;
+
+            var modelCanvasPlot = that._plot.get(modelCanvasPlotDiv[0]);
+            this._modelCanvasPlot = modelCanvasPlot;
+            this._modelCanvasPlot.order = InteractiveDataDisplay.MaxInteger;
+            modelCanvasPlotDiv.css("z-index", '');
 
             var lightSvgPlot = that._plot.get(svgPlotDiv2[0]);
             this._lightSvgPlot = lightSvgPlot;
@@ -400,6 +408,8 @@ declare var InteractiveDataDisplay: any;
             this._gridLinesPlot = that._plot.get(gridLinesPlotDiv[0]);
             this._gridLinesPlot.order = InteractiveDataDisplay.MaxInteger;
             gridLinesPlotDiv.css("z-index", '');
+
+            /*
             var yDT = new InteractiveDataDisplay.DataTransform(
                 function (x) {
                     return -x;
@@ -410,16 +420,6 @@ declare var InteractiveDataDisplay: any;
                 undefined);
 
             this._plot.yDataTransform = yDT;
-
-            /*
-            this._domPlot.yDataTransform = new InteractiveDataDisplay.DataTransform(
-                function (x) {
-                    return x;
-                },
-                function (y) {
-                    return y;
-                },
-                undefined);
             */
 
             var width = 1600;
@@ -572,6 +572,10 @@ declare var InteractiveDataDisplay: any;
                         this._logoContainer.show();
                     else
                         this._logoContainer.hide();
+                    break;
+                case "modelCanvasSnapshot":
+                    this._modelCanvasPlot.draw(value);
+                    this._plot.requestUpdateLayout();
                     break;
             }
             this._super(key, value);

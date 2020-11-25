@@ -1490,6 +1490,8 @@ module BMA {
                     var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
                     var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
                     this.driver.Draw(drawingSvg);
+                    //var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid);
+                    //this.driver.DrawCanvas(rasterDrawingData);
                 }
             }
 

@@ -128,6 +128,91 @@
     BMAExt.SVGPlot.prototype = new InteractiveDataDisplay.Plot;
     InteractiveDataDisplay.register('svgPlot', function (jqDiv, master) { return new BMAExt.SVGPlot(jqDiv, master); });
 
+    BMAExt.ModelCanvasPlot = function (jqDiv, master) {
+        this.base = InteractiveDataDisplay.CanvasPlot;
+        this.base(jqDiv, master);
+        var that = this;
+
+        var _canvas = undefined;
+        var _localBB = undefined;
+        var _baseGrid = undefined;
+
+        this.draw = function (data) {
+            _canvas = data.canvas;
+            _localBB = data.bbox;
+            _baseGrid = data.grid;
+
+            this.invalidateLocalBounds();
+            this.requestNextFrameOrUpdate();
+            this.fireAppearanceChanged();
+        }
+
+        // Returns 4 margins in the screen coordinate system
+        this.getLocalPadding = function () {
+            return { left: 0, right: 0, top: 0, bottom: 0 };
+        };
+
+        this.renderCore = function (plotRect, screenSize) {
+            InteractiveDataDisplay.Polyline.prototype.renderCore.call(this, plotRect, screenSize);
+
+            if (_canvas === undefined || _localBB === undefined || _baseGrid === undefined)
+                return;
+
+            var context = this.getContext(true);
+
+            var t = this.getTransform();
+            var dataToScreenX = t.dataToScreenX;
+            var dataToScreenY = t.dataToScreenY;
+
+            // size of the canvas
+            var w_s = screenSize.width;
+            var h_s = screenSize.height;
+
+            //scales
+            var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
+            var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
+
+            context.drawImage(_canvas, dataToScreenX(_localBB.x), dataToScreenY(_localBB.y + _localBB.height), _localBB.width * scaleX, _localBB.height * scaleY);
+
+            context.strokeStyle = "red";
+            context.strokeRect(dataToScreenX(_localBB.x), dataToScreenY(_localBB.y + _localBB.height), _localBB.width * scaleX, _localBB.height * scaleY);
+        }
+
+        this.computeLocalBounds = function () {
+            return _localBB;
+        };
+
+        // Gets the transform functions from data to screen coordinates.
+        // Returns { dataToScreenX, dataToScreenY }
+        this.getTransform = function () {
+            var ct = this.coordinateTransform;
+            var plotToScreenX = ct.plotToScreenX;
+            var plotToScreenY = ct.plotToScreenY;
+            var dataToPlotX = this.xDataTransform && this.xDataTransform.dataToPlot;
+            var dataToPlotY = this.yDataTransform && this.yDataTransform.dataToPlot;
+            var dataToScreenX = dataToPlotX ? function (x) { return plotToScreenX(dataToPlotX(x)); } : plotToScreenX;
+            var dataToScreenY = dataToPlotY ? function (y) { return plotToScreenY(dataToPlotY(y)); } : plotToScreenY;
+
+            return { dataToScreenX: dataToScreenX, dataToScreenY: dataToScreenY };
+        };
+
+        // Gets the transform functions from screen to data coordinates.
+        // Returns { screenToDataX, screenToDataY }
+        this.getScreenToDataTransform = function () {
+            var ct = this.coordinateTransform;
+            var screenToPlotX = ct.screenToPlotX;
+            var screenToPlotY = ct.screenToPlotY;
+            var plotToDataX = this.xDataTransform && this.xDataTransform.plotToData;
+            var plotToDataY = this.yDataTransform && this.yDataTransform.plotToData;
+            var screenToDataX = plotToDataX ? function (x) { return plotToDataX(screenToPlotX(x)); } : screenToPlotX;
+            var screenToDataY = plotToDataY ? function (y) { return plotToDataY(screenToPlotY(y)); } : screenToPlotY;
+
+            return { screenToDataX: screenToDataX, screenToDataY: screenToDataY };
+        };
+    };
+    BMAExt.ModelCanvasPlot.prototype = new InteractiveDataDisplay.CanvasPlot;
+    InteractiveDataDisplay.register('modelCanvasPlot', function (jqDiv, master) { return new BMAExt.ModelCanvasPlot(jqDiv, master); });
+
     BMAExt.RectsPlot = function (div, master) {
 
         this.base = InteractiveDataDisplay.CanvasPlot;
