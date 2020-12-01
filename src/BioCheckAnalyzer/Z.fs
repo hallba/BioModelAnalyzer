@@ -556,7 +556,7 @@ let find_cycle_steps_optimized network bounds =
                 use model = s.Model
                 // update cycle with the information from model
                 let env = Z3Util.model_to_fixpoint model |> convertMapToInt |> fixpoint_to_env
-                s.Pop(
+                s.Pop()
                 let smallenv = extract_cycle_from_model env
                 Some smallenv
             | Status.UNKNOWN -> None
