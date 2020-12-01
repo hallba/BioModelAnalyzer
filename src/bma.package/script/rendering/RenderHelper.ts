@@ -131,8 +131,8 @@
                     if (cell.y < yMin)
                         yMin = cell.y;
                 }
-                xMin -= 1;
-                yMin -= 1;
+                //xMin -= 1;
+                //yMin -= 1;
                 xMax += 1;
                 yMax += 1;
 
@@ -153,7 +153,7 @@
                     var vrbl = layout.Variables[i];
 
                     var x = vrbl.PositionX - xMin * grid.xStep;
-                    var y = yMax * grid.yStep - vrbl.PositionY;
+                    var y = vrbl.PositionY - yMin * grid.yStep; //yMax * grid.yStep - vrbl.PositionY; 
 
                     coords[vrbl.Id] = { x: x, y: y };
 

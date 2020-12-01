@@ -172,14 +172,18 @@
             var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
             var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
 
-            context.drawImage(_canvas, dataToScreenX(_localBB.x), dataToScreenY(_localBB.y + _localBB.height), _localBB.width * scaleX, _localBB.height * scaleY);
+            var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
+
+            context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
 
             context.strokeStyle = "red";
-            context.strokeRect(dataToScreenX(_localBB.x), dataToScreenY(_localBB.y + _localBB.height), _localBB.width * scaleX, _localBB.height * scaleY);
+            context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+
+            //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
         }
 
         this.computeLocalBounds = function () {
-            return _localBB;
+            return undefined;
         };
 
         // Gets the transform functions from data to screen coordinates.
