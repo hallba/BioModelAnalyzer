@@ -932,6 +932,8 @@ module BMA {
 
                 dragService.GetMouseMoves().subscribe(
                     (gesture) => {
+                        return;
+
                         var x = gesture.x;
                         var y = gesture.y;
 
@@ -1488,8 +1490,8 @@ module BMA {
             private RefreshOutput(model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined) {
                 if (this.svg !== undefined && this.undoRedoPresenter.Current !== undefined) {
                     var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
-                    var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
-                    this.driver.Draw(drawingSvg);
+                    //var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
+                    //this.driver.Draw(drawingSvg);
                     var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid);
                     this.driver.DrawCanvas(rasterDrawingData);
                 }
@@ -2235,6 +2237,8 @@ module BMA {
             }
 
             private CreateSvg(args: any, model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined): any {
+                return undefined;
+
                 if (this.svg === undefined)
                     return undefined;
                 if (model === undefined)

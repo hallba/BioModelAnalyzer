@@ -118,23 +118,29 @@
                 var yMin = Infinity;
                 var xMax = -Infinity;
                 var yMax = -Infinity;
-                for (var i = 0; i < layout.Variables.length; i++) {
-                    var vrbl = layout.Variables[i];
-                    var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
 
-                    if (cell.x > xMax)
-                        xMax = cell.x;
-                    if (cell.x < xMin)
-                        xMin = cell.x;
-                    if (cell.y > yMax)
-                        yMax = cell.y;
-                    if (cell.y < yMin)
-                        yMin = cell.y;
+                if (layout.Variables.length > 0) {
+                    for (var i = 0; i < layout.Variables.length; i++) {
+                        var vrbl = layout.Variables[i];
+                        var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
+
+                        if (cell.x > xMax)
+                            xMax = cell.x;
+                        if (cell.x < xMin)
+                            xMin = cell.x;
+                        if (cell.y > yMax)
+                            yMax = cell.y;
+                        if (cell.y < yMin)
+                            yMin = cell.y;
+                    }
+                    xMax += 1;
+                    yMax += 1;
+                } else {
+                    xMin = 0;
+                    yMin = 0;
+                    xMax = 1;
+                    yMax = 1;
                 }
-                //xMin -= 1;
-                //yMin -= 1;
-                xMax += 1;
-                yMax += 1;
 
                 var width = (xMax - xMin) * grid.xStep;
                 var height = (yMax - yMin) * grid.yStep;

@@ -115,7 +115,7 @@ module BMA {
 
                                     }
                                     catch (exc) {
-                                        console.log("XML parsing failed: " + exc + ". Trying JSON");
+                                        console.log("XML parsing failed. Trying JSON ...");
                                         try {
                                             appModel.Deserialize(fileReader.result);
                                         }
