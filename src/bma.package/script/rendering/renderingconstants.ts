@@ -123,6 +123,7 @@
             LabelSize: number;
             
             RenderToSvg(renderParams: any): SVGElement;
+            RenderToCanvas(context: any, renderParams: any);
             Contains(pointerX: number, pointerY: number, elementX, elementY): boolean;
             GetIconSVG(iconFill: string): string;
         }

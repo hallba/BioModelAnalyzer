@@ -110,7 +110,8 @@
             }
 
             //Renders model to html canvas
-            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } } {
+            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } } {
+                var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
 
                 //finding bbox
@@ -119,22 +120,37 @@
                 var xMax = -Infinity;
                 var yMax = -Infinity;
 
-                if (layout.Variables.length > 0) {
+                if (layout.Variables.length > 0 || layout.Containers.length > 0) {
                     for (var i = 0; i < layout.Variables.length; i++) {
                         var vrbl = layout.Variables[i];
                         var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
 
-                        if (cell.x > xMax)
-                            xMax = cell.x;
+                        if (cell.x >= xMax)
+                            xMax = cell.x + 1;
                         if (cell.x < xMin)
                             xMin = cell.x;
-                        if (cell.y > yMax)
-                            yMax = cell.y;
+                        if (cell.y >= yMax)
+                            yMax = cell.y + 1;
                         if (cell.y < yMin)
                             yMin = cell.y;
                     }
-                    xMax += 1;
-                    yMax += 1;
+
+                    for (var i = 0; i < layout.Containers.length; i++) {
+                        var cnt = layout.Containers[i];
+                        var cell = {
+                            x: cnt.PositionX, y: cnt.PositionY
+                        };
+
+                        if (cell.x >= xMax)
+                            xMax = cell.x + cnt.Size;
+                        if (cell.x < xMin)
+                            xMin = cell.x;
+                        if (cell.y >= yMax)
+                            yMax = cell.y + cnt.Size;
+                        if (cell.y < yMin)
+                            yMin = cell.y;
+                    }
+
                 } else {
                     xMin = 0;
                     yMin = 0;
@@ -144,10 +160,45 @@
 
                 var width = (xMax - xMin) * grid.xStep;
                 var height = (yMax - yMin) * grid.yStep;
+                var bbox = { x: xMin, y: yMin, width: width, height: height };
                 canvas.width = width;
                 canvas.height = height;
                 var context = canvas.getContext("2d");
                 context.clearRect(0, 0, width, height);
+
+                //Render containers
+                var containerLayouts = layout.Containers;
+                context.beginPath();
+                for (var i = 0; i < containerLayouts.length; i++) {
+                    var containerLayout = containerLayouts[i];
+                    var element = window.ElementRegistry.GetElementByType("Container");
+
+                    var isHighlighted = undefined;
+                    if (args !== undefined && args.containerHighlightIds !== undefined) {
+                        isHighlighted = false;
+                        for (var j = 0; j < args.containerHighlightIds.length; j++) {
+                            if (containerLayout.Id === args.containerHighlightIds[j]) {
+                                isHighlighted = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    var isSelected = false;
+                    if (args !== undefined && args.selection !== undefined) {
+                        isSelected = args.selection.cells[containerLayout.Id];
+                    }
+
+                    element.RenderToCanvas(context, {
+                        layout: containerLayout,
+                        grid: grid,
+                        bbox: bbox,
+                        background: args === undefined || args.containersStability === undefined ? undefined : ModelHelper.GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
+                        isHighlighted: isHighlighted,
+                        isSelected: isSelected,
+                        translate: translate
+                    });
+                }
 
 
                 //Render Variables

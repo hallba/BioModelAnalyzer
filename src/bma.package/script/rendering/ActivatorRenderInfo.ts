@@ -58,6 +58,9 @@
                 */
             }
 
+            public RenderToCanvas(context: any, renderParams: any) {
+            }
+
             public RenderToSvg(renderParams: any) {
                 var that = this;
                 var jqSvg = this.jqSvg;

@@ -17,6 +17,9 @@
                     pointerY > elementY - BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 && pointerY < elementY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2;
             }
 
+            public RenderToCanvas(context: any, renderParams: any) {
+            }
+
             public RenderToSvg(renderParams: any) {
                 var that = this;
                 var jqSvg = this.jqSvg;
