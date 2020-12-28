@@ -839,8 +839,12 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceSetProofResults", (args) => {
                     if (this.svg !== undefined && this.undoRedoPresenter.Current !== undefined) {
-                        var drawingSvg = <SVGElement>this.CreateSvg(args);
-                        this.driver.Draw(drawingSvg);
+
+                        //var drawingSvg = <SVGElement>this.CreateSvg(args);
+                        //this.driver.Draw(drawingSvg);
+
+                        var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
+                        this.driver.DrawCanvas(rasterDrawingData);
                     }
                 });
 

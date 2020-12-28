@@ -65,9 +65,24 @@
                     pathFill = "#EDEDED";
                 }
 
-                var x = (renderParams.layout.PositionX + 0.5 - renderParams.bbox.x) * renderParams.grid.xStep + (renderParams.layout.Size - 1) * renderParams.grid.xStep / 2;
-                var y = (renderParams.layout.PositionY + 0.5 - renderParams.bbox.y) * renderParams.grid.yStep + (renderParams.layout.Size - 1) * renderParams.grid.yStep / 2;
+                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
+                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
 
+                var x = (renderParams.layout.PositionX + 0.5) * renderParams.grid.xStep + (renderParams.layout.Size - 1) * renderParams.grid.xStep / 2 - leftOffset;
+                var y = (renderParams.layout.PositionY + 0.5) * renderParams.grid.yStep + (renderParams.layout.Size - 1) * renderParams.grid.yStep / 2 - bottomOffset;
+
+
+                //render background rectangle
+                if (renderParams.background !== undefined) {
+                context.fillStyle = renderParams.background;
+                    context.fillRect(
+                        renderParams.layout.PositionX * renderParams.grid.xStep - leftOffset,
+                        renderParams.layout.PositionY * renderParams.grid.yStep - bottomOffset,
+                        renderParams.grid.xStep,
+                        renderParams.grid.yStep);
+                }
+
+                //Render main geometry
                 context.fillStyle = pathFill;
                 context.translate(x, y);
                 context.scale(scale, scale);
