@@ -893,8 +893,11 @@ module BMA {
 
                 window.Commands.On("HighlightContent", (args) => {
                     if (this.svg !== undefined && this.undoRedoPresenter.Current !== undefined) {
-                        var drawingSvg = <SVGElement>this.CreateSvg(args);
-                        this.driver.Draw(drawingSvg);
+                        //var drawingSvg = <SVGElement>this.CreateSvg(args);
+                        //this.driver.Draw(drawingSvg);
+
+                        var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
+                        this.driver.DrawCanvas(rasterDrawingData);
                     }
                 });
 
@@ -936,8 +939,6 @@ module BMA {
 
                 dragService.GetMouseMoves().subscribe(
                     (gesture) => {
-                        return;
-
                         var x = gesture.x;
                         var y = gesture.y;
 
@@ -1496,7 +1497,7 @@ module BMA {
                     var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
                     //var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
                     //this.driver.Draw(drawingSvg);
-                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, undefined);
+                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, { selection: this.selection, errors: errors });
                     this.driver.DrawCanvas(rasterDrawingData);
                 }
             }
@@ -2241,8 +2242,6 @@ module BMA {
             }
 
             private CreateSvg(args: any, model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined): any {
-                return undefined;
-
                 if (this.svg === undefined)
                     return undefined;
                 if (model === undefined)

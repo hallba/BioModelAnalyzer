@@ -71,7 +71,6 @@
                 var x = (renderParams.layout.PositionX + 0.5) * renderParams.grid.xStep + (renderParams.layout.Size - 1) * renderParams.grid.xStep / 2 - leftOffset;
                 var y = (renderParams.layout.PositionY + 0.5) * renderParams.grid.yStep + (renderParams.layout.Size - 1) * renderParams.grid.yStep / 2 - bottomOffset;
 
-
                 //render background rectangle
                 if (renderParams.background !== undefined) {
                 context.fillStyle = renderParams.background;
@@ -83,12 +82,37 @@
                 }
 
                 //Render main geometry
+                context.beginPath();
                 context.fillStyle = pathFill;
+                context.strokeStyle = renderParams.isSelected ? selectedPathFill : pathFill;
+                context.thickness = 2;
                 context.translate(x, y);
                 context.scale(scale, scale);
                 context.translate(-640, -487);
                 context.fill(that.cellGeometry);
+                context.stroke(that.cellGeometry);
                 context.setTransform(1, 0, 0, 1, 0, 0);
+
+                //Inner Ellipse
+                var xThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseWidth - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth;
+                var yThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseHeight - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight;
+                context.fillStyle = "white";
+                context.ellipse(
+                    x + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size,
+                    y,
+                    BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1),
+                    BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1),
+                    0, 0, 2 * Math.PI);
+                context.fill();
+
+                if (that.LabelVisibility === true) {
+                    var xText = x - renderParams.layout.Size * renderParams.grid.xStep / 2 + 5 * renderParams.layout.Size;
+                    var yText = y - renderParams.layout.Size * renderParams.grid.yStep / 2 + that.LabelSize * renderParams.layout.Size + 5 * renderParams.layout.Size;
+
+                    context.fillStyle = "black";
+                    context.font = that.LabelSize * renderParams.layout.Size + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                    context.fillText(renderParams.layout.Name, xText, yText);
+                }
             }
 
             public RenderToSvg(renderParams: any) {

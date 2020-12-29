@@ -141,11 +141,11 @@
                             x: cnt.PositionX, y: cnt.PositionY
                         };
 
-                        if (cell.x >= xMax)
+                        if (cell.x + cnt.Size > xMax)
                             xMax = cell.x + cnt.Size;
                         if (cell.x < xMin)
                             xMin = cell.x;
-                        if (cell.y >= yMax)
+                        if (cell.y + cnt.Size > yMax)
                             yMax = cell.y + cnt.Size;
                         if (cell.y < yMin)
                             yMin = cell.y;
@@ -168,7 +168,6 @@
 
                 //Render containers
                 var containerLayouts = layout.Containers;
-                context.beginPath();
                 for (var i = 0; i < containerLayouts.length; i++) {
                     var containerLayout = containerLayouts[i];
                     var element = window.ElementRegistry.GetElementByType("Container");
