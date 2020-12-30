@@ -3,9 +3,26 @@
         export class MembranaRenderInfo extends ElementRenderInfo implements BboxElement {
             private jqSvg: any;
 
+            private variablePathFill: string;
+            private variablePathSelectedStroke: string;
+            private variablePathSelectedFill: string;
+
+            private variableFillGeometry: any;
+            private variableSelectedStrokeGeometry: any;
+            private variableSelectedFillGeometry: any;
+
+
             constructor(svg: any) {
                 super("MembraneReceptor", "Membrane Receptor", "receptor-icon");
                 this.jqSvg = svg;
+
+                this.variablePathFill = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
+                this.variablePathSelectedStroke = "M 57 30.94 a 2.35 2.35 0 0 1 2.35 2.35 c 0 5.8 -2.94 10.56 -7.51 12.14 l -0.87 0.3 V 65.85 a 2.36 2.36 0 0 1 -4.72 0 V 45.73 l -0.88 -0.3 c -4.56 -1.58 -7.51 -6.34 -7.51 -12.14 a 2.36 2.36 0 0 1 4.72 0 c 0 4.54 2.59 8 6 8 s 6 -3.41 6 -8 A 2.35 2.35 0 0 1 57 30.94 m 0 -1.3 a 3.65 3.65 0 0 0 -3.66 3.65 c 0 3.8 -2 6.65 -4.73 6.65 s -4.73 -2.85 -4.73 -6.65 a 3.66 3.66 0 0 0 -7.32 0 C 36.6 39.77 40 44.94 45 46.66 V 65.85 a 3.66 3.66 0 0 0 7.32 0 V 46.66 c 5 -1.72 8.38 -6.89 8.38 -13.37 A 3.64 3.64 0 0 0 57 29.64 Z";
+                this.variablePathSelectedFill = "M 48.65 68.86 a 3 3 0 0 1 -3 -3 V 46.19 L 45.2 46 c -4.83 -1.66 -8 -6.67 -8 -12.75 a 3 3 0 0 1 6 0 c 0 4.17 2.31 7.3 5.38 7.3 S 54 37.46 54 33.29 a 3 3 0 0 1 6 0 c 0 6.08 -3.12 11.09 -7.95 12.75 l -0.43 0.15 V 65.85 A 3 3 0 0 1 48.65 68.86 Z";
+
+                this.variableFillGeometry = new Path2D(this.variablePathFill);
+                this.variableSelectedStrokeGeometry = new Path2D(this.variablePathSelectedStroke);
+                this.variableSelectedFillGeometry = new Path2D(this.variablePathSelectedFill);
             }
 
             public GetBoundingBox(elementX: number, elementY: number): { x: number; y: number; width: number; height: number } {
@@ -18,6 +35,106 @@
             }
 
             public RenderToCanvas(context: any, renderParams: any) {
+                var that = this;
+
+                var angle = 0;
+                if (renderParams.gridCell !== undefined) {
+                    angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.gridCell, renderParams.grid, renderParams.sizeCoef, renderParams.layout.PositionX, renderParams.layout.PositionY) * Math.PI / 180;
+                }
+
+                var pathFill = renderParams.isSelected ? BMA.SVGRendering.BMAColorConstants.bmaMembranaFillSelectedColor : BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
+                var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaMembranaStrokeColor;
+
+                if (renderParams.layout.fill !== undefined) {
+                    var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Membrana");
+
+                    pathFill = renderColors.fill;
+                    selectedPathFill = renderColors.stroke;
+                }
+
+                if (renderParams.layout.stroke !== undefined) {
+                    selectedPathFill = renderParams.layout.stroke;
+                }
+
+                if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                    pathFill = "#EDEDED";
+                }
+
+                if (renderParams.isHighlighted) {
+                    var rad = 16;// * renderParams.sizeCoef;
+                    //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
+                }
+
+                var fillGeometry = that.variableFillGeometry;
+                if (renderParams.isSelected) {
+                    fillGeometry = that.variableSelectedFillGeometry
+                }
+
+                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
+                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+
+                var x = renderParams.layout.PositionX - leftOffset;
+                var y = renderParams.layout.PositionY - bottomOffset;
+
+                var scale = 0.6;
+
+                context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
+                context.scale(scale * renderParams.globalScale, scale * renderParams.globalScale);
+                context.rotate(angle);
+                context.translate(-50, -47);
+                //render geometry fill
+                context.fillStyle = pathFill;
+                context.fill(fillGeometry);
+                //render geometry stroke
+                context.fillStyle = renderParams.isSelected ? selectedPathFill : pathFill;
+                context.fill(that.variableSelectedStrokeGeometry);
+                context.setTransform(1, 0, 0, 1, 0, 0);
+
+                //Rendering error icon if necessary
+                if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                    var offsetX = 0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * renderParams.globalScale;
+                    var offsetY = - 0.4 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * renderParams.globalScale;
+                    var errorRadius = 20.06 * renderParams.globalScale * 0.25;
+
+                    context.translate(offsetX, offsetY);
+                    context.beginPath();
+                    context.ellipse(x * renderParams.globalScale, y * renderParams.globalScale, errorRadius, errorRadius, 0, 0, 2 * Math.PI);
+                    context.fillStyle = "red";
+                    context.fill();
+
+                    context.beginPath();
+                    context.ellipse(x * renderParams.globalScale, (y + 3) * renderParams.globalScale, errorRadius * 0.2, errorRadius * 0.2, 0, 0, 2 * Math.PI);
+                    context.fillStyle = "white";
+                    context.fill();
+
+                    context.strokeStyle = "white";
+                    context.fillRect((x - 0.9) * renderParams.globalScale, (y - 3.5) * renderParams.globalScale, 1.8 * renderParams.globalScale, 4.5 * renderParams.globalScale);
+
+                    context.setTransform(1, 0, 0, 1, 0, 0);
+                }
+
+                //Rendering text labels
+                if (that.LabelVisibility === true) {
+                    var offset = 0;
+                    context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
+                    context.font = that.LabelSize * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+
+                    if (renderParams.model.Name !== "") {
+                        var xText = (x - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2) * renderParams.globalScale;
+                        var yText = (y + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize) * renderParams.globalScale;
+
+                        context.fillText(renderParams.model.Name, xText, yText);
+                        offset += that.LabelSize;
+                    }
+
+                    if (renderParams.valueText !== undefined) {
+                        var xText = (x - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2) * renderParams.globalScale;
+                        var yText = (y + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset) * renderParams.globalScale;
+
+                        context.font = that.LabelSize * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                        context.fillText(renderParams.valueText, xText, yText);
+                    }
+                }
             }
 
             public RenderToSvg(renderParams: any) {
@@ -72,9 +189,9 @@
 
                     var data = "";
                     if (renderParams.isSelected) {
-                        data = "M 48.65 68.86 a 3 3 0 0 1 -3 -3 V 46.19 L 45.2 46 c -4.83 -1.66 -8 -6.67 -8 -12.75 a 3 3 0 0 1 6 0 c 0 4.17 2.31 7.3 5.38 7.3 S 54 37.46 54 33.29 a 3 3 0 0 1 6 0 c 0 6.08 -3.12 11.09 -7.95 12.75 l -0.43 0.15 V 65.85 A 3 3 0 0 1 48.65 68.86 Z";
+                        data = that.variablePathSelectedFill;
                     } else {
-                        data = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
+                        data = that.variablePathFill;
                     }
                     var scale = 0.6;// * (renderParams.sizeCoef === undefined ? 1 : renderParams.sizeCoef);
                     var path = jqSvg.createPath();
@@ -85,7 +202,7 @@
                     });
 
                     if (renderParams.isSelected) {
-                        data = "M 57 30.94 a 2.35 2.35 0 0 1 2.35 2.35 c 0 5.8 -2.94 10.56 -7.51 12.14 l -0.87 0.3 V 65.85 a 2.36 2.36 0 0 1 -4.72 0 V 45.73 l -0.88 -0.3 c -4.56 -1.58 -7.51 -6.34 -7.51 -12.14 a 2.36 2.36 0 0 1 4.72 0 c 0 4.54 2.59 8 6 8 s 6 -3.41 6 -8 A 2.35 2.35 0 0 1 57 30.94 m 0 -1.3 a 3.65 3.65 0 0 0 -3.66 3.65 c 0 3.8 -2 6.65 -4.73 6.65 s -4.73 -2.85 -4.73 -6.65 a 3.66 3.66 0 0 0 -7.32 0 C 36.6 39.77 40 44.94 45 46.66 V 65.85 a 3.66 3.66 0 0 0 7.32 0 V 46.66 c 5 -1.72 8.38 -6.89 8.38 -13.37 A 3.64 3.64 0 0 0 57 29.64 Z";
+                        data = that.variablePathSelectedStroke;
                         var path2 = jqSvg.createPath();
                         var variable = jqSvg.path(g, path2, {
                             fill: selectedPathFill,

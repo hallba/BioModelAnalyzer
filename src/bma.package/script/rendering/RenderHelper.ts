@@ -158,6 +158,10 @@
                     xMax = 1;
                     yMax = 1;
                 }
+                xMin -= 1;
+                xMax += 1;
+                yMin -= 1;
+                yMax += 1;
 
                 var width = (xMax - xMin) * grid.xStep * globalScale;
                 var height = (yMax - yMin) * grid.yStep * globalScale;
@@ -242,6 +246,17 @@
                         gridCell = { x: container.PositionX, y: container.PositionY };
                     }
 
+                    var isValid = true;
+                    if (args !== undefined && args.errors !== undefined) {
+                        for (var j = 0; j < args.errors.length; j++) {
+                            var er = args.errors[j];
+                            if (er.variable.Id === variable.Id) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                    }
+
                     element.RenderToCanvas(context, {
                         globalScale: globalScale,
                         model: variable,
@@ -254,7 +269,8 @@
                         labelColor: additionalInfo === undefined ? undefined : ModelHelper.GetVariableColorByStatus(additionalInfo.state),
                         isHighlighted: isHighlighted,
                         isSelected: isSelected,
-                        translate: translate
+                        translate: translate,
+                        isValid: isValid
                     });
                 }
 
