@@ -75,10 +75,10 @@
                 if (renderParams.background !== undefined) {
                 context.fillStyle = renderParams.background;
                     context.fillRect(
-                        renderParams.layout.PositionX * renderParams.grid.xStep - leftOffset,
-                        renderParams.layout.PositionY * renderParams.grid.yStep - bottomOffset,
-                        renderParams.grid.xStep,
-                        renderParams.grid.yStep);
+                        (renderParams.layout.PositionX * renderParams.grid.xStep - leftOffset) * renderParams.globalScale,
+                        (renderParams.layout.PositionY * renderParams.grid.yStep - bottomOffset) * renderParams.globalScale,
+                        renderParams.grid.xStep * renderParams.globalScale,
+                        renderParams.grid.yStep * renderParams.globalScale);
                 }
 
                 //Render main geometry
@@ -86,8 +86,8 @@
                 context.fillStyle = pathFill;
                 context.strokeStyle = renderParams.isSelected ? selectedPathFill : pathFill;
                 context.thickness = 2;
-                context.translate(x, y);
-                context.scale(scale, scale);
+                context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
+                context.scale(scale * renderParams.globalScale, scale * renderParams.globalScale);
                 context.translate(-640, -487);
                 context.fill(that.cellGeometry);
                 context.stroke(that.cellGeometry);
@@ -98,19 +98,19 @@
                 var yThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseHeight - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight;
                 context.fillStyle = "white";
                 context.ellipse(
-                    x + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size,
-                    y,
-                    BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1),
-                    BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1),
+                    (x + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size) * renderParams.globalScale,
+                    y * renderParams.globalScale,
+                    (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1)) * renderParams.globalScale,
+                    (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1)) * renderParams.globalScale,
                     0, 0, 2 * Math.PI);
                 context.fill();
 
                 if (that.LabelVisibility === true) {
-                    var xText = x - renderParams.layout.Size * renderParams.grid.xStep / 2 + 5 * renderParams.layout.Size;
-                    var yText = y - renderParams.layout.Size * renderParams.grid.yStep / 2 + that.LabelSize * renderParams.layout.Size + 5 * renderParams.layout.Size;
+                    var xText = (x - renderParams.layout.Size * renderParams.grid.xStep / 2 + 5 * renderParams.layout.Size) * renderParams.globalScale;
+                    var yText = (y - renderParams.layout.Size * renderParams.grid.yStep / 2 + that.LabelSize * renderParams.layout.Size + 5 * renderParams.layout.Size) * renderParams.globalScale;
 
                     context.fillStyle = "black";
-                    context.font = that.LabelSize * renderParams.layout.Size + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                    context.font = that.LabelSize * renderParams.layout.Size * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
                     context.fillText(renderParams.layout.Name, xText, yText);
                 }
             }

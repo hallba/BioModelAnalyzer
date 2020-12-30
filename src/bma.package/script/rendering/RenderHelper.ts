@@ -113,6 +113,7 @@
             export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } } {
                 var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
+                var globalScale = 2;
 
                 //finding bbox
                 var xMin = Infinity;
@@ -158,8 +159,8 @@
                     yMax = 1;
                 }
 
-                var width = (xMax - xMin) * grid.xStep;
-                var height = (yMax - yMin) * grid.yStep;
+                var width = (xMax - xMin) * grid.xStep * globalScale;
+                var height = (yMax - yMin) * grid.yStep * globalScale;
                 var bbox = { x: xMin, y: yMin, width: width, height: height };
                 canvas.width = width;
                 canvas.height = height;
@@ -189,6 +190,7 @@
                     }
 
                     element.RenderToCanvas(context, {
+                        globalScale: globalScale,
                         layout: containerLayout,
                         grid: grid,
                         bbox: bbox,
@@ -200,49 +202,79 @@
                 }
 
                 //Render Variables
-                var variableGeometry = new Path2D("M54.88 71.29 a 4.58 4.58 0 0 1 -3.28 -1.36 a 4.65 4.65 0 0 1 0 -6.57 l 11.11 -11 A 1.65 1.65 0 0 0 60.38 50 L 49.3 61.06 a 4.65 4.65 0 0 1 -7.93 -3.28 a 4.66 4.66 0 0 1 1.36 -3.29 l 11.12 -11 a 1.65 1.65 0 0 0 -1.17 -2.8 a 1.67 1.67 0 0 0 -1.17 0.48 L 40.44 52.2 a 4.65 4.65 0 0 1 -6.57 -6.57 L 45 34.59 a 1.63 1.63 0 0 0 0.48 -1.16 A 1.67 1.67 0 0 0 45 32.26 a 1.65 1.65 0 0 0 -1.17 -0.48 a 1.63 1.63 0 0 0 -1.16 0.48 L 29.28 45.63 a 1.5 1.5 0 1 1 -2.12 -2.12 L 40.53 30.14 a 4.65 4.65 0 0 1 7.93 3.29 a 4.58 4.58 0 0 1 -1.36 3.28 L 36 47.75 a 1.65 1.65 0 0 0 0 2.33 a 1.65 1.65 0 0 0 2.33 0 L 49.39 39 A 4.65 4.65 0 0 1 56 39 a 4.65 4.65 0 0 1 0 6.57 l -11.11 11 a 1.64 1.64 0 0 0 0 2.32 a 1.66 1.66 0 0 0 1.17 0.47 a 1.64 1.64 0 0 0 1.16 -0.47 L 58.26 47.87 a 4.65 4.65 0 0 1 6.57 0 a 4.65 4.65 0 0 1 0 6.57 l -11.12 11 a 1.65 1.65 0 0 0 2.34 2.33 l 13.29 -13.3 a 1.51 1.51 0 0 1 2.13 0 a 1.5 1.5 0 0 1 0 2.12 l -13.3 13.3 A 4.62 4.62 0 0 1 54.88 71.29 Z");
-                var coords = {}
-                context.beginPath();
-                for (var i = 0; i < layout.Variables.length; i++) {
-                    var variable = model.Variables[i];
-                    var vrbl = layout.Variables[i];
+                var variables = model.Variables;
+                var variableLayouts = layout.Variables;
+                for (var i = 0; i < variables.length; i++) {
+                    var variable = variables[i];
+                    var variableLayout = variableLayouts[i];
+                    var element = window.ElementRegistry.GetElementByType(variable.Type);
+                    var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : ModelHelper.GetItemById(args.variablesStability, variable.Id);
 
-                    var x = vrbl.PositionX - xMin * grid.xStep;
-                    var y = vrbl.PositionY - yMin * grid.yStep; //yMax * grid.yStep - vrbl.PositionY; 
-
-                    coords[vrbl.Id] = { x: x, y: y };
-
-                    if (variable.Type == "Constant") {
-                        context.fillStyle = "#00cccc";
-                    } else {
-                        context.fillStyle = "#f6c";
+                    var isHighlighted = undefined;
+                    if (args !== undefined && args.variableHighlightIds !== undefined) {
+                        isHighlighted = false;
+                        for (var j = 0; j < args.variableHighlightIds.length; j++) {
+                            if (variable.Id === args.variableHighlightIds[j]) {
+                                isHighlighted = true;
+                                break;
+                            }
+                        }
+                        if (!isHighlighted) {
+                            for (var j = 0; j < args.containerHighlightIds.length; j++) {
+                                if (variable.ContainerId === args.containerHighlightIds[j]) {
+                                    isHighlighted = true;
+                                    break;
+                                }
+                            }
+                        }
                     }
 
-                    context.translate(x, y);
-                    context.scale(0.6, 0.6);
-                    context.translate(-50, -50);
-                    context.fill(variableGeometry);
+                    var isSelected = false;
+                    if (args !== undefined && args.selection !== undefined) {
+                        isSelected = args.selection.variables[variable.Id];
+                    }
 
-                    context.setTransform(1, 0, 0, 1, 0, 0);
+                    var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
+                    var sizeCoef = undefined;
+                    var gridCell = undefined;
+                    if (container !== undefined) {
+                        sizeCoef = container.Size;
+                        gridCell = { x: container.PositionX, y: container.PositionY };
+                    }
+
+                    element.RenderToCanvas(context, {
+                        globalScale: globalScale,
+                        model: variable,
+                        layout: variableLayout,
+                        grid: grid,
+                        bbox: bbox,
+                        gridCell: gridCell,
+                        sizeCoef: sizeCoef,
+                        valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                        labelColor: additionalInfo === undefined ? undefined : ModelHelper.GetVariableColorByStatus(additionalInfo.state),
+                        isHighlighted: isHighlighted,
+                        isSelected: isSelected,
+                        translate: translate
+                    });
                 }
 
                 //Render relationships
-                for (var i = 0; i < model.Relationships.length; i++) {
-                    var rel = model.Relationships[i];
-                    if (rel.FromVariableId === rel.ToVariableId) {
-                        //draw self-relationship
-                    } else {
-                        var c0 = coords[rel.FromVariableId];
-                        var c1 = coords[rel.ToVariableId];
+                //for (var i = 0; i < model.Relationships.length; i++) {
+                //    var rel = model.Relationships[i];
+                //    if (rel.FromVariableId === rel.ToVariableId) {
+                //        //draw self-relationship
+                //    } else {
+                //        var c0 = coords[rel.FromVariableId];
+                //        var c1 = coords[rel.ToVariableId];
 
-                        context.strokeStyle = "#aaa";
-                        drawLineWithArrows(context, c0.x, c0.y, c1.x, c1.y, 3, 8, false, true);
-                    }
-                }
+                //        context.strokeStyle = "#aaa";
+                //        drawLineWithArrows(context, c0.x, c0.y, c1.x, c1.y, 3, 8, false, true);
+                //    }
+                //}
 
                 return {
                     canvas: canvas,
-                    bbox: { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width, height: height },
+                    bbox: { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale },
                     grid: grid
                 };
             }
