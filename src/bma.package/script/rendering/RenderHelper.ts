@@ -274,6 +274,58 @@
                     });
                 }
 
+                //Render Relationships
+                var relationships = model.Relationships;
+                for (var i = 0; i < relationships.length; i++) {
+                    var relationship = relationships[i];
+                    var element = window.ElementRegistry.GetElementByType(relationship.Type);
+
+                    var hasRotation = false;
+                    var gridCell = undefined;
+
+                    var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
+                    var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
+                    var startVarSizeCoef = 1;
+                    if (container !== undefined) {
+                        startVarSizeCoef = container.Size;
+                        gridCell = { x: container.PositionX, y: container.PositionY };
+                    }
+
+                    hasRotation = start.model.Type === "MembraneReceptor";
+
+                    var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
+                    var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
+                    var endVarSizeCoef = 1;
+                    if (container2 !== undefined) {
+                        endVarSizeCoef = container2.Size;
+                    }
+
+                    var hasReverse = false;
+                    for (var j = 0; j < relationships.length; j++) {
+                        var revRel = relationships[j];
+                        if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
+                            hasReverse = true;
+                            break;
+                        }
+                    }
+
+                    var isSelected = false;
+                    if (args !== undefined && args.selection !== undefined) {
+                        isSelected = args.selection.relationships[relationship.Id];
+                    }
+
+                    element.RenderToCanvas(context, {
+                        globalScale: globalScale,
+                        layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
+                        bbox: bbox,
+                        grid: grid,
+                        id: relationship.Id,
+                        hasReverse: hasReverse,
+                        isSelected: isSelected,
+                        translate: translate,
+                    });
+                }
+
                 //Render relationships
                 //for (var i = 0; i < model.Relationships.length; i++) {
                 //    var rel = model.Relationships[i];

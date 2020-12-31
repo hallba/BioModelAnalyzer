@@ -4,6 +4,9 @@
             private jqSvg: any;
             private lineWidth: number;
 
+            private selfRelPath: string;
+            private selfRelGeometry: any;
+
             public get LineWidth(): number {
                 return this.lineWidth;
             }
@@ -14,7 +17,10 @@
 
            constructor(svg: any) {
                 super("Inhibitor", "Inhibiting Relationship", "inhibit-icon");
-                this.jqSvg = svg;
+               this.jqSvg = svg;
+
+               this.selfRelPath = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+               this.selfRelGeometry = new Path2D(this.selfRelPath);
             }
 
             public Contains(pointerX: number, pointerY: number, elementX, elementY) {
@@ -61,6 +67,51 @@
             }
 
             public RenderToCanvas(context: any, renderParams: any) {
+                var that = this;
+
+                var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
+
+                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
+                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+
+                if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
+                    var pathFill = "#aaa";//"#ccc";
+
+                    if (renderParams.isSelected) {
+                        pathFill = "#999999";
+                    }
+
+                    var angle = 0;
+                    if (renderParams.layout.hasRotation) {
+                        angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY) * Math.PI / 180.0;
+                    }
+
+                    var x = renderParams.layout.start.PositionX - leftOffset;
+                    var y = renderParams.layout.start.PositionY - bottomOffset;
+
+                    var iconTranslate = renderParams.layout.hasRotation ? { x: -25, y: -35 } : { x: -10, y: -40 };
+                    var scale = 0.5 * renderParams.globalScale;
+
+                    context.beginPath();
+                    context.thickness = 2 * (lw + 1);
+                    context.strokeStyle = pathFill;
+                    context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
+                    context.scale(scale, scale);
+                    context.rotate(angle);
+                    context.translate(iconTranslate.x, iconTranslate.y);
+                    context.stroke(that.selfRelGeometry);
+                    context.setTransform(1, 0, 0, 1, 0, 0);
+                } else {
+
+                    var xStart = (renderParams.layout.start.PositionX - leftOffset) * renderParams.globalScale;
+                    var yStart = (renderParams.layout.start.PositionY - bottomOffset) * renderParams.globalScale;
+
+                    var xEnd = (renderParams.layout.end.PositionX - leftOffset) * renderParams.globalScale;
+                    var yEnd = (renderParams.layout.end.PositionY - bottomOffset) * renderParams.globalScale;
+
+                    context.strokeStyle = renderParams.isSelected ? "#999999" : "#aaa";
+                    RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 3, 0, false, true);
+                }
             }
 
             public RenderToSvg(renderParams: any) {
