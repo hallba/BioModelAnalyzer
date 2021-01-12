@@ -69,10 +69,15 @@
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
 
+                //Checking additional global offset
+                var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;
+
                 var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
                 var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
                 var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+
+                context.lineCap = "round";
 
                 if (renderParams.layout.start.Id === renderParams.layout.end.Id) {
                     var pathFill = "#aaa";//"#ccc";
@@ -103,14 +108,42 @@
                     context.setTransform(1, 0, 0, 1, 0, 0);
                 } else {
 
-                    var xStart = (renderParams.layout.start.PositionX - leftOffset) * renderParams.globalScale;
-                    var yStart = (renderParams.layout.start.PositionY - bottomOffset) * renderParams.globalScale;
+                    var dir = {
+                        x: renderParams.layout.end.PositionX - renderParams.layout.start.PositionX,
+                        y: renderParams.layout.end.PositionY - renderParams.layout.start.PositionY
+                    };
+                    var dirLen = Math.sqrt(dir.x * dir.x + dir.y * dir.y);
 
-                    var xEnd = (renderParams.layout.end.PositionX - leftOffset) * renderParams.globalScale;
-                    var yEnd = (renderParams.layout.end.PositionY - bottomOffset) * renderParams.globalScale;
+                    dir.x /= dirLen;
+                    dir.y /= dirLen;
+
+                    var isRevers = dirLen / 2 < Math.sqrt(dir.x * dir.x * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset + dir.y * dir.y * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset);
+
+                    var start = {
+                        x: renderParams.layout.start.PositionX + dir.x * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset/* * renderParams.layout.startSizeCoef*/ + translate.x,
+                        y: renderParams.layout.start.PositionY + dir.y * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset/* * renderParams.layout.startSizeCoef*/ + translate.y
+                    };
+
+                    var end = {
+                        x: renderParams.layout.end.PositionX - dir.x * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset/* * renderParams.layout.endSizeCoef*/ + translate.x,
+                        y: renderParams.layout.end.PositionY - dir.y * BMA.SVGRendering.SVGRenderingConstants.relationshipBboxOffset/* * renderParams.layout.endSizeCoef*/ + translate.y
+                    };
+
+                    if (isRevers) {
+                        var tmpStart = start;
+                        start = end;
+                        end = tmpStart;
+                    }
+
+                    var xStart = (start.x - leftOffset) * renderParams.globalScale;
+                    var yStart = (start.y - bottomOffset) * renderParams.globalScale;
+
+                    var xEnd = (end.x - leftOffset) * renderParams.globalScale;
+                    var yEnd = (end.y - bottomOffset) * renderParams.globalScale;
 
                     context.strokeStyle = renderParams.isSelected ? "#999999" : "#aaa";
-                    RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 3, 0, false, true);
+                    context.lineWidth = (lw + 1) * renderParams.globalScale;
+                    RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 4 * renderParams.globalScale, 0, false, true);
                 }
             }
 
