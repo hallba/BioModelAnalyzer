@@ -144,7 +144,7 @@
                     context.lineWidth = (lw + 1) * renderParams.globalScale;
                     if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
                         context.beginPath();
-                        var points = RenderHelper.CreateBezierPoints({ x: xStart, y: yStart }, { x: xEnd, y: yEnd });
+                        var points = RenderHelper.CreateBezierPoints({ x: xStart, y: yStart }, { x: xEnd, y: yEnd }, renderParams.globalScale);
                         RenderHelper.bezierWithArrowheads(context, "Activator", points.p0, points.p1, points.p2, points.p3, 4 * renderParams.globalScale, true);
                     } else {
                         RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 4 * renderParams.globalScale, 4 * renderParams.globalScale, false, true);

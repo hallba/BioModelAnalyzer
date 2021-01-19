@@ -1,7 +1,7 @@
 ﻿module BMA {
     export module SVGRendering {
         export module RenderHelper {
-            export function CreateBezierPoints(start: { x: number, y: number }, end: { x: number, y: number }) {
+            export function CreateBezierPoints(start: { x: number, y: number }, end: { x: number, y: number }, scale: number) {
                 var nx = 0;
                 var ny = 0;
                 if (end.x === start.x) {
@@ -24,10 +24,10 @@
                 var lvlength = Math.sqrt(lineVector.x * lineVector.x + lineVector.y * lineVector.y);
                 lineVector.x = lineVector.x / lvlength;
                 lineVector.y = lineVector.y / lvlength;
-                var length05 = 0.5 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
+                var length05 = scale * 0.5 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
                 var length01 = 0.1 * lvlength;
 
-                var pointOffset = 0.15 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
+                var pointOffset = scale * 0.15 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
 
                 return {
                     p0: {
@@ -45,8 +45,8 @@
                 };
             }
 
-            export function CreateBezier(start: { x: number, y: number }, end: { x: number, y: number }) {
-                var bpoints = CreateBezierPoints(start, end);
+            export function CreateBezier(start: { x: number, y: number }, end: { x: number, y: number }, scale: number) {
+                var bpoints = CreateBezierPoints(start, end, scale);
 
                 var result = "M " + bpoints.p0.x + " " + bpoints.p0.y;
                 result += " C " + bpoints.p1.x + " " + bpoints.p1.y;
@@ -62,7 +62,7 @@
                 var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
-                var pathData = CreateBezier(start, end);
+                var pathData = CreateBezier(start, end, 1);
                 var path = jqSvg.createPath();
                 return jqSvg.path(path, { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round", d: pathData });
             }
