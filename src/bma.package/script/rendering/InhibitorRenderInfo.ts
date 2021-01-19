@@ -19,7 +19,7 @@
                 super("Inhibitor", "Inhibiting Relationship", "inhibit-icon");
                this.jqSvg = svg;
 
-               this.selfRelPath = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07";
+               this.selfRelPath = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07 M 36.5 58.3 L 30.5 64.3";//L 33.5 61.3
                this.selfRelGeometry = new Path2D(this.selfRelPath);
             }
 
@@ -98,7 +98,7 @@
                     var scale = 0.5 * renderParams.globalScale;
 
                     context.beginPath();
-                    context.thickness = 2 * (lw + 1);
+                    context.lineWidth = (lw + 1) * renderParams.globalScale;
                     context.strokeStyle = pathFill;
                     context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
                     context.scale(scale, scale);
