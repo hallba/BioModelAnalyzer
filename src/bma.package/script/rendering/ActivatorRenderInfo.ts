@@ -142,7 +142,15 @@
 
                     context.strokeStyle = renderParams.isSelected ? "#999999" : "#aaa";
                     context.lineWidth = (lw + 1) * renderParams.globalScale;
-                    RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 4 * renderParams.globalScale, 4 * renderParams.globalScale, false, true);
+                    if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
+                        context.beginPath();
+                        //var curvedGeometry = new Path2D(RenderHelper.CreateBezier({ x: xStart, y: yStart }, { x: xEnd, y: yEnd }));
+                        //context.stroke(curvedGeometry);
+                        var points = RenderHelper.CreateBezierPoints({ x: xStart, y: yStart }, { x: xEnd, y: yEnd });
+                        RenderHelper.bezierWithArrowheads(context, points.p0, points.p1, points.p2, points.p3, 4 * renderParams.globalScale, false, true);
+                    } else {
+                        RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 4 * renderParams.globalScale, 4 * renderParams.globalScale, false, true);
+                    }
                 }
             }
 
@@ -219,7 +227,7 @@
                     }
 
                     if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
-                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezier(jqSvg, start, end, lw, "Activator", renderParams.isSelected);
+                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezierSVG(jqSvg, start, end, lw, "Activator", renderParams.isSelected);
                     } else {
                         lineRef = BMA.SVGRendering.RenderHelper.CreateLine(jqSvg, start, end, lw, "Activator", renderParams.isSelected);
                     }

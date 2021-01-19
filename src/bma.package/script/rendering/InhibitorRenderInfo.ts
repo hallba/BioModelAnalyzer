@@ -221,7 +221,7 @@
                     }
 
                     if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
-                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezier(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected);
+                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezierSVG(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected);
                     } else {
                         lineRef = BMA.SVGRendering.RenderHelper.CreateLine(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected);
                     }

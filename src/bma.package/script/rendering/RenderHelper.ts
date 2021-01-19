@@ -1,10 +1,7 @@
 ﻿module BMA {
     export module SVGRendering {
         export module RenderHelper {
-            //Creates svg with bezier curve corresponding to input parameters
-            export function CreateBezier(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
-                var jqSvg = svg;
-
+            export function CreateBezierPoints(start: { x: number, y: number }, end: { x: number, y: number }) {
                 var nx = 0;
                 var ny = 0;
                 if (end.x === start.x) {
@@ -32,21 +29,42 @@
 
                 var pointOffset = 0.15 * BMA.SVGRendering.SVGRenderingConstants.variableSizeConstant;
 
+                return {
+                    p0: {
+                        x: start.x + normal.x * pointOffset, y: start.y + normal.y * pointOffset
+                    },
+                    p1: {
+                        x: start.x + normal.x * length05 + lineVector.x * 3 * length01, y: start.y + normal.y * length05 + lineVector.y * 3 * length01
+                    },
+                    p2: {
+                        x: end.x + normal.x * length05 - lineVector.x * 3 * length01, y: end.y + normal.y * length05 - lineVector.y * 3 * length01
+                    },
+                    p3: {
+                        x: end.x + normal.x * pointOffset, y: end.y + normal.y * pointOffset
+                    }
+                };
+            }
+
+            export function CreateBezier(start: { x: number, y: number }, end: { x: number, y: number }) {
+                var bpoints = CreateBezierPoints(start, end);
+
+                var result = "M " + bpoints.p0.x + " " + bpoints.p0.y; 
+                result += " C " + bpoints.p1.x + " " + bpoints.p1.y;
+                result += " " + bpoints.p2.x + " " + bpoints.p2.y;
+                result += " " + bpoints.p3.x + " " + bpoints.p3.y;
+
+                return result; 
+            }
+            //Creates svg with bezier curve corresponding to input parameters
+            export function CreateBezierSVG(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
+                var jqSvg = svg;
+
                 var stroke = isSelected ? "#999999" : "#aaa";
                 var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
 
+                var pathData = CreateBezier(start, end);
                 var path = jqSvg.createPath();
-                var pathData = path.move(start.x + normal.x * pointOffset, start.y + normal.y * pointOffset)
-                    .curveC(
-                        start.x + normal.x * length05 + lineVector.x * 3 * length01,
-                        start.y + normal.y * length05 + lineVector.y * 3 * length01,
-                        end.x + normal.x * length05 - lineVector.x * 3 * length01,
-                        end.y + normal.y * length05 - lineVector.y * 3 * length01,
-                        end.x + normal.x * pointOffset,
-                        end.y + normal.y * pointOffset);
-                //console.log("path data: " + pathData._path);
-                return jqSvg.path(pathData,
-                    { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round" });
+                return jqSvg.path(path, { fill: 'none', stroke: stroke, strokeWidth: lineWidth + 1, "marker-end": endMarker, "stroke-linecap": "round", d: pathData });
             }
 
             //Creates svg with line corresponding to input parameters
@@ -377,6 +395,60 @@
 
                 ctx.stroke();
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
+            }
+
+            // draws both cubic and quadratic bezier
+            export function bezierWithArrowheads(ctx, p0, p1, p2, p3, arrowLength, hasStartArrow, hasEndArrow) {
+                var x, y, norm, ex, ey;
+                function pointsToNormalisedVec(p, pp) {
+                    var len;
+                    norm.y = pp.x - p.x;
+                    norm.x = -(pp.y - p.y);
+                    len = Math.sqrt(norm.x * norm.x + norm.y * norm.y);
+                    norm.x /= len;
+                    norm.y /= len;
+                    return norm;
+                }
+
+                var arrowWidth = arrowLength / 2;
+                norm = {};
+                // defaults to true for both arrows if arguments not included
+                hasStartArrow = hasStartArrow === undefined || hasStartArrow === null ? true : hasStartArrow;
+                hasEndArrow = hasEndArrow === undefined || hasEndArrow === null ? true : hasEndArrow;
+                ctx.beginPath();
+                ctx.moveTo(p0.x, p0.y);
+                if (p3 === undefined) {
+                    ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
+                    ex = p2.x;  // get end point
+                    ey = p2.y;
+                    norm = pointsToNormalisedVec(p1, p2);
+                } else {
+                    ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
+                    ex = p3.x; // get end point
+                    ey = p3.y;
+                    norm = pointsToNormalisedVec(p2, p3);
+                }
+                if (hasEndArrow) {
+                    x = arrowWidth * norm.x + arrowLength * -norm.y;
+                    y = arrowWidth * norm.y + arrowLength * norm.x;
+                    ctx.moveTo(ex + x, ey + y);
+                    ctx.lineTo(ex, ey);
+                    x = arrowWidth * -norm.x + arrowLength * -norm.y;
+                    y = arrowWidth * -norm.y + arrowLength * norm.x;
+                    ctx.lineTo(ex + x, ey + y);
+                }
+                if (hasStartArrow) {
+                    norm = pointsToNormalisedVec(p0, p1);
+                    x = arrowWidth * norm.x - arrowLength * -norm.y;
+                    y = arrowWidth * norm.y - arrowLength * norm.x;
+                    ctx.moveTo(p0.x + x, p0.y + y);
+                    ctx.lineTo(p0.x, p0.y);
+                    x = arrowWidth * -norm.x - arrowLength * -norm.y;
+                    y = arrowWidth * -norm.y - arrowLength * norm.x;
+                    ctx.lineTo(p0.x + x, p0.y + y);
+                }
+
+                ctx.stroke();
             }
         }
     }
