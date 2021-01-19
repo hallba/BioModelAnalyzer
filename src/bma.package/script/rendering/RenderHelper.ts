@@ -48,12 +48,12 @@
             export function CreateBezier(start: { x: number, y: number }, end: { x: number, y: number }) {
                 var bpoints = CreateBezierPoints(start, end);
 
-                var result = "M " + bpoints.p0.x + " " + bpoints.p0.y; 
+                var result = "M " + bpoints.p0.x + " " + bpoints.p0.y;
                 result += " C " + bpoints.p1.x + " " + bpoints.p1.y;
                 result += " " + bpoints.p2.x + " " + bpoints.p2.y;
                 result += " " + bpoints.p3.x + " " + bpoints.p3.y;
 
-                return result; 
+                return result;
             }
             //Creates svg with bezier curve corresponding to input parameters
             export function CreateBezierSVG(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
@@ -397,58 +397,42 @@
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
             }
 
-            // draws both cubic and quadratic bezier
-            export function bezierWithArrowheads(ctx, p0, p1, p2, p3, arrowLength, hasStartArrow, hasEndArrow) {
-                var x, y, norm, ex, ey;
-                function pointsToNormalisedVec(p, pp) {
-                    var len;
-                    norm.y = pp.x - p.x;
-                    norm.x = -(pp.y - p.y);
-                    len = Math.sqrt(norm.x * norm.x + norm.y * norm.y);
-                    norm.x /= len;
-                    norm.y /= len;
-                    return norm;
-                }
+            export function getBezierXY(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey) {
+                return {
+                    x: Math.pow(1 - t, 3) * sx + 3 * t * Math.pow(1 - t, 2) * cp1x + 3 * t * t * (1 - t) * cp2x + t * t * t * ex,
+                    y: Math.pow(1 - t, 3) * sy + 3 * t * Math.pow(1 - t, 2) * cp1y + 3 * t * t * (1 - t) * cp2y + t * t * t * ey
+                };
+            }
 
-                var arrowWidth = arrowLength / 2;
-                norm = {};
-                // defaults to true for both arrows if arguments not included
-                hasStartArrow = hasStartArrow === undefined || hasStartArrow === null ? true : hasStartArrow;
-                hasEndArrow = hasEndArrow === undefined || hasEndArrow === null ? true : hasEndArrow;
+            export function getBezierAngle(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey) {
+                var dx = Math.pow(1 - t, 2) * (cp1x - sx) + 2 * t * (1 - t) * (cp2x - cp1x) + t * t * (ex - cp2x);
+                var dy = Math.pow(1 - t, 2) * (cp1y - sy) + 2 * t * (1 - t) * (cp2y - cp1y) + t * t * (ey - cp2y);
+                return -Math.atan2(dx, dy) + 0.5 * Math.PI;
+            }
+
+            // draws both cubic and quadratic bezier
+            export function bezierWithArrowheads(ctx, type, p0, p1, p2, p3, arrowLength, hasEndArrow) {
                 ctx.beginPath();
                 ctx.moveTo(p0.x, p0.y);
-                if (p3 === undefined) {
-                    ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
-                    ex = p2.x;  // get end point
-                    ey = p2.y;
-                    norm = pointsToNormalisedVec(p1, p2);
-                } else {
-                    ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
-                    ex = p3.x; // get end point
-                    ey = p3.y;
-                    norm = pointsToNormalisedVec(p2, p3);
-                }
+                ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
+
                 if (hasEndArrow) {
-                    x = arrowWidth * norm.x + arrowLength * -norm.y;
-                    y = arrowWidth * norm.y + arrowLength * norm.x;
-                    ctx.moveTo(ex + x, ey + y);
-                    ctx.lineTo(ex, ey);
-                    x = arrowWidth * -norm.x + arrowLength * -norm.y;
-                    y = arrowWidth * -norm.y + arrowLength * norm.x;
-                    ctx.lineTo(ex + x, ey + y);
-                }
-                if (hasStartArrow) {
-                    norm = pointsToNormalisedVec(p0, p1);
-                    x = arrowWidth * norm.x - arrowLength * -norm.y;
-                    y = arrowWidth * norm.y - arrowLength * norm.x;
-                    ctx.moveTo(p0.x + x, p0.y + y);
-                    ctx.lineTo(p0.x, p0.y);
-                    x = arrowWidth * -norm.x - arrowLength * -norm.y;
-                    y = arrowWidth * -norm.y - arrowLength * norm.x;
-                    ctx.lineTo(p0.x + x, p0.y + y);
+                    var angle = getBezierAngle(1, p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+
+                    ctx.translate(p3.x, p3.y);
+                    ctx.rotate(angle);
+                    if (type === "Inhibitor") {
+                        ctx.moveTo(0, - arrowLength);
+                        ctx.lineTo(0, arrowLength);
+                    } else if (type === "Activator") {
+                        ctx.moveTo(-arrowLength, -arrowLength);
+                        ctx.lineTo(0, 0);
+                        ctx.lineTo(-arrowLength, arrowLength);
+                    } else throw "unknown relationship type";
                 }
 
                 ctx.stroke();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
             }
         }
     }
