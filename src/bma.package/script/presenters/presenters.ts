@@ -911,6 +911,8 @@ module BMA {
                     variableEditorDriver.Hide();
                 });
 
+
+
                 variableEditorDriver.SetOnClosingCallback(() => {
                     that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
                     if (that.variableEditedId !== undefined) {

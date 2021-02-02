@@ -128,6 +128,203 @@
     BMAExt.SVGPlot.prototype = new InteractiveDataDisplay.Plot;
     InteractiveDataDisplay.register('svgPlot', function (jqDiv, master) { return new BMAExt.SVGPlot(jqDiv, master); });
 
+    BMAExt.Kmeans = function (data, k) {
+        this.k = k;
+        this.data = data;
+
+        // Keeps track of which cluster centroid index each data point belongs to.
+        this.assignments = [];
+
+        this.dataDimensionExtents = function () {
+            data = data || this.data;
+            var extents = [];
+
+            for (var i = 0; i < data.length; i++) {
+                var point = data[i];
+
+                for (var j = 0; j < point.length; j++) {
+                    if (!extents[j]) {
+                        extents[j] = { min: 1000, max: 0 };
+                    }
+
+                    if (point[j] < extents[j].min) {
+                        extents[j].min = point[j];
+                    }
+
+                    if (point[j] > extents[j].max) {
+                        extents[j].max = point[j];
+                    }
+                }
+            }
+
+            return extents;
+        }
+
+        this.dataExtentRanges = function () {
+            var ranges = [];
+
+            for (var i = 0; i < this.extents.length; i++) {
+                ranges[i] = this.extents[i].max - this.extents[i].min;
+            }
+
+            return ranges;
+        };
+
+        this.seeds = function () {
+            var means = [];
+            while (this.k--) {
+                var mean = [];
+
+                for (var i = 0; i < this.extents.length; i++) {
+                    mean[i] = this.extents[i].min + (Math.random() * this.ranges[i]);
+                }
+
+                means.push(mean);
+            }
+
+            return means;
+        };
+
+        this.assignClusterToDataPoints = function () {
+            var assignments = [];
+
+            for (var i = 0; i < this.data.length; i++) {
+                var point = this.data[i];
+                var distances = [];
+
+                for (var j = 0; j < this.means.length; j++) {
+                    var mean = this.means[j];
+                    var sum = 0;
+
+                    //Calc distance
+                    for (var dim = 0; dim < point.length; dim++) {
+                        var difference = point[dim] - mean[dim];
+                        difference = Math.pow(difference, 2);
+                        sum += difference;
+                    }
+
+                    distances[j] = Math.sqrt(sum);
+                }
+
+                // After calculating all the distances from the data point to each cluster centroid,
+                // we pick the closest (smallest) distances.
+                assignments[i] = distances.indexOf(Math.min.apply(null, distances));
+            }
+
+            return assignments;
+        };
+
+        function fillArray(length, val) {
+            return Array.apply(null, Array(length)).map(function () { return val; });
+        }
+
+        this.moveMeans = function () {
+            var sums = fillArray(this.means.length, 0);
+            var counts = fillArray(this.means.length, 0);
+            var moved = false;
+            var i;
+            var meanIndex;
+            var dim;
+
+            // Clear location sums for each dimension.
+            for (i = 0; i < this.means.length; i++) {
+                sums[i] = fillArray(this.means[i].length, 0);
+            }
+
+            // For each cluster, get sum of point coordinates in every dimension.
+            for (var pointIndex = 0; pointIndex < this.assignments.length; pointIndex++) {
+                meanIndex = this.assignments[pointIndex];
+                var point = this.data[pointIndex];
+                var mean = this.means[meanIndex];
+
+                counts[meanIndex]++;
+
+                for (dim = 0; dim < mean.length; dim++) {
+                    sums[meanIndex][dim] += point[dim];
+                }
+            }
+
+            /* If cluster centroid (mean) is not longer assigned to any points,
+             * move it somewhere else randomly within range of points.
+             */
+            for (meanIndex = 0; meanIndex < sums.length; meanIndex++) {
+                if (0 === counts[meanIndex]) {
+                    sums[meanIndex] = this.means[meanIndex];
+
+                    for (dim = 0; dim < this.extents.length; dim++) {
+                        sums[meanIndex][dim] = this.extents[dim].min + (Math.random() * this.ranges[dim]);
+                    }
+                    continue;
+                }
+
+                for (dim = 0; dim < sums[meanIndex].length; dim++) {
+                    sums[meanIndex][dim] /= counts[meanIndex];
+                    sums[meanIndex][dim] = Math.round(100 * sums[meanIndex][dim]) / 100;
+                }
+            }
+
+            /* If current means does not equal to new means, then
+             * move cluster centroid closer to average point.
+             */
+            if (this.means.toString() !== sums.toString()) {
+                var diff;
+                moved = true;
+
+                // Nudge means 1/nth of the way toward average point.
+                for (meanIndex = 0; meanIndex < sums.length; meanIndex++) {
+                    for (dim = 0; dim < sums[meanIndex].length; dim++) {
+                        diff = (sums[meanIndex][dim] - this.means[meanIndex][dim]);
+                        if (Math.abs(diff) > 0.1) {
+                            var stepsPerIteration = 10;
+                            this.means[meanIndex][dim] += diff / stepsPerIteration;
+                            this.means[meanIndex][dim] = Math.round(100 * this.means[meanIndex][dim]) / 100;
+                        } else {
+                            this.means[meanIndex][dim] = sums[meanIndex][dim];
+                        }
+                    }
+                }
+            }
+
+            return moved;
+        };
+
+        this.run = function () {
+            ++this.iterations;
+
+            // Reassign points to nearest cluster centroids.
+            this.assignments = this.assignClusterToDataPoints();
+
+            // Returns true if the cluster centroids have moved location since the last iteration.
+            var meansMoved = this.moveMeans();
+
+            while (meansMoved) {
+                ++this.iterations;
+                this.assignments = this.assignClusterToDataPoints();
+                meansMoved = this.moveMeans();
+            }
+
+            var clusters = [];
+            for (var i = 0; i < this.means.length; i++) {
+                clusters[i] = { mean: this.means[i], count: 0 };
+            }
+
+            for (var i = 0; i < this.assignments.length; i++) {
+                clusters[this.assignments[i]].count++;
+            }
+
+            return clusters;
+        };
+
+        // Get the extents (min,max) for the dimensions.
+        this.extents = this.dataDimensionExtents();
+
+        // Get the range of the dimensions.
+        this.ranges = this.dataExtentRanges();
+
+        // Generate random cluster centroid points.
+        this.means = this.seeds();
+    }
+
     BMAExt.ModelCanvasPlot = function (jqDiv, master) {
         this.base = InteractiveDataDisplay.CanvasPlot;
         this.base(jqDiv, master);
@@ -137,10 +334,29 @@
         var _localBB = undefined;
         var _baseGrid = undefined;
 
+        var circles = [];
+
         this.draw = function (data) {
             _canvas = data.canvas;
             _localBB = data.bbox;
             _baseGrid = data.grid;
+
+            circles = [];
+            if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
+                var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
+                var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
+                var clusters = km.run();
+                var norm = Math.max(_localBB.modelWidth, _localBB.modelHeight);
+                for (var i = 0; i < clusters.length; i++) {
+                    var cnt = clusters[i];
+                    var c = {
+                        x: cnt.mean[0] * norm + _localBB.x,
+                        y: cnt.mean[1] * norm + _localBB.y,
+                        rad: cnt.count * 20
+                    };
+                    circles.push(c);
+                }
+            }
 
             this.invalidateLocalBounds();
             this.requestNextFrameOrUpdate();
@@ -172,13 +388,35 @@
             var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
             var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
 
-            var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
+            var transparencyLevel = plotRect.width / (15 * _baseGrid.xStep) - 0.5;
+            if (transparencyLevel > 1) transparencyLevel = 1;
+            if (transparencyLevel < 0) transparencyLevel = 0;
 
+            var op = context.globalAlpha;
+
+            context.globalAlpha = 1 - transparencyLevel;
+            var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
             context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
 
-            context.strokeStyle = "red";
-            context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+            context.globalAlpha = transparencyLevel;
+            for (var i = 0; i < circles.length; i++) {
+                var c = circles[i];
 
+                var x = dataToScreenX(c.x);
+                var y = dataToScreenY(-c.y);
+                var rad = dataToScreenX(c.rad) - dataToScreenX(0);
+
+                context.fillStyle = "blue";
+                context.beginPath();
+                context.arc(x, y, rad, 0, 2 * Math.PI, false);
+                context.fill();
+            }
+
+            context.globalAlpha = op;
+
+            //render debug red rect to ensure canvas occupies correct place
+            //context.strokeStyle = "red";
+            //context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
             //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
         }
 

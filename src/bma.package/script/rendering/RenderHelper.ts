@@ -128,7 +128,7 @@
             }
 
             //Renders model to html canvas
-            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } } {
+            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any } {
                 var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
                 var globalScale = 2;
@@ -344,24 +344,18 @@
                     });
                 }
 
-                //Render relationships
-                //for (var i = 0; i < model.Relationships.length; i++) {
-                //    var rel = model.Relationships[i];
-                //    if (rel.FromVariableId === rel.ToVariableId) {
-                //        //draw self-relationship
-                //    } else {
-                //        var c0 = coords[rel.FromVariableId];
-                //        var c1 = coords[rel.ToVariableId];
-
-                //        context.strokeStyle = "#aaa";
-                //        drawLineWithArrows(context, c0.x, c0.y, c1.x, c1.y, 3, 8, false, true);
-                //    }
-                //}
+                var varibleVectors = [];
+                var mbbox = { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale, modelWidth: width, modelHeight: height };
+                var norm = Math.max(mbbox.modelWidth, mbbox.modelHeight);
+                for (var i = 0; i < variableLayouts.length; i++) {
+                    varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm ]);
+                }
 
                 return {
                     canvas: canvas,
-                    bbox: { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale },
-                    grid: grid
+                    bbox: mbbox,
+                    grid: grid,
+                    variableVectors: varibleVectors
                 };
             }
 

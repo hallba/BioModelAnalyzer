@@ -208,7 +208,7 @@ module.exports = function (grunt) {
                     { src: 'node_modules/monaco-editor/min/vs/editor/editor.main.nls.js', dest: '../bma.client/js/monaco/editor/editor.main.nls.js' },
                     { src: 'node_modules/monaco-editor/min/vs/editor/editor.main.css', dest: '../bma.client/js/monaco/editor/editor.main.css' },
                     { src: 'node_modules/monaco-editor/min/vs/loader.js', dest: '../bma.client/js/monaco/loader.js' },
-                    { src: 'node_modules/monaco-editor/min/vs/loader.js', dest: '../bma.client/js/vs/loader.js' }
+                    { src: 'node_modules/monaco-editor/min/vs/loader.js', dest: '../bma.client/js/vs/loader.js' },
                 ]
             }
         },
