@@ -304,15 +304,40 @@
             }
 
             var clusters = [];
+            var minDistance = +Infinity;
             for (var i = 0; i < this.means.length; i++) {
                 clusters[i] = { mean: this.means[i], count: 0 };
+
+                if (i < this.means.length - 1) {
+                    var mean = this.means[i];
+                    for (var j = i + 1; j < this.means.length; j++) {
+                        var mean2 = this.means[j];
+
+                        //Calc distance
+                        var sum = 0;
+                        for (var dim = 0; dim < mean2.length; dim++) {
+                            var difference = mean2[dim] - mean[dim];
+                            difference = Math.pow(difference, 2);
+                            sum += difference;
+                        }
+
+                        var d = Math.sqrt(sum);
+                        if (d < minDistance)
+                            minDistance = d;
+                    }
+                }
             }
 
+            var max = 0;
             for (var i = 0; i < this.assignments.length; i++) {
                 clusters[this.assignments[i]].count++;
+
+                if (clusters[this.assignments[i]].count > max) {
+                    max = clusters[this.assignments[i]].count;
+                }
             }
 
-            return clusters;
+            return { clusters: clusters, minDistance: minDistance, maxCount: max };
         };
 
         // Get the extents (min,max) for the dimensions.
@@ -345,14 +370,18 @@
             if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
                 var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
                 var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
-                var clusters = km.run();
+                var clustersInfo = km.run();
+                var clusters = clustersInfo.clusters;
+
                 var norm = Math.max(_localBB.modelWidth, _localBB.modelHeight);
+                var minDistance = clustersInfo.minDistance * norm;
                 for (var i = 0; i < clusters.length; i++) {
                     var cnt = clusters[i];
                     var c = {
                         x: cnt.mean[0] * norm + _localBB.x,
                         y: cnt.mean[1] * norm + _localBB.y,
-                        rad: cnt.count * 20
+                        rad: 0.5 * minDistance * cnt.count / clustersInfo.maxCount,
+                        rad2: 0.5 * minDistance
                     };
                     circles.push(c);
                 }
@@ -405,8 +434,13 @@
                 var x = dataToScreenX(c.x);
                 var y = dataToScreenY(-c.y);
                 var rad = dataToScreenX(c.rad) - dataToScreenX(0);
+                var rad2 = dataToScreenX(c.rad2) - dataToScreenX(0);
 
                 context.fillStyle = "blue";
+                context.beginPath();
+                context.arc(x, y, rad2, 0, 2 * Math.PI, false);
+                context.fill();
+                context.fillStyle = "cyan";
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
