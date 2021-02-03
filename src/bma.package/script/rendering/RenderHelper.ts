@@ -183,6 +183,22 @@
 
                 var width = (xMax - xMin) * grid.xStep * globalScale;
                 var height = (yMax - yMin) * grid.yStep * globalScale;
+
+                var maxAllowedSize = 16000;
+                if (width > maxAllowedSize) {
+                    var wd = width;
+                    width = maxAllowedSize;
+                    height = height * maxAllowedSize /  wd;
+                    globalScale = globalScale * maxAllowedSize / wd;
+                }
+
+                if (height > maxAllowedSize) {
+                    var ht = height;
+                    height = maxAllowedSize;
+                    width = width * maxAllowedSize / ht;
+                    globalScale = globalScale * maxAllowedSize / ht;
+                }
+
                 var bbox = { x: xMin, y: yMin, width: width, height: height };
                 canvas.width = width;
                 canvas.height = height;
