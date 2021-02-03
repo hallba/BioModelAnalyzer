@@ -135,6 +135,10 @@ declare var InteractiveDataDisplay: any;
             this._modelCanvasPlot = modelCanvasPlot;
             this._modelCanvasPlot.order = InteractiveDataDisplay.MaxInteger;
             modelCanvasPlotDiv.css("z-index", '');
+            this._modelCanvasPlot.minZoomWidth = 0.01;
+            this._modelCanvasPlot.maxZoomWidth = 1e5;
+            this._modelCanvasPlot.minZoomHeight = 0.01;
+            this._modelCanvasPlot.maxZoomHeight = 1e5;
 
             var lightSvgPlot = that._plot.get(svgPlotDiv2[0]);
             this._lightSvgPlot = lightSvgPlot;
@@ -547,21 +551,25 @@ declare var InteractiveDataDisplay: any;
                 case "minZoomWidth":
                     if (value !== undefined) {
                         this._zoomPlot.minZoomWidth = value;
+                        this._modelCanvasPlot.minZoomWidth = value;
                     }
                     break;
                 case "maxZoomWidth":
                     if (value !== undefined) {
                         this._zoomPlot.maxZoomWidth = value;
+                        this._modelCanvasPlot.maxZoomWidth = value;
                     }
                     break;
                 case "minZoomHeight":
                     if (value !== undefined) {
                         this._zoomPlot.minZoomHeight = value;
+                        this._modelCanvasPlot.minZoomHeight = value;
                     }
                     break;
                 case "maxZoomHeight":
                     if (value !== undefined) {
                         this._zoomPlot.maxZoomHeight = value;
+                        this._modelCanvasPlot.maxZoomHeight = value;
                     }
                     break;
                 case "version":

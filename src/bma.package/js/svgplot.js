@@ -306,7 +306,7 @@
             var clusters = [];
             var minDistance = +Infinity;
             for (var i = 0; i < this.means.length; i++) {
-                clusters[i] = { mean: this.means[i], count: 0 };
+                clusters[i] = { mean: this.means[i], count: 0, values: [] };
 
                 if (i < this.means.length - 1) {
                     var mean = this.means[i];
@@ -331,6 +331,7 @@
             var max = 0;
             for (var i = 0; i < this.assignments.length; i++) {
                 clusters[this.assignments[i]].count++;
+                clusters[this.assignments[i]].values.push(this.data[i]);
 
                 if (clusters[this.assignments[i]].count > max) {
                     max = clusters[this.assignments[i]].count;
@@ -377,9 +378,18 @@
                 var minDistance = clustersInfo.minDistance * norm;
                 for (var i = 0; i < clusters.length; i++) {
                     var cnt = clusters[i];
+
+                    var points = [];
+                    for (var j = 0; j < cnt.values.length; j++) {
+                        var p = cnt.values[j];
+                        points.push({
+                            x: p[0] * norm + _localBB.x, y: p[1] * norm + _localBB.y
+                        });
+                    }
                     var c = {
                         x: cnt.mean[0] * norm + _localBB.x,
                         y: cnt.mean[1] * norm + _localBB.y,
+                        points: points,
                         rad: 0.5 * minDistance * cnt.count / clustersInfo.maxCount,
                         rad2: 0.5 * minDistance
                     };
@@ -417,30 +427,77 @@
             var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
             var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
 
-            var transparencyLevel = plotRect.width / (15 * _baseGrid.xStep) - 0.5;
-            if (transparencyLevel > 1) transparencyLevel = 1;
-            if (transparencyLevel < 0) transparencyLevel = 0;
+            var zoomLevelX = (plotRect.width - that.minZoomWidth) / (that.maxZoomWidth - that.minZoomWidth);
+            var zoomLevelY = (plotRect.height - that.minZoomHeight) / (that.maxZoomWidth - that.minZoomHeight);
+            var zoomLevel = Math.min(zoomLevelX, zoomLevelY);
+            if (zoomLevel > 1) zoomLevel = 1;
+            if (zoomLevel < 0) zoomLevel = 0;
+
+            var modelAlpha = zoomLevel / 0.6;
+            if (modelAlpha > 1) modelAlpha = 1;
 
             var op = context.globalAlpha;
 
-            context.globalAlpha = 1 - transparencyLevel;
+            context.globalAlpha = 1 - modelAlpha;
             var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
             context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
 
-            context.globalAlpha = transparencyLevel;
+
+            var constelationsAlpha = 0;
+            if (zoomLevel > 0.25 && zoomLevel < 0.9) {
+                if (zoomLevel < 0.5) {
+                    constelationsAlpha = 4 * (zoomLevel - 0.25);
+                } else {
+                    constelationsAlpha = 1 - (zoomLevel - 0.5) / 0.4;
+                }
+            }
+            if (constelationsAlpha < 0) constelationsAlpha = 0;
+            if (constelationsAlpha > 1) constelationsAlpha = 1;
+
+            var bubblesAlpha = (zoomLevel - 0.8) * 5;
+            if (bubblesAlpha < 0) bubblesAlpha = 0;
+            if (bubblesAlpha > 1) bubblesAlpha = 1;
+
+            context.globalAlpha = constelationsAlpha;
+
             for (var i = 0; i < circles.length; i++) {
                 var c = circles[i];
 
+                var constRad = dataToScreenX(20) - dataToScreenX(0);
+
+                var x = dataToScreenX(c.x);
+                var y = dataToScreenY(-c.y);
+
+                context.fillStyle = "blue";
+                context.beginPath();
+                context.arc(x, y, constRad, 0, 2 * Math.PI, false);
+                context.fill();
+                for (var j = 0; j < c.points.length; j++) {
+                    var pts = c.points[j];
+                    var x1 = dataToScreenX(pts.x);
+                    var y1 = dataToScreenY(-pts.y);
+
+                    context.strokeStyle = "gray";
+                    context.beginPath();
+                    context.arc(x1, y1, constRad, 0, 2 * Math.PI, false);
+                    context.moveTo(x, y);
+                    context.lineTo(x1, y1);
+                    context.stroke();
+                }
+            }
+
+            context.globalAlpha = bubblesAlpha;
+            for (var i = 0; i < circles.length; i++) {
+                var c = circles[i];
                 var x = dataToScreenX(c.x);
                 var y = dataToScreenY(-c.y);
                 var rad = dataToScreenX(c.rad) - dataToScreenX(0);
                 var rad2 = dataToScreenX(c.rad2) - dataToScreenX(0);
-
+                //context.fillStyle = "blue";
+                //context.beginPath();
+                //context.arc(x, y, rad2, 0, 2 * Math.PI, false);
+                //context.fill();
                 context.fillStyle = "blue";
-                context.beginPath();
-                context.arc(x, y, rad2, 0, 2 * Math.PI, false);
-                context.fill();
-                context.fillStyle = "cyan";
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
