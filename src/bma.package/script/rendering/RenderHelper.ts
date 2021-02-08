@@ -128,7 +128,7 @@
             }
 
             //Renders model to html canvas
-            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any } {
+            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any, relationshipsTable: any } {
                 var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
                 var globalScale = 2;
@@ -361,17 +361,29 @@
                 }
 
                 var varibleVectors = [];
+                var relTable = {};
                 var mbbox = { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale, modelWidth: width, modelHeight: height };
                 var norm = Math.max(mbbox.modelWidth, mbbox.modelHeight);
+
                 for (var i = 0; i < variableLayouts.length; i++) {
-                    varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm ]);
+                    varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm, variables[i].Id]);
+                    relTable[variables[i].Id] = {};
+                }
+
+                //We count each relationship as two-sided for future clustering
+                for (var i = 0; i < relationships.length; i++) {
+                    var rel = relationships[i];
+                    relTable[rel.FromVariableId][rel.ToVariableId] = true;
+                    relTable[rel.ToVariableId][rel.FromVariableId] = true;
+
                 }
 
                 return {
                     canvas: canvas,
                     bbox: mbbox,
                     grid: grid,
-                    variableVectors: varibleVectors
+                    variableVectors: varibleVectors,
+                    relationshipsTable: relTable
                 };
             }
 

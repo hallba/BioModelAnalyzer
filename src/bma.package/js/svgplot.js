@@ -140,7 +140,7 @@
             var extents = [];
 
             for (var i = 0; i < data.length; i++) {
-                var point = data[i];
+                var point = [data[i][0], data[i][1]]; //data[i];
 
                 for (var j = 0; j < point.length; j++) {
                     if (!extents[j]) {
@@ -189,7 +189,7 @@
             var assignments = [];
 
             for (var i = 0; i < this.data.length; i++) {
-                var point = this.data[i];
+                var point = [this.data[i][0], this.data[i][1]];
                 var distances = [];
 
                 for (var j = 0; j < this.means.length; j++) {
@@ -234,7 +234,7 @@
             // For each cluster, get sum of point coordinates in every dimension.
             for (var pointIndex = 0; pointIndex < this.assignments.length; pointIndex++) {
                 meanIndex = this.assignments[pointIndex];
-                var point = this.data[pointIndex];
+                var point = [this.data[pointIndex][0], this.data[pointIndex][1]]; //this.data[pointIndex];
                 var mean = this.means[meanIndex];
 
                 counts[meanIndex]++;
@@ -288,7 +288,7 @@
             return moved;
         };
 
-        this.run = function () {
+        this.run = function (relTable) {
             ++this.iterations;
 
             // Reassign points to nearest cluster centroids.
@@ -338,7 +338,37 @@
                 }
             }
 
-            return { clusters: clusters, minDistance: minDistance, maxCount: max };
+            //Finding clusters with connections between inner variables
+            var clusterRelationships = [];
+
+            var checkRelationshipsBetweenClusterVariables = function (c1, c2) {
+                for (var c1i = 0; c1i < c1.values.length; c1i++) {
+                    var val1 = c1.values[c1i][2];
+                    for (var c2i = 0; c2i < c2.values.length; c2i++) {
+                        var val2 = c2.values[c2i][2];
+
+                        if (relTable[val1] !== undefined && relTable[val1][val2] === true)
+                            return true;
+                    }
+                }
+
+                return false;
+            }
+
+            for (var i = 0; i < clusters.length; i++) {
+                var c1 = clusters[i];
+                if (i < clusters.length - 1) {
+                    for (var j = i + 1; j < clusters.length; j++) {
+                        var c2 = clusters[j];
+
+                        if (checkRelationshipsBetweenClusterVariables(c1, c2)) {
+                            clusterRelationships.push({ c1: i, c2: j });
+                        }
+                    }
+                }
+            }
+
+            return { clusters: clusters, minDistance: minDistance, maxCount: max, relationships: clusterRelationships };
         };
 
         // Get the extents (min,max) for the dimensions.
@@ -361,6 +391,7 @@
         var _baseGrid = undefined;
 
         var circles = [];
+        var circleConnections = [];
 
         this.draw = function (data) {
             _canvas = data.canvas;
@@ -368,10 +399,11 @@
             _baseGrid = data.grid;
 
             circles = [];
+            circleConnections = [];
             if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
                 var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
                 var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
-                var clustersInfo = km.run();
+                var clustersInfo = km.run(data.relationshipsTable);
                 var clusters = clustersInfo.clusters;
 
                 var norm = Math.max(_localBB.modelWidth, _localBB.modelHeight);
@@ -394,6 +426,16 @@
                         rad2: 0.5 * minDistance
                     };
                     circles.push(c);
+                }
+
+                for (var i = 0; i < clustersInfo.relationships.length; i++) {
+                    var rel = clustersInfo.relationships[i];
+                    circleConnections.push({
+                        x1: circles[rel.c1].x,
+                        x2: circles[rel.c2].x,
+                        y1: circles[rel.c1].y,
+                        y2: circles[rel.c2].y,
+                    });
                 }
             }
 
@@ -501,6 +543,16 @@
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
+            }
+
+            for (var i = 0; i < circleConnections.length; i++) {
+                var cc = circleConnections[i];
+
+                context.stokeStyle = "black";
+                context.beginPath();
+                context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
+                context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
+                context.stroke();
             }
 
             context.globalAlpha = op;
