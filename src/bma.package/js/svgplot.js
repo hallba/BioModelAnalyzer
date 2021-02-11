@@ -415,7 +415,9 @@
                     for (var j = 0; j < cnt.values.length; j++) {
                         var p = cnt.values[j];
                         points.push({
-                            x: p[0] * norm + _localBB.x, y: p[1] * norm + _localBB.y
+                            x: p[0] * norm + _localBB.x,
+                            y: p[1] * norm + _localBB.y,
+                            color: p[3]
                         });
                     }
                     var c = {
@@ -510,21 +512,38 @@
                 var x = dataToScreenX(c.x);
                 var y = dataToScreenY(-c.y);
 
-                context.fillStyle = "blue";
-                context.beginPath();
-                context.arc(x, y, constRad, 0, 2 * Math.PI, false);
-                context.fill();
+                //context.fillStyle = "blue";
+                //context.beginPath();
+                //context.arc(x, y, constRad, 0, 2 * Math.PI, false);
+                //context.fill();
+                var circleCoords = [];
                 for (var j = 0; j < c.points.length; j++) {
                     var pts = c.points[j];
                     var x1 = dataToScreenX(pts.x);
                     var y1 = dataToScreenY(-pts.y);
 
-                    context.strokeStyle = "gray";
+                    var vec = {
+                        x: x1 - x,
+                        y: y1 - y
+                    };
+                    var vecL = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
+                    vec.x /= vecL;
+                    vec.y /= vecL;
+
+                    context.strokeStle = "#999999";
                     context.beginPath();
-                    context.arc(x1, y1, constRad, 0, 2 * Math.PI, false);
                     context.moveTo(x, y);
-                    context.lineTo(x1, y1);
+                    context.lineTo(x1 - vec.x * constRad, y1 - vec.y * constRad);
                     context.stroke();
+
+                    circleCoords.push({ x: x1, y: y1 });
+                }
+
+                for (var j = 0; j < c.points.length; j++) {
+                    context.fillStyle = c.points[j].color;
+                    context.beginPath();
+                    context.arc(circleCoords[j].x, circleCoords[j].y, constRad, 0, 2 * Math.PI, false);
+                    context.fill();
                 }
             }
 

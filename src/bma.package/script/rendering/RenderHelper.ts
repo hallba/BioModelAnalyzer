@@ -366,7 +366,20 @@
                 var norm = Math.max(mbbox.modelWidth, mbbox.modelHeight);
 
                 for (var i = 0; i < variableLayouts.length; i++) {
-                    varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm, variables[i].Id]);
+
+                    var color = variableLayouts[i].Fill;
+                    if (color === undefined) {
+                        color = variables[i].Type;
+                        if (color === "Default") {
+                            color = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
+                        } else if (color === "Constant") {
+                            color = BMA.SVGRendering.BMAColorConstants.bmaConstantFillColor;
+                        } else {
+                            color = BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
+                        }
+                    }
+
+                    varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm, variables[i].Id, color]);
                     relTable[variables[i].Id] = {};
                 }
 
