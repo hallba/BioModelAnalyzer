@@ -308,25 +308,10 @@
             for (var i = 0; i < this.means.length; i++) {
                 clusters[i] = { mean: this.means[i], count: 0, values: [] };
 
-                if (i < this.means.length - 1) {
-                    var mean = this.means[i];
-                    for (var j = i + 1; j < this.means.length; j++) {
-                        var mean2 = this.means[j];
-
-                        //Calc distance
-                        var sum = 0;
-                        for (var dim = 0; dim < mean2.length; dim++) {
-                            var difference = mean2[dim] - mean[dim];
-                            difference = Math.pow(difference, 2);
-                            sum += difference;
-                        }
-
-                        var d = Math.sqrt(sum);
-                        if (d < minDistance)
-                            minDistance = d;
-                    }
-                }
+                
             }
+
+
 
             var max = 0;
             for (var i = 0; i < this.assignments.length; i++) {
@@ -335,6 +320,30 @@
 
                 if (clusters[this.assignments[i]].count > max) {
                     max = clusters[this.assignments[i]].count;
+                }
+            }
+
+            for (var i = 0; i < clusters.length; i++) {
+                
+                if (i < clusters.length - 1) {
+                    var c1 = clusters[i];
+                    for (var j = i + 1; j < this.means.length; j++) {
+                        var c2 = clusters[j];
+
+                        //Calc distance
+                        var sum = 0;
+                        for (var dim = 0; dim < c2.mean.length; dim++) {
+                            var difference = c2.mean[dim] - c1.mean[dim];
+                            difference = Math.pow(difference, 2);
+                            sum += difference;
+                        }
+
+                        var d = Math.sqrt(sum);
+                        //check cluster sizes
+                        d /= (c1.count + c2.count);
+                        if (d < minDistance)
+                            minDistance = d;
+                    }
                 }
             }
 
@@ -424,7 +433,7 @@
                         x: cnt.mean[0] * norm + _localBB.x,
                         y: cnt.mean[1] * norm + _localBB.y,
                         points: points,
-                        rad: 0.5 * minDistance * cnt.count / clustersInfo.maxCount,
+                        rad: minDistance * cnt.count, //0.5 * minDistance * cnt.count / clustersInfo.maxCount,
                         rad2: 0.5 * minDistance
                     };
                     circles.push(c);
@@ -516,6 +525,8 @@
                 //context.beginPath();
                 //context.arc(x, y, constRad, 0, 2 * Math.PI, false);
                 //context.fill();
+                var lineW = context.lineWidth;
+                context.lineWidth = 0.5;
                 var circleCoords = [];
                 for (var j = 0; j < c.points.length; j++) {
                     var pts = c.points[j];
@@ -530,7 +541,7 @@
                     vec.x /= vecL;
                     vec.y /= vecL;
 
-                    context.strokeStle = "#999999";
+                    context.strokeStyle = "#333333"; //"#999999";
                     context.beginPath();
                     context.moveTo(x, y);
                     context.lineTo(x1 - vec.x * constRad, y1 - vec.y * constRad);
@@ -538,6 +549,7 @@
 
                     circleCoords.push({ x: x1, y: y1 });
                 }
+                context.lineWidth = lineW;
 
                 for (var j = 0; j < c.points.length; j++) {
                     context.fillStyle = c.points[j].color;
@@ -547,7 +559,19 @@
                 }
             }
 
+
             context.globalAlpha = bubblesAlpha;
+
+            for (var i = 0; i < circleConnections.length; i++) {
+                var cc = circleConnections[i];
+
+                context.strokeStyle = "black";
+                context.beginPath();
+                context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
+                context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
+                context.stroke();
+            }
+
             for (var i = 0; i < circles.length; i++) {
                 var c = circles[i];
                 var x = dataToScreenX(c.x);
@@ -558,20 +582,10 @@
                 //context.beginPath();
                 //context.arc(x, y, rad2, 0, 2 * Math.PI, false);
                 //context.fill();
-                context.fillStyle = "blue";
+                context.fillStyle = "#9966ff";
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
-            }
-
-            for (var i = 0; i < circleConnections.length; i++) {
-                var cc = circleConnections[i];
-
-                context.stokeStyle = "black";
-                context.beginPath();
-                context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
-                context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
-                context.stroke();
             }
 
             context.globalAlpha = op;

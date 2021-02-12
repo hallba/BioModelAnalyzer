@@ -377,6 +377,9 @@
                         } else {
                             color = BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
                         }
+                    } else {
+                        var type: any = variables[i].Type;
+                        color = BMA.SVGRendering.GetColorsForRendering(color, type).fill;
                     }
 
                     varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm, variables[i].Id, color]);
