@@ -480,26 +480,31 @@
             var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
             var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
 
-            var zoomLevelX = (plotRect.width - that.minZoomWidth) / (that.maxZoomWidth - that.minZoomWidth);
-            var zoomLevelY = (plotRect.height - that.minZoomHeight) / (that.maxZoomWidth - that.minZoomHeight);
-            var zoomLevel = Math.min(zoomLevelX, zoomLevelY);
-            if (zoomLevel > 1) zoomLevel = 1;
-            if (zoomLevel < 0) zoomLevel = 0;
+            var labelSize = 10;
+            var screenLabelSize = dataToScreenY(0) - dataToScreenY(labelSize);
+            console.log("font pixel size: " + screenLabelSize);
+            var zoomLevel = screenLabelSize > 10 ? 0 : (screenLabelSize < 7 ? 1 : 1 - (screenLabelSize - 7) / 3);
 
-            var modelAlpha = zoomLevel / 0.6;
-            if (modelAlpha > 1) modelAlpha = 1;
+            //var zoomLevelX = (plotRect.width - that.minZoomWidth) / (that.maxZoomWidth - that.minZoomWidth);
+            //var zoomLevelY = (plotRect.height - that.minZoomHeight) / (that.maxZoomWidth - that.minZoomHeight);
+            //var zoomLevel = Math.min(zoomLevelX, zoomLevelY);
+            //if (zoomLevel > 1) zoomLevel = 1;
+            //if (zoomLevel < 0) zoomLevel = 0;
+
 
             var op = context.globalAlpha;
 
-            context.globalAlpha = 1 - modelAlpha;
+            var modelAlpha = 2 * (0.5 - zoomLevel);
+            if (modelAlpha < 0) modelAlpha = 0;
+            if (modelAlpha > 1) modelAlpha = 1;
+            context.globalAlpha = modelAlpha;
             var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
             context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
 
-
             var constelationsAlpha = 0;
-            if (zoomLevel > 0.25 && zoomLevel < 0.9) {
+            if (zoomLevel > 0.1 && zoomLevel < 0.9) {
                 if (zoomLevel < 0.5) {
-                    constelationsAlpha = 4 * (zoomLevel - 0.25);
+                    constelationsAlpha = (zoomLevel - 0.1) / 0.4;
                 } else {
                     constelationsAlpha = 1 - (zoomLevel - 0.5) / 0.4;
                 }
@@ -507,7 +512,7 @@
             if (constelationsAlpha < 0) constelationsAlpha = 0;
             if (constelationsAlpha > 1) constelationsAlpha = 1;
 
-            var bubblesAlpha = (zoomLevel - 0.8) * 5;
+            var bubblesAlpha = 2 * zoomLevel - 1;
             if (bubblesAlpha < 0) bubblesAlpha = 0;
             if (bubblesAlpha > 1) bubblesAlpha = 1;
 
