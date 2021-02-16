@@ -582,7 +582,7 @@
                 //context.beginPath();
                 //context.arc(x, y, rad2, 0, 2 * Math.PI, false);
                 //context.fill();
-                context.fillStyle = "#9966ff";
+                context.fillStyle = "#9400D3";
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();

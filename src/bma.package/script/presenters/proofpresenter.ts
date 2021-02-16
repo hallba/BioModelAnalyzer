@@ -432,7 +432,7 @@ module BMA {
                 });
                 container.addClass('scrollable-results');
                 container.children('table').removeClass('variables-table').addClass('proof-propagation-table');
-                container.find("td").eq(0).width(150);
+                //container.find("td").eq(0).width(150);
                 return container;
             }
         }
