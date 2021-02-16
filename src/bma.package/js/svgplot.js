@@ -176,7 +176,7 @@
                 var mean = [];
 
                 for (var i = 0; i < this.extents.length; i++) {
-                    mean[i] = this.extents[i].min + (Math.random() * this.ranges[i]);
+                    mean[i] = this.extents[i].min + (0.5 * this.ranges[i]); //this.extents[i].min + (Math.random() * this.ranges[i]);
                 }
 
                 means.push(mean);
@@ -252,7 +252,7 @@
                     sums[meanIndex] = this.means[meanIndex];
 
                     for (dim = 0; dim < this.extents.length; dim++) {
-                        sums[meanIndex][dim] = this.extents[dim].min + (Math.random() * this.ranges[dim]);
+                        sums[meanIndex][dim] = this.extents[dim].min + (0.5 * this.ranges[dim]); //this.extents[dim].min + (Math.random() * this.ranges[dim]);
                     }
                     continue;
                 }
