@@ -114,7 +114,7 @@ declare var InteractiveDataDisplay: any;
             that._plot = InteractiveDataDisplay.asPlot(plotDiv);
             this._plot.aspectRatio = 1;
 
-            
+
 
             var zoomPlot = that._plot.get("zoom-plot");
             this._zoomPlot = zoomPlot;
@@ -197,7 +197,6 @@ declare var InteractiveDataDisplay: any;
                 }
             });
 
-
             plotDiv.bind("click", function (arg) {
                 var cs = svgPlot.getScreenToDataTransform();
 
@@ -217,6 +216,8 @@ declare var InteractiveDataDisplay: any;
             });
 
             plotDiv.bind("touchstart", function (arg) {
+                that._modelCanvasPlot.setFrame(undefined);
+
                 var cs = svgPlot.getScreenToDataTransform();
 
                 if (arg.originalEvent !== undefined) {
@@ -277,6 +278,8 @@ declare var InteractiveDataDisplay: any;
             //            screenY: arg.pageY - plotDiv.offset().top
             //        });
             //});
+
+
 
             //Subject that converts input mouse events into Pan gestures 
             var createPanSubject = function (vc) {
@@ -435,6 +438,8 @@ declare var InteractiveDataDisplay: any;
                 that._plot.navigation.gestureSource = undefined;
             }
 
+            var isWaitingForChange = false;
+
             that._plot.navigation.setVisibleRect({ x: 0, y: -50, width: width, height: width / 2.5 }, false);
             that._plot.host.bind("visibleRectChanged", function (args) {
 
@@ -445,7 +450,28 @@ declare var InteractiveDataDisplay: any;
                 var widthCoef = 100 * (that._plot.visibleRect.width - minRect.width) / (maxRect.width - minRect.width);
 
                 that._executeCommand("ZoomSliderBind", widthCoef);
+
+
+                that._modelCanvasPlot.setFrame(undefined);
+
+                if (!isWaitingForChange) {
+                    isWaitingForChange = true;
+                    setTimeout(function () {
+                        var cs = svgPlot.getTransform();
+                        var dtsY = cs.dataToScreenY
+                        cs.dataToScreenY = function (y) { return dtsY(-y); }
+                        var cargs = {
+                            transform: cs,
+                            screenRect: { width: plotDiv.width(), height: plotDiv.height() },
+                            plotRect: that._plot.visibleRect
+                        };
+                        window.Commands.Execute("RequestFullQualityModelFrame", cargs);
+                        isWaitingForChange = false;
+                    }, 1000);
+                    
+                }
             })
+
 
             $(window).resize(function () { that.resize(); });
             that.resize();
@@ -484,7 +510,7 @@ declare var InteractiveDataDisplay: any;
                         this._lightSvgPlot.svg.clear();
                         if (value !== undefined) {
                             this._lightSvgPlot.svg.add(value);
-                        } 
+                        }
                     }
                     break;
                 case "isNavigationEnabled":
@@ -585,6 +611,11 @@ declare var InteractiveDataDisplay: any;
                     this._modelCanvasPlot.draw(value);
                     this._plot.requestUpdateLayout();
                     break;
+                case "canvasFrame":
+                    this._modelCanvasPlot.setFrame(value);
+                    this._plot.requestUpdateLayout();
+                    break;
+
             }
             this._super(key, value);
         },

@@ -25,7 +25,9 @@ module BMA {
             }
 
             public DrawCanvas(data) {
+            }
 
+            public DrawCanvasFrame(data) {
             }
 
             public DrawLayer2(svg: SVGElement) {

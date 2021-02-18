@@ -108,7 +108,7 @@
             var dataToScreenX = dataToPlotX ? function (x) { return plotToScreenX(dataToPlotX(x)); } : plotToScreenX;
             var dataToScreenY = dataToPlotY ? function (y) { return plotToScreenY(dataToPlotY(y)); } : plotToScreenY;
 
-            return { dataToScreenX: dataToScreenX, dataToScreenY: dataToScreenY };
+            return { dataToScreenX: dataToScreenX, dataToScreenY: dataToScreenY, plotToScreenWidth: ct.plotToScreenWidth, plotToScreenHeight: ct.plotToScreenHeight };
         };
 
         // Gets the transform functions from screen to data coordinates.
@@ -409,7 +409,7 @@
 
             circles = [];
             circleConnections = [];
-            if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
+            if (false && data.variableVectors !== undefined && data.variableVectors.length > 0) {
                 var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
                 var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
                 var clustersInfo = km.run(data.relationshipsTable);
@@ -455,6 +455,11 @@
             this.fireAppearanceChanged();
         }
 
+        var _canvasSnapshot = undefined;
+        this.setFrame = function (frame) {
+            _canvasSnapshot = frame;
+        };
+
         // Returns 4 margins in the screen coordinate system
         this.getLocalPadding = function () {
             return { left: 0, right: 0, top: 0, bottom: 0 };
@@ -493,10 +498,15 @@
             context.globalAlpha = modelAlpha;
 
             context.globalAlpha = 1;
-            var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
-            context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
 
+            if (_canvasSnapshot === undefined) {
+                var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
+                context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+            } else {
+                context.drawImage(_canvasSnapshot, 0, 0, screenSize.width, screenSize.height);
+            }
 
+            return;
 
             //render debug red rect to ensure canvas occupies correct place
             //context.strokeStyle = "red";
@@ -504,7 +514,6 @@
             //context.strokeRect(200, 200, 200 * realBBox.width / realBBox.height, 200);
             //context.drawImage(_canvas, 200, 200, 200 * realBBox.width / realBBox.height, 200);
             //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
-            return;
 
             var constelationsAlpha = 0;
             if (zoomLevel > 0.1 && zoomLevel < 0.9) {

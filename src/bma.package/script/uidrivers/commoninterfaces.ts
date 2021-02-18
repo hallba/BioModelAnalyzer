@@ -7,7 +7,8 @@ module BMA {
     export module UIDrivers {
         export interface ISVGPlot {
             Draw(svg: SVGElement);
-            DrawCanvas(data: { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } })
+            DrawCanvas(data: { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number } });
+            DrawCanvasFrame(canvas: HTMLCanvasElement);
             DrawLayer2(svg: SVGElement);
             DrawRects(rects: { x: number, y: number, width: number, height: number, fill: string }[])
             SetGrid(x0: number, y0: number, xStep: number, yStep: number);

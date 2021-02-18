@@ -28,6 +28,8 @@ module BMA {
             private exportservice: BMA.UIDrivers.IExportService;
             private svg: any;
 
+            private lastUsedRenderArgs: any;
+
             private currentGridCell: { x: number, y: number } = undefined;
 
             private xOrigin = 0;
@@ -843,6 +845,7 @@ module BMA {
                         //var drawingSvg = <SVGElement>this.CreateSvg(args);
                         //this.driver.Draw(drawingSvg);
 
+                        this.lastUsedRenderArgs = args;
                         var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
                         this.driver.DrawCanvas(rasterDrawingData);
                     }
@@ -896,6 +899,7 @@ module BMA {
                         //var drawingSvg = <SVGElement>this.CreateSvg(args);
                         //this.driver.Draw(drawingSvg);
 
+                        this.lastUsedRenderArgs = args;
                         var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
                         this.driver.DrawCanvas(rasterDrawingData);
                     }
@@ -911,7 +915,13 @@ module BMA {
                     variableEditorDriver.Hide();
                 });
 
+                window.Commands.On("RequestFullQualityModelFrame", (args) => {
+                    that.lastUsedRenderArgs.plotCoordinatesInfo = args;
+                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout, that.Grid, that.lastUsedRenderArgs);
+                    that.lastUsedRenderArgs.plotCoordinatesInfo = undefined;
+                    that.driver.DrawCanvasFrame(rasterDrawingData.canvas);
 
+                });
 
                 variableEditorDriver.SetOnClosingCallback(() => {
                     that.prevVariablesOptions = that.variableEditor.GetVariableProperties();
@@ -1499,7 +1509,10 @@ module BMA {
                     var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
                     //var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
                     //this.driver.Draw(drawingSvg);
-                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, { selection: this.selection, errors: errors });
+
+                    var args = { selection: this.selection, errors: errors };
+                    this.lastUsedRenderArgs = args;
+                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
                     this.driver.DrawCanvas(rasterDrawingData);
                 }
             }
