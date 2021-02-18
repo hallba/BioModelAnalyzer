@@ -128,82 +128,117 @@
             }
 
             //Renders model to html canvas
-            export function RenderModelToCanvas(model: BMA.Model.BioModel, layout: BMA.Model.Layout, grid: { x0: number, y0: number, xStep: number, yStep: number }, args: any): { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any, relationshipsTable: any } {
+            export function RenderModelToCanvas(
+                model: BMA.Model.BioModel,
+                layout: BMA.Model.Layout,
+                grid: { x0: number, y0: number, xStep: number, yStep: number },
+                args: any)
+                : { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any, relationshipsTable: any } {
+
                 var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
-                var globalScale = 2;
 
-                //finding bbox
-                var xMin = Infinity;
-                var yMin = Infinity;
-                var xMax = -Infinity;
-                var yMax = -Infinity;
-
-                if (layout.Variables.length > 0 || layout.Containers.length > 0) {
-                    for (var i = 0; i < layout.Variables.length; i++) {
-                        var vrbl = layout.Variables[i];
-                        var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
-
-                        if (cell.x >= xMax)
-                            xMax = cell.x + 1;
-                        if (cell.x < xMin)
-                            xMin = cell.x;
-                        if (cell.y >= yMax)
-                            yMax = cell.y + 1;
-                        if (cell.y < yMin)
-                            yMin = cell.y;
-                    }
-
-                    for (var i = 0; i < layout.Containers.length; i++) {
-                        var cnt = layout.Containers[i];
-                        var cell = {
-                            x: cnt.PositionX, y: cnt.PositionY
-                        };
-
-                        if (cell.x + cnt.Size > xMax)
-                            xMax = cell.x + cnt.Size;
-                        if (cell.x < xMin)
-                            xMin = cell.x;
-                        if (cell.y + cnt.Size > yMax)
-                            yMax = cell.y + cnt.Size;
-                        if (cell.y < yMin)
-                            yMin = cell.y;
-                    }
-
+                var renderCS = undefined;
+                var plotRect = undefined;
+                var screenRect = undefined;
+                if (args.plotCoordinatesInfo !== undefined) {
+                    plotRect = args.plotCoordinatesInfo.plotRect;
+                    screenRect = args.plotCoordinatesInfo.screenRect;
+                    renderCS = new InteractiveDataDisplay.CoordinateTransform(plotRect, screenRect, 1);
                 } else {
-                    xMin = 0;
-                    yMin = 0;
-                    xMax = 1;
-                    yMax = 1;
+
+                    var globalScale = 2;
+
+                    //finding bbox
+                    var xMin = Infinity;
+                    var yMin = Infinity;
+                    var xMax = -Infinity;
+                    var yMax = -Infinity;
+
+                    if (layout.Variables.length > 0 || layout.Containers.length > 0) {
+                        for (var i = 0; i < layout.Variables.length; i++) {
+                            var vrbl = layout.Variables[i];
+                            var cell = ModelHelper.GetGridCell2(vrbl.PositionX, vrbl.PositionY, grid);
+
+                            if (cell.x >= xMax)
+                                xMax = cell.x + 1;
+                            if (cell.x < xMin)
+                                xMin = cell.x;
+                            if (cell.y >= yMax)
+                                yMax = cell.y + 1;
+                            if (cell.y < yMin)
+                                yMin = cell.y;
+                        }
+
+                        for (var i = 0; i < layout.Containers.length; i++) {
+                            var cnt = layout.Containers[i];
+                            var cell = {
+                                x: cnt.PositionX, y: cnt.PositionY
+                            };
+
+                            if (cell.x + cnt.Size > xMax)
+                                xMax = cell.x + cnt.Size;
+                            if (cell.x < xMin)
+                                xMin = cell.x;
+                            if (cell.y + cnt.Size > yMax)
+                                yMax = cell.y + cnt.Size;
+                            if (cell.y < yMin)
+                                yMin = cell.y;
+                        }
+
+                    } else {
+                        xMin = 0;
+                        yMin = 0;
+                        xMax = 1;
+                        yMax = 1;
+                    }
+                    xMin -= 1;
+                    xMax += 1;
+                    yMin -= 1;
+                    yMax += 1;
+
+                    var width = (xMax - xMin) * grid.xStep * globalScale;
+                    var height = (yMax - yMin) * grid.yStep * globalScale;
+
+                    var maxAllowedSize = 16000;
+                    if (width > maxAllowedSize) {
+                        var wd = width;
+                        width = maxAllowedSize;
+                        height = height * maxAllowedSize / wd;
+                        globalScale = globalScale * maxAllowedSize / wd;
+                    }
+
+                    if (height > maxAllowedSize) {
+                        var ht = height;
+                        height = maxAllowedSize;
+                        width = width * maxAllowedSize / ht;
+                        globalScale = globalScale * maxAllowedSize / ht;
+                    }
+
+                    plotRect = { x: xMin * grid.xStep, y: yMin * grid.yStep, width: (xMax - xMin) * grid.xStep, height: (yMax - yMin) * grid.yStep };
+                    screenRect = { width: width, height: height };
+                    renderCS = {
+                        dataToScreenX: function (x) {
+                            return (x - plotRect.x) * globalScale
+                        },
+                        dataToScreenY: function (y) {
+                            return (y - plotRect.y) * globalScale
+                        },
+                        plotToScreenWidth: function (w) {
+                            return w * globalScale;
+                        },
+                        plotToScreenHeight: function (h) {
+                            return h * globalScale
+                        }
+                    };
+                    plotRect.y = yMin * grid.yStep;
                 }
-                xMin -= 1;
-                xMax += 1;
-                yMin -= 1;
-                yMax += 1;
 
-                var width = (xMax - xMin) * grid.xStep * globalScale;
-                var height = (yMax - yMin) * grid.yStep * globalScale;
 
-                var maxAllowedSize = 16000;
-                if (width > maxAllowedSize) {
-                    var wd = width;
-                    width = maxAllowedSize;
-                    height = height * maxAllowedSize /  wd;
-                    globalScale = globalScale * maxAllowedSize / wd;
-                }
-
-                if (height > maxAllowedSize) {
-                    var ht = height;
-                    height = maxAllowedSize;
-                    width = width * maxAllowedSize / ht;
-                    globalScale = globalScale * maxAllowedSize / ht;
-                }
-
-                var bbox = { x: xMin, y: yMin, width: width, height: height };
-                canvas.width = width;
-                canvas.height = height;
+                canvas.width = screenRect.width;
+                canvas.height = screenRect.height;
                 var context = canvas.getContext("2d");
-                context.clearRect(0, 0, width, height);
+                context.clearRect(0, 0, canvas.width, canvas.height);
 
                 //Render containers
                 var containerLayouts = layout.Containers;
@@ -228,10 +263,9 @@
                     }
 
                     element.RenderToCanvas(context, {
-                        globalScale: globalScale,
+                        coordinateTransform: renderCS,
                         layout: containerLayout,
                         grid: grid,
-                        bbox: bbox,
                         background: args === undefined || args.containersStability === undefined ? undefined : ModelHelper.GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
                         isHighlighted: isHighlighted,
                         isSelected: isSelected,
@@ -292,11 +326,10 @@
                     }
 
                     element.RenderToCanvas(context, {
-                        globalScale: globalScale,
+                        coordinateTransform: renderCS,
                         model: variable,
                         layout: variableLayout,
                         grid: grid,
-                        bbox: bbox,
                         gridCell: gridCell,
                         sizeCoef: sizeCoef,
                         valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
@@ -349,9 +382,8 @@
                     }
 
                     element.RenderToCanvas(context, {
-                        globalScale: globalScale,
+                        coordinateTransform: renderCS,
                         layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
-                        bbox: bbox,
                         grid: grid,
                         id: relationship.Id,
                         hasReverse: hasReverse,
@@ -360,6 +392,7 @@
                     });
                 }
 
+                /*
                 var varibleVectors = [];
                 var relTable = {};
                 var mbbox = { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale, modelWidth: width, modelHeight: height };
@@ -394,12 +427,14 @@
 
                 }
 
+                */
+
                 return {
                     canvas: canvas,
-                    bbox: mbbox,
+                    bbox: plotRect,
                     grid: grid,
-                    variableVectors: varibleVectors,
-                    relationshipsTable: relTable
+                    variableVectors: [], //varibleVectors,
+                    relationshipsTable: undefined // relTable
                 };
             }
 

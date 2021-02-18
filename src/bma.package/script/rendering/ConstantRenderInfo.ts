@@ -64,16 +64,15 @@
                     //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
                 }
 
-                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
-                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+                var cs = renderParams.coordinateTransform;
 
-                var x = renderParams.layout.PositionX - leftOffset;
-                var y = renderParams.layout.PositionY - bottomOffset;
+                var x = cs.dataToScreenX(renderParams.layout.PositionX);
+                var y = cs.dataToScreenY(renderParams.layout.PositionY);
 
                 var scale = 0.6;
 
-                context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
-                context.scale(scale * renderParams.globalScale, scale * renderParams.globalScale);
+                context.translate(x, y);
+                context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
                 context.translate(-50, -50);
                 //render geometry fill
                 context.fillStyle = pathFill;
@@ -85,23 +84,23 @@
 
                 //Rendering error icon if necessary
                 if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                    var offsetX = 0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * renderParams.globalScale;
-                    var offsetY = - 0.4 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant * renderParams.globalScale;
-                    var errorRadius = 20.06 * renderParams.globalScale * 0.25;
+                    var offsetX = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
+                    var offsetY = - cs.plotToScreenHeight(0.4 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
+                    var errorRadius = cs.plotToScreenWidth(20.06 * 0.25);
 
                     context.translate(offsetX, offsetY);
                     context.beginPath();
-                    context.ellipse(x * renderParams.globalScale, y * renderParams.globalScale, errorRadius, errorRadius, 0, 0, 2 * Math.PI);
+                    context.ellipse(x, y, errorRadius, errorRadius, 0, 0, 2 * Math.PI);
                     context.fillStyle = "red";
                     context.fill();
 
                     context.beginPath();
-                    context.ellipse(x * renderParams.globalScale, (y + 3) * renderParams.globalScale, errorRadius * 0.2, errorRadius * 0.2, 0, 0, 2 * Math.PI);
+                    context.ellipse(x, y + cs.plotToScreenWidth(3), errorRadius * 0.2, errorRadius * 0.2, 0, 0, 2 * Math.PI);
                     context.fillStyle = "white";
                     context.fill();
 
                     context.strokeStyle = "white";
-                    context.fillRect((x - 0.9) * renderParams.globalScale, (y - 3.5) * renderParams.globalScale, 1.8 * renderParams.globalScale, 4.5 * renderParams.globalScale);
+                    context.fillRect(x - cs.plotToScreenWidth(0.9), y - cs.plotToScreenWidth(3.5), cs.plotToScreenWidth(1.8), cs.plotToScreenWidth(4.5));
 
                     context.setTransform(1, 0, 0, 1, 0, 0);
                 }
@@ -110,21 +109,21 @@
                 if (that.LabelVisibility === true) {
                     var offset = 0;
                     context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
-                    context.font = that.LabelSize * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                    context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
 
                     if (renderParams.model.Name !== "") {
-                        var xText = (x - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2) * renderParams.globalScale;
-                        var yText = (y + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize) * renderParams.globalScale;
+                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize);
 
                         context.fillText(renderParams.model.Name, xText, yText);
                         offset += that.LabelSize;
                     }
 
                     if (renderParams.valueText !== undefined) {
-                        var xText = (x - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2) * renderParams.globalScale;
-                        var yText = (y + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset) * renderParams.globalScale;
+                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset);
 
-                        context.font = that.LabelSize * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                        context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
                         context.fillText(renderParams.valueText, xText, yText);
                     }
                 }

@@ -72,8 +72,7 @@
 
                 var lw = that.lineWidth === 0 ? 1 : that.lineWidth > 0 ? that.lineWidth : 1 / Math.abs(that.lineWidth);
 
-                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
-                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+                var cs = renderParams.coordinateTransform;
 
                 context.lineCap = "round";
 
@@ -89,17 +88,17 @@
                         angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY) * Math.PI / 180.0;
                     }
 
-                    var x = renderParams.layout.start.PositionX - leftOffset;
-                    var y = renderParams.layout.start.PositionY - bottomOffset;
+                    var x = cs.dataToScreenX(renderParams.layout.start.PositionX);
+                    var y = cs.dataToScreenY(renderParams.layout.start.PositionY);
 
                     var iconTranslate = renderParams.layout.hasRotation ? { x: -25, y: -35 } : { x: -10, y: -40 };
-                    var scale = 0.5 * renderParams.globalScale;
+                    var scale = 0.5;
 
                     context.beginPath();
-                    context.lineWidth = (lw + 1) * renderParams.globalScale;
+                    context.lineWidth = cs.plotToScreenWidth(lw + 1);
                     context.strokeStyle = pathFill;
-                    context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
-                    context.scale(scale, scale);
+                    context.translate(x, y);
+                    context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
                     context.rotate(angle);
                     context.translate(iconTranslate.x, iconTranslate.y);
                     context.stroke(that.selfRelGeometry);
@@ -134,20 +133,20 @@
                     }
 
 
-                    var xStart = (start.x - leftOffset) * renderParams.globalScale;
-                    var yStart = (start.y - bottomOffset) * renderParams.globalScale;
+                    var xStart = cs.dataToScreenX(start.x);
+                    var yStart = cs.dataToScreenY(start.y);
 
-                    var xEnd = (end.x - leftOffset) * renderParams.globalScale;
-                    var yEnd = (end.y - bottomOffset) * renderParams.globalScale;
+                    var xEnd = cs.dataToScreenX(end.x);
+                    var yEnd = cs.dataToScreenY(end.y);
 
                     context.strokeStyle = renderParams.isSelected ? "#999999" : "#aaa";
-                    context.lineWidth = (lw + 1) * renderParams.globalScale;
+                    context.lineWidth = cs.plotToScreenWidth(lw + 1);
                     if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
                         context.beginPath();
-                        var points = RenderHelper.CreateBezierPoints({ x: xStart, y: yStart }, { x: xEnd, y: yEnd }, renderParams.globalScale);
-                        RenderHelper.bezierWithArrowheads(context, "Activator", points.p0, points.p1, points.p2, points.p3, 4 * renderParams.globalScale, true);
+                        var points = RenderHelper.CreateBezierPoints({ x: xStart, y: yStart }, { x: xEnd, y: yEnd }, cs.plotToScreenWidth(1));
+                        RenderHelper.bezierWithArrowheads(context, "Activator", points.p0, points.p1, points.p2, points.p3, cs.plotToScreenWidth(4), true);
                     } else {
-                        RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, 4 * renderParams.globalScale, 4 * renderParams.globalScale, false, true);
+                        RenderHelper.drawLineWithArrows(context, xStart, yStart, xEnd, yEnd, cs.plotToScreenWidth(4), cs.plotToScreenWidth(4), false, true);
                     }
                 }
             }

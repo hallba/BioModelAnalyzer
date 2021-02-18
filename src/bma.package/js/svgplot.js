@@ -482,15 +482,8 @@
 
             var labelSize = 10;
             var screenLabelSize = dataToScreenY(0) - dataToScreenY(labelSize);
-            console.log("font pixel size: " + screenLabelSize);
+            //console.log("font pixel size: " + screenLabelSize);
             var zoomLevel = screenLabelSize > 10 ? 0 : (screenLabelSize < 7 ? 1 : 1 - (screenLabelSize - 7) / 3);
-
-            //var zoomLevelX = (plotRect.width - that.minZoomWidth) / (that.maxZoomWidth - that.minZoomWidth);
-            //var zoomLevelY = (plotRect.height - that.minZoomHeight) / (that.maxZoomWidth - that.minZoomHeight);
-            //var zoomLevel = Math.min(zoomLevelX, zoomLevelY);
-            //if (zoomLevel > 1) zoomLevel = 1;
-            //if (zoomLevel < 0) zoomLevel = 0;
-
 
             var op = context.globalAlpha;
 
@@ -498,8 +491,20 @@
             if (modelAlpha < 0) modelAlpha = 0;
             if (modelAlpha > 1) modelAlpha = 1;
             context.globalAlpha = modelAlpha;
+
+            context.globalAlpha = 1;
             var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
             context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+
+
+
+            //render debug red rect to ensure canvas occupies correct place
+            //context.strokeStyle = "red";
+            //context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+            //context.strokeRect(200, 200, 200 * realBBox.width / realBBox.height, 200);
+            //context.drawImage(_canvas, 200, 200, 200 * realBBox.width / realBBox.height, 200);
+            //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
+            return;
 
             var constelationsAlpha = 0;
             if (zoomLevel > 0.1 && zoomLevel < 0.9) {
@@ -595,10 +600,7 @@
 
             context.globalAlpha = op;
 
-            //render debug red rect to ensure canvas occupies correct place
-            //context.strokeStyle = "red";
-            //context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
-            //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
+            
         }
 
         this.computeLocalBounds = function () {

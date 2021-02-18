@@ -65,29 +65,36 @@
                     pathFill = "#EDEDED";
                 }
 
-                var leftOffset = renderParams.bbox.x * renderParams.grid.xStep;
-                var bottomOffset = renderParams.bbox.y * renderParams.grid.yStep;
+                var cs = renderParams.coordinateTransform;
 
-                var x = (renderParams.layout.PositionX + 0.5) * renderParams.grid.xStep + (renderParams.layout.Size - 1) * renderParams.grid.xStep / 2 - leftOffset;
-                var y = (renderParams.layout.PositionY + 0.5) * renderParams.grid.yStep + (renderParams.layout.Size - 1) * renderParams.grid.yStep / 2 - bottomOffset;
+                var containerCenter = {
+                    x: (renderParams.layout.PositionX + 0.5) * renderParams.grid.xStep + (renderParams.layout.Size - 1) * renderParams.grid.xStep * 0.5,
+                    y: (renderParams.layout.PositionY + 0.5) * renderParams.grid.yStep + (renderParams.layout.Size - 1) * renderParams.grid.yStep * 0.5
+                };
+
+                var x = cs.dataToScreenX(containerCenter.x); 
+                var y = cs.dataToScreenY(containerCenter.y); 
 
                 //render background rectangle
                 if (renderParams.background !== undefined) {
-                context.fillStyle = renderParams.background;
-                    context.fillRect(
-                        (renderParams.layout.PositionX * renderParams.grid.xStep - leftOffset) * renderParams.globalScale,
-                        (renderParams.layout.PositionY * renderParams.grid.yStep - bottomOffset) * renderParams.globalScale,
-                        renderParams.grid.xStep * renderParams.globalScale,
-                        renderParams.grid.yStep * renderParams.globalScale);
+                    context.fillStyle = renderParams.background;
+
+                    var xRect = cs.dataToScreenX(renderParams.layout.PositionX * renderParams.grid.xStep);
+                    var yRect = cs.dataToScreenY(renderParams.layout.PositionY * renderParams.grid.yStep);
+                    var rWidth = cs.plotToScreenWidth(renderParams.grid.xStep * renderParams.layout.Size);
+                    var rHeight = cs.plotToScreenHeight(renderParams.grid.yStep * renderParams.layout.Size);
+
+                    context.fillRect(xRect, yRect, rWidth, rHeight);
                 }
 
+                
                 //Render main geometry
                 context.beginPath();
                 context.fillStyle = pathFill;
                 context.strokeStyle = renderParams.isSelected ? selectedPathFill : pathFill;
                 context.thickness = 2;
-                context.translate(x * renderParams.globalScale, y * renderParams.globalScale);
-                context.scale(scale * renderParams.globalScale, scale * renderParams.globalScale);
+                context.translate(x, y);
+                context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
                 context.translate(-640, -487);
                 context.fill(that.cellGeometry);
                 context.stroke(that.cellGeometry);
@@ -98,19 +105,19 @@
                 var yThickness = BMA.SVGRendering.SVGRenderingConstants.containerOuterEllipseHeight - BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight;
                 context.fillStyle = "white";
                 context.ellipse(
-                    (x + BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size) * renderParams.globalScale,
-                    y * renderParams.globalScale,
-                    (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1)) * renderParams.globalScale,
-                    (BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1)) * renderParams.globalScale,
+                    x + cs.plotToScreenWidth(BMA.SVGRendering.SVGRenderingConstants.containerInnerCenterOffset * renderParams.layout.Size),
+                    y,
+                    cs.plotToScreenWidth(BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseWidth * renderParams.layout.Size + xThickness * (renderParams.layout.Size - 1)),
+                    cs.plotToScreenHeight(BMA.SVGRendering.SVGRenderingConstants.containerInnerEllipseHeight * renderParams.layout.Size + yThickness * (renderParams.layout.Size - 1)),
                     0, 0, 2 * Math.PI);
                 context.fill();
 
                 if (that.LabelVisibility === true) {
-                    var xText = (x - renderParams.layout.Size * renderParams.grid.xStep / 2 + 5 * renderParams.layout.Size) * renderParams.globalScale;
-                    var yText = (y - renderParams.layout.Size * renderParams.grid.yStep / 2 + that.LabelSize * renderParams.layout.Size + 5 * renderParams.layout.Size) * renderParams.globalScale;
+                    var xText = cs.dataToScreenX(containerCenter.x - renderParams.layout.Size * renderParams.grid.xStep / 2 + 5 * renderParams.layout.Size);
+                    var yText = cs.dataToScreenY(containerCenter.y - renderParams.layout.Size * renderParams.grid.yStep / 2 + that.LabelSize * renderParams.layout.Size + 5 * renderParams.layout.Size);
 
                     context.fillStyle = "black";
-                    context.font = that.LabelSize * renderParams.layout.Size * renderParams.globalScale + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                    context.font = cs.plotToScreenHeight(that.LabelSize * renderParams.layout.Size) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
                     context.fillText(renderParams.layout.Name, xText, yText);
                 }
             }
