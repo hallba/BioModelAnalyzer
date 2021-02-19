@@ -458,13 +458,25 @@ declare var InteractiveDataDisplay: any;
                     isWaitingForChange = true;
                     setTimeout(function () {
                         var cs = svgPlot.getTransform();
-                        var dtsY = cs.dataToScreenY
-                        cs.dataToScreenY = function (y) { return dtsY(-y); }
-                        var cargs = {
-                            transform: cs,
-                            screenRect: { width: plotDiv.width(), height: plotDiv.height() },
-                            plotRect: that._plot.visibleRect
+                        var scale = 2;
+                        var frameCS = {
+                            dataToScreenX: function (x) { return scale * cs.dataToScreenX(x); },
+                            dataToScreenY: function (y) { return scale * cs.dataToScreenY(-y); },
+                            plotToScreenWidth: function (w) { return scale * cs.plotToScreenWidth(w); },
+                            plotToScreenHeight: function (h) { return scale * cs.plotToScreenHeight(h); }
+
                         };
+                        var cargs = {
+                            transform: frameCS,
+                            screenRect: { width: scale * plotDiv.width(), height: scale * plotDiv.height() },
+                            plotRect: {
+                                x: that._plot.visibleRect.x,
+                                y: that._plot.visibleRect.y,
+                                width: that._plot.visibleRect.width,
+                                height: that._plot.visibleRect.height
+                            }
+                        };
+
                         window.Commands.Execute("RequestFullQualityModelFrame", cargs);
                         isWaitingForChange = false;
                     }, 1000);
