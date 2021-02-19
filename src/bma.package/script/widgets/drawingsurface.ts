@@ -459,6 +459,9 @@ declare var InteractiveDataDisplay: any;
                     setTimeout(function () {
                         var cs = svgPlot.getTransform();
                         var scale = 2;
+                        if (window.devicePixelRatio) {
+                            scale *= window.devicePixelRatio;
+                        }
                         var frameCS = {
                             dataToScreenX: function (x) { return scale * cs.dataToScreenX(x); },
                             dataToScreenY: function (y) { return scale * cs.dataToScreenY(-y); },

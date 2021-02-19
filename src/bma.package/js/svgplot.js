@@ -409,13 +409,13 @@
 
             circles = [];
             circleConnections = [];
-            if (false && data.variableVectors !== undefined && data.variableVectors.length > 0) {
+            if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
                 var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
                 var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
                 var clustersInfo = km.run(data.relationshipsTable);
                 var clusters = clustersInfo.clusters;
 
-                var norm = Math.max(_localBB.modelWidth, _localBB.modelHeight);
+                var norm = Math.max(_localBB.width, _localBB.height);
                 var minDistance = clustersInfo.minDistance * norm;
                 for (var i = 0; i < clusters.length; i++) {
                     var cnt = clusters[i];
@@ -487,7 +487,6 @@
 
             var labelSize = 10;
             var screenLabelSize = dataToScreenY(0) - dataToScreenY(labelSize);
-            //console.log("font pixel size: " + screenLabelSize);
             var zoomLevel = screenLabelSize > 10 ? 0 : (screenLabelSize < 7 ? 1 : 1 - (screenLabelSize - 7) / 3);
 
             var op = context.globalAlpha;
@@ -497,16 +496,12 @@
             if (modelAlpha > 1) modelAlpha = 1;
             context.globalAlpha = modelAlpha;
 
-            context.globalAlpha = 1;
-
             if (_canvasSnapshot === undefined) {
                 var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
                 context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
             } else {
                 context.drawImage(_canvasSnapshot, 0, 0, screenSize.width, screenSize.height);
             }
-
-            return;
 
             //render debug red rect to ensure canvas occupies correct place
             //context.strokeStyle = "red";
@@ -578,7 +573,6 @@
                 }
             }
 
-
             context.globalAlpha = bubblesAlpha;
 
             for (var i = 0; i < circleConnections.length; i++) {
@@ -608,8 +602,6 @@
             }
 
             context.globalAlpha = op;
-
-            
         }
 
         this.computeLocalBounds = function () {

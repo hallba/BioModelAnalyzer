@@ -392,41 +392,35 @@
                     });
                 }
 
-                
                 var varibleVectors = [];
                 var relTable = {};
+                var norm = Math.max(plotRect.width, plotRect.height);
+                for (var i = 0; i < variableLayouts.length; i++) {
 
-                if (!args.noClusterGeneration) {
-                    var mbbox = { x: xMin * grid.xStep, y: yMin * grid.yStep, width: width / globalScale, height: height / globalScale, modelWidth: width, modelHeight: height };
-                    var norm = Math.max(mbbox.modelWidth, mbbox.modelHeight);
-
-                    for (var i = 0; i < variableLayouts.length; i++) {
-
-                        var color = variableLayouts[i].Fill;
-                        if (color === undefined) {
-                            color = variables[i].Type;
-                            if (color === "Default") {
-                                color = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
-                            } else if (color === "Constant") {
-                                color = BMA.SVGRendering.BMAColorConstants.bmaConstantFillColor;
-                            } else {
-                                color = BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
-                            }
+                    var color = variableLayouts[i].Fill;
+                    if (color === undefined) {
+                        color = variables[i].Type;
+                        if (color === "Default") {
+                            color = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
+                        } else if (color === "Constant") {
+                            color = BMA.SVGRendering.BMAColorConstants.bmaConstantFillColor;
                         } else {
-                            var type: any = variables[i].Type;
-                            color = BMA.SVGRendering.GetColorsForRendering(color, type).fill;
+                            color = BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
                         }
-
-                        varibleVectors.push([(variableLayouts[i].PositionX - mbbox.x) / norm, (variableLayouts[i].PositionY - mbbox.y) / norm, variables[i].Id, color]);
-                        relTable[variables[i].Id] = {};
+                    } else {
+                        var type: any = variables[i].Type;
+                        color = BMA.SVGRendering.GetColorsForRendering(color, type).fill;
                     }
 
-                    //We count each relationship as two-sided for future clustering
-                    for (var i = 0; i < relationships.length; i++) {
-                        var rel = relationships[i];
-                        relTable[rel.FromVariableId][rel.ToVariableId] = true;
-                        relTable[rel.ToVariableId][rel.FromVariableId] = true;
-                    }
+                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color]);
+                    relTable[variables[i].Id] = {};
+                }
+
+                //We count each relationship as two-sided for future clustering
+                for (var i = 0; i < relationships.length; i++) {
+                    var rel = relationships[i];
+                    relTable[rel.FromVariableId][rel.ToVariableId] = true;
+                    relTable[rel.ToVariableId][rel.FromVariableId] = true;
                 }
 
                 return {
