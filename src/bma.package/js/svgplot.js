@@ -308,7 +308,7 @@
             for (var i = 0; i < this.means.length; i++) {
                 clusters[i] = { mean: this.means[i], count: 0, values: [] };
 
-                
+
             }
 
 
@@ -324,7 +324,7 @@
             }
 
             for (var i = 0; i < clusters.length; i++) {
-                
+
                 if (i < clusters.length - 1) {
                     var c1 = clusters[i];
                     for (var j = i + 1; j < this.means.length; j++) {
@@ -585,6 +585,13 @@
                 context.stroke();
             }
 
+            var bubbleLableSize = 3 * labelSize;
+            var screenBubbleLabelSize = bubbleLableSize * scaleY;
+            var bubbleLabelOffset = 2; //in pixels
+            var lebelXOffset = screenBubbleLabelSize; //in pixels
+            var labelYOffset = screenBubbleLabelSize * 0.5; //in pixels
+            context.strokeStyle = "#CFCFCF";
+            context.textBaseline = "bottom";
             for (var i = 0; i < circles.length; i++) {
                 var c = circles[i];
                 var x = dataToScreenX(c.x);
@@ -595,10 +602,29 @@
                 //context.beginPath();
                 //context.arc(x, y, rad2, 0, 2 * Math.PI, false);
                 //context.fill();
-                context.fillStyle = "#9400D3";
+                context.fillStyle = "#9361F5"; //"#9400D3";
                 context.beginPath();
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
+
+                var label = "bubble description";
+                context.font = screenBubbleLabelSize + "px OpenSans";
+                var labelMeasure = context.measureText(label);
+                var labelWidth = labelMeasure.width;
+                var labelHeight = screenBubbleLabelSize;
+
+                context.fillStyle = "white";
+                BMA.SVGRendering.RenderHelper.roundRect(
+                    context,
+                    x - 0.5 * labelWidth - lebelXOffset,
+                    y - rad - bubbleLabelOffset - labelHeight - 2 * labelYOffset,
+                    labelWidth + 2 * lebelXOffset,
+                    labelHeight + 2 * labelYOffset,
+                    0.5 * (labelHeight + 2 * labelYOffset),
+                    true, true);
+
+                context.fillStyle = "#9361F5";
+                context.fillText(label, x - 0.5 * labelWidth, y - rad - bubbleLabelOffset - labelYOffset);
             }
 
             context.globalAlpha = op;
