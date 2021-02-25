@@ -91,25 +91,7 @@
 
                 //Rendering error icon if necessary
                 if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                    var offsetX = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
-                    var offsetY = - cs.plotToScreenHeight(0.4 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
-                    var errorRadius = cs.plotToScreenWidth(20.06 * 0.25);
-
-                    context.translate(offsetX, offsetY);
-                    context.beginPath();
-                    context.ellipse(x, y, errorRadius, errorRadius, 0, 0, 2 * Math.PI);
-                    context.fillStyle = "red";
-                    context.fill();
-
-                    context.beginPath();
-                    context.ellipse(x, y + cs.plotToScreenWidth(3), errorRadius * 0.2, errorRadius * 0.2, 0, 0, 2 * Math.PI);
-                    context.fillStyle = "white";
-                    context.fill();
-
-                    context.strokeStyle = "white";
-                    context.fillRect(x - cs.plotToScreenWidth(0.9), y - cs.plotToScreenWidth(3.5), cs.plotToScreenWidth(1.8), cs.plotToScreenWidth(4.5));
-
-                    context.setTransform(1, 0, 0, 1, 0, 0);
+                    super.RenderAttentionIcon(context, cs, x, y, !renderParams.hasCustomCS);
                 }
 
                 //Rendering text labels

@@ -397,6 +397,7 @@
 
         var circles = [];
         var circleConnections = [];
+        var minClusterDistance = 0;
 
         this.draw = function (data) {
             _canvas = data.canvas;
@@ -413,6 +414,7 @@
 
                 var norm = Math.max(_localBB.width, _localBB.height);
                 var minDistance = clustersInfo.minDistance * norm;
+                minClusterDistance = minDistance;
                 for (var i = 0; i < clusters.length; i++) {
                     var cnt = clusters[i];
 
@@ -491,13 +493,16 @@
             var modelAlpha = 2 * (0.5 - zoomLevel);
             if (modelAlpha < 0) modelAlpha = 0;
             if (modelAlpha > 1) modelAlpha = 1;
-            context.globalAlpha = modelAlpha;
 
-            if (_canvasSnapshot === undefined) {
-                var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
-                context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
-            } else {
-                context.drawImage(_canvasSnapshot, 0, 0, screenSize.width, screenSize.height);
+
+            if (modelAlpha > 0) {
+                context.globalAlpha = modelAlpha;
+                if (_canvasSnapshot === undefined) {
+                    var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
+                    context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
+                } else {
+                    context.drawImage(_canvasSnapshot, 0, 0, screenSize.width, screenSize.height);
+                }
             }
 
             //render debug red rect to ensure canvas occupies correct place
@@ -518,110 +523,122 @@
             if (constelationsAlpha < 0) constelationsAlpha = 0;
             if (constelationsAlpha > 1) constelationsAlpha = 1;
 
+            if (constelationsAlpha > 0) {
+                context.globalAlpha = constelationsAlpha;
+                for (var i = 0; i < circles.length; i++) {
+                    var c = circles[i];
+
+                    var constRad = dataToScreenX(20) - dataToScreenX(0);
+
+                    var x = dataToScreenX(c.x);
+                    var y = dataToScreenY(-c.y);
+
+                    //context.fillStyle = "blue";
+                    //context.beginPath();
+                    //context.arc(x, y, constRad, 0, 2 * Math.PI, false);
+                    //context.fill();
+                    var lineW = context.lineWidth;
+                    context.lineWidth = 0.5;
+                    var circleCoords = [];
+                    for (var j = 0; j < c.points.length; j++) {
+                        var pts = c.points[j];
+                        var x1 = dataToScreenX(pts.x);
+                        var y1 = dataToScreenY(-pts.y);
+
+                        var vec = {
+                            x: x1 - x,
+                            y: y1 - y
+                        };
+                        var vecL = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
+                        vec.x /= vecL;
+                        vec.y /= vecL;
+
+                        context.strokeStyle = "#333333"; //"#999999";
+                        context.beginPath();
+                        context.moveTo(x, y);
+                        context.lineTo(x1 - vec.x * constRad, y1 - vec.y * constRad);
+                        context.stroke();
+
+                        circleCoords.push({ x: x1, y: y1 });
+                    }
+                    context.lineWidth = lineW;
+
+                    for (var j = 0; j < c.points.length; j++) {
+                        context.fillStyle = c.points[j].color;
+                        context.beginPath();
+                        context.arc(circleCoords[j].x, circleCoords[j].y, constRad, 0, 2 * Math.PI, false);
+                        context.fill();
+                    }
+                }
+            }
+
             var bubblesAlpha = 2 * zoomLevel - 1;
             if (bubblesAlpha < 0) bubblesAlpha = 0;
             if (bubblesAlpha > 1) bubblesAlpha = 1;
 
-            context.globalAlpha = constelationsAlpha;
+            if (bubblesAlpha > 0) {
+                context.globalAlpha = bubblesAlpha;
+                for (var i = 0; i < circleConnections.length; i++) {
+                    var cc = circleConnections[i];
 
-            for (var i = 0; i < circles.length; i++) {
-                var c = circles[i];
-
-                var constRad = dataToScreenX(20) - dataToScreenX(0);
-
-                var x = dataToScreenX(c.x);
-                var y = dataToScreenY(-c.y);
-
-                //context.fillStyle = "blue";
-                //context.beginPath();
-                //context.arc(x, y, constRad, 0, 2 * Math.PI, false);
-                //context.fill();
-                var lineW = context.lineWidth;
-                context.lineWidth = 0.5;
-                var circleCoords = [];
-                for (var j = 0; j < c.points.length; j++) {
-                    var pts = c.points[j];
-                    var x1 = dataToScreenX(pts.x);
-                    var y1 = dataToScreenY(-pts.y);
-
-                    var vec = {
-                        x: x1 - x,
-                        y: y1 - y
-                    };
-                    var vecL = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
-                    vec.x /= vecL;
-                    vec.y /= vecL;
-
-                    context.strokeStyle = "#333333"; //"#999999";
+                    context.strokeStyle = "black";
                     context.beginPath();
-                    context.moveTo(x, y);
-                    context.lineTo(x1 - vec.x * constRad, y1 - vec.y * constRad);
+                    context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
+                    context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
                     context.stroke();
-
-                    circleCoords.push({ x: x1, y: y1 });
                 }
-                context.lineWidth = lineW;
 
-                for (var j = 0; j < c.points.length; j++) {
-                    context.fillStyle = c.points[j].color;
+               
+                for (var i = 0; i < circles.length; i++) {
+                    var c = circles[i];
+
+                    var x = dataToScreenX(c.x);
+                    var y = dataToScreenY(-c.y);
+                    var rad = dataToScreenX(c.rad) - dataToScreenX(0);
+
+                    c.xScreen = x;
+                    c.yScreen = y;
+                    c.radScreen = rad;
+
+                    context.fillStyle = "#9361F5"; //"#9400D3";
                     context.beginPath();
-                    context.arc(circleCoords[j].x, circleCoords[j].y, constRad, 0, 2 * Math.PI, false);
+                    context.arc(x, y, rad, 0, 2 * Math.PI, false);
                     context.fill();
                 }
-            }
 
-            context.globalAlpha = bubblesAlpha;
+                var bubbleLableSize = 1.5 * labelSize; //Math.max(3 * labelSize, minClusterDistance);
+                var screenBubbleLabelSize = bubbleLableSize; // * scaleY;
+                var bubbleLabelOffset = 2; //in pixels
+                var lebelXOffset = screenBubbleLabelSize; //in pixels
+                var labelYOffset = screenBubbleLabelSize * 0.5; //in pixels
+                context.strokeStyle = "#CFCFCF";
+                context.textBaseline = "bottom";
+                for (var i = 0; i < circles.length; i++) {
+                    var c = circles[i];
 
-            for (var i = 0; i < circleConnections.length; i++) {
-                var cc = circleConnections[i];
+                    var x = c.xScreen;
+                    var y = c.yScreen;
+                    var rad = c.radScreen;
 
-                context.strokeStyle = "black";
-                context.beginPath();
-                context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
-                context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
-                context.stroke();
-            }
+                    var label = c.name;
+                    context.font = screenBubbleLabelSize + "px OpenSans";
+                    var labelMeasure = context.measureText(label);
+                    var labelWidth = labelMeasure.width;
+                    var labelHeight = screenBubbleLabelSize;
 
-            var bubbleLableSize = 3 * labelSize;
-            var screenBubbleLabelSize = bubbleLableSize * scaleY;
-            var bubbleLabelOffset = 2; //in pixels
-            var lebelXOffset = screenBubbleLabelSize; //in pixels
-            var labelYOffset = screenBubbleLabelSize * 0.5; //in pixels
-            context.strokeStyle = "#CFCFCF";
-            context.textBaseline = "bottom";
-            for (var i = 0; i < circles.length; i++) {
-                var c = circles[i];
-                var x = dataToScreenX(c.x);
-                var y = dataToScreenY(-c.y);
-                var rad = dataToScreenX(c.rad) - dataToScreenX(0);
-                var rad2 = dataToScreenX(c.rad2) - dataToScreenX(0);
-                //context.fillStyle = "blue";
-                //context.beginPath();
-                //context.arc(x, y, rad2, 0, 2 * Math.PI, false);
-                //context.fill();
-                context.fillStyle = "#9361F5"; //"#9400D3";
-                context.beginPath();
-                context.arc(x, y, rad, 0, 2 * Math.PI, false);
-                context.fill();
+                    context.fillStyle = "white";
+                    BMA.SVGRendering.RenderHelper.roundRect(
+                        context,
+                        x - 0.5 * labelWidth - lebelXOffset,
+                        y - rad - bubbleLabelOffset - labelHeight - 2 * labelYOffset,
+                        labelWidth + 2 * lebelXOffset,
+                        labelHeight + 2 * labelYOffset,
+                        0.5 * (labelHeight + 2 * labelYOffset),
+                        true, true);
 
-                var label = c.name;
-                context.font = screenBubbleLabelSize + "px OpenSans";
-                var labelMeasure = context.measureText(label);
-                var labelWidth = labelMeasure.width;
-                var labelHeight = screenBubbleLabelSize;
-
-                context.fillStyle = "white";
-                BMA.SVGRendering.RenderHelper.roundRect(
-                    context,
-                    x - 0.5 * labelWidth - lebelXOffset,
-                    y - rad - bubbleLabelOffset - labelHeight - 2 * labelYOffset,
-                    labelWidth + 2 * lebelXOffset,
-                    labelHeight + 2 * labelYOffset,
-                    0.5 * (labelHeight + 2 * labelYOffset),
-                    true, true);
-
-                context.fillStyle = "#9361F5";
-                context.fillText(label, x - 0.5 * labelWidth, y - rad - bubbleLabelOffset - labelYOffset);
+                    context.fillStyle = "#9361F5";
+                    context.fillText(label, x - 0.5 * labelWidth, y - rad - bubbleLabelOffset - labelYOffset);
+                }
             }
 
             context.globalAlpha = op;

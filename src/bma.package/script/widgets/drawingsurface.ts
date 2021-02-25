@@ -457,40 +457,46 @@ declare var InteractiveDataDisplay: any;
                 if (!isWaitingForChange) {
                     isWaitingForChange = true;
                     setTimeout(function () {
-                        var cs = svgPlot.getTransform();
-                        var scale = 2;
-                        if (window.devicePixelRatio) {
-                            scale *= window.devicePixelRatio;
-                        }
-                        var frameCS = {
-                            dataToScreenX: function (x) { return scale * cs.dataToScreenX(x); },
-                            dataToScreenY: function (y) { return scale * cs.dataToScreenY(-y); },
-                            plotToScreenWidth: function (w) { return scale * cs.plotToScreenWidth(w); },
-                            plotToScreenHeight: function (h) { return scale * cs.plotToScreenHeight(h); }
-
-                        };
-                        var cargs = {
-                            transform: frameCS,
-                            screenRect: { width: scale * plotDiv.width(), height: scale * plotDiv.height() },
-                            plotRect: {
-                                x: that._plot.visibleRect.x,
-                                y: that._plot.visibleRect.y,
-                                width: that._plot.visibleRect.width,
-                                height: that._plot.visibleRect.height
-                            }
-                        };
-
-                        window.Commands.Execute("RequestFullQualityModelFrame", cargs);
+                        that._requestFullQualityFrame();
                         isWaitingForChange = false;
                     }, 1000);
-                    
+
                 }
-            })
+            });
 
 
             $(window).resize(function () { that.resize(); });
             that.resize();
             this.refresh();
+        },
+
+        _requestFullQualityFrame: function () {
+            var that = this;
+
+            var cs = that._svgPlot.getTransform();
+            var scale = 2;
+            if (window.devicePixelRatio) {
+                scale *= window.devicePixelRatio;
+            }
+            var frameCS = {
+                dataToScreenX: function (x) { return scale * cs.dataToScreenX(x); },
+                dataToScreenY: function (y) { return scale * cs.dataToScreenY(-y); },
+                plotToScreenWidth: function (w) { return scale * cs.plotToScreenWidth(w); },
+                plotToScreenHeight: function (h) { return scale * cs.plotToScreenHeight(h); }
+
+            };
+            var cargs = {
+                transform: frameCS,
+                screenRect: { width: scale * that._svgPlot.host.width(), height: scale * that._svgPlot.host.height() },
+                plotRect: {
+                    x: that._plot.visibleRect.x,
+                    y: that._plot.visibleRect.y,
+                    width: that._plot.visibleRect.width,
+                    height: that._plot.visibleRect.height
+                }
+            };
+
+            window.Commands.Execute("RequestFullQualityModelFrame", cargs);
         },
 
         resize: function () {
@@ -624,7 +630,9 @@ declare var InteractiveDataDisplay: any;
                     break;
                 case "modelCanvasSnapshot":
                     this._modelCanvasPlot.draw(value);
+                    this._modelCanvasPlot.setFrame(undefined);
                     this._plot.requestUpdateLayout();
+                    this._requestFullQualityFrame();
                     break;
                 case "canvasFrame":
                     this._modelCanvasPlot.setFrame(value);

@@ -141,6 +141,7 @@
                 var renderCS = undefined;
                 var plotRect = undefined;
                 var screenRect = undefined;
+                var hasCustomCS = args.plotCoordinatesInfo !== undefined;
                 if (args.plotCoordinatesInfo !== undefined) {
                     plotRect = args.plotCoordinatesInfo.plotRect;
                     screenRect = args.plotCoordinatesInfo.screenRect;
@@ -264,6 +265,7 @@
 
                     element.RenderToCanvas(context, {
                         coordinateTransform: renderCS,
+                        hasCustomCS: hasCustomCS,
                         layout: containerLayout,
                         grid: grid,
                         background: args === undefined || args.containersStability === undefined ? undefined : ModelHelper.GetContainerColorByStatus(args.containersStability[containerLayout.Id]),
@@ -327,6 +329,7 @@
 
                     element.RenderToCanvas(context, {
                         coordinateTransform: renderCS,
+                        hasCustomCS: hasCustomCS,
                         model: variable,
                         layout: variableLayout,
                         grid: grid,
@@ -383,6 +386,7 @@
 
                     element.RenderToCanvas(context, {
                         coordinateTransform: renderCS,
+                        hasCustomCS: hasCustomCS,
                         layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
                         grid: grid,
                         id: relationship.Id,
