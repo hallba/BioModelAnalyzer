@@ -307,10 +307,7 @@
             var minDistance = +Infinity;
             for (var i = 0; i < this.means.length; i++) {
                 clusters[i] = { mean: this.means[i], count: 0, values: [] };
-
-
             }
-
 
 
             var max = 0;
@@ -324,7 +321,6 @@
             }
 
             for (var i = 0; i < clusters.length; i++) {
-
                 if (i < clusters.length - 1) {
                     var c1 = clusters[i];
                     for (var j = i + 1; j < this.means.length; j++) {
@@ -434,7 +430,8 @@
                         y: cnt.mean[1] * norm + _localBB.y,
                         points: points,
                         rad: minDistance * cnt.count, //0.5 * minDistance * cnt.count / clustersInfo.maxCount,
-                        rad2: 0.5 * minDistance
+                        rad2: 0.5 * minDistance,
+                        name: cnt.values[0][4]
                     };
                     circles.push(c);
                 }
@@ -607,7 +604,7 @@
                 context.arc(x, y, rad, 0, 2 * Math.PI, false);
                 context.fill();
 
-                var label = "bubble description";
+                var label = c.name;
                 context.font = screenBubbleLabelSize + "px OpenSans";
                 var labelMeasure = context.measureText(label);
                 var labelWidth = labelMeasure.width;

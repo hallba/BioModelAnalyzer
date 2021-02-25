@@ -412,7 +412,7 @@
                         color = BMA.SVGRendering.GetColorsForRendering(color, type).fill;
                     }
 
-                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color]);
+                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name]);
                     relTable[variables[i].Id] = {};
                 }
 
