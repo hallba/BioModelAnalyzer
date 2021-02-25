@@ -490,10 +490,9 @@
 
             var op = context.globalAlpha;
 
-            var modelAlpha = 2 * (0.5 - zoomLevel);
+            var modelAlpha = 1 - zoomLevel; //2 * (0.5 - zoomLevel);
             if (modelAlpha < 0) modelAlpha = 0;
             if (modelAlpha > 1) modelAlpha = 1;
-
 
             if (modelAlpha > 0) {
                 context.globalAlpha = modelAlpha;
@@ -513,13 +512,18 @@
             //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
 
             var constelationsAlpha = 0;
-            if (zoomLevel > 0.1 && zoomLevel < 0.9) {
-                if (zoomLevel < 0.5) {
-                    constelationsAlpha = (zoomLevel - 0.1) / 0.4;
-                } else {
-                    constelationsAlpha = 1 - (zoomLevel - 0.5) / 0.4;
-                }
+            var bubblesAlpha = 0;
+            if (zoomLevel < 1) {
+                constelationsAlpha = zoomLevel;
+            } else {
+                var maxZoomHeight = this.maxZoomHeight * 0.7;
+                var minZoomHeight = this.host.height() / 0.7;
+
+                var zoomLevel2 = (plotRect.height - minZoomHeight) / (maxZoomHeight - minZoomHeight);
+                constelationsAlpha = 1 - zoomLevel2;
+                bubblesAlpha = zoomLevel2;
             }
+
             if (constelationsAlpha < 0) constelationsAlpha = 0;
             if (constelationsAlpha > 1) constelationsAlpha = 1;
 
@@ -572,7 +576,7 @@
                 }
             }
 
-            var bubblesAlpha = 2 * zoomLevel - 1;
+            //var bubblesAlpha = 0; //2 * zoomLevel - 1;
             if (bubblesAlpha < 0) bubblesAlpha = 0;
             if (bubblesAlpha > 1) bubblesAlpha = 1;
 
