@@ -225,7 +225,16 @@
                 context.fill();
 
                 context.strokeStyle = "white";
-                context.fillRect(x - lineXOffset, y - lineYOffset, lineBottomOffset, lineTopOffset);
+                //context.fillRect(x - lineXOffset, y - lineYOffset, lineBottomOffset, lineTopOffset);
+                BMA.SVGRendering.RenderHelper.roundRect(
+                    context,
+                    x - lineXOffset,
+                    y - lineYOffset,
+                    lineBottomOffset,
+                    lineTopOffset,
+                    0.5 * lineBottomOffset,
+                    true, true);
+
 
                 context.setTransform(1, 0, 0, 1, 0, 0);
             }

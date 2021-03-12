@@ -31,72 +31,75 @@
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
 
-                var pathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
-                var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultStrokeColor;
-
-                if (renderParams.layout.fill !== undefined) {
-                    var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Default");
-
-                    pathFill = renderColors.fill;
-                    selectedPathFill = renderColors.stroke;
-                }
-
-                if (renderParams.layout.stroke !== undefined) {
-                    selectedPathFill = renderParams.layout.stroke;
-                }
-
-                if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                    pathFill = "#EDEDED";
-                }
-
-                if (renderParams.isHighlighted) {
-                    var rad = 16;
-                    //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
-                }
-
                 var cs = renderParams.coordinateTransform;
-
                 var x = cs.dataToScreenX(renderParams.layout.PositionX);
                 var y = cs.dataToScreenY(renderParams.layout.PositionY);
 
-                var scale = 0.6;
+                if (!renderParams.textOnly) {
+                    var pathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultFillColor;
+                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaDefaultStrokeColor;
 
-                context.translate(x, y);
-                context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
-                context.translate(-50, -50);
-                //render geometry fill
-                context.fillStyle = pathFill;
-                context.fill(that.variableFillGeometry);
-                //render geometry stroke
-                context.fillStyle = renderParams.isSelected ? selectedPathFill : pathFill;
-                context.fill(that.variableStrokeGeometry);
-                context.setTransform(1, 0, 0, 1, 0, 0);
+                    if (renderParams.layout.fill !== undefined) {
+                        var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Default");
 
-                //Rendering error icon if necessary
-                if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                    super.RenderAttentionIcon(context, cs, x, y, !renderParams.hasCustomCS);
-                }
-
-                //Rendering text labels
-                if (that.LabelVisibility === true) {
-                    var offset = 0;
-                    context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
-                    context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
-
-                    if (renderParams.model.Name !== "") {
-                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
-                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize);
-
-                        context.fillText(renderParams.model.Name, xText, yText);
-                        offset += that.LabelSize;
+                        pathFill = renderColors.fill;
+                        selectedPathFill = renderColors.stroke;
                     }
 
-                    if (renderParams.valueText !== undefined) {
-                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
-                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset);
+                    if (renderParams.layout.stroke !== undefined) {
+                        selectedPathFill = renderParams.layout.stroke;
+                    }
 
+                    if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                        pathFill = "#EDEDED";
+                    }
+
+                    if (renderParams.isHighlighted) {
+                        var rad = 16;
+                        //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
+                    }
+
+                    
+
+                    var scale = 0.6;
+
+                    context.translate(x, y);
+                    context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
+                    context.translate(-50, -50);
+                    //render geometry fill
+                    context.fillStyle = pathFill;
+                    context.fill(that.variableFillGeometry);
+                    //render geometry stroke
+                    context.fillStyle = renderParams.isSelected ? selectedPathFill : pathFill;
+                    context.fill(that.variableStrokeGeometry);
+                    context.setTransform(1, 0, 0, 1, 0, 0);
+                } else {
+                    //Rendering error icon if necessary
+                    if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                        super.RenderAttentionIcon(context, cs, x, y, !renderParams.hasCustomCS);
+                    }
+
+                    //Rendering text labels
+                    if (that.LabelVisibility === true) {
+                        var offset = 0;
+                        context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
                         context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
-                        context.fillText(renderParams.valueText, xText, yText);
+
+                        if (renderParams.model.Name !== "") {
+                            var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                            var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize);
+
+                            context.fillText(renderParams.model.Name, xText, yText);
+                            offset += that.LabelSize;
+                        }
+
+                        if (renderParams.valueText !== undefined) {
+                            var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                            var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset);
+
+                            context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                            context.fillText(renderParams.valueText, xText, yText);
+                        }
                     }
                 }
             }

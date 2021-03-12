@@ -516,8 +516,13 @@
             if (zoomLevel < 1) {
                 constelationsAlpha = zoomLevel;
             } else {
-                var maxZoomHeight = this.maxZoomHeight * 0.7;
+                var maxZoomHeight = Math.min(_localBB.height, this.maxZoomHeight * 0.7);
                 var minZoomHeight = this.host.height() / 0.7;
+
+                //Protection for very specific model layouts.
+                if (maxZoomHeight <= minZoomHeight) {
+                    maxZoomHeight = 1.5 * minZoomHeight;
+                }
 
                 var zoomLevel2 = (plotRect.height - minZoomHeight) / (maxZoomHeight - minZoomHeight);
                 constelationsAlpha = 1 - zoomLevel2;
@@ -598,7 +603,7 @@
 
                     var x = dataToScreenX(c.x);
                     var y = dataToScreenY(-c.y);
-                    var rad = dataToScreenX(c.rad) - dataToScreenX(0);
+                    var rad = dataToScreenX(c.rad * 0.9) - dataToScreenX(0);
 
                     c.xScreen = x;
                     c.yScreen = y;
@@ -630,7 +635,7 @@
                     var labelWidth = labelMeasure.width;
                     var labelHeight = screenBubbleLabelSize;
 
-                    context.fillStyle = "white";
+                    context.fillStyle = "#ccccff";
                     BMA.SVGRendering.RenderHelper.roundRect(
                         context,
                         x - 0.5 * labelWidth - lebelXOffset,
@@ -640,7 +645,7 @@
                         0.5 * (labelHeight + 2 * labelYOffset),
                         true, true);
 
-                    context.fillStyle = "#9361F5";
+                    context.fillStyle = "#333333";
                     context.fillText(label, x - 0.5 * labelWidth, y - rad - bubbleLabelOffset - labelYOffset);
                 }
             }

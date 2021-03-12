@@ -321,8 +321,6 @@ module BMA {
 
             var inhibitorMarkerHighlighted = svg.marker(defs, "InhibitorHighlighted", -0.5, 0, 6, 6, "auto", { viewBox: "-2 -4 4 8" });
             svg.polyline(inhibitorMarkerHighlighted, [[0, 1.5], [0, -1.5]], { fill: "none", stroke: "#33cc00", strokeWidth: "1px", "stroke-linecap": "round" });
-
-
         }
 
         export function GetVariableColorByStatus(status): string {

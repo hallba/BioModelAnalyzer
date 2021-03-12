@@ -37,83 +37,86 @@
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
 
-                var angle = 0;
-                if (renderParams.gridCell !== undefined) {
-                    angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.gridCell, renderParams.grid, renderParams.sizeCoef, renderParams.layout.PositionX, renderParams.layout.PositionY) * Math.PI / 180;
-                }
-
-                var pathFill = renderParams.isSelected ? BMA.SVGRendering.BMAColorConstants.bmaMembranaFillSelectedColor : BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
-                var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaMembranaStrokeColor;
-
-                if (renderParams.layout.fill !== undefined) {
-                    var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Membrana");
-
-                    pathFill = renderColors.fill;
-                    selectedPathFill = renderColors.stroke;
-                }
-
-                if (renderParams.layout.stroke !== undefined) {
-                    selectedPathFill = renderParams.layout.stroke;
-                }
-
-                if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
-                    pathFill = "#EDEDED";
-                }
-
-                if (renderParams.isHighlighted) {
-                    var rad = 16;// * renderParams.sizeCoef;
-                    //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
-                }
-
-                var fillGeometry = that.variableFillGeometry;
-                if (renderParams.isSelected) {
-                    fillGeometry = that.variableSelectedFillGeometry
-                }
-
                 var cs = renderParams.coordinateTransform;
-
                 var x = cs.dataToScreenX(renderParams.layout.PositionX);
                 var y = cs.dataToScreenY(renderParams.layout.PositionY);
 
-                var scale = 0.6;
-
-                context.translate(x, y);
-                context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
-                context.rotate(angle);
-                context.translate(-50, -47);
-                //render geometry fill
-                context.fillStyle = pathFill;
-                context.fill(fillGeometry);
-                //render geometry stroke
-                context.fillStyle = renderParams.isSelected ? selectedPathFill : pathFill;
-                context.fill(that.variableSelectedStrokeGeometry);
-                context.setTransform(1, 0, 0, 1, 0, 0);
-
-                //Rendering error icon if necessary
-                if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
-                    super.RenderAttentionIcon(context, cs, x, y, !renderParams.hasCustomCS);
-                }
-
-                //Rendering text labels
-                if (that.LabelVisibility === true) {
-                    var offset = 0;
-                    context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
-                    context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
-
-                    if (renderParams.model.Name !== "") {
-                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
-                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize);
-
-                        context.fillText(renderParams.model.Name, xText, yText);
-                        offset += that.LabelSize;
+                if (!renderParams.textOnly) {
+                    var angle = 0;
+                    if (renderParams.gridCell !== undefined) {
+                        angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.gridCell, renderParams.grid, renderParams.sizeCoef, renderParams.layout.PositionX, renderParams.layout.PositionY) * Math.PI / 180;
                     }
 
-                    if (renderParams.valueText !== undefined) {
-                        var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
-                        var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset);
+                    var pathFill = renderParams.isSelected ? BMA.SVGRendering.BMAColorConstants.bmaMembranaFillSelectedColor : BMA.SVGRendering.BMAColorConstants.bmaMembranaFillColor;
+                    var selectedPathFill = BMA.SVGRendering.BMAColorConstants.bmaMembranaStrokeColor;
 
+                    if (renderParams.layout.fill !== undefined) {
+                        var renderColors = BMA.SVGRendering.GetColorsForRendering(renderParams.layout.fill, "Membrana");
+
+                        pathFill = renderColors.fill;
+                        selectedPathFill = renderColors.stroke;
+                    }
+
+                    if (renderParams.layout.stroke !== undefined) {
+                        selectedPathFill = renderParams.layout.stroke;
+                    }
+
+                    if (renderParams.isHighlighted !== undefined && !renderParams.isHighlighted) {
+                        pathFill = "#EDEDED";
+                    }
+
+                    if (renderParams.isHighlighted) {
+                        var rad = 16;// * renderParams.sizeCoef;
+                        //jqSvg.ellipse(g, 0, 0, rad, rad, { stroke: "#33cc00"/*"#EF4137"*/, fill: "transparent" });
+                    }
+
+                    var fillGeometry = that.variableFillGeometry;
+                    if (renderParams.isSelected) {
+                        fillGeometry = that.variableSelectedFillGeometry
+                    }
+
+                    
+
+                    var scale = 0.6;
+
+                    context.translate(x, y);
+                    context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
+                    context.rotate(angle);
+                    context.translate(-50, -47);
+                    //render geometry fill
+                    context.fillStyle = pathFill;
+                    context.fill(fillGeometry);
+                    //render geometry stroke
+                    context.fillStyle = renderParams.isSelected ? selectedPathFill : pathFill;
+                    context.fill(that.variableSelectedStrokeGeometry);
+                    context.setTransform(1, 0, 0, 1, 0, 0);
+                } else {
+                    //Rendering error icon if necessary
+                    if (renderParams.isValid !== undefined && renderParams.isValid !== true) {
+                        super.RenderAttentionIcon(context, cs, x, y, !renderParams.hasCustomCS);
+                    }
+
+                    //Rendering text labels
+                    if (that.LabelVisibility === true) {
+                        var offset = 0;
+                        context.fillStyle = renderParams.labelColor !== undefined ? renderParams.labelColor : "black";
                         context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
-                        context.fillText(renderParams.valueText, xText, yText);
+
+                        if (renderParams.model.Name !== "") {
+                            var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                            var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize);
+
+                            context.fillText(renderParams.model.Name, xText, yText);
+                            offset += that.LabelSize;
+                        }
+
+                        if (renderParams.valueText !== undefined) {
+                            var xText = cs.dataToScreenX(renderParams.layout.PositionX - BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant / 2);
+                            var yText = cs.dataToScreenY(renderParams.layout.PositionY + BMA.SVGRendering.SVGRenderingConstants.variableHeightConstant / 2 + that.LabelSize + offset);
+
+                            context.font = cs.plotToScreenHeight(that.LabelSize) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+                            context.fillText(renderParams.valueText, xText, yText);
+                        }
                     }
                 }
             }

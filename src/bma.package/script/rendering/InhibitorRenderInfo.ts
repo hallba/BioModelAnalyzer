@@ -85,6 +85,9 @@
                         pathFill = "#999999";
                     }
 
+                    if (renderParams.customFill)
+                        pathFill = renderParams.customFill;
+
                     var angle = 0;
                     if (renderParams.layout.hasRotation) {
                         angle = BMA.SVGRendering.RenderHelper.CalculateRotationAngle(renderParams.layout.gridCell, renderParams.grid, renderParams.layout.startSizeCoef, renderParams.layout.start.PositionX, renderParams.layout.start.PositionY) * Math.PI / 180.0;
@@ -226,9 +229,9 @@
                     }
 
                     if (renderParams.hasReverse === true || (<any>window).VisualSettings.ForceCurvedRelationships === true) {
-                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezierSVG(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected);
+                        lineRef = BMA.SVGRendering.RenderHelper.CreateBezierSVG(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected, renderParams.customFill);
                     } else {
-                        lineRef = BMA.SVGRendering.RenderHelper.CreateLine(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected);
+                        lineRef = BMA.SVGRendering.RenderHelper.CreateLine(jqSvg, start, end, lw, "Inhibitor", renderParams.isSelected, renderParams.customFill);
                     }
                 }
 

@@ -2331,9 +2331,84 @@ module BMA {
                 }
 
                 if (this.stagingHighlight.variables[0] !== undefined) {
-                    var id = this.stagingHighlight.variables[0]
+                    var id = this.stagingHighlight.variables[0];
                     var variableLayout = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var variable = this.undoRedoPresenter.Current.model.GetVariableById(id);
+
+                    //var incomingRelationships = [];
+                    //var outcomingRelationships = [];
+                    //var selfRelationships = [];
+                    //var variableRels = [];
+                    //for (var i = 0; i < this.undoRedoPresenter.Current.model.Relationships.length; i++) {
+                    //    var rel = this.undoRedoPresenter.Current.model.Relationships[i];
+                    //    var isIncoming = rel.ToVariableId === id;
+                    //    var isOutcoming = rel.FromVariableId === id;
+
+                    //    if (isIncoming && isOutcoming) {
+                    //        selfRelationships.push(rel);
+                    //    } else if (isOutcoming) {
+                    //        outcomingRelationships.push(rel)
+                    //    } else if (isIncoming) {
+                    //        incomingRelationships.push(rel);
+                    //    }
+                    //}
+
+                    //for (var i = 0; i < incomingRelationships.length; i++) {
+                    //    var rel = incomingRelationships[i];
+
+                    //}
+
+                    var relationships = this.undoRedoPresenter.Current.model.Relationships;
+                    var model = this.undoRedoPresenter.Current.model;
+                    var layout = this.undoRedoPresenter.Current.layout;
+                    for (var i = 0; i < relationships.length; i++) {
+                        var relationship = relationships[i];
+
+                        var isIncoming = relationship.ToVariableId === id;
+                        var isOutcoming = relationship.FromVariableId === id;
+
+                        if (isIncoming || isOutcoming) {
+                            var element = window.ElementRegistry.GetElementByType(relationship.Type);
+
+                            var hasRotation = false;
+                            var gridCell = undefined;
+
+                            var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
+                            var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
+                            var startVarSizeCoef = 1;
+                            if (container !== undefined) {
+                                startVarSizeCoef = container.Size;
+                                gridCell = { x: container.PositionX, y: container.PositionY };
+                            }
+
+                            hasRotation = start.model.Type === "MembraneReceptor";
+
+                            var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
+                            var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
+                            var endVarSizeCoef = 1;
+                            if (container2 !== undefined) {
+                                endVarSizeCoef = container2.Size;
+                            }
+
+                            var hasReverse = false;
+                            for (var j = 0; j < relationships.length; j++) {
+                                var revRel = relationships[j];
+                                if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
+                                    hasReverse = true;
+                                    break;
+                                }
+                            }
+
+                            this.svg.add(element.RenderToSvg({
+                                layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
+                                grid: this.Grid,
+                                id: relationship.Id,
+                                hasReverse: hasReverse,
+                                isSelected: false,
+                                customFill: "#33cc00"
+                            }));
+                        }
+                    }
 
                     //var container: any = variable.Type === "MembraneReceptor" ? this.undoRedoPresenter.Current.layout.GetContainerById(variable.ContainerId) : undefined;
                     var varSizeCoef = 1;

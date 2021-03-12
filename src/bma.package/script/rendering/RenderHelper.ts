@@ -56,11 +56,15 @@
                 return result;
             }
             //Creates svg with bezier curve corresponding to input parameters
-            export function CreateBezierSVG(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
+            export function CreateBezierSVG(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean, strokeOverride: string) {
                 var jqSvg = svg;
 
                 var stroke = isSelected ? "#999999" : "#aaa";
-                var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
+                var endMarker = strokeOverride !== undefined ? "url(#" + endingType + "Highlighted)" : (isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")");
+
+                if (strokeOverride !== undefined && strokeOverride !== "") {
+                    stroke = strokeOverride;
+                }
 
                 var pathData = CreateBezier(start, end, 1);
                 var path = jqSvg.createPath();
@@ -68,11 +72,16 @@
             }
 
             //Creates svg with line corresponding to input parameters
-            export function CreateLine(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean) {
+            export function CreateLine(svg: any, start: { x: number, y: number }, end: { x: number, y: number }, lineWidth: number, endingType: string, isSelected: boolean, strokeOverride: string) {
                 var jqSvg = svg;
 
                 var stroke = isSelected ? "#999999" : "#aaa";
-                var endMarker = isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")";
+                var endMarker = strokeOverride !== undefined ? "url(#" + endingType + "Highlighted)" : (isSelected ? "url(#" + endingType + "Selected)" : "url(#" + endingType + ")");
+
+                if (strokeOverride !== undefined && strokeOverride !== "") {
+                    stroke = strokeOverride;
+                }
+
                 var path = jqSvg.createPath();
                 var pathData = path.move(start.x, start.y).lineTo(end.x, end.y);
                 //console.log("path data: " + pathData._path);
@@ -275,7 +284,59 @@
                     });
                 }
 
-                //Render Variables
+                //Render Relationships
+                var relationships = model.Relationships;
+                for (var i = 0; i < relationships.length; i++) {
+                    var relationship = relationships[i];
+                    var element = window.ElementRegistry.GetElementByType(relationship.Type);
+
+                    var hasRotation = false;
+                    var gridCell = undefined;
+
+                    var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
+                    var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
+                    var startVarSizeCoef = 1;
+                    if (container !== undefined) {
+                        startVarSizeCoef = container.Size;
+                        gridCell = { x: container.PositionX, y: container.PositionY };
+                    }
+
+                    hasRotation = start.model.Type === "MembraneReceptor";
+
+                    var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
+                    var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
+                    var endVarSizeCoef = 1;
+                    if (container2 !== undefined) {
+                        endVarSizeCoef = container2.Size;
+                    }
+
+                    var hasReverse = false;
+                    for (var j = 0; j < relationships.length; j++) {
+                        var revRel = relationships[j];
+                        if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
+                            hasReverse = true;
+                            break;
+                        }
+                    }
+
+                    var isSelected = false;
+                    if (args !== undefined && args.selection !== undefined) {
+                        isSelected = args.selection.relationships[relationship.Id];
+                    }
+
+                    element.RenderToCanvas(context, {
+                        coordinateTransform: renderCS,
+                        hasCustomCS: hasCustomCS,
+                        layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
+                        grid: grid,
+                        id: relationship.Id,
+                        hasReverse: hasReverse,
+                        isSelected: isSelected,
+                        translate: translate,
+                    });
+                }
+
+                //Render Variable geometry
                 var variables = model.Variables;
                 var variableLayouts = layout.Variables;
                 for (var i = 0; i < variables.length; i++) {
@@ -335,64 +396,55 @@
                         grid: grid,
                         gridCell: gridCell,
                         sizeCoef: sizeCoef,
-                        valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
-                        labelColor: additionalInfo === undefined ? undefined : ModelHelper.GetVariableColorByStatus(additionalInfo.state),
+                        //valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                        //labelColor: additionalInfo === undefined ? undefined : ModelHelper.GetVariableColorByStatus(additionalInfo.state),
                         isHighlighted: isHighlighted,
                         isSelected: isSelected,
                         translate: translate,
-                        isValid: isValid
+                        isValid: isValid,
+                        textOnly: false
                     });
                 }
 
-                //Render Relationships
-                var relationships = model.Relationships;
-                for (var i = 0; i < relationships.length; i++) {
-                    var relationship = relationships[i];
-                    var element = window.ElementRegistry.GetElementByType(relationship.Type);
+                //Render Variable labels
+                for (var i = 0; i < variables.length; i++) {
+                    var variable = variables[i];
+                    var variableLayout = variableLayouts[i];
+                    var element = window.ElementRegistry.GetElementByType(variable.Type);
+                    var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : ModelHelper.GetItemById(args.variablesStability, variable.Id);
 
-                    var hasRotation = false;
+                    var container: any = variable.Type === "MembraneReceptor" ? layout.GetContainerById(variable.ContainerId) : undefined;
+                    var sizeCoef = undefined;
                     var gridCell = undefined;
-
-                    var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
-                    var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
-                    var startVarSizeCoef = 1;
                     if (container !== undefined) {
-                        startVarSizeCoef = container.Size;
+                        sizeCoef = container.Size;
                         gridCell = { x: container.PositionX, y: container.PositionY };
                     }
 
-                    hasRotation = start.model.Type === "MembraneReceptor";
-
-                    var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
-                    var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
-                    var endVarSizeCoef = 1;
-                    if (container2 !== undefined) {
-                        endVarSizeCoef = container2.Size;
-                    }
-
-                    var hasReverse = false;
-                    for (var j = 0; j < relationships.length; j++) {
-                        var revRel = relationships[j];
-                        if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
-                            hasReverse = true;
-                            break;
+                    var isValid = true;
+                    if (args !== undefined && args.errors !== undefined) {
+                        for (var j = 0; j < args.errors.length; j++) {
+                            var er = args.errors[j];
+                            if (er.variable.Id === variable.Id) {
+                                isValid = false;
+                                break;
+                            }
                         }
-                    }
-
-                    var isSelected = false;
-                    if (args !== undefined && args.selection !== undefined) {
-                        isSelected = args.selection.relationships[relationship.Id];
                     }
 
                     element.RenderToCanvas(context, {
                         coordinateTransform: renderCS,
                         hasCustomCS: hasCustomCS,
-                        layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
+                        model: variable,
+                        layout: variableLayout,
                         grid: grid,
-                        id: relationship.Id,
-                        hasReverse: hasReverse,
-                        isSelected: isSelected,
+                        gridCell: gridCell,
+                        sizeCoef: sizeCoef,
+                        valueText: additionalInfo === undefined ? undefined : additionalInfo.range,
+                        labelColor: additionalInfo === undefined ? undefined : ModelHelper.GetVariableColorByStatus(additionalInfo.state),
                         translate: translate,
+                        isValid: isValid,
+                        textOnly: true
                     });
                 }
 
