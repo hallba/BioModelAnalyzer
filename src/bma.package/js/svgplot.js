@@ -433,7 +433,7 @@
                         points: points,
                         rad: minDistance * cnt.count, //0.5 * minDistance * cnt.count / clustersInfo.maxCount,
                         rad2: 0.5 * minDistance,
-                        name: cnt.values[0][4]
+                        name: cnt.values.length > 0 ? cnt.values[0][4] : "no name"
                     };
                     circles.push(c);
                 }
@@ -597,7 +597,7 @@
                     context.stroke();
                 }
 
-               
+
                 for (var i = 0; i < circles.length; i++) {
                     var c = circles[i];
 

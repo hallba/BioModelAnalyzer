@@ -1512,7 +1512,13 @@ module BMA {
 
                     var args = { selection: this.selection, errors: errors };
                     this.lastUsedRenderArgs = args;
-                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
+
+                    if (model === undefined)
+                        model = this.undoRedoPresenter.Current.model;
+                    if (layout === undefined)
+                        layout = this.undoRedoPresenter.Current.layout;
+
+                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(model, layout, this.Grid, args);
                     this.driver.DrawCanvas(rasterDrawingData);
                 }
             }
