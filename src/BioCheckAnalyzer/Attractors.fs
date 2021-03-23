@@ -68,9 +68,21 @@ let runVMCAI qn =
     let ranges = Map.map (fun _ x -> rangeToList x) vmcaiBounds
     ranges, stable
 
+let my_reachability (qn : QN.node list) bounds initial =
+    let rec loop step bounds' bounds paths =
+        let bounds'' = stepZ3rangelist.reachability qn step bounds' bounds
+        if List.forall (fun p -> p <> bounds'') paths then
+            loop (step+1) bounds'' bounds (paths @ [bounds''])
+        else paths
+    loop 0 bounds initial [initial]
+
+let getRanges qn =
+    qn |> List.map (fun (n : QN.node) -> (n.var, rangeToList n.range)) |> Map.ofList
+
 let runReachability qn initialRanges =
     printfn "Calling CAV reachability algorithm to narrow ranges..."
-    let paths = output_paths qn initialRanges |> List.rev
+    let paths = my_reachability qn (getRanges qn) initialRanges |> List.rev
+    
     let stable = paths |> List.head |> values |> List.forall (fun l -> List.length l = 1)
 
     if stable then
