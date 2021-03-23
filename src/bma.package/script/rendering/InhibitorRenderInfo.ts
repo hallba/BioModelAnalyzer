@@ -100,7 +100,7 @@
                     var scale = 0.5;
 
                     context.beginPath();
-                    context.lineWidth = cs.plotToScreenWidth(lw + 1);
+                    context.lineWidth = 2 * (lw + 1);
                     context.strokeStyle = pathFill;
                     context.translate(x, y);
                     context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
