@@ -516,15 +516,16 @@
             if (zoomLevel < 1) {
                 constelationsAlpha = zoomLevel;
             } else {
-                var maxZoomHeight = Math.min(_localBB.height, this.maxZoomHeight * 0.7);
-                var minZoomHeight = this.host.height() / 0.7;
 
-                //Protection for very specific model layouts.
-                if (maxZoomHeight <= minZoomHeight) {
-                    maxZoomHeight = 1.5 * minZoomHeight;
-                }
+                var gridHeight = _baseGrid.yStep;
+                var screengridHeight = dataToScreenY(0) - dataToScreenY(gridHeight);
 
-                var zoomLevel2 = (plotRect.height - minZoomHeight) / (maxZoomHeight - minZoomHeight);
+                var minGridHeight = 140;
+                var maxGridHeight = 190;
+                var gridHeightChangeDiff = maxGridHeight - minGridHeight;
+
+                var zoomLevel2 = screengridHeight > maxGridHeight ? 0 : (screengridHeight < minGridHeight ? 1 : 1 - (screengridHeight - minGridHeight) / gridHeightChangeDiff);
+
                 constelationsAlpha = 1 - zoomLevel2;
                 bubblesAlpha = zoomLevel2;
             }
