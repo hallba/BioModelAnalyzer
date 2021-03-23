@@ -91,8 +91,7 @@ module BMA {
                     }
 
                     function load() {
-                        window.Commands.Execute('SetPlotSettings', { MaxWidth: 3200, MinWidth: 800 });
-                        window.Commands.Execute('ModelFitToView', '');
+                        //window.Commands.Execute('SetPlotSettings', { MaxWidth: 3200, MinWidth: 800 });
                         fileLoaderDriver.OpenFileDialog().done(function (fileName) {
                             waitScreen.Show();
 
@@ -126,6 +125,7 @@ module BMA {
                                     }
                                 }
                                 checker.Snapshot(appModel);
+                                window.Commands.Execute('ModelFitToView', undefined);
                                 waitScreen.Hide();
                             };
                             

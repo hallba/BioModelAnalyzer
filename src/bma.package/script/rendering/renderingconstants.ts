@@ -188,61 +188,6 @@
             }
 
             protected RenderAttentionIcon(context, cs, x, y, inDataCoordinates) {
-
-                /*
-                var dotXOffset = 3;
-                var lineTopOffset = 4.5;
-                var lineBottomOffset = 1.8;
-                var lineYOffset = 3.5;
-                var lineXOffset = 0.9;
-                var errorRadius = 20.06 * 0.25;
-
-                
-                if (inDataCoordinates) {
-                    lineTopOffset = cs.plotToScreenWidth(lineTopOffset);
-                    lineBottomOffset = cs.plotToScreenWidth(lineBottomOffset);
-                    errorRadius = cs.plotToScreenWidth(errorRadius);
-                    dotXOffset = cs.plotToScreenWidth(dotXOffset);
-                    lineYOffset = cs.plotToScreenWidth(lineYOffset);
-                    lineXOffset = cs.plotToScreenWidth(lineXOffset);
-                } else {
-                    var scale = 5;
-
-                    lineTopOffset *= scale;
-                    lineBottomOffset *= scale;
-                    errorRadius *= scale;
-                    dotXOffset *= scale;
-                    lineYOffset *= scale;
-                    lineXOffset *= scale;
-                }
-
-                var offsetX = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
-                var offsetY = - cs.plotToScreenHeight(0.4 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
-
-                context.translate(offsetX, offsetY);
-                context.beginPath();
-                context.ellipse(x, y, errorRadius, errorRadius, 0, 0, 2 * Math.PI);
-                context.fillStyle = "red";
-                context.fill();
-
-                context.beginPath();
-                context.ellipse(x, y + dotXOffset, errorRadius * 0.2, errorRadius * 0.2, 0, 0, 2 * Math.PI);
-                context.fillStyle = "white";
-                context.fill();
-
-                context.strokeStyle = "white";
-                //context.fillRect(x - lineXOffset, y - lineYOffset, lineBottomOffset, lineTopOffset);
-                BMA.SVGRendering.RenderHelper.roundRect(
-                    context,
-                    x - lineXOffset,
-                    y - lineYOffset,
-                    lineBottomOffset,
-                    lineTopOffset,
-                    0.5 * lineBottomOffset,
-                    true, true);
-
-                */
-
                 var size = 75;
                 if (inDataCoordinates) {
                     size = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);

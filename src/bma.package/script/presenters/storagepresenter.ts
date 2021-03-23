@@ -280,6 +280,7 @@ module BMA {
                     that.RequestLoadModel().done(function () {
                         that.appModel.Reset(model.Model, model.Layout);
                         that.checker.Snapshot(that.appModel);
+                        window.Commands.Execute("ModelFitToView", undefined);
                     });
                 });
 
