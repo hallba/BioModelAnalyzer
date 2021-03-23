@@ -35,8 +35,7 @@
         }
 
         export function GetColorsForRendering(colorCode: string, type: "Default" | "Constant" | "Membrana"): { fill: string, stroke: string } {
-            switch (colorCode)
-            {
+            switch (colorCode) {
                 case BMAColorConstants.bmaGreenCode:
                     if (type != "Constant") {
                         return {
@@ -121,7 +120,7 @@
 
             LabelVisibility: boolean;
             LabelSize: number;
-            
+
             RenderToSvg(renderParams: any): SVGElement;
             RenderToCanvas(context: any, renderParams: any);
             Contains(pointerX: number, pointerY: number, elementX, elementY): boolean;
@@ -148,6 +147,8 @@
 
             private labelVisibility: boolean;
             private labelSize: number;
+
+            private attentionImage: any;
 
             public get LabelVisibility(): boolean {
                 return this.labelVisibility;
@@ -181,9 +182,14 @@
                 this.type = type;
                 this.description = description;
                 this.iconClass = iconClass;
+
+                this.attentionImage = new Image();
+                this.attentionImage.src = 'images/varerror.png';
             }
 
             protected RenderAttentionIcon(context, cs, x, y, inDataCoordinates) {
+
+                /*
                 var dotXOffset = 3;
                 var lineTopOffset = 4.5;
                 var lineBottomOffset = 1.8;
@@ -235,7 +241,17 @@
                     0.5 * lineBottomOffset,
                     true, true);
 
+                */
 
+                var size = 75;
+                if (inDataCoordinates) {
+                    size = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
+                }
+
+                var offsetX = cs.plotToScreenWidth(0.2 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
+                var offsetY = -cs.plotToScreenHeight(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant) - size;
+                context.translate(offsetX, offsetY);
+                context.drawImage(this.attentionImage, x, y, size, size);
                 context.setTransform(1, 0, 0, 1, 0, 0);
             }
         }
