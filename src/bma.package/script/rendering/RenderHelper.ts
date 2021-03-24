@@ -155,6 +155,9 @@
                     plotRect = args.plotCoordinatesInfo.plotRect;
                     screenRect = args.plotCoordinatesInfo.screenRect;
                     renderCS = args.plotCoordinatesInfo.transform; //new InteractiveDataDisplay.CoordinateTransform(plotRect, screenRect, 1);
+
+                    canvas.style.width = screenRect.actualWidth;
+                    canvas.style.height = screenRect.actualHeight;
                 } else {
 
                     var globalScale = 2;
@@ -248,6 +251,8 @@
                 canvas.width = screenRect.width;
                 canvas.height = screenRect.height;
                 var context = canvas.getContext("2d");
+                context.imageSmoothingEnabled = true;
+                context.imageSmoothingQuality = "high";
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
                 //Render containers

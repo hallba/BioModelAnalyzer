@@ -456,7 +456,16 @@
 
         var _canvasSnapshot = undefined;
         this.setFrame = function (frame) {
+            if (_canvasSnapshot !== undefined) {
+                _canvasSnapshot.parentNode.removeChild(_canvasSnapshot);
+            }
+
             _canvasSnapshot = frame;
+
+            if (_canvasSnapshot !== undefined) {
+                var cv = this.getContext(true).canvas;
+                $(_canvasSnapshot).css("position", "absolute").css("top", 0).css("left", 0).insertBefore($(cv).parent());
+            }
         };
 
         // Returns 4 margins in the screen coordinate system
@@ -494,14 +503,18 @@
             if (modelAlpha < 0) modelAlpha = 0;
             if (modelAlpha > 1) modelAlpha = 1;
 
+            if (_canvasSnapshot !== undefined) {
+                _canvasSnapshot.style.opacity = modelAlpha;
+                $(_canvasSnapshot).width(w_s);
+                $(_canvasSnapshot).height(h_s);
+            }
+
             if (modelAlpha > 0) {
                 context.globalAlpha = modelAlpha;
                 if (_canvasSnapshot === undefined) {
                     var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
                     context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
-                } else {
-                    context.drawImage(_canvasSnapshot, 0, 0, screenSize.width, screenSize.height);
-                }
+                } 
             }
 
             //render debug red rect to ensure canvas occupies correct place

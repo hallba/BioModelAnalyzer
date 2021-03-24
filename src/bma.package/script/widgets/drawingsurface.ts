@@ -474,7 +474,7 @@ declare var InteractiveDataDisplay: any;
             var that = this;
 
             var cs = that._svgPlot.getTransform();
-            var scale = 2;
+            var scale = 1;
             if (window.devicePixelRatio) {
                 scale *= window.devicePixelRatio;
             }
@@ -487,7 +487,7 @@ declare var InteractiveDataDisplay: any;
             };
             var cargs = {
                 transform: frameCS,
-                screenRect: { width: scale * that._svgPlot.host.width(), height: scale * that._svgPlot.host.height() },
+                screenRect: { width: scale * that._svgPlot.host.width(), height: scale * that._svgPlot.host.height(), actualWidth: that._svgPlot.host.width(), actualHeight: that._svgPlot.host.height() },
                 plotRect: {
                     x: that._plot.visibleRect.x,
                     y: that._plot.visibleRect.y,
