@@ -289,6 +289,13 @@ function loadScript(version) {
         yStep: 280
     };
 
+    (<any>window).ViewSwitchSettings = {
+        ModelConstelationsStart: 280,
+        ModelConstelationsEnd: 200,
+        ConstelationsBubblesStart: 190,
+        ConstelationsBubblesEnd: 140
+    };
+
     window.DefaultProteinColors = {
         "Constant": undefined,
         "Default": undefined,

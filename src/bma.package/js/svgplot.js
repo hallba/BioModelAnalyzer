@@ -493,9 +493,12 @@
             var scaleX = (dataToScreenX(_baseGrid.xStep) - dataToScreenX(0)) / _baseGrid.xStep;
             var scaleY = (dataToScreenY(0) - dataToScreenY(_baseGrid.yStep)) / _baseGrid.yStep;
 
-            var labelSize = 10;
-            var screenLabelSize = dataToScreenY(0) - dataToScreenY(labelSize);
-            var zoomLevel = screenLabelSize > 10 ? 0 : (screenLabelSize < 7 ? 1 : 1 - (screenLabelSize - 7) / 3);
+            var gridHeight = _baseGrid.yStep;
+            var screengridHeight = dataToScreenY(0) - dataToScreenY(gridHeight);
+            var minGridHeightMC = window.ViewSwitchSettings.ModelConstelationsEnd;
+            var maxGridHeightMC = window.ViewSwitchSettings.ModelConstelationsStart;
+            var gridHeightChangeDiffMC = maxGridHeightMC - minGridHeightMC;
+            var zoomLevel = screengridHeight > maxGridHeightMC ? 0 : (screengridHeight < minGridHeightMC ? 1 : 1 - (screengridHeight - minGridHeightMC) / gridHeightChangeDiffMC);
 
             var op = context.globalAlpha;
 
@@ -529,12 +532,8 @@
             if (zoomLevel < 1) {
                 constelationsAlpha = zoomLevel;
             } else {
-
-                var gridHeight = _baseGrid.yStep;
-                var screengridHeight = dataToScreenY(0) - dataToScreenY(gridHeight);
-
-                var minGridHeight = 140;
-                var maxGridHeight = 190;
+                var minGridHeight = window.ViewSwitchSettings.ConstelationsBubblesEnd;
+                var maxGridHeight = window.ViewSwitchSettings.ConstelationsBubblesStart;
                 var gridHeightChangeDiff = maxGridHeight - minGridHeight;
 
                 var zoomLevel2 = screengridHeight > maxGridHeight ? 0 : (screengridHeight < minGridHeight ? 1 : 1 - (screengridHeight - minGridHeight) / gridHeightChangeDiff);
@@ -629,6 +628,7 @@
                     context.fill();
                 }
 
+                var labelSize = 10;
                 var bubbleLableSize = 1.5 * labelSize; //Math.max(3 * labelSize, minClusterDistance);
                 var screenBubbleLabelSize = bubbleLableSize; // * scaleY;
                 var bubbleLabelOffset = 2; //in pixels
