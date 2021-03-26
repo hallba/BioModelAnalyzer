@@ -373,6 +373,24 @@
                 }
             }
 
+            //checking clusters stability
+            for (var i = 0; i < clusters.length; i++) {
+                var vv = clusters[i].values;
+                var result = undefined;
+                if (vv.length > 0) {
+                    result = vv[0][5];
+                    if (result !== undefined) {
+                        for (var j = 1; j < vv.length; j++) {
+                            if (!vv[j][5]) {
+                                result = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                clusters[i].stability = result;
+            }
+
             return { clusters: clusters, minDistance: minDistance, maxCount: max, relationships: clusterRelationships };
         };
 
@@ -390,6 +408,12 @@
         this.base = InteractiveDataDisplay.CanvasPlot;
         this.base(jqDiv, master);
         var that = this;
+
+        var stableImage = new Image();
+        stableImage.src = 'images/analysis/stable.png';
+
+        var failedImage = new Image();
+        failedImage.src = 'images/analysis/failed.png';
 
         var _canvas = undefined;
         var _localBB = undefined;
@@ -431,9 +455,10 @@
                         x: cnt.mean[0] * norm + _localBB.x,
                         y: cnt.mean[1] * norm + _localBB.y,
                         points: points,
-                        rad: minDistance * cnt.count, //0.5 * minDistance * cnt.count / clustersInfo.maxCount,
+                        rad: minDistance * cnt.count,
                         rad2: 0.5 * minDistance,
-                        name: cnt.values.length > 0 ? cnt.values[0][4] : "no name"
+                        name: cnt.values.length > 0 ? cnt.values[0][4] : "no name",
+                        isStable: clusters[i].stability
                     };
                     circles.push(c);
                 }
@@ -517,7 +542,7 @@
                 if (_canvasSnapshot === undefined) {
                     var realBBox = { x: dataToScreenX(_localBB.x), y: dataToScreenY(-_localBB.y), width: _localBB.width * scaleX, height: _localBB.height * scaleY };
                     context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
-                } 
+                }
             }
 
             //render debug red rect to ensure canvas occupies correct place
@@ -626,6 +651,14 @@
                     context.beginPath();
                     context.arc(x, y, rad, 0, 2 * Math.PI, false);
                     context.fill();
+
+                    var imageSize = 15;
+                    var offset = Math.cos(Math.PI / 4) * rad - imageSize * 0.5;
+                    if (circles[i].isStable) {
+                        context.drawImage(stableImage, x + offset, y + offset, imageSize, imageSize);
+                    } else if (circles[i].isStable === false) {
+                        context.drawImage(failedImage, x + offset, y + offset, imageSize, imageSize);
+                    }
                 }
 
                 var labelSize = 10;

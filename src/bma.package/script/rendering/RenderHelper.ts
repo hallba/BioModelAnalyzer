@@ -473,7 +473,14 @@
                         color = BMA.SVGRendering.GetColorsForRendering(color, type).fill;
                     }
 
-                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name]);
+                    var additionalInfo = args === undefined || args.variablesStability === undefined ? undefined : ModelHelper.GetItemById(args.variablesStability, variables[i].Id);
+                    var state = additionalInfo === undefined ? undefined : additionalInfo.state;
+
+                    if (state !== undefined) {
+                        console.log("proof state: " + state);
+                    }
+
+                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name, state]);
                     relTable[variables[i].Id] = {};
                 }
 
