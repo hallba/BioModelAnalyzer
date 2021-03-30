@@ -606,7 +606,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceRelDelete", (args) => {
-                    var relId = args.id;
+                    var relId = args.relationshipId;
                     if (relId !== undefined) {
                         that.RemoveRelationship(relId);
                     }
@@ -648,7 +648,7 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
-                    var relid = args.id;
+                    var relid = args.relationshipId;
                     if (relid !== undefined) {
                         that.ChangeRelationshipType(relid, args.reltype);
                     }
