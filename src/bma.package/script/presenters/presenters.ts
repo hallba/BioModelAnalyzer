@@ -637,6 +637,7 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceHighlightRelationship", (args) => {
                     that.stagingHighlight.relationship = args.id;
+                    that.stagingHighlight.variables[0] = undefined;
                     navigationDriver.MoveDraggableOnTop();
                     that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                 });
