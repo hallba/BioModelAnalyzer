@@ -404,13 +404,11 @@ function loadScript(version) {
             }
         ],
         beforeOpen: function (event, ui) {
-            ui.menu.zIndex(50);
+            ui.menu.zIndex(InteractiveDataDisplay.ZIndexDOMMarkers + 11);
             var x = holdCords.holdX || event.pageX;
             var y = holdCords.holdX || event.pageY;
             var left = x - $(".bma-drawingsurface").offset().left;
             var top = y - $(".bma-drawingsurface").offset().top;
-            //console.log("top " + top);
-            //console.log("left " + left);
 
             window.Commands.Execute("DrawingSurfaceContextMenuOpening", {
                 left: left,
@@ -433,23 +431,11 @@ function loadScript(version) {
                 args.size = 3;
                 commandName += "ResizeCell";
             } else if (ui.cmd.startsWith("RelDelete")) {
-                var substrLength = 9; //"RelDelete".length
-                var idstr = ui.cmd.substring(substrLength);
-                var id = parseInt(idstr);
-                args.id = id;
                 commandName += "RelDelete";
             } else if (ui.cmd.startsWith("Activator")) {
-                var substrLength = 9; //"Activator".length
-                var idstr = ui.cmd.substring(substrLength);
-                var id = parseInt(idstr);
-                args.id = id;
                 args.reltype = "Activator";
                 commandName += "ChangeType";
             } else if (ui.cmd.startsWith("Inhibitor")) {
-                var substrLength = 9; //"Inhibitor".length
-                var idstr = ui.cmd.substring(substrLength);
-                var id = parseInt(idstr);
-                args.id = id;
                 args.reltype = "Inhibitor";
                 commandName += "ChangeType";
             }
@@ -457,12 +443,22 @@ function loadScript(version) {
                 commandName += ui.cmd;
             }
 
+            args.relationshipId = ui.item.data().relationshipId;
+
             args.left = event.pageX - $(".bma-drawingsurface").offset().left;
             args.top = event.pageY - $(".bma-drawingsurface").offset().top;
             window.Commands.Execute(commandName, args);
+        }, focus: function (event, ui) {
+            var data = ui.item.data();
+            if (data.relationshipId !== undefined) {
+                window.Commands.Execute("DrawingSurfaceHighlightRelationship", { id: data.relationshipId });
+            }
+        }, close: function (event, ui) {
+            window.Commands.Execute("DrawingSurfaceUnHighlightRelationships", undefined);
         }
     });
 
+    
     var contextmenu = $('body').children('ul').filter('.ui-menu');
     contextmenu.addClass('command-list window canvas-contextual');
     contextmenu.children('li').children('ul').filter('.ui-menu').addClass('command-list');
@@ -494,6 +490,8 @@ function loadScript(version) {
             $(this)[0].innerHTML = '<img alt="" src="../images/' + (ind + 1) + 'x' + (ind + 1) + '.svg">';
         });
     }
+    
+
     $("#analytics").bmaaccordion({ position: "right", z_index: 4 });
 
     //Preparing elements panel

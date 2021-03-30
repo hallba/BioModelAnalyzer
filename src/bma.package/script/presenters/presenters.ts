@@ -46,6 +46,7 @@ module BMA {
             private stagingRect = undefined; //Used for rendering of selection rectangle
             private stagingOffset: { x: number; y: number; x0: number; y0: number; model: BMA.Model.BioModel; layout: BMA.Model.Layout } = undefined; //Offset for selection. Used when dragging selection
             private stagingHighlight: {
+                relationship: number,
                 variables: number[];
                 cell: number
             }
@@ -101,7 +102,7 @@ module BMA {
                 this.messageBox = messageBox;
 
                 this.stagingHighlight = {
-                    variables: [], cell: undefined
+                    variables: [], cell: undefined, relationship: undefined
                 };
 
                 this.selection = { variables: [], cells: [], relationships: [] };
@@ -527,43 +528,42 @@ module BMA {
                         for (var i = 0; i < rels.self.length; i++) {
                             var postfix = rels.self[i].Id;
                             selfConnections.push({
-                                title: "self " + (i + 1), "data-id": rels.self[i].Id, children: [{
+                                title: "self " + (i + 1) + " ", data: { relationshipId: postfix }, children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator" + postfix },
-                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
-                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash", data: { relationshipId: postfix } }]
                             });
                         }
                         for (var i = 0; i < rels.incoming.length; i++) {
                             var postfix = rels.incoming[i].Id;
                             incomingConnections.push({
-                                title: model.GetVariableById(rels.incoming[i].FromVariableId).Name + " ",
+                                title: model.GetVariableById(rels.incoming[i].FromVariableId).Name + " ", data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator" + postfix },
-                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
-                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                                { title: "Delete", cmd: "RelDelete", uiIcon: "ui-icon-trash", data: { relationshipId: postfix } }]
                             });
                         }
                         for (var i = 0; i < rels.outcoming.length; i++) {
                             var postfix = rels.outcoming[i].Id;
                             outcomingConnections.push({
-                                title: model.GetVariableById(rels.outcoming[i].ToVariableId).Name + " ",
-                                "data-id": rels.outcoming[i].Id,
+                                title: model.GetVariableById(rels.outcoming[i].ToVariableId).Name + " ", data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator" + postfix },
-                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
-                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                                { title: "Delete", cmd: "RelDelete", uiIcon: "ui-icon-trash", data: { relationshipId: postfix } }]
                             });
                         }
 
@@ -633,6 +633,18 @@ module BMA {
                         that.DeleteSelected();
                     }
 
+                });
+
+                window.Commands.On("DrawingSurfaceHighlightRelationship", (args) => {
+                    that.stagingHighlight.relationship = args.id;
+                    navigationDriver.MoveDraggableOnTop();
+                    that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                });
+
+                window.Commands.On("DrawingSurfaceUnHighlightRelationships", (args) => {
+                    that.stagingHighlight.relationship = undefined;
+                    navigationDriver.MoveDraggableOnBottom();
+                    that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
@@ -2426,32 +2438,7 @@ module BMA {
                     var variableLayout = this.undoRedoPresenter.Current.layout.GetVariableById(id);
                     var variable = this.undoRedoPresenter.Current.model.GetVariableById(id);
 
-                    //var incomingRelationships = [];
-                    //var outcomingRelationships = [];
-                    //var selfRelationships = [];
-                    //var variableRels = [];
-                    //for (var i = 0; i < this.undoRedoPresenter.Current.model.Relationships.length; i++) {
-                    //    var rel = this.undoRedoPresenter.Current.model.Relationships[i];
-                    //    var isIncoming = rel.ToVariableId === id;
-                    //    var isOutcoming = rel.FromVariableId === id;
-
-                    //    if (isIncoming && isOutcoming) {
-                    //        selfRelationships.push(rel);
-                    //    } else if (isOutcoming) {
-                    //        outcomingRelationships.push(rel)
-                    //    } else if (isIncoming) {
-                    //        incomingRelationships.push(rel);
-                    //    }
-                    //}
-
-                    //for (var i = 0; i < incomingRelationships.length; i++) {
-                    //    var rel = incomingRelationships[i];
-
-                    //}
-
                     var relationships = this.undoRedoPresenter.Current.model.Relationships;
-                    var model = this.undoRedoPresenter.Current.model;
-                    var layout = this.undoRedoPresenter.Current.layout;
                     for (var i = 0; i < relationships.length; i++) {
                         var relationship = relationships[i];
 
@@ -2459,58 +2446,26 @@ module BMA {
                         var isOutcoming = relationship.FromVariableId === id;
 
                         if (isIncoming || isOutcoming) {
-                            var element = window.ElementRegistry.GetElementByType(relationship.Type);
-
-                            var hasRotation = false;
-                            var gridCell = undefined;
-
-                            var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
-                            var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
-                            var startVarSizeCoef = 1;
-                            if (container !== undefined) {
-                                startVarSizeCoef = container.Size;
-                                gridCell = { x: container.PositionX, y: container.PositionY };
-                            }
-
-                            hasRotation = start.model.Type === "MembraneReceptor";
-
-                            var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
-                            var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
-                            var endVarSizeCoef = 1;
-                            if (container2 !== undefined) {
-                                endVarSizeCoef = container2.Size;
-                            }
-
-                            var hasReverse = false;
-                            for (var j = 0; j < relationships.length; j++) {
-                                var revRel = relationships[j];
-                                if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
-                                    hasReverse = true;
-                                    break;
-                                }
-                            }
-
-                            this.svg.add(element.RenderToSvg({
-                                layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
-                                grid: this.Grid,
-                                id: relationship.Id,
-                                hasReverse: hasReverse,
-                                isSelected: false,
-                                customFill: "#33cc00"
-                            }));
+                            this.svg.add(this.CreateRelationshipSVGForHighlight(relationship));
                         }
                     }
 
-                    //var container: any = variable.Type === "MembraneReceptor" ? this.undoRedoPresenter.Current.layout.GetContainerById(variable.ContainerId) : undefined;
                     var varSizeCoef = 1;
-                    //if (container !== undefined) {
-                    //    varSizeCoef = container.Size;
-                    //}
-
                     var rad = 16 * varSizeCoef;
                     this.svg.ellipse(variableLayout.PositionX, variableLayout.PositionY, rad, rad, {
                         stroke: "#33cc00", fill: "transparent"
                     });
+                }
+
+                if (this.stagingHighlight.relationship !== undefined) {
+                    var relationships = this.undoRedoPresenter.Current.model.Relationships;
+                    for (var i = 0; i < relationships.length; i++) {
+                        var relationship = relationships[i];
+                        if (relationship.Id === this.stagingHighlight.relationship) {
+                            this.svg.add(this.CreateRelationshipSVGForHighlight(relationship));
+                            break;
+                        }
+                    }
                 }
 
                 if (this.stagingOffset !== undefined) {
@@ -2523,6 +2478,52 @@ module BMA {
                 }
 
                 return $(this.svg.toSVG()).children();
+            }
+
+            //Operates with current model and layout
+            private CreateRelationshipSVGForHighlight(relationship: BMA.Model.Relationship): any {
+                var model = this.undoRedoPresenter.Current.model;
+                var layout = this.undoRedoPresenter.Current.layout;
+                var relationships = this.undoRedoPresenter.Current.model.Relationships;
+                var element = window.ElementRegistry.GetElementByType(relationship.Type);
+
+                var hasRotation = false;
+                var gridCell = undefined;
+
+                var start = ModelHelper.GetVariableById(layout, model, relationship.FromVariableId);
+                var container: any = start.model.Type === "MembraneReceptor" ? layout.GetContainerById(start.model.ContainerId) : undefined;
+                var startVarSizeCoef = 1;
+                if (container !== undefined) {
+                    startVarSizeCoef = container.Size;
+                    gridCell = { x: container.PositionX, y: container.PositionY };
+                }
+
+                hasRotation = start.model.Type === "MembraneReceptor";
+
+                var end = ModelHelper.GetVariableById(layout, model, relationship.ToVariableId);
+                var container2: any = end.model.Type === "MembraneReceptor" ? layout.GetContainerById(end.model.ContainerId) : undefined;
+                var endVarSizeCoef = 1;
+                if (container2 !== undefined) {
+                    endVarSizeCoef = container2.Size;
+                }
+
+                var hasReverse = false;
+                for (var j = 0; j < relationships.length; j++) {
+                    var revRel = relationships[j];
+                    if (revRel.Id !== relationship.Id && revRel.FromVariableId === relationship.ToVariableId && revRel.ToVariableId === relationship.FromVariableId) {
+                        hasReverse = true;
+                        break;
+                    }
+                }
+
+                return element.RenderToSvg({
+                    layout: { start: start.layout, startSizeCoef: startVarSizeCoef, end: end.layout, endSizeCoef: endVarSizeCoef, hasRotation: hasRotation, gridCell: gridCell },
+                    grid: this.Grid,
+                    id: relationship.Id,
+                    hasReverse: hasReverse,
+                    isSelected: false,
+                    customFill: "#33cc00"
+                });
             }
 
             private VariableEdited() {
