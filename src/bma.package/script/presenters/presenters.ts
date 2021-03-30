@@ -502,20 +502,90 @@ module BMA {
                         { name: "ResizeCellTo1x1", isVisible: true },
                         { name: "ResizeCellTo2x2", isVisible: true },
                         { name: "ResizeCellTo3x3", isVisible: true },
-                        { name: "Type", isVisible: relationshipId !== undefined },
+                        //{ name: "Type", isVisible: relationshipId !== undefined },
                         { name: "Activator", isVisible: true },
                         { name: "Inhibitor", isVisible: true },
                         { name: "Edit", isVisible: id !== undefined || containerId !== undefined },
                         { name: "Selection", isVisible: !isSelectionEmpty },
+                        { name: "Relationships", isVisible: id !== undefined },
                         //{ name: "SetFillColor", isVisible: selectionHasVariables }
                     ]);
 
                     that.contextMenu.EnableMenuItems([
                         { name: "Paste", isEnabled: canPaste },
                         //{ name: "Delete", isEnabled: false },
-                        { name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
-                        { name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
+                        //{ name: "Activator", isEnabled: relationshipId !== undefined && relationship.Type == "Inhibitor" },
+                        //{ name: "Inhibitor", isEnabled: relationshipId !== undefined && relationship.Type == "Activator" }
                     ]);
+
+                    if (id !== undefined) {
+                        var model = this.undoRedoPresenter.Current.model;
+                        var rels = model.GetRelationshipsForVariable(id);
+                        var selfConnections = [];
+                        var incomingConnections = [];
+                        var outcomingConnections = [];
+                        for (var i = 0; i < rels.self.length; i++) {
+                            var postfix = rels.self[i].Id;
+                            selfConnections.push({
+                                title: "self " + (i + 1), "data-id": rels.self[i].Id, children: [{
+                                    title: "Type", cmd: "Type", children: [
+                                        { title: "Activator", cmd: "Activator" + postfix },
+                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                    ],
+                                    uiIcon: "ui-icon-shuffle"
+                                },
+                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                            });
+                        }
+                        for (var i = 0; i < rels.incoming.length; i++) {
+                            var postfix = rels.incoming[i].Id;
+                            incomingConnections.push({
+                                title: model.GetVariableById(rels.incoming[i].FromVariableId).Name + " ",
+                                children: [{
+                                    title: "Type", cmd: "Type", children: [
+                                        { title: "Activator", cmd: "Activator" + postfix },
+                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                    ],
+                                    uiIcon: "ui-icon-shuffle"
+                                },
+                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                            });
+                        }
+                        for (var i = 0; i < rels.outcoming.length; i++) {
+                            var postfix = rels.outcoming[i].Id;
+                            outcomingConnections.push({
+                                title: model.GetVariableById(rels.outcoming[i].ToVariableId).Name + " ",
+                                "data-id": rels.outcoming[i].Id,
+                                children: [{
+                                    title: "Type", cmd: "Type", children: [
+                                        { title: "Activator", cmd: "Activator" + postfix },
+                                        { title: "Inhibitor", cmd: "Inhibitor" + postfix },
+                                    ],
+                                    uiIcon: "ui-icon-shuffle"
+                                },
+                                { title: "Delete", cmd: "RelDelete" + postfix, uiIcon: "ui-icon-trash" }]
+                            });
+                        }
+
+                        var relsMenu = { title: "Relationships", uiIcon: "ui-icon-transferthick-e-w", children: [] };
+                        if (selfConnections.length > 0) {
+                            relsMenu.children.push({
+                                title: "Self", icon: "ui-icon-arrowrefresh-1-e", children: selfConnections
+                            });
+                        }
+                        if (incomingConnections.length > 0) {
+                            relsMenu.children.push({
+                                title: "From ", children: incomingConnections, icon: "ui-icon-arrowthick-1-se"
+                            });
+                        }
+                        if (outcomingConnections.length > 0) {
+                            relsMenu.children.push({
+                                title: "To ", children: outcomingConnections, icon: "ui-icon-arrowthick-1-ne"
+                            });
+                        }
+
+                        that.contextMenu.SetOptionsForEntry("Relationships", relsMenu);
+                    }
 
                     that.contextElement = { x: x, y: y, screenX: args.left, screenY: args.top };
 
@@ -533,6 +603,15 @@ module BMA {
 
                 window.Commands.On("DrawingSurfaceClearSelection", (args) => {
                     that.ClearSelection(true);
+                });
+
+                window.Commands.On("DrawingSurfaceRelDelete", (args) => {
+                    var relId = args.id;
+                    if (relId !== undefined) {
+                        that.RemoveRelationship(relId);
+                    }
+
+                    that.contextElement = undefined;
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
@@ -557,13 +636,19 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceChangeType", (args) => {
-                    if (that.contextElement !== undefined) {
-                        if (that.contextElement.type === "relationship") {
-                            that.ChangeRelationshipType(that.contextElement.id, args.reltype);
-                        }
-
-                        that.contextElement = undefined;
+                    var relid = args.id;
+                    if (relid !== undefined) {
+                        that.ChangeRelationshipType(relid, args.reltype);
                     }
+                    that.contextElement = undefined;
+
+                    //if (that.contextElement !== undefined) {
+                    //    if (that.contextElement.type === "relationship") {
+                    //        that.ChangeRelationshipType(that.contextElement.id, args.reltype);
+                    //    }
+
+                    //    that.contextElement = undefined;
+                    //}
                 });
 
                 window.Commands.On("DrawingSurfaceCopy", (args) => {

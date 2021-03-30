@@ -787,6 +787,10 @@ module BMA {
                 }
             }
 
+            public SetOptionsForEntry(option: string, nodes) {
+                this.contextMenu.contextmenu("setEntry", option, nodes);
+            }
+
             public GetMenuItems() {
                 return [];
             }

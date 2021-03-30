@@ -369,7 +369,7 @@ function loadScript(version) {
             { title: "Copy", cmd: "Copy", uiIcon: "ui-icon-copy" },
             { title: "Paste", cmd: "Paste", uiIcon: "ui-icon-document-b" },
             { title: "Edit", cmd: "Edit", uiIcon: "ui-icon-pencil" },
-
+            { title: "Relationships", cmd: "Relationships", uiIcon: "ui-icon-transfer-e-w", children: [] },
             {
                 title: "Size", cmd: "Size", children: [
                     { title: "1x1", cmd: "ResizeCellTo1x1" },
@@ -378,13 +378,13 @@ function loadScript(version) {
                 ],
                 uiIcon: "ui-icon-arrow-4-diag"
             },
-            {
-                title: "Type", cmd: "Type", children: [
-                    { title: "Activator", cmd: "Activator" },
-                    { title: "Inhibitor", cmd: "Inhibitor" },
-                ],
-                uiIcon: "ui-icon-shuffle"
-            },
+            //{
+            //    title: "Type", cmd: "Type", children: [
+            //        { title: "Activator", cmd: "Activator" },
+            //        { title: "Inhibitor", cmd: "Inhibitor" },
+            //    ],
+            //    uiIcon: "ui-icon-shuffle"
+            //},
             { title: "Delete", cmd: "Delete", uiIcon: "ui-icon-trash" },
             {
                 title: "Selection", cmd: "Selection", uiIcon: "ui-icon-clipboard", children: [
@@ -432,13 +432,28 @@ function loadScript(version) {
             } else if (ui.cmd === "ResizeCellTo3x3") {
                 args.size = 3;
                 commandName += "ResizeCell";
-            } else if (ui.cmd === "Activator") {
+            } else if (ui.cmd.startsWith("RelDelete")) {
+                var substrLength = 9; //"RelDelete".length
+                var idstr = ui.cmd.substring(substrLength);
+                var id = parseInt(idstr);
+                args.id = id;
+                commandName += "RelDelete";
+            } else if (ui.cmd.startsWith("Activator")) {
+                var substrLength = 9; //"Activator".length
+                var idstr = ui.cmd.substring(substrLength);
+                var id = parseInt(idstr);
+                args.id = id;
                 args.reltype = "Activator";
                 commandName += "ChangeType";
-            } else if (ui.cmd === "Inhibitor") {
+            } else if (ui.cmd.startsWith("Inhibitor")) {
+                var substrLength = 9; //"Inhibitor".length
+                var idstr = ui.cmd.substring(substrLength);
+                var id = parseInt(idstr);
+                args.id = id;
                 args.reltype = "Inhibitor";
                 commandName += "ChangeType";
-            } else {
+            }
+            else {
                 commandName += ui.cmd;
             }
 

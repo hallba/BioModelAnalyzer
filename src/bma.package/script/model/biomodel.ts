@@ -67,6 +67,28 @@ module BMA {
                 return res;
             }
 
+            public GetRelationshipsForVariable(id: number): { incoming: Relationship[], outcoming: Relationship[], self: Relationship[] } {
+                var result = {
+                    incoming: [],
+                    outcoming: [],
+                    self: []
+                };
+
+                for (var i = 0; i < this.relationships.length; i++) {
+                    var rel = this.relationships[i];
+
+                    if (rel.FromVariableId === rel.ToVariableId && rel.FromVariableId === id) {
+                        result.self.push(rel);
+                    } else if (rel.FromVariableId === id) {
+                        result.outcoming.push(rel);
+                    } else if (rel.ToVariableId === id) {
+                        result.incoming.push(rel);
+                    }
+                }
+
+                return result;
+            }
+
             public GetJSON() {
                 var vars = [];
                 for (var i = 0; i < this.variables.length; i++) {

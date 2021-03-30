@@ -180,6 +180,7 @@ module BMA {
             GetMenuItems(): string[];
             EnableMenuItems(optionsVisibility: { name: string; isEnabled: boolean }[]): void;
             ShowMenuItems(optionsVisibility: { name: string; isVisible: boolean }[]): void;
+            SetOptionsForEntry(option: string, nodes): void;
         }
 
         export interface IAreaHightlighter {
