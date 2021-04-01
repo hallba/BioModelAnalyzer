@@ -60,6 +60,13 @@ declare var Silverlight: any;
 declare var drawingSurceContainer: any;
 declare function canvg(a1: any, a2: any, a3: any);
 
+enum ViewSwitchMode {
+    Auto = "Auto",
+    Model = "Model",
+    Constelations = "Constelations",
+    Bubbles = "Bubbles"
+}
+
 interface JQuery {
     contextmenu(): JQueryUI.Widget;
     contextmenu(settings: Object): JQueryUI.Widget;
@@ -296,11 +303,18 @@ function loadScript(version) {
         ConstelationsBubblesEnd: 140
     };
 
+    (<any>window).ViewSwitchMode = ViewSwitchMode.Auto;
+
     window.DefaultProteinColors = {
         "Constant": undefined,
         "Default": undefined,
         "MembraneReceptor": undefined,
     };
+
+    window.Commands.On("ChangeViewMode", (args) => {
+        (<any>window).ViewSwitchMode = args;
+        window.Commands.Execute("DrawingSurfaceRefreshOutput", undefined);
+    });
 
     //Loading widgets
     var drawingSurface = $("#drawingSurface");

@@ -16,7 +16,7 @@
             this.list = this._getList();
             this.items = this.list.find("li");
             this.listOptions = [];
-            
+
 
             this.items.each(function (ind) {
 
@@ -30,9 +30,9 @@
                     var child = this;
                     var text = $(child).text();
                     var behavior = $(child).attr("data-behavior");
-                    
+
                     if (behavior !== undefined) {
-                        
+
                         var command, value = undefined;
                         try {
                             command = $(child).attr("data-command");
@@ -49,7 +49,7 @@
                                 break;
                             case "toggle":
                                 if (that.listOptions[ind].toggle === undefined) {
-                                    value = command !== undefined ? ($(child).attr("data-default")==="true") : undefined;
+                                    value = command !== undefined ? ($(child).attr("data-default") === "true") : undefined;
                                     var button = $('<button></button>')
                                         .appendTo($(child));
                                     if (value) {
@@ -73,6 +73,21 @@
                                 }
                                 else
                                     console.log("Names of options should be different");
+                                break;
+                            case "multitoggle":
+                                //var options = [];
+                                //$(child).children().each(function (ei, elt) { options.push((<any>elt).text()); });
+                                //$(child).empty();
+                                $(child).css("display", "flex");
+                                $(child).children().each(function (ei, elt) {
+                                    var cmdarg = $(elt).attr("data-option");
+                                    $(elt).click(function (args) {
+                                        $(child).children().removeClass("green").addClass("grey");
+                                        $(elt).removeClass("grey").addClass("green");
+                                        window.Commands.Execute(command, cmdarg);
+                                    });
+                                });
+
                                 break;
 
                             case "increment":
@@ -104,8 +119,7 @@
             });
         },
 
-        changeButtonONOFFStyle: function (ind)
-        {
+        changeButtonONOFFStyle: function (ind) {
             var button = this.listOptions[ind].toggleButton;
             if (!this.listOptions[ind].toggle) {
                 button.text("OFF");

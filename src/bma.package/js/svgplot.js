@@ -531,6 +531,13 @@
             if (modelAlpha < 0) modelAlpha = 0;
             if (modelAlpha > 1) modelAlpha = 1;
 
+
+            if (window.ViewSwitchMode === "Bubbles" || window.ViewSwitchMode === "Constelations") {
+                modelAlpha = 0;
+            } else if (window.ViewSwitchMode === "Model") {
+                modelAlpha = 1;
+            }
+
             if (_canvasSnapshot !== undefined) {
                 _canvasSnapshot.style.opacity = modelAlpha;
                 $(_canvasSnapshot).width(w_s);
@@ -544,13 +551,6 @@
                     context.drawImage(_canvas, realBBox.x, realBBox.y, realBBox.width, realBBox.height);
                 }
             }
-
-            //render debug red rect to ensure canvas occupies correct place
-            //context.strokeStyle = "red";
-            //context.strokeRect(realBBox.x, realBBox.y, realBBox.width, realBBox.height);
-            //context.strokeRect(200, 200, 200 * realBBox.width / realBBox.height, 200);
-            //context.drawImage(_canvas, 200, 200, 200 * realBBox.width / realBBox.height, 200);
-            //console.log("x: " + realBBox.x + ", y:" + realBBox.y + ", width:" + realBBox.width + ", height:" + realBBox.height);
 
             var constelationsAlpha = 0;
             var bubblesAlpha = 0;
@@ -569,6 +569,12 @@
 
             if (constelationsAlpha < 0) constelationsAlpha = 0;
             if (constelationsAlpha > 1) constelationsAlpha = 1;
+
+            if (window.ViewSwitchMode === "Model" || window.ViewSwitchMode === "Bubbles") {
+                constelationsAlpha = 0;
+            } else if (window.ViewSwitchMode === "Constelations") {
+                constelationsAlpha = 1;
+            }
 
             if (constelationsAlpha > 0) {
                 context.globalAlpha = constelationsAlpha;
@@ -622,6 +628,12 @@
             //var bubblesAlpha = 0; //2 * zoomLevel - 1;
             if (bubblesAlpha < 0) bubblesAlpha = 0;
             if (bubblesAlpha > 1) bubblesAlpha = 1;
+
+            if (window.ViewSwitchMode === "Model" || window.ViewSwitchMode === "Constelations") {
+                bubblesAlpha = 0;
+            } else if (window.ViewSwitchMode === "Bubbles") {
+                bubblesAlpha = 1;
+            }
 
             if (bubblesAlpha > 0) {
                 context.globalAlpha = bubblesAlpha;
