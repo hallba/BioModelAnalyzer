@@ -608,7 +608,8 @@ function loadScript(version) {
         }
     }
 
-    elementPanel.children("input").not('[data-type="Activator"]').not('[data-type="Inhibitor"]').next().draggable({
+    var draggableElementPanelItems = elementPanel.children("input").not('[data-type="Activator"]').not('[data-type="Inhibitor"]').next();
+    draggableElementPanelItems.draggable({
 
         helper: function (event, ui) {
             var classes = $(this).children().children().attr("class").split(" ");
@@ -627,6 +628,19 @@ function loadScript(version) {
                 top: Math.floor(ui.helper.height() / 2)
             });
             $('#' + $(this).attr("for")).click();
+        }
+    });
+
+    window.Commands.On("ViewStateUpdated", (args) => {
+        (<any>window).IsModelReadableOnScreen = args.isModelVisisble;
+        if (!args.isModelVisisble) {
+            //switching to navigation mode
+            $("#button-pointer").click();
+            elementPanel.buttonset({ disabled: true });
+            draggableElementPanelItems.draggable({ disabled: true });
+        } else {
+            elementPanel.buttonset({ disabled: false });
+            draggableElementPanelItems.draggable({ disabled: false });
         }
     });
 

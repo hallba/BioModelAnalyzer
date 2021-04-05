@@ -441,6 +441,10 @@ declare var InteractiveDataDisplay: any;
             var isWaitingForChange = false;
 
             that._plot.navigation.setVisibleRect({ x: 0, y: -50, width: width, height: width / 2.5 }, false);
+
+
+            var lastTimeoutId = -1;
+            var isModelVisisble = undefined;
             that._plot.host.bind("visibleRectChanged", function (args) {
 
                 var plotRect = that._plot.visibleRect;
@@ -451,17 +455,36 @@ declare var InteractiveDataDisplay: any;
 
                 that._executeCommand("ZoomSliderBind", widthCoef);
 
+                var cs = that._svgPlot.getTransform();
+                var screengridHeight = cs.dataToScreenY(0) - cs.dataToScreenY(window.GridSettings.yStep);
+                var minGridHeightMC = (<any>window).ViewSwitchSettings.ModelConstelationsEnd;
+                var maxGridHeightMC = (<any>window).ViewSwitchSettings.ModelConstelationsStart;
+                var gridHeightChangeDiffMC = maxGridHeightMC - minGridHeightMC;
+                var zoomLevel = 1 - (screengridHeight > maxGridHeightMC ? 0 : (screengridHeight < minGridHeightMC ? 1 : 1 - (screengridHeight - minGridHeightMC) / gridHeightChangeDiffMC));
+
+                if (zoomLevel > 0.2) {
+                    if (isModelVisisble === false || isModelVisisble === undefined) {
+                        isModelVisisble = true;
+                        that._executeCommand("ViewStateUpdated", { isModelVisisble: true });
+                        console.log("model is now readable");
+                    }
+                } else {
+                    if (isModelVisisble === true || isModelVisisble === undefined) {
+                        isModelVisisble = false;
+                        that._executeCommand("ViewStateUpdated", { isModelVisisble: false });
+                        console.log("model is now unreadable");
+                    }
+                }
 
                 that._modelCanvasPlot.setFrame(undefined);
 
-                if (!isWaitingForChange) {
-                    isWaitingForChange = true;
-                    setTimeout(function () {
-                        that._requestFullQualityFrame();
-                        isWaitingForChange = false;
-                    }, 1000);
-
+                if (lastTimeoutId !== -1) {
+                    clearTimeout(lastTimeoutId);
                 }
+                lastTimeoutId = setTimeout(function () {
+                    that._requestFullQualityFrame();
+                    lastTimeoutId = -1;
+                }, 500); 
             });
 
 
