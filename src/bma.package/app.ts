@@ -311,11 +311,6 @@ function loadScript(version) {
         "MembraneReceptor": undefined,
     };
 
-    window.Commands.On("ChangeViewMode", (args) => {
-        (<any>window).ViewSwitchMode = args;
-        window.Commands.Execute("DrawingSurfaceRefreshOutput", undefined);
-    });
-
     //Loading widgets
     var drawingSurface = $("#drawingSurface");
     drawingSurface.drawingsurface({ showLogo: true, version: 'v. ' + versionText });
@@ -472,7 +467,7 @@ function loadScript(version) {
         }
     });
 
-    
+
     var contextmenu = $('body').children('ul').filter('.ui-menu');
     contextmenu.addClass('command-list window canvas-contextual');
     contextmenu.children('li').children('ul').filter('.ui-menu').addClass('command-list');
@@ -504,7 +499,7 @@ function loadScript(version) {
             $(this)[0].innerHTML = '<img alt="" src="../images/' + (ind + 1) + 'x' + (ind + 1) + '.svg">';
         });
     }
-    
+
 
     $("#analytics").bmaaccordion({ position: "right", z_index: 4 });
 
@@ -631,9 +626,8 @@ function loadScript(version) {
         }
     });
 
-    window.Commands.On("ViewStateUpdated", (args) => {
-        (<any>window).IsModelReadableOnScreen = args.isModelVisisble;
-        if (!args.isModelVisisble) {
+    var syncTopPanelsWithModelVisibility = () => {
+        if (!(<any>window).IsModelReadableOnScreen) {
             //switching to navigation mode
             $("#button-pointer").click();
             elementPanel.buttonset({ disabled: true });
@@ -642,6 +636,30 @@ function loadScript(version) {
             elementPanel.buttonset({ disabled: false });
             draggableElementPanelItems.draggable({ disabled: false });
         }
+    };
+
+    window.Commands.On("ViewStateUpdated", (args) => {
+        (<any>window).IsModelReadableOnScreen = args.isModelVisisble;
+
+        if ((<any>window).ViewSwitchMode === "Auto") {
+            syncTopPanelsWithModelVisibility();
+        }
+    });
+
+    window.Commands.On("ChangeViewMode", (args) => {
+        (<any>window).ViewSwitchMode = args;
+
+        if (args === "Model") {
+            elementPanel.buttonset({ disabled: false });
+            draggableElementPanelItems.draggable({ disabled: false });
+        } else if (args !== "Auto") {
+            $("#button-pointer").click();
+            elementPanel.buttonset({ disabled: true });
+            draggableElementPanelItems.draggable({ disabled: true });
+        } else
+            syncTopPanelsWithModelVisibility();
+
+        window.Commands.Execute("DrawingSurfaceRefreshOutput", undefined);
     });
 
     $("#modelelemtoolbar input").click(function (event) {

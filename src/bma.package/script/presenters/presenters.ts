@@ -1080,7 +1080,8 @@ module BMA {
                             }
                         }
 
-                        if (that.svg !== undefined) {
+                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        if (that.svg !== undefined && isModelVisible) {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         }
 
@@ -1090,6 +1091,10 @@ module BMA {
 
                 dragSubject.dragStart.subscribe(
                     (gesture) => {
+                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        if (!isModelVisible)
+                            return;
+
                         navigationDriver.MoveDraggableOnTop();
 
                         if (that.variableEditedId !== undefined) {
@@ -1138,6 +1143,10 @@ module BMA {
 
                 dragSubject.dragStartRight.subscribe(
                     (gesture) => {
+                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        if (!isModelVisible)
+                            return;
+
                         that.navigationDriver.TurnNavigation(false);
                         navigationDriver.MoveDraggableOnTop();
                         this.stagingRect = {
@@ -1153,6 +1162,9 @@ module BMA {
                 dragSubject.drag.subscribe(
                     (gesture) => {
 
+                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        if (!isModelVisible)
+                            return;
 
                         if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor") && that.stagingLine !== undefined) {
                             this.stagingLine.x1 = gesture.x1;
