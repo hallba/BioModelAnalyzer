@@ -659,7 +659,7 @@ function loadScript(version) {
         } else
             syncTopPanelsWithModelVisibility();
 
-        window.Commands.Execute("DrawingSurfaceRefreshOutput", undefined);
+        drawingSurface.drawingsurface("updateLayout");
     });
 
     $("#modelelemtoolbar input").click(function (event) {
