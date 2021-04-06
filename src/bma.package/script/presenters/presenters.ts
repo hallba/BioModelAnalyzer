@@ -1083,6 +1083,8 @@ module BMA {
                         var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
                         if (that.svg !== undefined && isModelVisible) {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                        } else {
+                            that.driver.DrawLayer2(<SVGElement>that.ClearStagingSvg());
                         }
 
                         that.driver.DrawRects([rect]);
@@ -1144,8 +1146,10 @@ module BMA {
                 dragSubject.dragStartRight.subscribe(
                     (gesture) => {
                         var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
-                        if (!isModelVisible)
+                        if (!isModelVisible) {
+                            that.driver.DrawLayer2(<SVGElement>that.ClearStagingSvg());
                             return;
+                        }
 
                         that.navigationDriver.TurnNavigation(false);
                         navigationDriver.MoveDraggableOnTop();
@@ -1163,8 +1167,10 @@ module BMA {
                     (gesture) => {
 
                         var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
-                        if (!isModelVisible)
+                        if (!isModelVisible) {
+                            that.driver.DrawLayer2(<SVGElement>that.ClearStagingSvg());
                             return;
+                        }
 
                         if ((that.selectedType === "Activator" || that.selectedType === "Inhibitor") && that.stagingLine !== undefined) {
                             this.stagingLine.x1 = gesture.x1;
@@ -2385,6 +2391,15 @@ module BMA {
                 //Generating svg elements from model and layout
                 var res = ModelHelper.RenderSVG(this.svg, model, layout, grid, args);
                 return $(res).children();
+            }
+
+            private ClearStagingSvg(): any {
+                if (this.svg === undefined)
+                    return undefined;
+
+                this.svg.clear();
+
+                return $(this.svg.toSVG()).children();
             }
 
             private CreateStagingSvg(): any {
