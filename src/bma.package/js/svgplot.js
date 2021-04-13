@@ -422,6 +422,7 @@
         var circles = [];
         var circleConnections = [];
         var minClusterDistance = 0;
+        var proofLabelSize = 0;
 
         this.draw = function (data) {
             _canvas = data.canvas;
@@ -439,8 +440,14 @@
                 var norm = Math.max(_localBB.width, _localBB.height);
                 var minDistance = clustersInfo.minDistance * norm;
                 minClusterDistance = minDistance;
+
+                var minElem = 0;
                 for (var i = 0; i < clusters.length; i++) {
                     var cnt = clusters[i];
+
+                    if (minElem > cnt.values.length || i === 0) {
+                        minElem = cnt.values.length;
+                    }
 
                     var points = [];
                     for (var j = 0; j < cnt.values.length; j++) {
@@ -462,6 +469,10 @@
                     };
                     circles.push(c);
                 }
+                if (minElem < 1) {
+                    minElem = 1;
+                }
+                proofLabelSize = minElem * minClusterDistance;
 
                 for (var i = 0; i < clustersInfo.relationships.length; i++) {
                     var rel = clustersInfo.relationships[i];
@@ -637,17 +648,23 @@
 
             if (bubblesAlpha > 0) {
                 context.globalAlpha = bubblesAlpha;
+                context.lineWidth = scaleX;
                 for (var i = 0; i < circleConnections.length; i++) {
                     var cc = circleConnections[i];
 
                     context.strokeStyle = "black";
+
+                    //context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
+
                     context.beginPath();
                     context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
                     context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
                     context.stroke();
+                    //context.setTransform(1, 0, 0, 1, 0, 0);
                 }
+                context.lineWidth = 1;
 
-
+                var imageSize = dataToScreenX(proofLabelSize) - dataToScreenX(0); //15;
                 for (var i = 0; i < circles.length; i++) {
                     var c = circles[i];
 
@@ -664,7 +681,6 @@
                     context.arc(x, y, rad, 0, 2 * Math.PI, false);
                     context.fill();
 
-                    var imageSize = 15;
                     var offset = Math.cos(Math.PI / 4) * rad - imageSize * 0.5;
                     if (circles[i].isStable) {
                         context.drawImage(stableImage, x + offset, y + offset, imageSize, imageSize);
@@ -676,10 +692,10 @@
                 var labelSize = 10;
                 var bubbleLableSize = 1.5 * labelSize; //Math.max(3 * labelSize, minClusterDistance);
                 var screenBubbleLabelSize = bubbleLableSize; // * scaleY;
-                var bubbleLabelOffset = 2; //in pixels
+                var bubbleLabelOffset = 5; //in pixels
                 var lebelXOffset = screenBubbleLabelSize; //in pixels
-                var labelYOffset = screenBubbleLabelSize * 0.5; //in pixels
-                context.strokeStyle = "#CFCFCF";
+                var labelYOffset = screenBubbleLabelSize * 0.6; //in pixels
+                //context.strokeStyle = "#CFCFCF";
                 context.textBaseline = "bottom";
                 for (var i = 0; i < circles.length; i++) {
                     var c = circles[i];
@@ -694,17 +710,19 @@
                     var labelWidth = labelMeasure.width;
                     var labelHeight = screenBubbleLabelSize;
 
-                    context.fillStyle = "#ccccff";
+                    context.fillStyle = "#d7d7ff"; //"#ccccff";
+                    context.strokeStyle = "white";
                     BMA.SVGRendering.RenderHelper.roundRect(
                         context,
                         x - 0.5 * labelWidth - lebelXOffset,
                         y - rad - bubbleLabelOffset - labelHeight - 2 * labelYOffset,
                         labelWidth + 2 * lebelXOffset,
                         labelHeight + 2 * labelYOffset,
-                        0.5 * (labelHeight + 2 * labelYOffset),
+                        0.6 * (labelHeight + 2 * labelYOffset),
                         true, true);
 
-                    context.fillStyle = "#333333";
+                    context.strokeStyle = "#CFCFCF";
+                    context.fillStyle = "#000000"; //"#333333";
                     context.fillText(label, x - 0.5 * labelWidth, y - rad - bubbleLabelOffset - labelYOffset);
                 }
             }

@@ -134,12 +134,13 @@ module BMA {
                 });
 
                 window.Commands.On("AddElementSelect", (type: string) => {
-
-                    that.selectedType = type;
-                    that.navigationDriver.TurnNavigation(type === "navigation");
-                    that.stagingLine = undefined;
-                    that.HideEditors();
-                    that.ClearSelection(true);
+                    if (that.selectedType !== type) {
+                        that.selectedType = type;
+                        that.navigationDriver.TurnNavigation(type === "navigation");
+                        that.stagingLine = undefined;
+                        that.HideEditors();
+                        that.ClearSelection(true);
+                    }
                     //this.selectedType = this.selectedType === type ? undefined : type;
                     //this.driver.TurnNavigation(this.selectedType === undefined);
                 });

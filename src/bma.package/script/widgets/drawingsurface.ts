@@ -466,13 +466,11 @@ declare var InteractiveDataDisplay: any;
                     if (isModelVisisble === false || isModelVisisble === undefined) {
                         isModelVisisble = true;
                         that._executeCommand("ViewStateUpdated", { isModelVisisble: true });
-                        console.log("model is now readable");
                     }
                 } else {
                     if (isModelVisisble === true || isModelVisisble === undefined) {
                         isModelVisisble = false;
                         that._executeCommand("ViewStateUpdated", { isModelVisisble: false });
-                        console.log("model is now unreadable");
                     }
                 }
 
