@@ -648,21 +648,18 @@
 
             if (bubblesAlpha > 0) {
                 context.globalAlpha = bubblesAlpha;
-                context.lineWidth = scaleX;
+                context.lineWidth = 1; //scaleX;
+                context.strokeStyle = "#333333";
                 for (var i = 0; i < circleConnections.length; i++) {
                     var cc = circleConnections[i];
 
-                    context.strokeStyle = "black";
-
-                    //context.scale(cs.plotToScreenWidth(scale), cs.plotToScreenHeight(scale));
 
                     context.beginPath();
                     context.moveTo(dataToScreenX(cc.x1), dataToScreenY(-cc.y1));
                     context.lineTo(dataToScreenX(cc.x2), dataToScreenY(-cc.y2));
                     context.stroke();
-                    //context.setTransform(1, 0, 0, 1, 0, 0);
                 }
-                context.lineWidth = 1;
+                //context.lineWidth = 1;
 
                 var imageSize = dataToScreenX(proofLabelSize) - dataToScreenX(0); //15;
                 for (var i = 0; i < circles.length; i++) {
@@ -682,12 +679,22 @@
                     context.fill();
 
                     var offset = Math.cos(Math.PI / 4) * rad - imageSize * 0.5;
+                    context.lineWidth = rad * 0.1;
                     if (circles[i].isStable) {
-                        context.drawImage(stableImage, x + offset, y + offset, imageSize, imageSize);
+                        context.strokeStyle = "#00cccc";
+                        context.beginPath();
+                        context.arc(x, y, rad * 1.05, 0, 2 * Math.PI, false);
+                        context.stroke();
+                        //context.drawImage(stableImage, x + offset, y + offset, imageSize, imageSize);
                     } else if (circles[i].isStable === false) {
-                        context.drawImage(failedImage, x + offset, y + offset, imageSize, imageSize);
+                        context.strokeStyle = "#ff00cc";
+                        context.beginPath();
+                        context.arc(x, y, rad * 1.05, 0, 2 * Math.PI, false);
+                        context.stroke();
+                        //context.drawImage(failedImage, x + offset, y + offset, imageSize, imageSize);
                     }
                 }
+                context.lineWidth = 1;
 
                 var labelSize = 10;
                 var bubbleLableSize = 1.5 * labelSize; //Math.max(3 * labelSize, minClusterDistance);
@@ -710,8 +717,8 @@
                     var labelWidth = labelMeasure.width;
                     var labelHeight = screenBubbleLabelSize;
 
-                    context.fillStyle = "#d7d7ff"; //"#ccccff";
-                    context.strokeStyle = "white";
+                    context.fillStyle = "white"; //"#d7d7ff"; //"#ccccff";
+                    context.strokeStyle = "#000000"; //"white";
                     BMA.SVGRendering.RenderHelper.roundRect(
                         context,
                         x - 0.5 * labelWidth - lebelXOffset,

@@ -527,7 +527,9 @@ function loadScript(version) {
             var pos = elem.offset();
             colorSelector.css("top", pos.top + label.outerHeight()).css("left", pos.left);
             defaultColorContextElement = elem;
-            colorSelector.show();
+
+            if (elementPanel.buttonset("option", "disabled") !== true)
+                colorSelector.show();
         });
 
         elem.on("mouseleave", function (e) {
@@ -672,27 +674,6 @@ function loadScript(version) {
     $("#button-pointer").click(function () {
         window.Commands.Execute("AddElementSelect", "navigation");
     });
-
-    //$("#button-selector").click(function () {
-    //    if ($("#button-selector-icon").hasClass("selection-icon")) {
-    //        window.Commands.Execute("AddElementSelect", "selection");
-    //    } else {
-    //        window.Commands.Execute("ClearSelection", undefined);
-    //    }
-    //});
-
-    //window.Commands.On("AddElementSelect", (mode) => {
-    //    if (mode === "selection") {
-    //        $("#button-selector-icon").removeClass("selection-icon").addClass("clearselection-icon");
-    //    } else {
-    //        $("#button-selector-icon").addClass("selection-icon").removeClass("clearselection-icon");
-    //        window.Commands.Execute("ClearSelection", undefined);
-    //    }
-    //});
-
-    //$("#button-clearselection").click(() => {
-    //    window.Commands.Execute("ClearSelection", undefined);
-    //});
 
     //adding listener to paste even to read data from clipboard
     $(document).bind("paste", (e) => {
