@@ -455,7 +455,8 @@
                         points.push({
                             x: p[0] * norm + _localBB.x,
                             y: p[1] * norm + _localBB.y,
-                            color: p[3]
+                            color: p[3],
+                            stability: p[5]
                         });
                     }
                     var c = {
@@ -625,13 +626,23 @@
 
                         circleCoords.push({ x: x1, y: y1 });
                     }
-                    context.lineWidth = lineW;
 
+                    context.lineWidth = constRad * 0.1;
                     for (var j = 0; j < c.points.length; j++) {
                         context.fillStyle = c.points[j].color;
                         context.beginPath();
                         context.arc(circleCoords[j].x, circleCoords[j].y, constRad, 0, 2 * Math.PI, false);
                         context.fill();
+
+                        if (c.points[j].stability !== undefined) {
+                            if (c.points[j].stability) {
+                                context.strokeStyle = "#00cccc";
+                                context.stroke();
+                            } else {
+                                context.strokeStyle = "#cc00ff";
+                                context.stroke();
+                            }
+                        }
                     }
                 }
             }
