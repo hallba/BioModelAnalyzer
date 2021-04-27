@@ -628,6 +628,8 @@ function loadScript(version) {
         }
     });
 
+    $("#viewswitchcontainer").viewswitchwidget();
+
     var syncTopPanelsWithModelVisibility = () => {
         if (!(<any>window).IsModelReadableOnScreen) {
             //switching to navigation mode

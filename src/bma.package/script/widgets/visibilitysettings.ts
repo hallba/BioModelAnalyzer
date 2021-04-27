@@ -157,9 +157,87 @@
     });
 }(jQuery));
 
+(function ($) {
+    $.widget("BMA.viewswitchwidget", {
+        _create: function () {
+            var root = this.element;
+
+            var width = 120;
+            var topOffset = 18;
+
+            var aSize = 16;
+            var mSize = 12;
+            var cSize = 16;
+            var bSize = 20;
+
+            var mXOffset = width * 0.33 - mSize * 0.5;
+            var bXOffset = width - bSize * 0.5;
+            var cXOffset = (mXOffset + bXOffset) * 0.5;
+
+            var mYOffset = topOffset - mSize * 0.5;
+            var cYOffset = topOffset - cSize * 0.5;
+            var bYOffset = topOffset - bSize * 0.5;
+
+            root.width(width).height(20).css("position", "relative");
+            var horLine = $("<div></div>").width(width).height(4).css("border-radius", "2px").css("background-color", "#DDDDDD").css("position", "absolute").css("left", 0).css("top", (topOffset - 2)).appendTo(root);
+            var Abut = $("<div>A</div>").css("font-weight", "900").css("font-size", aSize).css("color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", 0).css("top", 0).appendTo(root);
+            var Mbut = $("<div></div>").width(mSize).height(mSize).css("border-radius", mSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", mXOffset).css("top", mYOffset).appendTo(root);
+            var Cbut = $("<div></div>").width(cSize).height(cSize).css("border-radius", cSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", cXOffset).css("top", cYOffset).appendTo(root);
+            var Bbut = $("<div></div>").width(bSize).height(bSize).css("border-radius", bSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", bXOffset).css("top", bYOffset).appendTo(root);
+
+            Abut.css("color", "#5EC9CB");
+
+            Abut.click(function () {
+                Abut.css("color", "#5EC9CB");
+                Mbut.css("background-color", "#DDDDDD");
+                Cbut.css("background-color", "#DDDDDD");
+                Bbut.css("background-color", "#DDDDDD");
+
+                window.Commands.Execute("ChangeViewMode", "Auto");
+            });
+
+            Mbut.click(function () {
+                Abut.css("color", "#DDDDDD");
+                Mbut.css("background-color", "#5EC9CB");
+                Cbut.css("background-color", "#DDDDDD");
+                Bbut.css("background-color", "#DDDDDD");
+
+                window.Commands.Execute("ChangeViewMode", "Model");
+            });
+
+            Cbut.click(function () {
+                Abut.css("color", "#DDDDDD");
+                Mbut.css("background-color", "#DDDDDD");
+                Cbut.css("background-color", "#5EC9CB");
+                Bbut.css("background-color", "#DDDDDD");
+
+                window.Commands.Execute("ChangeViewMode", "Constelations");
+            });
+
+            Bbut.click(function () {
+                Abut.css("color", "#DDDDDD");
+                Mbut.css("background-color", "#DDDDDD");
+                Cbut.css("background-color", "#DDDDDD");
+                Bbut.css("background-color", "#5EC9CB");
+
+                window.Commands.Execute("ChangeViewMode", "Bubbles");
+            });
+        },
+
+        destroy: function () {
+            $.Widget.prototype.destroy.call(this);
+        }
+    });
+}(jQuery));
+
 interface JQuery {
     visibilitysettings(): JQuery;
     visibilitysettings(settings: Object): JQuery;
     visibilitysettings(optionLiteral: string, optionName: string): any;
     visibilitysettings(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    viewswitchwidget(): JQuery;
+    viewswitchwidget(settings: Object): JQuery;
+    viewswitchwidget(optionLiteral: string, optionName: string): any;
+    viewswitchwidget(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
