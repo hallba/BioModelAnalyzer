@@ -142,7 +142,7 @@
                 layout: BMA.Model.Layout,
                 grid: { x0: number, y0: number, xStep: number, yStep: number },
                 args: any)
-                : { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any, relationshipsTable: any } {
+                : { canvas: HTMLCanvasElement, bbox: { x: number, y: number, width: number, height: number }, grid: { x0: number, y0: number, xStep: number, yStep: number }, variableVectors: any, relationshipsTable: any, variableConnectionsCountTable: any } {
 
                 var translate = args === undefined ? undefined : args.translate;
                 var canvas = <HTMLCanvasElement>$("<canvas></canvas>")[0];
@@ -455,6 +455,7 @@
 
                 var varibleVectors = [];
                 var relTable = {};
+                var variableConnectionsCountTable = {};
                 var norm = Math.max(plotRect.width, plotRect.height);
                 for (var i = 0; i < variableLayouts.length; i++) {
 
@@ -482,6 +483,7 @@
 
                     varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name, state]);
                     relTable[variables[i].Id] = {};
+                    variableConnectionsCountTable[variables[i].Id] = 0;
                 }
 
                 //We count each relationship as two-sided for future clustering
@@ -489,6 +491,11 @@
                     var rel = relationships[i];
                     relTable[rel.FromVariableId][rel.ToVariableId] = true;
                     relTable[rel.ToVariableId][rel.FromVariableId] = true;
+
+                    variableConnectionsCountTable[rel.FromVariableId] += 1;
+                    if (rel.ToVariableId !== rel.FromVariableId) {
+                        variableConnectionsCountTable[rel.ToVariableId] += 1;
+                    }
                 }
 
                 return {
@@ -496,7 +503,8 @@
                     bbox: plotRect,
                     grid: grid,
                     variableVectors: varibleVectors,
-                    relationshipsTable: relTable
+                    relationshipsTable: relTable,
+                    variableConnectionsCountTable: variableConnectionsCountTable
                 };
             }
 

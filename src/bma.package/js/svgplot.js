@@ -288,7 +288,7 @@
             return moved;
         };
 
-        this.run = function (relTable) {
+        this.run = function (relTable, varReclCountTable) {
             ++this.iterations;
 
             // Reassign points to nearest cluster centroids.
@@ -306,18 +306,38 @@
             var clusters = [];
             var minDistance = +Infinity;
             for (var i = 0; i < this.means.length; i++) {
-                clusters[i] = { mean: this.means[i], count: 0, values: [] };
+                clusters[i] = { mean: this.means[i], count: 0, values: [], name: "no name", maxrelcount: 0 };
             }
 
 
             var max = 0;
             for (var i = 0; i < this.assignments.length; i++) {
-                clusters[this.assignments[i]].count++;
-                clusters[this.assignments[i]].values.push(this.data[i]);
+                var clusterIndex = this.assignments[i];
+                var cluster = clusters[clusterIndex];
 
-                if (clusters[this.assignments[i]].count > max) {
-                    max = clusters[this.assignments[i]].count;
+                cluster.count++;
+                cluster.values.push(this.data[i]);
+
+                if (cluster.maxrelcount < varReclCountTable[this.data[i][2]]) {
+                    cluster.maxrelcount = varReclCountTable[this.data[i][2]];
+                    cluster.name = this.data[i][4];
                 }
+
+                if (cluster.count > max) {
+                    max = cluster.count;
+                }
+
+                //clusters[this.assignments[i]].count++;
+                //clusters[this.assignments[i]].values.push(this.data[i]);
+
+                //if (clusters[this.assignments[i]].maxrelcount < varReclCountTable[this.data[i][2]]) {
+                //    clusters[this.assignments[i]].maxrelcount = varReclCountTable[this.data[i][2]];
+                //    clusters[this.assignments[i]].name = this.data[i][3];
+                //}
+
+                //if (clusters[this.assignments[i]].count > max) {
+                //    max = clusters[this.assignments[i]].count;
+                //}
             }
 
             for (var i = 0; i < clusters.length; i++) {
@@ -434,7 +454,7 @@
             if (data.variableVectors !== undefined && data.variableVectors.length > 0) {
                 var clusterNumber = 1 + Math.floor(Math.sqrt(0.5 * data.variableVectors.length));
                 var km = new BMAExt.Kmeans(data.variableVectors, clusterNumber);
-                var clustersInfo = km.run(data.relationshipsTable);
+                var clustersInfo = km.run(data.relationshipsTable, data.variableConnectionsCountTable);
                 var clusters = clustersInfo.clusters;
 
                 var norm = Math.max(_localBB.width, _localBB.height);
@@ -465,7 +485,7 @@
                         points: points,
                         rad: minDistance * cnt.count,
                         rad2: 0.5 * minDistance,
-                        name: cnt.values.length > 0 ? cnt.values[0][4] : "no name",
+                        name: cnt.name, //cnt.values.length > 0 ? cnt.values[0][4] : "no name",
                         isStable: clusters[i].stability
                     };
                     circles.push(c);
@@ -635,6 +655,8 @@
                         context.fill();
 
                         if (c.points[j].stability !== undefined) {
+                            context.beginPath();
+                            context.arc(circleCoords[j].x, circleCoords[j].y, constRad * 1.05, 0, 2 * Math.PI, false);
                             if (c.points[j].stability) {
                                 context.strokeStyle = "#00cccc";
                                 context.stroke();
@@ -736,7 +758,7 @@
                         y - rad - bubbleLabelOffset - labelHeight - 2 * labelYOffset,
                         labelWidth + 2 * lebelXOffset,
                         labelHeight + 2 * labelYOffset,
-                        0.6 * (labelHeight + 2 * labelYOffset),
+                        0.5 * (labelHeight + 2 * labelYOffset),
                         true, true);
 
                     context.strokeStyle = "#CFCFCF";
