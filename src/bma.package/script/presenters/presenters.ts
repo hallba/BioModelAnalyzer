@@ -1723,6 +1723,10 @@ module BMA {
                     this.editingId = undefined;
                 }
 
+                if (this.stagingHighlight.variables[0] === id) {
+                    this.stagingHighlight.variables[0] = undefined;
+                }
+
                 var wasRemoved = false;
 
                 var model = this.undoRedoPresenter.Current.model;
