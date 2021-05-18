@@ -542,8 +542,20 @@ function loadScript(version) {
             colorSelector.css("top", pos.top + label.outerHeight()).css("left", pos.left);
             defaultColorContextElement = elem;
 
-            if (elementPanel.buttonset("option", "disabled") !== true)
+            if (elementPanel.buttonset("option", "disabled") !== true) {
+                colorSelector.children("ul").find(".color-box").removeClass("clicked");
+
+                var type = elem.attr("data-type");
+                var currentSelectedColor = window.DefaultProteinColors[type];
+
+                colorSelector.children("ul").children("li").each(function (ind) {
+                    var col = $(this).attr("data-color");
+                    if (col === currentSelectedColor)
+                        $(this).find(".color-box").addClass("clicked");
+                });
+
                 colorSelector.show();
+            }
         });
 
         elem.on("mouseleave", function (e) {
