@@ -318,7 +318,21 @@ function loadScript(version) {
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
     $("#visibilityOptionsContent").visibilitysettings();
-    $("#visibilityOptionsSlider").bmaaccordion();
+    //$("#visibilityOptionsSlider").bmaaccordion();
+
+    $("#visibilityOptionsContent").css("position", "absolute").hide();
+    $("#visibilityOptionsButton").click(function (e) {
+        if ($("#visibilityOptionsContent").is(":visible")) {
+            $("#visibilityOptionsContent").hide();
+        } else {
+            var ofs = $("#visibilityOptionsSlider").offset();
+            var top = ofs.top + $("#visibilityOptionsSlider").outerHeight();
+            var right = Math.max(0, $(document).outerWidth() - (ofs.left + $("#visibilityOptionsContent").outerWidth()));
+
+            $("#visibilityOptionsContent").css("top", top).css("right", right);
+            $("#visibilityOptionsContent").show();
+        }
+    });
 
 
     $("#modelToolbarContent").hide();
