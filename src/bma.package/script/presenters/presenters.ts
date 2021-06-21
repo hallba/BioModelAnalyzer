@@ -528,11 +528,12 @@ module BMA {
                         var outcomingConnections = [];
                         for (var i = 0; i < rels.self.length; i++) {
                             var postfix = rels.self[i].Id;
+                            var isActivator = rels.self[i].Type == "Activator";
                             selfConnections.push({
                                 title: "self " + (i + 1) + " ", data: { relationshipId: postfix }, children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
-                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix }, uiIcon: !isActivator ? "ui-icon-check" : undefined },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
@@ -541,12 +542,13 @@ module BMA {
                         }
                         for (var i = 0; i < rels.incoming.length; i++) {
                             var postfix = rels.incoming[i].Id;
+                            var isActivator = rels.incoming[i].Type == "Activator";
                             incomingConnections.push({
                                 title: model.GetVariableById(rels.incoming[i].FromVariableId).Name + " ", data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
-                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix }, uiIcon: !isActivator ? "ui-icon-check" : undefined },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
@@ -555,12 +557,13 @@ module BMA {
                         }
                         for (var i = 0; i < rels.outcoming.length; i++) {
                             var postfix = rels.outcoming[i].Id;
+                            var isActivator = rels.outcoming[i].Type == "Activator";
                             outcomingConnections.push({
                                 title: model.GetVariableById(rels.outcoming[i].ToVariableId).Name + " ", data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
-                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix } },
-                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix } },
+                                        { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
+                                        { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix }, uiIcon: !isActivator ? "ui-icon-check" : undefined },
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
