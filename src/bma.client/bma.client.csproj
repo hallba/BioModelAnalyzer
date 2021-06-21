@@ -199,6 +199,17 @@
     <Content Include="images\search\Z_A_Sort_Icon.svg" />
     <Content Include="images\selection.png" />
     <Content Include="images\analysis\stable.png" />
+    <Content Include="images\settings\viewswitch\VM_All_Active.svg" />
+    <Content Include="images\settings\viewswitch\VM_All_Inactive.svg" />
+    <Content Include="images\settings\viewswitch\VM_Auto_Active.svg" />
+    <Content Include="images\settings\viewswitch\VM_Auto_Inactive.svg" />
+    <Content Include="images\settings\viewswitch\VM_Background.svg" />
+    <Content Include="images\settings\viewswitch\VM_Bubbles_Active.svg" />
+    <Content Include="images\settings\viewswitch\VM_Bubbles_Inactive.svg" />
+    <Content Include="images\settings\viewswitch\VM_Constelations_Active.svg" />
+    <Content Include="images\settings\viewswitch\VM_Constelations_Inactive.svg" />
+    <Content Include="images\settings\viewswitch\VM_Model_Active.svg" />
+    <Content Include="images\settings\viewswitch\VM_Model_Inactive.svg" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
     <Content Include="images\varerror.png" />
@@ -568,6 +579,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\rx.lite.d.ts" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

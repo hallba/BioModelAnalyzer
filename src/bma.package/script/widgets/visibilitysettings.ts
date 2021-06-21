@@ -165,9 +165,9 @@
             var width = 120;
             var topOffset = 18;
 
-            var aSize = 16;
-            var mSize = 12;
-            var cSize = 16;
+            var aSize = 14;
+            var mSize = 20;
+            var cSize = 20;
             var bSize = 20;
 
             var mXOffset = width * 0.33 - mSize * 0.5;
@@ -178,47 +178,45 @@
             var cYOffset = topOffset - cSize * 0.5;
             var bYOffset = topOffset - bSize * 0.5;
 
-            root.width(width).height(20).css("position", "relative");
-            var horLine = $("<div></div>").width(width).height(4).css("border-radius", "2px").css("background-color", "#DDDDDD").css("position", "absolute").css("left", 0).css("top", (topOffset - 2)).appendTo(root);
-            var Abut = $("<div>A</div>").css("font-weight", "900").css("font-size", aSize).css("color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", 0).css("top", 0).appendTo(root);
-            var Mbut = $("<div></div>").width(mSize).height(mSize).css("border-radius", mSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", mXOffset).css("top", mYOffset).appendTo(root);
-            var Cbut = $("<div></div>").width(cSize).height(cSize).css("border-radius", cSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", cXOffset).css("top", cYOffset).appendTo(root);
-            var Bbut = $("<div></div>").width(bSize).height(bSize).css("border-radius", bSize * 0.5).css("background-color", "#DDDDDD").css("position", "absolute").css("cursor", "pointer").css("left", bXOffset).css("top", bYOffset).appendTo(root);
-
-            Abut.css("color", "#5EC9CB");
+            root.width(width).height(30).css("position", "relative");
+            var horLine = $("<div></div>").width(width).height(12).css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").css("background-image", "url(images/settings/viewswitch/VM_Background.svg)").css("position", "absolute").css("left", 0).css("top", 24).appendTo(root);
+            var Abut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(aSize).height(aSize).css("background-image", "url(images/settings/viewswitch/VM_Auto_Active.svg)").css("position", "absolute").css("cursor", "pointer").css("left", -aSize * 0.5).css("top", 0.5 * (mSize - aSize)).appendTo(root);
+            var Mbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", mXOffset).css("top", 0).appendTo(root);
+            var Cbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", cXOffset).css("top", 0).appendTo(root);
+            var Bbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", bXOffset).css("top", 0).appendTo(root);
 
             Abut.click(function () {
-                Abut.css("color", "#5EC9CB");
-                Mbut.css("background-color", "#DDDDDD");
-                Cbut.css("background-color", "#DDDDDD");
-                Bbut.css("background-color", "#DDDDDD");
+                Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Active.svg)");
+                Mbut.css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)");
+                Cbut.css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)");
+                Bbut.css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)");
 
                 window.Commands.Execute("ChangeViewMode", "Auto");
             });
 
             Mbut.click(function () {
-                Abut.css("color", "#DDDDDD");
-                Mbut.css("background-color", "#5EC9CB");
-                Cbut.css("background-color", "#DDDDDD");
-                Bbut.css("background-color", "#DDDDDD");
+                Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Inactive.svg)");
+                Mbut.css("background-image", "url(images/settings/viewswitch/VM_Model_Active.svg)");
+                Cbut.css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)");
+                Bbut.css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)");
 
                 window.Commands.Execute("ChangeViewMode", "Model");
             });
 
             Cbut.click(function () {
-                Abut.css("color", "#DDDDDD");
-                Mbut.css("background-color", "#DDDDDD");
-                Cbut.css("background-color", "#5EC9CB");
-                Bbut.css("background-color", "#DDDDDD");
+                Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Inactive.svg)");
+                Mbut.css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)");
+                Cbut.css("background-image", "url(images/settings/viewswitch/VM_Constelations_Active.svg)");
+                Bbut.css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)");
 
                 window.Commands.Execute("ChangeViewMode", "Constelations");
             });
 
             Bbut.click(function () {
-                Abut.css("color", "#DDDDDD");
-                Mbut.css("background-color", "#DDDDDD");
-                Cbut.css("background-color", "#DDDDDD");
-                Bbut.css("background-color", "#5EC9CB");
+                Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Inactive.svg)");
+                Mbut.css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)");
+                Cbut.css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)");
+                Bbut.css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Active.svg)");
 
                 window.Commands.Execute("ChangeViewMode", "Bubbles");
             });
