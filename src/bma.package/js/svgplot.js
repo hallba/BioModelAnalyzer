@@ -306,7 +306,7 @@
             var clusters = [];
             var minDistance = +Infinity;
             for (var i = 0; i < this.means.length; i++) {
-                clusters[i] = { mean: this.means[i], count: 0, values: [], name: "no name", maxrelcount: 0 };
+                clusters[i] = { mean: this.means[i], count: 0, values: [], name: "no name", maxrelcount: 0, hasInnerVariableTFErrors: false };
             }
 
 
@@ -393,22 +393,31 @@
                 }
             }
 
-            //checking clusters stability
+            //checking clusters stability and inner variables tf errors
             for (var i = 0; i < clusters.length; i++) {
                 var vv = clusters[i].values;
-                var result = undefined;
+                var stability = undefined;
+                var hasTFErrors = false;
                 if (vv.length > 0) {
-                    result = vv[0][5];
-                    if (result !== undefined) {
+                    stability = vv[0][5];
+                    if (stability !== undefined) {
                         for (var j = 1; j < vv.length; j++) {
                             if (!vv[j][5]) {
-                                result = false;
+                                stability = false;
                                 break;
                             }
                         }
                     }
+
+                    hasTFErrors = vv[0][6];
+                    for (var j = 1; j < vv.length; j++) {
+                        if (!hasTFErrors && vv[j][6] === true) {
+                            hasTFErrors = true;
+                        }
+                    }
                 }
-                clusters[i].stability = result;
+                clusters[i].stability = stability;
+                clusters[i].hasInnerVariableTFErrors = hasTFErrors;
             }
 
             return { clusters: clusters, minDistance: minDistance, maxCount: max, relationships: clusterRelationships };
@@ -433,7 +442,7 @@
         stableImage.src = 'images/analysis/stable.png';
 
         var failedImage = new Image();
-        failedImage.src = 'images/analysis/failed.png';
+        failedImage.src = 'images/varerror.png'; //'images/analysis/failed.png';
 
         var _canvas = undefined;
         var _localBB = undefined;
@@ -486,7 +495,8 @@
                         rad: minDistance * cnt.count,
                         rad2: 0.5 * minDistance,
                         name: cnt.name, //cnt.values.length > 0 ? cnt.values[0][4] : "no name",
-                        isStable: clusters[i].stability
+                        isStable: clusters[i].stability,
+                        hasTFErrors: clusters[i].hasInnerVariableTFErrors
                     };
                     circles.push(c);
                 }
@@ -726,6 +736,10 @@
                         context.stroke();
                         //context.drawImage(failedImage, x + offset, y + offset, imageSize, imageSize);
                     }
+
+                    if (circles[i].hasTFErrors) {
+                        context.drawImage(failedImage, x + offset, y + offset, imageSize, imageSize);
+                    }
                 }
                 context.lineWidth = 1;
 
@@ -745,6 +759,9 @@
                     var rad = c.radScreen;
 
                     var label = c.name;
+                    if (label.length < 1) {
+                        label = "unnamed";
+                    }
                     context.font = screenBubbleLabelSize + "px OpenSans";
                     var labelMeasure = context.measureText(label);
                     var labelWidth = labelMeasure.width;

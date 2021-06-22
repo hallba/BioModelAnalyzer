@@ -255,6 +255,9 @@
                 context.imageSmoothingQuality = "high";
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
+                //Array where for each variable we store "true" if variable has any error in its taget function
+                var variablesErrorFlags = [];
+
                 //Render containers
                 var containerLayouts = layout.Containers;
                 for (var i = 0; i < containerLayouts.length; i++) {
@@ -392,6 +395,7 @@
                             }
                         }
                     }
+                    variablesErrorFlags[i] = !isValid;
 
                     element.RenderToCanvas(context, {
                         coordinateTransform: renderCS,
@@ -481,7 +485,7 @@
                     //    console.log("proof state: " + state);
                     //}
 
-                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name, state]);
+                    varibleVectors.push([(variableLayouts[i].PositionX - plotRect.x) / norm, (variableLayouts[i].PositionY - plotRect.y) / norm, variables[i].Id, color, variables[i].Name, state, variablesErrorFlags[i]]);
                     relTable[variables[i].Id] = {};
                     variableConnectionsCountTable[variables[i].Id] = 0;
                 }
