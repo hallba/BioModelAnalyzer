@@ -485,7 +485,8 @@
                             x: p[0] * norm + _localBB.x,
                             y: p[1] * norm + _localBB.y,
                             color: p[3],
-                            stability: p[5]
+                            stability: p[5],
+                            isValid: !p[6]
                         });
                     }
                     var c = {
@@ -674,6 +675,12 @@
                                 context.strokeStyle = "#cc00ff";
                                 context.stroke();
                             }
+                        }
+
+                        var imageSize = constRad;
+                        var offset = Math.cos(Math.PI / 4) * constRad - imageSize * 0.5;
+                        if (!c.points[j].isValid) {
+                            context.drawImage(failedImage, circleCoords[j].x + offset, circleCoords[j].y + offset, imageSize, imageSize);
                         }
                     }
                 }
