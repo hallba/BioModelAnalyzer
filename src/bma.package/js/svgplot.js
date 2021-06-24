@@ -442,7 +442,7 @@
         stableImage.src = 'images/analysis/stable.png';
 
         var failedImage = new Image();
-        failedImage.src = 'images/varerror.png'; //'images/analysis/failed.png';
+        failedImage.src = 'images/Attention.svg'; //'images/analysis/failed.png';
 
         var _canvas = undefined;
         var _localBB = undefined;
@@ -677,10 +677,13 @@
                             }
                         }
 
-                        var imageSize = constRad;
-                        var offset = Math.cos(Math.PI / 4) * constRad - imageSize * 0.5;
+                        var imageSize = 50;
+                        var cos45 = Math.cos(Math.PI / 4);
+                        var offsetX = cos45 * constRad - imageSize * (1 - cos45);//that.coordinateTransform.plotToScreenWidth(0.2 * 35);
+                        var offsetY = -Math.cos(Math.PI / 4) * constRad - imageSize + imageSize * (1 - cos45);// - that.coordinateTransform.plotToScreenWidth(0.3 * 35) - imageSize;
+                        //var offset = Math.cos(Math.PI / 4) * constRad + imageSize * 0.5;
                         if (!c.points[j].isValid) {
-                            context.drawImage(failedImage, circleCoords[j].x + offset, circleCoords[j].y + offset, imageSize, imageSize);
+                            context.drawImage(failedImage, circleCoords[j].x + offsetX, circleCoords[j].y + offsetY, imageSize, imageSize);
                         }
                     }
                 }

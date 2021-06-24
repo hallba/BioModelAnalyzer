@@ -138,6 +138,7 @@
     <Content Include="images\BMA_Background_Homepage.svg" />
     <Content Include="images\analysis\BMA_Icon_LTL.svg" />
     <Content Include="images\analysis\BMA_Icon_Simulation.svg" />
+    <Content Include="images\Attention.svg" />
     <Content Include="images\clearselection.png" />
     <Content Include="images\constant-old.svg" />
     <Content Include="images\container-old.svg" />
@@ -212,7 +213,6 @@
     <Content Include="images\settings\viewswitch\VM_Model_Inactive.svg" />
     <Content Include="images\uparrow-grey.png" />
     <Content Include="images\uparrow.png" />
-    <Content Include="images\varerror.png" />
     <Content Include="images\variable-old.svg" />
     <Content Include="js\jquery-contenteditable.min.js" />
     <Content Include="js\jszip.min.js" />

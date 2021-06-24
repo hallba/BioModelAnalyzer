@@ -184,17 +184,18 @@
                 this.iconClass = iconClass;
 
                 this.attentionImage = new Image();
-                this.attentionImage.src = 'images/varerror.png';
+                this.attentionImage.src = 'images/Attention.svg';
             }
 
             protected RenderAttentionIcon(context, cs, x, y, inDataCoordinates) {
-                var size = 75;
+                var size = 50;
                 if (inDataCoordinates) {
                     size = cs.plotToScreenWidth(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
                 }
 
-                var offsetX = cs.plotToScreenWidth(0.2 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant);
-                var offsetY = -cs.plotToScreenHeight(0.3 * BMA.SVGRendering.SVGRenderingConstants.variableWidthConstant) - size;
+                var cos45 = Math.cos(Math.PI * 0.25);
+                var offsetX = cos45 * cs.plotToScreenWidth(20) - size * (1 - cos45);
+                var offsetY = -cs.plotToScreenWidth(20) * cos45 - size + size * (1 - cos45);
                 context.translate(offsetX, offsetY);
                 context.drawImage(this.attentionImage, x, y, size, size);
                 context.setTransform(1, 0, 0, 1, 0, 0);
