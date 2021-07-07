@@ -1145,7 +1145,7 @@ function loadScript(version) {
     }
 
 
-    window.onunload = function () {
+    window.onbeforeunload = function () {
         window.localStorage.setItem(version_key, JSON.stringify(version));
 
         try {
@@ -1176,26 +1176,7 @@ function loadScript(version) {
             ClientVersion: "BMA HTML5 " + version.major + '.' + version.minor + '.' + version.build
         });
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('post', window.BMAServiceURL + '/api/ActivityLog', false);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        //xhr.setRequestHeader("Content-length", data.length.toString());
-        //xhr.setRequestHeader("Connection", "close");
-        xhr.send(data);
-
-        /*
-        var sendBeacon = navigator['sendBeacon'];
-        if (sendBeacon) {
-            sendBeacon('/api/ActivityLog', data);
-        } else {
-            var xhr = new XMLHttpRequest();
-            xhr.open('post', '/api/ActivityLog', false);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            xhr.setRequestHeader("Content-length", data.length.toString());
-            xhr.setRequestHeader("Connection", "close");
-            xhr.send(data);
-        }
-        */
+        navigator.sendBeacon(window.BMAServiceURL + '/api/ActivityLog', data);
     };
 
     $("label[for='button-pointer']").click();
