@@ -89,6 +89,20 @@ module BMA {
                 return result;
             }
 
+            public GetVariableNames(): string[] {
+                var result = [];
+                var checker = {};
+                for (var i = 0; i < this.variables.length; i++) {
+                    var name = this.variables[i].Name;
+                    if (name !== undefined && name.length > 0 && !checker[name]) {
+                        result.push(name);
+                        checker[name] = true;
+                    }
+                }
+
+                return result;
+            }
+
             public GetJSON() {
                 var vars = [];
                 for (var i = 0; i < this.variables.length; i++) {

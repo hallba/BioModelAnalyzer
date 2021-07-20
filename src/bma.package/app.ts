@@ -1144,6 +1144,9 @@ function loadScript(version) {
         });
     }
 
+    window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
+        $("#zoomslider").bmazoomslider({ searchTags: appModel.BioModel.GetVariableNames() });
+    });
 
     window.onbeforeunload = function () {
         window.localStorage.setItem(version_key, JSON.stringify(version));

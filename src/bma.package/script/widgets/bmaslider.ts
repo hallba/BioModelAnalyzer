@@ -10,6 +10,7 @@
             value: 0,
             min: 0,
             max: 100,
+            searchTags: [],
             suppressDirectChangeOnPlusMinusClick: false
         },
 
@@ -56,6 +57,14 @@
             searchPanel.hide();
 
             var input = $('<input/>').attr({ type: 'text' }).appendTo(searchPanel);
+            that.searchInput = input;
+
+            if (that.options.searchTags.length > 0) {
+                input.autocomplete({
+                    source: that.options.searchTags
+                });
+            }
+
             var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/Search.png')").appendTo(searchPanel);
             btn.click(function () {
                 window.Commands.Execute("SearchForContent", { type: "variable", name: input.val() });
@@ -144,6 +153,13 @@
                 case "max":
                     this.options.max = value;
                     this.zoomslider.slider("option", "max", value);
+                    break;
+                case "searchTags":
+                    if (value.length > 0) {
+                        this.searchInput.autocomplete({
+                            source: value
+                        });
+                    }
                     break;
                 default:
                     this._super(key, value);
