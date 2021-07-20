@@ -277,7 +277,7 @@ module BMA {
                         var bbox = this.editingOperation.BoundingBox;
                         tpEditorDriver.GetSVGDriver().SetVisibleRect({
                             x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height
-                        });
+                        }, false);
                     }
                 });
 
@@ -792,7 +792,7 @@ module BMA {
 
             private FitToView() {
                 if (this.operations.length < 1)
-                    this.driver.SetVisibleRect({ x: 0, y: 0, width: 800, height: 600 });
+                    this.driver.SetVisibleRect({ x: 0, y: 0, width: 800, height: 600 }, false);
                 else {
                     var bbox = this.CalcOperationsBBox();
 
@@ -813,7 +813,7 @@ module BMA {
                         width: size,
                         height: size
                     }
-                    this.driver.SetVisibleRect(bbox);
+                    this.driver.SetVisibleRect(bbox, true);
                 }
             }
 

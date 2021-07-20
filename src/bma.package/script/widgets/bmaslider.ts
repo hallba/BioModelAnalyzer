@@ -37,6 +37,39 @@
                 .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_Out.svg')")
                 .appendTo(that.element);
 
+            var search = $('<div></div>')
+                .addClass("zoompanel-button")
+                .css("background-image", "url('images/navigationpanel/Search.png')")
+                .appendTo(that.element);
+
+            var searchPanel = $('<div></div>')
+                .css("position", "absolute")
+                .css("display", "flex")
+                .css("flex-direction", "row")
+                .css("top", 55)
+                .css("left", 175)
+                .css("z-index", 7)
+                .css("background-color", "white")
+                .addClass("window")
+                .appendTo(that.element);
+
+            searchPanel.hide();
+
+            var input = $('<input/>').attr({ type: 'text' }).appendTo(searchPanel);
+            var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/Search.png')").appendTo(searchPanel);
+            btn.click(function () {
+                window.Commands.Execute("SearchForContent", { type: "variable", name: input.val() });
+            });
+
+            search.click(function () {
+                if (searchPanel.is(":visible")) {
+                    searchPanel.hide();
+                } else {
+                    searchPanel.show();
+                }
+            });
+
+
             this.zoomslider.slider({
                 min: that.options.min,
                 max: that.options.max,

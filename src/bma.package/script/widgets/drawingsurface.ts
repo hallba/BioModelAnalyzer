@@ -599,7 +599,10 @@ declare var InteractiveDataDisplay: any;
                     break;
                 case "visibleRect":
                     if (value !== undefined) {
-                        that._plot.navigation.setVisibleRect({ x: value.x, y: -value.y - value.height, width: value.width, height: value.height }, false);
+                        var withAnimation = value.animated;
+                        if (withAnimation === undefined)
+                            withAnimation = false;
+                        that._plot.navigation.setVisibleRect({ x: value.x, y: -value.y - value.height, width: value.width, height: value.height }, withAnimation);
                     }
                     break;
                 case "gridVisibility":

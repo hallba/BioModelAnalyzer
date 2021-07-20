@@ -166,9 +166,9 @@
             var topOffset = 18;
 
             var aSize = 14;
-            var mSize = 20;
-            var cSize = 20;
-            var bSize = 20;
+            var mSize = 24;
+            var cSize = 24;
+            var bSize = 24;
 
             var mXOffset = width * 0.33 - mSize * 0.5;
             var bXOffset = width - bSize * 0.5;
@@ -181,9 +181,9 @@
             root.width(width).height(30).css("position", "relative");
             var horLine = $("<div></div>").width(width).height(12).css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").css("background-image", "url(images/settings/viewswitch/VM_Background.svg)").css("position", "absolute").css("left", 0).css("top", 24).appendTo(root);
             var Abut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(aSize).height(aSize).css("background-image", "url(images/settings/viewswitch/VM_Auto_Active.svg)").css("position", "absolute").css("cursor", "pointer").css("left", -aSize * 0.5).css("top", 0.5 * (mSize - aSize)).appendTo(root);
-            var Mbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", mXOffset).css("top", 0).appendTo(root);
-            var Cbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", cXOffset).css("top", 0).appendTo(root);
-            var Bbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(20).height(20).css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", bXOffset).css("top", 0).appendTo(root);
+            var Mbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(mSize).height(mSize).css("background-image", "url(images/settings/viewswitch/VM_Model_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", mXOffset).css("top", 0).appendTo(root);
+            var Cbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(cSize).height(cSize).css("background-image", "url(images/settings/viewswitch/VM_Constelations_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", cXOffset).css("top", 0).appendTo(root);
+            var Bbut = $("<div></div>").css("background-repeat", "no-repeat").css("background-position", "center").css("background-size", "contain").width(bSize).height(bSize).css("background-image", "url(images/settings/viewswitch/VM_Bubbles_Inactive.svg)").css("position", "absolute").css("cursor", "pointer").css("left", bXOffset).css("top", 0).appendTo(root);
 
             Abut.click(function () {
                 Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Active.svg)");

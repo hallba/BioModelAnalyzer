@@ -18,7 +18,7 @@ module BMA {
             GetTop(y: number);
             GetPixelWidth();
             SetGridVisibility(isOn: boolean);
-            SetVisibleRect(rect: { x: number; y: number; width: number; height: number });
+            SetVisibleRect(rect: { x: number; y: number; width: number; height: number }, animated: boolean);
             GetSVG(): string;
             GetSVGRef(): any;
             GetLightSVGRef(): any;

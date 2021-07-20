@@ -168,6 +168,7 @@
     <Content Include="images\navigationpanel\BMA_Icon_Undo.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Zoom_In.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Zoom_Out.svg" />
+    <Content Include="images\navigationpanel\search.png" />
     <Content Include="images\receptor-old.svg" />
     <Content Include="images\repository\Bin_Icon.svg" />
     <Content Include="images\repository\Drag_and_Drop.svg" />

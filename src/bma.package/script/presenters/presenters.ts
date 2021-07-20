@@ -890,11 +890,11 @@ module BMA {
                                 this.ResetVariableIdIndex();
                                 var center = this.GetLayoutCentralPoint();
 
-                                this.driver.SetVisibleRect(bbox);
+                                this.driver.SetVisibleRect(bbox, false);
                                 //this.navigationDriver.SetCenter(center.x, center.y);
                             } else {
                                 if (oldMaxWidth > window.PlotSettings.MaxWidth) {
-                                    this.driver.SetVisibleRect(bbox);
+                                    this.driver.SetVisibleRect(bbox, false);
                                 }
                             }
                         }
@@ -937,7 +937,7 @@ module BMA {
 
                         window.Commands.Execute('SetPlotSettings', { MaxWidth: Math.max(3200, bbox.width * 1.1) });
                         this.driver.SetConstraints(that.Grid.xStep, Math.max(3200, bbox.width * 1.1), that.Grid.yStep, Math.max(3200, bbox.width * 1.1));
-                        this.driver.SetVisibleRect(bbox);
+                        this.driver.SetVisibleRect(bbox, true);
                     }
                 });
 
@@ -978,6 +978,41 @@ module BMA {
                         that.undoRedoPresenter.Dup(appModel.BioModel, that.editingLayout);
                         that.editingLayout = undefined;
                         that.isContainerEdited = false;
+                    }
+                });
+
+                window.Commands.On("SearchForContent", (args) => {
+                    var type = args.type;
+                    if (type === "variable") {
+                        var model = that.undoRedoPresenter.Current.model;
+                        var layout = that.undoRedoPresenter.Current.layout;
+
+                        var ids = model.GetIdByName(args.name);
+                        if (ids !== undefined && ids.length > 0) {
+                            var id = parseInt(ids[0]);
+                            var varL = layout.GetVariableById(id);
+                            if (varL !== undefined) {
+
+                                var bbox = {
+                                    x: varL.PositionX - 200, y: varL.PositionY - 200, width: 400, height: 400
+                                };
+                                var center = {
+                                    x: bbox.x + bbox.width / 2,
+                                    y: bbox.y + bbox.height / 2
+                                };
+
+                                var screenRect = { x: 0, y: 0, left: 0, top: 0, width: plotHost.host.width(), height: plotHost.host.height() };
+                                var cs = new InteractiveDataDisplay.CoordinateTransform({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }, screenRect, plotHost.aspectRatio);
+                                var actualRect = cs.getPlotRect(screenRect);
+
+                                bbox.x = center.x - actualRect.width / 2;
+                                bbox.y = center.y - actualRect.height / 2;
+                                bbox.width = actualRect.width;
+                                bbox.height = actualRect.height;
+
+                                svgPlotDriver.SetVisibleRect(bbox, true);
+                            }
+                        }
                     }
                 });
 

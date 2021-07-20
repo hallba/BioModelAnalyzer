@@ -103,7 +103,8 @@ module BMA {
             }
 
 
-            public SetVisibleRect(rect: { x: number; y: number; width: number; height: number }) {
+            public SetVisibleRect(rect: { x: number; y: number; width: number; height: number }, animated: boolean) {
+                (<any>rect).animated = animated;
                 this.svgPlotDiv.drawingsurface({ "visibleRect": rect });
             }
 
