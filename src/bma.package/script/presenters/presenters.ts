@@ -130,7 +130,25 @@ module BMA {
                 });
 
                 window.Commands.On('SaveSVG', () => {
-                    that.exportservice.Export(that.driver.GetSVG(), appModel.BioModel.Name, 'svg');
+
+                    if (that.svg === undefined)
+                        return undefined;
+
+                    var model = this.undoRedoPresenter.Current.model;
+                    var layout = this.undoRedoPresenter.Current.layout;
+                    var grid = this.Grid;
+                    ModelHelper.RenderSVG(that.svg, model, layout, grid, undefined);
+
+                    var currentSVGvp = $(that.driver.GetSVG());
+                    
+                    that.svg.configure({
+                        width: (<any>currentSVGvp[0].attributes).width.nodeValue,
+                        height: (<any>currentSVGvp[0].attributes).height.nodeValue,
+                        viewBox: (<any>currentSVGvp[0].attributes).viewBox.nodeValue,
+                        preserveAspectRatio: "none"
+                    }, true);
+
+                    that.exportservice.Export(that.svg.toSVG(), appModel.BioModel.Name, 'svg');
                 });
 
                 window.Commands.On("AddElementSelect", (type: string) => {
