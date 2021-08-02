@@ -20,10 +20,12 @@ function Find-MsBuild([int] $MaxVersion = 2017)
     $devPath = $pfilesl + "\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe"
     $proPath = $pfilesl + "\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\msbuild.exe"
     $communityPath = $pfilesl + "\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
+    $communityPath2019 = $pfilesl + "\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
     $fallback2015Path = $pfilesl + "\MSBuild\14.0\Bin\MSBuild.exe"
     $fallback2013Path = $pfilesl + "\MSBuild\12.0\Bin\MSBuild.exe"
     $fallbackPath = ${env:windir} + "\Microsoft.NET\Framework\v4.0.30319"
-		
+
+    If ((2019 -le $MaxVersion) -And (Test-Path $communityPath2019)) { return $communityPath2019 } 
     If ((2017 -le $MaxVersion) -And (Test-Path $agentPath)) { return $agentPath } 
     If ((2017 -le $MaxVersion) -And (Test-Path $devPath)) { return $devPath } 
     If ((2017 -le $MaxVersion) -And (Test-Path $proPath)) { return $proPath } 
@@ -35,7 +37,7 @@ function Find-MsBuild([int] $MaxVersion = 2017)
     throw "Unable to find msbuild"
 }
 
-$msbuild = Find-MsBuild 2017 
+$msbuild = Find-MsBuild 2019 
 if (!(Test-Path $msbuild)) {
     Write-Error -Message 'ERROR: Failed to locate MSBuild at ' + $msbuild
     exit 1
