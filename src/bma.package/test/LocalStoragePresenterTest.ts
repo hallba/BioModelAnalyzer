@@ -24,7 +24,7 @@ describe("BMA.Presenters.LocalStoragePresenter", () => {
     var CL2 = new BMA.Model.ContainerLayout(3, "", 24, 81, 56);
     var containers = [CL1, CL2];
     var varialbes = [VL1, VL2];//, VL3];
-    var layout = new BMA.Model.Layout(containers, varialbes, "");
+    var layout = new BMA.Model.Layout(containers, varialbes, [], "");
 
     appModel.BioModel = biomodel;
     appModel.Layout = layout;

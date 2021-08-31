@@ -457,6 +457,23 @@
                     });
                 }
 
+                //Render grid cell labels
+                for (var i = 0; i < layout.AnnotatedGridCells.length; i++) {
+                    var labeledGridCell = layout.AnnotatedGridCells[i];
+
+                    var xData = (labeledGridCell.CellX + 1) * grid.xStep + grid.x0;
+                    var yData = (labeledGridCell.CellY + 1) * grid.yStep + grid.y0;
+
+                    var x = renderCS.dataToScreenX(xData);
+                    var y = renderCS.dataToScreenY(yData);
+
+                    context.fillStyle = "black";
+                    context.font = renderCS.plotToScreenHeight(12) + "px " + BMA.SVGRendering.SVGRenderingConstants.textFontFamily;
+
+                    var textWidth = context.measureText(labeledGridCell.Name).width;
+                    context.fillText(labeledGridCell.Name, x - textWidth, y);
+                }
+
                 var varibleVectors = [];
                 var relTable = {};
                 var variableConnectionsCountTable = {};

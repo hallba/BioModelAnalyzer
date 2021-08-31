@@ -289,6 +289,13 @@ module BMA {
                         PositionY: c.PositionY
                     }
                 }),
+                AnnotatedGridCells: layout.AnnotatedGridCells.map(agc => {
+                    return {
+                        Name: agc.Name,
+                        CellX: agc.CellX,
+                        CellY: agc.CellY
+                    }
+                }),
                 Description: layout.Description
             }
         }
@@ -381,8 +388,14 @@ module BMA {
                 description = "";
             }
 
+            var annotations = json.Layout.AnnotatedGridCells;
+            if (annotations === undefined || annotations === null) {
+                annotations = [];
+            }
+
+            //TODO: check that import within model works
             var layout = new Layout(containers,
-                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description, v.Stroke, v.Fill)), description);
+                json.Layout.Variables.map(v => new VariableLayout(v.Id, v.PositionX, v.PositionY, v.CellX, v.CellY, v.Angle, v.Description, v.Stroke, v.Fill)), annotations, description);
 
 
             return {

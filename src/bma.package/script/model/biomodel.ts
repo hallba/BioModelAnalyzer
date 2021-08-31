@@ -241,6 +241,7 @@ module BMA {
             private description: string;
             private variables: VariableLayout[];
             private containers: ContainerLayout[];
+            private annotatedGridCells: GridCellLayout[];
 
             public get Containers(): ContainerLayout[] {
                 return this.containers.slice(0);
@@ -250,12 +251,16 @@ module BMA {
                 return this.variables.slice(0);
             }
 
+            public get AnnotatedGridCells(): GridCellLayout[] {
+                return this.annotatedGridCells.slice(0);
+            }
+
             public get Description(): string {
                 return this.description;
             }
 
             public Clone(): Layout {
-                return new Layout(this.containers.slice(0), this.variables.slice(0), this.description);
+                return new Layout(this.containers.slice(0), this.variables.slice(0), this.annotatedGridCells, this.description);
             }
 
             public GetVariableById(id: number) {
@@ -279,10 +284,11 @@ module BMA {
             }
 
 
-            constructor(containers: ContainerLayout[], varialbes: VariableLayout[], description: string) {
+            constructor(containers: ContainerLayout[], varialbes: VariableLayout[], annotatedGridCells: GridCellLayout[], description: string) {
                 this.containers = containers;
                 this.variables = varialbes;
                 this.description = description;
+                this.annotatedGridCells = annotatedGridCells;
             }
         }
 
@@ -384,6 +390,31 @@ module BMA {
                 this.stroke = stroke;
                 this.fill = fill;
             }
+        }
+
+        export class GridCellLayout {
+            private cellX: number;
+            private cellY: number;
+            private name: string;
+
+            public get CellX(): number {
+                return this.cellX;
+            }
+
+            public get CellY(): number {
+                return this.cellY;
+            }
+
+            public get Name(): string {
+                return this.name;
+            }
+
+            constructor(cellX: number, cellY: number, name: string) {
+                this.cellX = cellX;
+                this.cellY = cellY;
+                this.name = name;
+            }
+
         }
 
         export function GenerateNewContainerName(containerLayouts: ContainerLayout[]): string {

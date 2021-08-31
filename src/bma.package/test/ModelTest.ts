@@ -22,7 +22,7 @@ describe("BMA.Model.AppModel",() => {
     var CL2 = new BMA.Model.ContainerLayout(3, "", 24, 81, 56);
     var containers = [CL1, CL2];
     var layoutVariables = [VL1, VL2];//, VL3];
-    var layout = new BMA.Model.Layout(containers, layoutVariables, "");
+    var layout = new BMA.Model.Layout(containers, layoutVariables, [], "");
 
     var isStable = true;
     var time = 15;
@@ -105,7 +105,7 @@ describe("BMA.Model.AppModel",() => {
         }
 
         this.model = new BMA.Model.BioModel(ml.Model.Name, variables, relationships);
-        this.layout = new BMA.Model.Layout(containers, variableLayouts, "");
+        this.layout = new BMA.Model.Layout(containers, variableLayouts, [], "");
         
         var serializedModel = JSON.stringify(ml);
         appModel.Deserialize(serializedModel);

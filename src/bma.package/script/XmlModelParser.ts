@@ -89,6 +89,7 @@ module BMA
             Layout: new Model.Layout(
                 containers,
                 varLayouts,
+                [],
                 "")
         }
     }
@@ -215,6 +216,7 @@ module BMA
             Layout: new Model.Layout(
                 containers,
                 varLayouts,
+                [],
                 "")
         }
     }

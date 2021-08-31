@@ -6,7 +6,7 @@ describe("ModelHelper",() => {
     it("should correctly calculate bounding box for single cell",() => {
         var layout = new BMA.Model.Layout(
             [new BMA.Model.ContainerLayout(1, "", 1, 0, 0)],
-            [], "");
+            [], [], "");
 
         var bb = BMA.ModelHelper.GetModelBoundingBox(layout, grid);
         expect(bb.x).toBe(0);
@@ -18,7 +18,7 @@ describe("ModelHelper",() => {
     it("should correctly calculate bounding box for 2 cell",() => {
         var layout = new BMA.Model.Layout(
             [new BMA.Model.ContainerLayout(1, "", 1, 0, 0), new BMA.Model.ContainerLayout(2, "", 1, 1, 1)],
-            [], "");
+            [], [], "");
 
         var bb = BMA.ModelHelper.GetModelBoundingBox(layout, grid);
         expect(bb.x).toBe(0);
@@ -30,7 +30,7 @@ describe("ModelHelper",() => {
     it("should correctly calculate bounding box for 2 cell with different sizes",() => {
         var layout = new BMA.Model.Layout(
             [new BMA.Model.ContainerLayout(1, "", 1, 0, 0), new BMA.Model.ContainerLayout(2, "", 3, 1, 1)],
-            [], "");
+            [], [], "");
 
         var bb = BMA.ModelHelper.GetModelBoundingBox(layout, grid);
         expect(bb.x).toBe(0);
@@ -42,7 +42,7 @@ describe("ModelHelper",() => {
     it("should correctly calculate bounding box for 2 cell and 1 variable",() => {
         var layout = new BMA.Model.Layout(
             [new BMA.Model.ContainerLayout(1, "", 1, 0, 0), new BMA.Model.ContainerLayout(2, "", 3, 1, 1)],
-            [new BMA.Model.VariableLayout(3, -50, -50, 0, 0, 0, "", undefined, undefined)], "");
+            [new BMA.Model.VariableLayout(3, -50, -50, 0, 0, 0, "", undefined, undefined)], [], "");
 
         var bb = BMA.ModelHelper.GetModelBoundingBox(layout, grid);
         expect(bb.x).toBe(-100);

@@ -175,32 +175,32 @@ describe("model", () => {
 
         it("creates BMA.Model.Layout with right properties", () => {
 
-            var layout = new BMA.Model.Layout(containers, varialbes, "");
+            var layout = new BMA.Model.Layout(containers, varialbes, [], "");
             expect(layout.Variables).toEqual(varialbes);
             expect(layout.Containers).toEqual(containers);
         });
 
         it("creates BMA.Model.Layout and clones it to the second Layout using 'Clone()' function", () => {
 
-            var layout = new BMA.Model.Layout(containers, varialbes, "");
+            var layout = new BMA.Model.Layout(containers, varialbes, [], "");
             var layout2 = layout.Clone();
             expect(layout2).toEqual(layout);
 
             containers.length = 1;
-            layout = new BMA.Model.Layout(containers, varialbes, "");
+            layout = new BMA.Model.Layout(containers, varialbes, [], "");
             expect(layout2).not.toEqual(layout);
 
             containers = [CL1, CL2];
         });
 
         it("creates BMA.Model.Layout and apply function 'GetContainerById(id)'", () => {
-            var layout = new BMA.Model.Layout(containers, varialbes, "");
+            var layout = new BMA.Model.Layout(containers, varialbes, [], "");
             var c = layout.GetContainerById(CL2.Id);
             expect(c).toEqual(CL2);
         });
 
         it("creates BMA.Model.Layout and try to apply function 'GetContainerById(id) with not existing id, should return undefined'", () => {
-            var layout = new BMA.Model.Layout(containers, varialbes, "");
+            var layout = new BMA.Model.Layout(containers, varialbes, [], "");
             var c = layout.GetContainerById(1);
             expect(c).toEqual(undefined);
         });

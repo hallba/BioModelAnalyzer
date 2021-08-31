@@ -153,7 +153,7 @@
                 if (that.selectedItem !== undefined) {
 
                     var oldLayout: BMA.Model.Layout = <BMA.Model.Layout>that.selectedItem.model.Layout;
-                    var updatedLayout = new BMA.Model.Layout(oldLayout.Containers, oldLayout.Variables, newDescription);
+                    var updatedLayout = new BMA.Model.Layout(oldLayout.Containers, oldLayout.Variables, oldLayout.AnnotatedGridCells, newDescription);
                     var exported = {
                         Model: BMA.Model.ExportBioModelPart(that.selectedItem.model.Model, that.selectedItem.model.Model), Layout: BMA.Model.ExportLayout(that.selectedItem.model.Model, updatedLayout)
                     };

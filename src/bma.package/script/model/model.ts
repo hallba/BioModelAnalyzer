@@ -138,14 +138,14 @@ module BMA {
                     }
 
                     var model = new BMA.Model.BioModel(ml.model.name, variables, relationships);
-                    var layout = new BMA.Model.Layout(containers, variableLayouts, "");
+                    var layout = new BMA.Model.Layout(containers, variableLayouts, [], "");
 
                     var adjusted = ModelHelper.AdjustReceptorsPosition(model, layout, window.GridSettings);
                     this.model = adjusted.model;
                     this.layout = adjusted.layout;
                 } else {
                     this.model = new BMA.Model.BioModel("model 1", [], []);
-                    this.layout = new BMA.Model.Layout([], [], "");
+                    this.layout = new BMA.Model.Layout([], [], [], "");
                 }
 
                 this.states = [];
@@ -157,7 +157,7 @@ module BMA {
 
             public CreateNew() {
                 this.model = new BMA.Model.BioModel("model 1", [], []);
-                this.layout = new BMA.Model.Layout([], [], "");
+                this.layout = new BMA.Model.Layout([], [], [], "");
                 this.states = [];
                 this.operations = [];
                 this.operationAppearances = [];
@@ -211,7 +211,7 @@ module BMA {
 
                 } else {
                     this.model = new BMA.Model.BioModel("model 1", [], []);
-                    this.layout = new BMA.Model.Layout([], [], "");
+                    this.layout = new BMA.Model.Layout([], [], [], "");
                     this.states = [];
                     this.operations = [];
                     this.operationAppearances = [];
@@ -250,7 +250,7 @@ module BMA {
 
             constructor() {
                 this.model = new BMA.Model.BioModel("model 1", [], []);
-                this.layout = new BMA.Model.Layout([], [], "");
+                this.layout = new BMA.Model.Layout([], [], [], "");
                 this.states = [];
                 this.operations = [];
                 this.operationAppearances = [];

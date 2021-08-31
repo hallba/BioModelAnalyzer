@@ -49,7 +49,7 @@ module BMA {
 
             } else {
                 this.model = new BMA.Model.BioModel("model 1", [], []);
-                this.layout = new BMA.Model.Layout([], [], "");
+                this.layout = new BMA.Model.Layout([], [], [], "");
                 this.states = [];
                 this.operations = [];
                 this.operationAppearances = [];
@@ -299,7 +299,7 @@ module BMA {
                 }
             }
 
-            return { model: model, layout: new BMA.Model.Layout(layout.Containers, newVariableLayouts, layout.Description) };
+            return { model: model, layout: new BMA.Model.Layout(layout.Containers, newVariableLayouts, layout.AnnotatedGridCells, layout.Description) };
         }
 
         export function AddModelDesignerSVGDefs(svg: any) {
@@ -624,6 +624,7 @@ module BMA {
             var variableLayouts = layout.Variables.slice(0);
             var containerLayouts = layout.Containers.slice(0);
             var relationships = model.Relationships.slice(0);
+            var annotatedGridCells = layout.AnnotatedGridCells.slice(0);
             var variableIndex = indexOffset;
 
             var gridBBox = GetModelBoundingBox(target.layout, { xOrigin: grid.x0, yOrigin: grid.y0, xStep: grid.xStep, yStep: grid.yStep });
@@ -709,8 +710,41 @@ module BMA {
                 relationships.push(new BMA.Model.Relationship(variableIndex++, idDic[relationship.FromVariableId], idDic[relationship.ToVariableId], relationship.Type));
             }
 
+            var annotatinsToAdd = [];
+            
+            for (var i = 0; i < target.layout.AnnotatedGridCells.length; i++) {
+
+                var annotationOffset = {
+                    x: target.layout.AnnotatedGridCells[i].CellX * grid.xStep + grid.x0 + targetOffsetX,
+                    y: target.layout.AnnotatedGridCells[i].CellY * grid.yStep + grid.y0 + targetOffsetY,
+                };
+
+                var antX = annotationOffset.x / grid.xStep;
+                var antY = annotationOffset.y / grid.yStep;
+
+                var newGridCellDescription = new BMA.Model.GridCellLayout(antX, antY, target.layout.AnnotatedGridCells[i].Name);
+                var wasFound = false;
+                for (var j = 0; j < annotatedGridCells.length; j++) {
+                    var gcd = annotatedGridCells[j];
+                    if (gcd.CellX === newGridCellDescription.CellX && gcd.CellY === newGridCellDescription.CellY) {
+                        var name = gcd.Name;
+                        if (gcd.Name !== newGridCellDescription.Name)
+                            name = name + ", " + newGridCellDescription.Name;
+                        annotatedGridCells[j] = new BMA.Model.GridCellLayout(gcd.CellX, gcd.CellY, name);
+                        wasFound = true;
+                        break;
+                    }
+                }
+                if (!wasFound) {
+                    annotatinsToAdd.push(newGridCellDescription);
+                }
+            }
+            for (var i = 0; i < annotatinsToAdd.length; i++) {
+                annotatedGridCells.push(annotatinsToAdd[i]);
+            }
+
             var newmodel = new BMA.Model.BioModel(model.Name, variables, relationships);
-            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts, source.layout.Description); 
+            var newlayout = new BMA.Model.Layout(containerLayouts, variableLayouts, annotatedGridCells, source.layout.Description);
 
             return {
                 result: {
@@ -794,7 +828,7 @@ module BMA {
                     }
                 }
 
-                var newlayout = new BMA.Model.Layout(newCnt, newVL, layout.Description);
+                var newlayout = new BMA.Model.Layout(newCnt, newVL, layout.AnnotatedGridCells, layout.Description);
                 var newModel = new BMA.Model.BioModel(model.Name, model.Variables, model.Relationships);
 
                 return { model: newModel, layout: newlayout };
@@ -1019,7 +1053,7 @@ module BMA {
             }
 
             var model = new BMA.Model.BioModel("cutted model", variables, relationships);
-            var layout = new BMA.Model.Layout(containers, variableLayouts, "");
+            var layout = new BMA.Model.Layout(containers, variableLayouts, layout.AnnotatedGridCells, "");
 
             return { model: model, layout: layout };
         }
@@ -1055,6 +1089,7 @@ module BMA {
             grid: { x0: number; y0: number; xStep: number; yStep: number }): { model: BMA.Model.BioModel; layout: BMA.Model.Layout } {
 
             var description = layout.Description;
+            var annotations = layout.AnnotatedGridCells;
 
             var subModelSourceGridCells = GetModelGridCells(selectedModel, selectedLayout, grid);
             var subModelTargetGridCells = [];
@@ -1225,7 +1260,7 @@ module BMA {
 
 
                 var model = new BMA.Model.BioModel(model.Name, variables, model.Relationships);
-                var layout = new BMA.Model.Layout(containers, variableLayouts, description);
+                var layout = new BMA.Model.Layout(containers, variableLayouts, annotations, description);
 
                 return { model: model, layout: layout };
             }
