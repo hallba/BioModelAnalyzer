@@ -3,6 +3,43 @@
 module BMA {
     export module ModelHelper {
 
+        export function GetModelNamesWithinContainers(model: BMA.Model.BioModel, layout: BMA.Model.Layout) {
+            var result = [];
+
+            var variables = model.Variables;
+            var varLayouts = layout.Variables;
+
+            //Adding variables without containers first
+            for (var i = 0; i < varLayouts.length; i++) {
+                var variable = variables[i];
+
+                if (variable.Type === "Constant") {
+                    result.push({
+                        label: variable.Name,
+                        category: "",
+                        id: variable.Id
+                    });
+                }
+            }
+
+            for (var i = 0; i < varLayouts.length; i++) {
+                var variable = variables[i];
+
+                if (variable.Type !== "Constant") {
+                    var cnt = layout.GetContainerById(variable.ContainerId);
+                    var cntName = cnt == undefined ? "" : cnt.Name;
+
+                    result.push({
+                        label: variable.Name,
+                        category: cntName,
+                        id: variable.Id
+                    });
+                }
+            }
+
+            return result;
+        }
+
         //Creates model and layout from JSON and preperly serializes it back. Validates all inner model structures. Creates all missing model sections
         export function ProcessModelJSON(serializedModel: string) {
             if (serializedModel !== undefined && serializedModel !== null) {

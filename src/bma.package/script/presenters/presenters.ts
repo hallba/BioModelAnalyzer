@@ -39,6 +39,8 @@ module BMA {
 
             private variableIndex = 1;
 
+            private focusedVariable = undefined; //Used for highlighting variable search result
+
             private stagingLine = undefined; //Used for rendering relationship during its creation process
             private stagingGroup = undefined;
             private stagingVariable: { model: BMA.Model.Variable; layout: BMA.Model.VariableLayout; } = undefined; //Used for rendering variable while its being dragged
@@ -999,15 +1001,22 @@ module BMA {
                     }
                 });
 
+                window.Commands.On("ClearSearchHighlight", (args) => {
+                    //Rendering found variable highlight
+                    this.focusedVariable = undefined;
+                    if (that.svg !== undefined) {
+                        that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                    }
+                });
+
                 window.Commands.On("SearchForContent", (args) => {
                     var type = args.type;
                     if (type === "variable") {
                         var model = that.undoRedoPresenter.Current.model;
                         var layout = that.undoRedoPresenter.Current.layout;
 
-                        var ids = model.GetIdByName(args.name);
-                        if (ids !== undefined && ids.length > 0) {
-                            var id = parseInt(ids[0]);
+                        if (args.id !== undefined) {
+                            var id = parseInt(args.id);
                             var varL = layout.GetVariableById(id);
                             if (varL !== undefined) {
 
@@ -1029,6 +1038,12 @@ module BMA {
                                 bbox.height = actualRect.height;
 
                                 svgPlotDriver.SetVisibleRect(bbox, true);
+
+                                //Rendering found variable highlight
+                                this.focusedVariable = id;
+                                if (that.svg !== undefined) {
+                                    that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                                }
                             }
                         }
                     }
@@ -2520,6 +2535,18 @@ module BMA {
                             "fill-opacity": 0,
                             "stroke-dasharray": [6, 6]
                         });
+                }
+
+                if (this.focusedVariable !== undefined) {
+                    var fid = this.focusedVariable;
+                    var variableLayout = this.undoRedoPresenter.Current.layout.GetVariableById(fid);
+                    var varSizeCoef = 1;
+                    var rad = 17 * varSizeCoef;
+                    this.svg.ellipse(variableLayout.PositionX, variableLayout.PositionY, rad, rad, {
+                        stroke: "#9AF57F",
+                        "stroke-width": 3,
+                        fill: "transparent"
+                    });
                 }
 
                 if (this.stagingHighlight.variables[0] !== undefined) {

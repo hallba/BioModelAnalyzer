@@ -449,6 +449,8 @@
         var _baseGrid = undefined;
 
         var circles = [];
+        var circleLabels = [];
+
         var circleConnections = [];
         var minClusterDistance = 0;
         var proofLabelSize = 0;

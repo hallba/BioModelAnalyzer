@@ -1145,7 +1145,7 @@ function loadScript(version) {
     }
 
     window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
-        $("#zoomslider").bmazoomslider({ searchTags: appModel.BioModel.GetVariableNames() });
+        $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); //appModel.BioModel.GetVariableNames() });
     });
 
     window.onbeforeunload = function () {

@@ -60,19 +60,26 @@
             that.searchInput = input;
 
             if (that.options.searchTags.length > 0) {
-                input.autocomplete({
+                input.catcomplete({
                     source: that.options.searchTags
                 });
             }
 
-            var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/Search.png')").appendTo(searchPanel);
-            btn.click(function () {
-                window.Commands.Execute("SearchForContent", { type: "variable", name: input.val() });
+            input.catcomplete({
+                select: function (event, ui) {
+                    window.Commands.Execute("SearchForContent", { type: "variable", id: ui.item.id });
+                }
             });
+
+            //var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/Search.png')").appendTo(searchPanel);
+            //btn.click(function () {
+            //    window.Commands.Execute("SearchForContent", { type: "variable", name: input.val() });
+            //});
 
             search.click(function () {
                 if (searchPanel.is(":visible")) {
                     searchPanel.hide();
+                    input.catcomplete("customhide");
                 } else {
                     searchPanel.show();
                 }
@@ -156,7 +163,7 @@
                     break;
                 case "searchTags":
                     if (value.length > 0) {
-                        this.searchInput.autocomplete({
+                        this.searchInput.catcomplete({
                             source: value
                         });
                     }
@@ -176,6 +183,36 @@
             }
         },
 
+    });
+}(jQuery));
+
+(function ($) {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+        _create: function () {
+            this._super();
+            this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+        },
+        _renderMenu: function (ul, items) {
+            var that = this,
+                currentCategory = "";
+            $.each(items, function (index, item) {
+                var li;
+                if (item.category != currentCategory) {
+                    ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                    currentCategory = item.category;
+                }
+                li = that._renderItemData(ul, item);
+                if (item.category) {
+                    li.attr("aria-label", item.category + " : " + item.label);
+                }
+            });
+        },
+        close: function (e) {
+            return false;
+        },
+        customhide: function () {
+            this._close();
+        }
     });
 }(jQuery));
 
