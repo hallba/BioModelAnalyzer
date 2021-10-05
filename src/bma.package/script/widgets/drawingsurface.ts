@@ -774,7 +774,8 @@ declare var InteractiveDataDisplay: any;
         //},
 
         moveDraggableSvgOnTop: function () {
-            this._lightSvgPlot.host.css("z-index", InteractiveDataDisplay.ZIndexDOMMarkers + 10);
+            //this._lightSvgPlot.host.css("z-index", InteractiveDataDisplay.ZIndexDOMMarkers + 10);
+            this._lightSvgPlot.host.css("z-index", 99);
             //this._lightSvgPlot.host.on("click", this._clickProagator);
 
         },

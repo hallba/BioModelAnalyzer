@@ -40,7 +40,7 @@
 
             var search = $('<div></div>')
                 .addClass("zoompanel-button")
-                .css("background-image", "url('images/navigationpanel/Search.png')")
+                .css("background-image", "url('images/navigationpanel/BMA_Search_Icon.svg')")
                 .appendTo(that.element);
 
             var searchPanel = $('<div></div>')
@@ -71,7 +71,7 @@
                 }
             });
 
-            //var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/Search.png')").appendTo(searchPanel);
+            //var btn = $('<div></div>').addClass("zoompanel-search-button").css("background-image", "url('images/navigationpanel/BMA_Search_Icon.svg')").appendTo(searchPanel);
             //btn.click(function () {
             //    window.Commands.Execute("SearchForContent", { type: "variable", name: input.val() });
             //});
@@ -80,7 +80,10 @@
                 if (searchPanel.is(":visible")) {
                     searchPanel.hide();
                     input.catcomplete("customhide");
+
+                    window.Commands.Execute("ClearSearchHighlight", { type: "variable" });
                 } else {
+                    window.Commands.Execute("CloseRepository", undefined);
                     searchPanel.show();
                 }
             });

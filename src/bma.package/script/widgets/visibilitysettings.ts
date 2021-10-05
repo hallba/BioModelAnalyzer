@@ -67,8 +67,7 @@
                                         button.parent().bind("click", function (e) {
                                             that.listOptions[ind].toggle = !that.listOptions[ind].toggle;
                                             window.Commands.Execute(command, that.listOptions[ind].toggle);
-                                            that.changeButtonONOFFStyle(ind);
-                                        });
+                                            that.changeButtonONOFFStyle(ind);                                        });
                                     }
                                 }
                                 else

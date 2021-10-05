@@ -467,7 +467,7 @@ function loadScript(version) {
             }
 
             args.relationshipId = ui.item.data().relationshipId;
-
+            args.id = ui.item.data().id;
             args.left = event.pageX - $(".bma-drawingsurface").offset().left;
             args.top = event.pageY - $(".bma-drawingsurface").offset().top;
             window.Commands.Execute(commandName, args);
@@ -1097,6 +1097,13 @@ function loadScript(version) {
     var mStoragePresenter = new BMA.Presenters.StoragePresenter(appModel, modelStorageDriver, variableEditorDriver, localStorageDriver, oneDriveStorageDriver, connector, localRepositoryTool, messagebox, changesCheckerTool, logService, waitScreen);
     //LTL Presenters
     var ltlPresenter = new BMA.Presenters.LTLPresenter(ltlCommands, appModel, stateseditordriver, tpeditordriver, ltlDriver, ltlresultsdriver, ltlSimulationService, ltlPolarityService, lratestservice, popupDriver, exportService, fileLoaderDriver, logService);
+
+    window.Commands.On("CloseRepository", () => {
+        if ($("#modelToolbarContent").is(":visible")) {
+            $("#modelToolbarContent").hide();
+            $(".expand-btn").css("transform", "scaleX(1)");
+        }
+    });
 
     //Loading model from URL
     var reserved_key = "InitialModel";

@@ -142,7 +142,7 @@ module BMA {
                     ModelHelper.RenderSVG(that.svg, model, layout, grid, undefined);
 
                     var currentSVGvp = $(that.driver.GetSVG());
-                    
+
                     that.svg.configure({
                         width: (<any>currentSVGvp[0].attributes).width.nodeValue,
                         height: (<any>currentSVGvp[0].attributes).height.nodeValue,
@@ -572,6 +572,7 @@ module BMA {
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
+                                { title: "Go To Source", cmd: "MoveToVariable", data: { id: rels.incoming[i].FromVariableId } },
                                 { title: "Delete", cmd: "RelDelete", uiIcon: "ui-icon-trash", data: { relationshipId: postfix } }]
                             });
                         }
@@ -587,6 +588,7 @@ module BMA {
                                     ],
                                     uiIcon: "ui-icon-shuffle"
                                 },
+                                { title: "Go To Target", cmd: "MoveToVariable", data: { id: rels.outcoming[i].ToVariableId } },
                                 { title: "Delete", cmd: "RelDelete", uiIcon: "ui-icon-trash", data: { relationshipId: postfix } }]
                             });
                         }
@@ -636,6 +638,10 @@ module BMA {
                     }
 
                     that.contextElement = undefined;
+                });
+
+                window.Commands.On("DrawingSurfaceMoveToVariable", (args) => {
+                    that.MoveToVariable(args.id, false);
                 });
 
                 window.Commands.On("DrawingSurfaceDelete", (args) => {
@@ -885,6 +891,8 @@ module BMA {
                 });
 
                 window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
+                    //Reseting searched variable
+                    this.focusedVariable = undefined;
                     if (this.undoRedoPresenter.Current !== undefined) {
 
                         if (args !== undefined) {
@@ -1011,41 +1019,9 @@ module BMA {
 
                 window.Commands.On("SearchForContent", (args) => {
                     var type = args.type;
-                    if (type === "variable") {
-                        var model = that.undoRedoPresenter.Current.model;
-                        var layout = that.undoRedoPresenter.Current.layout;
-
-                        if (args.id !== undefined) {
-                            var id = parseInt(args.id);
-                            var varL = layout.GetVariableById(id);
-                            if (varL !== undefined) {
-
-                                var bbox = {
-                                    x: varL.PositionX - 200, y: varL.PositionY - 200, width: 400, height: 400
-                                };
-                                var center = {
-                                    x: bbox.x + bbox.width / 2,
-                                    y: bbox.y + bbox.height / 2
-                                };
-
-                                var screenRect = { x: 0, y: 0, left: 0, top: 0, width: plotHost.host.width(), height: plotHost.host.height() };
-                                var cs = new InteractiveDataDisplay.CoordinateTransform({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }, screenRect, plotHost.aspectRatio);
-                                var actualRect = cs.getPlotRect(screenRect);
-
-                                bbox.x = center.x - actualRect.width / 2;
-                                bbox.y = center.y - actualRect.height / 2;
-                                bbox.width = actualRect.width;
-                                bbox.height = actualRect.height;
-
-                                svgPlotDriver.SetVisibleRect(bbox, true);
-
-                                //Rendering found variable highlight
-                                this.focusedVariable = id;
-                                if (that.svg !== undefined) {
-                                    that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
-                                }
-                            }
-                        }
+                    if (type === "variable" && args.id) {
+                        var id = parseInt(args.id);
+                        this.MoveToVariable(id, true);
                     }
                 });
 
@@ -1147,7 +1123,7 @@ module BMA {
                             navigationDriver.MoveDraggableOnTop();
                         } else {
                             //TODO: check that this doesn't break other needs of navigation driver to be at top
-                            if (that.stagingLine === undefined && that.stagingRect === undefined && that.stagingVariable === undefined && that.stagingContainer === undefined && that.stagingOffset === undefined) {
+                            if (that.stagingLine === undefined && that.stagingRect === undefined && that.stagingVariable === undefined && that.stagingContainer === undefined && that.stagingOffset === undefined && that.focusedVariable === undefined) {
                                 navigationDriver.MoveDraggableOnBottom();
                             }
                         }
@@ -2642,6 +2618,46 @@ module BMA {
                 });
             }
 
+            private MoveToVariable(id: number, needFocus: boolean) {
+                var that = this;
+                var plotHost = (<any>this.navigationDriver.GetNavigationSurface()).master;
+                var layout = that.undoRedoPresenter.Current.layout;
+
+                if (id !== undefined) {
+                    var varL = layout.GetVariableById(id);
+                    if (varL !== undefined) {
+
+                        var bbox = {
+                            x: varL.PositionX - 200, y: varL.PositionY - 200, width: 400, height: 400
+                        };
+                        var center = {
+                            x: bbox.x + bbox.width / 2,
+                            y: bbox.y + bbox.height / 2
+                        };
+
+                        var screenRect = { x: 0, y: 0, left: 0, top: 0, width: plotHost.host.width(), height: plotHost.host.height() };
+                        var cs = new InteractiveDataDisplay.CoordinateTransform({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }, screenRect, plotHost.aspectRatio);
+                        var actualRect = cs.getPlotRect(screenRect);
+
+                        bbox.x = center.x - actualRect.width / 2;
+                        bbox.y = center.y - actualRect.height / 2;
+                        bbox.width = actualRect.width;
+                        bbox.height = actualRect.height;
+
+                        that.driver.SetVisibleRect(bbox, true);
+
+                        if (needFocus) {
+                            //Rendering found variable highlight
+                            this.focusedVariable = id;
+                            if (that.svg !== undefined) {
+                                that.navigationDriver.MoveDraggableOnTop();
+                                that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
+                            }
+                        }
+                    }
+                }
+            }
+
             private VariableEdited() {
                 var that = this;
                 if (that.variableEditedId !== undefined) {
@@ -2739,4 +2755,4 @@ module BMA {
             }
         }
     }
-} 
+}

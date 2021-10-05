@@ -161,6 +161,7 @@
     <Content Include="images\navigationpanel\BMA_Icon_Fit_To_View.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Info.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Settings ON.svg" />
+    <Content Include="images\navigationpanel\BMA_Search_Icon.svg" />
     <Content Include="images\navigationpanel\pointer.svg" />
     <Content Include="images\navigationpanel\pointer ON.svg" />
     <Content Include="images\navigationpanel\BMA_Icon_Redo.svg" />
