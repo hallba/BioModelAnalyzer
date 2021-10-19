@@ -38,7 +38,7 @@
                 .css("background-image", "url('images/navigationpanel/BMA_Icon_Zoom_Out.svg')")
                 .appendTo(that.element);
 
-            var search = $('<div></div>')
+            var search = $('<div id="bmavariablesearch"></div>')
                 .addClass("zoompanel-button")
                 .css("background-image", "url('images/navigationpanel/BMA_Search_Icon.svg')")
                 .appendTo(that.element);
@@ -56,7 +56,7 @@
 
             searchPanel.hide();
 
-            var input = $('<input/>').attr({ type: 'text' }).appendTo(searchPanel);
+            var input = $('<input/>').addClass("variable-search-input").attr({ type: 'text' }).appendTo(searchPanel);
             that.searchInput = input;
 
             if (that.options.searchTags.length > 0) {
@@ -194,6 +194,7 @@
         _create: function () {
             this._super();
             this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+
         },
         _renderMenu: function (ul, items) {
             var that = this,
@@ -201,7 +202,7 @@
             $.each(items, function (index, item) {
                 var li;
                 if (item.category != currentCategory) {
-                    ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                    ul.append("<li class='search-autocomplete ui-autocomplete-category'>" + item.category + "</li>");
                     currentCategory = item.category;
                 }
                 li = that._renderItemData(ul, item);
@@ -209,6 +210,12 @@
                     li.attr("aria-label", item.category + " : " + item.label);
                 }
             });
+        },
+        _renderItem: function (ul, item) {
+            ul.addClass("bmavariablesearch");
+
+            return $("<li class='search-autocomplete search-result'>" + item.label + "</li>")
+                .appendTo(ul);
         },
         close: function (e) {
             return false;

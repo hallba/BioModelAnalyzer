@@ -3499,8 +3499,6 @@ textarea {
         }
     }
 
-
-
     input {
         width: 130px;
         border: 1px dashed @midgrey2;
@@ -3509,16 +3507,53 @@ textarea {
     }
 }
 
-.ui-autocomplete-category {
-    //.ui-autocomplete-item;
-    //.ui-menu-item;
-    background-color: #9AF57F;
-    //font-weight: bold;
-    padding: .2em .4em;
-    margin: .8em 0 .2em;
-    line-height: 1.5;
+//Variable search styles
+.variable-search-input {
+    width: 165px;
+    border: 1px dashed @midgrey2;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
-.ui-menu-item {
-    text-overflow: ellipsis;
+.bmavariablesearch {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+
+    li.search-autocomplete {
+        line-height: 1.5;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-top: 0px;
+        margin-bottom: 0px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+    li.search-result {
+        border-bottom: 1px solid #F3F3F3;
+        color: #8F8F8F;
+    }
+
+    li.ui-state-focus {
+        background-color: #D4FBC8;
+    }
+
+    li.ui-menu-item {
+        margin-bottom: 0px;
+    }
+
+    li.ui-autocomplete-category {
+        background-color: #9AF57F;
+        color: black;
+    }
+}
+
+.ui-autocomplete {
+    max-height: 600px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
 }
