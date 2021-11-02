@@ -44,13 +44,7 @@
                 .appendTo(that.element);
 
             var searchPanel = $('<div></div>')
-                .css("position", "absolute")
-                .css("display", "flex")
-                .css("flex-direction", "row")
-                .css("top", 55)
-                .css("left", 175)
-                .css("z-index", 7)
-                .css("background-color", "white")
+                .addClass("variable-search-panel")
                 .addClass("window")
                 .appendTo(that.element);
 
@@ -66,6 +60,7 @@
             }
 
             input.catcomplete({
+                appendTo: searchPanel,
                 select: function (event, ui) {
                     window.Commands.Execute("SearchForContent", { type: "variable", id: ui.item.id });
                 }

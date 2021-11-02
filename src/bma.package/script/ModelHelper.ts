@@ -9,12 +9,23 @@ module BMA {
             var variables = model.Variables;
             var varLayouts = layout.Variables;
 
+            var sortFunc = (v1, v2) => {
+                if (v1.label.toLowerCase() > v2.label.toLowerCase()) {
+                    return 1;
+                }
+                if (v2.label.toLowerCase() > v1.label.toLowerCase()) {
+                    return -1;
+                }
+                return 0;
+            };
+
+            var noCntVariables = [];
             //Adding variables without containers first
             for (var i = 0; i < varLayouts.length; i++) {
                 var variable = variables[i];
 
                 if (variable.Type === "Constant") {
-                    result.push({
+                    noCntVariables.push({
                         label: variable.Name,
                         category: "",
                         id: variable.Id
@@ -22,6 +33,13 @@ module BMA {
                 }
             }
 
+            noCntVariables.sort(sortFunc);
+
+            for (var i = 0; i < noCntVariables.length; i++) {
+                result.push(noCntVariables[i]);
+            }
+
+            var dict = {};
             for (var i = 0; i < varLayouts.length; i++) {
                 var variable = variables[i];
 
@@ -29,11 +47,24 @@ module BMA {
                     var cnt = layout.GetContainerById(variable.ContainerId);
                     var cntName = cnt == undefined ? "" : cnt.Name;
 
-                    result.push({
+                    if (cntName === "")
+                        cntName = "UNNAMED";
+
+                    if (dict[cntName] === undefined)
+                        dict[cntName] = [];
+
+                    dict[cntName].push({
                         label: variable.Name,
                         category: cntName,
                         id: variable.Id
                     });
+                }
+            }
+
+            for (cntName in dict) {
+                dict[cntName].sort(sortFunc);
+                for (var i = 0; i < dict[cntName].length; i++) {
+                    result.push(dict[cntName][i]);
                 }
             }
 
@@ -748,7 +779,7 @@ module BMA {
             }
 
             var annotatinsToAdd = [];
-            
+
             for (var i = 0; i < target.layout.AnnotatedGridCells.length; i++) {
 
                 var annotationOffset = {
@@ -1941,4 +1972,4 @@ module BMA {
         }
 
     }
-} 
+}
