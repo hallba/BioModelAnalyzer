@@ -1128,7 +1128,7 @@ module BMA {
                             }
                         }
 
-                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        var isModelVisible = (<any>window).CurrentViewSwitchMode === "Model" || ((<any>window).CurrentViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
                         if (that.svg !== undefined && isModelVisible) {
                             that.driver.DrawLayer2(<SVGElement>that.CreateStagingSvg());
                         } else {
@@ -1141,7 +1141,7 @@ module BMA {
 
                 dragSubject.dragStart.subscribe(
                     (gesture) => {
-                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        var isModelVisible = (<any>window).CurrentViewSwitchMode === "Model" || ((<any>window).CurrentViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
                         if (!isModelVisible)
                             return;
 
@@ -1193,7 +1193,7 @@ module BMA {
 
                 dragSubject.dragStartRight.subscribe(
                     (gesture) => {
-                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        var isModelVisible = (<any>window).CurrentViewSwitchMode === "Model" || ((<any>window).CurrentViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
                         if (!isModelVisible) {
                             that.driver.DrawLayer2(<SVGElement>that.ClearStagingSvg());
                             return;
@@ -1214,7 +1214,7 @@ module BMA {
                 dragSubject.drag.subscribe(
                     (gesture) => {
 
-                        var isModelVisible = (<any>window).ViewSwitchMode === "Model" || ((<any>window).ViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
+                        var isModelVisible = (<any>window).CurrentViewSwitchMode === "Model" || ((<any>window).CurrentViewSwitchMode === "Auto" && (<any>window).IsModelReadableOnScreen);
                         if (!isModelVisible) {
                             that.driver.DrawLayer2(<SVGElement>that.ClearStagingSvg());
                             return;

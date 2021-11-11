@@ -577,9 +577,9 @@
             if (modelAlpha > 1) modelAlpha = 1;
 
 
-            if (window.ViewSwitchMode === "Bubbles" || window.ViewSwitchMode === "Constelations") {
+            if (window.CurrentViewSwitchMode === "Bubbles" || window.CurrentViewSwitchMode === "Constelations") {
                 modelAlpha = 0;
-            } else if (window.ViewSwitchMode === "Model") {
+            } else if (window.CurrentViewSwitchMode === "Model") {
                 modelAlpha = 1;
             }
 
@@ -615,9 +615,9 @@
             if (constelationsAlpha < 0) constelationsAlpha = 0;
             if (constelationsAlpha > 1) constelationsAlpha = 1;
 
-            if (window.ViewSwitchMode === "Model" || window.ViewSwitchMode === "Bubbles") {
+            if (window.CurrentViewSwitchMode === "Model" || window.CurrentViewSwitchMode === "Bubbles") {
                 constelationsAlpha = 0;
-            } else if (window.ViewSwitchMode === "Constelations") {
+            } else if (window.CurrentViewSwitchMode === "Constelations") {
                 constelationsAlpha = 1;
             }
 
@@ -695,9 +695,9 @@
             if (bubblesAlpha < 0) bubblesAlpha = 0;
             if (bubblesAlpha > 1) bubblesAlpha = 1;
 
-            if (window.ViewSwitchMode === "Model" || window.ViewSwitchMode === "Constelations") {
+            if (window.CurrentViewSwitchMode === "Model" || window.CurrentViewSwitchMode === "Constelations") {
                 bubblesAlpha = 0;
-            } else if (window.ViewSwitchMode === "Bubbles") {
+            } else if (window.CurrentViewSwitchMode === "Bubbles") {
                 bubblesAlpha = 1;
             }
 

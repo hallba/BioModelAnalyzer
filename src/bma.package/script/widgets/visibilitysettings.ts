@@ -67,7 +67,8 @@
                                         button.parent().bind("click", function (e) {
                                             that.listOptions[ind].toggle = !that.listOptions[ind].toggle;
                                             window.Commands.Execute(command, that.listOptions[ind].toggle);
-                                            that.changeButtonONOFFStyle(ind);                                        });
+                                            that.changeButtonONOFFStyle(ind);
+                                        });
                                     }
                                 }
                                 else
@@ -158,6 +159,12 @@
 
 (function ($) {
     $.widget("BMA.viewswitchwidget", {
+
+        _abut: undefined,
+        _bbut: undefined,
+        _cbut: undefined,
+        _mbut: undefined,
+
         _create: function () {
             var root = this.element;
 
@@ -219,6 +226,22 @@
 
                 window.Commands.Execute("ChangeViewMode", "Bubbles");
             });
+
+            this._abut = Abut;
+            this._bbut = Bbut;
+            this._cbut = Cbut;
+            this._mbut = Mbut;
+        },
+
+        SetViewMode: function (mode) {
+            switch (mode) {
+                case "Auto": this._abut.click(); break;
+                case "Model": this._mbut.click(); break;
+                case "Constelations": this._cbut.click(); break;
+                case "Bubbles": this._bbut.click(); break;
+                default:
+                    console.log("Unknown view switch mode");
+            }
         },
 
         destroy: function () {

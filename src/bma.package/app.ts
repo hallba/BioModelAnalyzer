@@ -85,6 +85,8 @@ interface Window {
     BMAServiceURL: string;
     DefaultProteinColors: { Default: string, Constant: string, MembraneReceptor: string };
     MotifLibrary: BMA.Model.MotifLibrary;
+    IsModelReadableOnScreen: boolean; //Indicates whether zoom level allows user to read model labels
+    CurrentViewSwitchMode: ViewSwitchMode; //Indicates whether model view is changed depending on zoom level or fixed. Could be either "Auto", "Model", "Constelations" or "Bubbles"
 }
 
 function onSilverlightError(sender, args) {
@@ -303,7 +305,7 @@ function loadScript(version) {
         ConstelationsBubblesEnd: 140
     };
 
-    (<any>window).ViewSwitchMode = ViewSwitchMode.Auto;
+    (<any>window).CurrentViewSwitchMode = ViewSwitchMode.Auto;
 
     window.DefaultProteinColors = {
         "Constant": undefined,
@@ -671,13 +673,13 @@ function loadScript(version) {
     window.Commands.On("ViewStateUpdated", (args) => {
         (<any>window).IsModelReadableOnScreen = args.isModelVisisble;
 
-        if ((<any>window).ViewSwitchMode === "Auto") {
+        if ((<any>window).CurrentViewSwitchMode === "Auto") {
             syncTopPanelsWithModelVisibility();
         }
     });
 
     window.Commands.On("ChangeViewMode", (args) => {
-        (<any>window).ViewSwitchMode = args;
+        (<any>window).CurrentViewSwitchMode = args;
 
         if (args === "Model") {
             elementPanel.buttonset({ disabled: false });
@@ -1153,6 +1155,25 @@ function loadScript(version) {
 
     window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
         $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); //appModel.BioModel.GetVariableNames() });
+
+        var grid = {
+            x0: window.GridSettings.xOrigin,
+            y0: window.GridSettings.yOrigin,
+            xStep: window.GridSettings.xStep,
+            yStep: window.GridSettings.yStep
+        };
+        var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid );
+        if (gridCells.length < 10) {
+            if (window.CurrentViewSwitchMode === "Auto") {
+                //TODO: add notification
+                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+            }
+        } else {
+            if (window.CurrentViewSwitchMode === "Model") {
+                //TODO: add notification
+                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Auto");
+            }
+        }
     });
 
     window.onbeforeunload = function () {
