@@ -1165,13 +1165,33 @@ function loadScript(version) {
         var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid );
         if (gridCells.length < 10) {
             if (window.CurrentViewSwitchMode === "Auto") {
-                //TODO: add notification
-                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+                var userDialog = $('<div></div>').appendTo('body').userdialog({
+                    message: "Current BMA model occupies less than 10 grid cells. Switching to other view modes is disabled. To enable it manualy please visit 'Settings' tab.",
+                    actions: [
+                        {
+                            button: 'Ok',
+                            callback: function () {
+                                userDialog.detach();
+                                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+                            }
+                        }
+                    ]
+                });
             }
         } else {
             if (window.CurrentViewSwitchMode === "Model") {
-                //TODO: add notification
-                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Auto");
+                var userDialog = $('<div></div>').appendTo('body').userdialog({
+                    message: "Current BMA model occupies more than 10 grid cells. Switching to other view modes is enabled. To change view mode manualy please visit 'Settings' tab.",
+                    actions: [
+                        {
+                            button: 'Ok',
+                            callback: function () {
+                                userDialog.detach();
+                                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Auto");
+                            }
+                        }
+                    ]
+                });
             }
         }
     });
