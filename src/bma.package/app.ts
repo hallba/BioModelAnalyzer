@@ -1008,6 +1008,18 @@ function loadScript(version) {
             accordionHider.Hide();
             window.Commands.Execute("Expand", '');
         }
+
+        var grid = {
+            x0: window.GridSettings.xOrigin,
+            y0: window.GridSettings.yOrigin,
+            xStep: window.GridSettings.xStep,
+            yStep: window.GridSettings.yStep
+        };
+        var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid);
+        if (gridCells.length == 0) {
+            $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+            $("#zoomslider").bmazoomslider({ searchTags: [] });
+        }
     });
 
     window.Commands.On("DrawingSurfaceVariableEditorOpened", () => {
@@ -1154,7 +1166,7 @@ function loadScript(version) {
     }
 
     window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
-        $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); //appModel.BioModel.GetVariableNames() });
+        $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); 
 
         var grid = {
             x0: window.GridSettings.xOrigin,
@@ -1162,26 +1174,28 @@ function loadScript(version) {
             xStep: window.GridSettings.xStep,
             yStep: window.GridSettings.yStep
         };
-        var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid );
+        var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid);
         if (gridCells.length < 10) {
             if (window.CurrentViewSwitchMode === "Auto") {
-                var userDialog = $('<div></div>').appendTo('body').userdialog({
-                    message: "Current BMA model occupies less than 10 grid cells. Switching to other view modes is disabled. To enable it manualy please visit 'Settings' tab.",
-                    actions: [
-                        {
-                            button: 'Ok',
-                            callback: function () {
-                                userDialog.detach();
-                                $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+                if (gridCells.length > 0) {
+                    var userDialog = $('<div></div>').appendTo('body').userdialog({
+                        message: "<b>Intelligent zoom disabled</b><br/><br/>The current model is smaller than 10 cells in size and automatic view switching has been deactivated. To change view manually, go to the ‘Settings’ menu.",
+                        actions: [
+                            {
+                                button: 'Ok',
+                                callback: function () {
+                                    userDialog.detach();
+                                    $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+                                }
                             }
-                        }
-                    ]
-                });
+                        ]
+                    });
+                }
             }
         } else {
             if (window.CurrentViewSwitchMode === "Model") {
                 var userDialog = $('<div></div>').appendTo('body').userdialog({
-                    message: "Current BMA model occupies more than 10 grid cells. Switching to other view modes is enabled. To change view mode manualy please visit 'Settings' tab.",
+                    message: "<b>Intelligent zoom enabled</b><br/><br/>The current model exceeds 10 cells in size and automatic view switching has been activated. Zoom in/out to change views, or change view manually in ‘Settings’",
                     actions: [
                         {
                             button: 'Ok',

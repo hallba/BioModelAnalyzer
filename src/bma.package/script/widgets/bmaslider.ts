@@ -14,6 +14,8 @@
             suppressDirectChangeOnPlusMinusClick: false
         },
 
+        _searchInput: null,
+
         _create: function () {
             var that = this;
             this.element.addClass("zoomslider-container");
@@ -49,6 +51,7 @@
                 .appendTo(that.element);
 
             searchPanel.hide();
+            that.searchPanel = searchPanel;
 
             var input = $('<input/>').addClass("variable-search-input").attr({ type: 'text' }).appendTo(searchPanel);
             that.searchInput = input;
@@ -160,10 +163,11 @@
                     this.zoomslider.slider("option", "max", value);
                     break;
                 case "searchTags":
-                    if (value.length > 0) {
+                    if (value.length > -1) {
                         this.searchInput.catcomplete({
                             source: value
                         });
+                        this.searchInput.catcomplete("search", this.searchInput.val());
                     }
                     break;
                 default:

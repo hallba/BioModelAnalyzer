@@ -1429,7 +1429,7 @@ module BMA {
                     var newLayout = new BMA.Model.Layout(oldLayout.Containers, variableLayouts, oldLayout.AnnotatedGridCells, oldLayout.Description);
                     that.undoRedoPresenter.Dup(that.undoRedoPresenter.Current.model, newLayout);
                 } else {
-                    that.messageBox.Show("Select some variables before setting color");
+                    that.messageBox.Show("Select some variables (shift-click or right-click and drag) before setting a colour");
                 }
             }
 
