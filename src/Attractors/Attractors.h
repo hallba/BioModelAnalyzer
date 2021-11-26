@@ -55,7 +55,7 @@ public:
         manager.AutodynEnable(CUDD_REORDER_GROUP_SIFT); // seems to beat CUDD_REORDER_SIFT
     };
 
-    BDD Attractors::readStatesFromCsv(const std::string& filename) const;
+    BDD readStatesFromCsv(const std::string& filename) const;
 
     int runSync(const BDD& initialStates, const std::string& outputFile, const std::string& header) const;
     int runAsync(const BDD& initialStates, const std::string& outputFile, const std::string& header) const;
