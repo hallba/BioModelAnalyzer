@@ -358,6 +358,9 @@ function loadScript(version) {
     });
     window.Commands.On("ModelReset", function () {
         $("#modelNameEditor").val(appModel.BioModel.Name);
+
+        //Sync current view switch state with zoom lock
+        zoomLockState = window.CurrentViewSwitchMode;
     });
 
     var holdCords = {
@@ -1165,6 +1168,7 @@ function loadScript(version) {
         });
     }
 
+    var zoomLockState = undefined;
     window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
         $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); 
 
@@ -1176,7 +1180,7 @@ function loadScript(version) {
         };
         var gridCells = BMA.ModelHelper.GetModelGridCells(appModel.BioModel, appModel.Layout, grid);
         if (gridCells.length < 10) {
-            if (window.CurrentViewSwitchMode === "Auto") {
+            if (window.CurrentViewSwitchMode === "Auto" && (!zoomLockState || zoomLockState === "Auto")) {
                 if (gridCells.length > 0) {
                     var userDialog = $('<div></div>').appendTo('body').userdialog({
                         message: "<b>Intelligent zoom disabled</b><br/><br/>The current model is smaller than 10 cells in size and automatic view switching has been deactivated. To change view manually, go to the ‘Settings’ menu.",
@@ -1186,6 +1190,7 @@ function loadScript(version) {
                                 callback: function () {
                                     userDialog.detach();
                                     $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Model");
+                                    zoomLockState = "Model";
                                 }
                             }
                         ]
@@ -1193,7 +1198,7 @@ function loadScript(version) {
                 }
             }
         } else {
-            if (window.CurrentViewSwitchMode === "Model") {
+            if (window.CurrentViewSwitchMode === "Model" && (!zoomLockState || zoomLockState === "Model")) {
                 var userDialog = $('<div></div>').appendTo('body').userdialog({
                     message: "<b>Intelligent zoom enabled</b><br/><br/>The current model exceeds 10 cells in size and automatic view switching has been activated. Zoom in/out to change views, or change view manually in ‘Settings’",
                     actions: [
@@ -1202,6 +1207,7 @@ function loadScript(version) {
                             callback: function () {
                                 userDialog.detach();
                                 $("#viewswitchcontainer").viewswitchwidget("SetViewMode", "Auto");
+                                zoomLockState = "Auto";
                             }
                         }
                     ]
