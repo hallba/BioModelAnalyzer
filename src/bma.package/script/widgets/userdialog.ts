@@ -115,15 +115,14 @@
         },
 
         _setOption: function (key, value) {
+            this._super(key, value);
             var that = this;
             switch (key) {
                 case "message":
                     this.message.html(that.options.message);
                     break;
             }
-            this._super(key, value);
         }
-
     });
 } (jQuery));
 

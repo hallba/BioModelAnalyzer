@@ -32,8 +32,8 @@ describe("UserDialog",() => {
         var message = 'testmessage';
         widget.userdialog({ message: message });
         expect(widget.userdialog('option', 'message')).toEqual(message);
-        expect(widget.children().eq(1)[0].classList.contains('window-title')).toBeTruthy();
-        expect(widget.children().eq(1).text()).toEqual(message);
+        expect(widget.children().first().hasClass('window-title')).toBeTruthy();
+        expect(widget.children().first().text()).toEqual(message);
     });
 
     it('triggers callback on click',() => {
