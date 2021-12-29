@@ -2,6 +2,10 @@
 // License: MIT. See LICENSE
 declare var BMAExt: any;
 declare var InteractiveDataDisplay: any;
+declare var Path2D: {
+    prototype: Path2D;
+    new(path?: Path2D | string): Path2D;
+};
 
 describe("SVGPlot", () => {
     it("should be succesfully created", () => {

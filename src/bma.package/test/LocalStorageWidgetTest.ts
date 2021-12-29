@@ -4,7 +4,7 @@ describe("localstoragewidget",() => {
 
     window.Commands = new BMA.CommandRegistry();
     var widget = $("<div></div>");
-    var items = ["first", "second", "third"];
+    var items = [{ name: "first" }, { name: "second" }, { name: "third" }];
 
     beforeEach(() => {
         widget.localstoragewidget({ items: items });
@@ -24,7 +24,7 @@ describe("localstoragewidget",() => {
         expect(list.length).toEqual(items.length);
 
         for (var i = 0; i < items.length; i++) {
-            expect(list.eq(i).text()).toEqual(items[i]);
+            expect(list.eq(i).attr("data-name")).toEqual(items[i].name);
             expect(list.eq(i).children("button").length).toEqual(1);
         }
     });

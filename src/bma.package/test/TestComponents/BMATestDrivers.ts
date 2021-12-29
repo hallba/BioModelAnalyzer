@@ -15,24 +15,37 @@ module BMA {
 
         export class ModelRepositoryTest implements BMA.UIDrivers.IModelRepository {
 
-            private modelsList = {};
+            private modelsList = [];
+            private motifList = [];
 
-            //constructor() {
-            //    this.modelsList = [];
-            //}
             GetModelList(): JQueryPromise<string[]>{
                 var result = $.Deferred();
                 var list: string[] = [];
                 for (var attr in this.modelsList) {
                     var usrkey = this.IsUserKey(attr);
                     if (usrkey !== undefined) {
-                        list.push(usrkey);//this.modelsList[attr]);
+                        list.push(usrkey);
                     }
                 }
                 result.resolve(list);
 
                 return <JQueryPromise<string[]>>result.promise();
             }
+
+            GetMotifList(): JQueryPromise<string[]> {
+                var result = $.Deferred();
+                var list: string[] = [];
+                for (var attr in this.motifList) {
+                    var usrkey = this.IsUserKey(attr);
+                    if (usrkey !== undefined) {
+                        list.push(usrkey);
+                    }
+                }
+                result.resolve(list);
+
+                return <JQueryPromise<string[]>>result.promise();
+            }
+
 
             GetModels(): JQueryPromise<JSON[]> {
                 throw "Not Implemented";
@@ -79,7 +92,6 @@ module BMA {
             }
             //OnRepositoryUpdated();
 
-            GetMotifList(): JQueryPromise<string[]> { throw "not implemented"; }
             GetMotifs(): JQueryPromise<JSON[]> { throw "not implemented"; }
             LoadMotif(id: string): JQueryPromise<JSON> { throw "not implemented"; }
             RemoveMotif(id: string) { throw "not implemented"; }

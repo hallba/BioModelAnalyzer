@@ -58,6 +58,10 @@ describe("BMA.Presenters.LocalStoragePresenter", () => {
         var localStorageTestPresenter = new BMA.Presenters.LocalStoragePresenter(appModel, localStorageTestDriver, modelRepositoryTest, messagebox, checker, logService, testWaitScreen);
         spyOn(modelRepositoryTest, "RemoveModel");
         var list = localStorageWidget.find("ol").children("li");
+
+        //var txt = list.length;
+        //expect(txt).toEqual(1);
+
         list.eq(0).children("button").click();
         //window.Commands.Execute("LocalStorageRemoveModel", key);
         expect(modelRepositoryTest.RemoveModel).toHaveBeenCalled();
