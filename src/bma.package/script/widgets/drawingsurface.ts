@@ -517,7 +517,9 @@ declare var InteractiveDataDisplay: any;
                 }
             };
 
-            window.Commands.Execute("RequestFullQualityModelFrame", cargs);
+            if (!(isNaN(cargs.plotRect.x) || isNaN(cargs.plotRect.y) || isNaN(cargs.plotRect.width) || isNaN(cargs.plotRect.height))) {
+                window.Commands.Execute("RequestFullQualityModelFrame", cargs);
+            }
         },
 
         resize: function () {

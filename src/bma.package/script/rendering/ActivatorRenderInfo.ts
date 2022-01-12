@@ -20,7 +20,6 @@
                 this.jqSvg = svg;
 
                 this.selfRelPath = "M 34.22 37.37 a 17.73 17.73 0 1 1 0 25.07 M 39 61.3 L 33.5 61.3 L 33.5 66.8";
-                this.selfRelGeometry = new Path2D(this.selfRelPath);
             }
 
             public Contains(pointerX: number, pointerY: number, elementX, elementY) {
@@ -66,6 +65,10 @@
 
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
+
+                if (that.selfRelGeometry === undefined) {
+                    that.selfRelGeometry = new Path2D(that.selfRelPath);
+                }
 
                 //Checking additional global offset
                 var translate = renderParams.translate === undefined ? { x: 0, y: 0 } : renderParams.translate;

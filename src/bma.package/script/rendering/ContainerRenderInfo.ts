@@ -11,7 +11,6 @@
                 this.jqSvg = svg;
 
                 this.cellData = "M 640.36 249.05 c 113.22 0 205.33 106.84 205.33 238.16 S 753.58 725.37 640.36 725.37 S 435 618.53 435 487.21 s 92.11 -238.16 205.32 -238.16 m 0 -22.73 c -126 0 -228.06 116.8 -228.06 260.89 S 514.41 748.1 640.36 748.1 S 868.43 631.3 868.43 487.21 S 766.32 226.32 640.36 226.32 Z";;
-                this.cellGeometry = new Path2D(this.cellData);
             }
 
             public ContainsBBox(bbox: { x: number, y: number, width: number, height: number }, elementX: number, elementY: number, elementParams): boolean {
@@ -50,6 +49,10 @@
 
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
+
+                if (that.cellGeometry === undefined) {
+                    that.cellGeometry = new Path2D(this.cellData);
+                }
 
                 var pathFill = "#d0e9f0";
                 var selectedPathFill = '#62b9d1';

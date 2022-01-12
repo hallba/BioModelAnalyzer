@@ -19,10 +19,6 @@
                 this.variablePathFill = "M 60.47 33.25 a 3.66 3.66 0 1 0 -7.31 0 c 0 3.79 -2 6.64 -4.73 6.64 S 43.7 37 43.7 33.25 a 3.66 3.66 0 0 0 -7.32 0 c 0 6.47 3.42 11.64 8.39 13.36 V 65.8 a 3.66 3.66 0 1 0 7.31 0 V 46.61 C 57.05 44.89 60.47 39.72 60.47 33.25 Z";
                 this.variablePathSelectedStroke = "M 57 30.94 a 2.35 2.35 0 0 1 2.35 2.35 c 0 5.8 -2.94 10.56 -7.51 12.14 l -0.87 0.3 V 65.85 a 2.36 2.36 0 0 1 -4.72 0 V 45.73 l -0.88 -0.3 c -4.56 -1.58 -7.51 -6.34 -7.51 -12.14 a 2.36 2.36 0 0 1 4.72 0 c 0 4.54 2.59 8 6 8 s 6 -3.41 6 -8 A 2.35 2.35 0 0 1 57 30.94 m 0 -1.3 a 3.65 3.65 0 0 0 -3.66 3.65 c 0 3.8 -2 6.65 -4.73 6.65 s -4.73 -2.85 -4.73 -6.65 a 3.66 3.66 0 0 0 -7.32 0 C 36.6 39.77 40 44.94 45 46.66 V 65.85 a 3.66 3.66 0 0 0 7.32 0 V 46.66 c 5 -1.72 8.38 -6.89 8.38 -13.37 A 3.64 3.64 0 0 0 57 29.64 Z";
                 this.variablePathSelectedFill = "M 48.65 68.86 a 3 3 0 0 1 -3 -3 V 46.19 L 45.2 46 c -4.83 -1.66 -8 -6.67 -8 -12.75 a 3 3 0 0 1 6 0 c 0 4.17 2.31 7.3 5.38 7.3 S 54 37.46 54 33.29 a 3 3 0 0 1 6 0 c 0 6.08 -3.12 11.09 -7.95 12.75 l -0.43 0.15 V 65.85 A 3 3 0 0 1 48.65 68.86 Z";
-
-                this.variableFillGeometry = new Path2D(this.variablePathFill);
-                this.variableSelectedStrokeGeometry = new Path2D(this.variablePathSelectedStroke);
-                this.variableSelectedFillGeometry = new Path2D(this.variablePathSelectedFill);
             }
 
             public GetBoundingBox(elementX: number, elementY: number): { x: number; y: number; width: number; height: number } {
@@ -36,6 +32,18 @@
 
             public RenderToCanvas(context: any, renderParams: any) {
                 var that = this;
+
+                if (that.variableFillGeometry === undefined) {
+                    that.variableFillGeometry = new Path2D(that.variablePathFill);
+                }
+
+                if (that.variableSelectedStrokeGeometry === undefined) {
+                    that.variableSelectedStrokeGeometry = new Path2D(that.variablePathSelectedStroke);
+                }
+
+                if (that.variableSelectedFillGeometry === undefined) {
+                    that.variableSelectedFillGeometry = new Path2D(that.variablePathSelectedFill);
+                }
 
                 var cs = renderParams.coordinateTransform;
                 var x = cs.dataToScreenX(renderParams.layout.PositionX);

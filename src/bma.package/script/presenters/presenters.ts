@@ -1066,7 +1066,6 @@ module BMA {
                     var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(that.undoRedoPresenter.Current.model, that.undoRedoPresenter.Current.layout, that.Grid, that.lastUsedRenderArgs);
                     that.lastUsedRenderArgs.plotCoordinatesInfo = undefined;
                     that.driver.DrawCanvasFrame(rasterDrawingData.canvas);
-
                 });
 
                 variableEditorDriver.SetOnClosingCallback(() => {
