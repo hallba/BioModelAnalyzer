@@ -27,17 +27,23 @@
             this.table = $('<table></table>');
             this.table.appendTo(that.element);
 
-            
+
             switch (options.type) {
 
                 case "standart":
                     if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
                         this.table.addClass("variables-table");
                         this.createHeader(options.header);
-                        this.arrayToTable(options.numericData);
 
-                        if (options.colorData !== undefined)
-                            this.paintTable(options.colorData);
+                        if (options.colorData !== undefined) {
+                            this.arrayToTableWithColors(options.numericData, options.colorData);
+                        } else {
+                            this.arrayToTable(options.numericData);
+                        }
+
+                        //this.arrayToTable(options.numericData);
+                        //if (options.colorData !== undefined)
+                        //    this.paintTable(options.colorData);
 
                         this.createColumnContextMenu();
                     }
@@ -115,7 +121,7 @@
                     }
                     break;
             }
-            
+
         },
 
         _destroy: function () {
@@ -208,7 +214,7 @@
             tdall1.css("border-left", "none");
 
 
-            this.allcheck.bind("click",() => {
+            this.allcheck.bind("click", () => {
                 that.alldiv.attr("checked", !that.alldiv.attr("checked"));
 
                 if (that.alldiv.attr("checked")) {
@@ -253,14 +259,54 @@
                 return this.allcheck;
         },
 
+        arrayToTableWithColors: function (array, color) {
+            var that = this;
+
+            var over = 0;
+            if (that.options.header !== undefined && that.options.header.length !== 0) over = 1;
+
+            var result = "";
+            for (var i = 0; i < array.length; i++) {
+                result += "<tr>";
+
+                for (var j = 0; j < array[i].length; j++) {
+
+                    var className = "";
+                    var colorInd = i - over;
+                    if (colorInd > -1) {
+                        if (color[colorInd][j] !== undefined) {
+                            className = color[i][j] ? 'propagation-cell-green' : 'propagation-cell-red';
+                        }
+                    }
+
+                    result += "<td class='" + className + "'>" + array[i][j] + "</td>";
+                }
+
+                result += "</tr>";
+            }
+            that.table.html(result);
+        },
+
         arrayToTable: function (array) {
             var that = this;
+            //for (var i = 0; i < array.length; i++) {
+            //    var tr = $('<tr></tr>').appendTo(that.table);
+            //    for (var j = 0; j < array[i].length; j++) {
+            //        $('<td></td>').text(array[i][j]).appendTo(tr);
+            //    }
+            //}
+
+            var result = "";
             for (var i = 0; i < array.length; i++) {
-                var tr = $('<tr></tr>').appendTo(that.table);
+                result += "<tr>";
+
                 for (var j = 0; j < array[i].length; j++) {
-                    $('<td></td>').text(array[i][j]).appendTo(tr);
+                    result += "<td>" + array[i][j] + "</td>";
                 }
+
+                result += "</tr>";
             }
+            that.table.html(result);
         },
 
         paintTable: function (color) {
