@@ -9,7 +9,7 @@
             header: [],
             numericData: undefined,
             colorData: undefined,
-            type: "standart", // "color","graph-min","graph-max", "simulation-min", "simulation-max"
+            type: "standart", // "color", "graph-min", "graph-max", "simulation-min", "simulation-max"
             onChangePlotVariables: undefined,
             onContextMenuItemSelected: undefined,
             columnContextMenuItems: undefined,
@@ -26,6 +26,7 @@
             var options = this.options;
             this.table = $('<table></table>');
             this.table.appendTo(that.element);
+            this.canvas = $('<canvas></canvas>').appendTo(that.element).hide();
 
 
             switch (options.type) {
@@ -33,36 +34,48 @@
                 case "standart":
                     if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
                         this.table.addClass("variables-table");
-                        this.createHeader(options.header);
-
                         if (options.colorData !== undefined) {
-                            this.arrayToTableWithColors(options.numericData, options.colorData);
+                            this.arrayToTableWithColors(options.numericData, options.colorData, options.header);
                         } else {
-                            this.arrayToTable(options.numericData);
+                            this.arrayToTable(options.numericData, options.header);
                         }
-
-                        //this.arrayToTable(options.numericData);
-                        //if (options.colorData !== undefined)
-                        //    this.paintTable(options.colorData);
 
                         this.createColumnContextMenu();
                     }
                     break;
 
                 case "color":
-                    this.table.addClass("proof-propagation-overview");
+                    this.table.hide();
+                    this.canvas.show();
+
                     if (options.colorData !== undefined && options.colorData.length !== 0) {
-                        var that = this;
                         var color = options.colorData;
+
+                        this.canvas[0].width = Math.min(4098, Math.max(396, color[0].length * 7));
+                        this.canvas[0].height = Math.min(4098, Math.max(146, color.length * 5));
+
+                        var w = this.canvas[0].width;
+                        var h = this.canvas[0].height;
+
+                        var unitHeight = h / (5 * color.length);
+                        var unitWidth = w / (7 * color[0].length);
+
+                        var rectH = 4 * unitHeight;
+                        var rectW = 6 * unitWidth;
+
+                        var ctx = this.canvas[0].getContext("2d");
                         for (var i = 0; i < color.length; i++) {
-                            var tr = $('<tr></tr>').appendTo(that.table);
                             for (var j = 0; j < color[i].length; j++) {
-                                var td = $('<td></td>').appendTo(tr);
                                 if (color[i][j] !== undefined) {
-                                    if (color[i][j]) td.addClass('propagation-cell-green');
-                                    else td.addClass('propagation-cell-red');
+                                    if (color[i][j])
+                                        ctx.fillStyle = "#d2faf0";
+                                    else
+                                        ctx.fillStyle = "#fee9f4";
+
+                                    ctx.fillRect(j * (7 * unitWidth), i * (5 * unitHeight), rectW, rectH);
                                 }
                             }
+
                         }
                     }
                     break;
@@ -259,27 +272,33 @@
                 return this.allcheck;
         },
 
-        arrayToTableWithColors: function (array, color) {
+        arrayToTableWithColors: function (array, color, header) {
             var that = this;
-
-            var over = 0;
-            if (that.options.header !== undefined && that.options.header.length !== 0) over = 1;
-
             var result = "";
+
+            //Creating table header
+            if (header !== undefined) {
+                result += "<tr>";
+                for (var i = 0; i < header.length; i++) {
+                    result += "<td>" + header[i] + "</td>";
+                }
+                result += "</tr>";
+            }
+
             for (var i = 0; i < array.length; i++) {
                 result += "<tr>";
 
                 for (var j = 0; j < array[i].length; j++) {
 
                     var className = "";
-                    var colorInd = i - over;
+                    var colorInd = i;
                     if (colorInd > -1) {
                         if (color[colorInd][j] !== undefined) {
-                            className = color[i][j] ? 'propagation-cell-green' : 'propagation-cell-red';
+                            className = " class='" + (color[i][j] ? 'propagation-cell-green' : 'propagation-cell-red') + "'";
                         }
                     }
 
-                    result += "<td class='" + className + "'>" + array[i][j] + "</td>";
+                    result += "<td" + className + ">" + array[i][j] + "</td>";
                 }
 
                 result += "</tr>";
@@ -287,16 +306,19 @@
             that.table.html(result);
         },
 
-        arrayToTable: function (array) {
+        arrayToTable: function (array, header) {
             var that = this;
-            //for (var i = 0; i < array.length; i++) {
-            //    var tr = $('<tr></tr>').appendTo(that.table);
-            //    for (var j = 0; j < array[i].length; j++) {
-            //        $('<td></td>').text(array[i][j]).appendTo(tr);
-            //    }
-            //}
-
             var result = "";
+
+            //Creating table header
+            if (header !== undefined) {
+                result += "<tr>";
+                for (var i = 0; i < header.length; i++) {
+                    result += "<td>" + header[i] + "</td>";
+                }
+                result += "</tr>";
+            }
+
             for (var i = 0; i < array.length; i++) {
                 result += "<tr>";
 

@@ -105,7 +105,8 @@ module BMA {
                                 var result = appModel.ProofResult = new BMA.Model.ProofResult(res.Status === "Stabilizing", res.Time, res.Ticks);
 
                                 if (res.Ticks !== null) {
-                                    that.expandedProofPropagation = $('<div></div>');
+                                    that.expandedProofPropagation = undefined;
+                                    that.expandedProofVariables = undefined;
 
                                     if (res.Status === "NotStabilizing")
                                         window.Commands.Execute("ProofFailed", { Model: proofInput, Res: res, Variables: that.appModel.BioModel.Variables });
@@ -114,26 +115,6 @@ module BMA {
                                     that.stability = that.Stability(res.Ticks);
                                     var variablesData = that.CreateTableView(that.stability.variablesStability);
                                     that.colorData = that.CreateColoredTable(res.Ticks);
-
-                                    var deferredProofPropagation = function () {
-                                        var d = $.Deferred();
-                                        var full = that.CreateExpandedProofPropagation(appModel.ProofResult.Ticks);//.addClass("proof-expanded");
-                                        d.resolve(full);
-                                        return d.promise();
-                                    }
-                                    $.when(deferredProofPropagation()).done(function (res) {
-                                        that.expandedProofPropagation = res;
-                                    })
-
-                                    var deferredProofVariables = function () {
-                                        var d = $.Deferred();
-                                        var full = that.CreateExpandedProofVariables(variablesData);
-                                        d.resolve(full);
-                                        return d.promise();
-                                    }
-                                    $.when(deferredProofVariables()).done(function (res) {
-                                        that.expandedProofVariables = res;
-                                    })
 
                                     window.Commands.Execute("DrawingSurfaceSetProofResults", that.stability);
                                     proofResultViewer.SetData({ issucceeded: result.IsStable, message: that.CreateMessage(result.IsStable, result.Time), data: { numericData: variablesData.numericData, colorVariables: variablesData.colorData, colorData: that.colorData } });
@@ -192,13 +173,22 @@ module BMA {
                                 if (this.appModel.ProofResult.Ticks !== null) {
                                     popupViewer.Show({ tab: param, content: $('<div></div>') });
                                     proofResultViewer.Hide({ tab: param });
+
+                                    if (that.expandedProofPropagation === undefined) {
+                                        that.expandedProofPropagation = that.CreateExpandedProofPropagation(appModel.ProofResult.Ticks);
+                                    }
+
                                     popupViewer.Show({ tab: param, content: that.expandedProofPropagation });
                                 }
                                 break;
                             case "ProofVariables":
-
-
                                 proofResultViewer.Hide({ tab: param });
+
+                                if (that.expandedProofVariables === undefined) {
+                                    var variablesData = that.CreateTableView(that.stability.variablesStability);
+                                    that.expandedProofVariables = that.CreateExpandedProofVariables(variablesData);
+                                }
+
                                 popupViewer.Show({ tab: param, content: that.expandedProofVariables });
                                 break;
                             default:
