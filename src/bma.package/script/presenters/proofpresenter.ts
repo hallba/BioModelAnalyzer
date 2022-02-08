@@ -13,7 +13,9 @@ module BMA {
             private currentLayout: BMA.Model.Layout;
             private stability;
             private colorData;
+            private variablesData;
             private logService: BMA.ISessionLog;
+            private exportService: BMA.UIDrivers.ExportService;
 
             constructor(
                 appModel: BMA.Model.AppModel,
@@ -21,13 +23,16 @@ module BMA {
                 popupViewer: BMA.UIDrivers.IPopup,
                 ajax: BMA.UIDrivers.IServiceDriver,
                 messagebox: BMA.UIDrivers.IMessageServiсe,
-                logService: BMA.ISessionLog
+                logService: BMA.ISessionLog,
+                exportService: BMA.UIDrivers.ExportService,
+                waitScreen: BMA.UIDrivers.IWaitScreen
             ) {
 
                 this.appModel = appModel;
                 this.ajax = ajax;
                 this.messagebox = messagebox;
                 this.logService = logService;
+                this.exportService = exportService;
 
                 var that = this;
 
@@ -65,6 +70,46 @@ module BMA {
 
                 });
 
+                var processProofResults = function (proofInput, response) {
+                    var res = response;
+                    if (typeof res === "string")
+                        res = JSON.parse(res);
+                    var result = appModel.ProofResult = new BMA.Model.ProofResult(res.Status === "Stabilizing", res.Time, res.Ticks);
+
+                    if (res.Ticks !== null) {
+                        //Signal to further testing presenter about proof results
+                        if (res.Status === "NotStabilizing")
+                            window.Commands.Execute("InitFurtherTesting", { Model: proofInput, Res: res, Variables: that.appModel.BioModel.Variables });
+                        else
+                            window.Commands.Execute("InitFurtherTesting", undefined);
+
+                        that.stability = that.Stability(res.Ticks);
+                        that.variablesData = that.CreateTableView(that.stability.variablesStability);
+                        that.colorData = that.CreateColoredTable(res.Ticks);
+
+                        window.Commands.Execute("DrawingSurfaceSetProofResults", that.stability);
+                        proofResultViewer.SetData({ issucceeded: result.IsStable, message: that.CreateMessage(result.IsStable, result.Time), data: { numericData: that.variablesData.numericData, colorVariables: that.variablesData.colorData, colorData: that.colorData } });
+                        proofResultViewer.ShowResult(appModel.ProofResult);
+                    }
+                    else {
+                        logService.LogProofError();
+                        if (res.Status == "Error") {
+                            proofResultViewer.SetData({
+                                issucceeded: undefined,
+                                message: res.Error,
+                                data: undefined
+                            })
+                        }
+                        else
+                            proofResultViewer.SetData({
+                                issucceeded: res.Status === "Stabilizing",
+                                message: that.CreateMessage(result.IsStable, result.Time),
+                                data: undefined
+                            })
+                        proofResultViewer.ShowResult(appModel.ProofResult);
+                    }
+                }
+
                 window.Commands.On("ProofStarting", function () {
                     var errors = BMA.Model.CheckModelVariables(appModel.BioModel, appModel.Layout);
                     if (errors !== undefined) {
@@ -94,50 +139,20 @@ module BMA {
                             message: undefined,
                             data: undefined
                         });
+                        that.expandedProofPropagation = undefined;
+                        that.expandedProofVariables = undefined;
+                        that.stability = undefined;
+                        that.variablesData = undefined;
 
                         proofResultViewer.OnProofStarted();
                         that.logService.LogProofRun();
                         var result = that.ajax.Invoke(proofInput)
                             .done(function (res) {
-                                //console.log("Proof Result Status: " + res.Status);
-                                if (typeof res === "string")
-                                    res = JSON.parse(res);
-                                var result = appModel.ProofResult = new BMA.Model.ProofResult(res.Status === "Stabilizing", res.Time, res.Ticks);
-
-                                if (res.Ticks !== null) {
-                                    that.expandedProofPropagation = undefined;
-                                    that.expandedProofVariables = undefined;
-
-                                    if (res.Status === "NotStabilizing")
-                                        window.Commands.Execute("ProofFailed", { Model: proofInput, Res: res, Variables: that.appModel.BioModel.Variables });
-                                    else
-                                        window.Commands.Execute("ProofFailed", undefined);
-                                    that.stability = that.Stability(res.Ticks);
-                                    var variablesData = that.CreateTableView(that.stability.variablesStability);
-                                    that.colorData = that.CreateColoredTable(res.Ticks);
-
-                                    window.Commands.Execute("DrawingSurfaceSetProofResults", that.stability);
-                                    proofResultViewer.SetData({ issucceeded: result.IsStable, message: that.CreateMessage(result.IsStable, result.Time), data: { numericData: variablesData.numericData, colorVariables: variablesData.colorData, colorData: that.colorData } });
-                                    proofResultViewer.ShowResult(appModel.ProofResult);
-                                }
-                                else {
-                                    logService.LogProofError();
-                                    if (res.Status == "Error") {
-                                        proofResultViewer.SetData({
-                                            issucceeded: undefined,
-                                            message: res.Error,
-                                            data: undefined
-                                        })
-                                    }
-                                    else
-                                        proofResultViewer.SetData({
-                                            issucceeded: res.Status === "Stabilizing",
-                                            message: that.CreateMessage(result.IsStable, result.Time),
-                                            data: undefined
-                                        })
-                                    proofResultViewer.ShowResult(appModel.ProofResult);
-                                }
-                                that.Snapshot();
+                                waitScreen.Show();
+                                $.when(processProofResults(proofInput, res)).done(() => {
+                                    that.Snapshot();
+                                    waitScreen.Hide();
+                                });
                             })
                             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                                 appModel.ProofResult = new BMA.Model.ProofResult(false, null, null);
@@ -171,7 +186,7 @@ module BMA {
                         switch (param) {
                             case "ProofPropagation":
                                 if (this.appModel.ProofResult.Ticks !== null) {
-                                    popupViewer.Show({ tab: param, content: $('<div></div>') });
+                                    //popupViewer.Show({ tab: param, content: $('<div></div>') });
                                     proofResultViewer.Hide({ tab: param });
 
                                     if (that.expandedProofPropagation === undefined) {
@@ -185,8 +200,7 @@ module BMA {
                                 proofResultViewer.Hide({ tab: param });
 
                                 if (that.expandedProofVariables === undefined) {
-                                    var variablesData = that.CreateTableView(that.stability.variablesStability);
-                                    that.expandedProofVariables = that.CreateExpandedProofVariables(variablesData);
+                                    that.expandedProofVariables = that.CreateExpandedProofVariables(that.variablesData);
                                 }
 
                                 popupViewer.Show({ tab: param, content: that.expandedProofVariables });
@@ -240,7 +254,7 @@ module BMA {
                 if (stable) {
                     return 'BMA succeeded in checking every possible state of the model in ' + time + ' seconds. After stepping through separate interactions, the model eventually reached a single stable state.'
                 }
-                else return 'The analysis failed to determine whether the model was stable or unstable. Use further testing to determine the end states of the model.'; //'After stepping through separate interactions in the model, the analysis failed to determine a final stable state'
+                else return 'The analysis failed to determine whether the model was stable or unstable. Use further testing to determine the end states of the model.';
             }
 
             public Stability(ticks) {
@@ -348,6 +362,7 @@ module BMA {
             }
 
             public CreateExpandedProofPropagation(ticks) {
+                var div = $('<div></div>');
                 var container = $('<div></div>');
                 if (ticks === null) return container;
                 var that = this;
@@ -418,12 +433,51 @@ module BMA {
                     columnContextMenuItems: [{ title: "Create LTL State", cmd: "CreateState" }],
                     header: header,
                     numericData: table,
-                    colorData: color
+                    colorData: color,
+                    isLargeTable: true
                 });
-                container.addClass('scrollable-results');
-                container.children('table').removeClass('variables-table').addClass('proof-propagation-table');
-                //container.find("td").eq(0).width(150);
-                return container;
+
+                container.css("position", "relative");
+
+                var height = Math.min(500, 20 + 20 * (variables.length + 1));
+                container.height(height);
+
+                var exportCSV = $('<button></button>')
+                    .text('EXPORT CSV')
+                    .appendTo(div);
+                exportCSV.bind('click', function () {
+                    var csv = that.CreateCSV(table, ',');
+                    that.exportService.Export(csv, that.appModel.BioModel.Name, 'csv');
+                });
+
+                //container.addClass('scrollable-results');
+                //container.children('table').removeClass('variables-table').addClass('proof-propagation-table');
+
+
+                container.appendTo(div);
+                return div;
+            }
+
+            public CreateCSV(table, sep): string {
+                var csv = 'Name' + sep;
+                var that = this;
+
+                //Creating header
+                if (table.length > 0) {
+                    for (var i = 0; i < table[0].length - 1; i++) {
+                        csv += "T = " + i + sep;
+                    }
+                    csv += "\n";
+                }
+
+                //Filling content
+                for (var i = 0, len = table.length; i < len; i++) {
+                    for (var j = 0; j < table[i].length; j++) {
+                        csv += table[i][j] + sep;
+                    }
+                    csv += "\n";
+                }
+                return csv;
             }
         }
     }

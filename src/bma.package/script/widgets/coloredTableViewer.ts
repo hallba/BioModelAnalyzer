@@ -24,24 +24,108 @@
             this.element.empty();
             var that = this;
             var options = this.options;
-            this.table = $('<table></table>');
-            this.table.appendTo(that.element);
-            this.canvas = $('<canvas></canvas>').appendTo(that.element).hide();
+
+            if (!that.options.isLargeTable) {
+                this.table = $('<table></table>');
+                this.table.appendTo(that.element);
+                this.canvas = $('<canvas></canvas>').appendTo(that.element).hide();
+            } else {
+                this.table = $('<regular-table></regular-table>');
+                this.table.appendTo(that.element);
+            }
 
 
             switch (options.type) {
 
                 case "standart":
-                    if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
-                        this.table.addClass("variables-table");
-                        if (options.colorData !== undefined) {
-                            this.arrayToTableWithColors(options.numericData, options.colorData, options.header);
-                        } else {
-                            this.arrayToTable(options.numericData, options.header);
+
+                    if (!that.options.isLargeTable) {
+                        this.table.show();
+                        this.canvas.hide();
+
+                        if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
+                            this.table.addClass("variables-table");
+                            if (options.colorData !== undefined) {
+                                this.arrayToTableWithColors(options.numericData, options.colorData, options.header);
+                            } else {
+                                this.arrayToTable(options.numericData, options.header);
+                            }
+                            this.createColumnContextMenu();
                         }
 
-                        this.createColumnContextMenu();
+                    } else {
+
+                        var getDataSlice = (x0, y0, x1, y1) => {
+                            var data = [];
+                            var metadata = [];
+                            for (var i = x0; i < x1; i++) {
+                                data[i - x0] = [];
+                                metadata[i - x0] = [];
+
+                                for (var j = y0; j < y1; j++) {
+                                    data[i - x0][j - y0] = options.numericData[j][i + 1];
+                                    metadata[i - x0][j - y0] = options.colorData[j][i + 1];
+                                }
+                            }
+
+                            var columnHeaders = [];
+                            for (var i = x0; i < x1; i++) {
+                                columnHeaders[i - x0] = [ that.options.header[i + 1] ];
+                            }
+
+                            var rowHeaders = [];
+                            var unnamedCounter = 0;
+                            for (var i = y0; i < y1; i++) {
+                                var rowName = that.options.numericData[i][0];
+                                if (rowName === "") {
+                                    rowName = "<no name> " + (unnamedCounter > 0 ? unnamedCounter + "" : "");
+                                    unnamedCounter += 1;
+                                }
+                                rowHeaders[i - y0] = [ rowName ];
+                            }
+
+                            return {
+                                num_rows: that.options.numericData.length,
+                                num_columns: that.options.header.length - 1,
+                                column_headers: columnHeaders,
+                                row_headers: rowHeaders,
+                                metadata: metadata,
+                                data: data
+                            };
+                        }
+
+                        (<any>that.table[0]).setDataListener(getDataSlice);
+
+                        (<any>that.table[0]).addStyleListener(() => {
+
+                            //row headers
+                            for (const th of (<any>that.table[0]).querySelectorAll("tbody th")) {
+                                const meta = (<any>that.table[0]).getMeta(th);
+                                $(th).css("max-width", 200).css("text-overflow", "ellipsis").css("overflow", "hidden").css("min-width", 45).css("border", "1px solid white");
+                                var index = meta.y;
+                                var colorValue = that.options.colorData[index][0];
+                                if (colorValue)
+                                    $(th).css("background-color", "#d2faf0");
+                                else
+                                    $(th).css("background-color", "#fee9f4");
+                            }
+
+                            //table elements
+                            for (const td of (<any>that.table[0]).querySelectorAll("tbody td")) {
+                                const meta = (<any>that.table[0]).getMeta(td);
+                                $(td).css("color", "black").css("max-width", 200).css("text-overflow", "ellipsis").css("overflow", "hidden").css("min-width", 45).css("border", "1px solid white");
+                                if (meta.user)
+                                    $(td).css("background-color", "#d2faf0");
+                                else
+                                    $(td).css("background-color", "#fee9f4");
+                            }
+
+                            (<any>that.table[0]).invalidate();
+                        });
+
+                        (<any>that.table[0]).draw();
                     }
+
                     break;
 
                 case "color":
@@ -81,6 +165,9 @@
                     break;
 
                 case "graph-min":
+                    this.table.show();
+                    this.canvas.hide();
+
                     if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
                         this.table.addClass("variables-table");
                         this.createHeader(options.header);
@@ -92,6 +179,9 @@
                     break;
 
                 case "graph-max":
+                    this.table.show();
+                    this.canvas.hide();
+
                     if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
                         this.table.addClass("variables-table");
                         this.createHeader(options.header);
@@ -105,6 +195,9 @@
                     }
                     break;
                 case "graph-all":
+                    this.table.show();
+                    this.canvas.hide();
+
                     if (options.numericData !== undefined && options.numericData !== null && options.numericData.length !== 0) {
                         this.table.addClass("variables-table");
                         this.createHeader(options.header);
@@ -118,6 +211,9 @@
                     }
                     break;
                 case "simulation-min":
+                    this.table.show();
+                    this.canvas.hide();
+
                     this.table.addClass("proof-propagation-overview");
                     if (options.colorData !== undefined && options.colorData.length !== 0) {
                         var that = this;
@@ -285,17 +381,15 @@
                 result += "</tr>";
             }
 
+            //Creating table content
             for (var i = 0; i < array.length; i++) {
                 result += "<tr>";
 
                 for (var j = 0; j < array[i].length; j++) {
 
                     var className = "";
-                    var colorInd = i;
-                    if (colorInd > -1) {
-                        if (color[colorInd][j] !== undefined) {
-                            className = " class='" + (color[i][j] ? 'propagation-cell-green' : 'propagation-cell-red') + "'";
-                        }
+                    if (color[i][j] !== undefined) {
+                        className = " class='" + (color[i][j] ? 'propagation-cell-green' : 'propagation-cell-red') + "'";
                     }
 
                     result += "<td" + className + ">" + array[i][j] + "</td>";
@@ -319,6 +413,7 @@
                 result += "</tr>";
             }
 
+            //Creating table content
             for (var i = 0; i < array.length; i++) {
                 result += "<tr>";
 
@@ -328,6 +423,7 @@
 
                 result += "</tr>";
             }
+
             that.table.html(result);
         },
 
@@ -378,7 +474,7 @@
             }
         },
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     coloredtableviewer(): JQuery;
@@ -386,4 +482,4 @@ interface JQuery {
     coloredtableviewer(settings: string): any;
     coloredtableviewer(optionLiteral: string, optionName: string): any;
     coloredtableviewer(optionLiteral: string, optionName: string, optionValue: any): JQuery;
-}  
+}

@@ -30,7 +30,7 @@ module BMA {
                 this.messagebox = messagebox;
 
 
-                window.Commands.On("ProofFailed", function (param: { Model; Variables; Res }) {
+                window.Commands.On("InitFurtherTesting", function (param: { Model; Variables; Res }) {
                     if (param !== undefined) {
                         that.driver.ShowStartFurtherTestingToggler();
                         that.model = param.Model;
