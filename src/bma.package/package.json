@@ -14,6 +14,7 @@
     "grunt-contrib-jasmine": "^2.0.3",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-less": "^2.0.0",
-    "monaco-editor": "^0.6.1"
+    "monaco-editor": "^0.6.1",
+    "regular-table": "^0.5.1"
   }
 }

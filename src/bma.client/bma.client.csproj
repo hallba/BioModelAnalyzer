@@ -218,15 +218,13 @@
     <Content Include="images\variable-old.svg" />
     <Content Include="js\jquery-contenteditable.min.js" />
     <Content Include="js\jszip.min.js" />
+    <Content Include="js\regular-table\material.css" />
+    <Content Include="js\regular-table\regular-table.js" />
     <Content Include="privacy.html" />
     <Content Include="js\idd.heatmapworker.js" />
     <Content Include="js\idd.js" />
-    <Content Include="js\ModelHelper.js" />
-    <Content Include="js\model\exportimport.js" />
     <Content Include="js\script\idd.heatmapworker.js" />
     <Content Include="js\svg.js" />
-    <Content Include="js\svgplot.js" />
-    <Content Include="js\XmlModelParser.js" />
     <Content Include="preloaded\metabolism.json" />
     <Content Include="preloaded\leukaemia.json" />
     <Content Include="ReleaseNotes.html" />

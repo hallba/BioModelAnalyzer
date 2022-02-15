@@ -36,6 +36,8 @@ src/bma.client/css/idd.css
 src/bma.client/css/slick-theme.css
 src/bma.client/css/slick.css
 src/bma.client/js/script/idd.heatmapworker.js
+src/bma.client/js/regular-table
+
 
 #dependencies copied by paket and grunt
 src/bma.client/js/jszip.min.js
