@@ -546,6 +546,9 @@ module BMA {
                         var selfConnections = [];
                         var incomingConnections = [];
                         var outcomingConnections = [];
+
+                        var variablesStability = that.lastUsedRenderArgs === undefined ? undefined : that.lastUsedRenderArgs.variablesStability;
+
                         for (var i = 0; i < rels.self.length; i++) {
                             var postfix = rels.self[i].Id;
                             var isActivator = rels.self[i].Type == "Activator";
@@ -563,8 +566,21 @@ module BMA {
                         for (var i = 0; i < rels.incoming.length; i++) {
                             var postfix = rels.incoming[i].Id;
                             var isActivator = rels.incoming[i].Type == "Activator";
+
+                            var name = ""; 
+                            for (var j = 0; j < model.Variables.length; j++) {
+                                if (model.Variables[j].Id === rels.incoming[i].FromVariableId) {
+                                    name = model.Variables[j].Name;
+                                    if (variablesStability !== undefined) {
+                                        var color = ModelHelper.GetVariableColorByStatus(variablesStability[j].state);
+                                        name += "<div style='margin-left:10px;margin-right:5px;display:inline-block;color:" + color + ";'>(" + variablesStability[j].range + ")</div>";
+                                    }
+                                    break;
+                                }
+                            }
+
                             incomingConnections.push({
-                                title: model.GetVariableById(rels.incoming[i].FromVariableId).Name + " ", data: { relationshipId: postfix },
+                                title: name, data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
                                         { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
@@ -579,8 +595,21 @@ module BMA {
                         for (var i = 0; i < rels.outcoming.length; i++) {
                             var postfix = rels.outcoming[i].Id;
                             var isActivator = rels.outcoming[i].Type == "Activator";
+
+                            var name = "";
+                            for (var j = 0; j < model.Variables.length; j++) {
+                                if (model.Variables[j].Id === rels.incoming[i].ToVariableId) {
+                                    name = model.Variables[j].Name;
+                                    if (variablesStability !== undefined) {
+                                        var color = ModelHelper.GetVariableColorByStatus(variablesStability[j].state);
+                                        name += "<div style='margin-left:10px;margin-right:5px;display:inline-block;color:" + color + ";'>(" + variablesStability[j].range + ")</div>";
+                                    }
+                                    break;
+                                }
+                            }
+
                             outcomingConnections.push({
-                                title: model.GetVariableById(rels.outcoming[i].ToVariableId).Name + " ", data: { relationshipId: postfix },
+                                title: name + " ", data: { relationshipId: postfix },
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
                                         { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
@@ -601,7 +630,7 @@ module BMA {
                         }
                         if (incomingConnections.length > 0) {
                             relsMenu.children.push({
-                                title: "From ", children: incomingConnections, icon: "ui-icon-arrowthick-1-se"
+                                title: "<div style='margin-right:5px'>From</div>", children: incomingConnections, icon: "ui-icon-arrowthick-1-se"
                             });
                         }
                         if (outcomingConnections.length > 0) {
