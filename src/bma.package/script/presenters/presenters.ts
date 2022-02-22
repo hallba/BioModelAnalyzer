@@ -552,8 +552,9 @@ module BMA {
                         for (var i = 0; i < rels.self.length; i++) {
                             var postfix = rels.self[i].Id;
                             var isActivator = rels.self[i].Type == "Activator";
+                            var name = "<div style='margin-right:5px;display:inline-block;'> self" + (i + 1) + "</div>";
                             selfConnections.push({
-                                title: "self " + (i + 1) + " ", data: { relationshipId: postfix }, children: [{
+                                title: name, data: { relationshipId: postfix }, children: [{
                                     title: "Type", cmd: "Type", children: [
                                         { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
                                         { title: "Inhibitor", cmd: "Inhibitor", data: { relationshipId: postfix }, uiIcon: !isActivator ? "ui-icon-check" : undefined },
@@ -567,13 +568,13 @@ module BMA {
                             var postfix = rels.incoming[i].Id;
                             var isActivator = rels.incoming[i].Type == "Activator";
 
-                            var name = ""; 
+                            var name = "";
                             for (var j = 0; j < model.Variables.length; j++) {
                                 if (model.Variables[j].Id === rels.incoming[i].FromVariableId) {
-                                    name = model.Variables[j].Name;
+                                    name = "<div style='margin-right:5px;display:inline-block;'>" + model.Variables[j].Name + "</div>";
                                     if (variablesStability !== undefined) {
                                         var color = ModelHelper.GetVariableColorByStatus(variablesStability[j].state);
-                                        name += "<div style='margin-left:10px;margin-right:5px;display:inline-block;color:" + color + ";'>(" + variablesStability[j].range + ")</div>";
+                                        name += "<div style='margin-left:5px;margin-right:5px;display:inline-block;color:" + color + ";'>(" + variablesStability[j].range + ")</div>";
                                     }
                                     break;
                                 }
@@ -598,8 +599,8 @@ module BMA {
 
                             var name = "";
                             for (var j = 0; j < model.Variables.length; j++) {
-                                if (model.Variables[j].Id === rels.incoming[i].ToVariableId) {
-                                    name = model.Variables[j].Name;
+                                if (model.Variables[j].Id === rels.outcoming[i].ToVariableId) {
+                                    name = "<div style='margin-right:5px;display:inline-block;'>" + model.Variables[j].Name + "</div>";
                                     if (variablesStability !== undefined) {
                                         var color = ModelHelper.GetVariableColorByStatus(variablesStability[j].state);
                                         name += "<div style='margin-left:10px;margin-right:5px;display:inline-block;color:" + color + ";'>(" + variablesStability[j].range + ")</div>";
