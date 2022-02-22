@@ -30,6 +30,38 @@ module BMA {
                 return new BioModel(this.Name, this.variables.slice(0), this.relationships.slice(0));
             }
 
+            public Equals(model: BioModel): boolean {
+                if (model.Variables.length !== this.variables.length || model.Relationships.length !== this.relationships.length)
+                    return false;
+
+                for (var i = 0; i < model.Variables.length; i++) {
+                    var m_v = model.variables[i];
+                    var v = this.variables[i];
+
+                    if (m_v.ContainerId !== v.ContainerId ||
+                        m_v.Formula !== v.Formula ||
+                        m_v.Id !== v.Id ||
+                        m_v.Name !== v.Name ||
+                        m_v.RangeFrom !== v.RangeFrom ||
+                        m_v.RangeTo !== v.RangeTo ||
+                        m_v.Type !== v.Type)
+                        return false;
+                }
+
+                for (var i = 0; i < model.Relationships.length; i++) {
+                    var m_r = model.Relationships[i];
+                    var r = this.Relationships[i];
+
+                    if (m_r.FromVariableId !== r.FromVariableId ||
+                        m_r.ToVariableId !== r.ToVariableId ||
+                        m_r.Id !== r.Id ||
+                        m_r.Type !== r.Type)
+                        return false;
+                }
+
+                return true;
+            }
+
             //public SetVariableProperties(id: number, name: string, rangeFrom: number, rangeTo: number, formula: string) {
             //    for (var i = 0; i < this.variables.length; i++) {
             //        if (this.variables[i].Id === id) {

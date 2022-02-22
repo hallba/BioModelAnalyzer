@@ -976,6 +976,8 @@ module BMA {
                         //this.driver.Draw(drawingSvg);
 
                         this.lastUsedRenderArgs = args;
+                        this.lastUsedRenderArgs.proofModel = this.undoRedoPresenter.Current.model.Clone();
+
                         var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
                         this.driver.DrawCanvas(rasterDrawingData);
                     }
@@ -1045,8 +1047,15 @@ module BMA {
                         //var drawingSvg = <SVGElement>this.CreateSvg(args);
                         //this.driver.Draw(drawingSvg);
 
-                        this.lastUsedRenderArgs = args;
-                        var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, args);
+                        var model = this.lastUsedRenderArgs === undefined ? undefined : this.lastUsedRenderArgs.proofModel;
+                        if (model !== undefined && this.undoRedoPresenter.Current.model.Equals(model)) {
+                            for (var prop in args) {
+                                this.lastUsedRenderArgs[prop] = args[prop];
+                            }
+                        } else {
+                            this.lastUsedRenderArgs = args;
+                        }
+                        var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout, this.Grid, this.lastUsedRenderArgs);
                         this.driver.DrawCanvas(rasterDrawingData);
                     }
                 });
@@ -1669,19 +1678,26 @@ module BMA {
 
             private RefreshOutput(model: BMA.Model.BioModel = undefined, layout: BMA.Model.Layout = undefined) {
                 if (this.svg !== undefined && this.undoRedoPresenter.Current !== undefined) {
-                    var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
-                    //var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
-                    //this.driver.Draw(drawingSvg);
-
-                    var args = { selection: this.selection, errors: errors };
-                    this.lastUsedRenderArgs = args;
 
                     if (model === undefined)
                         model = this.undoRedoPresenter.Current.model;
                     if (layout === undefined)
                         layout = this.undoRedoPresenter.Current.layout;
 
-                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(model, layout, this.Grid, args);
+                    var errors = Model.CheckModelVariables(this.undoRedoPresenter.Current.model, this.undoRedoPresenter.Current.layout);
+                    var args = { selection: this.selection, errors: errors };
+                    var m = this.lastUsedRenderArgs === undefined ? undefined : this.lastUsedRenderArgs.proofModel;
+                    if (m !== undefined && model.Equals(m)) {
+                        for (var prop in args) {
+                            this.lastUsedRenderArgs[prop] = args[prop];
+                        }
+                    } else {
+                        this.lastUsedRenderArgs = args;
+                    }
+
+                    //var drawingSvg = <SVGElement>this.CreateSvg({ selection: this.selection, errors: errors }, model, layout);
+                    //this.driver.Draw(drawingSvg);
+                    var rasterDrawingData = BMA.SVGRendering.RenderHelper.RenderModelToCanvas(model, layout, this.Grid, this.lastUsedRenderArgs);
                     this.driver.DrawCanvas(rasterDrawingData);
                 }
             }
