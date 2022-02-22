@@ -581,7 +581,7 @@ module BMA {
                             }
 
                             incomingConnections.push({
-                                title: name, data: { relationshipId: postfix },
+                                title: name, data: { relationshipId: postfix }, uiIcon: "ui-icon-gear",
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
                                         { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
@@ -610,7 +610,7 @@ module BMA {
                             }
 
                             outcomingConnections.push({
-                                title: name + " ", data: { relationshipId: postfix },
+                                title: name + " ", data: { relationshipId: postfix }, uiIcon: "ui-icon-gear",
                                 children: [{
                                     title: "Type", cmd: "Type", children: [
                                         { title: "Activator", cmd: "Activator", data: { relationshipId: postfix }, uiIcon: isActivator ? "ui-icon-check" : undefined },
@@ -626,17 +626,17 @@ module BMA {
                         var relsMenu = { title: "Relationships", uiIcon: "ui-icon-transferthick-e-w", children: [] };
                         if (selfConnections.length > 0) {
                             relsMenu.children.push({
-                                title: "Self", icon: "ui-icon-arrowrefresh-1-e", children: selfConnections
+                                title: "Self", uiIcon: "ui-icon-arrowrefresh-1-e", children: selfConnections
                             });
                         }
                         if (incomingConnections.length > 0) {
                             relsMenu.children.push({
-                                title: "<div style='margin-right:5px'>From</div>", children: incomingConnections, icon: "ui-icon-arrowthick-1-se"
+                                title: "<div style='margin-right:5px'>From</div>", children: incomingConnections, uiIcon: "ui-icon-arrowthick-1-ne"
                             });
                         }
                         if (outcomingConnections.length > 0) {
                             relsMenu.children.push({
-                                title: "To ", children: outcomingConnections, icon: "ui-icon-arrowthick-1-ne"
+                                title: "To ", children: outcomingConnections, uiIcon: "ui-icon-arrowthick-1-sw"
                             });
                         }
 
