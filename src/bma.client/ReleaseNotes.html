@@ -7,6 +7,23 @@
 </head>
 <body>
     <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
+        <span class="heading">BMA 1.11.0035</span>
+        <div class="intro-text">
+            <p>This release updates multiple components in the user interface to better support the analysis of large models. </p>
+            <span class="subheading">New features</span>
+            <p>
+                - Rendering of the stability proof in the analysis tab and extended table has been updated to allow hundreds of components to be viewed. This is achieved through the use of canvas rendering in the tab and an external library in the table view<br />
+                - Results from the proof are now downloadable as a CSV for offline analysis<br />
+                - Proof results persist when models layout is changed (for example, when moving a variable), only being wiped when variable updates are altered<br />
+                
+            </p>
+            <span class="subheading">Bugfixes</span>
+            <p>
+                We have further updated unit tests and build components, and disable the automatic switch for intelligent zoom if the user selects a specific visualisation.
+            </p>
+        </div>
+    </div>
+    <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
         <span class="heading">BMA 1.10.0024</span>
         <div class="intro-text">
             <p>In this release we have made several feature additions to better support large model development through improved model navigation, alongside user-feedback guided refinements and visual updates.</p>
