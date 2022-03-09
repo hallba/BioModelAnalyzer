@@ -109,16 +109,16 @@ describe("ColoredTableViewer", () => {
         expect(widget.find("tr").length).toEqual(0);
     })
 
-    it("creates widget only with colorData", () => {
-        var colorData = [];
-        colorData[0] = [true, false, true];
-        colorData[1] = [false, false, false];
-        colorData[2] = [true, true, true];
-        widget.coloredtableviewer({ colorData: colorData, type: "color" });
-        expect(widget.find("tr").length).toEqual(colorData.length);
-        expect(widget.find("td").length).toEqual(colorData.length * 3);
-    })
-
+    //todo: as color tables were changed to canvas rendering, reconsider this test
+    //it("creates widget only with colorData", () => {
+    //    var colorData = [];
+    //    colorData[0] = [true, false, true];
+    //    colorData[1] = [false, false, false];
+    //    colorData[2] = [true, true, true];
+    //    widget.coloredtableviewer({ colorData: colorData, type: "color" });
+    //    expect(widget.find("tr").length).toEqual(colorData.length);
+    //    expect(widget.find("td").length).toEqual(colorData.length * 3);
+    //})
 
     it("creates graph-min table", () => {
         var header = ["color", 1, 2, 3];
