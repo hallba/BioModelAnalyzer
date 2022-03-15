@@ -32,6 +32,32 @@
             } else {
                 this.table = $('<regular-table></regular-table>');
                 this.table.appendTo(that.element);
+
+                var localmeta = undefined;
+                this.table.bind("mouseup", (event) => {
+                    event.preventDefault();
+                    localmeta = this.table[0].getMeta(event.target);
+                });
+
+                this.table.contextmenu({
+                    autoFocus: true,
+                    preventContextMenuForPopup: true,
+                    preventSelect: true,
+                    menu: that.options.columnContextMenuItems,
+                    select: function (event, ui) {
+                        var args: any = {};
+                        args.command = ui.cmd;
+                        args.column = localmeta.x;
+                        if (that.options.onContextMenuItemSelected !== undefined)
+                            that.options.onContextMenuItemSelected(args);
+                    }, beforeOpen: function (event, ui) {
+                        ui.menu.zIndex(50);
+                        if (localmeta && localmeta.x > 0) {
+
+                        } else
+                            return false;
+                    },
+                });
             }
 
 
@@ -70,7 +96,7 @@
 
                             var columnHeaders = [];
                             for (var i = x0; i < x1; i++) {
-                                columnHeaders[i - x0] = [ that.options.header[i + 1] ];
+                                columnHeaders[i - x0] = [that.options.header[i + 1]];
                             }
 
                             var rowHeaders = [];
@@ -81,7 +107,7 @@
                                     rowName = "<no name> " + (unnamedCounter > 0 ? unnamedCounter + "" : "");
                                     unnamedCounter += 1;
                                 }
-                                rowHeaders[i - y0] = [ rowName ];
+                                rowHeaders[i - y0] = [rowName];
                             }
 
                             return {
@@ -113,7 +139,7 @@
                             //table elements
                             for (const td of (<any>that.table[0]).querySelectorAll("tbody td")) {
                                 const meta = (<any>that.table[0]).getMeta(td);
-                                $(td).css("color", "black").css("max-width", 200).css("text-overflow", "ellipsis").css("overflow", "hidden").css("min-width", 45).css("border", "1px solid white");
+                                $(td).addClass("ctv-data-item").css("color", "black").css("max-width", 200).css("text-overflow", "ellipsis").css("overflow", "hidden").css("min-width", 45).css("border", "1px solid white");
                                 if (meta.user)
                                     $(td).css("background-color", "#d2faf0");
                                 else
