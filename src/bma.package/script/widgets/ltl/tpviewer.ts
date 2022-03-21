@@ -257,7 +257,7 @@
 
 
         _createWaitAnimation: function (x, y, islra) {
-            var width = islra ? 70 : 30;
+            var width = islra ? 70 : 50;
             var snipperCnt = $('<div></div>').width(width).css("position", "absolute").css("top", y).css("left", x).appendTo(this.element);
             var snipper = $('<div></div>').css("display", "inline-block").addClass('spinner').appendTo(snipperCnt);
             for (var i = 1; i < 4; i++) {
