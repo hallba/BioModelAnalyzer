@@ -374,7 +374,7 @@ module BMA {
                 var l = ticks.length;
                 header[0] = "Name";
                 for (var i = 0; i < ticks.length; i++) {
-                    header[i + 1] = "T = " + i;
+                    header[i + 1] = /*"T = " +*/ i + "";
                 }
                 for (var j = 0; j < variables.length; j++) {
                     table[j] = [];
