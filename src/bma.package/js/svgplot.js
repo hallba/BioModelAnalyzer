@@ -636,7 +636,7 @@
                     //context.arc(x, y, constRad, 0, 2 * Math.PI, false);
                     //context.fill();
                     var lineW = context.lineWidth;
-                    context.lineWidth = 0.5;
+                    context.lineWidth = 1.5;//0.5;
                     var circleCoords = [];
                     for (var j = 0; j < c.points.length; j++) {
                         var pts = c.points[j];
@@ -651,7 +651,7 @@
                         vec.x /= vecL;
                         vec.y /= vecL;
 
-                        context.strokeStyle = "#333333"; //"#999999";
+                        context.strokeStyle = "#9361F5";//"#333333"; //"#999999";
                         context.beginPath();
                         context.moveTo(x, y);
                         context.lineTo(x1 - vec.x * constRad, y1 - vec.y * constRad);
