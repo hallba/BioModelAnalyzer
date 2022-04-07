@@ -1270,26 +1270,26 @@
           <Component Id="cmp1FAB50D96DBC3FBBE7EBBDC6116C7550" Guid="{3BFE24BE-C115-4610-9730-1A4203D8EE00}">
             <File Id="fil9E97A5B8AAB6F9D29358FFBBC91CE631" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jszip.min.js" />
           </Component>
-          <Component Id="cmp23D29BEAC4926E64AB0A1B84429959A8" Guid="{1449226C-FD97-401F-8B1B-9C1F9E838C83}">
+          <!--<Component Id="cmp23D29BEAC4926E64AB0A1B84429959A8" Guid="{1449226C-FD97-401F-8B1B-9C1F9E838C83}">
             <File Id="filD8939C6AA7983DBE67CE37423FAB3E73" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\ModelHelper.js" />
-          </Component>
+          </Component>-->
           <Component Id="cmpE10900431AB440F7F20DF15547C2B2BB" Guid="{D6D43F3B-7AAC-491F-A207-D813E7E91FD6}">
             <File Id="fil14E76FFC14879186CD9F647E1C3B37E3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\slick.min.js" />
           </Component>
           <Component Id="cmp87AB1BC09ED07EFB262FE27F7C4D8119" Guid="{54344086-D1A3-4173-85B7-36A2E98092F9}">
             <File Id="filA22FBFCD98490D842455011A932443F7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\svg.js" />
           </Component>
-          <Component Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" Guid="{CA71B0BA-8F16-46D3-9CD0-1599BB785752}">
+          <!--<Component Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" Guid="{CA71B0BA-8F16-46D3-9CD0-1599BB785752}">
             <File Id="fil897C7D5B9322E6A3CD5337C63DCD2A7B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\svgplot.js" />
-          </Component>
-          <Component Id="cmpD51F1303DA0BCD69F84974243D3257BE" Guid="{0DF1183B-737F-4EE9-B505-7F078722BE91}">
+          </Component>-->
+          <!--<Component Id="cmpD51F1303DA0BCD69F84974243D3257BE" Guid="{0DF1183B-737F-4EE9-B505-7F078722BE91}">
             <File Id="filA8514D7D6954A340B4D285A02C21441D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\XmlModelParser.js" />
-          </Component>
-          <Directory Id="dir073920FE5E63131C427DFBE6DFFEF5C4" Name="model">
+          </Component>-->
+          <!--<Directory Id="dir073920FE5E63131C427DFBE6DFFEF5C4" Name="model">
             <Component Id="cmpEE38CFFC3E5ADF81F0E73423DD274AB7" Guid="{5BF24755-5EFE-4E2E-ADEE-9C041BB34341}">
               <File Id="filBEEB2B9BFA74F3E14F2B1E01B4AB9307" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\model\exportimport.js" />
             </Component>
-          </Directory>
+          </Directory>-->
           <Directory Id="dir85A31AC20395C770A535D3BF09AAC104" Name="monaco">
             <Component Id="cmp58B994AA48AA01DDB7923430634FB402" Guid="{EE018B55-F10F-4668-A2F1-E5EF37D5547F}">
               <File Id="fil6E73B669B2DBE23190FD6C9B75FD4932" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\loader.js" />
@@ -2019,12 +2019,12 @@
       <ComponentRef Id="cmp5AFA32C4DD962FFFB20338E8D1FE76AF" />
       <ComponentRef Id="cmp14F0F2EA4F0ED235C4AB5F8FE7B243DC" />
       <ComponentRef Id="cmp1FAB50D96DBC3FBBE7EBBDC6116C7550" />
-      <ComponentRef Id="cmp23D29BEAC4926E64AB0A1B84429959A8" />
+      <!--<ComponentRef Id="cmp23D29BEAC4926E64AB0A1B84429959A8" />-->
       <ComponentRef Id="cmpE10900431AB440F7F20DF15547C2B2BB" />
       <ComponentRef Id="cmp87AB1BC09ED07EFB262FE27F7C4D8119" />
-      <ComponentRef Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" />
-      <ComponentRef Id="cmpD51F1303DA0BCD69F84974243D3257BE" />
-      <ComponentRef Id="cmpEE38CFFC3E5ADF81F0E73423DD274AB7" />
+      <!--<ComponentRef Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" />-->
+      <!--<ComponentRef Id="cmpD51F1303DA0BCD69F84974243D3257BE" />-->
+      <!--<ComponentRef Id="cmpEE38CFFC3E5ADF81F0E73423DD274AB7" />-->
       <ComponentRef Id="cmp58B994AA48AA01DDB7923430634FB402" />
       <ComponentRef Id="cmpCD6C366D4EBBC48444A196E392E98A74" />
       <ComponentRef Id="cmp5D7D2F8E22210B4E31EB496B4FF609BA" />
