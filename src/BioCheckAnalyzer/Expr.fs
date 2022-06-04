@@ -361,10 +361,17 @@ let rec is_increasing_int f var =
     | Ceil(e)
     | Floor(e) -> is_increasing e var
     | Minus(e1, e2) -> (is_increasing e1 var) && (is_decreasing e2 var)
-    | Times(e1, e2)
-    | Div(e1, e2) ->
+    | Times(e1, e2) ->
         let inc1 = if (sign e1) = Pos then (is_increasing e2 var)
                    else if (sign e1) = Neg then (is_decreasing e2 var)
+                   else false
+        let inc2 = if (sign e2) = Pos then (is_increasing e1 var)
+                   else if (sign e2) = Neg then (is_decreasing e1 var)
+                   else false
+        inc1 && inc2
+    | Div(e1, e2) ->
+        let inc1 = if (sign e1) = Pos then (is_decreasing e2 var) //must be different from times
+                   else if (sign e1) = Neg then (is_increasing e2 var)
                    else false
         let inc2 = if (sign e2) = Pos then (is_increasing e1 var)
                    else if (sign e2) = Neg then (is_decreasing e1 var)
@@ -386,10 +393,17 @@ and is_decreasing_int f var =
     | Ceil(e)
     | Floor(e) -> is_decreasing e var
     | Minus(e1, e2) -> (is_decreasing e1 var) && (is_increasing e2 var)
-    | Times(e1, e2)
-    | Div(e1, e2) ->
+    | Times(e1, e2) ->
         let dec1 = if (sign e1) = Pos then (is_decreasing e2 var)
                    else if (sign e1) = Neg then (is_increasing e2 var)
+                   else false
+        let dec2 = if (sign e2) = Pos then (is_decreasing e1 var)
+                   else if (sign e2) = Neg then (is_increasing e1 var)
+                   else false
+        dec1 && dec2
+    | Div(e1, e2) ->
+        let dec1 = if (sign e1) = Pos then (is_increasing e2 var)
+                   else if (sign e1) = Neg then (is_decreasing e2 var)
                    else false
         let dec2 = if (sign e2) = Pos then (is_decreasing e1 var)
                    else if (sign e2) = Neg then (is_increasing e1 var)
