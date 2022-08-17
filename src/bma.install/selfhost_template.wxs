@@ -1,0 +1,2111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="cmp128A9F464EC06521113D21D32F13EF52" Guid="{07733B3E-07EE-4BAA-B5DA-B9C7215388A3}">
+        <File Id="filA97B85B71F0B0F2BFDBCC218714B7FA4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Analyze.exe" />
+        <File Id="versionexe" KeyPath="no" Source="$(var.bma.selfhost.TargetDir)\version.txt" />
+      </Component>
+      <Component Id="cmp5E6747A0802B746D1A65DA62864D0875" Guid="{B6B88CF5-FBCE-48C8-AC80-ECCE0B608AA6}">
+        <File Id="filFD47C0EDC875C2A61574D4120FCF5E15" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Analyze.exe.config" />
+      </Component>
+      <Component Id="cmp1BBFBF1B64F4479E5A7CDA84B5F42283" Guid="{2333B290-A510-4188-92A6-3B7920B007CD}">
+        <File Id="filB4ABA4813B11E6A787FC045536147CEB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\AnalyzeLTL.exe" />
+      </Component>
+      <Component Id="cmp1DE04E5FE7374D14892C79CE961B7A05" Guid="{0CB597AE-823D-4788-B147-7A8F3CEA8D93}">
+        <File Id="fil124C468434AEBF5AFEF75F3B83D8AE87" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\AnalyzeLTL.exe.config" />
+      </Component>
+      <Component Id="cmpE514DF2FED4943923BB5FBA7B68FDF5A" Guid="{D227FF31-1820-41DE-8E82-1D5151D26D70}">
+        <File Id="fil650B493D55EE2F44C850BDAB216AF332" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\BioCheckAnalyzer.dll" />
+      </Component>
+      <Component Id="cmp9CA671D1C6D360B463ECC6D7814105D3" Guid="{B6307F71-83F7-4BD9-95E8-F28C7FB8D007}">
+        <File Id="filEA4B9DBFEA7D1D76B70AA8750B333C92" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\BioCheckAnalyzerCommon.dll" />
+      </Component>
+      <Component Id="cmp3722A6E278CE116CF6A45B1D3EC44CF5" Guid="{2F4F3677-43F2-48C5-8823-36DA4940536C}">
+        <File Id="fil86BD36DBAE95545D3F1CA5EFD6E4C31B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client.dll" />
+      </Component>
+      <Component Id="cmp9C71D8F760852EB8BDD4766D4700342D" Guid="{9AD4ED26-D0D0-4DE6-B033-A680565D1181}">
+        <File Id="filE2CD8BDA201DD9AA72C863FB1EE63ABE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client.dll.config" />
+      </Component>
+      <Component Id="cmpC44C0524E25C1EF184A59A7D6A965A38" Guid="{51AC6EA2-40D1-4D52-AF61-9FFE0EE1CAC3}">
+        <File Id="filE84D5AB25D9DBC1DE137F30D2A4F2110" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.localapp.XML" />
+      </Component>
+      <Component Id="cmp9CF00C8B1E081D43BFF31540A41D3CA0" Guid="{BF2D4C0A-3868-475C-BD99-61749200936C}">
+        <File Id="filC42EA60A31D6810599F76860620FB5DD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.selfhost.exe">
+          <Shortcut Advertise="yes"
+                    Id="bmaShortcut"
+                    Directory="DesktopFolder"
+                    Name="BioModelAnalyzer"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="Icon.exe">
+            <Icon Id="Icon.exe" SourceFile="BMA.ico" />
+          </Shortcut>
+        </File>
+      </Component>
+      <Component Id="cmpDEEA95EC5BF6DB410D30F0CD3B65A40B" Guid="{78E0C260-EFDC-4BEC-A3CB-50DF90D2341E}">
+        <File Id="fil22BA93CE73DABE093AFEFBEC32DECFAE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.selfhost.exe.config" />
+      </Component>
+      <Component Id="cmpEC1C04C639184B25746DECF5CF8820B0" Guid="{D542BED8-A6F0-48A5-8711-38C68C7D873A}">
+        <File Id="fil3F146315680FCA7ABAF81EFCBE1D1205" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\BmaBioCheckAnalyzer.dll" />
+      </Component>
+      <Component Id="cmp081627B67B3D4D2F876A3E97468C10E7" Guid="{9D45E7B7-B488-47B6-9234-6485624880A9}">
+        <File Id="fil4B2E9011562C90548F33A7DA5CFF5142" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\BMAWebApi.dll" />
+      </Component>
+      <Component Id="cmpBA52F685B6B621C3100B72D1268CBE9A" Guid="{F7617C03-D2D1-4FB5-AF83-2B82C96F121D}">
+        <File Id="filC6FB85815EFE555D4194AF076C5AB53A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\BMAWebApi.dll.config" />
+      </Component>
+      <Component Id="cmp0B38545DA2650975873E509A90B73FBE" Guid="{3EC319CC-32D7-44E8-BBCF-C37721F4172B}">
+        <File Id="filCE1D9434F7C4AABA772E0969A413082B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FairShareScheduler.Common.dll" />
+      </Component>
+      <Component Id="cmpDE9B7BC0F5FDF44E58ED2F09621E463D" Guid="{7E595D16-4CDE-4F51-AFC1-DCBA0D8D6D5E}">
+        <File Id="fil6466E573C2BF5F65F75FB2212A15B936" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FairShareScheduler.Common.xml" />
+      </Component>
+      <Component Id="cmpDEEF86583D4DCFBD083B27982AFB08CF" Guid="{DAFCF8F3-43ED-4FBA-AC7E-776C13501520}">
+        <File Id="fil395B36423BF02229D6CBFD3741E8BDF6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FairShareScheduler.dll" />
+      </Component>
+      <Component Id="cmpFB5685DF89C09DA1479113E85C0A3650" Guid="{6E13E44D-A30A-435E-9FB0-19CDC004D3BE}">
+        <File Id="fil669BFABB2CD71053D2EF009A2C0DF282" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FairShareScheduler.xml" />
+      </Component>
+      <Component Id="cmp41B971A706096272992CE26D8FE5E21D" Guid="{9E835D38-F96F-4166-B19B-41463A835AAF}">
+        <File Id="filF121DD11E4F0D25069075285D81AD6CA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FParsec.dll" />
+      </Component>
+      <Component Id="cmp14E996E83019E1D0D08401C2B25DE6B4" Guid="{D06E2A7C-27B7-4867-AAA0-B2554546FCD8}">
+        <File Id="fil0AE385DC7202A0790CFC207D55B6ADEA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FParsec.xml" />
+      </Component>
+      <Component Id="cmp3E6C13EE1784F95172520BCE211C6A32" Guid="{F1DCB523-C1B5-4350-BAED-F98E10F46B3B}">
+        <File Id="filD9E18422B35D4F989684C664A6E1AFA8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FParsecCS.dll" />
+      </Component>
+      <Component Id="cmp1EDFBE3774B5DEB56D4CD79BEB3D8FCB" Guid="{A61E3DEA-9D21-4E3B-A0E5-F4D2B61C4285}">
+        <File Id="fil9944F8CACB8986E9FFA0726797B73F20" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FParsecCS.xml" />
+      </Component>
+      <Component Id="cmp8D49D4CA03A803FD26C1C2C28F5C16D2" Guid="{66F84AA4-261D-4A47-AECC-597F4DF1E2C6}">
+        <File Id="fil59F12CE48D8F7D2FA2B6D239965B601A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FSharp.Core.dll" />
+      </Component>
+      <Component Id="cmp9F9C00E02652619CCC997518B454D7FC" Guid="{D982214F-0C29-4CD9-823C-CF3C0961F0CC}">
+        <File Id="filE1F8CF90F6647B22FB7417539991EEC3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FSharp.Core.xml" />
+      </Component>
+      <Component Id="cmpC7326F4D13A08139795A78B5FA583DDC" Guid="{5C82CD3A-25B5-4095-8F89-6F2B726B3372}">
+        <File Id="fil945577C4AB08E927247D0D99B07A23AE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FurtherTesting.exe" />
+      </Component>
+      <Component Id="cmp4F93B49E638F34988D330BD36DA07DC8" Guid="{7A12594E-E467-4ACC-8A00-275EAA4108FF}">
+        <File Id="fil03BD1028D5F990CF8A059E4A2B8D17D5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\FurtherTesting.exe.config" />
+      </Component>
+      <Component Id="cmpA18CADF5CAB1AD288A3AF1C79527F080" Guid="{42074E6E-F103-4C06-9F9A-C9AACFFA8BFE}">
+        <File Id="fil0DC769C7F7232A66664809B8AE1B7C03" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\JobsRunner.dll" />
+      </Component>
+      <Component Id="cmp7411FAF8FBBAC1688E03329216B1F48C" Guid="{62E4EA0E-3A47-4078-9C06-3C2E70A5521C}">
+        <File Id="fil5931966B7A00FED6D45A26B1D3DB7768" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\libz3.dll" />
+      </Component>
+      <Component Id="cmp947BA09BBCB8A5FE6C91AF04AA689B21" Guid="{C9030D70-4270-4116-B02E-533D5A4AC15D}">
+        <File Id="fil86238868B3FE9EACDA186591161722C9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Office.Interop.Excel.dll" />
+      </Component>
+      <Component Id="cmp34CB748A4D3CD96D72782394E4DD7182" Guid="{0971129D-CD13-4C0C-9DC8-8759BC3B4BD2}">
+        <File Id="fil8D5BCEEDA369FE7C1F83C28F06506F86" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Diagnostics.dll" />
+      </Component>
+      <Component Id="cmp027D39BC9C4601BD5AF282BFC6C1C472" Guid="{AD57CD84-CD78-4157-A92B-0ECE4F8C6887}">
+        <File Id="filEA8624BFB1F4B56EA9350A0F0EFFEE95" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Diagnostics.xml" />
+      </Component>
+      <Component Id="cmpBE2EDA88D5EF1F0B78C330A9B946A49F" Guid="{68185454-5F38-43DF-A19E-40257AE6A97E}">
+        <File Id="fil862444875058BBEB2DF8BBB81506995C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.dll" />
+      </Component>
+      <Component Id="cmp95819E600B45A1B4BDD3AD997546BBF9" Guid="{329AC2B6-EABC-49C8-9398-6493CFE0CB85}">
+        <File Id="fil0647DEE3C5BF8F13949AA91694BB053F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.FileSystems.dll" />
+      </Component>
+      <Component Id="cmp7DD7DA7DB7313B1CFBA83963FCE75868" Guid="{4D7E6F22-37B5-4E48-8372-8BD25FEFB734}">
+        <File Id="fil7C2BEABD4CA2D82C2263928D7E5417A4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.FileSystems.xml" />
+      </Component>
+      <Component Id="cmpC19B017D46F4E697CC5A042428270F9A" Guid="{C4A24651-84F8-4849-AB8D-10BDF3C0B823}">
+        <File Id="fil0C97D9C68E8506D9A1C5BCD159E7EE19" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Host.HttpListener.dll" />
+      </Component>
+      <Component Id="cmp3AC626E9AEE8623BB94E087C39AF522A" Guid="{D2206B90-D0C6-482C-B10A-E980F308E18E}">
+        <File Id="fil8C4E9DF8960794CF9642027D775A695A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Host.HttpListener.xml" />
+      </Component>
+      <Component Id="cmpC75177BD421EEC9BE5A8F42C4102F3B3" Guid="{41D6C057-80FF-4D40-AD3C-0F83D7399779}">
+        <File Id="filE4EC2FCB950AA47DF74D9587601A497C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Hosting.dll" />
+      </Component>
+      <Component Id="cmp68C622BB555D1D97161333D02AEB8269" Guid="{4FCE3C7C-F005-4ABE-8D22-8FEA244268AB}">
+        <File Id="fil712A24F39A3DC49F4046D0D6A9890861" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.Hosting.xml" />
+      </Component>
+      <Component Id="cmpF0B08D8EF0B91EECE9C6C1255372FD21" Guid="{9AD2AA75-9087-49D5-85EB-EC0736A4B0A0}">
+        <File Id="filBFAB3A5ABBF781E1C228B81EBBEA2B78" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.StaticFiles.dll" />
+      </Component>
+      <Component Id="cmpD809946953976C3A0E70DFEAA8BF28C9" Guid="{5FC7E0BE-C77E-4A4F-B3FB-EB7E500E1056}">
+        <File Id="filC3494EFFC38573E0356B4404E7E55F83" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.StaticFiles.xml" />
+      </Component>
+      <Component Id="cmp2C66A4E445C210CD6FC491E075080C25" Guid="{7243C91E-1791-46F4-807F-A596D86A8255}">
+        <File Id="fil497320BDDC2A4CF1FD886D83ED5FD59D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Owin.xml" />
+      </Component>
+      <Component Id="cmpDD7D621B2EFF93BB535938ACA60D6F66" Guid="{D676D94E-0A9A-421B-AD35-DB0A9472964E}">
+        <File Id="filA70CB77FCA3C29D84C2C8E3F1E0CBBFD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.WindowsAzure.Storage.dll" />
+      </Component>
+      <Component Id="cmpFE332B0BA70C5456381A22C678807707" Guid="{06CBE6F0-E3A6-4273-87B5-E89C4E73E321}">
+        <File Id="filAE9599C550794BEC6DBBD8854FE62CA1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.WindowsAzure.Storage.xml" />
+      </Component>
+      <Component Id="cmp79939BD0CDF79E9100CE40AC02AB229C" Guid="{8F3E9D3A-B005-4077-BDE4-0A870D76E060}">
+        <File Id="filA67156EB6B44B0AFD8FF857F9CE11395" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Microsoft.Z3.dll" />
+      </Component>
+      <Component Id="cmp1EA75742196A10FF30F14DEE49B96795" Guid="{F1CC8ABB-01FE-48F4-8ACF-9193EAC27308}">
+        <File Id="filA73AF48DE5075796F2DCBECBA256DB1F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Newtonsoft.Json.dll" />
+      </Component>
+      <Component Id="cmp1C6F1E8B3EE6638F19B2B6B60781C542" Guid="{0CA48763-B9D6-478F-95D7-23574037C80A}">
+        <File Id="fil7E66778347932BE65114795F21535359" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Newtonsoft.Json.xml" />
+      </Component>
+      <Component Id="cmpDD9C3F4266C0D772511A8E3E004C740E" Guid="{0CCAB30C-E936-44D7-A8A7-F494F467D554}">
+        <File Id="fil4740878A9DEF6B5012F8113ACB46A72A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Owin.dll" />
+      </Component>
+      <Component Id="cmp4D3C068B20C8825215C68B1F7E930CC1" Guid="{D5782141-176D-41EB-87A1-6969481690E6}">
+        <File Id="filB3F89ADA077A81DDC5D5E33CA0F18156" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Simulate.exe" />
+      </Component>
+      <Component Id="cmpFBB84374D34D331D4A70C5347C0AEB74" Guid="{7CBC41BD-58BA-4AB7-B29E-FD0AE2A6FD54}">
+        <File Id="fil3E42C435027487CEBA26F188E15BE14A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Simulate.exe.config" />
+      </Component>
+      <Component Id="cmp1B78454D2EFD6CA7E314CCA1522394F1" Guid="{DD1C9766-63EA-4223-BEB0-943F7DD9693E}">
+        <File Id="fil5352EE9719174D4A375DD6BD65D7E3BD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\SimulateLTL.exe" />
+      </Component>
+      <Component Id="cmp61189E8B2BE7FAF502429C0FE47E7A06" Guid="{6A4F91C3-CEF0-47D6-A361-251BDA89A685}">
+        <File Id="fil93821A43F94E7EE78802C6E76ED10A08" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\SimulateLTL.exe.config" />
+      </Component>
+      <Component Id="cmpD4D74F6D02FC5FAC46904DC023C8721B" Guid="{22B48ACD-1E30-4533-BB1B-CEB0347C85DF}">
+        <File Id="fil223B7A2CE87EF885026F42B053F051C9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Net.Http.Formatting.dll" />
+      </Component>
+      <Component Id="cmp13634991E8945E18C22990324E98D90D" Guid="{B118311E-3EDE-4598-885E-3DFA9E65A412}">
+        <File Id="fil3C5DE49323B0BD20032B0AF9E740ABD9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Net.Http.Formatting.xml" />
+      </Component>
+      <Component Id="cmp353234429CFF6EDCF675D0E6CF0532E4" Guid="{864260D5-9610-44AC-8E6D-BC234D9FDB50}">
+        <File Id="filDCF71ED0D8CB5A7AA8C8631289AAD987" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Runtime.CompilerServices.Unsafe.dll" />
+      </Component>
+      <Component Id="cmp62B4FD48A4EE7B13849B14589E4547B8" Guid="{88F7D674-5E5E-40C6-BE0B-70F86C2D0784}">
+        <File Id="filDEA1DB53030DEDF1B9D775FFE3E3F5BC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Runtime.CompilerServices.Unsafe.xml" />
+      </Component>
+      <Component Id="cmp462E7117B4A83A18A506D7821EC82024" Guid="{2E554537-81DC-4730-8865-F6BB7266DDCC}">
+        <File Id="fil1A4F24A70F8505E409DD49DC0C6009BB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Threading.Tasks.Extensions.dll" />
+      </Component>
+      <Component Id="cmpEC8DFF1DBFC8725DB7AE7094D45A09A8" Guid="{929F3B62-9EA1-4258-81FE-82C3F750E06A}">
+        <File Id="filE7B6F01217CAEE69392B84995B15880B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Threading.Tasks.Extensions.xml" />
+      </Component>
+      <Component Id="cmp97F438F6C13EC48634E375808FF099F0" Guid="{2AF89C86-832C-46BB-8CC5-366B1F2B93D7}">
+        <File Id="filD1566CA1C21D207D070CF2733EC21A56" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.dll" />
+      </Component>
+      <Component Id="cmpF2D8A266A846962711F7B71DFAB843BC" Guid="{46E80F44-529A-41C2-8EEA-3E698132C201}">
+        <File Id="filBF47C435BC0F14168CC7BE24A916528F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.Owin.dll" />
+      </Component>
+      <Component Id="cmpDFBF5736FDA4FA2FCE31850089DD291E" Guid="{985F6EEC-062A-48EA-9E7D-CE168789F1B3}">
+        <File Id="filF410477C63A4C2EA9F991B6DEF909682" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.Owin.xml" />
+      </Component>
+      <Component Id="cmp701EB269D1F380492F5B424195D47E8D" Guid="{C9BA2172-1CE3-410B-A083-89DDCD2F6C42}">
+        <File Id="fil04DE7BBAABDBB65D52005A2FF5D5837B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.WebHost.dll" />
+      </Component>
+      <Component Id="cmpD41D4F6C2AED8B7472C71CD4428DAC74" Guid="{D4BA2145-657B-4E73-A70E-BECDF7C91B5D}">
+        <File Id="fil39BA5871855F5C89928698D95D30181E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.WebHost.xml" />
+      </Component>
+      <Component Id="cmpC607EB2AEDBB8276BDCBFEDE4ACB9EB6" Guid="{C79F1D21-A67E-4612-91DA-FB9158F6BB29}">
+        <File Id="filF46D8C5ADC5D20B9297EE5B482CDE58D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\System.Web.Http.xml" />
+      </Component>
+      <Component Id="cmpF2CC2F5413806195BDD6BD7DFDBF787E" Guid="{54D96F70-0D0D-4D14-AF7E-C9C00CC3AB1E}">
+        <File Id="fil0D7BA130030DE35F688E4A8DC122E0B5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Unity.Abstractions.dll" />
+      </Component>
+      <Component Id="cmp83AE5DE0180F193D62789CA2FD624275" Guid="{05FA1C54-D335-4458-8A39-C44508C80D1A}">
+        <File Id="fil5CF1B03CB5FF3CE36840395268CEB9CD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Unity.Configuration.dll" />
+      </Component>
+      <Component Id="cmpDA408C9C6C906711495535BE61D1E21A" Guid="{EA1F30FB-1E6B-4CB1-BB80-7BC474E228EF}">
+        <File Id="fil1C0593EDF4459E7DACDEFA0121D2A3A9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\Unity.Container.dll" />
+      </Component>
+      <Directory Id="dirD82AE16FB8007F804AC73A64EBF28331" Name="bma.client">
+        <Component Id="cmp661844DA70BE67DAF78FF1BBA175467B" Guid="{D2086B9E-6BC3-4A1B-BA7E-3B701890C321}">
+          <File Id="filD93A9863D7613B55890A9E845AE35679" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\about.html" />
+        </Component>
+        <Component Id="cmpF7F92053A50CC33BA107312ADFF19978" Guid="{C627F6E4-0E65-4D64-AF63-5A924B6D4904}">
+          <File Id="filD9F766E6B64ADAF11D26D9420A1B2BFC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\app.css" />
+        </Component>
+        <Component Id="cmp015F6FA35FB18E1C2EEB5AC42C203E8F" Guid="{98123D50-706F-4D18-98F6-5F021A809664}">
+          <File Id="filD169F7C6F1AF1153BA88CE409D82D039" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\app.js" />
+        </Component>
+        <Component Id="cmpADE23E0DB3193C97F8FF47DCCE7C493F" Guid="{304C27A0-89D6-488C-8960-477B7635734A}">
+          <File Id="fil68E05967ABE8FB358F51682A68AA0E87" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\codeeditor.js" />
+        </Component>
+        <Component Id="cmp547E2734AAE058DA2E16BE44E099B77F" Guid="{1C0A6DFD-022B-46F3-B176-C4BC1990BBE1}">
+          <File Id="fil57AEA85CB0B7F3A9D4DE4487860A3A8B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\error.html" />
+        </Component>
+        <Component Id="cmpF508D22220DA864BCB251BFD1F607B01" Guid="{8487DC44-18CC-4F2C-A2DA-A7F957C0116E}">
+          <File Id="fil367A39B773D5FB9683901DC57E3282A4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\help.html" />
+        </Component>
+        <Component Id="cmp839168DCB1CDA76926423868FFC3F2A4" Guid="{D4D3E5EE-F5DC-41B9-A8F6-DE459D183845}">
+          <File Id="fil4A469E63065B528372419247E0BAEB1E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\index.html" />
+        </Component>
+        <Component Id="cmpEC9303032DBEE53BFF9965B0B24300A9" Guid="{8C1CD61F-20FC-4567-BC6E-3580EF865830}">
+          <File Id="filB0FB70357338276A523B316B4C55B4F7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\privacy.html" />
+        </Component>
+        <Component Id="cmpA76ECCB9C5F33C6B0A03B7259AA53503" Guid="{91F0B530-FA66-4E62-8703-A9FB92BBC6A6}">
+          <File Id="filF442B170107B38AE0196E861DD3A2C4E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\ReleaseNotes.html" />
+        </Component>
+        <Component Id="cmpD704CAD168F9D9829CCC930BF3129E52" Guid="{599582BE-07FD-48CF-8593-F1CC0E860DC1}">
+          <File Id="filB5DD3C25C61EE81BD08978C8D1A82148" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\run_iisexpress.cmd" />
+        </Component>
+        <Component Id="cmp9A39111E53B04B08B8A95AD9105394EE" Guid="{B6C034D5-03B4-48F4-84DF-BA3B17CE36F6}">
+          <File Id="fil2466F37963D72885CF5611291A2B1E6A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\serviceTestPage.html" />
+        </Component>
+        <Component Id="cmp16049C9F1171098F00AA3BAAFA5C21B9" Guid="{27756817-B3A1-4CB0-A6EF-2D463F5D30AA}">
+          <File Id="fil5B8A9D0AED457E0E523682CD6E6141B4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Student sheet v3.2.docx" />
+        </Component>
+        <Component Id="cmpE73EB7A023D3214DD9980210507D5872" Guid="{6A66E5D2-3088-4796-9B93-3A6E3D3FA4B8}">
+          <File Id="fil91A2CEA5ECDF564A8201B40D7F26E5BA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Teachers sheet v3.docx" />
+        </Component>
+        <Component Id="cmp312ABD53EA88C63F51913B732B4553D7" Guid="{DB289653-B6FE-4609-A8E8-9E344C48384E}">
+          <File Id="filEC428317193E34D1920C1671152A7F73" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\tool.html" />
+        </Component>
+        <Component Id="cmp7B970EC56E072ADBDFAA8EA43F8AEBFB" Guid="{80983412-C4ED-4EBA-B6B5-5CB4ACFA7FCF}">
+          <File Id="fil80988D520A609E2279B91218D289C676" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\tool.js" />
+        </Component>
+        <Component Id="cmpF7A9D23954745E3AB80F80CC66D7DA4E" Guid="{1AD06072-8A7B-42CC-898B-DE57BC2EB02A}">
+          <File Id="filFD12F36A0F8D31430D24C4B6D22E4FEA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\tool.min.js" />
+        </Component>
+        <Component Id="cmp4F4E6EA25320FEFE535AE1D48CC1A1A0" Guid="{CCF83627-7526-4AAE-AB83-F5D3FD0D3AAF}">
+          <File Id="fil6C1D5484CA34042CAB6E083D078B452E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Tutorial.pdf" />
+        </Component>
+        <Component Id="cmp70041BDEF657F5B55D1729FFD1663D20" Guid="{AD51F31D-AB6C-4F11-AA9C-8339458F2530}">
+          <File Id="filE9520844392B18F1B6316907C9DE23F2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\version.txt" />
+        </Component>
+        <Component Id="cmp80500BF75B2668D335FBF6476DEB1F22" Guid="{746098AE-29F1-4E9F-BB7E-6CFF62D76E03}">
+          <File Id="filC72E70D6FB93F69951F194641F0A7621" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\web.config" />
+        </Component>
+        <Component Id="cmpF7127A85F7A73C03403F6E487A1BC5B7" Guid="{455A057B-7890-4EAA-9F64-6A4FD5CF47C7}">
+          <File Id="filDCD26A0D4A8FEDDE5A84C4B30937CB8A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\xmlParserTestPage.html" />
+        </Component>
+        <Directory Id="dir51063C2C5C371787F204E65B69CC96E4" Name="Content">
+          <Directory Id="dirBA270AFA0FF10F9D2B9BFBD87474C17E" Name="themes">
+            <Directory Id="dir9C065ED1AA5C8F2C5DB85E4AD89148FA" Name="base">
+              <Component Id="cmp00388CF4D863D25009557B089C711FD2" Guid="{D70016EF-2959-4B15-B255-4783FE4A33A5}">
+                <File Id="fil9798E49EAD6624A11165C5E735E3FA54" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\accordion.css" />
+              </Component>
+              <Component Id="cmp372DA54F7BCB2509CE859B443EB39D0A" Guid="{3BFB5312-73E4-489E-846C-67ADB4316A96}">
+                <File Id="filD1DA51346A1EC5F059C6F34FF8F65FDA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\all.css" />
+              </Component>
+              <Component Id="cmpD6BEF9036C45247DB0E3B055109389CD" Guid="{282D4899-A2C7-4594-821C-D4590F3D9491}">
+                <File Id="fil03D09F90AADBDABD6A3FFA2756B140C2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\autocomplete.css" />
+              </Component>
+              <Component Id="cmp155CD3D2E861F884F205E9DB61CB7653" Guid="{550BD2E5-55F6-4472-9EF0-5A41C80D4230}">
+                <File Id="fil340B33C0089010DB566B4210B5C0A5D1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\base.css" />
+              </Component>
+              <Component Id="cmp285C0127842903BE155DE36733E973BE" Guid="{5FF774C6-1EA1-44F8-8171-AE24A75B542D}">
+                <File Id="fil6E03E67743C35339AE7D1239034EF659" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\button.css" />
+              </Component>
+              <Component Id="cmp020584801BC7561876D09E2F9908B3F7" Guid="{3AC51AEC-0B8D-4DC1-9B38-3687CD8D488B}">
+                <File Id="fil6A4DF1F8AE50983621608B8490F6339C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\core.css" />
+              </Component>
+              <Component Id="cmpB861B87D1C3179585FB43A81A61D7604" Guid="{99767E95-D79A-40F6-864A-BD83C97D1E95}">
+                <File Id="fil02119CCF1E715760AD00EC6DB6337E70" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\datepicker.css" />
+              </Component>
+              <Component Id="cmpC9862CEC8DF09A19923D0D89DE337467" Guid="{BD05F004-BF37-47DE-AFD1-60191A055737}">
+                <File Id="filE2CB148E265A797522F4D4117535ABCF" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\dialog.css" />
+              </Component>
+              <Component Id="cmpA1CA54DF7E01FB4C28896C3E8CA47E2C" Guid="{0FE268D5-AF30-4D54-9F55-2D5056A7986B}">
+                <File Id="fil365A8D251456DE94636191BB18B6EB22" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\draggable.css" />
+              </Component>
+              <Component Id="cmp2869CB6DBC494EAAF4873A4CF2F89AD1" Guid="{450A01F3-B8E8-4A19-971A-1249EC5F7EF9}">
+                <File Id="filDA062F7F1D362D5FFD7DA28733C5EB87" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\menu.css" />
+              </Component>
+              <Component Id="cmpACA464B79E67F44E338033F09C1CE9D3" Guid="{DF32742F-8139-4BE6-998E-388C9C5A5347}">
+                <File Id="fil1A0ED279B18AEF03EDB23651D7224E7D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\progressbar.css" />
+              </Component>
+              <Component Id="cmp82D34527582E4E37E6E89FC956C5EB83" Guid="{BC4B38F4-11DC-4B11-B160-8B150912DBAC}">
+                <File Id="filEC7490A31FE579D7AE71FD172BF77DF7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\resizable.css" />
+              </Component>
+              <Component Id="cmp0AA36ADC0E185C8CFB08171EDB9CE066" Guid="{6D5B46B9-C2A6-4755-A3EC-157A7348F895}">
+                <File Id="filD1C8E7C34E0ECCFF60682661E9FC42D4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\selectable.css" />
+              </Component>
+              <Component Id="cmp156FB383229535240763BB9B0811423D" Guid="{993CE9C2-5826-4F84-80D2-537D8E318558}">
+                <File Id="fil7C6D3CBEBAC0D9A7FA5390771BC5D64C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\selectmenu.css" />
+              </Component>
+              <Component Id="cmp4C152670884D4308A2ADBF0C5CCBF445" Guid="{61F96A02-360F-4FE5-9629-B935C65C0501}">
+                <File Id="filFA526771BCE448048A5C4B8D429B8FED" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\slider.css" />
+              </Component>
+              <Component Id="cmp50E73D2B6E334DA27B10C08213A361B4" Guid="{13205FE4-C763-40B6-A74D-AF85DA8BC460}">
+                <File Id="filB5B34A7D1300BE0141BB5549A27B77C8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\sortable.css" />
+              </Component>
+              <Component Id="cmpD87DCCFFC7F647C0539F6A511E869324" Guid="{754F3FFF-2D2D-4919-88D2-6142DD5008FE}">
+                <File Id="fil658836B310888026039FA4F643568B9A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\spinner.css" />
+              </Component>
+              <Component Id="cmpBE6F60A5C2E59F7E89A6B69C272D880F" Guid="{ED576BF3-6FAC-4157-B156-E530EDF5883B}">
+                <File Id="fil40C270A8C35EEBA2181B09E31B9376A5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\tabs.css" />
+              </Component>
+              <Component Id="cmp594AC62B1B72F931ACF0CA0741E77BC0" Guid="{CA389BC7-7A6B-42F3-9B93-1A4362915419}">
+                <File Id="fil70FEE8A512FBD0507EC83EC42995E92B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\theme.css" />
+              </Component>
+              <Component Id="cmpF3E5440393BA7674A16F42A05F01F161" Guid="{53DDA77B-DBD6-43A3-B706-59B658D2E148}">
+                <File Id="filA7ABECB7424637C90563F257C2C5203A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\tooltip.css" />
+              </Component>
+              <Directory Id="dirEE95549C0431001655C7086DF334AD91" Name="images">
+                <Component Id="cmp9BD1D0C5F6D2D1EC5B6FEA3D234AF684" Guid="{62FB2384-7C00-4870-B0ED-30982F9D4207}">
+                  <File Id="filF315ED8A95FA7D8C71D84F5CA2B35B89" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+                </Component>
+                <Component Id="cmpE6C133E85994285E598DDFB526BB3655" Guid="{E02542C3-CAD2-4698-A5F7-BC1F56776477}">
+                  <File Id="filDAD0CF504C0861A6DD332EA3767C5B55" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+                </Component>
+                <Component Id="cmpB622DDBAAA8D512B270ADFA3FFC9E29A" Guid="{AB2C8B9E-86B1-45C7-804E-A56B1894C851}">
+                  <File Id="filA9723355324BBB10212E05E3AC79E11F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+                </Component>
+                <Component Id="cmp6B1A4AE24E6CD6B71C3703EF51C7892E" Guid="{150F9108-4CCC-4163-97AA-1A08A519BCEB}">
+                  <File Id="filAAD5BF0794B3F3D59BFD940DD0EF9ECB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+                </Component>
+                <Component Id="cmpE3D027F2E7068EB55CD5D89B8DD15CBB" Guid="{0E125E51-03F1-4807-854D-08A1287543A1}">
+                  <File Id="filB64219BC8637FABCB8217A27EE61FB5F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+                </Component>
+                <Component Id="cmpC62D56136638EE1E77EC3005B335AF55" Guid="{81CE8B07-D03F-4A19-9DC3-992C3D348CD1}">
+                  <File Id="fil96DAEDEB0EC908A16F82AA6C4B9902D8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+                </Component>
+                <Component Id="cmp8313393587C6CF4153AE2A6C4CA25CAC" Guid="{47112818-227C-4F8C-93E8-F84CED613601}">
+                  <File Id="fil9394256D2F43C5532143A5A1171659F9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+                </Component>
+                <Component Id="cmpC7FF1FB4AFBA7CBB9C92CEA149D61B3D" Guid="{93C1F4B7-EA66-4059-B653-F98F3226EFFE}">
+                  <File Id="filC5E219C15A28EC64A68920EE939CD816" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+                </Component>
+                <Component Id="cmpDC44B9FC7D2F544D2A35329495210B31" Guid="{7F3D7095-B74D-45C9-965E-A563C4ACF225}">
+                  <File Id="filF3A022E17FB209FF7E9369A7547DEC1C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-icons_222222_256x240.png" />
+                </Component>
+                <Component Id="cmpA47F7DC8FE35F376E453C1EB26DE475F" Guid="{574FEA3B-98E0-4A96-87ED-6E68CD7535DD}">
+                  <File Id="filDFEDF2790ADF7278EBC0644764AAA701" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+                </Component>
+                <Component Id="cmpF00089B7DAAFF1645E28C3173E4AC416" Guid="{0D4F3099-7AA7-43E3-9F17-8026CCB5C5FD}">
+                  <File Id="fil3F73073164BC601474E297EAE5F6B8B8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-icons_454545_256x240.png" />
+                </Component>
+                <Component Id="cmpD1EA02690E463387F743564293C13C02" Guid="{13B6CED7-49E7-48DF-BEA1-8A6F6EA2589A}">
+                  <File Id="filD55DF7E1C159849C99144C7E640F98A8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-icons_888888_256x240.png" />
+                </Component>
+                <Component Id="cmpB2FC91F34F103A613B7B144BB4340FF4" Guid="{191356FC-27F9-4A98-BBE5-83F58B075EB9}">
+                  <File Id="fil84362977DF12BC9D436E8B1A98E0892C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="dirBB4A922B8D163B67F4BF2C11E56CA64F" Name="css">
+          <Component Id="cmp12D4F58700B91F51C6CF10CE093E3BF3" Guid="{08D8C333-ED86-45DB-889A-293A23BD0193}">
+            <File Id="fil9441A37C00F474D550A67B509E0872DB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\bma.css" />
+          </Component>
+          <Component Id="cmpDD9BDBB8A230F5466E618CFA8A142C74" Guid="{F9104728-42E1-4006-9020-8F26D6FEEE2F}">
+            <File Id="fil9790FFD6524E8A03D76032A7BD31ECB8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\fonts.min.css" />
+          </Component>
+          <Component Id="cmpBF3D1A6E052017836023E8C330A7AB73" Guid="{78FB4294-1305-4C5C-A643-B6FEE65B25D2}">
+            <File Id="fil55532FEBAB1C06C3D702F0E717C91553" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\idd.css" />
+          </Component>
+          <Component Id="cmp480F713AAE033AF562A1975D629511E8" Guid="{B02FAA45-2114-447F-9FCA-3ECB4A38BE5B}">
+            <File Id="fil010A32249C928EC47799CB9706263CE5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\jquery.svg.css" />
+          </Component>
+          <Component Id="cmp0209971F02AE729D84D033FF407371B8" Guid="{4A88D9F8-4FD7-49E1-84D8-75C67DFE4237}">
+            <File Id="fil39C9E69EE92F7E08B58C10536D9A13B2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\slick-theme.css" />
+          </Component>
+          <Component Id="cmp925A8C832B54DE5DE9FE4182C1148C4C" Guid="{DA2AE7E2-B2B8-44B7-8EE4-4ED37EC067B6}">
+            <File Id="fil433A0CADC819C4EFC556D96BA645693C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\slick.css" />
+          </Component>
+          <Component Id="cmp3825337091DD1E1A871E432D32E06B8A" Guid="{94326B5F-8375-410D-9C94-6230C96D9F93}">
+            <File Id="fil110B2446C8DD9032E7C8F0959558FB75" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\css\website.css" />
+          </Component>
+        </Directory>
+        <Directory Id="dirD28936C3265A802A81CBC586B299906A" Name="fonts">
+          <Component Id="cmp2DE0AA8839A206EDAA0F06EB4E677EAB" Guid="{E1325180-4C86-49B8-874E-E606C4AC9CD7}">
+            <File Id="filCBCB9CA51A871CA5B9FE7EB166483815" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-Bold.ttf" />
+          </Component>
+          <Component Id="cmp4CBC661F186D341C507441A72E6B113B" Guid="{0866AA23-93D9-4E3B-852E-C6DD289E7921}">
+            <File Id="fil427AF3AC742B4DC1696B52B3D7FFFD7C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-BoldItalic.ttf" />
+          </Component>
+          <Component Id="cmpF4735CE565DCE3756EAA3E799E925205" Guid="{E1ABA552-342E-4B7E-A5D2-F36EB66DAF72}">
+            <File Id="fil686004FF19A9146320ADB37C9984BD16" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-ExtraBold.ttf" />
+          </Component>
+          <Component Id="cmpA4D92CE2B4B51B89BBD0DABE13FDD86B" Guid="{40E4214C-C303-4AC5-BABB-4918A5B18D83}">
+            <File Id="fil16F36D0AE8AE3ED8398326797C622B51" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-ExtraBoldItalic.ttf" />
+          </Component>
+          <Component Id="cmp67C2F844DE2B68E3E9A13347C8D31AB1" Guid="{E3CEE517-9A85-4203-916C-597815921DDC}">
+            <File Id="fil49F808933AC09FAC136B47756E13EE8F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-Italic.ttf" />
+          </Component>
+          <Component Id="cmp5CFD2CA239D3F90CB023AFD63B0ACA09" Guid="{5C34A599-2BB9-455D-B216-D99A2EF86E6D}">
+            <File Id="fil411CBDAF5EACF841C8453408C8ABD2E8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-Light.ttf" />
+          </Component>
+          <Component Id="cmp63F2DD5C56BC5DD7D276ACF98BCA5B8D" Guid="{BAA5D093-14AD-4C59-A200-FC16BC431BD4}">
+            <File Id="fil3E1155E21593979103A079CF93E76D5F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-LightItalic.ttf" />
+          </Component>
+          <Component Id="cmpC85A7AB8759CAA94290524C9DFDAE383" Guid="{EE452A7C-B951-495F-828C-CBEFE1DD84D4}">
+            <File Id="filD94F74C01A13C7F4FDE967C14BF79BC8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-Regular.ttf" />
+          </Component>
+          <Component Id="cmp02BBFB443F6B71D124707993A815E1DE" Guid="{346D879E-4D4C-4706-89BA-948A6A76AAB2}">
+            <File Id="filA474C6EF86A83C5C724401B5C541B86D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-SemiBold.ttf" />
+          </Component>
+          <Component Id="cmp7F055EB7B2E696BE4011BBE2C75F9F32" Guid="{16964C1C-0405-40B2-8914-C6AFA09E6D9E}">
+            <File Id="filB9BAA53128452E46150D611F2720C0ED" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\fonts\OpenSans-SemiBoldItalic.ttf" />
+          </Component>
+        </Directory>
+        <Directory Id="dirF397F1BAA0F72F53245946EAF16D1DC4" Name="html">
+          <Component Id="cmpAE695DF3AA48F60CA4828FBEA7A0C1AF" Guid="{441AC602-0AD7-4A20-A7A3-92A83B54F1D9}">
+            <File Id="filC27834B0FA675D9DEC9C16FEE488E0B7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\BandPlotSample.html" />
+          </Component>
+          <Component Id="cmp5C984660FBF0DF538D0AC5B2F5E98D09" Guid="{8160BCC3-8B39-4CFA-81D6-35269B0BB486}">
+            <File Id="fil5853F0A23036F7DF1E23C77A028952BA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\BMAReconModel.txt" />
+          </Component>
+          <Component Id="cmp64CBF4364CC92CDD91B6BD876DCDEBD7" Guid="{C800651C-DE77-4D8B-AAE9-59D885095B80}">
+            <File Id="filC22B04AFCF63B60F141B7B2A354B3248" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\callback.html" />
+          </Component>
+          <Component Id="cmp9492165560176CA62BBC495D37CF7059" Guid="{B6D8098D-B68C-4B39-BAFD-860F35673DE9}">
+            <File Id="fil523D834777FC88AF3903013A51168A54" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\chartSample.html" />
+          </Component>
+          <Component Id="cmpA4A7FE784A23EA8A932CC161FE331A67" Guid="{30027418-169E-43E5-A779-5E4BEE72E157}">
+            <File Id="fil7546F2F20958BECA442349A097D4C598" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\FormulaEditorSample.html" />
+          </Component>
+          <Component Id="cmp852D33A68F48BDA36BE74754C5F3A00D" Guid="{58CA0225-67ED-48B4-89C0-847914B50D42}">
+            <File Id="fil11427220ECEB8D966C0B85CFB6840A75" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LayoutSample.html" />
+          </Component>
+          <Component Id="cmpBCE2EC8646D1B6C7A9B1E57AAECF230F" Guid="{8A2A199C-69D3-427E-AB4A-FB4EC8178757}">
+            <File Id="filE3AB0B63F8B12114963CECBC4A731582" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LRATestingPage.html" />
+          </Component>
+          <Component Id="cmp5CF16DECCE9083A6FC19F12573C3A1F6" Guid="{8C1E89D9-27A5-4E25-A449-76BA6B8C6E27}">
+            <File Id="fil64B8382778F6363E665A512472F04929" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LTLFormulaParserSample.html" />
+          </Component>
+          <Component Id="cmp373629CE7768BF4360BBD942E62C80B8" Guid="{3904E3DF-C51B-4AA9-974F-D2D9F72EA58B}">
+            <File Id="filB0D0773E978FC9FED22C7FE26091F7A1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LTLFormulaViewSample.html" />
+          </Component>
+          <Component Id="cmp93824C711C1AA3991F01619DE80DA7E2" Guid="{BE871B77-5E81-4900-8D01-661B0E4120DC}">
+            <File Id="fil13F5751D6FEADEE4BF6ED5FC6FAA8595" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LTLResultsCompactViewerSample.html" />
+          </Component>
+          <Component Id="cmp18DB57992278638E921A477EBAE50908" Guid="{2DC1A1C3-CA9E-4611-B90A-6311AD17C8F0}">
+            <File Id="filE964303D4AC44ED3A9C0741E68902161" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\LTLResultsViewerSample.html" />
+          </Component>
+          <Component Id="cmp8EC828C171AC88B2281C256BE15ED58B" Guid="{989943DE-3F1E-4ACE-B1E2-22AC5431956D}">
+            <File Id="fil685CE5CC2086A0DB43233B3FD269B3A2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\MemoryLeakTestPage.html" />
+          </Component>
+          <Component Id="cmpBB975FA95E612C9F8E687B1C545FEF6A" Guid="{068CEBA4-817E-4A2E-828A-269719D41F7E}">
+            <File Id="filAFA2126F7CF0FD2F1BD064684039027E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\ModelStorageSample.html" />
+          </Component>
+          <Component Id="cmp7BB426229596EC16F00E0EA793CE7EC8" Guid="{785A7C45-5F29-448D-8E30-CF4B9E6A7DEF}">
+            <File Id="filA16CB42CC6430B0FC8130A20C6C6F347" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\OneDriveRepository.html" />
+          </Component>
+          <Component Id="cmpEBAD5E717F970BABF3BE6FA06F3F4AE3" Guid="{80F5BFFF-0BD1-411D-8CE9-BC0523DBDE48}">
+            <File Id="filF19D5A487F143F7DB68ABB0B8F1352AE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\OneDriveSample.html" />
+          </Component>
+          <Component Id="cmp276F9CFC59C165307490676A48C5CB62" Guid="{D0EF6FE6-45AE-4B6C-8FD5-FB59696890B3}">
+            <File Id="fil59ACA2C8B9568D223CDC29D05242259F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\StatesEditorSample.html" />
+          </Component>
+          <Component Id="cmp2628470D2E6589DB3E23B5F572621A7A" Guid="{1474D8BD-EFBB-4953-B278-41C94583FF1D}">
+            <File Id="filBBA79162B7358ED4EB812DD169F79D3B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\StateTooltipSample.html" />
+          </Component>
+          <Component Id="cmp517945F6EC4B972CE638E663F769644E" Guid="{918BD484-67DC-4DDB-B8AD-842C4F5B8AD7}">
+            <File Id="fil8D1D7EAEB7482D830FB7B4968322351B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\SVGPlotSample.html" />
+          </Component>
+          <Component Id="cmp81E655C59D8836290918FB0C52801556" Guid="{C80C5533-C3FB-41C9-9C40-835ED59F0891}">
+            <File Id="fil455585BA7CC271032FF95790A76994B3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\TargetFunctionParserSample.html" />
+          </Component>
+          <Component Id="cmpFAF99A0720BC44FF101B478FC2F09ABB" Guid="{62244389-DEEA-4167-BDAF-F6CC1019C995}">
+            <File Id="fil24D647C32A83259D6F69DE83E4CBF91B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\html\WidgetsSample.html" />
+          </Component>
+        </Directory>
+        <Directory Id="dir6A38C49124CB2BE91D8841E72DE86BE9" Name="images">
+          <Component Id="cmpFAAC660F4A57B1D8A3C737A7291B5C4F" Guid="{53187B50-A983-4953-AED6-D1070BD6AC63}">
+            <File Id="filA74CC74336A84E6D236E2ABA7D2A4C4C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\1x1.svg" />
+          </Component>
+          <Component Id="cmpAA5648E3F102D59E6A97082A15C832F6" Guid="{8A9381FC-5E36-493C-9413-102142BC7269}">
+            <File Id="fil271CD12D388B82C4E1F4A04BC34E556D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\2.gif" />
+          </Component>
+          <Component Id="cmp8A46681E1AEAF436F56F4ECD6317D56D" Guid="{1AF663A3-3AE5-485B-A065-9B3B7DD349F4}">
+            <File Id="fil3A8D71DAE393910629B40940AC49ADF5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\20x20.gif" />
+          </Component>
+          <Component Id="cmp3EE9182E30B423B164A96A9C58CECE3E" Guid="{5A61C68E-FE90-4D3D-9DF7-EC448E9A4C2D}">
+            <File Id="fil2096DB7F03C579185A85BB6A8343BE91" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\2x2.svg" />
+          </Component>
+          <Component Id="cmp3DAB90FE6ACF145BDEC32ED18C024549" Guid="{A5F496CB-E70B-4FFC-92F7-7CB1DE9527D5}">
+            <File Id="filCCC2BA9DDE9E19478A42398AAB943024" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\3x3.svg" />
+          </Component>
+          <Component Id="cmp172FB9CB9EC823081E8B6B2F98C27621" Guid="{D653423C-025E-4F26-970A-EBACA935AC47}">
+            <File Id="fil1976A85C7AD059BEFC965492B42E51FC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\60x60.gif" />
+          </Component>
+          <Component Id="cmp6A016E6589D461C51580B6DEC19A0C74" Guid="{5A77E48B-B825-466B-B69F-4EC83F582589}">
+            <File Id="fil9E3959060437DEB434ACA9C0AF56A67D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\Accept.png" />
+          </Component>
+          <Component Id="cmp24F51FF77A3B0CEB45DC01677372F03E" Guid="{354A7796-E6A5-4269-B323-0C93769F41D0}">
+            <File Id="fil497A605998D2F81C118AA8D457891E76" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\activate-ON.png" />
+          </Component>
+          <Component Id="cmp3C5CCB440C8406742BF8F0D99409D739" Guid="{7A12FE3D-53EB-4D24-871A-D87F0A2EC886}">
+            <File Id="fil761E3391547D8FA3C6BFD78247BB112E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\activate-ON.svg" />
+          </Component>
+          <Component Id="cmpC07AEE768BA26FAF7ABE20894D635807" Guid="{36342576-DC13-4AB0-8064-12CB6E229621}">
+            <File Id="filD269DBEF3A408BC689713D2FB82E4BC8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\activate.png" />
+          </Component>
+          <Component Id="cmp445D66C9C1CD6D18B96F54D9D849B8B2" Guid="{CD1DA0EF-DF7F-4456-BC79-3E9A73C4B5A1}">
+            <File Id="fil75EC3DBF28023549F0165D3E75DD22FE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\activate.svg" />
+          </Component>
+          <Component Id="cmp1CD75DC6C508EE3FEE2D2192BD99F388" Guid="{4B0A196E-8FF7-428F-B10C-211DC538A6CA}">
+            <File Id="filEE85AE8D71F11D1BB278DC84BA6787A3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analyze.png" />
+          </Component>
+          <Component Id="cmp05308E134A1EB213025532C30610AD50" Guid="{38CC6F43-9E6A-4DE6-BF2F-6AC56696EFCD}">
+            <File Id="filA99D4328C5B1ED9E822DE6D46409C95A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\Attention.svg" />
+          </Component>
+          <Component Id="cmp1535705AF3288EEFB9583EAA8BAF2DE4" Guid="{03476DC3-72A8-4B83-95BD-3E716FABEA2F}">
+            <File Id="filA657F9F6EA71D0B5BF035FF215667FAD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\background.svg" />
+          </Component>
+          <Component Id="cmp38E8D0787999B667D9F699584293DE68" Guid="{7E871A27-F8C9-442E-AFFA-EB8388FC0A2E}">
+            <File Id="fil88A7303109299824CCDAE149D07E1F7C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\bifurcations-ON.svg" />
+          </Component>
+          <Component Id="cmpDC3EBA1C8BA0F036307C2EF88A2FED56" Guid="{FF1FC9F7-FD6A-4D9B-9E67-B67C7CB98040}">
+            <File Id="fil296CBAA97B843E924D17378E523727E8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\bifurcations.png" />
+          </Component>
+          <Component Id="cmp874A2EE49996894F6D64E2F75ECBA2F6" Guid="{D5552A9D-B971-4A22-85DD-CBF5A7D401AC}">
+            <File Id="filF1FCAB55C555373379023F752846AAE0" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\bifurcations.svg" />
+          </Component>
+          <Component Id="cmp6A29661638974DB4325A28EACCD5D249" Guid="{FC315274-1C21-4304-95AB-D88A56D398AA}">
+            <File Id="filC6FEBF0990498142C4BC48949D76D063" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\BMA-logo-big.svg" />
+          </Component>
+          <Component Id="cmpDDE82A858C434F68423208B9316F301A" Guid="{EBE59B7C-08F1-42E7-9F2F-C7EA711A1B79}">
+            <File Id="filBAA595775299F07113823E2DF8F2AD04" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\BMA-logo-version-number.svg" />
+          </Component>
+          <Component Id="cmpD03E5B3D6B9CD89614A03B637026F281" Guid="{BA85A829-08AF-4ACA-BD17-03E871D0C5C7}">
+            <File Id="fil3659FE2FAEDD37DD8A758D9BD14CE60C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\BMA-logo.svg" />
+          </Component>
+          <Component Id="cmpD15A912C17D49546FBFA90D535204B6A" Guid="{ACD3F52B-5043-475B-A229-CE7141C18182}">
+            <File Id="filAD07BB1676BB19BF8579993C31D437EB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\BMA_Background_Homepage.svg" />
+          </Component>
+          <Component Id="cmp12DFFD1E3ED78AF999FA39450B2ED7B3" Guid="{DF44ED95-CA80-428D-A8F0-CD5E133FEA2D}">
+            <File Id="fil4F3C6C2E27733D36746DE0F883502120" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\check.png" />
+          </Component>
+          <Component Id="cmp8A7FD037A18FD76E9BF17E8CFE482818" Guid="{C66A628D-3CFA-4A1D-A3B8-1BF5573753B3}">
+            <File Id="filEBA191178E7644B26ADD2639D22FFE36" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\check.svg" />
+          </Component>
+          <Component Id="cmpE29D0F7C94CEA46A767C9EE1A77EB71D" Guid="{6E107145-FBCF-47B0-ABC9-709A660C9637}">
+            <File Id="fil3B32E52F88FA4BE09F648D3DDD29EA92" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\clearselection.png" />
+          </Component>
+          <Component Id="cmpC76789E89159D9253282C4CF36742A66" Guid="{00AB90B5-C72D-4A10-AE09-E826205F3F6C}">
+            <File Id="fil4CD70A69C0347BCB2796C9E75B0485A8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\close.png" />
+          </Component>
+          <Component Id="cmp2828F463182E307441776DE6A24DA694" Guid="{349AADA3-36DA-4D96-9C9D-504537EF24E4}">
+            <File Id="fil7D00002082B960DF8504F544A007A415" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\constant-old.svg" />
+          </Component>
+          <Component Id="cmp02BC56E795965B30F08C34A63728155F" Guid="{88C5AF21-3614-457D-B2BA-8B39AFADFCCA}">
+            <File Id="fil65914364534464483A7FEC3173FC178D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\constant-ON.png" />
+          </Component>
+          <Component Id="cmp21D2210B94CD2130790FABDDD3E4C866" Guid="{C70E1422-F353-4818-9981-3603EFDC7159}">
+            <File Id="fil39055DD67B385B14CE3DAE51AFF6C1FF" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\constant-ON.svg" />
+          </Component>
+          <Component Id="cmp2A3BD6B0B9A23DDE8A11895B587B247C" Guid="{71591B8F-696D-433B-BBD3-FEDDE09A296C}">
+            <File Id="fil6F90F3418756765984456F54FC89E6FD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\constant.png" />
+          </Component>
+          <Component Id="cmp26523786E84A7F5498242A2AE2F7AEE5" Guid="{27B1CF72-E54C-4207-82A8-90B5EB36754D}">
+            <File Id="filFBE10A7737480FCA99205BDB6753793C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\constant.svg" />
+          </Component>
+          <Component Id="cmp2A54116A3054295174E33A3089494891" Guid="{83982787-8E15-4CDC-A8FC-BA0028DAFE98}">
+            <File Id="filA20FF72327722156AE9A0F9DC0E69AB7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\container-old.svg" />
+          </Component>
+          <Component Id="cmpADD81FF986BC48CF3CE87B1A44164880" Guid="{8A45B104-DD74-49D8-972C-78040A80D7AD}">
+            <File Id="fil7CF8E1B20EB4D14AF8A9959FFF050FFA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\container-ON.png" />
+          </Component>
+          <Component Id="cmpB785C4DDB5D33A4F5C41D0F172AC889E" Guid="{9B79B7D6-09A1-466D-9AD6-7C08247F66B0}">
+            <File Id="fil6CF00F862858E2353D11832CF0DAA5A2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\container-ON.svg" />
+          </Component>
+          <Component Id="cmp11F4445685EFF9D762771DE8DEC8142C" Guid="{CEA5C6E5-4D8C-4F1B-8B70-E532C9EF88AC}">
+            <File Id="fil58F328A004D38FE96E3EFF8219AECA2D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\container.png" />
+          </Component>
+          <Component Id="cmp7A5CFAE27AF859D66CCAF6230FC43CD7" Guid="{12B2C80B-E969-4842-AF3C-E76790C14A51}">
+            <File Id="fil1A9B6F7CAF06D8A34E72AC50BF6E94EA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\container.svg" />
+          </Component>
+          <Component Id="cmp037E10D523EF1C2B722C7C46981E108E" Guid="{21E74C30-8930-469D-AF3B-AED9BD176F88}">
+            <File Id="fil834B4CFDC1DD5E5E4C518308B8AA8B83" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\downarrow-grey.png" />
+          </Component>
+          <Component Id="cmpC84D9CBBDF21403C0F26CBECCC223022" Guid="{339D5592-FE17-4956-B329-430A8DA89721}">
+            <File Id="filBA800933C4CB8B6EAA20DEFC3CEE8136" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\downarrow.png" />
+          </Component>
+          <Component Id="cmp000E6FABC3EFDFBD593A0447450956CF" Guid="{AA788730-B5B2-4F39-9FBF-46B58DFD82EF}">
+            <File Id="filBD3BCF326F41E0E10E384EFBA340D7D6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\download-white.svg" />
+          </Component>
+          <Component Id="cmpC6E1F28F2C9C3D25592A98DD7E6DED8F" Guid="{8FBB78DB-8830-46D1-B87C-3BFAB231B166}">
+            <File Id="filC534DCF728F31F7A405F835A28A1687E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\download.svg" />
+          </Component>
+          <Component Id="cmp213EBB01CD252F0296D56CCD4F6DB703" Guid="{5E4812AF-A901-4256-A594-A62F7BD21AD0}">
+            <File Id="fil73D49D6F57A92C14ED1531F963F4AA5A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\editorExpanded.png" />
+          </Component>
+          <Component Id="cmp6F124819BB6CF793B2A4B26FC6C69DB2" Guid="{FA27CFA9-27A7-4A28-9533-5C277D7F1A00}">
+            <File Id="filEBB6DC6407D19614674A96AAB46AEC7F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\editorExpander.png" />
+          </Component>
+          <Component Id="cmp7CFB7DC61BCCD50FE67CF2022FA58244" Guid="{BF33EBFC-0818-4E83-A3C3-67EB91EC6467}">
+            <File Id="fil61A1629823EB16ED5D22C91B54AB4C82" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\expand-collapse.svg" />
+          </Component>
+          <Component Id="cmp61672E05766ED9DA1DD9FC11C80FAD63" Guid="{95DF4C65-64D8-48AE-B29E-2A9FDBB156D7}">
+            <File Id="filB50216E82CE91D7301E11C1447C932B5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\expand.png" />
+          </Component>
+          <Component Id="cmp027C25A4183FB949B4F8C560D3C76EC4" Guid="{0872AEE1-52FD-4427-9CD2-F5CF6F793971}">
+            <File Id="fil9D073FF807704A026376A5E5E61E4183" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\export.png" />
+          </Component>
+          <Component Id="cmp6563A5281C0DD9061E2115F6300524A1" Guid="{42D34BFD-396A-4808-80CD-0B84A56E0123}">
+            <File Id="filFE3C7DFD0BB14767916A7667F3A9E9D5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\formula_not_validated.png" />
+          </Component>
+          <Component Id="cmp3D757B65EF3A1C60306844D604AF8D8A" Guid="{910CFB10-3A75-45EF-B697-443116CE9031}">
+            <File Id="fil6AB21B39E8EE40BE08A1C18DAB9D4368" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\formula_validated.png" />
+          </Component>
+          <Component Id="cmp0D2B6323066A581AE796288DB0A8EDF7" Guid="{0FF6D208-CB91-445A-829D-F5DE15F73D8D}">
+            <File Id="fil71F11934A04B34CB7DE6635C7D99B7E2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\graphic.png" />
+          </Component>
+          <Component Id="cmpA4EE6629D4DF043102AA33B4A97CD4B8" Guid="{C1973DA9-8913-429F-A14C-BBD5C7167AF2}">
+            <File Id="filC203374587954584CB8EAE61E67C1095" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\hide.png" />
+          </Component>
+          <Component Id="cmp4BC8E2FF116BF8EB3D116D3F4A37A701" Guid="{3533DAA7-1991-4371-9EEB-43C1B5374265}">
+            <File Id="fil0BAB8BC9C59934A4FB8320FC4D51990C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\home-logo.png" />
+          </Component>
+          <Component Id="cmp63C61F620F6E0C5B13B9E8447AD8103F" Guid="{6D6AD047-EF30-423B-94C5-A69D01DA2035}">
+            <File Id="fil11A3CDBFA22E055E7B28938E24FE090C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-copy.svg" />
+          </Component>
+          <Component Id="cmp35898B6F241A46BD39D64BBD82769856" Guid="{ED04993D-7CE4-4FD5-8D53-EB4DA6C19504}">
+            <File Id="fil8B786FD071739D28B425553C1443A064" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-cut.svg" />
+          </Component>
+          <Component Id="cmp6E99310137292D3986C9CDC638D62864" Guid="{F99A74AB-EE75-440C-92D8-659C00029C66}">
+            <File Id="filE3079DFAC87A0967BE9E4B5D77AE7FA9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-delete.svg" />
+          </Component>
+          <Component Id="cmp6C261496A3E7B7F9344D787DE1F290A8" Guid="{2BB6761B-7440-4ABF-9CE8-3C6099EDDB81}">
+            <File Id="filDFD424822A1EC8DEE9D42657C9780A25" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-edit.svg" />
+          </Component>
+          <Component Id="cmpA2851D2BEF3C95111852481BD4750535" Guid="{A3E254A7-23D0-4CFF-84DC-3C260F25563B}">
+            <File Id="fil3E0ADEA5FBC9689787E4E0FF8FF27F79" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-export-LTL.svg" />
+          </Component>
+          <Component Id="cmp4E75D541C5FFDEFE95215EE12A997766" Guid="{36DF3364-4E18-49FF-815D-589395F0CF5D}">
+            <File Id="fil5808A1FE0BD37267D115854C83048532" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-import-LTL.svg" />
+          </Component>
+          <Component Id="cmp3AA8ACDF4CD4F13E562E28741182A10C" Guid="{FA3014BA-9412-482C-8347-C76F68F1FB59}">
+            <File Id="fil9F512484BF7F7039D22D22F0C826AD94" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-paste.svg" />
+          </Component>
+          <Component Id="cmp50C1C27B8D608C8B3F0115B3C635F568" Guid="{B9007793-25D2-4F3D-98D0-02163CABDC4F}">
+            <File Id="fil40E2BB0C242C36579D964723B1A323CC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\icon-size.svg" />
+          </Component>
+          <Component Id="cmp1CF50B343B8AF0221A1C9736F2E42FB5" Guid="{19115984-B029-4DEC-B640-8AF75DE42848}">
+            <File Id="filA61B39B575D4D322555F2EE670FBF57B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\Icon_Zip.svg" />
+          </Component>
+          <Component Id="cmp07D69EF2490FE84ECF0591B5225F9D70" Guid="{C7FE4945-77BB-4314-B135-AE759DDF0F18}">
+            <File Id="fil8DD9DD7A31EB287B6BC0EC0007BAE713" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\inhibit-ON.png" />
+          </Component>
+          <Component Id="cmpC0E3D8FB8958239624E34E2988ED60F7" Guid="{1823FD67-639D-4ED8-9C30-02232953655E}">
+            <File Id="fil14C82DEBF58DFE8141F730CE9D1D3206" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\inhibit.png" />
+          </Component>
+          <Component Id="cmp821E05C640CFF3622E6AD4ABF49F9074" Guid="{D43755FB-4569-48D3-988E-BDBF5ED1F021}">
+            <File Id="fil2B43406726C0E9945596BCABF301FA54" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\inhibitor-ON.png" />
+          </Component>
+          <Component Id="cmp915143FD33EE2A235FF884B3982FE6DE" Guid="{DD95AF39-FA2F-4928-8CE7-55C9B3D1F067}">
+            <File Id="filF34706B820523C70C6D462B621B47803" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\inhibitor-ON.svg" />
+          </Component>
+          <Component Id="cmpD01BA3DD234205DDC32A08158E141B54" Guid="{6B3E92C6-9D16-49A5-A970-4026D8A6E22A}">
+            <File Id="fil67978FA0ED6D91EABAC2B9712572B9F9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\inhibitor.svg" />
+          </Component>
+          <Component Id="cmp1BC53DD261584EECDFD377068E928DF6" Guid="{249AB099-F214-4670-9EFD-1A31412EE2D2}">
+            <File Id="fil120E5DB59D491B972C0BA779A129E738" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\list.png" />
+          </Component>
+          <Component Id="cmp37C33CC5780E29A6D43E8858AEAB1505" Guid="{B8115C04-B873-4419-879F-56BA97410663}">
+            <File Id="fil739914646325A00A41A8061D0B6C0CC8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\loading.gif" />
+          </Component>
+          <Component Id="cmp0DD78388B47AC9525DB46A6D3F794571" Guid="{8F67645E-239E-4E78-987F-38236EDCD525}">
+            <File Id="filE5441EDAD8CAF2A3EB7F01C23F6C1987" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\Loading_Animation.gif" />
+          </Component>
+          <Component Id="cmp3C4553214DB99E708C3CAAECEC827E1F" Guid="{F1C97D69-4253-4E15-B876-A041AC0726BC}">
+            <File Id="filA04E144822228424D20BEA134B59ACA5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\logo-crop.png" />
+          </Component>
+          <Component Id="cmp94E90BCBD11A87A17D9BF305C0EC7C9E" Guid="{AE43DAC3-A7E9-4EEF-950F-A87A6E115B64}">
+            <File Id="filFC951DCC567C6204DB7B15AE1AA8D6ED" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\LTL-copy.svg" />
+          </Component>
+          <Component Id="cmpC7F612F3ACA261B9B69753B8508744BE" Guid="{87A91066-EE3A-46E7-865D-4E7D76925381}">
+            <File Id="filA9DCC8597E85796BE00B2AE1A9C7082F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\LTL-delete.svg" />
+          </Component>
+          <Component Id="cmpCB1DA325D2257006CDF7903F65874DB3" Guid="{E0AE960E-A142-440A-B531-41FAFB39BDD6}">
+            <File Id="fil57B0B8DEB0E80748F191648D124F63D2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltl-icon.png" />
+          </Component>
+          <Component Id="cmp19CF5333735CE944B9C640CCA93B8743" Guid="{4DA1AD4F-1A57-4652-A58A-D1198F2B6634}">
+            <File Id="fil884EEE3032FCEEA116C853F3458C3280" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltl_fail.png" />
+          </Component>
+          <Component Id="cmp38C73A82DEF824511D7E4B2E315CD44D" Guid="{337312A2-5391-469E-8F47-4E2A997C37EA}">
+            <File Id="filEAC8BF34FCE742D7749ABFB4FFAC6808" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltl_success.png" />
+          </Component>
+          <Component Id="cmpF94CE9FC9578A4D7A2EE76EA46A6828B" Guid="{FCB7E6D0-4B47-45B3-86E8-3D3C1E7F5792}">
+            <File Id="fil8500DE09B18F1F3D5D26A2852978F1A7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\maximize.png" />
+          </Component>
+          <Component Id="cmp9E414F31382E3043FD68BECC61CFFC44" Guid="{987210FF-827B-428B-81D1-F8CB4E8CC8FF}">
+            <File Id="filC421C83802B26DBC0BF373573B913953" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\minimize.png" />
+          </Component>
+          <Component Id="cmp39CF013440AEF4D6FACBEA89634D33C2" Guid="{32D41E85-4EF1-48F9-95A8-2EC5D6BF70EF}">
+            <File Id="filDE241B9A75E465A92EB4BFC19625EB46" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\motif-library.svg" />
+          </Component>
+          <Component Id="cmp2C264C362D0EA48528281EB1E3C45912" Guid="{D8DF1A5F-AF0D-49B5-A816-5E256CD940AD}">
+            <File Id="filBA5C27E96D578CB9E49082192A14447A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\MSR-logo.png" />
+          </Component>
+          <Component Id="cmp1BF0537FA4B52375A6A4CDDA9891F655" Guid="{0FBECCDC-5931-4E5F-ADED-457422B3897B}">
+            <File Id="fil0D8A82547A6CBC1A2CF607C416AC3D12" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\MSRLogoDigitalBlack.png" />
+          </Component>
+          <Component Id="cmpD4C14F51C4BDE5A788ACF2B6A56EAB09" Guid="{CFA12835-3CA9-46A7-A68B-E7667B1606D1}">
+            <File Id="fil5255D47017A028F46F7B8CB51488F458" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\oscillation-state.svg" />
+          </Component>
+          <Component Id="cmpC12C0F11818642AC126BA75C0DE7E33C" Guid="{566BF97B-A0EA-471F-986E-C313E0309AA2}">
+            <File Id="filD975B3B3F7A749F8027A7B9304BF871A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\oscillations-ON.svg" />
+          </Component>
+          <Component Id="cmp3F33A573B3CA621970DEF4D12621C938" Guid="{423C7DE7-CE1A-40BB-A3FE-A7D7CC3C81FA}">
+            <File Id="fil8DE97149605D7B025482F8BA6B05C903" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\oscillations.png" />
+          </Component>
+          <Component Id="cmp6851FA906F15707798D9A3ABE16D9D0A" Guid="{BB1633BF-7A78-479B-905E-7469DFEF442B}">
+            <File Id="fil7BE04C32BE29EE486F2BE5F6FA71B52F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\oscillations.svg" />
+          </Component>
+          <Component Id="cmp9E980232802B4A577626AF69FC395582" Guid="{032EFD26-53F4-40AE-8F75-CE2D3D4C0AB7}">
+            <File Id="filE2BF3761819B66EC9D4ECF4397E676C1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\plus.png" />
+          </Component>
+          <Component Id="cmp1D69F7A5243EBC145B85B01EB5C60660" Guid="{CDEDE872-A630-48F5-B616-8E30C61B3F60}">
+            <File Id="fil7539263E8F92338C18BC5509468F90B8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\pointer ON.png" />
+          </Component>
+          <Component Id="cmp4BFDF2F81F3A51D21EE70A185517B249" Guid="{19297E58-0FD6-499B-AC00-E9C37BD602AF}">
+            <File Id="filDE3759FAF85A3AFC5A423D685AF5DFA8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\pointer ON.svg" />
+          </Component>
+          <Component Id="cmpA90FDC00BA20C491AB28C68D20EEF2B2" Guid="{BE9F999D-C62D-49F1-ABF2-5B6AB9D7D90F}">
+            <File Id="fil48BA90B064BEBB950CBEF17ACC536DB5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\pointer-ON.png" />
+          </Component>
+          <Component Id="cmp0F4BF0CC492AC7D2DAA8EA4FE3C1358D" Guid="{0591B76A-4CC5-4A2C-BA08-8391376DF9D4}">
+            <File Id="filF42C3344BAA49476267C616E6237BD4A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\pointer.png" />
+          </Component>
+          <Component Id="cmp733BBA4D9904558084EBE9F3AE46B417" Guid="{51A0CFEC-650B-47C0-9214-E39C5F30403C}">
+            <File Id="filDC726CAB16604052EC2DFB881041CC52" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\pointer.svg" />
+          </Component>
+          <Component Id="cmp53F636B9FE915A76EB2056967C1F6B4E" Guid="{0FDBCF58-293C-4AC3-A2FB-22F20CE7FB53}">
+            <File Id="fil118BF02C3BB2A9C46DA0C2C1CBD88A3A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\random1.gif" />
+          </Component>
+          <Component Id="cmpD4FD668549FD35394DC2127E7556CCD5" Guid="{094B4537-5F8C-4A44-A2A6-407D475A901D}">
+            <File Id="fil753484FE55F30F555E1AEFACB6C26318" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\random1.png" />
+          </Component>
+          <Component Id="cmp7EDED6701FBA968EC9230B20264EE0CF" Guid="{206F0793-5F8A-41EE-B8CE-042F9D6E6EBC}">
+            <File Id="filB6EF76C41A6A618B819659E10215F12A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\random1.svg" />
+          </Component>
+          <Component Id="cmpCB57F9465AA497B118140CDEED2AEE1F" Guid="{52A59A16-2C42-44E1-9AA6-26D4C1657998}">
+            <File Id="filF8762F0A24560611C977D9EB52D829DE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\random2.png" />
+          </Component>
+          <Component Id="cmp05DF82DD2EB506AA655239C3AF0688BD" Guid="{8BA41DDA-355D-44BD-952A-CB31789D8E71}">
+            <File Id="fil4E665895606A7F5E9DB89E38C620FEED" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\random2.svg" />
+          </Component>
+          <Component Id="cmpB0C485AAC72830A04086B3169CBACB62" Guid="{37D694BE-9C25-43AC-BEE1-4304AC33E11B}">
+            <File Id="fil3518969808DEA09774F5FC7D234C3891" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\range.png" />
+          </Component>
+          <Component Id="cmp0AB6450B9C8F5ADCDC691C2C22325480" Guid="{F66788F7-A371-439B-B29F-F3B3F2E11A06}">
+            <File Id="filD7B1C3345BAB2270322BDEE073E8B032" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\receptor-old.svg" />
+          </Component>
+          <Component Id="cmpBE8B5DBE148F0150325E3D47E447D36C" Guid="{8CC6AEE7-C878-42CC-8A7A-1939C9B7BE46}">
+            <File Id="fil09391BE7878D6E014E6832C1E4E47438" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\receptor-ON.png" />
+          </Component>
+          <Component Id="cmp8A893EFFF415F3574CC556F73B075E6A" Guid="{7A53466B-4CEA-42E4-9753-1946BDC8FFA0}">
+            <File Id="fil343D6E19FC959965AF7DABACBB5BAB93" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\receptor-ON.svg" />
+          </Component>
+          <Component Id="cmpAE1F039153925C744FB01D332047D429" Guid="{4F9BD120-E739-496E-B506-987091EE52DB}">
+            <File Id="fil728A5D0366311ADD81A97F9ED1A7CFC2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\receptor.png" />
+          </Component>
+          <Component Id="cmp6A31D188ADDD30DB64A4B56D669BC065" Guid="{2542FDE8-AA9B-425A-B892-0B15D15ACD60}">
+            <File Id="filECDF47E9D0DDD80BD3CFABD9A17EC24B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\receptor.svg" />
+          </Component>
+          <Component Id="cmpBF801251EFBEEB18608F176786EA167C" Guid="{E87942B2-D202-4380-8034-D6F4596EF65B}">
+            <File Id="fil01CC1A82793C3FC01722A4DF3FA7DADD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\redo.png" />
+          </Component>
+          <Component Id="cmpB1623209BBA055A1FB1141D876643CD7" Guid="{6768790C-555A-41B0-911B-EDED6D27618D}">
+            <File Id="filC0E19CB7A0CB58F033E1D9D2C74A07B8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\redo.svg" />
+          </Component>
+          <Component Id="cmp143AE52FE214A62A85FED05940537235" Guid="{279E6F06-B095-4322-8843-0984E583A172}">
+            <File Id="fil714B6DAA8C56F4189CCE29A4617EEE3C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\remove.gif" />
+          </Component>
+          <Component Id="cmp77298C2497DD229495195BB3AE94C3FA" Guid="{266CA011-5EC7-4889-9573-C6429C1D9D67}">
+            <File Id="fil0DF6C0A8B150770479C056AFBE9AAA68" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\resize-grabber.svg" />
+          </Component>
+          <Component Id="cmp438D8087CF840DBFC0043D07B2DC5228" Guid="{17BEB714-A612-4DEF-ADC5-425358F73D5B}">
+            <File Id="fil332E2C96C160C1AA0A52FDBDA587C815" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\runbutton.png" />
+          </Component>
+          <Component Id="cmp026C9E8F62FB76686F3762AB4D2E9588" Guid="{1F1A900B-48A9-4422-862F-92274D050DCD}">
+            <File Id="fil43F5AFAFAC6EAF11F4AB3CA999418C66" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\saveicon.png" />
+          </Component>
+          <Component Id="cmp01D5EF13A6B826334800599C2F9D0FD8" Guid="{38DFAAE6-DDC6-4719-9A87-B0B9AC9BD626}">
+            <File Id="fil027AD55E3E621F875D2A2928499D2A72" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\screen-fit.svg" />
+          </Component>
+          <Component Id="cmp4690BB391F24FE1A654C9BBDE51BDC58" Guid="{23D42357-C8B8-4C45-8310-D3D32D89746D}">
+            <File Id="fil37A07711C83F7F7B147B640DDF0FF43D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\selection.png" />
+          </Component>
+          <Component Id="cmp32ED1B7A2A4E837BC15F347EFEDE3A58" Guid="{8120A6B1-E55D-405F-A9B0-BFC0201F5AD8}">
+            <File Id="fil23F665513F11C1590BA37A942D5B020D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\selfloop-state.svg" />
+          </Component>
+          <Component Id="cmpC4A37CDD52735BD1D2248A4AD4CFEF87" Guid="{5C8B8815-D990-4267-BE01-4FD6F3EEB653}">
+            <File Id="fil8B52E73D0BA2C3B7AFAA6B43E8F43D22" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\state-container.svg" />
+          </Component>
+          <Component Id="cmp8E09F8823EB67E6085CE606FE2B0564B" Guid="{47E77625-3A49-4AB9-8A0D-6047FE5D4221}">
+            <File Id="fil6DE147CF62BA44FF202F0080201F52BC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\state-line-del.svg" />
+          </Component>
+          <Component Id="cmp961282B356250270EA7F9B26C29BDC3E" Guid="{2CD8FB70-A8B8-4ABD-B7E2-4FB0B37CEB0C}">
+            <File Id="filA8B0273C9B635418657FF819987E377E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\state-variable.svg" />
+          </Component>
+          <Component Id="cmp5CC996B20CD1468D5060BA8FDA2B18F9" Guid="{70E3BBB0-4771-4668-B2C0-A18DCCAB8996}">
+            <File Id="fil38E15483C8D4187BEBF10D6E1313F0CA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern-green.png" />
+          </Component>
+          <Component Id="cmp75DED5F5CC31EF111A0EC706186638FA" Guid="{0DC34CAB-5521-45FA-AC21-8BB3AD5B7B75}">
+            <File Id="fil6FABE46E3C0A6B7BB091E1E11B043E90" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern-half-green.png" />
+          </Component>
+          <Component Id="cmp27F92D36968D98F03A5A8F0ABF856789" Guid="{3E909BF0-D80D-41E7-957D-922B8DC8C0B7}">
+            <File Id="fil00600718D5F61DDA030F56536B2C4135" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern-half-half.png" />
+          </Component>
+          <Component Id="cmp4A88FC40A669C8C308BA76E3E7E239A3" Guid="{E0E18941-96B4-4C0C-B59D-1617FD8CF0AE}">
+            <File Id="filBD24C49C84D493021DDACEE02A106130" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern-half-red.png" />
+          </Component>
+          <Component Id="cmpB8F60F1398B461CDD3E8118903EA16A7" Guid="{369065C7-CA29-422B-ACA1-31DDA9841FF7}">
+            <File Id="filE00B4A900234E0E12DF11E96B48D6976" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern-red.png" />
+          </Component>
+          <Component Id="cmp90DCB81A32DD5B784D4E7F0C8B378B1F" Guid="{9C606BC5-0EFE-4F98-9F7C-409B6D133EC1}">
+            <File Id="fil84EC436E315657871012E598DA338B01" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripe-pattern.png" />
+          </Component>
+          <Component Id="cmp35C9F8FC94E8BB1AAA6F69ADE748613A" Guid="{BB3BD589-582A-49B6-93A4-306524DACD24}">
+            <File Id="fil017E6D0F064BB54D13BAFA6A3A2F947C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\stripes.png" />
+          </Component>
+          <Component Id="cmp12877EE633BCC005F2CF2D4CD8B4FD8D" Guid="{BAEEAD69-1DF1-4018-8107-FD099592D83F}">
+            <File Id="filC478586435586B29478D96C11AA9D3F5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\svgtest.txt" />
+          </Component>
+          <Component Id="cmpB31BB9EB122E0D2419B42A7F805E3340" Guid="{CB0D0662-F11D-46BF-ABC2-146400AD668B}">
+            <File Id="filFC7B925A48C3061804F0E30DC9D0E66D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\switchToGraphic.png" />
+          </Component>
+          <Component Id="cmp9B32B4080C40BB19D8B10A28B182D68B" Guid="{08DF11E9-F063-4FE1-9DD2-A44E6E0F2209}">
+            <File Id="fil628401211C3D071F6855642A6E3D6672" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\switchToText.png" />
+          </Component>
+          <Component Id="cmp7C3BB662809C1B336CABC441072163DC" Guid="{7DC47833-15B0-4659-B596-91FCC7663743}">
+            <File Id="fil28092B1044E5D2A5DE61962E37CCE274" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\template.png" />
+          </Component>
+          <Component Id="cmpA2F9A0CC38F37FF126B4CC7DE1E7FE5C" Guid="{4EAA263A-01CF-4EA6-8D48-C4F01A38C2FD}">
+            <File Id="fil876731C8B79C3A955BCCFB65164A791F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\tick-128.png" />
+          </Component>
+          <Component Id="cmp8587C838095CD8C58FD44BA5AADB902C" Guid="{474059EA-146B-4375-9968-192828EEEFAA}">
+            <File Id="fil529A6FF9356137D297AE9147079C1E21" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\title-TOU.png" />
+          </Component>
+          <Component Id="cmpD1FE5030E3515393B3E1FFB74C582573" Guid="{4485A8A3-5DD3-4E1A-9DAD-EEADD155B68B}">
+            <File Id="fil5D944DE3BEEB0C43963861DFC6826D51" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\true-state.svg" />
+          </Component>
+          <Component Id="cmpA9E47CC80E5B30C05B61E2E59B6B2644" Guid="{E042A2F3-D60D-4F49-BF69-30A364680938}">
+            <File Id="filA454F0C5FDD88DF6CDF740FD668B3588" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\undo.png" />
+          </Component>
+          <Component Id="cmp6A65C5500490784E4873C2C479DBEEF8" Guid="{FBA8D02E-2CED-460E-8B26-F0A4201B4257}">
+            <File Id="filC03339F38A9A76945EB6B1B7EA633E1C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\undo.svg" />
+          </Component>
+          <Component Id="cmpAF5C562D18625DE7EFF409E6DFD7E275" Guid="{C6131318-4A14-4069-B576-0E7F428D0930}">
+            <File Id="filDAB6910256C992660CBF9F4A6FB43DBC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\uparrow-grey.png" />
+          </Component>
+          <Component Id="cmp246D1C694E6D335DC1C5278387957D27" Guid="{96FFD46C-EC9C-4586-8C75-8C4FE769655D}">
+            <File Id="filF92A761E8C69962ECC653092C4D3B352" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\uparrow.png" />
+          </Component>
+          <Component Id="cmpFB09AEB2F310101E4DA3348ED1B73389" Guid="{392A34F8-4CAE-48E6-B960-FB438A607300}">
+            <File Id="fil37E1820E812C155ABEC9C72A18E6E5AA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\validation-failed.svg" />
+          </Component>
+          <Component Id="cmpF03ECE629C80261F157948586A1CAEC9" Guid="{0FDCD7F0-A167-44D5-BB73-CD1B6B9DE33F}">
+            <File Id="fil2A993C296DC6ECC2C621568B67C343A7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\validation-succeeded.svg" />
+          </Component>
+          <Component Id="cmpECC06E5D785BBFFEB4BA18029388236B" Guid="{95099077-66CC-48DF-A2DE-FA751F351459}">
+            <File Id="filCE4025F1E732F17F19AD14F8D9D4FB6C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\validation_failed.png" />
+          </Component>
+          <Component Id="cmp3618D4B99878FAB995F75CB2D8686DC9" Guid="{5009E1DD-EF0D-49D1-A3C5-107C1B95243A}">
+            <File Id="filABAC50794741258C216CCC630E4AC363" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\validation_succeeded.png" />
+          </Component>
+          <Component Id="cmp1AB76D680F5193C403CC6272686DAC9A" Guid="{A131BAEB-8F88-4AE0-B768-22313D36F393}">
+            <File Id="fil0AAD35092279717C7F0027CE80140CAA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\variable-old.svg" />
+          </Component>
+          <Component Id="cmpB499F9A4F2A921DC37BE8795DAABE5A7" Guid="{723A84F0-222F-4A40-ADA8-5D8BA47C2D1F}">
+            <File Id="fil840EA8C104C408B49CE5AA9635491072" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\variable-ON.png" />
+          </Component>
+          <Component Id="cmp3BD1411476044FFB59A5E0DF84C3C0D9" Guid="{39150EF7-DB2E-4147-967A-E82BEE9F7AE7}">
+            <File Id="filBDA757112D8D4187F2420264E7BFB0C4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\variable-ON.svg" />
+          </Component>
+          <Component Id="cmp29068C0E95CD84F4A6783D92CB21EF01" Guid="{1EEC1770-661F-40C1-8595-92C2AC339CEE}">
+            <File Id="fil1F159B1A56F2A7937F72E974BFDE9B67" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\variable.png" />
+          </Component>
+          <Component Id="cmp20CD0D5CF70D8CA91FD1DE7B0DCC866D" Guid="{EB006C67-DFD1-4975-B5C0-CA234528F8BB}">
+            <File Id="fil6929AA2BEAE0A9FED4C3E1B9D7CB79C9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\variable.svg" />
+          </Component>
+          <Component Id="cmp1D4453F0D861BDC5C2AF678A9A45D27E" Guid="{EE022931-BE62-4097-A7AC-004EB70D1966}">
+            <File Id="fil4A04E70D01AA1C279CBDB6E4C349FE3C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\visicon.png" />
+          </Component>
+          <Component Id="cmpADF4DD6B93BAA179B8D63BFBC4E14255" Guid="{F98DED36-B9AE-4B98-9119-100FB3B936CF}">
+            <File Id="fil4040CD958617D005FFB771AB003985CB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\visicon2-ON.png" />
+          </Component>
+          <Component Id="cmpF022D0CB8E8CB459E494EA4017D8A0CA" Guid="{43ECBC24-7F94-4CB5-AAD4-1D4DE3B18E52}">
+            <File Id="fil5321E5F1375632A5E77558FEE9AE4778" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\visicon2-ON.svg" />
+          </Component>
+          <Component Id="cmp3A56525F8659E56E5B68C0A854ADE48B" Guid="{B37CCDB1-5DEE-4E72-A1E7-E29A304B175C}">
+            <File Id="fil271D4809CCB29FDB9954B2D22BF15172" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\visicon2.png" />
+          </Component>
+          <Component Id="cmp93600A1AF9021E12F1BF19E85E567E77" Guid="{CC07DC48-4497-4A86-BB18-910301AA0862}">
+            <File Id="fil8C687A3803238D2BF38FDA5ED1FF9EE2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\visicon2.svg" />
+          </Component>
+          <Component Id="cmp470330EB931D6573BC7AC1B81BC25A37" Guid="{317E1DF2-E7BB-4130-93DA-9C4F94E0B7B7}">
+            <File Id="fil0DC30F6B958734A36D26AA5FD056AE0C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\zoomminus.png" />
+          </Component>
+          <Component Id="cmp0238BF5EAB6E50BE134B1E6C30321F05" Guid="{C7945A04-24DA-43D8-BED3-27D527008027}">
+            <File Id="fil45E33CF5BA03F495771997D9D3ADA816" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\zoomminus.svg" />
+          </Component>
+          <Component Id="cmpDBC03E3DBDDD73FF0780D77D446D3B36" Guid="{EAA75A17-4E93-44F6-84D1-DAB6609E2A55}">
+            <File Id="fil8E016F89DCE056EDF812B433EDA7C4F6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\zoomplus.png" />
+          </Component>
+          <Component Id="cmpD2859E6A9E15C4AAD54F215AE097F5D5" Guid="{85DA91D1-C6D1-4E77-A88D-1A3B4357FEA9}">
+            <File Id="fil76B39AB5F34507DCC4C2B7FA5DCDB1DC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\zoomplus.svg" />
+          </Component>
+          <Directory Id="dirCC94F14165A37E7A1EB26BC13AB98297" Name="analysis">
+            <Component Id="cmp9AF40A75D7009CECCEAC097729DD559D" Guid="{C5B7AE35-A8BF-446E-BCB5-F1DE34FF62C7}">
+              <File Id="fil6CD4E719C1703AF1A1D1B7A4C1A2366E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Bifurcation_Icon.svg" />
+            </Component>
+            <Component Id="cmp439ABEB7A52293B5151FB10F2AD6E9A4" Guid="{DF1A062E-603A-4995-8E36-52E68AE61874}">
+              <File Id="fil21A5829CEC28BA339B062DA00D428B99" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Bifurcation_Icon_ON.svg" />
+            </Component>
+            <Component Id="cmp17C64E7156DA903F782D9F0DE6B314D9" Guid="{0DA006EC-A7AA-4ED6-A521-3D6AF3F5B275}">
+              <File Id="filB475B0B13073B4B9DADBF55D908C3911" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Failed_Icon.svg" />
+            </Component>
+            <Component Id="cmpB3F0905E845E6A3FCD263A65D3D32F02" Guid="{0EA37D00-A0E9-4C29-885D-A29345E6EAE6}">
+              <File Id="fil41B71E262A3459140BAD0000BC99FE07" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Further_Testing_Icon.svg" />
+            </Component>
+            <Component Id="cmpC4B5B1C95270941A3CCD6155B705F927" Guid="{780748E4-2759-4446-8179-593C2B1E2522}">
+              <File Id="filD0A68A758C13887006F9B6695FA6E26C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Icon_LTL.svg" />
+            </Component>
+            <Component Id="cmp868619C3D3315CAB82C52E230A2AC6D0" Guid="{CD23571B-307E-45EB-9A7F-F5C83B42DF8A}">
+              <File Id="fil0F5698D032C978684D56441A385FF5E1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Icon_Simulation.svg" />
+            </Component>
+            <Component Id="cmp098D560E97C33C0EBCB6C81C11367F73" Guid="{A89F5A75-B53B-43FB-97A2-7C98DE9AC9E1}">
+              <File Id="fil54738EFDF995C27753E97B19D669C938" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Oscillation_Icon.svg" />
+            </Component>
+            <Component Id="cmp367945A727A2034CE2AC069A2737533A" Guid="{D7C5FD24-A759-410F-92FA-888602282154}">
+              <File Id="filF7BCC2B8BA015AC24EFE5BD7C172CBFE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Oscillation_Icon_ON.svg" />
+            </Component>
+            <Component Id="cmpDE5F9DC38EA83C0A00303DCCCC420A42" Guid="{61D1C861-66A6-45C2-BB55-A1862979D2DE}">
+              <File Id="fil51653F0CDE5167EF1357C82D5206DB70" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Proof_Analysis_Icon.svg" />
+            </Component>
+            <Component Id="cmpFF1DE668DC4D28CDC45658106476F943" Guid="{396C1C3C-6520-4E4B-AE07-C116F101CAD6}">
+              <File Id="fil4515FDB52DAAD7D30794CE8FE4599606" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Stable_Icon.svg" />
+            </Component>
+            <Component Id="cmp83086E289C0E324E8B872D381AA47A30" Guid="{FE3C77DF-B7B1-41BB-A404-99E26B9EEDED}">
+              <File Id="fil0B88E4A26FE45BE79096449FDDE02DFD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\BMA_Unstable_Icon.svg" />
+            </Component>
+            <Component Id="cmp8B34D573A182A628200CFDB2B15D4AB8" Guid="{3147CE08-4B2D-45E5-998B-F0F19CCB8029}">
+              <File Id="fil59EA0C54724E54656AA8F34A0F0C16C6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\failed.png" />
+            </Component>
+            <Component Id="cmp889DE9D25D6CFB2F9767ABF35EAED2EE" Guid="{B9A2BAD6-9072-414D-9DB3-49242EB2C56D}">
+              <File Id="filED7E339B1E72B82601493042301F59F5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\analysis\stable.png" />
+            </Component>
+          </Directory>
+          <Directory Id="dirEB1E5372AED856979C6D2DD703EF8F1A" Name="logo">
+            <Component Id="cmpBC2EAFD5C113F7C074528D0C82003A88" Guid="{8DE8C654-DF12-445B-900B-339054B6913C}">
+              <File Id="fil5008CDDD8CD25BBD9AD0AC7BAACEF0FC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\logo\BMA_Background_Homepage.svg" />
+            </Component>
+            <Component Id="cmpEDBEDF494DCA0F1A1F402FA1A3F94BE3" Guid="{82888999-7518-4ED4-9821-FC74287355B8}">
+              <File Id="filFA1E8C6663EDF9FB7DD4209BA2CCB1ED" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\logo\BMA_Logo_APP.svg" />
+            </Component>
+            <Component Id="cmpD9E574B9D7D2BDAC0416F1713A20E5D5" Guid="{CB08F6F8-765D-45FE-A0A3-2467C6B64697}">
+              <File Id="filF34A28410CC44C3E49C218C2D9ACA122" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\logo\BMA_Logo_Homepage.svg" />
+            </Component>
+          </Directory>
+          <Directory Id="dir25EB38205F096A36C8A50E238CE62CB8" Name="ltlimgs">
+            <Component Id="cmp568A150FB6CD177FE8114E37342B3BA1" Guid="{295EE705-F245-4BF7-853F-9CBC6FB36D63}">
+              <File Id="fil30FEFEB56A256C0F8B782F125CF9C091" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\123.png" />
+            </Component>
+            <Component Id="cmpFE705A1B0580C1E8C7FCEEDE3DC97B26" Guid="{DC142100-EE94-413F-A83C-8D151DC1E1B7}">
+              <File Id="filCFEBC2D667C141AD026B056745560D18" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\eq.png" />
+            </Component>
+            <Component Id="cmp4E30200BB5D36ADC1ECD8DAFC5A32ED0" Guid="{E65659B9-EA78-4FF0-81DD-33CD19AECC1C}">
+              <File Id="fil49D04DD7051A7C9B4B1207D4B6056885" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\le.png" />
+            </Component>
+            <Component Id="cmpDA3677B5E3AB5A7EB21542F5BD6574EE" Guid="{3F794274-BCFD-4AE8-8A8B-9684EC03788F}">
+              <File Id="filFDE2CF762CB5DFEC892FD033CE5C9F39" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\leeq.png" />
+            </Component>
+            <Component Id="cmp446FB8C886F04CE86F4F90DC79F5DD06" Guid="{205F634D-71E4-4B73-99FD-B6277C61B9B2}">
+              <File Id="fil69B97AE0ADF966250BF100BEED887289" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\mo.png" />
+            </Component>
+            <Component Id="cmp18A10D40F28E9B6E1C361E012B35F31C" Guid="{CE567CB8-A3B9-4DF6-BE82-7D427290CABA}">
+              <File Id="filAFB8AD3C1E3E3988583400F68583AF80" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\moeq.png" />
+            </Component>
+            <Component Id="cmpFF8E4237B15FCCAFFA39AAB69419336D" Guid="{36D40D99-7F80-48E3-9C6F-9AB6E77C373F}">
+              <File Id="fil450ECE28CF1E74A5C17BC0830D7F8E0F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\noeq.png" />
+            </Component>
+            <Component Id="cmpF88D4FDCB38D4ACBB1561877300AE122" Guid="{D3F88807-80FC-487D-8076-F530AE86441E}">
+              <File Id="fil80965300542AAD33B5D1335ADE345447" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\remove.png" />
+            </Component>
+            <Component Id="cmpD95E6DFDC02857ACEF6B3C43A553B1A7" Guid="{CA8341DA-413C-48F6-8483-CA47D46DD700}">
+              <File Id="fil94FFE2FF15581D5CA78CAB6E311E1AE8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ltlimgs\var.png" />
+            </Component>
+          </Directory>
+          <Directory Id="dir126A6732427E6743AB664C472F25C741" Name="ml">
+            <Component Id="cmpEFB83B9CAF833BB7FD0472A1066D7EF9" Guid="{0E18E3DD-4A9A-4161-899B-07E1D1D2D62D}">
+              <File Id="fil888E44EEC04094E4DFF7A095E1E97AF7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Delete_Carousel.svg" />
+            </Component>
+            <Component Id="cmp54C4064130B09F122DD8D53D9695062F" Guid="{E2FE632F-16C6-45A4-BB49-06AF7D22B1F4}">
+              <File Id="filBC410EC7F2FA78D124EDB8A33F1FDB22" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Hide_Carousel.svg" />
+            </Component>
+            <Component Id="cmpB92C90EAAEFB17993DB91A89F836B6A8" Guid="{E9FFA452-3BC0-4E15-9BA9-9647C19D5C7B}">
+              <File Id="fil37613537597E45DEEB253B0C8542BB90" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Scroll_Left.svg" />
+            </Component>
+            <Component Id="cmp1053472A72A0DACC5B9CA41289B4AA23" Guid="{C8F0F936-BC63-4EAD-B463-8A162484EE60}">
+              <File Id="fil1A8A0F263DCF07D0AEFE0665D48B48BE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Scroll_Left_End.svg" />
+            </Component>
+            <Component Id="cmp6072A66C821ABB2DADA512C27926C9B6" Guid="{DC335EA3-89FB-431E-8A9F-C13A35E51E9E}">
+              <File Id="fil79EE6F9DFEC085DF147EA006CB4E5459" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Scroll_Right.svg" />
+            </Component>
+            <Component Id="cmpF9237A3EC53B553A094CDAC9A0B2A074" Guid="{59B1BA0B-067D-4375-BC21-051E54CAF215}">
+              <File Id="fil6F7CE04B0C83C436AF4F7D250CBA4D1B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\ml\BMA_Scroll_Right_End.svg" />
+            </Component>
+          </Directory>
+          <Directory Id="dirE2ABD773163416FBFA17F1EE48A72430" Name="motifs">
+            <Component Id="cmpD5D9316C918AEDD8075D0BC623D85154" Guid="{427F6427-B2F6-4982-B2A7-65EBB7653578}">
+              <File Id="fil7B67D766B9387E93D1AD62476134EA14" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\motifs\m1.png" />
+            </Component>
+            <Component Id="cmp5DE7180B220FFAF0BDA8039A611E06F6" Guid="{BF4A7135-1963-42B1-9CF0-78DCE277DBC5}">
+              <File Id="fil250B598BB7C1A903B7EFF6B5DAFCECFD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\motifs\m2.png" />
+            </Component>
+            <Component Id="cmp5C653A05CA7D26DE1FF54A43F9617F45" Guid="{633BB925-CF3E-4308-B479-1ADBEC9C0EAA}">
+              <File Id="fil7F880390135D14A1CBEE03D726D5232E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\motifs\m3.png" />
+            </Component>
+            <Component Id="cmpB9F1C3D01B5986C0952ED4ADF10BE581" Guid="{7D951DB4-A0F5-487B-841D-A2768463D47A}">
+              <File Id="filB5154D7DB0662C7C3C7E0790562F49E7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\motifs\m4.png" />
+            </Component>
+          </Directory>
+          <Directory Id="dirC1AF5FEF9E2564B93F8CFEFABD90BBD6" Name="navigationpanel">
+            <Component Id="cmpEFF1F84C0079B2056047A26EC00408C7" Guid="{B1618A06-9A30-4DF8-8386-76AAB5B1FA50}">
+              <File Id="fil21568C2E42C8DDC52A09E35E17ED667E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Colour_Palette_Icon.svg" />
+            </Component>
+            <Component Id="cmp6167ABF011A6B7B322F880C8CDD0EE2A" Guid="{C5C79A7D-A890-4626-87B2-4076A5B02B6E}">
+              <File Id="filC04F18991803A7C56B174C47DD672166" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Fit_To_View.svg" />
+            </Component>
+            <Component Id="cmp62A98A0324298585AE15C5ECC1F70A5C" Guid="{B5C42197-9C25-4C70-AFC8-B99EE115B9B9}">
+              <File Id="fil243F55BFE6D77C857504523114920977" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Info.svg" />
+            </Component>
+            <Component Id="cmpD33B15E34EB00CADFDEDDF3D9149ABF7" Guid="{017E0BD4-40EF-469E-99EF-6A5D0DD23E09}">
+              <File Id="filA6CFF7AB90C51675A78426129DFC4437" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Redo.svg" />
+            </Component>
+            <Component Id="cmpAAC2D61D16BC21380148EDA23CFE3C54" Guid="{EDC4019B-A0A5-41A4-82A0-3E4CD574955A}">
+              <File Id="filA8A242A6EB4A85A6918707339B4EF638" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Settings ON.svg" />
+            </Component>
+            <Component Id="cmpBDCD3D4D41A68D6A617AAE54D178C1E7" Guid="{9E318D93-7CB6-48F1-9291-1501D5E7E269}">
+              <File Id="fil9C85EA42060CD807905AB541052F7682" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Settings.svg" />
+            </Component>
+            <Component Id="cmp0A682882C8EC3FF17B2E56FE41FD6BE3" Guid="{83CB9DA9-6225-41E4-AC16-51546C120D96}">
+              <File Id="fil9101CEE1BD8F08481B9F70F89E6768FF" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Undo.svg" />
+            </Component>
+            <Component Id="cmp141E3C6E1BE67450508B2A027D61A366" Guid="{83EC8576-84D6-48FF-8A04-13D50AC17A2F}">
+              <File Id="fil488AB3A005EAAC7ECFD0B4E2D719CBDD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Zoom_In.svg" />
+            </Component>
+            <Component Id="cmp42CD7C3103BC6C6531758D31F843CF61" Guid="{C3370BD1-D72C-4A78-A54F-7BA9B0D2D767}">
+              <File Id="filC47D7C312F40B6242A59E5F2BE9CAB22" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Icon_Zoom_Out.svg" />
+            </Component>
+            <Component Id="cmp4FA31A96CFB6F59C8D66ED6B5636A7F9" Guid="{181185C0-0156-4969-AB98-36A2B9A9DA69}">
+              <File Id="fil0FA910ED446DFE0FAB65BE46CAA70B0C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\BMA_Search_Icon.svg" />
+            </Component>
+            <Component Id="cmpAB7052C6B297B64BA2B2FDCA2B67F4EA" Guid="{015E05AA-8203-40CA-BB91-15A5B8C7A13D}">
+              <File Id="fil74E21D1A9148CC31B1AA7E4181B39343" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\pointer ON.svg" />
+            </Component>
+            <Component Id="cmp88A17F63EAB109EF0FE9344423AD2CA2" Guid="{B7E87D10-75B9-4E22-AAE3-12E9BCB20D9E}">
+              <File Id="filE899D546331FCCFC613D99780DD02C98" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\pointer.svg" />
+            </Component>
+            <Component Id="cmp1C1DBB0282FAE30376D04AC456F2D87D" Guid="{71F722EF-8347-4984-B105-0E77B10C1E68}">
+              <File Id="fil24BCEFF621E5E730B31A7E5FBC0A10AB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\navigationpanel\search.png" />
+            </Component>
+          </Directory>
+          <Directory Id="dirAFD851608BA507CB833D36EFADDDDD61" Name="repository">
+            <Component Id="cmp1E0D30EB04D84541A297312AB2386D0F" Guid="{DCC1F3E7-9B89-4632-9149-781E83CF9557}">
+              <File Id="filC501BBCA35705350C86D765A59312A13" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Bin_Icon.svg" />
+            </Component>
+            <Component Id="cmp09D2C49F4B43FCD27982126100D57720" Guid="{99078628-38FE-4C7A-9598-7767F91BCE23}">
+              <File Id="fil5B51260D1196A96814648ECFFA18D30B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Drag_and_Drop.svg" />
+            </Component>
+            <Component Id="cmp412838A64777084C09FDF3CAF9AECB68" Guid="{D03F36E3-A122-48A5-9268-1D7B91E1BB87}">
+              <File Id="fil24A7F5F83EB4F5FF30F700EC9CA1BAFA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Export_Icon.svg" />
+            </Component>
+            <Component Id="cmpD7253ABD7E27F0B75B7511D6088EC7D0" Guid="{95501414-BF49-42F5-949F-C314502B05D6}">
+              <File Id="filF8A67FEF646C95B1A6094E7FC99EE52B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Export_Zip.svg" />
+            </Component>
+            <Component Id="cmpB8D40EC1304825FAD3D9A1046DA1111F" Guid="{59862254-C476-436C-8473-3CA9E551FC19}">
+              <File Id="fil1E1850F448B3A29A9FAEF8A398534F27" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Export_Zip_Inactive.svg" />
+            </Component>
+            <Component Id="cmpF744C745CC37AD1CF2E2BBFB65F00F9C" Guid="{0D67165A-35CA-47C1-AAB2-0878839587A8}">
+              <File Id="fil1E40366CFAB4A2D2302AFE09EADC8804" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Eye_Icon.svg" />
+            </Component>
+            <Component Id="cmp8B442296973BB1BAF0476DC9523B2A47" Guid="{C491D444-E1A3-4B8E-866A-77AA8264C54F}">
+              <File Id="fil33482C3818FEF42B6818F5B33F062457" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Hide_Icon.svg" />
+            </Component>
+            <Component Id="cmp0A3A38C1F66A21AB7E19A23199B51470" Guid="{7A3D7204-A1FB-4827-B3FA-82EF2293AD27}">
+              <File Id="fil9724362244E8C2192BBD2A7C0DA977E7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Import_Model_Icon.svg" />
+            </Component>
+            <Component Id="cmp29E0AEC7C051D4B918E0E08E83942C7D" Guid="{3C485766-9456-429B-9796-53B8BD9420F4}">
+              <File Id="fil139B56DDF142852AB6457EFD1718D22C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Model_Icon_List.svg" />
+            </Component>
+            <Component Id="cmpA49B98BD0A944612CEAAA7159D373A21" Guid="{0FA12128-767C-4668-A286-4B938F23EDD2}">
+              <File Id="filA652C0582D9F91E315A357695EC30126" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Motif_Icon_List.svg" />
+            </Component>
+            <Component Id="cmpB544A185F77F1CE002CF64CEC4FE7A79" Guid="{7704F9DE-E1B0-4B60-8F61-50F2BADA06B7}">
+              <File Id="fil017439951F3EB5D180E075960387C525" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\New_Model_Icon.svg" />
+            </Component>
+            <Component Id="cmp9AB16F14D1457472248EB0CFE67631FA" Guid="{00A40920-F468-4CA0-B8DF-7F25A6A2C538}">
+              <File Id="fil2B9A896B5A63AF17632A8955E0311200" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\One_Drive_Off.svg" />
+            </Component>
+            <Component Id="cmp6B26108BAB2088852E986E51C4BA04C8" Guid="{B4225388-6E6B-4EC2-929B-04960B34336D}">
+              <File Id="fil05C8C3BBC1882219406483BF04ED6E80" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\One_Drive_On_Active.svg" />
+            </Component>
+            <Component Id="cmpBEEB1C912FF9DFACB60B9A8ACB88DB3F" Guid="{8697A7C5-4271-473F-A1A9-5F27D826CE7C}">
+              <File Id="filBF5696B5ACA3B973F24ABB2B04E483C5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\One_Drive_On_Inactive.svg" />
+            </Component>
+            <Component Id="cmp5FE6A2A229E224BFCC045E309843E20C" Guid="{60194CC0-6E3A-4243-A029-096CFE9786AC}">
+              <File Id="fil461E3FDC94AC3691C2DEE6DC0385EB5B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\One_Drive_Reload-01.svg" />
+            </Component>
+            <Component Id="cmp1216927EBE197B31F542C657B22ADD45" Guid="{56219D28-BB38-457E-AA8E-AC43FA25BCCD}">
+              <File Id="fil727B12EB1643B764B6B69D3ABEF354BB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Save_As_Icon.svg" />
+            </Component>
+            <Component Id="cmp9193585B38296F2B0D3617B8FA1834B0" Guid="{647E56B9-6648-420C-B8BE-BF0B6521FB35}">
+              <File Id="fil0D16AD2A3242EBED0EC72EE6C8B28FF0" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\Save_Model_Icon.svg" />
+            </Component>
+            <Component Id="cmp9836A88E29321D4CEF2E6BE1F317D204" Guid="{54CD1DFC-312B-47CC-A8E1-9B099778FF70}">
+              <File Id="fil4B174CD45F5D1BB5C4B6BFEC6E0456FB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\repository\User_Icon_List.svg" />
+            </Component>
+          </Directory>
+          <Directory Id="dir62EB14E78B3368DD2D6D4EA5968C3E03" Name="search">
+            <Component Id="cmp2C892793545A71221BA8CC460FED322D" Guid="{A0444319-95F2-436C-A362-963CC072AFCF}">
+              <File Id="fil5A7358A83010463CDC863E95BD25D966" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\A_Z_Sort_Icon.svg" />
+            </Component>
+            <Component Id="cmpBBD0BB175803A1BCB2F901172CAF129F" Guid="{A10A456A-24C6-4BA1-8594-1A92CF60A7E7}">
+              <File Id="fil80F11DC789B63CCE40B1263AB8707784" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\Model_Icon_Sort.svg" />
+            </Component>
+            <Component Id="cmp8CE967A188C7E3C5C1EE17FA82D4202D" Guid="{C4DFD8C3-5063-423C-80F9-0E5C70C2A605}">
+              <File Id="fil0E75625F6C2B28AF8563468F394037B4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\Motif_Sort.svg" />
+            </Component>
+            <Component Id="cmpBB01806C23772B97A1A16371D62EF3C0" Guid="{545367D5-1975-4EDA-851C-00D98C158A18}">
+              <File Id="fil90429A584116653620EE87E6E40E7C9F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\User_Icon_Sort.svg" />
+            </Component>
+            <Component Id="cmp04C671417318E5D7316E85EF60E125A7" Guid="{B8160AC9-F80E-4FEB-B6FC-1243B5778644}">
+              <File Id="fil9139B17062DA3A8832E22C8EB39D2946" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\Z_A_Sort_Icon.svg" />
+            </Component>
+            <Directory Id="dir677D6AEB98BB1E8BD3736CA1DB96810A" Name="selected">
+              <Component Id="cmp123CEB56441099EB6A710F58FA0C6A05" Guid="{28294563-E595-434C-AF93-A6EA7BFDC967}">
+                <File Id="filECF6FA6CF57A61F5BBF3C03CD6A41C17" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\selected\A_Z_Sort_Icon_Hover-01.svg" />
+              </Component>
+              <Component Id="cmpB0E75541F6536A8083B9C743D81E213E" Guid="{ACB57BC2-1EFF-4D4D-8CAF-4CE677425D15}">
+                <File Id="fil678B920A0B15E5643D0B24A64C0179A5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\selected\Model_Icon_Sort_Hover-01.svg" />
+              </Component>
+              <Component Id="cmp01B78EAFB492A352E9544B69E4301BE5" Guid="{2723AF5C-C824-45AB-B289-B53BD4A995B9}">
+                <File Id="filF0B52C1A69882BB54775B3258E1BAB9D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\selected\Motif_Sort_Hover-01.svg" />
+              </Component>
+              <Component Id="cmp333B4101B5035307844EEE94165FA477" Guid="{9949CD6A-1013-4C71-B3C2-61D47EAA7CAE}">
+                <File Id="fil186D4DF2B5F859C58C2A0C4EBBF1A64E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\selected\User_Icon_Sort_Hover-01.svg" />
+              </Component>
+              <Component Id="cmp3AC77623C5F414129AE2F8AB1656921A" Guid="{9CB1D983-B393-4C21-A4C0-F65B62F6BB44}">
+                <File Id="fil28AF4C1D8CA89AE5DBD73C1B21B7D918" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\search\selected\Z_A_Sort_Icon_Hover-01.svg" />
+              </Component>
+            </Directory>
+          </Directory>
+          <Directory Id="dir79F306E0482A20E7220771E4A39E7B28" Name="settings">
+            <Directory Id="dirF80FDC10CEA2253ED79B8F37FB324A58" Name="viewswitch">
+              <Component Id="cmp9216A12D70EBB3ECA0559700032AF705" Guid="{2AC868CB-F5B7-4280-8FBE-534E65C3D1B3}">
+                <File Id="fil5E68BDBA895A62C403B444E6215BAE71" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_All_Active.svg" />
+              </Component>
+              <Component Id="cmpB05C18A497EA5AA06697583107220C53" Guid="{5627FE9A-3031-43A8-85DB-3E004DE7EDF2}">
+                <File Id="filB155C875CA5D0DD11BE76BDC61CE2C9E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_All_Inactive.svg" />
+              </Component>
+              <Component Id="cmp330D6E05A91071A742E17ABD5B2D715E" Guid="{646E3653-3FF5-4138-A411-0AB16DF05A39}">
+                <File Id="fil19C3538DE251798BBC8AB530BE119F80" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Auto_Active.svg" />
+              </Component>
+              <Component Id="cmp61763F8ABE6F1FA7E0BBACAA354147F1" Guid="{8198BC0D-0FFE-46D5-A61A-E8B99C02A3D0}">
+                <File Id="fil9BA0BB7FA2FC13E4B355CA44559575FF" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Auto_Inactive.svg" />
+              </Component>
+              <Component Id="cmp4CAA7A2E2A4F762D41A9CBF54F418358" Guid="{A2627ABA-BBC6-44A9-9D34-2AE105DACD27}">
+                <File Id="filBC1FF78B7C772A8DEA2D401AED734F9F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Background.svg" />
+              </Component>
+              <Component Id="cmp745034DAA153B2309E50A42F7421585E" Guid="{A001A6A8-83AB-4B8A-B26A-8D874B8A74E1}">
+                <File Id="filD6A33F87F415A4CD8CEAD77274737BA2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Bubbles_Active.svg" />
+              </Component>
+              <Component Id="cmp885B340FAA9301EEEA02BC9B9F867B6E" Guid="{1A521F33-EA7B-4E1C-B917-9BCE4B764CA8}">
+                <File Id="fil16787037AD849EFB84A27B2DEEE108D4" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Bubbles_Inactive.svg" />
+              </Component>
+              <Component Id="cmpFDB64EB5DB0E12898F906AD89B650EF5" Guid="{0F2FCE43-4CA5-4DA7-AA54-1A9072D811E5}">
+                <File Id="fil0EEA55B418219CDE0F88A54CC439600A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Constelations_Active.svg" />
+              </Component>
+              <Component Id="cmpB7E6CE7E66A6BFF3C0D29E65885647F3" Guid="{7C03BD33-4C35-41E8-8BEC-556A4EE3CDDF}">
+                <File Id="fil89252E8D25F73F57CBEEAA36ACF00709" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Constelations_Inactive.svg" />
+              </Component>
+              <Component Id="cmpC6DA7A56DD5F331CEA1909D672CC0A7C" Guid="{4561FC1E-5459-4314-9DF2-11182E56D75A}">
+                <File Id="fil97C8A3C0ECB72BA340A96B928F9FEE2B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Model_Active.svg" />
+              </Component>
+              <Component Id="cmp8A89710F099AFCAD4E38C6046A318D10" Guid="{8CFE6362-DE5F-4387-8860-4BFBC4251D03}">
+                <File Id="filBE4D82851F6FB3706E83772F21D6E5A7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\images\settings\viewswitch\VM_Model_Inactive.svg" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="dirC864664558BB1D2551E8DFFDE28C8084" Name="js">
+          <Component Id="cmp49BA9FE95F209A4E4F378BB08FEE498E" Guid="{17C0029E-5913-48E8-804A-CD3E65D0727B}">
+            <File Id="fil3AA0CECFAA0726822D2AF68F76DACFC8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\FileSaver.js" />
+          </Component>
+          <Component Id="cmpFF8BEA93BE04FBE2D5D880C70776C6DE" Guid="{A9D58C15-4D20-4033-977E-3EDAC237CF67}">
+            <File Id="fil4E98541A5F048128B0BA0C593663EFE6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\idd.heatmapworker.js" />
+          </Component>
+          <Component Id="cmpA8B27210DFC8DBAEC20437EA5CA05B15" Guid="{D6FB417F-13F6-48ED-8677-C848271A02EB}">
+            <File Id="fil0A8706AC5AE6FA153FB872BC6B11724A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\idd.js" />
+          </Component>
+          <Component Id="cmpEEB69A0332C9A3A5BB07B1A19BB83FA8" Guid="{DEB8E7C8-9EE5-46F1-8F35-54657A9EBAD0}">
+            <File Id="fil5290E21D9F713A65611972243FE898E2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery-contenteditable.min.js" />
+          </Component>
+          <Component Id="cmp0B4161456E564579C71E4323373D81A8" Guid="{D8E84378-AA2F-43F4-BBA8-D80CFA1C7FE9}">
+            <File Id="filA3A306B95EA40ACF9F62481DE5C0ADEF" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.browser.min.js" />
+          </Component>
+          <Component Id="cmp1DF9E36F9216FBC7CAB75C198E7F716C" Guid="{E629780E-866E-4A35-8B60-38B4C237AD60}">
+            <File Id="fil9AA3DD784C34C5657F6D115ABA965D7B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.cookie.js" />
+          </Component>
+          <Component Id="cmp99A37578E1854DE33A55338596D4E3B2" Guid="{B04A3D87-4D77-451D-A863-4A0FABF58BEC}">
+            <File Id="fil79F1930D6C40B9A695D088548A18171A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.mousewheel.js" />
+          </Component>
+          <Component Id="cmp8CE0DE8BC716A0B2647B881A0DD63292" Guid="{D9BC879B-EC6A-4149-AA4B-CF514C2E2F9E}">
+            <File Id="filFA1E7C8D7FDACC373FA8567B662D13E8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.mousewheel.min.js" />
+          </Component>
+          <Component Id="cmpCFBB56E11FF65D686EF59AF05698DE8D" Guid="{0B83C8F6-3C10-44C6-B4DB-C28CCB121080}">
+            <File Id="fil41BF0D3D5C0747937E87F772B56BC897" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.svg.js" />
+          </Component>
+          <Component Id="cmp05A0A4493A04145C5847E4E3BBE23587" Guid="{CC3FD8E5-A80B-49A4-980C-DEE5F5953852}">
+            <File Id="filD1DD7BDCCDC589D8E56873899BC7B941" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.svg.min.js" />
+          </Component>
+          <Component Id="cmp6628B3EA1767C6BCB2A9244B63F1608D" Guid="{614B7E5F-D534-4940-806B-5540D693F976}">
+            <File Id="filAFF6ADBCFA113C46EF42F4932C0EA11F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.svganim.js" />
+          </Component>
+          <Component Id="cmp711C399315EB53BDCA9BFFD7801E81AF" Guid="{950D59EE-B7DA-4FF9-AC2C-821301284E1D}">
+            <File Id="filB425F1F87463F126BD6C49748BCCC99C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.svganim.min.js" />
+          </Component>
+          <Component Id="cmp67CE5ADDD963E849496D4F7CC13EA5B4" Guid="{C89A7137-B7D8-46E5-A354-50D0DC2E41B8}">
+            <File Id="filFF2CE5D7FF827FE78401C68666ED2634" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.svgdom.min.js" />
+          </Component>
+          <Component Id="cmpF82C2C26480B6398F8FC6D8121D248C3" Guid="{0B8A0F63-6824-4D33-B02A-F6E5E69A6551}">
+            <File Id="filD8CDB24FA48B8A0C591FAF7EFB92084A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.ui-contextmenu.js" />
+          </Component>
+          <Component Id="cmp5AFA32C4DD962FFFB20338E8D1FE76AF" Guid="{60384A00-DEDB-47D0-925D-735CD840CF83}">
+            <File Id="fil9386786A4AEBCE06688BA2FFD4BB4582" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.ui-contextmenu.min.js" />
+          </Component>
+          <Component Id="cmp14F0F2EA4F0ED235C4AB5F8FE7B243DC" Guid="{A1DC9622-3D19-4A75-BC27-6CC9AF2E5E96}">
+            <File Id="filFC708B3C323FFC605F103C8BBE4F9B82" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jquery.ui.touch-punch.min.js" />
+          </Component>
+          <Component Id="cmp1FAB50D96DBC3FBBE7EBBDC6116C7550" Guid="{3BFE24BE-C115-4610-9730-1A4203D8EE00}">
+            <File Id="fil9E97A5B8AAB6F9D29358FFBBC91CE631" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\jszip.min.js" />
+          </Component>
+          <!--<Component Id="cmp23D29BEAC4926E64AB0A1B84429959A8" Guid="{1449226C-FD97-401F-8B1B-9C1F9E838C83}">
+            <File Id="filD8939C6AA7983DBE67CE37423FAB3E73" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\ModelHelper.js" />
+          </Component>-->
+          <Component Id="cmpE10900431AB440F7F20DF15547C2B2BB" Guid="{D6D43F3B-7AAC-491F-A207-D813E7E91FD6}">
+            <File Id="fil14E76FFC14879186CD9F647E1C3B37E3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\slick.min.js" />
+          </Component>
+          <Component Id="cmp87AB1BC09ED07EFB262FE27F7C4D8119" Guid="{54344086-D1A3-4173-85B7-36A2E98092F9}">
+            <File Id="filA22FBFCD98490D842455011A932443F7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\svg.js" />
+          </Component>
+          <!--<Component Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" Guid="{CA71B0BA-8F16-46D3-9CD0-1599BB785752}">
+            <File Id="fil897C7D5B9322E6A3CD5337C63DCD2A7B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\svgplot.js" />
+          </Component>-->
+          <!--<Component Id="cmpD51F1303DA0BCD69F84974243D3257BE" Guid="{0DF1183B-737F-4EE9-B505-7F078722BE91}">
+            <File Id="filA8514D7D6954A340B4D285A02C21441D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\XmlModelParser.js" />
+          </Component>-->
+          <!--<Directory Id="dir073920FE5E63131C427DFBE6DFFEF5C4" Name="model">
+            <Component Id="cmpEE38CFFC3E5ADF81F0E73423DD274AB7" Guid="{5BF24755-5EFE-4E2E-ADEE-9C041BB34341}">
+              <File Id="filBEEB2B9BFA74F3E14F2B1E01B4AB9307" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\model\exportimport.js" />
+            </Component>
+          </Directory>-->
+          <Directory Id="dir85A31AC20395C770A535D3BF09AAC104" Name="monaco">
+            <Component Id="cmp58B994AA48AA01DDB7923430634FB402" Guid="{EE018B55-F10F-4668-A2F1-E5EF37D5547F}">
+              <File Id="fil6E73B669B2DBE23190FD6C9B75FD4932" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\loader.js" />
+            </Component>
+            <Directory Id="dir3E921D5DDD1979E9058346CC7A644172" Name="base">
+              <Directory Id="dir672CC9F85A46563D9A3EE9476D253C10" Name="common">
+                <Directory Id="dirE8384E41BD8D51FDF82F18F2459243AD" Name="worker">
+                  <Component Id="cmpCD6C366D4EBBC48444A196E392E98A74" Guid="{D3A33C29-6661-4836-9B3B-1270406F9432}">
+                    <File Id="filB5E2046BF2DA6CEF9E140936A85A0B61" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\base\common\worker\simpleWorker.js" />
+                  </Component>
+                  <Component Id="cmp5D7D2F8E22210B4E31EB496B4FF609BA" Guid="{9B57E5E7-7F43-4A23-9644-677AEA995E4C}">
+                    <File Id="fil3BE7E31BDF3D5C8A300984A2D9E15EFD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\base\common\worker\simpleWorker.nls.js" />
+                  </Component>
+                </Directory>
+              </Directory>
+              <Directory Id="dir02650806280AEB2B646BEFB9859A5316" Name="worker">
+                <Component Id="cmp65D785CFF49F8FC54CDEF1DF347C8BFB" Guid="{B57AD966-3CA0-4BA0-A06C-8F9D6D563100}">
+                  <File Id="fil9E89822D85BF2EFC7569385B9FCB27B8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\base\worker\workerMain.js" />
+                </Component>
+              </Directory>
+            </Directory>
+            <Directory Id="dirB0881B12E2F6095D623C6BF80686550D" Name="editor">
+              <Component Id="cmp28BA31F2B26F4712ED3F501CD8D70E19" Guid="{AE0ADADD-AAE6-4DC5-8260-714CE94C7879}">
+                <File Id="fil7F0B067F8E0C4AE48F157E4339063C29" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\editor.main.css" />
+              </Component>
+              <Component Id="cmp7BD4674F30F0E7CD640B94EDF63EA4C5" Guid="{8A56FCD6-572A-4E50-9BBC-8103679E994A}">
+                <File Id="filB98962520B3F1759E24757E32DAAD9D1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\editor.main.js" />
+              </Component>
+              <Component Id="cmp5D113D2268B8F32DDE6BF698D6883F69" Guid="{F8B59103-C9A0-4C68-BCD2-CAA946FFB4FC}">
+                <File Id="fil140F9A7310345FD741E6B383A19B3214" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\editor.main.nls.js" />
+              </Component>
+              <Directory Id="dir2E051CC3E9049BD4D4F70812204F4B79" Name="base">
+                <Directory Id="dir53164D3E28EAF0A7DE46CA7F28C4BE7A" Name="common">
+                  <Directory Id="dirB847B70C9B0B62F3182890CB688C62ED" Name="worker">
+                    <Component Id="cmp79040B9F1A5A4B8983D2D6239E6FD828" Guid="{C57BCEB6-414D-491B-9FD6-6A95198A9ECB}">
+                      <File Id="fil53A9CB77ACDEEC03653641DBF122F0E0" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\base\common\worker\simpleWorker.js" />
+                    </Component>
+                    <Component Id="cmpDD316D5F5C02B8EEACE99F71402EE4F0" Guid="{B8F72347-DE63-4979-B78D-E3FDBB6D4075}">
+                      <File Id="fil049DCDB193AF03092E42D09ABAF10F23" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\base\common\worker\simpleWorker.nls.js" />
+                    </Component>
+                  </Directory>
+                </Directory>
+                <Directory Id="dir7D637882A5E484D6A6A7279BFF24213D" Name="worker">
+                  <Component Id="cmpA9275CB0A859F2A45B002FDC11653685" Guid="{8EECFA3B-6A44-4D01-86CE-4E8C619FE692}">
+                    <File Id="filB5A2F812CB0A2C892AA26D568D7FBB82" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\monaco\editor\base\worker\workerMain.js" />
+                  </Component>
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+          <Directory Id="dirE09FAC62E47F67ADC42222503C2A77AB" Name="regular-table">
+            <Component Id="cmpE568314B797CBECEB7CA770DF45C70FC" Guid="{14A85F19-4EFE-45F7-B829-A8AFEE8F44ED}">
+              <File Id="filC80174727C30906E851D8D2573C75DA8" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\regular-table\material.css" />
+            </Component>
+            <Component Id="cmp30F4E1DFBD0FA9BD512F329A1241AEA3" Guid="{DEFDF750-8008-463B-AEF2-6CB39227E194}">
+              <File Id="fil296A3B078651E5D0B3EF55A95E55B231" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\regular-table\regular-table.js" />
+            </Component>
+          </Directory>
+          <Directory Id="dirFD563F0B83168F50348D049753E7DAA1" Name="script">
+            <Component Id="cmp28A4BE63F5C18A5C5D5C50249DBA2999" Guid="{FC2B8F08-847C-4C4E-B12A-34CDCD1DCBD5}">
+              <File Id="fil1D30B36DB33303B1951B2F265E4BD1FC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\script\idd.heatmapworker.js" />
+            </Component>
+          </Directory>
+          <Directory Id="dirB41E3311D9857CE484A5EF422A357CAA" Name="vs">
+            <Component Id="cmpE842454B99E0217CA81BB7AA0F31060A" Guid="{529D0673-FB4B-4174-BE7D-CEDE3B8D2EE2}">
+              <File Id="fil0EAA515D0D85D9D911C54B779BB3238B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\vs\loader.js" />
+            </Component>
+            <Directory Id="dirF802159E2F35ECBC3FD5588472E52C76" Name="base">
+              <Directory Id="dir8A434B3B7C7A2DC79DAB36462ACBD1FB" Name="common">
+                <Directory Id="dirF6835EDCDC64E3CE5B04379B80C265B8" Name="worker">
+                  <Component Id="cmpCC7FB466042EAEBE6BEB5BA4EFF26B16" Guid="{5D744328-000B-42FB-9044-09E9A3FB0BF7}">
+                    <File Id="fil472C068930676661B5C5F1B6CDF5C617" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\vs\base\common\worker\simpleWorker.js" />
+                  </Component>
+                  <Component Id="cmpD4FA5963C7B7DD8064EB686579CF5B28" Guid="{CE0EF884-60B0-42A7-8233-1E28B80867C2}">
+                    <File Id="fil2D3FBD56E978267684909FCAD7B9E6B9" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\vs\base\common\worker\simpleWorker.nls.js" />
+                  </Component>
+                </Directory>
+              </Directory>
+              <Directory Id="dir30B789BD86F964B7838421328D111661" Name="worker">
+                <Component Id="cmpC3F0D5956EECB9562BCF6482DDB68610" Guid="{817D4D26-BE66-4FAC-99BF-B1487C83A881}">
+                  <File Id="filD9378C2CDC5547DD1F3D7FCAF48A84FE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\js\vs\base\worker\workerMain.js" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="dirB573E4609502840089FB2F73BDDE37F1" Name="motifs">
+          <Component Id="cmp8C24D3195A7B48FA387E2AC1CCB554D8" Guid="{E374B635-1DEA-4E56-B19A-126D1DBA29B5}">
+            <File Id="filF0FB77C175115952B1313EB8C65C67B1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Activator-Inhibitor_Oscillation.json" />
+          </Component>
+          <Component Id="cmp43F93AC473A9CF1C81BAD2ECC07B24F5" Guid="{71CA3A4B-8DBE-4669-8F6B-A1ECEFB978C1}">
+            <File Id="fil1CAD3B1F055C8D0E82FC9D1C14E16C09" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Homeostasis.json" />
+          </Component>
+          <Component Id="cmp9FC7F510C89675CE9201297838656936" Guid="{438FDBA9-0085-470D-B1AC-5C413F6AB297}">
+            <File Id="filE9EF7CADD73359D8CC8CE70FFA0989E5" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Hyperbolic A.json" />
+          </Component>
+          <Component Id="cmp737CCE87CE83D0DECED090428CEF9956" Guid="{48235BD0-4EB4-4837-9A91-B4D0DBB9A9B9}">
+            <File Id="fil39540B4DC888F5804A04058CAB841A8D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Hyperbolic B.json" />
+          </Component>
+          <Component Id="cmpE5B4B6204BC3AEC0F0A883C2EC0AE3B2" Guid="{E02FAEFE-7260-48BB-8948-19D777F9F4BB}">
+            <File Id="fil939C5F14A63FAFACB940337B09D0450F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Hyperbolic C.json" />
+          </Component>
+          <Component Id="cmp64611C5EBD6125AE72A1FCF230723A03" Guid="{7054476F-8A09-4B43-A280-9655C54FD68F}">
+            <File Id="fil88B804A386696B835B6496CA3A2422F6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Hyperbolic D.json" />
+          </Component>
+          <Component Id="cmp3D1E4A0F613E8FA38F6A0164F0ED0EA3" Guid="{6028BB67-8F03-4561-938F-0A49BD1C165D}">
+            <File Id="fil07D05563818DC137C2D3106E55D88D71" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Linear.json" />
+          </Component>
+          <Component Id="cmp754224BD1D8B39EF092994540807FE69" Guid="{3AAA4915-1F44-46F4-A15E-46F751BA956B}">
+            <File Id="fil3A18DD678BDB2CA68D4486EB78DE5D42" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\MutualActivation.json" />
+          </Component>
+          <Component Id="cmpC83BA94E4F815A76B11099C2F115514F" Guid="{DA2C40E1-7C89-4312-A5BB-61F4A025340E}">
+            <File Id="filD9DCE17321AEE1CB0D538F94E9917BE1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Mutual_Inhibition.json" />
+          </Component>
+          <Component Id="cmpA88C8A9C8003EB8A5B9EC1D8C47833BA" Guid="{A505502E-9FE5-47CA-BD3B-8156D47F2758}">
+            <File Id="filC0EA4DEA999E8B53E2DB9DB44F0A5149" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Negative_Feedback_Oscillations 1.json" />
+          </Component>
+          <Component Id="cmp820A75967A05C32CEE79053BC94DAAEC" Guid="{A9B19C9A-C0BA-4F95-8FD3-81BD7B0E5A2C}">
+            <File Id="fil75419B1D80ED5A1F401E553CE51E1C5E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Negative_Feedback_Oscillations 2.json" />
+          </Component>
+          <Component Id="cmp644B6A3461BB5DF6448146F9ACBBB875" Guid="{CBECE12D-4D13-4297-82A2-5C3BBFEF6B96}">
+            <File Id="filF35D00924883CDFEB87D45E04A6D7F4B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Negative_Feedback_Oscillations 3.json" />
+          </Component>
+          <Component Id="cmpD1593F8538A53557CB038D487FC72AEF" Guid="{CB8729BC-73F3-47D3-9095-5C16398AD815}">
+            <File Id="filC41FFDF6B62969F1CA1AA8D60AD78312" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Perfect Adaptation A.json" />
+          </Component>
+          <Component Id="cmpB92EC446C0A1CFD7B2238859910F652E" Guid="{5B7A1320-D450-4144-A17C-8A0B729BF860}">
+            <File Id="fil2182885B4DB6F0514328402E9C3F93CA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Perfect Adaptation B.json" />
+          </Component>
+          <Component Id="cmp1F77E17BBC67A1FBF40FF4E3BF12FC44" Guid="{20A8DAC9-1366-40CE-9863-D4CA65523655}">
+            <File Id="fil607233A884FF168C8BA79101D84EB45D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Perfect Adaptation C.json" />
+          </Component>
+          <Component Id="cmpC75EF4F94D2990AD33D13E707FEE37CC" Guid="{9947F5CC-403D-4CF5-BE43-CF36149BB41D}">
+            <File Id="fil48276EAAD73AE85628C7F9BE5F316B80" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Perfect Adaptation.json" />
+          </Component>
+          <Component Id="cmp917DDCC27396E443F261FCCB95013020" Guid="{C63D2A5E-F31E-41CC-9264-DA494F212516}">
+            <File Id="filFF649D0CD6207AC8F6262852904B2D37" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Sigmoidal A.json" />
+          </Component>
+          <Component Id="cmp1EFE6516A09E4C8C13F70CA766F0CD8F" Guid="{6B81A77B-2CD2-4FC5-BB05-9E5E5296A224}">
+            <File Id="filD83B32A80142A04CEB031C8D9AF40721" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Sigmoidal B.json" />
+          </Component>
+          <Component Id="cmp40B4C69D3957848FEED0A91D72DF7B9E" Guid="{D2EE7AB3-FFC7-42C0-BDD6-B6D8089AFA86}">
+            <File Id="fil4AD754B2BD691A662460CF1FD236A07C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Sigmoidal C.json" />
+          </Component>
+          <Component Id="cmpF16FD98277E82B737D9E8E13223FE7C4" Guid="{92E037BF-81E4-4ECF-9219-1EFF213B51E6}">
+            <File Id="fil9D6D660062ABFE6E79A2E56904385240" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\motifs\Substrate_depletion_oscillations.json" />
+          </Component>
+        </Directory>
+        <Directory Id="dir5FF1AA91DB104E16E45BA64D39050C0C" Name="preloaded">
+          <Component Id="cmp39AFFA3747B73B7C035B91EC8CAC38A5" Guid="{02E501DD-25D1-40DC-89FA-7BE817CB7BB7}">
+            <File Id="fil34A45FDBA7BA84CA934BC1D5EA3AC824" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\CancerSignalling.json" />
+          </Component>
+          <Component Id="cmpA5AD412DC171AD8E101787308B600160" Guid="{0470FB3B-2D5A-40A9-A0E8-84F8E2FFCE99}">
+            <File Id="fil7FDDA3BFE64412BD6083AE4E843F9A3F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\diabetes_new_mod.json" />
+          </Component>
+          <Component Id="cmp289A77A4B2FED36A0B54BAE66021F780" Guid="{62C4A643-86B5-4502-A615-C57D7267B5EA}">
+            <File Id="filE8C58DACD48377B9EE7288A24381FF29" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\leukaemia.json" />
+          </Component>
+          <Component Id="cmpCAD73CB834F313011369476540178015" Guid="{EF8D7D2D-84E6-4889-9C13-92AEE85965B2}">
+            <File Id="fil601316DC44908BEBEE2599547545613E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\metabolism.json" />
+          </Component>
+          <Component Id="cmpBA34D5FBAB5EC200FB873D0118F42754" Guid="{4EB94B38-64C2-47E5-9DA0-93DA61C5A3F6}">
+            <File Id="fil3233CC1BD84A0A99DA8B6FFE21E65EBA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\SkinModel.json" />
+          </Component>
+          <Component Id="cmp4CD142562409D4C8333AE694EE498ED2" Guid="{45B185E6-14E4-4B63-8278-2A748F1ECD7E}">
+            <File Id="filCF088C4C86AF804254C62B779FD43BFA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\ToyModelStable.json" />
+          </Component>
+          <Component Id="cmp75F30D2A009BDBBA83714249E6FA87A9" Guid="{DADB85FA-2F94-43F9-B99D-56049CC4287D}">
+            <File Id="filE20A7E66FEB512E972A495E079A6D650" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\ToyModelUnstable.json" />
+          </Component>
+          <Component Id="cmp9477779D4562C83ABAC11D093AC987C9" Guid="{ACC4CF1A-3789-4C19-87F6-D28D2793144E}">
+            <File Id="fil0F7BBA0612C5796564696E177571EF87" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\preloaded\VPC.json" />
+          </Component>
+        </Directory>
+        <Directory Id="dirA8C9B69C28AA69C5250CA904D02093D1" Name="Scripts">
+          <Component Id="cmp495DA0C9E5D88E1EC5B4285F303E902E" Guid="{48C24344-9B3A-4D5B-A608-456F8675BE71}">
+            <File Id="filAF8A84482E0390B08F1388E39FEDD974" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\formulaParser.js" />
+          </Component>
+          <Component Id="cmp89049987FE3831A1A9785D7D2CE8795D" Guid="{9A581A1B-5CC6-4F94-B86F-6269A1C7D01C}">
+            <File Id="fil6CC91C308BDDC7F35ACEB5DA54A4A48F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-2.1.4-vsdoc.js" />
+          </Component>
+          <Component Id="cmp6E55E7559185B2BFA27AE690DD5F6FE6" Guid="{5D703C35-D3A2-4099-AAF1-B9853517F8CD}">
+            <File Id="fil5E6E49B433245EFF9111A18F2E48539A" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-2.1.4.js" />
+          </Component>
+          <Component Id="cmpF991EC3E244453D5075EE88492EBBB46" Guid="{288D2455-C3ED-42EC-B99E-1559F68F6E65}">
+            <File Id="filFF88DFC3DFB1C20C5A7B710966FD9E1E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-2.1.4.min.js" />
+          </Component>
+          <Component Id="cmp91830063C04C37699041710A293367E2" Guid="{E5862462-AFA9-463B-8392-D16E8A0BD29D}">
+            <File Id="filCBBEA797ACC78E220C940F3B38D970EA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-2.1.4.min.map" />
+          </Component>
+          <Component Id="cmp3E95CE7223D6A17B446A6702F9EDA940" Guid="{9AFDCEFD-3C45-4F8E-AAC3-4C2BE78180E7}">
+            <File Id="fil629F3783E730177EA12E81D7E69DBE77" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-ui-1.11.4.js" />
+          </Component>
+          <Component Id="cmp8C8D53982CACBF4DDC1EDED20757FAFE" Guid="{A1D89371-766A-42EB-A9A6-DB45343AD4A2}">
+            <File Id="filF99A3AA38897DFDF9632BE7A61642C59" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\jquery-ui-1.11.4.min.js" />
+          </Component>
+          <Component Id="cmpE82853146A9B69D37AA5783E582D92D4" Guid="{770499A6-9E18-43D0-9B69-E17EFC3D2910}">
+            <File Id="fil1E264443107D251EC33A073E49A66C1B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\modernizr-2.8.3.js" />
+          </Component>
+          <Component Id="cmpF63D0AD328239FBD438158B94A63E308" Guid="{A8BED521-BDE1-416E-87DD-7F58B33EE008}">
+            <File Id="filA7A794216508D8ECEE0E70D449A54830" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.aggregates.min.js" />
+          </Component>
+          <Component Id="cmp4507F53D02C89A3E8561DDEA4828D5EF" Guid="{FA6A5617-87BB-47AB-B137-4F9700FC313A}">
+            <File Id="fil200E111E08852B33257B764AB971E2BA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.compat.js" />
+          </Component>
+          <Component Id="cmp96BE52E50727DDA7C3ADA0D0B05CB127" Guid="{37010B82-F114-45F0-A729-D1A5EC374300}">
+            <File Id="fil5A177BDBB278D5CA231807C1DC1A63FD" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.compat.min.js" />
+          </Component>
+          <Component Id="cmp9E1D961FECD55E9D8D1CDC4054D71A30" Guid="{9C02833E-F530-4E38-9AD5-B4C82591D4AD}">
+            <File Id="fil1CA642E8F8DD0548FD6CC6359FCDF78B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.js" />
+          </Component>
+          <Component Id="cmpA22AA7F7468D5075373BE40F40E61468" Guid="{8A56868A-EF7D-4BCF-BBA9-8757AB8B7C13}">
+            <File Id="filE5D973156E799717A2B8F0BAB92C7927" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.compat.js" />
+          </Component>
+          <Component Id="cmp9992AA12C4D69FFAD2197784E2A32974" Guid="{939A6292-97BC-408C-9335-12A13824CE30}">
+            <File Id="fil4494FF074AC19F893585D2BC6205CE20" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.compat.min.js" />
+          </Component>
+          <Component Id="cmpC99526E18236374270D3DDF47A0AA600" Guid="{DC80E830-24EC-4529-A785-99DBF3E4B6EF}">
+            <File Id="fil1FEB5A0F45BBBCF0F26848E8C7977D96" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.d.ts" />
+          </Component>
+          <Component Id="cmp973CEAD9F41DCEC5B5AA2E2C2E89DDF7" Guid="{BE6CB648-0D41-4EE4-9DFF-63C22AED0612}">
+            <File Id="fil34569395505455D0E9154FD9CC942AF2" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.extras.js" />
+          </Component>
+          <Component Id="cmpEB8E11499A3277AFEF005A7C216D54C0" Guid="{6706E7AC-AA71-4233-804B-1DE34E10DB66}">
+            <File Id="fil55473CC78DDE55D59C0ED6326BAC4800" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.extras.min.js" />
+          </Component>
+          <Component Id="cmpB7CE3F8A0151BAFF09B13906374236AE" Guid="{308CDDF5-32B1-4796-B433-E446319623F8}">
+            <File Id="filEF0ADBDB08DCC2C60FF3DE6AC18486F1" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.js" />
+          </Component>
+          <Component Id="cmp4F57FC9F528D72FDA931CE9067A4C95B" Guid="{BEBF0222-8C67-4464-8033-E191486C5B86}">
+            <File Id="filAEF40106ACB609700537C0CA7F10B7CE" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\rx.lite.min.js" />
+          </Component>
+          <Component Id="cmp6E92C07FDE86B3D556DADAE7DF7AC417" Guid="{71C5B445-F372-48FB-8284-F483E57E0831}">
+            <File Id="fil7AFCEC6847D95E16306B196D8A61E849" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\targetFuncParser.js" />
+          </Component>
+          <Directory Id="dir64D9F1C224156546CF71251AC09A9D6C" Name="typings">
+            <Directory Id="dirBAA774F645555D503F37A0DD1F50C6E2" Name="jquery">
+              <Component Id="cmp5121F65301EB09DEC8E7E702F700EE78" Guid="{138A7D33-70DD-4963-BFF2-FA0D88E26C2F}">
+                <File Id="fil7CA452DAB8A4BFB5996B9A5605CB0B36" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\typings\jquery\jquery.d.ts" />
+              </Component>
+            </Directory>
+            <Directory Id="dirA4CDFE2665D79D2CA655F9E59F3E6C20" Name="jqueryui">
+              <Component Id="cmp0EA7EF2F36C313ECAD71BBC1F6EE5787" Guid="{D98F4F2A-3ECA-42CF-A7B5-31E5B7C09A97}">
+                <File Id="filAF7EB51CE7C03C4CF0871C16DA99A48B" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\bma.client\Scripts\typings\jqueryui\jqueryui.d.ts" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="dir1AC9CC7F3A7F6E7AEE37C695E02C32A5" Name="cs">
+        <Component Id="cmp4F4606D5ECA65AC956AF8B7AAB0634FB" Guid="{69BEBD7A-015D-40B1-AB25-69F4E31AE464}">
+          <File Id="fil668FDBFD88030D87D845352DCFA21DE6" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\cs\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirDA00AB399CE86C3C2A1C1431458E5CC3" Name="de">
+        <Component Id="cmp4604D24A6EE55D7E7BCF3BBE86EDAE18" Guid="{014EA26A-02D4-43D6-A46C-A24CE9F6BADB}">
+          <File Id="fil99099104CDA609052DB4BA0D0DF27BEA" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\de\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir8FDBF72137CEF8A9E0FA0200402ABCE7" Name="en">
+        <Component Id="cmp6CB0BE8A1A452664DBD805465D154572" Guid="{68F5DFE4-CE5A-4EAA-9E48-F6167E998FB0}">
+          <File Id="fil0A33E4C606F3B165D4F267A04E2CDB46" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\en\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir5DDD448FBCA8B5F47F47D18B69CA0595" Name="es">
+        <Component Id="cmpFD0FF834FBCA09EDA4DA1727AF62638B" Guid="{9D5CF86D-85A4-46B6-B3FA-F232CCAAF47E}">
+          <File Id="fil336AF96F75477FB86BE64A3609B36DB3" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\es\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirB6808DBDD0D853C5105884669B94E132" Name="fr">
+        <Component Id="cmp352515CCC76FB9ABCDF8007F78C56B7B" Guid="{CEA055C0-39C7-44FB-88B6-434200CA536B}">
+          <File Id="fil89249F5B178319E23A4990C098A22C9D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\fr\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirD2731232DAE0A196A6EEB7BA3B7F0A80" Name="it">
+        <Component Id="cmpDA23C828C4CBEC0D2383FE2EC8450551" Guid="{88EE9B6B-2245-411F-9EFD-679EC00FDFFC}">
+          <File Id="fil93B2616C10FE75D9B4D6FC9F2924D31F" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\it\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir1F1DF9D8C8AC6451751E2FF7A67C9689" Name="ja">
+        <Component Id="cmp20A87848A709EA928F15CEFF19BA63F2" Guid="{A559FA28-72FC-4FF2-B4CB-ADCC854892EF}">
+          <File Id="fil2044F63CA92DA71EAE01833130ABD30D" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\ja\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir878E288122D414B8F2978FDBB78B2380" Name="ko">
+        <Component Id="cmp486DFB58DEED1C9B8A8ADB2F1613AA30" Guid="{BAFD98B3-7974-43DA-9211-0E909B69B521}">
+          <File Id="fil52D93BF44E906E923F83B8D9590D5A8C" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\ko\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir2340EBEBD6D54E62FEBD2EA5FE59D5C5" Name="pl">
+        <Component Id="cmp658F9B006D5FD0C7B65253D59ECF4E1B" Guid="{AC02E0D6-FFCC-459C-96C6-6363B52EA0C0}">
+          <File Id="fil8291FC7F09EBCCBAFE7A7966010791BC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\pl\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirF8A36B3B61DBD4BED3683C17E0678DE9" Name="pt-BR">
+        <Component Id="cmpC1223F710160186ADB4DAF80AD1E0653" Guid="{F3C267E7-1B0A-4A50-8005-D39B8D7AC5BA}">
+          <File Id="filFF01472F37A0F3D4A1CA86E84EA35151" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\pt-BR\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirF413F4E6FEE4C6E2C2B79F13FEC68830" Name="ru">
+        <Component Id="cmpD834B8A322F5E83B23055749C90F2742" Guid="{491ED56A-8219-42E2-A7CE-156F75E11D0E}">
+          <File Id="filC4F33D481D7FCAD99CC402AB388A3FA7" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\ru\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir4382C63444C8E9F924B39179AA3C73D3" Name="tr">
+        <Component Id="cmp410F99D6AACC1C82B89D98C8CDCB45CD" Guid="{6E0BAC9A-06ED-4A93-B894-6056DE2F0B64}">
+          <File Id="fil6E7254BB176F752F407063342A19097E" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\tr\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir8951A8B562CBB116384EE1A4E60E6C85" Name="zh-Hans">
+        <Component Id="cmpE92518806BA7DA7F0678325A185D2752" Guid="{6F4FC795-EEBD-4A1C-9DD7-AA1A995B92BF}">
+          <File Id="filB7DC4235F9FDD275762A104AE8F6A5DB" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\zh-Hans\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir2F991B42265746F54421FBF3E0B826EE" Name="zh-Hant">
+        <Component Id="cmpEF689B5E28BB39F44561FEC2A6EBEE23" Guid="{3B0FB0DA-119B-4A36-828A-3F6A62A056EB}">
+          <File Id="fil01ECFD90715000D622A5EEC2A53F5FCC" KeyPath="yes" Source="$(var.bma.selfhost.TargetDir)\zh-Hant\FSharp.Core.resources.dll" />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="selfhostcontent">
+      <ComponentRef Id="cmp128A9F464EC06521113D21D32F13EF52" />
+      <ComponentRef Id="cmp5E6747A0802B746D1A65DA62864D0875" />
+      <ComponentRef Id="cmp1BBFBF1B64F4479E5A7CDA84B5F42283" />
+      <ComponentRef Id="cmp1DE04E5FE7374D14892C79CE961B7A05" />
+      <ComponentRef Id="cmpE514DF2FED4943923BB5FBA7B68FDF5A" />
+      <ComponentRef Id="cmp9CA671D1C6D360B463ECC6D7814105D3" />
+      <ComponentRef Id="cmp3722A6E278CE116CF6A45B1D3EC44CF5" />
+      <ComponentRef Id="cmp9C71D8F760852EB8BDD4766D4700342D" />
+      <ComponentRef Id="cmpC44C0524E25C1EF184A59A7D6A965A38" />
+      <ComponentRef Id="cmp9CF00C8B1E081D43BFF31540A41D3CA0" />
+      <ComponentRef Id="cmpDEEA95EC5BF6DB410D30F0CD3B65A40B" />
+      <ComponentRef Id="cmpEC1C04C639184B25746DECF5CF8820B0" />
+      <ComponentRef Id="cmp081627B67B3D4D2F876A3E97468C10E7" />
+      <ComponentRef Id="cmpBA52F685B6B621C3100B72D1268CBE9A" />
+      <ComponentRef Id="cmp0B38545DA2650975873E509A90B73FBE" />
+      <ComponentRef Id="cmpDE9B7BC0F5FDF44E58ED2F09621E463D" />
+      <ComponentRef Id="cmpDEEF86583D4DCFBD083B27982AFB08CF" />
+      <ComponentRef Id="cmpFB5685DF89C09DA1479113E85C0A3650" />
+      <ComponentRef Id="cmp41B971A706096272992CE26D8FE5E21D" />
+      <ComponentRef Id="cmp14E996E83019E1D0D08401C2B25DE6B4" />
+      <ComponentRef Id="cmp3E6C13EE1784F95172520BCE211C6A32" />
+      <ComponentRef Id="cmp1EDFBE3774B5DEB56D4CD79BEB3D8FCB" />
+      <ComponentRef Id="cmp8D49D4CA03A803FD26C1C2C28F5C16D2" />
+      <ComponentRef Id="cmp9F9C00E02652619CCC997518B454D7FC" />
+      <ComponentRef Id="cmpC7326F4D13A08139795A78B5FA583DDC" />
+      <ComponentRef Id="cmp4F93B49E638F34988D330BD36DA07DC8" />
+      <ComponentRef Id="cmpA18CADF5CAB1AD288A3AF1C79527F080" />
+      <ComponentRef Id="cmp7411FAF8FBBAC1688E03329216B1F48C" />
+      <ComponentRef Id="cmp947BA09BBCB8A5FE6C91AF04AA689B21" />
+      <ComponentRef Id="cmp34CB748A4D3CD96D72782394E4DD7182" />
+      <ComponentRef Id="cmp027D39BC9C4601BD5AF282BFC6C1C472" />
+      <ComponentRef Id="cmpBE2EDA88D5EF1F0B78C330A9B946A49F" />
+      <ComponentRef Id="cmp95819E600B45A1B4BDD3AD997546BBF9" />
+      <ComponentRef Id="cmp7DD7DA7DB7313B1CFBA83963FCE75868" />
+      <ComponentRef Id="cmpC19B017D46F4E697CC5A042428270F9A" />
+      <ComponentRef Id="cmp3AC626E9AEE8623BB94E087C39AF522A" />
+      <ComponentRef Id="cmpC75177BD421EEC9BE5A8F42C4102F3B3" />
+      <ComponentRef Id="cmp68C622BB555D1D97161333D02AEB8269" />
+      <ComponentRef Id="cmpF0B08D8EF0B91EECE9C6C1255372FD21" />
+      <ComponentRef Id="cmpD809946953976C3A0E70DFEAA8BF28C9" />
+      <ComponentRef Id="cmp2C66A4E445C210CD6FC491E075080C25" />
+      <ComponentRef Id="cmpDD7D621B2EFF93BB535938ACA60D6F66" />
+      <ComponentRef Id="cmpFE332B0BA70C5456381A22C678807707" />
+      <ComponentRef Id="cmp79939BD0CDF79E9100CE40AC02AB229C" />
+      <ComponentRef Id="cmp1EA75742196A10FF30F14DEE49B96795" />
+      <ComponentRef Id="cmp1C6F1E8B3EE6638F19B2B6B60781C542" />
+      <ComponentRef Id="cmpDD9C3F4266C0D772511A8E3E004C740E" />
+      <ComponentRef Id="cmp4D3C068B20C8825215C68B1F7E930CC1" />
+      <ComponentRef Id="cmpFBB84374D34D331D4A70C5347C0AEB74" />
+      <ComponentRef Id="cmp1B78454D2EFD6CA7E314CCA1522394F1" />
+      <ComponentRef Id="cmp61189E8B2BE7FAF502429C0FE47E7A06" />
+      <ComponentRef Id="cmpD4D74F6D02FC5FAC46904DC023C8721B" />
+      <ComponentRef Id="cmp13634991E8945E18C22990324E98D90D" />
+      <ComponentRef Id="cmp353234429CFF6EDCF675D0E6CF0532E4" />
+      <ComponentRef Id="cmp62B4FD48A4EE7B13849B14589E4547B8" />
+      <ComponentRef Id="cmp462E7117B4A83A18A506D7821EC82024" />
+      <ComponentRef Id="cmpEC8DFF1DBFC8725DB7AE7094D45A09A8" />
+      <ComponentRef Id="cmp97F438F6C13EC48634E375808FF099F0" />
+      <ComponentRef Id="cmpF2D8A266A846962711F7B71DFAB843BC" />
+      <ComponentRef Id="cmpDFBF5736FDA4FA2FCE31850089DD291E" />
+      <ComponentRef Id="cmp701EB269D1F380492F5B424195D47E8D" />
+      <ComponentRef Id="cmpD41D4F6C2AED8B7472C71CD4428DAC74" />
+      <ComponentRef Id="cmpC607EB2AEDBB8276BDCBFEDE4ACB9EB6" />
+      <ComponentRef Id="cmpF2CC2F5413806195BDD6BD7DFDBF787E" />
+      <ComponentRef Id="cmp83AE5DE0180F193D62789CA2FD624275" />
+      <ComponentRef Id="cmpDA408C9C6C906711495535BE61D1E21A" />
+      <ComponentRef Id="cmp661844DA70BE67DAF78FF1BBA175467B" />
+      <ComponentRef Id="cmpF7F92053A50CC33BA107312ADFF19978" />
+      <ComponentRef Id="cmp015F6FA35FB18E1C2EEB5AC42C203E8F" />
+      <ComponentRef Id="cmpADE23E0DB3193C97F8FF47DCCE7C493F" />
+      <ComponentRef Id="cmp547E2734AAE058DA2E16BE44E099B77F" />
+      <ComponentRef Id="cmpF508D22220DA864BCB251BFD1F607B01" />
+      <ComponentRef Id="cmp839168DCB1CDA76926423868FFC3F2A4" />
+      <ComponentRef Id="cmpEC9303032DBEE53BFF9965B0B24300A9" />
+      <ComponentRef Id="cmpA76ECCB9C5F33C6B0A03B7259AA53503" />
+      <ComponentRef Id="cmpD704CAD168F9D9829CCC930BF3129E52" />
+      <ComponentRef Id="cmp9A39111E53B04B08B8A95AD9105394EE" />
+      <ComponentRef Id="cmp16049C9F1171098F00AA3BAAFA5C21B9" />
+      <ComponentRef Id="cmpE73EB7A023D3214DD9980210507D5872" />
+      <ComponentRef Id="cmp312ABD53EA88C63F51913B732B4553D7" />
+      <ComponentRef Id="cmp7B970EC56E072ADBDFAA8EA43F8AEBFB" />
+      <ComponentRef Id="cmpF7A9D23954745E3AB80F80CC66D7DA4E" />
+      <ComponentRef Id="cmp4F4E6EA25320FEFE535AE1D48CC1A1A0" />
+      <ComponentRef Id="cmp70041BDEF657F5B55D1729FFD1663D20" />
+      <ComponentRef Id="cmp80500BF75B2668D335FBF6476DEB1F22" />
+      <ComponentRef Id="cmpF7127A85F7A73C03403F6E487A1BC5B7" />
+      <ComponentRef Id="cmp00388CF4D863D25009557B089C711FD2" />
+      <ComponentRef Id="cmp372DA54F7BCB2509CE859B443EB39D0A" />
+      <ComponentRef Id="cmpD6BEF9036C45247DB0E3B055109389CD" />
+      <ComponentRef Id="cmp155CD3D2E861F884F205E9DB61CB7653" />
+      <ComponentRef Id="cmp285C0127842903BE155DE36733E973BE" />
+      <ComponentRef Id="cmp020584801BC7561876D09E2F9908B3F7" />
+      <ComponentRef Id="cmpB861B87D1C3179585FB43A81A61D7604" />
+      <ComponentRef Id="cmpC9862CEC8DF09A19923D0D89DE337467" />
+      <ComponentRef Id="cmpA1CA54DF7E01FB4C28896C3E8CA47E2C" />
+      <ComponentRef Id="cmp2869CB6DBC494EAAF4873A4CF2F89AD1" />
+      <ComponentRef Id="cmpACA464B79E67F44E338033F09C1CE9D3" />
+      <ComponentRef Id="cmp82D34527582E4E37E6E89FC956C5EB83" />
+      <ComponentRef Id="cmp0AA36ADC0E185C8CFB08171EDB9CE066" />
+      <ComponentRef Id="cmp156FB383229535240763BB9B0811423D" />
+      <ComponentRef Id="cmp4C152670884D4308A2ADBF0C5CCBF445" />
+      <ComponentRef Id="cmp50E73D2B6E334DA27B10C08213A361B4" />
+      <ComponentRef Id="cmpD87DCCFFC7F647C0539F6A511E869324" />
+      <ComponentRef Id="cmpBE6F60A5C2E59F7E89A6B69C272D880F" />
+      <ComponentRef Id="cmp594AC62B1B72F931ACF0CA0741E77BC0" />
+      <ComponentRef Id="cmpF3E5440393BA7674A16F42A05F01F161" />
+      <ComponentRef Id="cmp9BD1D0C5F6D2D1EC5B6FEA3D234AF684" />
+      <ComponentRef Id="cmpE6C133E85994285E598DDFB526BB3655" />
+      <ComponentRef Id="cmpB622DDBAAA8D512B270ADFA3FFC9E29A" />
+      <ComponentRef Id="cmp6B1A4AE24E6CD6B71C3703EF51C7892E" />
+      <ComponentRef Id="cmpE3D027F2E7068EB55CD5D89B8DD15CBB" />
+      <ComponentRef Id="cmpC62D56136638EE1E77EC3005B335AF55" />
+      <ComponentRef Id="cmp8313393587C6CF4153AE2A6C4CA25CAC" />
+      <ComponentRef Id="cmpC7FF1FB4AFBA7CBB9C92CEA149D61B3D" />
+      <ComponentRef Id="cmpDC44B9FC7D2F544D2A35329495210B31" />
+      <ComponentRef Id="cmpA47F7DC8FE35F376E453C1EB26DE475F" />
+      <ComponentRef Id="cmpF00089B7DAAFF1645E28C3173E4AC416" />
+      <ComponentRef Id="cmpD1EA02690E463387F743564293C13C02" />
+      <ComponentRef Id="cmpB2FC91F34F103A613B7B144BB4340FF4" />
+      <ComponentRef Id="cmp12D4F58700B91F51C6CF10CE093E3BF3" />
+      <ComponentRef Id="cmpDD9BDBB8A230F5466E618CFA8A142C74" />
+      <ComponentRef Id="cmpBF3D1A6E052017836023E8C330A7AB73" />
+      <ComponentRef Id="cmp480F713AAE033AF562A1975D629511E8" />
+      <ComponentRef Id="cmp0209971F02AE729D84D033FF407371B8" />
+      <ComponentRef Id="cmp925A8C832B54DE5DE9FE4182C1148C4C" />
+      <ComponentRef Id="cmp3825337091DD1E1A871E432D32E06B8A" />
+      <ComponentRef Id="cmp2DE0AA8839A206EDAA0F06EB4E677EAB" />
+      <ComponentRef Id="cmp4CBC661F186D341C507441A72E6B113B" />
+      <ComponentRef Id="cmpF4735CE565DCE3756EAA3E799E925205" />
+      <ComponentRef Id="cmpA4D92CE2B4B51B89BBD0DABE13FDD86B" />
+      <ComponentRef Id="cmp67C2F844DE2B68E3E9A13347C8D31AB1" />
+      <ComponentRef Id="cmp5CFD2CA239D3F90CB023AFD63B0ACA09" />
+      <ComponentRef Id="cmp63F2DD5C56BC5DD7D276ACF98BCA5B8D" />
+      <ComponentRef Id="cmpC85A7AB8759CAA94290524C9DFDAE383" />
+      <ComponentRef Id="cmp02BBFB443F6B71D124707993A815E1DE" />
+      <ComponentRef Id="cmp7F055EB7B2E696BE4011BBE2C75F9F32" />
+      <ComponentRef Id="cmpAE695DF3AA48F60CA4828FBEA7A0C1AF" />
+      <ComponentRef Id="cmp5C984660FBF0DF538D0AC5B2F5E98D09" />
+      <ComponentRef Id="cmp64CBF4364CC92CDD91B6BD876DCDEBD7" />
+      <ComponentRef Id="cmp9492165560176CA62BBC495D37CF7059" />
+      <ComponentRef Id="cmpA4A7FE784A23EA8A932CC161FE331A67" />
+      <ComponentRef Id="cmp852D33A68F48BDA36BE74754C5F3A00D" />
+      <ComponentRef Id="cmpBCE2EC8646D1B6C7A9B1E57AAECF230F" />
+      <ComponentRef Id="cmp5CF16DECCE9083A6FC19F12573C3A1F6" />
+      <ComponentRef Id="cmp373629CE7768BF4360BBD942E62C80B8" />
+      <ComponentRef Id="cmp93824C711C1AA3991F01619DE80DA7E2" />
+      <ComponentRef Id="cmp18DB57992278638E921A477EBAE50908" />
+      <ComponentRef Id="cmp8EC828C171AC88B2281C256BE15ED58B" />
+      <ComponentRef Id="cmpBB975FA95E612C9F8E687B1C545FEF6A" />
+      <ComponentRef Id="cmp7BB426229596EC16F00E0EA793CE7EC8" />
+      <ComponentRef Id="cmpEBAD5E717F970BABF3BE6FA06F3F4AE3" />
+      <ComponentRef Id="cmp276F9CFC59C165307490676A48C5CB62" />
+      <ComponentRef Id="cmp2628470D2E6589DB3E23B5F572621A7A" />
+      <ComponentRef Id="cmp517945F6EC4B972CE638E663F769644E" />
+      <ComponentRef Id="cmp81E655C59D8836290918FB0C52801556" />
+      <ComponentRef Id="cmpFAF99A0720BC44FF101B478FC2F09ABB" />
+      <ComponentRef Id="cmpFAAC660F4A57B1D8A3C737A7291B5C4F" />
+      <ComponentRef Id="cmpAA5648E3F102D59E6A97082A15C832F6" />
+      <ComponentRef Id="cmp8A46681E1AEAF436F56F4ECD6317D56D" />
+      <ComponentRef Id="cmp3EE9182E30B423B164A96A9C58CECE3E" />
+      <ComponentRef Id="cmp3DAB90FE6ACF145BDEC32ED18C024549" />
+      <ComponentRef Id="cmp172FB9CB9EC823081E8B6B2F98C27621" />
+      <ComponentRef Id="cmp6A016E6589D461C51580B6DEC19A0C74" />
+      <ComponentRef Id="cmp24F51FF77A3B0CEB45DC01677372F03E" />
+      <ComponentRef Id="cmp3C5CCB440C8406742BF8F0D99409D739" />
+      <ComponentRef Id="cmpC07AEE768BA26FAF7ABE20894D635807" />
+      <ComponentRef Id="cmp445D66C9C1CD6D18B96F54D9D849B8B2" />
+      <ComponentRef Id="cmp1CD75DC6C508EE3FEE2D2192BD99F388" />
+      <ComponentRef Id="cmp05308E134A1EB213025532C30610AD50" />
+      <ComponentRef Id="cmp1535705AF3288EEFB9583EAA8BAF2DE4" />
+      <ComponentRef Id="cmp38E8D0787999B667D9F699584293DE68" />
+      <ComponentRef Id="cmpDC3EBA1C8BA0F036307C2EF88A2FED56" />
+      <ComponentRef Id="cmp874A2EE49996894F6D64E2F75ECBA2F6" />
+      <ComponentRef Id="cmp6A29661638974DB4325A28EACCD5D249" />
+      <ComponentRef Id="cmpDDE82A858C434F68423208B9316F301A" />
+      <ComponentRef Id="cmpD03E5B3D6B9CD89614A03B637026F281" />
+      <ComponentRef Id="cmpD15A912C17D49546FBFA90D535204B6A" />
+      <ComponentRef Id="cmp12DFFD1E3ED78AF999FA39450B2ED7B3" />
+      <ComponentRef Id="cmp8A7FD037A18FD76E9BF17E8CFE482818" />
+      <ComponentRef Id="cmpE29D0F7C94CEA46A767C9EE1A77EB71D" />
+      <ComponentRef Id="cmpC76789E89159D9253282C4CF36742A66" />
+      <ComponentRef Id="cmp2828F463182E307441776DE6A24DA694" />
+      <ComponentRef Id="cmp02BC56E795965B30F08C34A63728155F" />
+      <ComponentRef Id="cmp21D2210B94CD2130790FABDDD3E4C866" />
+      <ComponentRef Id="cmp2A3BD6B0B9A23DDE8A11895B587B247C" />
+      <ComponentRef Id="cmp26523786E84A7F5498242A2AE2F7AEE5" />
+      <ComponentRef Id="cmp2A54116A3054295174E33A3089494891" />
+      <ComponentRef Id="cmpADD81FF986BC48CF3CE87B1A44164880" />
+      <ComponentRef Id="cmpB785C4DDB5D33A4F5C41D0F172AC889E" />
+      <ComponentRef Id="cmp11F4445685EFF9D762771DE8DEC8142C" />
+      <ComponentRef Id="cmp7A5CFAE27AF859D66CCAF6230FC43CD7" />
+      <ComponentRef Id="cmp037E10D523EF1C2B722C7C46981E108E" />
+      <ComponentRef Id="cmpC84D9CBBDF21403C0F26CBECCC223022" />
+      <ComponentRef Id="cmp000E6FABC3EFDFBD593A0447450956CF" />
+      <ComponentRef Id="cmpC6E1F28F2C9C3D25592A98DD7E6DED8F" />
+      <ComponentRef Id="cmp213EBB01CD252F0296D56CCD4F6DB703" />
+      <ComponentRef Id="cmp6F124819BB6CF793B2A4B26FC6C69DB2" />
+      <ComponentRef Id="cmp7CFB7DC61BCCD50FE67CF2022FA58244" />
+      <ComponentRef Id="cmp61672E05766ED9DA1DD9FC11C80FAD63" />
+      <ComponentRef Id="cmp027C25A4183FB949B4F8C560D3C76EC4" />
+      <ComponentRef Id="cmp6563A5281C0DD9061E2115F6300524A1" />
+      <ComponentRef Id="cmp3D757B65EF3A1C60306844D604AF8D8A" />
+      <ComponentRef Id="cmp0D2B6323066A581AE796288DB0A8EDF7" />
+      <ComponentRef Id="cmpA4EE6629D4DF043102AA33B4A97CD4B8" />
+      <ComponentRef Id="cmp4BC8E2FF116BF8EB3D116D3F4A37A701" />
+      <ComponentRef Id="cmp63C61F620F6E0C5B13B9E8447AD8103F" />
+      <ComponentRef Id="cmp35898B6F241A46BD39D64BBD82769856" />
+      <ComponentRef Id="cmp6E99310137292D3986C9CDC638D62864" />
+      <ComponentRef Id="cmp6C261496A3E7B7F9344D787DE1F290A8" />
+      <ComponentRef Id="cmpA2851D2BEF3C95111852481BD4750535" />
+      <ComponentRef Id="cmp4E75D541C5FFDEFE95215EE12A997766" />
+      <ComponentRef Id="cmp3AA8ACDF4CD4F13E562E28741182A10C" />
+      <ComponentRef Id="cmp50C1C27B8D608C8B3F0115B3C635F568" />
+      <ComponentRef Id="cmp1CF50B343B8AF0221A1C9736F2E42FB5" />
+      <ComponentRef Id="cmp07D69EF2490FE84ECF0591B5225F9D70" />
+      <ComponentRef Id="cmpC0E3D8FB8958239624E34E2988ED60F7" />
+      <ComponentRef Id="cmp821E05C640CFF3622E6AD4ABF49F9074" />
+      <ComponentRef Id="cmp915143FD33EE2A235FF884B3982FE6DE" />
+      <ComponentRef Id="cmpD01BA3DD234205DDC32A08158E141B54" />
+      <ComponentRef Id="cmp1BC53DD261584EECDFD377068E928DF6" />
+      <ComponentRef Id="cmp37C33CC5780E29A6D43E8858AEAB1505" />
+      <ComponentRef Id="cmp0DD78388B47AC9525DB46A6D3F794571" />
+      <ComponentRef Id="cmp3C4553214DB99E708C3CAAECEC827E1F" />
+      <ComponentRef Id="cmp94E90BCBD11A87A17D9BF305C0EC7C9E" />
+      <ComponentRef Id="cmpC7F612F3ACA261B9B69753B8508744BE" />
+      <ComponentRef Id="cmpCB1DA325D2257006CDF7903F65874DB3" />
+      <ComponentRef Id="cmp19CF5333735CE944B9C640CCA93B8743" />
+      <ComponentRef Id="cmp38C73A82DEF824511D7E4B2E315CD44D" />
+      <ComponentRef Id="cmpF94CE9FC9578A4D7A2EE76EA46A6828B" />
+      <ComponentRef Id="cmp9E414F31382E3043FD68BECC61CFFC44" />
+      <ComponentRef Id="cmp39CF013440AEF4D6FACBEA89634D33C2" />
+      <ComponentRef Id="cmp2C264C362D0EA48528281EB1E3C45912" />
+      <ComponentRef Id="cmp1BF0537FA4B52375A6A4CDDA9891F655" />
+      <ComponentRef Id="cmpD4C14F51C4BDE5A788ACF2B6A56EAB09" />
+      <ComponentRef Id="cmpC12C0F11818642AC126BA75C0DE7E33C" />
+      <ComponentRef Id="cmp3F33A573B3CA621970DEF4D12621C938" />
+      <ComponentRef Id="cmp6851FA906F15707798D9A3ABE16D9D0A" />
+      <ComponentRef Id="cmp9E980232802B4A577626AF69FC395582" />
+      <ComponentRef Id="cmp1D69F7A5243EBC145B85B01EB5C60660" />
+      <ComponentRef Id="cmp4BFDF2F81F3A51D21EE70A185517B249" />
+      <ComponentRef Id="cmpA90FDC00BA20C491AB28C68D20EEF2B2" />
+      <ComponentRef Id="cmp0F4BF0CC492AC7D2DAA8EA4FE3C1358D" />
+      <ComponentRef Id="cmp733BBA4D9904558084EBE9F3AE46B417" />
+      <ComponentRef Id="cmp53F636B9FE915A76EB2056967C1F6B4E" />
+      <ComponentRef Id="cmpD4FD668549FD35394DC2127E7556CCD5" />
+      <ComponentRef Id="cmp7EDED6701FBA968EC9230B20264EE0CF" />
+      <ComponentRef Id="cmpCB57F9465AA497B118140CDEED2AEE1F" />
+      <ComponentRef Id="cmp05DF82DD2EB506AA655239C3AF0688BD" />
+      <ComponentRef Id="cmpB0C485AAC72830A04086B3169CBACB62" />
+      <ComponentRef Id="cmp0AB6450B9C8F5ADCDC691C2C22325480" />
+      <ComponentRef Id="cmpBE8B5DBE148F0150325E3D47E447D36C" />
+      <ComponentRef Id="cmp8A893EFFF415F3574CC556F73B075E6A" />
+      <ComponentRef Id="cmpAE1F039153925C744FB01D332047D429" />
+      <ComponentRef Id="cmp6A31D188ADDD30DB64A4B56D669BC065" />
+      <ComponentRef Id="cmpBF801251EFBEEB18608F176786EA167C" />
+      <ComponentRef Id="cmpB1623209BBA055A1FB1141D876643CD7" />
+      <ComponentRef Id="cmp143AE52FE214A62A85FED05940537235" />
+      <ComponentRef Id="cmp77298C2497DD229495195BB3AE94C3FA" />
+      <ComponentRef Id="cmp438D8087CF840DBFC0043D07B2DC5228" />
+      <ComponentRef Id="cmp026C9E8F62FB76686F3762AB4D2E9588" />
+      <ComponentRef Id="cmp01D5EF13A6B826334800599C2F9D0FD8" />
+      <ComponentRef Id="cmp4690BB391F24FE1A654C9BBDE51BDC58" />
+      <ComponentRef Id="cmp32ED1B7A2A4E837BC15F347EFEDE3A58" />
+      <ComponentRef Id="cmpC4A37CDD52735BD1D2248A4AD4CFEF87" />
+      <ComponentRef Id="cmp8E09F8823EB67E6085CE606FE2B0564B" />
+      <ComponentRef Id="cmp961282B356250270EA7F9B26C29BDC3E" />
+      <ComponentRef Id="cmp5CC996B20CD1468D5060BA8FDA2B18F9" />
+      <ComponentRef Id="cmp75DED5F5CC31EF111A0EC706186638FA" />
+      <ComponentRef Id="cmp27F92D36968D98F03A5A8F0ABF856789" />
+      <ComponentRef Id="cmp4A88FC40A669C8C308BA76E3E7E239A3" />
+      <ComponentRef Id="cmpB8F60F1398B461CDD3E8118903EA16A7" />
+      <ComponentRef Id="cmp90DCB81A32DD5B784D4E7F0C8B378B1F" />
+      <ComponentRef Id="cmp35C9F8FC94E8BB1AAA6F69ADE748613A" />
+      <ComponentRef Id="cmp12877EE633BCC005F2CF2D4CD8B4FD8D" />
+      <ComponentRef Id="cmpB31BB9EB122E0D2419B42A7F805E3340" />
+      <ComponentRef Id="cmp9B32B4080C40BB19D8B10A28B182D68B" />
+      <ComponentRef Id="cmp7C3BB662809C1B336CABC441072163DC" />
+      <ComponentRef Id="cmpA2F9A0CC38F37FF126B4CC7DE1E7FE5C" />
+      <ComponentRef Id="cmp8587C838095CD8C58FD44BA5AADB902C" />
+      <ComponentRef Id="cmpD1FE5030E3515393B3E1FFB74C582573" />
+      <ComponentRef Id="cmpA9E47CC80E5B30C05B61E2E59B6B2644" />
+      <ComponentRef Id="cmp6A65C5500490784E4873C2C479DBEEF8" />
+      <ComponentRef Id="cmpAF5C562D18625DE7EFF409E6DFD7E275" />
+      <ComponentRef Id="cmp246D1C694E6D335DC1C5278387957D27" />
+      <ComponentRef Id="cmpFB09AEB2F310101E4DA3348ED1B73389" />
+      <ComponentRef Id="cmpF03ECE629C80261F157948586A1CAEC9" />
+      <ComponentRef Id="cmpECC06E5D785BBFFEB4BA18029388236B" />
+      <ComponentRef Id="cmp3618D4B99878FAB995F75CB2D8686DC9" />
+      <ComponentRef Id="cmp1AB76D680F5193C403CC6272686DAC9A" />
+      <ComponentRef Id="cmpB499F9A4F2A921DC37BE8795DAABE5A7" />
+      <ComponentRef Id="cmp3BD1411476044FFB59A5E0DF84C3C0D9" />
+      <ComponentRef Id="cmp29068C0E95CD84F4A6783D92CB21EF01" />
+      <ComponentRef Id="cmp20CD0D5CF70D8CA91FD1DE7B0DCC866D" />
+      <ComponentRef Id="cmp1D4453F0D861BDC5C2AF678A9A45D27E" />
+      <ComponentRef Id="cmpADF4DD6B93BAA179B8D63BFBC4E14255" />
+      <ComponentRef Id="cmpF022D0CB8E8CB459E494EA4017D8A0CA" />
+      <ComponentRef Id="cmp3A56525F8659E56E5B68C0A854ADE48B" />
+      <ComponentRef Id="cmp93600A1AF9021E12F1BF19E85E567E77" />
+      <ComponentRef Id="cmp470330EB931D6573BC7AC1B81BC25A37" />
+      <ComponentRef Id="cmp0238BF5EAB6E50BE134B1E6C30321F05" />
+      <ComponentRef Id="cmpDBC03E3DBDDD73FF0780D77D446D3B36" />
+      <ComponentRef Id="cmpD2859E6A9E15C4AAD54F215AE097F5D5" />
+      <ComponentRef Id="cmp9AF40A75D7009CECCEAC097729DD559D" />
+      <ComponentRef Id="cmp439ABEB7A52293B5151FB10F2AD6E9A4" />
+      <ComponentRef Id="cmp17C64E7156DA903F782D9F0DE6B314D9" />
+      <ComponentRef Id="cmpB3F0905E845E6A3FCD263A65D3D32F02" />
+      <ComponentRef Id="cmpC4B5B1C95270941A3CCD6155B705F927" />
+      <ComponentRef Id="cmp868619C3D3315CAB82C52E230A2AC6D0" />
+      <ComponentRef Id="cmp098D560E97C33C0EBCB6C81C11367F73" />
+      <ComponentRef Id="cmp367945A727A2034CE2AC069A2737533A" />
+      <ComponentRef Id="cmpDE5F9DC38EA83C0A00303DCCCC420A42" />
+      <ComponentRef Id="cmpFF1DE668DC4D28CDC45658106476F943" />
+      <ComponentRef Id="cmp83086E289C0E324E8B872D381AA47A30" />
+      <ComponentRef Id="cmp8B34D573A182A628200CFDB2B15D4AB8" />
+      <ComponentRef Id="cmp889DE9D25D6CFB2F9767ABF35EAED2EE" />
+      <ComponentRef Id="cmpBC2EAFD5C113F7C074528D0C82003A88" />
+      <ComponentRef Id="cmpEDBEDF494DCA0F1A1F402FA1A3F94BE3" />
+      <ComponentRef Id="cmpD9E574B9D7D2BDAC0416F1713A20E5D5" />
+      <ComponentRef Id="cmp568A150FB6CD177FE8114E37342B3BA1" />
+      <ComponentRef Id="cmpFE705A1B0580C1E8C7FCEEDE3DC97B26" />
+      <ComponentRef Id="cmp4E30200BB5D36ADC1ECD8DAFC5A32ED0" />
+      <ComponentRef Id="cmpDA3677B5E3AB5A7EB21542F5BD6574EE" />
+      <ComponentRef Id="cmp446FB8C886F04CE86F4F90DC79F5DD06" />
+      <ComponentRef Id="cmp18A10D40F28E9B6E1C361E012B35F31C" />
+      <ComponentRef Id="cmpFF8E4237B15FCCAFFA39AAB69419336D" />
+      <ComponentRef Id="cmpF88D4FDCB38D4ACBB1561877300AE122" />
+      <ComponentRef Id="cmpD95E6DFDC02857ACEF6B3C43A553B1A7" />
+      <ComponentRef Id="cmpEFB83B9CAF833BB7FD0472A1066D7EF9" />
+      <ComponentRef Id="cmp54C4064130B09F122DD8D53D9695062F" />
+      <ComponentRef Id="cmpB92C90EAAEFB17993DB91A89F836B6A8" />
+      <ComponentRef Id="cmp1053472A72A0DACC5B9CA41289B4AA23" />
+      <ComponentRef Id="cmp6072A66C821ABB2DADA512C27926C9B6" />
+      <ComponentRef Id="cmpF9237A3EC53B553A094CDAC9A0B2A074" />
+      <ComponentRef Id="cmpD5D9316C918AEDD8075D0BC623D85154" />
+      <ComponentRef Id="cmp5DE7180B220FFAF0BDA8039A611E06F6" />
+      <ComponentRef Id="cmp5C653A05CA7D26DE1FF54A43F9617F45" />
+      <ComponentRef Id="cmpB9F1C3D01B5986C0952ED4ADF10BE581" />
+      <ComponentRef Id="cmpEFF1F84C0079B2056047A26EC00408C7" />
+      <ComponentRef Id="cmp6167ABF011A6B7B322F880C8CDD0EE2A" />
+      <ComponentRef Id="cmp62A98A0324298585AE15C5ECC1F70A5C" />
+      <ComponentRef Id="cmpD33B15E34EB00CADFDEDDF3D9149ABF7" />
+      <ComponentRef Id="cmpAAC2D61D16BC21380148EDA23CFE3C54" />
+      <ComponentRef Id="cmpBDCD3D4D41A68D6A617AAE54D178C1E7" />
+      <ComponentRef Id="cmp0A682882C8EC3FF17B2E56FE41FD6BE3" />
+      <ComponentRef Id="cmp141E3C6E1BE67450508B2A027D61A366" />
+      <ComponentRef Id="cmp42CD7C3103BC6C6531758D31F843CF61" />
+      <ComponentRef Id="cmp4FA31A96CFB6F59C8D66ED6B5636A7F9" />
+      <ComponentRef Id="cmpAB7052C6B297B64BA2B2FDCA2B67F4EA" />
+      <ComponentRef Id="cmp88A17F63EAB109EF0FE9344423AD2CA2" />
+      <ComponentRef Id="cmp1C1DBB0282FAE30376D04AC456F2D87D" />
+      <ComponentRef Id="cmp1E0D30EB04D84541A297312AB2386D0F" />
+      <ComponentRef Id="cmp09D2C49F4B43FCD27982126100D57720" />
+      <ComponentRef Id="cmp412838A64777084C09FDF3CAF9AECB68" />
+      <ComponentRef Id="cmpD7253ABD7E27F0B75B7511D6088EC7D0" />
+      <ComponentRef Id="cmpB8D40EC1304825FAD3D9A1046DA1111F" />
+      <ComponentRef Id="cmpF744C745CC37AD1CF2E2BBFB65F00F9C" />
+      <ComponentRef Id="cmp8B442296973BB1BAF0476DC9523B2A47" />
+      <ComponentRef Id="cmp0A3A38C1F66A21AB7E19A23199B51470" />
+      <ComponentRef Id="cmp29E0AEC7C051D4B918E0E08E83942C7D" />
+      <ComponentRef Id="cmpA49B98BD0A944612CEAAA7159D373A21" />
+      <ComponentRef Id="cmpB544A185F77F1CE002CF64CEC4FE7A79" />
+      <ComponentRef Id="cmp9AB16F14D1457472248EB0CFE67631FA" />
+      <ComponentRef Id="cmp6B26108BAB2088852E986E51C4BA04C8" />
+      <ComponentRef Id="cmpBEEB1C912FF9DFACB60B9A8ACB88DB3F" />
+      <ComponentRef Id="cmp5FE6A2A229E224BFCC045E309843E20C" />
+      <ComponentRef Id="cmp1216927EBE197B31F542C657B22ADD45" />
+      <ComponentRef Id="cmp9193585B38296F2B0D3617B8FA1834B0" />
+      <ComponentRef Id="cmp9836A88E29321D4CEF2E6BE1F317D204" />
+      <ComponentRef Id="cmp2C892793545A71221BA8CC460FED322D" />
+      <ComponentRef Id="cmpBBD0BB175803A1BCB2F901172CAF129F" />
+      <ComponentRef Id="cmp8CE967A188C7E3C5C1EE17FA82D4202D" />
+      <ComponentRef Id="cmpBB01806C23772B97A1A16371D62EF3C0" />
+      <ComponentRef Id="cmp04C671417318E5D7316E85EF60E125A7" />
+      <ComponentRef Id="cmp123CEB56441099EB6A710F58FA0C6A05" />
+      <ComponentRef Id="cmpB0E75541F6536A8083B9C743D81E213E" />
+      <ComponentRef Id="cmp01B78EAFB492A352E9544B69E4301BE5" />
+      <ComponentRef Id="cmp333B4101B5035307844EEE94165FA477" />
+      <ComponentRef Id="cmp3AC77623C5F414129AE2F8AB1656921A" />
+      <ComponentRef Id="cmp9216A12D70EBB3ECA0559700032AF705" />
+      <ComponentRef Id="cmpB05C18A497EA5AA06697583107220C53" />
+      <ComponentRef Id="cmp330D6E05A91071A742E17ABD5B2D715E" />
+      <ComponentRef Id="cmp61763F8ABE6F1FA7E0BBACAA354147F1" />
+      <ComponentRef Id="cmp4CAA7A2E2A4F762D41A9CBF54F418358" />
+      <ComponentRef Id="cmp745034DAA153B2309E50A42F7421585E" />
+      <ComponentRef Id="cmp885B340FAA9301EEEA02BC9B9F867B6E" />
+      <ComponentRef Id="cmpFDB64EB5DB0E12898F906AD89B650EF5" />
+      <ComponentRef Id="cmpB7E6CE7E66A6BFF3C0D29E65885647F3" />
+      <ComponentRef Id="cmpC6DA7A56DD5F331CEA1909D672CC0A7C" />
+      <ComponentRef Id="cmp8A89710F099AFCAD4E38C6046A318D10" />
+      <ComponentRef Id="cmp49BA9FE95F209A4E4F378BB08FEE498E" />
+      <ComponentRef Id="cmpFF8BEA93BE04FBE2D5D880C70776C6DE" />
+      <ComponentRef Id="cmpA8B27210DFC8DBAEC20437EA5CA05B15" />
+      <ComponentRef Id="cmpEEB69A0332C9A3A5BB07B1A19BB83FA8" />
+      <ComponentRef Id="cmp0B4161456E564579C71E4323373D81A8" />
+      <ComponentRef Id="cmp1DF9E36F9216FBC7CAB75C198E7F716C" />
+      <ComponentRef Id="cmp99A37578E1854DE33A55338596D4E3B2" />
+      <ComponentRef Id="cmp8CE0DE8BC716A0B2647B881A0DD63292" />
+      <ComponentRef Id="cmpCFBB56E11FF65D686EF59AF05698DE8D" />
+      <ComponentRef Id="cmp05A0A4493A04145C5847E4E3BBE23587" />
+      <ComponentRef Id="cmp6628B3EA1767C6BCB2A9244B63F1608D" />
+      <ComponentRef Id="cmp711C399315EB53BDCA9BFFD7801E81AF" />
+      <ComponentRef Id="cmp67CE5ADDD963E849496D4F7CC13EA5B4" />
+      <ComponentRef Id="cmpF82C2C26480B6398F8FC6D8121D248C3" />
+      <ComponentRef Id="cmp5AFA32C4DD962FFFB20338E8D1FE76AF" />
+      <ComponentRef Id="cmp14F0F2EA4F0ED235C4AB5F8FE7B243DC" />
+      <ComponentRef Id="cmp1FAB50D96DBC3FBBE7EBBDC6116C7550" />
+      <!--<ComponentRef Id="cmp23D29BEAC4926E64AB0A1B84429959A8" />-->
+      <ComponentRef Id="cmpE10900431AB440F7F20DF15547C2B2BB" />
+      <ComponentRef Id="cmp87AB1BC09ED07EFB262FE27F7C4D8119" />
+      <!--<ComponentRef Id="cmp36E8D9D22ABF0FAE0C95C470A05796DD" />-->
+      <!--<ComponentRef Id="cmpD51F1303DA0BCD69F84974243D3257BE" />-->
+      <!--<ComponentRef Id="cmpEE38CFFC3E5ADF81F0E73423DD274AB7" />-->
+      <ComponentRef Id="cmp58B994AA48AA01DDB7923430634FB402" />
+      <ComponentRef Id="cmpCD6C366D4EBBC48444A196E392E98A74" />
+      <ComponentRef Id="cmp5D7D2F8E22210B4E31EB496B4FF609BA" />
+      <ComponentRef Id="cmp65D785CFF49F8FC54CDEF1DF347C8BFB" />
+      <ComponentRef Id="cmp28BA31F2B26F4712ED3F501CD8D70E19" />
+      <ComponentRef Id="cmp7BD4674F30F0E7CD640B94EDF63EA4C5" />
+      <ComponentRef Id="cmp5D113D2268B8F32DDE6BF698D6883F69" />
+      <ComponentRef Id="cmp79040B9F1A5A4B8983D2D6239E6FD828" />
+      <ComponentRef Id="cmpDD316D5F5C02B8EEACE99F71402EE4F0" />
+      <ComponentRef Id="cmpA9275CB0A859F2A45B002FDC11653685" />
+      <ComponentRef Id="cmpE568314B797CBECEB7CA770DF45C70FC" />
+      <ComponentRef Id="cmp30F4E1DFBD0FA9BD512F329A1241AEA3" />
+      <ComponentRef Id="cmp28A4BE63F5C18A5C5D5C50249DBA2999" />
+      <ComponentRef Id="cmpE842454B99E0217CA81BB7AA0F31060A" />
+      <ComponentRef Id="cmpCC7FB466042EAEBE6BEB5BA4EFF26B16" />
+      <ComponentRef Id="cmpD4FA5963C7B7DD8064EB686579CF5B28" />
+      <ComponentRef Id="cmpC3F0D5956EECB9562BCF6482DDB68610" />
+      <ComponentRef Id="cmp8C24D3195A7B48FA387E2AC1CCB554D8" />
+      <ComponentRef Id="cmp43F93AC473A9CF1C81BAD2ECC07B24F5" />
+      <ComponentRef Id="cmp9FC7F510C89675CE9201297838656936" />
+      <ComponentRef Id="cmp737CCE87CE83D0DECED090428CEF9956" />
+      <ComponentRef Id="cmpE5B4B6204BC3AEC0F0A883C2EC0AE3B2" />
+      <ComponentRef Id="cmp64611C5EBD6125AE72A1FCF230723A03" />
+      <ComponentRef Id="cmp3D1E4A0F613E8FA38F6A0164F0ED0EA3" />
+      <ComponentRef Id="cmp754224BD1D8B39EF092994540807FE69" />
+      <ComponentRef Id="cmpC83BA94E4F815A76B11099C2F115514F" />
+      <ComponentRef Id="cmpA88C8A9C8003EB8A5B9EC1D8C47833BA" />
+      <ComponentRef Id="cmp820A75967A05C32CEE79053BC94DAAEC" />
+      <ComponentRef Id="cmp644B6A3461BB5DF6448146F9ACBBB875" />
+      <ComponentRef Id="cmpD1593F8538A53557CB038D487FC72AEF" />
+      <ComponentRef Id="cmpB92EC446C0A1CFD7B2238859910F652E" />
+      <ComponentRef Id="cmp1F77E17BBC67A1FBF40FF4E3BF12FC44" />
+      <ComponentRef Id="cmpC75EF4F94D2990AD33D13E707FEE37CC" />
+      <ComponentRef Id="cmp917DDCC27396E443F261FCCB95013020" />
+      <ComponentRef Id="cmp1EFE6516A09E4C8C13F70CA766F0CD8F" />
+      <ComponentRef Id="cmp40B4C69D3957848FEED0A91D72DF7B9E" />
+      <ComponentRef Id="cmpF16FD98277E82B737D9E8E13223FE7C4" />
+      <ComponentRef Id="cmp39AFFA3747B73B7C035B91EC8CAC38A5" />
+      <ComponentRef Id="cmpA5AD412DC171AD8E101787308B600160" />
+      <ComponentRef Id="cmp289A77A4B2FED36A0B54BAE66021F780" />
+      <ComponentRef Id="cmpCAD73CB834F313011369476540178015" />
+      <ComponentRef Id="cmpBA34D5FBAB5EC200FB873D0118F42754" />
+      <ComponentRef Id="cmp4CD142562409D4C8333AE694EE498ED2" />
+      <ComponentRef Id="cmp75F30D2A009BDBBA83714249E6FA87A9" />
+      <ComponentRef Id="cmp9477779D4562C83ABAC11D093AC987C9" />
+      <ComponentRef Id="cmp495DA0C9E5D88E1EC5B4285F303E902E" />
+      <ComponentRef Id="cmp89049987FE3831A1A9785D7D2CE8795D" />
+      <ComponentRef Id="cmp6E55E7559185B2BFA27AE690DD5F6FE6" />
+      <ComponentRef Id="cmpF991EC3E244453D5075EE88492EBBB46" />
+      <ComponentRef Id="cmp91830063C04C37699041710A293367E2" />
+      <ComponentRef Id="cmp3E95CE7223D6A17B446A6702F9EDA940" />
+      <ComponentRef Id="cmp8C8D53982CACBF4DDC1EDED20757FAFE" />
+      <ComponentRef Id="cmpE82853146A9B69D37AA5783E582D92D4" />
+      <ComponentRef Id="cmpF63D0AD328239FBD438158B94A63E308" />
+      <ComponentRef Id="cmp4507F53D02C89A3E8561DDEA4828D5EF" />
+      <ComponentRef Id="cmp96BE52E50727DDA7C3ADA0D0B05CB127" />
+      <ComponentRef Id="cmp9E1D961FECD55E9D8D1CDC4054D71A30" />
+      <ComponentRef Id="cmpA22AA7F7468D5075373BE40F40E61468" />
+      <ComponentRef Id="cmp9992AA12C4D69FFAD2197784E2A32974" />
+      <ComponentRef Id="cmpC99526E18236374270D3DDF47A0AA600" />
+      <ComponentRef Id="cmp973CEAD9F41DCEC5B5AA2E2C2E89DDF7" />
+      <ComponentRef Id="cmpEB8E11499A3277AFEF005A7C216D54C0" />
+      <ComponentRef Id="cmpB7CE3F8A0151BAFF09B13906374236AE" />
+      <ComponentRef Id="cmp4F57FC9F528D72FDA931CE9067A4C95B" />
+      <ComponentRef Id="cmp6E92C07FDE86B3D556DADAE7DF7AC417" />
+      <ComponentRef Id="cmp5121F65301EB09DEC8E7E702F700EE78" />
+      <ComponentRef Id="cmp0EA7EF2F36C313ECAD71BBC1F6EE5787" />
+      <ComponentRef Id="cmp4F4606D5ECA65AC956AF8B7AAB0634FB" />
+      <ComponentRef Id="cmp4604D24A6EE55D7E7BCF3BBE86EDAE18" />
+      <ComponentRef Id="cmp6CB0BE8A1A452664DBD805465D154572" />
+      <ComponentRef Id="cmpFD0FF834FBCA09EDA4DA1727AF62638B" />
+      <ComponentRef Id="cmp352515CCC76FB9ABCDF8007F78C56B7B" />
+      <ComponentRef Id="cmpDA23C828C4CBEC0D2383FE2EC8450551" />
+      <ComponentRef Id="cmp20A87848A709EA928F15CEFF19BA63F2" />
+      <ComponentRef Id="cmp486DFB58DEED1C9B8A8ADB2F1613AA30" />
+      <ComponentRef Id="cmp658F9B006D5FD0C7B65253D59ECF4E1B" />
+      <ComponentRef Id="cmpC1223F710160186ADB4DAF80AD1E0653" />
+      <ComponentRef Id="cmpD834B8A322F5E83B23055749C90F2742" />
+      <ComponentRef Id="cmp410F99D6AACC1C82B89D98C8CDCB45CD" />
+      <ComponentRef Id="cmpE92518806BA7DA7F0678325A185D2752" />
+      <ComponentRef Id="cmpEF689B5E28BB39F44561FEC2A6EBEE23" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>
