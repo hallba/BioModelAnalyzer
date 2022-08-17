@@ -16,6 +16,7 @@ namespace bma.Diagnostics
         {
             this.debugMessages = new List<string>();
             this.errorMessages = new List<string>();
+            LogDebug("Starting UCL toy test version");
         }
 
         public string[] DebugMessages
