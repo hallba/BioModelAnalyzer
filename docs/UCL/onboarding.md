@@ -5,6 +5,7 @@ This document is intended to help developers at UCL's Advanced Research Computin
 
 ## Installation
 - Clone BioModelAnalyser
+- Open the directory in visual studio 2019
 - Open the terminal powershell within visual studio
 - Run the three powershell scripts:
 - - .\PrepareRepository.ps1
