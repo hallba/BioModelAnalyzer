@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	  <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AssemblyName>BioCheckAnalyzer</AssemblyName>
     <PackageId>BioCheckAnalyzer</PackageId>
     <Authors>Ben Hall, Nir Piterman, Nikita Skoblov, Sergey Berezin</Authors>
@@ -12,11 +13,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FParsec" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Z3.x64" Version="4.5.0.1" />
+    <PackageReference Include="Microsoft.Z3" Version="4.10.2" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.3.1" />
+    <PackageReference Update="FSharp.Core" Version="4.3.4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Version.fs" />

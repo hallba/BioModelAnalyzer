@@ -30,7 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
     <ProjectReference Include="..\BmaBioCheckAnalyzer\BmaBioCheckAnalyzer_Standart.csproj" />
-    <ProjectReference Include="..\Jobs\JobsRunner\JobsRunner_Standart.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

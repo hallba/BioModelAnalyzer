@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	  <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
@@ -15,11 +16,13 @@
     <Compile Include="Simulation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharp.Core" Version="4.3.1" />
+    <PackageReference Include="FSharp.Core" Version="4.3.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
     <ProjectReference Include="..\BioCheckAnalyzer\BioCheckAnalyzer_Standart.fsproj" />
+    <ProjectReference Include="..\Jobs\JobsRunner\JobsRunner_Standart.csproj" />
+	  <PackageReference Include="Microsoft.NETCore.Targets" Version="4.3.0" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
