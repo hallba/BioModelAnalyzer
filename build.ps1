@@ -1,5 +1,10 @@
 # Copyright (c) Microsoft Research 2016
 # License: MIT. See LICENSE
+
+
+# First delete obj files that are causing conflict from multiple build environments
+.\Clean.ps1
+
 if ([Environment]::Is64BitOperatingSystem) {
     $pfiles = ${env:PROGRAMFILES(X86)}
     $platform = '/p:Platform="x64"'
