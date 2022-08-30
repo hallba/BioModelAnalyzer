@@ -66,6 +66,7 @@ if (!(Test-Path '.\paket-files')) {
 }
 $config = '/p:Configuration=Release'
 $env:errorLevel = 0
+echo "Starting to build" "******************" $msbuild $solution $config $platform "******************"
 $proc = Start-Process $msbuild $solution,$config,$platform,'/t:Rebuild' -NoNewWindow -PassThru
 $handle = $proc.Handle #workaround for not-working otherwise exit code
 $proc.WaitForExit()
