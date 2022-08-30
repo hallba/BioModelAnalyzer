@@ -20,7 +20,7 @@
             switch (options.issucceeded) {
                 case true:
                     $('<img src="../../images/analysis/BMA_Stable_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
-                    $('<div></div>').addClass('stabilize-prooved').text('Stabilizes').appendTo(this.resultDiv);
+                    $('<div></div>').addClass('stabilize-prooved').text('Stabilizes X').appendTo(this.resultDiv);
                     break;
 
                 case false:
@@ -30,7 +30,7 @@
 
                 case undefined:
                     $('<img src="../../images/analysis/BMA_Failed_Icon.svg">').width(30).height(30).appendTo(this.resultDiv);
-                    $('<div></div>').addClass('stabilize-failed').text('Service Error').appendTo(this.resultDiv);
+                    $('<div></div>').addClass('stabilize-failed').text('Service Error C').appendTo(this.resultDiv);
                     break;
 
                 default:

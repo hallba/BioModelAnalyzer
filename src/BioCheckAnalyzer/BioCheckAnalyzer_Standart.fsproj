@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	  <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <AssemblyName>BioCheckAnalyzer</AssemblyName>
+	  <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
+	  <AssemblyName>BioCheckAnalyzer</AssemblyName>
     <PackageId>BioCheckAnalyzer</PackageId>
     <Authors>Ben Hall, Nir Piterman, Nikita Skoblov, Sergey Berezin</Authors>
     <Company>University of Cambridge</Company>
     <Product>BioCheckAnalyzer</Product>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+	  <RuntimeIdentifiers>win;win-x64;win-x86</RuntimeIdentifiers>
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ namespace BackendFunctions
             try
             {
                 var output = Utilities.RunWithTimeLimit(() => Analysis.Analyze(input), defaultTimeLimit);
-                return JsonConvert.SerializeObject(output);
+                return JsonConvert.SerializeObject(output);                
             }
             catch (BackendUtilities.TimeoutException ex)
             {

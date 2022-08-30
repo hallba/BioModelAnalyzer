@@ -252,7 +252,7 @@ module BMA {
 
             public CreateMessage(stable: boolean, time: number): string {
                 if (stable) {
-                    return 'BMA succeeded in checking every possible state of the model in ' + time + ' seconds. After stepping through separate interactions, the model eventually reached a single stable state.'
+                    return 'X BMA succeeded in checking every possible state of the model in ' + time + ' seconds. After stepping through separate interactions, the model eventually reached a single stable state.'
                 }
                 else return 'The analysis failed to determine whether the model was stable or unstable. Use further testing to determine the end states of the model.';
             }

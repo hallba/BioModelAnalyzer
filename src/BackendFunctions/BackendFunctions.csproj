@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+  <PropertyGroup>      
+	  <!--<TargetFrameworks>netcoreapp2.2</TargetFrameworks>-->
+	  <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <Platforms>AnyCPU;x64</Platforms>
+	  <RuntimeIdentifiers>win;win-x64;win-x86</RuntimeIdentifiers>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
   </PropertyGroup>
   <PropertyGroup>
     <EnableDefaultItems>false</EnableDefaultItems>
@@ -13,17 +16,22 @@
     <Compile Include="AnalyzeLTLSimulation.cs" />
     <Compile Include="FurtherTesting.cs" />
     <Compile Include="Simulate.cs" />
+    <Compile Include="TestConnection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <!-- <Content Include="local.settings.json">
+    <Content Include="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content> -->
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.31" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BackendUtilities\BackendUtilities_Core.csproj" />

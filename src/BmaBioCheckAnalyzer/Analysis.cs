@@ -55,11 +55,12 @@ namespace bma.BioCheck
             try
             {
                 IAnalyzer analyzer = new UIMain.Analyzer();
-                if (input.EnableLogging)
-                {
-                    analyzer.LoggingOn(log);
-                }
-                else
+
+                //if (input.EnableLogging)
+                //{                   
+                //   analyzer.LoggingOn(log);                                    
+                //}
+                //else
                 {
                     analyzer.LoggingOff();
                     log.LogDebug("Logging is disabled.");
@@ -70,7 +71,8 @@ namespace bma.BioCheck
                 var result = analyzer.checkStability(input);
                 sw.Stop();
 
-                log.LogDebug(string.Format("The analysis took {0}", sw.Elapsed));
+                //log.LogDebug(string.Format("The analysis took {0}", sw.Elapsed));
+                log.LogDebug(string.Format("V3.0 The analysis took {0}", sw.Elapsed));
 
                 if (result.Status != StatusType.Stabilizing && result.Status != StatusType.NotStabilizing)
                     throw new Exception("The stability status is neither 'Stabilizing' nor 'NotStabilizing'; result error: " + (result.Error == null ? "<null>" : result.Error));

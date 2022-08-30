@@ -5,7 +5,7 @@ module ``Deployment Tests``
 open NUnit.Framework
 open CheckOperations
 
-let urlApi = "http://localhost:8223/api/"
+let urlApi = "http://localhost:1234/api/"
 //let urlApi = "https://ossbmaapiserver.azurewebsites.net/api/"
 
 let performSR endpoint job =
