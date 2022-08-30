@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>      
 	  <!--<TargetFrameworks>netcoreapp2.2</TargetFrameworks>-->
-	  <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
 	  <Platforms>AnyCPU;x64</Platforms>
 	  <RuntimeIdentifiers>win;win-x64;win-x86</RuntimeIdentifiers>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>

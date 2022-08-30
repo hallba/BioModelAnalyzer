@@ -140,6 +140,11 @@
       <Project>{a314f5c8-d91b-4ac0-a9ce-22bd7696dbff}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\bma.package\bma.package.csproj">
+      <Name>bma.package</Name>
+      <Project>{68a7f32f-0860-4688-8c82-c55196461e48}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\BMAWebApi\BMAWebApi.csproj">
       <Name>BMAWebApi</Name>
       <Project>{6652fdab-c878-4661-baad-664cf8327467}</Project>

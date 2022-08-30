@@ -14,6 +14,9 @@ if (!(Test-Path $selfhost)) {
         exit 1
     }
 }
+echo "Running" $selfhost
+echo "In" $selfhostdir
+
 $proc = Start-Process $selfhost '-b' -WorkingDirectory $selfhostdir -NoNewWindow -PassThru
 $handle = $proc.Handle #workaround for not-working otherwise exit code
 $proc.WaitForExit()
