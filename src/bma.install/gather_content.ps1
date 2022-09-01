@@ -6,6 +6,9 @@ $locdir = $loc+"Debug\"
 $vsdir = "C:\UCL\github\BioModelAnalyzer\src\bma.selfhost\bin\Debug\"
 ###################################################
 
+
+##### 1 ) ####### Compile bma.standalone in debug x86
+
 # Making some paths
 $wxs = $loc+"selfhost.wxs"
 if (Test-Path $locdir) {Remove-Item $locdir -Recurse}
