@@ -3,11 +3,16 @@
 ############## SERVER ##########################
 ################################################
 
-####### ENTER YOUR PATHS HERE ######################
-# Copying files to a temporary location
-$version = "1.13.0.2"
-$root = "C:\UCL\github\BioModelAnalyzer\deployment\"
-$sln_server = "C:\UCL\github\BioModelAnalyzer\sln\BackendFunctions\BackendFunctions.sln"
+####### ENTER YOUR INPUTS HERE ######################
+$version_major = "1"
+$version_minor = "13"
+$version_build = "0002"
+$gitdir = "C:\UCL\github\BioModelAnalyzer\"
+$loctmp = "C:\tmp\"
+###################################################
+$root = $gitdir+"deployment\"
+$sln_server = $gitdir + "sln\BackendFunctions\BackendFunctions.sln"
+$versionfile = $gitdir+"src\BackendFunctions\ServerVersion.cs"
 ###################################################
 #  $false or $true
 $doPython = $true
@@ -20,7 +25,7 @@ cd $root
 ########## RUN PYTHON SCRIPT #############
 if ($doPython)
 {
-    python .\PrepareServer.py $version
+    python .\PrepareServer.py  $version_major $version_minor $version_build $versionfile
 }
 ############# BUILD PROJECT ####################
 if ($doBuild)

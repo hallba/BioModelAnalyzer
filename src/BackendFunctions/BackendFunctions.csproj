@@ -15,6 +15,7 @@
     <Compile Include="AnalyzeLTLPolarity.cs" />
     <Compile Include="AnalyzeLTLSimulation.cs" />
     <Compile Include="FurtherTesting.cs" />
+    <Compile Include="ServerVersion.cs" />
     <Compile Include="Simulate.cs" />
     <Compile Include="TestConnection.cs" />
   </ItemGroup>

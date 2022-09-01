@@ -3,11 +3,16 @@
 ############## CLIENT ##########################
 ################################################
 
-####### ENTER YOUR PATHS HERE ######################
-# Copying files to a temporary location
-$version = "1.13.0.2"
-$root = "C:\UCL\github\BioModelAnalyzer\deployment\"
-$sln_client = "C:\UCL\github\BioModelAnalyzer\sln\bmaclient\bmaclient.sln"
+####### ENTER YOUR INPUTS HERE ######################
+$version_major = "1"
+$version_minor = "13"
+$version_build = "0002"
+$gitdir = "C:\UCL\github\BioModelAnalyzer\"
+$loctmp = "C:\tmp\"
+###################################################
+$root = $gitdir+"deployment\"
+$sln_client = $gitdir+"sln\bmaclient\bmaclient.sln"
+$versionfile = $gitdir+"src\bma.client\version.txt"
 ###################################################
 #  $false or $true
 $doPython = $true
@@ -20,7 +25,7 @@ cd $root
 ########## RUN PYTHON SCRIPT #############
 if ($doPython)
 {
-    python .\PrepareClient.py $version
+    python .\PrepareClient.py $version_major $version_minor $version_build $versionfile
 }
 ############# BUILD PROJECT ####################
 if ($doBuild)

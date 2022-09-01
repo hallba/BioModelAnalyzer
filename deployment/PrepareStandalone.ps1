@@ -3,16 +3,17 @@
 ################ STAND ALONE ###################
 ################################################
 
-####### ENTER YOUR PATHS HERE ######################
-# Copying files to a temporary location
+####### ENTER YOUR INPUTS HERE ######################
 $version = "1.13.0.2"
-$root = "C:\UCL\github\BioModelAnalyzer\deployment\"
+$gitdir = "C:\UCL\github\BioModelAnalyzer\"
 $loctmp = "C:\tmp\"
-$vsdir = "C:\UCL\github\BioModelAnalyzer\src\bma.selfhost\bin\Debug\"
-$sln_server = "C:\UCL\github\BioModelAnalyzer\sln\BackendFunctions\BackendFunctions.sln"
-$sln_client = "C:\UCL\github\BioModelAnalyzer\sln\bmaclient\bmaclient.sln"
-$installdir = "C:\UCL\github\BioModelAnalyzer\sln\bmainstall\"
-$srcdir = "C:\UCL\github\BioModelAnalyzer\src\"
+###################################################
+$root = $gitdir+"deployment\"
+$vsdir = $gitdir+"src\bma.selfhost\bin\Debug\"
+$sln_server = $gitdir+"sln\BackendFunctions\BackendFunctions.sln"
+$sln_client = $gitdir+"sln\bmaclient\bmaclient.sln"
+$installdir = $gitdir+"sln\bmainstall\"
+$srcdir = $gitdir+"src\"
 ###################################################
 #  $false or $true
 $doBuild = $true
