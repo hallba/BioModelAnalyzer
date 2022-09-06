@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>BioCheckAnalyzer</AssemblyName>
@@ -9,17 +9,14 @@
     <Product>BioCheckAnalyzer</Product>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FParsec" Version="1.0.3" />
     <PackageReference Include="Microsoft.Z3.x64" Version="4.8.6" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.6.0" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="Version.fs" />
     <Compile Include="Log.fs" />
@@ -61,9 +58,8 @@
     <Compile Include="PathFinder.fs" />
     <Compile Include="Attractors.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
   </ItemGroup>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
