@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Attractors\Attractors.vcxproj" />
     <ProjectReference Include="..\BioCheckAnalyzerMulti\BioCheckAnalyzerMulti.fsproj" />
   </ItemGroup>
 
