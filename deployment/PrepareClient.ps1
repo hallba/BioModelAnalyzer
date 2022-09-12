@@ -66,7 +66,7 @@ if ($doBuild)
     #################################
     $config = '/p:Configuration=Release'
     $platform = '/p:Platform="x64"'
-    $env:errorLevel = 0
+    $env:errorLevel = 0    
 
     cd $msbuild
     echo "Starting to build" "******************" $msbuild $sln_client $config $platform "*******"
