@@ -6,8 +6,9 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using bma.BioCheck;
 using BackendUtilities;
+using bma.BioCheck;
+
 using System.IO;
 
 namespace BackendFunctions
@@ -25,7 +26,7 @@ namespace BackendFunctions
             try
             {
                 var output = Utilities.RunWithTimeLimit(() => Analysis.Analyze(input), defaultTimeLimit);
-                return JsonConvert.SerializeObject(output);
+                return JsonConvert.SerializeObject(output);                
             }
             catch (BackendUtilities.TimeoutException ex)
             {

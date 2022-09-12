@@ -6,7 +6,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using bma.BioCheck;
+//using bma.BioCheck;
 using BackendUtilities;
 using System.IO;
 using Microsoft.Extensions.Configuration;

@@ -56,7 +56,7 @@ let main argv =
         let sem = new Semaphore(0, 1, guid)
         let pi = Process.GetCurrentProcess()
         let fi = pi.MainModule.FileName
-        let child = new Process()
+        let child = new Process()        
         child.StartInfo <- ProcessStartInfo(fi, guid)
         child.EnableRaisingEvents <- true
         child.Exited.Add(fun a -> if child.ExitCode <> 0 then exit 1)

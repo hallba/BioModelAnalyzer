@@ -1,5 +1,10 @@
 # Copyright (c) Microsoft Research 2016
 # License: MIT. See LICENSE
+
+
+# First delete obj files that are causing conflict from multiple build environments
+.\Clean.ps1
+
 if ([Environment]::Is64BitOperatingSystem) {
     $pfiles = ${env:PROGRAMFILES(X86)}
     $platform = '/p:Platform="x64"'
@@ -61,6 +66,7 @@ if (!(Test-Path '.\paket-files')) {
 }
 $config = '/p:Configuration=Release'
 $env:errorLevel = 0
+echo "Starting to build" "******************" $msbuild $solution $config $platform "******************"
 $proc = Start-Process $msbuild $solution,$config,$platform,'/t:Rebuild' -NoNewWindow -PassThru
 $handle = $proc.Handle #workaround for not-working otherwise exit code
 $proc.WaitForExit()

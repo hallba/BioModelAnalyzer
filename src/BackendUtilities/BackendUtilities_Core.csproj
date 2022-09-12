@@ -1,14 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Platforms>AnyCPU;x64</Platforms>
+      <TargetFrameworks>netcoreapp2.2;net472</TargetFrameworks>
+	  <!--<TargetFrameworks>netcoreapp2.2</TargetFrameworks>-->
+	  <Platforms>AnyCPU;x64</Platforms>
+	  <RuntimeIdentifiers>win;win-x64;win-x86</RuntimeIdentifiers>
   </PropertyGroup>
-
   <PropertyGroup>
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Functions.cs" />
     <Compile Include="Utilities.cs" />
@@ -19,9 +19,9 @@
     <Compile Include="Loggers\IActivityLogger.cs" />
     <Compile Include="Loggers\IFailureLogger.cs" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.4" />
+	  <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0" />
+	  <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.4" />
     <PackageReference Include="Microsoft.Data.Edm" Version="5.8.4" />
     <PackageReference Include="Microsoft.Data.OData" Version="5.8.4" />
     <PackageReference Include="Microsoft.Data.Services.Client" Version="5.8.4" />
@@ -30,11 +30,9 @@
     <PackageReference Include="System.Spatial" Version="5.8.4" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BioCheckAnalyzerCommon\BioCheckAnalyzerCommon_Standart.csproj" />
     <ProjectReference Include="..\BmaBioCheckAnalyzer\BmaBioCheckAnalyzer_Standart.csproj" />
-    <ProjectReference Include="..\Jobs\JobsRunner\JobsRunner_Standart.csproj" />
   </ItemGroup>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

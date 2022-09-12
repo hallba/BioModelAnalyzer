@@ -1,0 +1,15 @@
+Template command line
+"<WiX tools folder>\bin\heat.exe" dir <output folder for bma.selhost project> -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selfhostcontent -out selfhost.wxs
+
+
+1. Go to the wix directory, eg
+>> cd "C:\Program Files (x86)\WiX Toolset v3.11\bin"
+
+2. Run the above command from your location with your build folder (0:30:53 on video) in powershell
+>> .\heat.exe dir "c:\tmp\Debug" -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selfhostcontent -out "C:\tmp\selfhost.wxs"
+
+or if I don't move it
+>> .\heat.exe dir "C:\UCL\github\BioModelAnalyzer\src\bma.selfhost\bin\Debug" -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selfhostcontent -out "C:\UCL\github\BioModelAnalyzer\src\bma.install\selfhost_release.wxs"
+
+Or if I use the release version
+>> .\heat.exe dir "C:\UCL\github\BioModelAnalyzer\src\bma.selfhost\bin\Release" -gg -sfrag -sreg -var var.bma.selfhost.TargetDir -template fragment -cg selfhostcontent -out "C:\UCL\github\BioModelAnalyzer\src\bma.install\selfhost_release.wxs"
