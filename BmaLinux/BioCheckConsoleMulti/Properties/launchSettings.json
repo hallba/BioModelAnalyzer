@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BioCheckConsoleMulti": {
+      "commandName": "Project",
+      "commandLineArgs": "-model \"../../../ToyModelUnstable.json\" -engine SCM"
+    }
+  }
+}
