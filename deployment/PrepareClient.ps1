@@ -7,7 +7,7 @@
 $version_major = "1"
 $version_minor = "13"
 $version_build = "0002"
-$gitdir = "C:\UCL\github\BmaBuilds\Rel13\BioModelAnalyzer\"
+$gitdir = "C:\UCL\github\BmaBuilds\vCLIENT\BioModelAnalyzer\"
 $loctmp = "C:\tmp\"
 ###################################################
 $root = $gitdir+"deployment\"

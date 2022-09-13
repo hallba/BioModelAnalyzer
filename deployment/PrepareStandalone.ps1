@@ -5,7 +5,7 @@
 
 ####### ENTER YOUR INPUTS HERE ######################
 $version = "1.13.0.2"
-$gitdir = "C:\UCL\github\BmaBuilds\Rel13\BioModelAnalyzer\"
+$gitdir = "C:\UCL\github\BmaBuilds\vCLIENT\BioModelAnalyzer\"
 $loctmp = "C:\tmp\"
 ###################################################
 $root = $gitdir+"deployment\"
