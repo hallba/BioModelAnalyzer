@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.82
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BioCheckAnaylzerCommonMulti", "BioCheckAnaylzerCommonMulti\BioCheckAnaylzerCommonMulti.csproj", "{F1CD483B-E004-43AB-9AE7-48E34C8710CA}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Z3testMulti", "Z3testMulti\Z3testMulti.fsproj", "{273AAF5B-655E-4C74-B574-AF8B19FE8F91}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "BioCheckConsoleMulti", "BioCheckConsoleMulti\BioCheckConsoleMulti.fsproj", "{8DE8A7A0-201C-4A51-BA73-57665E3A94F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A11FB926-83AE-4FC5-8F8C-352C957828E6}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MultiTests", "MultiTests\MultiTests.pyproj", "{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,12 @@ Global
 		{8DE8A7A0-201C-4A51-BA73-57665E3A94F5}.Release|x64.Build.0 = Release|Any CPU
 		{8DE8A7A0-201C-4A51-BA73-57665E3A94F5}.Release|x86.ActiveCfg = Release|Any CPU
 		{8DE8A7A0-201C-4A51-BA73-57665E3A94F5}.Release|x86.Build.0 = Release|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Release|x64.ActiveCfg = Release|Any CPU
+		{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

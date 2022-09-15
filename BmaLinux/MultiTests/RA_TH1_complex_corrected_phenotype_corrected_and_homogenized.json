@@ -1,0 +1,4670 @@
+{
+    "Model": {
+        "Name": "CaSQ-BMA",
+        "Variables": [
+            {
+                "Name": "IL12Rb1_IL12Rb2_complex",
+                "Id": 1,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(62),1)),1)),(max((min((min(var(61),1)),1)),0))))"
+            },
+            {
+                "Name": "IL12Rb1_IL12Rb2_IL12_complex",
+                "Id": 2,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(1),(min(var(54),1)))),1)),0))"
+            },
+            {
+                "Name": "STAT4_STAT4_complex",
+                "Id": 3,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(55),1)),1)),0))"
+            },
+            {
+                "Name": "IL9R_IL2RG_IL9_complex",
+                "Id": 4,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "STAT1_STAT1_complex",
+                "Id": 5,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(69),1)),1)),0))"
+            },
+            {
+                "Name": "IFNGR1_IFNGR2_complex",
+                "Id": 6,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "IFNG_IFNGR1_IFNGR2_complex",
+                "Id": 7,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(6),(min(var(71),1)))),1)),0))"
+            },
+            {
+                "Name": "CCL4_5_CCR5_complex",
+                "Id": 8,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(73),(min(var(161),1)))),1)),(max((min((min(var(73),(min(var(72),1)))),1)),0))))"
+            },
+            {
+                "Name": "GNAI_GNB_GNG_complex",
+                "Id": 9,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "GNB_GNG_complex",
+                "Id": 10,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(9),1)),(min((max(var(26),(max(var(24),(max(var(14),(max(var(8),0)))))))),1)))),0))"
+            },
+            {
+                "Name": "IKK_complex",
+                "Id": 11,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(52),(max(var(46),(max(var(120),(max(var(96),(max(var(84),0)))))))))),1)))),0))"
+            },
+            {
+                "Name": "NFKB1_RELA_NFKBIA_complex",
+                "Id": 12,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "NFKB1_RELA_complex",
+                "Id": 13,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(12),1)),(min((max(var(11),0)),1)))),0))"
+            },
+            {
+                "Name": "CXCL10_CXCR3_complex",
+                "Id": 14,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(91),1)),1)),0))"
+            },
+            {
+                "Name": "IL27_IL27RA_complex",
+                "Id": 15,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(92),1)),1)),0))"
+            },
+            {
+                "Name": "IL18R1_IL18RAP_complex",
+                "Id": 16,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "IL18_IL18R1_IL18RAP_complex",
+                "Id": 17,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(16),(min(var(93),1)))),1)),0))"
+            },
+            {
+                "Name": "IRAK1_IRAK4_complex",
+                "Id": 18,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(94),0)),1)))),0))"
+            },
+            {
+                "Name": "LGALS9_TIM3_complex",
+                "Id": 19,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(97),1)),1)),0))"
+            },
+            {
+                "Name": "CXCL16_CXCR6_complex",
+                "Id": 20,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(98),1)),1)),0))"
+            },
+            {
+                "Name": "HLA_DRB1_LAG3_complex",
+                "Id": 21,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CD32b_igG_complex",
+                "Id": 22,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(105),1)),1)),0))"
+            },
+            {
+                "Name": "MIF_CD74_complex",
+                "Id": 23,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(108),1)),1)),0))"
+            },
+            {
+                "Name": "AGT_F2R_complex",
+                "Id": 24,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(111),1)),1)),0))"
+            },
+            {
+                "Name": "GNA12_GNA13_complex",
+                "Id": 25,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(24),0)),1)))),0))"
+            },
+            {
+                "Name": "CCL2_CCR2_complex",
+                "Id": 26,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(117),1)),1)),0))"
+            },
+            {
+                "Name": "CD84_CD84_complex",
+                "Id": 27,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "gas6_mertk_complex",
+                "Id": 28,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(121),1)),1)),0))"
+            },
+            {
+                "Name": "IL7_IL7R_IL2RG_complex",
+                "Id": 29,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "JAG1_NOTCH1_complex",
+                "Id": 30,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "NICD_EP300_SKIP_CSL_MAML1_complex",
+                "Id": 31,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(127),(min(var(126),(min(var(125),(min(var(123),(min(var(124),1)))))))))),1)),0))"
+            },
+            {
+                "Name": "SEMA4_PLXNB1_complex",
+                "Id": 32,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(128),(min(var(134),1)))),1)),(max((min((min(var(128),(min(var(129),1)))),1)),0))))"
+            },
+            {
+                "Name": "TNF_TNFRSF1B_complex",
+                "Id": 33,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(130),1)),1)),0))"
+            },
+            {
+                "Name": "IL10_IL10RA_IL10RB_complex",
+                "Id": 34,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "VCAM1_ITGA4_ITGB7_complex",
+                "Id": 35,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "COL4A3_ITGA4_ITGB7_complex",
+                "Id": 36,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "ITGAM_ITGB2_complex",
+                "Id": 37,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CD40LG_ITGAM_ITGB2_complex",
+                "Id": 38,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "LTA_TNFRSF14_complex",
+                "Id": 39,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(133),1)),1)),0))"
+            },
+            {
+                "Name": "FASLG_FAS_complex",
+                "Id": 40,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(166),1)),1)),0))"
+            },
+            {
+                "Name": "icoslg_icos_complex",
+                "Id": 41,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "TCR_CD3_complex",
+                "Id": 42,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "HLA_DRB1_TCR_CD3_complex",
+                "Id": 43,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CD28_CD86_complex",
+                "Id": 44,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "TNFSF4_TNFRSF4_complex",
+                "Id": 45,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(160),1)),1)),0))"
+            },
+            {
+                "Name": "TRAF2_TRAF5_complex",
+                "Id": 46,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(39),0)),1)))),0))"
+            },
+            {
+                "Name": "JAK2_TYK2_complex",
+                "Id": 47,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(2),0)),1)))),0))"
+            },
+            {
+                "Name": "JAK1_JAK2_complex",
+                "Id": 48,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(7),0)),1)))),0))"
+            },
+            {
+                "Name": "JAK1_JAK3_complex",
+                "Id": 49,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(29),(max(var(4),0)))),1)))),0))"
+            },
+            {
+                "Name": "JAK1_TYK2_complex",
+                "Id": 50,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(34),0)),1)))),0))"
+            },
+            {
+                "Name": "JAK1_JAK2_TYK2_complex",
+                "Id": 51,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(15),0)),1)))),0))"
+            },
+            {
+                "Name": "TRAF2_TRAF5_TRAF6_complex",
+                "Id": 52,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(45),0)),1)))),0))"
+            },
+            {
+                "Name": "TRAF1_TRAF2_TRAF3_complex",
+                "Id": 53,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(33),0)),1)))),0))"
+            },
+            {
+                "Name": "IL12_TH1___extracellular_space",
+                "Id": 54,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(70),1)),1)),0))"
+            },
+            {
+                "Name": "STAT4",
+                "Id": 55,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(47),0)),1)))),0))"
+            },
+            {
+                "Name": "IFNg_TH1___secreted_components",
+                "Id": 56,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(115),(min(var(65),(min(var(63),(min(var(3),1)))))))),1)))),0))"
+            },
+            {
+                "Name": "IL2",
+                "Id": 57,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(151),(min(var(13),(min(var(3),1)))))),1)))),0))"
+            },
+            {
+                "Name": "apoptosis_TH1_phenotype",
+                "Id": 58,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(150),(max(var(19),(max(var(90),(max(var(89),0)))))))),1)))),0))"
+            },
+            {
+                "Name": "Cell_chemotaxis_migration_TH1_phenotype",
+                "Id": 59,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(70),(max(var(89),(max(var(100),(max(var(88),0)))))))),1)))),0))"
+            },
+            {
+                "Name": "osteoclastogenesis_generic_phenotype",
+                "Id": 60,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(56),0)),1)))),0))"
+            },
+            {
+                "Name": "IL12Rb1_rna",
+                "Id": 61,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(63),(min(var(3),1)))),1)))),0))"
+            },
+            {
+                "Name": "IL12Rb2_rna",
+                "Id": 62,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(63),(min(var(3),1)))),1)))),0))"
+            },
+            {
+                "Name": "tbx21_phosphorylated",
+                "Id": 63,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(64),1)),(min((max(var(116),0)),1)))),0))"
+            },
+            {
+                "Name": "tbx21",
+                "Id": 64,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(5),(min(var(3),1)))),1)))),0))"
+            },
+            {
+                "Name": "RUNX3",
+                "Id": 65,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(63),1)),1)))),0))"
+            },
+            {
+                "Name": "gata3_rna",
+                "Id": 66,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(63),(min(1-var(65),1)))),(min((min(var(31),1)),1)))),0))"
+            },
+            {
+                "Name": "maf_rna",
+                "Id": 67,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(65),1)),1)),0))"
+            },
+            {
+                "Name": "inflammation_signal_phenotype",
+                "Id": 68,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(140),(min(1-var(21),1)))),(min((max(var(88),(max(var(100),(max(var(13),(max(var(144),(max(var(139),(max(var(138),(max(var(103),(max(var(102),(max(var(101),(max(var(70),(max(var(87),(max(var(90),(max(var(89),0)))))))))))))))))))))))))),1)))),0))"
+            },
+            {
+                "Name": "STAT1",
+                "Id": 69,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(51),(max(var(50),(max(var(49),(max(var(48),0)))))))),1)))),0))"
+            },
+            {
+                "Name": "IL12_TH1___secreted_components",
+                "Id": 70,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),(min(var(5),1)))),1)))),0))"
+            },
+            {
+                "Name": "IFNg_TH1___extracellular_space",
+                "Id": 71,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(56),1)),1)),0))"
+            },
+            {
+                "Name": "CCL4_TH1___extracellular_space",
+                "Id": 72,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(103),1)),1)),0))"
+            },
+            {
+                "Name": "CCR5",
+                "Id": 73,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "GNAI_TH1___cytoplasm",
+                "Id": 74,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(9),1)),(min((max(var(26),(max(var(24),(max(var(14),(max(var(8),0)))))))),1)))),0))"
+            },
+            {
+                "Name": "Src",
+                "Id": 75,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(74),0)),1)))),0))"
+            },
+            {
+                "Name": "SHC1_phosphorylated",
+                "Id": 76,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(75),0)),1)))),0))"
+            },
+            {
+                "Name": "GRB2",
+                "Id": 77,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(154),(max(var(76),0)))),1)))),0))"
+            },
+            {
+                "Name": "SOS1",
+                "Id": 78,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(77),0)),1)))),0))"
+            },
+            {
+                "Name": "KRAS",
+                "Id": 79,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(28),(max(var(78),0)))),1)))),0))"
+            },
+            {
+                "Name": "RAF1",
+                "Id": 80,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(110),(max(var(79),0)))),1)))),0))"
+            },
+            {
+                "Name": "MAP2K1_phosphorylated",
+                "Id": 81,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(80),0)),1)))),0))"
+            },
+            {
+                "Name": "MAPK1_phosphorylated",
+                "Id": 82,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(81),0)),1)))),0))"
+            },
+            {
+                "Name": "PI3K_phosphorylated",
+                "Id": 83,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(106),1)),(min((max(var(53),(max(var(49),(max(var(45),(max(var(41),(max(var(132),(max(var(28),(max(var(114),(max(var(44),(max(var(99),(max(var(19),(max(var(10),(max(var(75),0)))))))))))))))))))))))),1)))),0))"
+            },
+            {
+                "Name": "AKT1",
+                "Id": 84,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(83),0)),1)))),0))"
+            },
+            {
+                "Name": "proliferation_survival_TH1_phenotype",
+                "Id": 85,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(150),(min(1-var(21),(min(1-var(19),1)))))),(min((max(var(70),(max(var(159),(max(var(82),0)))))),1)))),0))"
+            },
+            {
+                "Name": "NFKBIA_phosphorylated",
+                "Id": 86,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(12),1)),(min((max(var(11),0)),1)))),0))"
+            },
+            {
+                "Name": "IL18_TH1___secreted_components",
+                "Id": 87,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "CXCL10_TH1___secreted_components",
+                "Id": 88,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "TNFA",
+                "Id": 89,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "LTA_TH1___secreted_components",
+                "Id": 90,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "CXCL10_TH1___extracellular_space",
+                "Id": 91,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(88),1)),1)),0))"
+            },
+            {
+                "Name": "IL27",
+                "Id": 92,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "IL18_TH1___extracellular_space",
+                "Id": 93,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(87),1)),1)),0))"
+            },
+            {
+                "Name": "MYD88",
+                "Id": 94,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(17),0)),1)))),0))"
+            },
+            {
+                "Name": "TRAF6_phosphorylated",
+                "Id": 95,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(18),0)),1)))),0))"
+            },
+            {
+                "Name": "NIK",
+                "Id": 96,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(53),(max(var(95),0)))),1)))),0))"
+            },
+            {
+                "Name": "LGALS9",
+                "Id": 97,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CXCL16",
+                "Id": 98,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "GNAI_TH1___cytoplasm_active",
+                "Id": 99,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(74),1)),(min((max(var(20),0)),1)))),0))"
+            },
+            {
+                "Name": "CCL5_TH1___secreted_components",
+                "Id": 100,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "VCAM1",
+                "Id": 101,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "CCL3",
+                "Id": 102,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "CCL4_TH1___secreted_components",
+                "Id": 103,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "LAG3",
+                "Id": 104,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(157),1)),1)))),0))"
+            },
+            {
+                "Name": "igG",
+                "Id": 105,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "SHIP1",
+                "Id": 106,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(22),0)),1)))),0))"
+            },
+            {
+                "Name": "CD28",
+                "Id": 107,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "MIF",
+                "Id": 108,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(159),1)),1)))),0))"
+            },
+            {
+                "Name": "lyn",
+                "Id": 109,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(23),0)),1)))),0))"
+            },
+            {
+                "Name": "FGR",
+                "Id": 110,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(109),0)),1)))),0))"
+            },
+            {
+                "Name": "AGT",
+                "Id": 111,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "ARHGEF2",
+                "Id": 112,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(25),0)),1)))),0))"
+            },
+            {
+                "Name": "RHOA",
+                "Id": 113,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(112),0)),1)))),0))"
+            },
+            {
+                "Name": "Rac1",
+                "Id": 114,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(32),(min(1-var(113),1)))),(min((max(var(156),0)),1)))),0))"
+            },
+            {
+                "Name": "EOMES",
+                "Id": 115,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "mtor",
+                "Id": 116,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(84),0)),1)))),0))"
+            },
+            {
+                "Name": "CCL2",
+                "Id": 117,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CD84",
+                "Id": 118,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "SH2D1A",
+                "Id": 119,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(27),0)),1)))),0))"
+            },
+            {
+                "Name": "PRKCQ",
+                "Id": 120,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(155),(max(var(119),0)))),1)))),0))"
+            },
+            {
+                "Name": "GAS6",
+                "Id": 121,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "NOTCH1",
+                "Id": 122,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "NICD",
+                "Id": 123,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(30),1)),1)),0))"
+            },
+            {
+                "Name": "EP300",
+                "Id": 124,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "SKIP",
+                "Id": 125,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CSL",
+                "Id": 126,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "MAML1",
+                "Id": 127,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "PLXNB1",
+                "Id": 128,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "SEMA4D",
+                "Id": 129,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "TNF",
+                "Id": 130,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(89),1)),1)),0))"
+            },
+            {
+                "Name": "TRAF3",
+                "Id": 131,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "PTK2",
+                "Id": 132,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(36),(max(var(35),0)))),1)))),0))"
+            },
+            {
+                "Name": "LTA_TH1___extracellular_space",
+                "Id": 133,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(90),1)),1)),0))"
+            },
+            {
+                "Name": "SEMA4A_TH1___extracellular_space",
+                "Id": 134,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(139),1)),1)),0))"
+            },
+            {
+                "Name": "CD40LG",
+                "Id": 135,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(5),1)),1)))),0))"
+            },
+            {
+                "Name": "COL4A5",
+                "Id": 136,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "CXCL13",
+                "Id": 137,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "ICAM1",
+                "Id": 138,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            },
+            {
+                "Name": "SEMA4A_TH1___secreted_components",
+                "Id": 139,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "TGFB1",
+                "Id": 140,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "TNFSF11",
+                "Id": 141,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(5),1)),1)))),0))"
+            },
+            {
+                "Name": "TBK1",
+                "Id": 142,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(131),0)),1)))),0))"
+            },
+            {
+                "Name": "IRF7_TH1___cytoplasm",
+                "Id": 143,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(5),1)),1)))),0))"
+            },
+            {
+                "Name": "IRF7_TH1___cytoplasm_active",
+                "Id": 144,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(143),1)),(min((max(var(142),0)),1)))),0))"
+            },
+            {
+                "Name": "DAXX",
+                "Id": 145,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(40),0)),1)))),0))"
+            },
+            {
+                "Name": "map3k5",
+                "Id": 146,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(145),0)),1)))),0))"
+            },
+            {
+                "Name": "MAPK8",
+                "Id": 147,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(146),0)),1)))),0))"
+            },
+            {
+                "Name": "vegfa",
+                "Id": 148,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,1)),0))"
+            },
+            {
+                "Name": "angiogenesis_signal_phenotype",
+                "Id": 149,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(148),0)),1)))),0))"
+            },
+            {
+                "Name": "BCL2L11",
+                "Id": 150,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(82),1)),1)),0))"
+            },
+            {
+                "Name": "POU2F1",
+                "Id": 151,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "icos",
+                "Id": 152,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "ZAP70",
+                "Id": 153,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(43),0)),1)))),0))"
+            },
+            {
+                "Name": "LAT_phosphorylated",
+                "Id": 154,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(153),0)),1)))),0))"
+            },
+            {
+                "Name": "PLCG1",
+                "Id": 155,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(154),0)),1)))),0))"
+            },
+            {
+                "Name": "VAV1",
+                "Id": 156,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(154),0)),1)))),0))"
+            },
+            {
+                "Name": "NFAT",
+                "Id": 157,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(155),0)),1)))),0))"
+            },
+            {
+                "Name": "RPS6KA4",
+                "Id": 158,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(82),0)),1)))),0))"
+            },
+            {
+                "Name": "CREB1_phosphorylated",
+                "Id": 159,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(158),0)),1)))),0))"
+            },
+            {
+                "Name": "TNFSF4",
+                "Id": 160,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "1"
+            },
+            {
+                "Name": "CCL5_TH1___extracellular_space",
+                "Id": 161,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(var(100),1)),1)),0))"
+            },
+            {
+                "Name": "Matrix_degradation_signal_phenotype",
+                "Id": 162,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(136),1)),1)),0))"
+            },
+            {
+                "Name": "Cell_chemotaxis_migration_signal_phenotype",
+                "Id": 163,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(70),(max(var(102),(max(var(89),(max(var(88),(max(var(100),(max(var(101),(max(var(57),0)))))))))))))),1)))),0))"
+            },
+            {
+                "Name": "apoptosis_signal_phenotype",
+                "Id": 164,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min((min(1-var(57),1)),(min((max(var(89),(max(var(90),0)))),1)))),0))"
+            },
+            {
+                "Name": "proliferation_survival_signal_phenotype",
+                "Id": 165,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((max(var(141),(max(var(140),(max(var(148),(max(var(70),(max(var(57),0)))))))))),1)))),0))"
+            },
+            {
+                "Name": "FASLG",
+                "Id": 166,
+                "RangeFrom": 0,
+                "RangeTo": 1,
+                "Formula": "(max((min(1,(min((min(var(13),1)),1)))),0))"
+            }
+        ],
+        "Relationships": [
+            {
+                "ToVariable": 1,
+                "Type": "Activator",
+                "FromVariable": 61,
+                "Id": 167
+            },
+            {
+                "ToVariable": 1,
+                "Type": "Activator",
+                "FromVariable": 62,
+                "Id": 168
+            },
+            {
+                "ToVariable": 2,
+                "Type": "Activator",
+                "FromVariable": 54,
+                "Id": 169
+            },
+            {
+                "ToVariable": 2,
+                "Type": "Activator",
+                "FromVariable": 1,
+                "Id": 170
+            },
+            {
+                "ToVariable": 3,
+                "Type": "Activator",
+                "FromVariable": 55,
+                "Id": 171
+            },
+            {
+                "ToVariable": 5,
+                "Type": "Activator",
+                "FromVariable": 69,
+                "Id": 172
+            },
+            {
+                "ToVariable": 7,
+                "Type": "Activator",
+                "FromVariable": 71,
+                "Id": 173
+            },
+            {
+                "ToVariable": 7,
+                "Type": "Activator",
+                "FromVariable": 6,
+                "Id": 174
+            },
+            {
+                "ToVariable": 8,
+                "Type": "Activator",
+                "FromVariable": 72,
+                "Id": 175
+            },
+            {
+                "ToVariable": 8,
+                "Type": "Activator",
+                "FromVariable": 73,
+                "Id": 176
+            },
+            {
+                "ToVariable": 8,
+                "Type": "Activator",
+                "FromVariable": 161,
+                "Id": 177
+            },
+            {
+                "ToVariable": 8,
+                "Type": "Activator",
+                "FromVariable": 73,
+                "Id": 178
+            },
+            {
+                "ToVariable": 10,
+                "Type": "Activator",
+                "FromVariable": 9,
+                "Id": 179
+            },
+            {
+                "ToVariable": 10,
+                "Type": "Activator",
+                "FromVariable": 8,
+                "Id": 180
+            },
+            {
+                "ToVariable": 10,
+                "Type": "Activator",
+                "FromVariable": 14,
+                "Id": 181
+            },
+            {
+                "ToVariable": 10,
+                "Type": "Activator",
+                "FromVariable": 24,
+                "Id": 182
+            },
+            {
+                "ToVariable": 10,
+                "Type": "Activator",
+                "FromVariable": 26,
+                "Id": 183
+            },
+            {
+                "ToVariable": 11,
+                "Type": "Activator",
+                "FromVariable": 84,
+                "Id": 184
+            },
+            {
+                "ToVariable": 11,
+                "Type": "Activator",
+                "FromVariable": 96,
+                "Id": 185
+            },
+            {
+                "ToVariable": 11,
+                "Type": "Activator",
+                "FromVariable": 120,
+                "Id": 186
+            },
+            {
+                "ToVariable": 11,
+                "Type": "Activator",
+                "FromVariable": 46,
+                "Id": 187
+            },
+            {
+                "ToVariable": 11,
+                "Type": "Activator",
+                "FromVariable": 52,
+                "Id": 188
+            },
+            {
+                "ToVariable": 13,
+                "Type": "Activator",
+                "FromVariable": 12,
+                "Id": 189
+            },
+            {
+                "ToVariable": 13,
+                "Type": "Activator",
+                "FromVariable": 11,
+                "Id": 190
+            },
+            {
+                "ToVariable": 14,
+                "Type": "Activator",
+                "FromVariable": 91,
+                "Id": 191
+            },
+            {
+                "ToVariable": 15,
+                "Type": "Activator",
+                "FromVariable": 92,
+                "Id": 192
+            },
+            {
+                "ToVariable": 17,
+                "Type": "Activator",
+                "FromVariable": 93,
+                "Id": 193
+            },
+            {
+                "ToVariable": 17,
+                "Type": "Activator",
+                "FromVariable": 16,
+                "Id": 194
+            },
+            {
+                "ToVariable": 18,
+                "Type": "Activator",
+                "FromVariable": 94,
+                "Id": 195
+            },
+            {
+                "ToVariable": 19,
+                "Type": "Activator",
+                "FromVariable": 97,
+                "Id": 196
+            },
+            {
+                "ToVariable": 20,
+                "Type": "Activator",
+                "FromVariable": 98,
+                "Id": 197
+            },
+            {
+                "ToVariable": 22,
+                "Type": "Activator",
+                "FromVariable": 105,
+                "Id": 198
+            },
+            {
+                "ToVariable": 23,
+                "Type": "Activator",
+                "FromVariable": 108,
+                "Id": 199
+            },
+            {
+                "ToVariable": 24,
+                "Type": "Activator",
+                "FromVariable": 111,
+                "Id": 200
+            },
+            {
+                "ToVariable": 25,
+                "Type": "Activator",
+                "FromVariable": 24,
+                "Id": 201
+            },
+            {
+                "ToVariable": 26,
+                "Type": "Activator",
+                "FromVariable": 117,
+                "Id": 202
+            },
+            {
+                "ToVariable": 28,
+                "Type": "Activator",
+                "FromVariable": 121,
+                "Id": 203
+            },
+            {
+                "ToVariable": 31,
+                "Type": "Activator",
+                "FromVariable": 124,
+                "Id": 204
+            },
+            {
+                "ToVariable": 31,
+                "Type": "Activator",
+                "FromVariable": 123,
+                "Id": 205
+            },
+            {
+                "ToVariable": 31,
+                "Type": "Activator",
+                "FromVariable": 125,
+                "Id": 206
+            },
+            {
+                "ToVariable": 31,
+                "Type": "Activator",
+                "FromVariable": 126,
+                "Id": 207
+            },
+            {
+                "ToVariable": 31,
+                "Type": "Activator",
+                "FromVariable": 127,
+                "Id": 208
+            },
+            {
+                "ToVariable": 32,
+                "Type": "Activator",
+                "FromVariable": 129,
+                "Id": 209
+            },
+            {
+                "ToVariable": 32,
+                "Type": "Activator",
+                "FromVariable": 128,
+                "Id": 210
+            },
+            {
+                "ToVariable": 32,
+                "Type": "Activator",
+                "FromVariable": 134,
+                "Id": 211
+            },
+            {
+                "ToVariable": 32,
+                "Type": "Activator",
+                "FromVariable": 128,
+                "Id": 212
+            },
+            {
+                "ToVariable": 33,
+                "Type": "Activator",
+                "FromVariable": 130,
+                "Id": 213
+            },
+            {
+                "ToVariable": 39,
+                "Type": "Activator",
+                "FromVariable": 133,
+                "Id": 214
+            },
+            {
+                "ToVariable": 40,
+                "Type": "Activator",
+                "FromVariable": 166,
+                "Id": 215
+            },
+            {
+                "ToVariable": 45,
+                "Type": "Activator",
+                "FromVariable": 160,
+                "Id": 216
+            },
+            {
+                "ToVariable": 46,
+                "Type": "Activator",
+                "FromVariable": 39,
+                "Id": 217
+            },
+            {
+                "ToVariable": 47,
+                "Type": "Activator",
+                "FromVariable": 2,
+                "Id": 218
+            },
+            {
+                "ToVariable": 48,
+                "Type": "Activator",
+                "FromVariable": 7,
+                "Id": 219
+            },
+            {
+                "ToVariable": 49,
+                "Type": "Activator",
+                "FromVariable": 4,
+                "Id": 220
+            },
+            {
+                "ToVariable": 49,
+                "Type": "Activator",
+                "FromVariable": 29,
+                "Id": 221
+            },
+            {
+                "ToVariable": 50,
+                "Type": "Activator",
+                "FromVariable": 34,
+                "Id": 222
+            },
+            {
+                "ToVariable": 51,
+                "Type": "Activator",
+                "FromVariable": 15,
+                "Id": 223
+            },
+            {
+                "ToVariable": 52,
+                "Type": "Activator",
+                "FromVariable": 45,
+                "Id": 224
+            },
+            {
+                "ToVariable": 53,
+                "Type": "Activator",
+                "FromVariable": 33,
+                "Id": 225
+            },
+            {
+                "ToVariable": 54,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 226
+            },
+            {
+                "ToVariable": 55,
+                "Type": "Activator",
+                "FromVariable": 47,
+                "Id": 227
+            },
+            {
+                "ToVariable": 56,
+                "Type": "Activator",
+                "FromVariable": 3,
+                "Id": 228
+            },
+            {
+                "ToVariable": 56,
+                "Type": "Activator",
+                "FromVariable": 63,
+                "Id": 229
+            },
+            {
+                "ToVariable": 56,
+                "Type": "Activator",
+                "FromVariable": 65,
+                "Id": 230
+            },
+            {
+                "ToVariable": 56,
+                "Type": "Activator",
+                "FromVariable": 115,
+                "Id": 231
+            },
+            {
+                "ToVariable": 57,
+                "Type": "Activator",
+                "FromVariable": 3,
+                "Id": 232
+            },
+            {
+                "ToVariable": 57,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 233
+            },
+            {
+                "ToVariable": 57,
+                "Type": "Activator",
+                "FromVariable": 151,
+                "Id": 234
+            },
+            {
+                "ToVariable": 58,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 235
+            },
+            {
+                "ToVariable": 58,
+                "Type": "Activator",
+                "FromVariable": 90,
+                "Id": 236
+            },
+            {
+                "ToVariable": 58,
+                "Type": "Activator",
+                "FromVariable": 19,
+                "Id": 237
+            },
+            {
+                "ToVariable": 58,
+                "Type": "Activator",
+                "FromVariable": 150,
+                "Id": 238
+            },
+            {
+                "ToVariable": 59,
+                "Type": "Activator",
+                "FromVariable": 88,
+                "Id": 239
+            },
+            {
+                "ToVariable": 59,
+                "Type": "Activator",
+                "FromVariable": 100,
+                "Id": 240
+            },
+            {
+                "ToVariable": 59,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 241
+            },
+            {
+                "ToVariable": 59,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 242
+            },
+            {
+                "ToVariable": 60,
+                "Type": "Activator",
+                "FromVariable": 56,
+                "Id": 243
+            },
+            {
+                "ToVariable": 61,
+                "Type": "Activator",
+                "FromVariable": 3,
+                "Id": 244
+            },
+            {
+                "ToVariable": 61,
+                "Type": "Activator",
+                "FromVariable": 63,
+                "Id": 245
+            },
+            {
+                "ToVariable": 62,
+                "Type": "Activator",
+                "FromVariable": 3,
+                "Id": 246
+            },
+            {
+                "ToVariable": 62,
+                "Type": "Activator",
+                "FromVariable": 63,
+                "Id": 247
+            },
+            {
+                "ToVariable": 63,
+                "Type": "Activator",
+                "FromVariable": 64,
+                "Id": 248
+            },
+            {
+                "ToVariable": 63,
+                "Type": "Activator",
+                "FromVariable": 116,
+                "Id": 249
+            },
+            {
+                "ToVariable": 64,
+                "Type": "Activator",
+                "FromVariable": 3,
+                "Id": 250
+            },
+            {
+                "ToVariable": 64,
+                "Type": "Activator",
+                "FromVariable": 5,
+                "Id": 251
+            },
+            {
+                "ToVariable": 65,
+                "Type": "Activator",
+                "FromVariable": 63,
+                "Id": 252
+            },
+            {
+                "ToVariable": 66,
+                "Type": "Inhibitor",
+                "FromVariable": 65,
+                "Id": 253
+            },
+            {
+                "ToVariable": 66,
+                "Type": "Inhibitor",
+                "FromVariable": 63,
+                "Id": 254
+            },
+            {
+                "ToVariable": 66,
+                "Type": "Activator",
+                "FromVariable": 31,
+                "Id": 255
+            },
+            {
+                "ToVariable": 67,
+                "Type": "Inhibitor",
+                "FromVariable": 65,
+                "Id": 256
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 257
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 90,
+                "Id": 258
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 87,
+                "Id": 259
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 260
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 101,
+                "Id": 261
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 102,
+                "Id": 262
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 103,
+                "Id": 263
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Inhibitor",
+                "FromVariable": 21,
+                "Id": 264
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 138,
+                "Id": 265
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 139,
+                "Id": 266
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 144,
+                "Id": 267
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 268
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 100,
+                "Id": 269
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Inhibitor",
+                "FromVariable": 140,
+                "Id": 270
+            },
+            {
+                "ToVariable": 68,
+                "Type": "Activator",
+                "FromVariable": 88,
+                "Id": 271
+            },
+            {
+                "ToVariable": 69,
+                "Type": "Activator",
+                "FromVariable": 48,
+                "Id": 272
+            },
+            {
+                "ToVariable": 69,
+                "Type": "Activator",
+                "FromVariable": 49,
+                "Id": 273
+            },
+            {
+                "ToVariable": 69,
+                "Type": "Activator",
+                "FromVariable": 50,
+                "Id": 274
+            },
+            {
+                "ToVariable": 69,
+                "Type": "Activator",
+                "FromVariable": 51,
+                "Id": 275
+            },
+            {
+                "ToVariable": 70,
+                "Type": "Activator",
+                "FromVariable": 5,
+                "Id": 276
+            },
+            {
+                "ToVariable": 70,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 277
+            },
+            {
+                "ToVariable": 71,
+                "Type": "Activator",
+                "FromVariable": 56,
+                "Id": 278
+            },
+            {
+                "ToVariable": 72,
+                "Type": "Activator",
+                "FromVariable": 103,
+                "Id": 279
+            },
+            {
+                "ToVariable": 74,
+                "Type": "Activator",
+                "FromVariable": 9,
+                "Id": 280
+            },
+            {
+                "ToVariable": 74,
+                "Type": "Activator",
+                "FromVariable": 8,
+                "Id": 281
+            },
+            {
+                "ToVariable": 74,
+                "Type": "Activator",
+                "FromVariable": 14,
+                "Id": 282
+            },
+            {
+                "ToVariable": 74,
+                "Type": "Activator",
+                "FromVariable": 24,
+                "Id": 283
+            },
+            {
+                "ToVariable": 74,
+                "Type": "Activator",
+                "FromVariable": 26,
+                "Id": 284
+            },
+            {
+                "ToVariable": 75,
+                "Type": "Activator",
+                "FromVariable": 74,
+                "Id": 285
+            },
+            {
+                "ToVariable": 76,
+                "Type": "Activator",
+                "FromVariable": 75,
+                "Id": 286
+            },
+            {
+                "ToVariable": 77,
+                "Type": "Activator",
+                "FromVariable": 76,
+                "Id": 287
+            },
+            {
+                "ToVariable": 77,
+                "Type": "Activator",
+                "FromVariable": 154,
+                "Id": 288
+            },
+            {
+                "ToVariable": 78,
+                "Type": "Activator",
+                "FromVariable": 77,
+                "Id": 289
+            },
+            {
+                "ToVariable": 79,
+                "Type": "Activator",
+                "FromVariable": 78,
+                "Id": 290
+            },
+            {
+                "ToVariable": 79,
+                "Type": "Activator",
+                "FromVariable": 28,
+                "Id": 291
+            },
+            {
+                "ToVariable": 80,
+                "Type": "Activator",
+                "FromVariable": 79,
+                "Id": 292
+            },
+            {
+                "ToVariable": 80,
+                "Type": "Activator",
+                "FromVariable": 110,
+                "Id": 293
+            },
+            {
+                "ToVariable": 81,
+                "Type": "Activator",
+                "FromVariable": 80,
+                "Id": 294
+            },
+            {
+                "ToVariable": 82,
+                "Type": "Activator",
+                "FromVariable": 81,
+                "Id": 295
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 75,
+                "Id": 296
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 10,
+                "Id": 297
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 19,
+                "Id": 298
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 99,
+                "Id": 299
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Inhibitor",
+                "FromVariable": 106,
+                "Id": 300
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 44,
+                "Id": 301
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 114,
+                "Id": 302
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 28,
+                "Id": 303
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 132,
+                "Id": 304
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 41,
+                "Id": 305
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 45,
+                "Id": 306
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 49,
+                "Id": 307
+            },
+            {
+                "ToVariable": 83,
+                "Type": "Activator",
+                "FromVariable": 53,
+                "Id": 308
+            },
+            {
+                "ToVariable": 84,
+                "Type": "Activator",
+                "FromVariable": 83,
+                "Id": 309
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Activator",
+                "FromVariable": 82,
+                "Id": 310
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Inhibitor",
+                "FromVariable": 19,
+                "Id": 311
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Inhibitor",
+                "FromVariable": 21,
+                "Id": 312
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Inhibitor",
+                "FromVariable": 150,
+                "Id": 313
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Activator",
+                "FromVariable": 159,
+                "Id": 314
+            },
+            {
+                "ToVariable": 85,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 315
+            },
+            {
+                "ToVariable": 86,
+                "Type": "Activator",
+                "FromVariable": 12,
+                "Id": 316
+            },
+            {
+                "ToVariable": 86,
+                "Type": "Activator",
+                "FromVariable": 11,
+                "Id": 317
+            },
+            {
+                "ToVariable": 87,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 318
+            },
+            {
+                "ToVariable": 88,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 319
+            },
+            {
+                "ToVariable": 89,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 320
+            },
+            {
+                "ToVariable": 91,
+                "Type": "Activator",
+                "FromVariable": 88,
+                "Id": 321
+            },
+            {
+                "ToVariable": 93,
+                "Type": "Activator",
+                "FromVariable": 87,
+                "Id": 322
+            },
+            {
+                "ToVariable": 94,
+                "Type": "Activator",
+                "FromVariable": 17,
+                "Id": 323
+            },
+            {
+                "ToVariable": 95,
+                "Type": "Activator",
+                "FromVariable": 18,
+                "Id": 324
+            },
+            {
+                "ToVariable": 96,
+                "Type": "Activator",
+                "FromVariable": 95,
+                "Id": 325
+            },
+            {
+                "ToVariable": 96,
+                "Type": "Activator",
+                "FromVariable": 53,
+                "Id": 326
+            },
+            {
+                "ToVariable": 99,
+                "Type": "Activator",
+                "FromVariable": 74,
+                "Id": 327
+            },
+            {
+                "ToVariable": 99,
+                "Type": "Activator",
+                "FromVariable": 20,
+                "Id": 328
+            },
+            {
+                "ToVariable": 100,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 329
+            },
+            {
+                "ToVariable": 101,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 330
+            },
+            {
+                "ToVariable": 102,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 331
+            },
+            {
+                "ToVariable": 103,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 332
+            },
+            {
+                "ToVariable": 104,
+                "Type": "Activator",
+                "FromVariable": 157,
+                "Id": 333
+            },
+            {
+                "ToVariable": 106,
+                "Type": "Activator",
+                "FromVariable": 22,
+                "Id": 334
+            },
+            {
+                "ToVariable": 108,
+                "Type": "Activator",
+                "FromVariable": 159,
+                "Id": 335
+            },
+            {
+                "ToVariable": 109,
+                "Type": "Activator",
+                "FromVariable": 23,
+                "Id": 336
+            },
+            {
+                "ToVariable": 110,
+                "Type": "Activator",
+                "FromVariable": 109,
+                "Id": 337
+            },
+            {
+                "ToVariable": 112,
+                "Type": "Activator",
+                "FromVariable": 25,
+                "Id": 338
+            },
+            {
+                "ToVariable": 113,
+                "Type": "Activator",
+                "FromVariable": 112,
+                "Id": 339
+            },
+            {
+                "ToVariable": 114,
+                "Type": "Inhibitor",
+                "FromVariable": 113,
+                "Id": 340
+            },
+            {
+                "ToVariable": 114,
+                "Type": "Inhibitor",
+                "FromVariable": 32,
+                "Id": 341
+            },
+            {
+                "ToVariable": 114,
+                "Type": "Activator",
+                "FromVariable": 156,
+                "Id": 342
+            },
+            {
+                "ToVariable": 116,
+                "Type": "Activator",
+                "FromVariable": 84,
+                "Id": 343
+            },
+            {
+                "ToVariable": 119,
+                "Type": "Activator",
+                "FromVariable": 27,
+                "Id": 344
+            },
+            {
+                "ToVariable": 120,
+                "Type": "Activator",
+                "FromVariable": 119,
+                "Id": 345
+            },
+            {
+                "ToVariable": 120,
+                "Type": "Activator",
+                "FromVariable": 155,
+                "Id": 346
+            },
+            {
+                "ToVariable": 123,
+                "Type": "Activator",
+                "FromVariable": 30,
+                "Id": 347
+            },
+            {
+                "ToVariable": 130,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 348
+            },
+            {
+                "ToVariable": 132,
+                "Type": "Activator",
+                "FromVariable": 35,
+                "Id": 349
+            },
+            {
+                "ToVariable": 132,
+                "Type": "Activator",
+                "FromVariable": 36,
+                "Id": 350
+            },
+            {
+                "ToVariable": 133,
+                "Type": "Activator",
+                "FromVariable": 90,
+                "Id": 351
+            },
+            {
+                "ToVariable": 134,
+                "Type": "Activator",
+                "FromVariable": 139,
+                "Id": 352
+            },
+            {
+                "ToVariable": 135,
+                "Type": "Activator",
+                "FromVariable": 5,
+                "Id": 353
+            },
+            {
+                "ToVariable": 137,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 354
+            },
+            {
+                "ToVariable": 138,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 355
+            },
+            {
+                "ToVariable": 141,
+                "Type": "Activator",
+                "FromVariable": 5,
+                "Id": 356
+            },
+            {
+                "ToVariable": 142,
+                "Type": "Activator",
+                "FromVariable": 131,
+                "Id": 357
+            },
+            {
+                "ToVariable": 143,
+                "Type": "Activator",
+                "FromVariable": 5,
+                "Id": 358
+            },
+            {
+                "ToVariable": 144,
+                "Type": "Activator",
+                "FromVariable": 143,
+                "Id": 359
+            },
+            {
+                "ToVariable": 144,
+                "Type": "Activator",
+                "FromVariable": 142,
+                "Id": 360
+            },
+            {
+                "ToVariable": 145,
+                "Type": "Activator",
+                "FromVariable": 40,
+                "Id": 361
+            },
+            {
+                "ToVariable": 146,
+                "Type": "Activator",
+                "FromVariable": 145,
+                "Id": 362
+            },
+            {
+                "ToVariable": 147,
+                "Type": "Activator",
+                "FromVariable": 146,
+                "Id": 363
+            },
+            {
+                "ToVariable": 149,
+                "Type": "Activator",
+                "FromVariable": 148,
+                "Id": 364
+            },
+            {
+                "ToVariable": 150,
+                "Type": "Inhibitor",
+                "FromVariable": 82,
+                "Id": 365
+            },
+            {
+                "ToVariable": 153,
+                "Type": "Activator",
+                "FromVariable": 43,
+                "Id": 366
+            },
+            {
+                "ToVariable": 154,
+                "Type": "Activator",
+                "FromVariable": 153,
+                "Id": 367
+            },
+            {
+                "ToVariable": 155,
+                "Type": "Activator",
+                "FromVariable": 154,
+                "Id": 368
+            },
+            {
+                "ToVariable": 156,
+                "Type": "Activator",
+                "FromVariable": 154,
+                "Id": 369
+            },
+            {
+                "ToVariable": 157,
+                "Type": "Activator",
+                "FromVariable": 155,
+                "Id": 370
+            },
+            {
+                "ToVariable": 158,
+                "Type": "Activator",
+                "FromVariable": 82,
+                "Id": 371
+            },
+            {
+                "ToVariable": 159,
+                "Type": "Activator",
+                "FromVariable": 158,
+                "Id": 372
+            },
+            {
+                "ToVariable": 161,
+                "Type": "Activator",
+                "FromVariable": 100,
+                "Id": 373
+            },
+            {
+                "ToVariable": 162,
+                "Type": "Inhibitor",
+                "FromVariable": 136,
+                "Id": 374
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 57,
+                "Id": 375
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 101,
+                "Id": 376
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 100,
+                "Id": 377
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 88,
+                "Id": 378
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 379
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 102,
+                "Id": 380
+            },
+            {
+                "ToVariable": 163,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 381
+            },
+            {
+                "ToVariable": 164,
+                "Type": "Inhibitor",
+                "FromVariable": 57,
+                "Id": 382
+            },
+            {
+                "ToVariable": 164,
+                "Type": "Activator",
+                "FromVariable": 90,
+                "Id": 383
+            },
+            {
+                "ToVariable": 164,
+                "Type": "Activator",
+                "FromVariable": 89,
+                "Id": 384
+            },
+            {
+                "ToVariable": 165,
+                "Type": "Activator",
+                "FromVariable": 57,
+                "Id": 385
+            },
+            {
+                "ToVariable": 165,
+                "Type": "Activator",
+                "FromVariable": 70,
+                "Id": 386
+            },
+            {
+                "ToVariable": 165,
+                "Type": "Activator",
+                "FromVariable": 148,
+                "Id": 387
+            },
+            {
+                "ToVariable": 165,
+                "Type": "Activator",
+                "FromVariable": 140,
+                "Id": 388
+            },
+            {
+                "ToVariable": 165,
+                "Type": "Activator",
+                "FromVariable": 141,
+                "Id": 389
+            },
+            {
+                "ToVariable": 166,
+                "Type": "Activator",
+                "FromVariable": 13,
+                "Id": 390
+            }
+        ]
+    },
+    "Layout": {
+        "Variables": [
+            {
+                "Id": 1,
+                "Name": "IL12Rb1_IL12Rb2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9823.0,
+                "PositionY": 685.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 2,
+                "Name": "IL12Rb1_IL12Rb2_IL12_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9613.5,
+                "PositionY": 651.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 3,
+                "Name": "STAT4_STAT4_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7499.111111111117,
+                "PositionY": 2309.7777777777774,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 4,
+                "Name": "IL9R_IL2RG_IL9_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7925.5,
+                "PositionY": 671.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 5,
+                "Name": "STAT1_STAT1_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3751.5,
+                "PositionY": 2322.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 6,
+                "Name": "IFNGR1_IFNGR2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8988.0,
+                "PositionY": 667.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 7,
+                "Name": "IFNG_IFNGR1_IFNGR2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9161.0,
+                "PositionY": 669.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 8,
+                "Name": "CCL4_5_CCR5_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8672.0,
+                "PositionY": 664.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 9,
+                "Name": "GNAI_GNB_GNG_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8527.0,
+                "PositionY": 975.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 10,
+                "Name": "GNB_GNG_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8770.0,
+                "PositionY": 1119.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 11,
+                "Name": "IKK_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6460.142857142859,
+                "PositionY": 1723.2857142857138,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 12,
+                "Name": "NFKB1_RELA_NFKBIA_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5571.0,
+                "PositionY": 1785.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 13,
+                "Name": "NFKB1_RELA_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5690.000000000002,
+                "PositionY": 2301.142857142857,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 14,
+                "Name": "CXCL10_CXCR3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8298.0,
+                "PositionY": 669.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 15,
+                "Name": "IL27_IL27RA_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7295.0,
+                "PositionY": 678.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 16,
+                "Name": "IL18R1_IL18RAP_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6791.0,
+                "PositionY": 680.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 17,
+                "Name": "IL18_IL18R1_IL18RAP_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6983.142857142859,
+                "PositionY": 657.5714285714294,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 18,
+                "Name": "IRAK1_IRAK4_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7144.142857142859,
+                "PositionY": 1097.2857142857138,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 19,
+                "Name": "LGALS9_TIM3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6533.0,
+                "PositionY": 681.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 20,
+                "Name": "CXCL16_CXCR6_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5367.0,
+                "PositionY": 677.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 21,
+                "Name": "HLA_DRB1_LAG3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5070.0,
+                "PositionY": 671.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 22,
+                "Name": "CD32b_igG_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4566.0,
+                "PositionY": 683.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 23,
+                "Name": "MIF_CD74_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3958.0,
+                "PositionY": 687.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 24,
+                "Name": "AGT_F2R_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3370.0,
+                "PositionY": 692.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 25,
+                "Name": "GNA12_GNA13_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3341.90909090909,
+                "PositionY": 988.8181818181802,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 26,
+                "Name": "CCL2_CCR2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3162.0,
+                "PositionY": 677.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 27,
+                "Name": "CD84_CD84_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2598.0,
+                "PositionY": 690.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 28,
+                "Name": "gas6_mertk_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2217.0,
+                "PositionY": 689.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 29,
+                "Name": "IL7_IL7R_IL2RG_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1526.8461538461543,
+                "PositionY": 669.7692307692305,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 30,
+                "Name": "JAG1_NOTCH1_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1403.0,
+                "PositionY": 680.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 31,
+                "Name": "NICD_EP300_SKIP_CSL_MAML1_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4604.0,
+                "PositionY": 2545.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 32,
+                "Name": "SEMA4_PLXNB1_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 910.0,
+                "PositionY": 684.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 33,
+                "Name": "TNF_TNFRSF1B_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2026.0,
+                "PositionY": 687.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 34,
+                "Name": "IL10_IL10RA_IL10RB_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7605.0,
+                "PositionY": 673.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 35,
+                "Name": "VCAM1_ITGA4_ITGB7_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6279.538461538461,
+                "PositionY": 679.9999999999991,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 36,
+                "Name": "COL4A3_ITGA4_ITGB7_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6404.923076923076,
+                "PositionY": 677.7692307692305,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 37,
+                "Name": "ITGAM_ITGB2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 607.0,
+                "PositionY": 686.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 38,
+                "Name": "CD40LG_ITGAM_ITGB2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 758.2307692307695,
+                "PositionY": 678.538461538461,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 39,
+                "Name": "LTA_TNFRSF14_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3805.0,
+                "PositionY": 666.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 40,
+                "Name": "FASLG_FAS_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2965.0,
+                "PositionY": 660.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 41,
+                "Name": "icoslg_icos_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5997.0,
+                "PositionY": 681.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 42,
+                "Name": "TCR_CD3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5604.0,
+                "PositionY": 674.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 43,
+                "Name": "HLA_DRB1_TCR_CD3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5738.000000000002,
+                "PositionY": 675.857142857144,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 44,
+                "Name": "CD28_CD86_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4280.0,
+                "PositionY": 696.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 45,
+                "Name": "TNFSF4_TNFRSF4_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4910.0,
+                "PositionY": 676.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 46,
+                "Name": "TRAF2_TRAF5_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3725.0,
+                "PositionY": 957.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 47,
+                "Name": "JAK2_TYK2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9826.5,
+                "PositionY": 932.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 48,
+                "Name": "JAK1_JAK2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9291.857142857143,
+                "PositionY": 921.857142857143,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 49,
+                "Name": "JAK1_JAK3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7964.857142857143,
+                "PositionY": 962.0000000000001,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 50,
+                "Name": "JAK1_TYK2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7486.571428571428,
+                "PositionY": 949.2857142857143,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 51,
+                "Name": "JAK1_JAK2_TYK2_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6650.857142857143,
+                "PositionY": 956.2857142857144,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 52,
+                "Name": "TRAF2_TRAF5_TRAF6_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5206.857142857143,
+                "PositionY": 922.2857142857143,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 53,
+                "Name": "TRAF1_TRAF2_TRAF3_complex",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2132.1428571428573,
+                "PositionY": 912.0000000000001,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 54,
+                "Name": "IL12_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9636.0,
+                "PositionY": 417.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 55,
+                "Name": "STAT4",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9667.0,
+                "PositionY": 1378.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 56,
+                "Name": "IFNg_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7466.0,
+                "PositionY": 4529.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 57,
+                "Name": "IL2",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7128.0,
+                "PositionY": 4509.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 58,
+                "Name": "apoptosis_TH1_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7635.0,
+                "PositionY": 4850.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 59,
+                "Name": "Cell_chemotaxis_migration_TH1_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6754.0,
+                "PositionY": 4806.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 60,
+                "Name": "osteoclastogenesis_generic_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6427.0,
+                "PositionY": 4851.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 61,
+                "Name": "IL12Rb1_rna",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6769.0,
+                "PositionY": 2565.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 62,
+                "Name": "IL12Rb2_rna",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6409.0,
+                "PositionY": 2516.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 63,
+                "Name": "tbx21_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6888.0,
+                "PositionY": 2310.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 64,
+                "Name": "tbx21",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6640.5,
+                "PositionY": 2098.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 65,
+                "Name": "RUNX3",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6006.5,
+                "PositionY": 2317.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 66,
+                "Name": "gata3_rna",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6108.0,
+                "PositionY": 2831.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 67,
+                "Name": "maf_rna",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6018.0,
+                "PositionY": 2946.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 68,
+                "Name": "inflammation_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6157.0,
+                "PositionY": 4928.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 69,
+                "Name": "STAT1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7822.0,
+                "PositionY": 1284.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 70,
+                "Name": "IL12_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4546.5,
+                "PositionY": 4498.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 71,
+                "Name": "IFNg_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8937.285714285714,
+                "PositionY": 443.8571428571431,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 72,
+                "Name": "CCL4_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8452.0,
+                "PositionY": 380.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 73,
+                "Name": "CCR5",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8504.0,
+                "PositionY": 692.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 74,
+                "Name": "GNAI_TH1___cytoplasm",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8750.142857142859,
+                "PositionY": 986.8571428571431,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 75,
+                "Name": "Src",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8640.0,
+                "PositionY": 1281.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 76,
+                "Name": "SHC1_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8969.0,
+                "PositionY": 1408.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 77,
+                "Name": "GRB2",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 9107.0,
+                "PositionY": 1525.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 78,
+                "Name": "SOS1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7110.0,
+                "PositionY": 1625.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 79,
+                "Name": "KRAS",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6932.0,
+                "PositionY": 1802.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 80,
+                "Name": "RAF1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7022.0,
+                "PositionY": 1934.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 81,
+                "Name": "MAP2K1_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7567.0,
+                "PositionY": 1807.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 82,
+                "Name": "MAPK1_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7644.0,
+                "PositionY": 1962.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 83,
+                "Name": "PI3K_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8520.0,
+                "PositionY": 1432.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 84,
+                "Name": "AKT1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6358.0,
+                "PositionY": 1604.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 85,
+                "Name": "proliferation_survival_TH1_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7193.0,
+                "PositionY": 4809.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 86,
+                "Name": "NFKBIA_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5886.000000000002,
+                "PositionY": 1985.4285714285706,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 87,
+                "Name": "IL18_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5524.0,
+                "PositionY": 4479.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 88,
+                "Name": "CXCL10_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5139.0,
+                "PositionY": 4500.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 89,
+                "Name": "TNFA",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5771.0,
+                "PositionY": 4492.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 90,
+                "Name": "LTA_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4929.0,
+                "PositionY": 4500.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 91,
+                "Name": "CXCL10_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8022.5,
+                "PositionY": 461.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 92,
+                "Name": "IL27",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7204.0,
+                "PositionY": 453.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 93,
+                "Name": "IL18_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6801.142857142859,
+                "PositionY": 456.8571428571431,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 94,
+                "Name": "MYD88",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7040.0,
+                "PositionY": 1020.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 95,
+                "Name": "TRAF6_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7360.0,
+                "PositionY": 1345.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 96,
+                "Name": "NIK",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7445.0,
+                "PositionY": 1521.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 97,
+                "Name": "LGALS9",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6532.0,
+                "PositionY": 465.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 98,
+                "Name": "CXCL16",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5296.0,
+                "PositionY": 388.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 99,
+                "Name": "GNAI_TH1___cytoplasm_active",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5680.454545454544,
+                "PositionY": 943.2727272727261,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 100,
+                "Name": "CCL5_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5982.0,
+                "PositionY": 4506.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 101,
+                "Name": "VCAM1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6484.0,
+                "PositionY": 4242.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane down"
+            },
+            {
+                "Id": 102,
+                "Name": "CCL3",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6799.0,
+                "PositionY": 4548.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 103,
+                "Name": "CCL4_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6292.0,
+                "PositionY": 4571.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 104,
+                "Name": "LAG3",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5242.0,
+                "PositionY": 718.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 105,
+                "Name": "igG",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4252.0,
+                "PositionY": 414.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 106,
+                "Name": "SHIP1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4694.0,
+                "PositionY": 967.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 107,
+                "Name": "CD28",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4176.0,
+                "PositionY": 734.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 108,
+                "Name": "MIF",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3886.0,
+                "PositionY": 458.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 109,
+                "Name": "lyn",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4014.0,
+                "PositionY": 1007.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 110,
+                "Name": "FGR",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4267.0,
+                "PositionY": 1181.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 111,
+                "Name": "AGT",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3380.0,
+                "PositionY": 448.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 112,
+                "Name": "ARHGEF2",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3641.0,
+                "PositionY": 1241.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 113,
+                "Name": "RHOA",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3883.0,
+                "PositionY": 1470.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 114,
+                "Name": "Rac1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4121.0,
+                "PositionY": 1638.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 115,
+                "Name": "EOMES",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4206.0,
+                "PositionY": 2335.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 116,
+                "Name": "mtor",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5331.0,
+                "PositionY": 2073.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 117,
+                "Name": "CCL2",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3127.0,
+                "PositionY": 410.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 118,
+                "Name": "CD84",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2428.0,
+                "PositionY": 735.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 119,
+                "Name": "SH2D1A",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2728.0,
+                "PositionY": 964.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 120,
+                "Name": "PRKCQ",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2908.0,
+                "PositionY": 1152.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 121,
+                "Name": "GAS6",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2209.0,
+                "PositionY": 482.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 122,
+                "Name": "NOTCH1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1278.2307692307695,
+                "PositionY": 738.3846153846143,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 123,
+                "Name": "NICD",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4842.7692307692305,
+                "PositionY": 2420.7692307692305,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 124,
+                "Name": "EP300",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4438.0,
+                "PositionY": 2420.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 125,
+                "Name": "SKIP",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4537.0,
+                "PositionY": 2420.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 126,
+                "Name": "CSL",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4631.0,
+                "PositionY": 2420.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 127,
+                "Name": "MAML1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4732.0,
+                "PositionY": 2422.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 128,
+                "Name": "PLXNB1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1108.0,
+                "PositionY": 745.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 129,
+                "Name": "SEMA4D",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 816.3076923076915,
+                "PositionY": 433.15384615384573,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 130,
+                "Name": "TNF",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1861.1538461538457,
+                "PositionY": 418.4615384615381,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 131,
+                "Name": "TRAF3",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1788.0,
+                "PositionY": 1239.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 132,
+                "Name": "PTK2",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6136.0,
+                "PositionY": 1040.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 133,
+                "Name": "LTA_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3535.8461538461543,
+                "PositionY": 437.38461538461524,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 134,
+                "Name": "SEMA4A_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 955.9230769230762,
+                "PositionY": 436.538461538461,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 135,
+                "Name": "CD40LG",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7336.0,
+                "PositionY": 4231.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane down"
+            },
+            {
+                "Id": 136,
+                "Name": "COL4A5",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4728.0,
+                "PositionY": 4568.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 137,
+                "Name": "CXCL13",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6938.0,
+                "PositionY": 4570.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 138,
+                "Name": "ICAM1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4842.0,
+                "PositionY": 4242.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane down"
+            },
+            {
+                "Id": 139,
+                "Name": "SEMA4A_TH1___secreted_components",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6619.0,
+                "PositionY": 4545.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 140,
+                "Name": "TGFB1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3830.0,
+                "PositionY": 4636.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 141,
+                "Name": "TNFSF11",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3979.0,
+                "PositionY": 4616.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 142,
+                "Name": "TBK1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1946.0,
+                "PositionY": 1410.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 143,
+                "Name": "IRF7_TH1___cytoplasm",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 1987.0,
+                "PositionY": 1611.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 144,
+                "Name": "IRF7_TH1___cytoplasm_active",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2147.0,
+                "PositionY": 1611.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 145,
+                "Name": "DAXX",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3102.0,
+                "PositionY": 941.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 146,
+                "Name": "map3k5",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3301.0,
+                "PositionY": 1347.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 147,
+                "Name": "MAPK8",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3447.0,
+                "PositionY": 1520.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 148,
+                "Name": "vegfa",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6390.0,
+                "PositionY": 4590.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : secreted components",
+                "Fill": "#00cccc"
+            },
+            {
+                "Id": 149,
+                "Name": "angiogenesis_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5743.0,
+                "PositionY": 4861.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 150,
+                "Name": "BCL2L11",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7532.0,
+                "PositionY": 2124.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 151,
+                "Name": "POU2F1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6600.0,
+                "PositionY": 2321.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 152,
+                "Name": "icos",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5883.0,
+                "PositionY": 723.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasmic membrane up",
+                "Fill": "#33cc00"
+            },
+            {
+                "Id": 153,
+                "Name": "ZAP70",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5152.0,
+                "PositionY": 1226.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 154,
+                "Name": "LAT_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5438.0,
+                "PositionY": 1241.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 155,
+                "Name": "PLCG1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5520.0,
+                "PositionY": 1485.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 156,
+                "Name": "VAV1",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5188.0,
+                "PositionY": 1494.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : cytoplasm",
+                "Fill": "#ff66cc"
+            },
+            {
+                "Id": 157,
+                "Name": "NFAT",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5206.142857142859,
+                "PositionY": 2386.2857142857156,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 158,
+                "Name": "RPS6KA4",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4684.857142857145,
+                "PositionY": 2305.7142857142862,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 159,
+                "Name": "CREB1_phosphorylated",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 3260.0,
+                "PositionY": 2414.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : nucleus",
+                "Fill": "#ff9900"
+            },
+            {
+                "Id": 160,
+                "Name": "TNFSF4",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 4684.0,
+                "PositionY": 414.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 161,
+                "Name": "CCL5_TH1___extracellular_space",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 8603.714285714286,
+                "PositionY": 376.8571428571431,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            },
+            {
+                "Id": 162,
+                "Name": "Matrix_degradation_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 5381.0,
+                "PositionY": 4884.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 163,
+                "Name": "Cell_chemotaxis_migration_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 6714.0,
+                "PositionY": 4936.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 164,
+                "Name": "apoptosis_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7639.0,
+                "PositionY": 4975.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 165,
+                "Name": "proliferation_survival_signal_phenotype",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 7202.0,
+                "PositionY": 4951.0,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : phenotypes"
+            },
+            {
+                "Id": 166,
+                "Name": "FASLG",
+                "Type": "Constant",
+                "ContainerId": 0,
+                "PositionX": 2892.5,
+                "PositionY": 412.5,
+                "CellY": 0,
+                "CellX": 0,
+                "Angle": 0,
+                "Description": "TH1 : extracellular space",
+                "Fill": "#9966ff"
+            }
+        ],
+        "Containers": [],
+        "Description": ""
+    },
+    "ltl": {
+        "states": [],
+        "operations": []
+    }
+}
