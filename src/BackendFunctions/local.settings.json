@@ -4,5 +4,8 @@
   "Host": {
     "LocalHttpPort": 7071,
     "CORS": "*"
+  },
+  "ConnectionStrings":{	    
+			"ClientActivity": "{azure-connection-string}"		
   }
 }
