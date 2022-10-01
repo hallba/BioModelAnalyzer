@@ -18,7 +18,7 @@ open BioModelAnalyzer
 //
 // CL Parsing
 //
-type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors | EngineDescribe
+type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors | EngineDescribe | EngineFixPoint
 let engine_of_string s = 
     match s with 
     | "PATH" | "path" -> Some EnginePath
@@ -30,6 +30,7 @@ let engine_of_string s =
     | "Simulate" | "simulate" | "SIMULATE"-> Some EngineSimulate
     | "Attractors" | "attractors" | "ATTRACTORS" -> Some EngineAttractors
     | "Describe" -> Some EngineDescribe
+    | "FixPoint" -> Some EngineFixPoint
     | _ -> None 
 
 // Command-line args
@@ -289,6 +290,24 @@ let runVMCAIEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
     | (Result.SRNotStabilizing(_), None) -> ()
     | _ -> failwith "Bad result from prover"
 
+let runFixPointEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
+    Log.log_debug "Running the proof"
+    let (sr,cex_o) = Stabilize.fixpoint_search qn no_sat concurrencyType
+    prettyReport sr
+    match (sr,cex_o) with 
+    | (Result.SRStabilizing(_), None) -> 
+        write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
+        printfn "One fixpoint (stable)"
+    | (Result.SRNotStabilizing(_), Some(cex)) -> 
+        write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
+        //let filename,ext = System.IO.Path.GetFileNameWithoutExtension proof_output, System.IO.Path.GetExtension proof_output
+        //write_json_to_file (filename + "_cex" + ext) (Marshal.CounterExampleOutput_of_fixpoints cex)
+        match cex with 
+        | Some(c) -> printfn "This many fixpoints = %d" (List.length c)
+        | _ -> printfn "no fixpoints"
+    | (Result.SRNotStabilizing(_), None) -> ()
+    | _ -> failwith "Bad result from prover"
+
 let runCAVEngine qn length_of_path formula model_check output_proof output_model ltl_output_filename =
     let ltl_formula_str = 
         if (model_check) then
@@ -412,6 +431,9 @@ let main args =
                     if (!attractorOut <> "") then runAttractorEngine !attractorMode !attractorOut qn !attractorInitialCsvFilename; true
                     else false
                 | Some EngineDescribe -> runDescription qn; true
+                | Some EngineFixPoint ->  
+                    if (!proof_output <> "") then runFixPointEngine qn !proof_output !no_sat Counterexample.Synchronous; true
+                    else false 
                 | none -> false
 
             if (not parameters_were_ok) then
