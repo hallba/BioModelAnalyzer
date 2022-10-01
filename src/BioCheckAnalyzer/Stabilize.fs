@@ -69,5 +69,5 @@ let fixpoint_search model no_sat concurrencyType =
     | Result.SRNotStabilizing(bounds_history) -> 
         let (_last_tick,last_bounds) = List.maxBy (fun (t,_b) -> t) bounds_history
         let cex = Counterexample.find_fp model last_bounds no_sat concurrencyType
-        Log.log_debug (cex.ToString())
+        Option.map (fun c -> Log.log_debug (c.ToString())) cex |> ignore
         (result, Some(cex))
