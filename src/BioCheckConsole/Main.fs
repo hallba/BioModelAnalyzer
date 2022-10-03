@@ -30,7 +30,7 @@ let engine_of_string s =
     | "Simulate" | "simulate" | "SIMULATE"-> Some EngineSimulate
     | "Attractors" | "attractors" | "ATTRACTORS" -> Some EngineAttractors
     | "Describe" -> Some EngineDescribe
-    | "FixPoint" -> Some EngineFixPoint
+    | "FixPoint" | "FIXPOINT" -> Some EngineFixPoint
     | _ -> None 
 
 // Command-line args
@@ -84,6 +84,9 @@ let ltloutputfilename = ref ""
 let attractorInitialCsvFilename = ref "" // optional input filename
 let attractorOut = ref "" // output filename
 let attractorMode = ref Attractors.Sync
+// -- related to fixpoint engine
+let fp_output = ref "fixpoints.csv"
+
 // --description of input QN
 type descriptionLevel = All | VarID
 let describe = ref All
@@ -101,6 +104,7 @@ let usage i =
     Printf.printfn "                           -engine [ VMCAI | VMCAIASYNC ] –prove output_file_name.json -nosat? [-report id,id,id] |"
     Printf.printfn "                           -engine CAV –formula f –path length –mc?  -outputmodel? –proof? [-ltloutput filename.json]? |"
     Printf.printfn "                           -engine SIMULATE –simulate_v0 initial_value_input_file.csv –simulate_time t –simulate output_file_name.csv -excel? |"
+    Printf.printfn "                           -engine FIXPOINT -fixpointout output_file_name"
     Printf.printfn "                           -engine ATTRACTORS -out output_file_name -async? [-initial initial.csv]? |"
     Printf.printfn "                           -engine PATH –model2 model2.json –state initial_state.csv –state2 target_state.csv ]"
     Printf.printfn "                           -engine Describe –model model.json -type [All | varid]"
@@ -118,6 +122,7 @@ let rec parse_args args =
     | "-engine" :: e :: rest -> engine := engine_of_string e; parse_args rest
     | "-prove" :: o :: rest -> proof_output := o; parse_args rest 
     | "-simulate" :: o :: rest -> simul_output := o; parse_args rest 
+    | "-fixpointout" :: o :: rest -> fp_output := o; parse_args rest
     | "-simulate_time" :: t :: rest -> simul_time := (int)t; parse_args rest
     | "-simulate_v0" :: v0 :: rest -> simul_v0 := v0; parse_args rest
     | "-excel" :: rest -> excel_output := true; parse_args rest
@@ -290,9 +295,9 @@ let runVMCAIEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
     | (Result.SRNotStabilizing(_), None) -> ()
     | _ -> failwith "Bad result from prover"
 
-let runFixPointEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
+let runFixPointEngine qn (proof_output : string) (no_sat : bool) outfile =
     Log.log_debug "Running the proof"
-    let (sr,cex_o) = Stabilize.fixpoint_search qn no_sat concurrencyType
+    let (sr,cex_o) = Stabilize.fixpoint_search qn no_sat ()
     prettyReport sr
     match (sr,cex_o) with 
     | (Result.SRStabilizing(_), None) -> 
@@ -303,7 +308,11 @@ let runFixPointEngine qn (proof_output : string) (no_sat : bool) concurrencyType
         //let filename,ext = System.IO.Path.GetFileNameWithoutExtension proof_output, System.IO.Path.GetExtension proof_output
         //write_json_to_file (filename + "_cex" + ext) (Marshal.CounterExampleOutput_of_fixpoints cex)
         match cex with 
-        | Some(c) -> printfn "This many fixpoints = %d" (List.length c)
+        | Some(c) -> 
+            printfn "This many fixpoints = %d" (List.length c)
+            Log.log_debug "Writing fixpoints to file"
+            let everything = String.concat "\n" (List.map (fun m -> Map.fold (fun s k v -> s + ";" + (string)k + "," + (string)v) "" m) c)
+            System.IO.File.WriteAllText(outfile, everything)
         | _ -> printfn "no fixpoints"
     | (Result.SRNotStabilizing(_), None) -> ()
     | _ -> failwith "Bad result from prover"
@@ -432,7 +441,7 @@ let main args =
                     else false
                 | Some EngineDescribe -> runDescription qn; true
                 | Some EngineFixPoint ->  
-                    if (!proof_output <> "") then runFixPointEngine qn !proof_output !no_sat Counterexample.Synchronous; true
+                    if (!proof_output <> "") then runFixPointEngine qn !proof_output !no_sat !fp_output; true
                     else false 
                 | none -> false
 
