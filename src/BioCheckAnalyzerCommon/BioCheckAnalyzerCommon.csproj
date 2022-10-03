@@ -87,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisResult.cs" />
-    <Compile Include="FixPointResult.cs" />
     <Compile Include="FurtherTestingResult.cs" />
     <Compile Include="IAnalyzer.cs" />
     <Compile Include="ILogService.cs" />

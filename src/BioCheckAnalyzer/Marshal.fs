@@ -911,17 +911,4 @@ let CounterExampleOutput_of_cex_result cr =
         cex.Error <- "CExUnknown"
         cex
 
-let CounterExampleOutput_of_fixpoints cr = 
-    match cr with 
-    | Some(x) -> 
-        //ugly hack as this isn't really a counter example..
-        let cex = new CounterExampleOutput()
-        cex.Status <- CounterExampleType.Cycle
-        cex.Error <- ""
-        cex
-    | None ->
-        let cex = new CounterExampleOutput()
-        cex.Status <- CounterExampleType.Unknown
-        cex.Error <- "CExUnknown"
-        cex
 
