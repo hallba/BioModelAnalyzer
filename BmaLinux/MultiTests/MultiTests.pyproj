@@ -28,6 +28,17 @@
     <Content Include="RA_M1_macrophage_complex_corrected_phenotype_corrected_and_homogenized.json" />
     <Content Include="RA_M2_macrophage_complex_corrected_phenotype_corrected_and_homogenized.json" />
     <Content Include="RA_TH1_complex_corrected_phenotype_corrected_and_homogenized.json" />
+    <Content Include="RA_fixpoint.json" />
+    <Content Include="reg_stability_analysis1.json" />
+    <Content Include="reg_stability_analysis2.json" />
+    <Content Include="reg_stability_analysis3.json" />
+    <Content Include="reg_stability_analysis5.json" />
+    <Content Include="stability_analysis5.json" />
+    <Content Include="reg_stability_analysis4.json" />
+    <Content Include="stability_analysis1.json" />
+    <Content Include="stability_analysis2.json" />
+    <Content Include="stability_analysis3.json" />
+    <Content Include="stability_analysis4.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

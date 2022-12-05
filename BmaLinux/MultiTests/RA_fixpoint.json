@@ -1,0 +1,45 @@
+{
+  "Model": {
+    "Name": "FPTest",
+    "Variables": [
+      {
+        "Name": "A",
+        "Id": 1,
+        "RangeFrom": 0,
+        "RangeTo": 1,
+        "Formula": ""
+      }
+    ],
+    "Relationships": [
+      {
+        "Id": 2,
+        "FromVariable": 1,
+        "ToVariable": 1,
+        "Type": "Activator"
+      }
+    ]
+  },
+  "Layout": {
+    "Variables": [
+      {
+        "Id": 1,
+        "Name": "A",
+        "Type": "Constant",
+        "ContainerId": 0,
+        "PositionX": 606.4197530864197,
+        "PositionY": -471.4814814814815,
+        "CellX": 0,
+        "CellY": 0,
+        "Angle": 0,
+        "Description": ""
+      }
+    ],
+    "Containers": [],
+    "AnnotatedGridCells": [],
+    "Description": ""
+  },
+  "ltl": {
+    "states": [],
+    "operations": []
+  }
+}
