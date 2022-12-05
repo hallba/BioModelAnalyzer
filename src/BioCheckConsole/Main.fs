@@ -18,7 +18,7 @@ open BioModelAnalyzer
 //
 // CL Parsing
 //
-type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors | EngineDescribe
+type Engine = EngineCAV | EngineVMCAI | EngineSimulate | EngineSCM | EngineSYN | EnginePath | EngineVMCAIAsync | EngineAttractors | EngineDescribe | EngineFixPoint
 let engine_of_string s = 
     match s with 
     | "PATH" | "path" -> Some EnginePath
@@ -30,7 +30,8 @@ let engine_of_string s =
     | "Simulate" | "simulate" | "SIMULATE"-> Some EngineSimulate
     | "Attractors" | "attractors" | "ATTRACTORS" -> Some EngineAttractors
     | "Describe" -> Some EngineDescribe
-    | _ -> None 
+    | "FixPoint" | "FIXPOINT" -> Some EngineFixPoint
+    | _ -> printfn "No engine recognised" ; None 
 
 // Command-line args
 // -- General
@@ -83,6 +84,9 @@ let ltloutputfilename = ref ""
 let attractorInitialCsvFilename = ref "" // optional input filename
 let attractorOut = ref "" // output filename
 let attractorMode = ref Attractors.Sync
+// -- related to fixpoint engine
+let fp_output = ref "fixpoints.csv"
+let fp_score = ref "" //csv varid/value pairs to count
 // --description of input QN
 type descriptionLevel = All | VarID
 let describe = ref All
@@ -100,6 +104,7 @@ let usage i =
     Printf.printfn "                           -engine [ VMCAI | VMCAIASYNC ] –prove output_file_name.json -nosat? [-report id,id,id] |"
     Printf.printfn "                           -engine CAV –formula f –path length –mc?  -outputmodel? –proof? [-ltloutput filename.json]? |"
     Printf.printfn "                           -engine SIMULATE –simulate_v0 initial_value_input_file.csv –simulate_time t –simulate output_file_name.csv -excel? |"
+    Printf.printfn "                           -engine FIXPOINT -fixpointout output_file_name -fixpointscore varid^value,varid^value"
     Printf.printfn "                           -engine ATTRACTORS -out output_file_name -async? [-initial initial.csv]? |"
     Printf.printfn "                           -engine PATH –model2 model2.json –state initial_state.csv –state2 target_state.csv ]"
     Printf.printfn "                           -engine Describe –model model.json -type [All | varid]"
@@ -120,6 +125,8 @@ let rec parse_args args =
     | "-simulate_time" :: t :: rest -> simul_time := (int)t; parse_args rest
     | "-simulate_v0" :: v0 :: rest -> simul_v0 := v0; parse_args rest
     | "-excel" :: rest -> excel_output := true; parse_args rest
+    | "-fixpointout" :: o :: rest -> fp_output := o; parse_args rest
+    | "-fixpointscore" :: o :: rest -> fp_score := o; parse_args rest
     | "-formula" :: f :: rest -> formula := f; parse_args rest
     | "-mc" :: rest -> model_check := true; parse_args rest
     | "-nosat" :: rest -> no_sat := true; parse_args rest
@@ -188,6 +195,30 @@ let write_json_to_file (fn:string) o =
     ser.Serialize(writer,o)
     writer.Close()
 
+
+let fixpointScoring (measure:string) states =
+    let score = 
+        let state = measure.Split [|','|]
+                    |> Array.map (fun assignment -> 
+                        let v = assignment.Split [|'^'|]
+                        //printfn "%s %s" (v.[0].ToString()) (v.[1].ToString())
+                        ((v.[0]+"^0"),v.[1]) )
+                    |> Map.ofArray
+        (fun (s:Map<string,int>) ->
+            Map.fold (fun acc k v -> 
+                if acc = false then
+                    false
+                elif Map.containsKey k state then
+                    if state.[k] <> v.ToString() then 
+                        false
+                    else 
+                        true
+                else 
+                    true
+                ) true s
+            )
+    List.filter score states
+    |> List.length
 //
 // engine wrappers
 //
@@ -286,6 +317,29 @@ let runVMCAIEngine qn (proof_output : string) (no_sat : bool) concurrencyType =
         write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
         let filename,ext = System.IO.Path.GetFileNameWithoutExtension proof_output, System.IO.Path.GetExtension proof_output
         write_json_to_file (filename + "_cex" + ext) (Marshal.CounterExampleOutput_of_cex_result cex)
+    | (Result.SRNotStabilizing(_), None) -> ()
+    | _ -> failwith "Bad result from prover"
+
+let runFixPointEngine qn (proof_output : string) (no_sat : bool) scoreState outfile =
+    Log.log_debug "Running the proof"
+    let (sr,cex_o) = Stabilize.fixpoint_search qn no_sat ()
+    prettyReport sr
+    match (sr,cex_o) with 
+    | (Result.SRStabilizing(_), None) -> 
+        write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
+        printfn "One fixpoint (stable)"
+    | (Result.SRNotStabilizing(_), Some(cex)) -> 
+        write_json_to_file proof_output (Marshal.AnalysisResult_of_stability_result sr)
+        match cex with 
+        | Some(c) -> 
+            printfn "This many fixpoints = %d" (List.length c)
+            if scoreState <> "" then 
+                let score = fixpointScoring scoreState c
+                printfn "This many fixpoints match the condition = %d" score
+            Log.log_debug "Writing fixpoints to file"
+            let everything = String.concat "\n" (List.map (fun m -> Map.fold (fun s k v -> s + ";" + (string)k + "," + (string)v) "" m) c)
+            System.IO.File.WriteAllText(outfile, everything)
+        | _ -> printfn "no fixpoints"
     | (Result.SRNotStabilizing(_), None) -> ()
     | _ -> failwith "Bad result from prover"
 
@@ -412,6 +466,9 @@ let main args =
                     if (!attractorOut <> "") then runAttractorEngine !attractorMode !attractorOut qn !attractorInitialCsvFilename; true
                     else false
                 | Some EngineDescribe -> runDescription qn; true
+                | Some EngineFixPoint ->  
+                    if (!proof_output <> "") then runFixPointEngine qn !proof_output !no_sat !fp_score !fp_output; true
+                    else false 
                 | none -> false
 
             if (not parameters_were_ok) then

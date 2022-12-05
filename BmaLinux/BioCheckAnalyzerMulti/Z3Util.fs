@@ -53,6 +53,37 @@ let internal assert_not_model (model : Model) (z : Context) (s : Solver) =
     Log.log_debug ("not_model: " + not_model.ToString())
     s.Assert not_model
 
+let fixpoint_search (makeAssertions : Context -> Solver -> unit) =
+    let rec search (ctx:Context) (s:Solver) fixes =
+        match s.Check() with
+        | Status.SATISFIABLE ->
+            use model2 = s.Model
+            assert_not_model model2 ctx s
+            let fix2 = model_to_fixpoint model2
+            search ctx s (fix2::fixes)
+        | _ -> fixes
+    
+    let cfg = System.Collections.Generic.Dictionary()
+    cfg.Add("MODEL", "true")
+    
+    use ctx = new Context(cfg)
+    use s = ctx.MkSolver()
+    
+    makeAssertions ctx s
+
+    // Did we find a fixpoint?
+    match s.Check() with
+    | Status.SATISFIABLE ->
+        use model1 = s.Model
+        assert_not_model model1 ctx s
+        let fix1 = model_to_fixpoint model1
+
+        let result = search ctx s [fix1]
+        Some(result)
+    | _ ->
+         Log.log_debug "No initial fixpoint when looking for bifurcation"
+         None
+
 let find_bifurcation (makeAssertions : Context -> Solver -> unit) =
     let cfg = System.Collections.Generic.Dictionary()
     cfg.Add("MODEL", "true")

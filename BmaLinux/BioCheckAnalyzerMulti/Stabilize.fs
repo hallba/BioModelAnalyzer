@@ -56,3 +56,18 @@ let stabilization_prover model no_sat concurrencyType =
         let cex = Counterexample.find_cex model last_bounds no_sat concurrencyType
         Log.log_debug (cex.ToString())
         (result, Some(cex))
+
+///Variation of stabilization_prover that just returns a list of fixpoints
+// same as above but for cex search
+let fixpoint_search model no_sat concurrencyType =
+    let results = check_stability_lazy model
+    let results = Seq.toArray results
+    let result = results.[results.Length - 1] //Seq.nth ((Seq.length results) - 1) results 
+    match result with 
+    | Result.SRStabilizing(_) -> 
+        (result, None) 
+    | Result.SRNotStabilizing(bounds_history) -> 
+        let (_last_tick,last_bounds) = List.maxBy (fun (t,_b) -> t) bounds_history
+        let cex = Counterexample.find_fp model last_bounds no_sat concurrencyType
+        Option.map (fun c -> Log.log_debug (c.ToString())) cex |> ignore
+        (result, Some(cex))

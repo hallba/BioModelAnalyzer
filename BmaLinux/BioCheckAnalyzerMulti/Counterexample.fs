@@ -46,6 +46,20 @@ let find_cex_fixpoint (net : QN.node list) (bounds : Map<QN.var, int*int>) =
 
 type concurrency = Synchronous | Asynchronous
 
+let find_fp (net : QN.node list) (bounds : Map<QN.var, int*int>) (no_sat : bool) concurrencyType =
+    if (no_sat) then
+        Log.log_debug "Not allowed to run sat solver. Just returning none"
+        None
+    else
+        // Try to find a bifurcation first....
+        Log.log_debug "CEx(1): search for all fixpoints."
+        let fp = Z.find_all_fixpoints net bounds(*was: range*)
+        match fp with
+        | Some(_) -> fp
+        | None ->
+            Log.log_debug "No fixpoints..."
+            None
+
 /// Find a counterexample to the stability of a network.
 // Compose the above three functions; not part of the UI Interface itself but used by Main and UIMain.
 // Right now, we call the inners of each of these three functions; we should just call them straight. 

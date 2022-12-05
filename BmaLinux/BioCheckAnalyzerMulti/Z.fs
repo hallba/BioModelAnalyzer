@@ -350,6 +350,16 @@ let find_bifurcation (network : QN.node list) range =
     |> Option.map(fun (fix1, fix2) -> 
         (fix1 |> convertMapToInt |> fixpoint_to_env), (fix2 |> convertMapToInt |> fixpoint_to_env))
 
+///////////////////////////////////////////////////////////////////////////////
+// fixpoint search
+///////////////////////////////////////////////////////////////////////////////
+
+let find_all_fixpoints (network : QN.node list) range =
+    Z3Util.fixpoint_search (unroll_qn network range 0 0) 
+    |> Option.map(fun fixes -> 
+        List.map convertMapToInt fixes
+        |> List.map fixpoint_to_env //Why couldn't I pipeline this in a single line?
+        )
 
 ///////////////////////////////////////////////////////////////////////////////
 // cycle
