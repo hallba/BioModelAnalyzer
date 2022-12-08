@@ -4,8 +4,8 @@
 ################################################
 
 ####### ENTER YOUR INPUTS HERE ######################
-$version = "1.13.0.2"
-$gitdir = "C:\UCL\github\BmaBuilds\vCLIENT\BioModelAnalyzer\"
+$version = "1.14.0.1"
+$gitdir = "C:\UCL\github\BmaBuilds\Rel14c\BioModelAnalyzer\"
 $loctmp = "C:\tmp\"
 ###################################################
 $root = $gitdir+"deployment\"
