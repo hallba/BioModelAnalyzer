@@ -250,6 +250,53 @@
     });
 }(jQuery));
 
+(function ($) {
+    $.widget("BMA.viewbackendwidget", {
+
+        _abut: undefined,
+        
+        _create: function () {
+            var root = this.element;
+
+            var width = 120;
+                                  
+            root.width(width).height(30).css("position", "relative");
+            var lnke = '<div><a href="' + window.BMAServiceURL + '/api/ServerVersion" target="_blank">check version</a></div>';
+            var Abut = $(lnke).css("background-position", "center").
+                css("background-size", "contain").
+                width(24).
+                height(24).
+                css("left", 14 * 0.5).
+                css("top", 0.5 * 32).
+                css("position", "absolute").
+                css("cursor", "pointer").appendTo(root);
+                
+            
+            Abut.click(function () {
+                //Abut.css("background-image", "url(images/settings/viewswitch/VM_Auto_Active.svg)");                
+                //window.Commands.Execute("ChangeViewMode", "Auto");
+            });
+                                    
+            this._abut = Abut;            
+        },
+
+        SetViewMode: function (mode) {
+            switch (mode) {
+                case "Auto": this._abut.click(); break;
+                case "Model": this._mbut.click(); break;
+                case "Constelations": this._cbut.click(); break;
+                case "Bubbles": this._bbut.click(); break;
+                default:
+                    console.log("Unknown view switch mode");
+            }
+        },
+
+        destroy: function () {
+            $.Widget.prototype.destroy.call(this);
+        }
+    });
+}(jQuery));
+
 interface JQuery {
     visibilitysettings(): JQuery;
     visibilitysettings(settings: Object): JQuery;
@@ -260,4 +307,9 @@ interface JQuery {
     viewswitchwidget(settings: Object): JQuery;
     viewswitchwidget(optionLiteral: string, optionName: string): any;
     viewswitchwidget(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    viewbackendwidget(): JQuery;
+    viewbackendwidget(settings: Object): JQuery;
+    viewbackendwidget(optionLiteral: string, optionName: string): any;
+    viewbackendwidget(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
