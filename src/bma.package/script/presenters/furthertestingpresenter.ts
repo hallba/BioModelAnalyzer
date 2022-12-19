@@ -121,7 +121,7 @@ module BMA {
                                             OnProofStarting();
                                         }
                                         catch (ex) {
-                                            that.messagebox.Show(ftErrorMessage);
+                                            that.messagebox.Show(ftErrorMessage + ":" + ex);
                                             that.driver.ShowStartFurtherTestingToggler();
                                         };
                                     }
