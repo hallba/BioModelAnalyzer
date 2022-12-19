@@ -477,6 +477,8 @@
     <None Include="Properties\PublishProfiles\bmademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmademofrontend - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\bmafreeapp - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bmafreeapp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterface - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterface - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterface - ReadOnly - FTP.pubxml" />

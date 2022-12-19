@@ -57,7 +57,8 @@ module BMA {
                     });
                     var variablesData = that.CreateTableView(that.stability.variablesStability);
                     that.expandedProofVariables = that.CreateExpandedProofVariables(variablesData);
-                    that.AddPropagationColumn(that.stability.variablesStability);
+                    var colors = that.expandedProofVariables.coloredtableviewer("option", "colorData");
+                    that.AddPropagationColumn(that.stability.variablesStability, colors);
 
 
                     proofResultViewer.SetData({
@@ -78,6 +79,7 @@ module BMA {
 
                     if (res.Ticks !== null) {
                         //Signal to further testing presenter about proof results
+                        that.expandedProofPropagation = $('<div></div>');
                         if (res.Status === "NotStabilizing")
                             window.Commands.Execute("InitFurtherTesting", { Model: proofInput, Res: res, Variables: that.appModel.BioModel.Variables });
                         else
@@ -336,17 +338,19 @@ module BMA {
                 return color;
             }
 
-            public AddPropagationColumn(st) {
+            public AddPropagationColumn(st, colors) {
                 var trs = this.expandedProofPropagation.find('tr');
                 $('<td></td>').text('Fix Point').appendTo(trs.eq(0));
-                var colors = this.expandedProofPropagation.coloredtableviewer("option", "colorData");
-
+                //var colors = this.expandedProofPropagation.coloredtableviewer("option", "colorData");
+                
                 for (var i = 0; i < st.length; i++) {
                     colors[i][0] = st[i].state;
                     $('<td></td>').text(st[i].range).appendTo(trs.eq(i + 1));
                     this.colorData[i].push(st[i].state);
                     colors[i].push(st[i].state);
                 }
+
+                this.expandedProofPropagation.coloredtableviewer({ "colorData": colors, type: "color" });
                 this.expandedProofPropagation.coloredtableviewer("option", "colorData", colors);
             }
 
@@ -358,6 +362,8 @@ module BMA {
                 });
 
                 full.addClass('scrollable-results');
+
+                var colors = full.coloredtableviewer("option", "colorData");
                 return full;
             }
 
