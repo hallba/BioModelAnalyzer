@@ -25,7 +25,7 @@ string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 dynamic data = JsonConvert.DeserializeObject(requestBody);
 name = name ?? data?.name;
 
-string responseMessage = "BMA Server Version 1.13.0002";
+string responseMessage = "BMA Server Version 1.14.0001";
 
 return new OkObjectResult(responseMessage);
 }
