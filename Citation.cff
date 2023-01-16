@@ -1,0 +1,12 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Hall
+    given-names: Benjamin Andrew
+    orcid: https://orcid.org/0000-0003-0355-2946
+  - family-names: Alcraft
+    given-names: Rachel
+    orcid: https://orcid.org/0000-0003-2674-6321
+title: hallba/BioModelAnalyzer: Linux BMA Console
+version: L1.13.3
+date-released: 2023-01-16
