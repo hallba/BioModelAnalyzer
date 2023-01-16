@@ -1,0 +1,243 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnalyzerMulti\\BioCheckAnalyzerMulti.fsproj": {}
+  },
+  "projects": {
+    "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnalyzerMulti\\BioCheckAnalyzerMulti.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnalyzerMulti\\BioCheckAnalyzerMulti.fsproj",
+        "projectName": "BioCheckAnalyzerMulti",
+        "projectPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnalyzerMulti\\BioCheckAnalyzerMulti.fsproj",
+        "packagesPath": "C:\\Users\\Rache\\.nuget\\packages\\",
+        "outputPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnalyzerMulti\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Rache\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj": {
+                "projectPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj"
+              },
+              "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj": {
+                "projectPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FParsec": {
+              "target": "Package",
+              "version": "[1.1.1, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            },
+            "Microsoft.Office.Interop.Excel": {
+              "target": "Package",
+              "version": "[15.0.4795.1001, )",
+              "generatePathProperty": true
+            },
+            "System.ComponentModel.Composition": {
+              "target": "Package",
+              "version": "[6.0.0, )",
+              "generatePathProperty": true
+            },
+            "System.Runtime": {
+              "target": "Package",
+              "version": "[4.3.1, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj",
+        "projectName": "BioCheckAnaylzerCommonMulti",
+        "projectPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj",
+        "packagesPath": "C:\\Users\\Rache\\.nuget\\packages\\",
+        "outputPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Rache\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj",
+        "projectName": "Z3testMulti",
+        "projectPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj",
+        "packagesPath": "C:\\Users\\Rache\\.nuget\\packages\\",
+        "outputPath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Rache\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            },
+            "Microsoft.Z3": {
+              "target": "Package",
+              "version": "[4.11.2, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

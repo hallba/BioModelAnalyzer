@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WWYtxxJKSz1KmFQWShj44HXgtAjdTat+AW3zeT0iKYHCkiwwBw9PRos5oyEDgoNzOXYhS8IQbqqL5cfpQlo7gQ==",
+  "success": true,
+  "projectFilePath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\Z3testMulti\\Z3testMulti.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rache\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rache\\.nuget\\packages\\microsoft.z3\\4.11.2\\microsoft.z3.4.11.2.nupkg.sha512"
+  ],
+  "logs": []
+}

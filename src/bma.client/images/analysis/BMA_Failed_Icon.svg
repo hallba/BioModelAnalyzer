@@ -1,9 +1,0 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
-  <defs>
-    <style>.cls-1{fill:#0cc;}.cls-2,.cls-4{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;}.cls-2{stroke-width:6.17px;}.cls-3{fill:#f06;}.cls-4{stroke-width:10px;}</style>
-  </defs>
-  <title>BMA_Unstable_Icon</title>
-  <circle class="cls-3" cx="35" cy="35" r="35"/>
-  <line class="cls-4" x1="50.32" y1="19.68" x2="19.68" y2="50.32"/>
-  <line class="cls-4" x1="50.32" y1="50.32" x2="19.68" y2="19.68"/>
-</svg>

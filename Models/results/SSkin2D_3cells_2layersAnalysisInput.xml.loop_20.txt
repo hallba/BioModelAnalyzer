@@ -1,2 +1,0 @@
-The formula is unsatisfiable!
-Time: 00:05:11.8020324

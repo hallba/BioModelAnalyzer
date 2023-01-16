@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "V/5L3XASi8LAmbrabBccHLnrgbVXYrnRVfETznZ3TV3mRGjSmqbmEYSS8oT21huApmFmTDrov8YP1R6LdlgnwA==",
+  "success": true,
+  "projectFilePath": "C:\\UCL\\github\\BmaBuilds\\Linux\\BmaLinux\\BioCheckAnaylzerCommonMulti\\BioCheckAnaylzerCommonMulti.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rache\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rache\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Rache\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

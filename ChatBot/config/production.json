@@ -1,8 +1,0 @@
-{
-    "USE_CONSOLE": "0",
-    "PROTOCOL": "https",
-    "SERVE_STATIC_VIA_EXPRESS": "0",
-    "BMA_URL": "http://biomodelanalyzer.org/tool.html",
-    "BMA_BACKEND_URL": "http://bmacompute.cloudapp.net/api/",
-    "ENABLE_SPELLCHECK": "1"
-}
