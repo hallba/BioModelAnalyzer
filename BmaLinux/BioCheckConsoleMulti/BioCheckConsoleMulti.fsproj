@@ -11,6 +11,8 @@
 	  <Compile Include="Main.fs" />        
   </ItemGroup>
 
+  <ItemGroup />
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>

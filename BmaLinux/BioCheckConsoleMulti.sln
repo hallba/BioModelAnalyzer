@@ -12,6 +12,9 @@ EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "BioCheckConsoleMulti", "BioCheckConsoleMulti\BioCheckConsoleMulti.fsproj", "{8DE8A7A0-201C-4A51-BA73-57665E3A94F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A11FB926-83AE-4FC5-8F8C-352C957828E6}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MultiTests", "MultiTests\MultiTests.pyproj", "{AE8EB664-3B0E-4CC9-97CB-47BDA3CE3B64}"
 EndProject
