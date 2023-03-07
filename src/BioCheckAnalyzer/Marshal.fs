@@ -556,7 +556,12 @@ let QN_of_Model (model:Model) =
 
                 // [t] can be None, in which case we'll synthesize a default T in [qn_map] later.
                 let t = Some v.Formula
-                let exn_msg f = "Failed to parse " + name + "'s transfer function " + f
+                let dotPosition = v.Formula.IndexOf(".")
+                if dotPosition > -1 then
+                    let exn_msg f = " Input error: cannot use decimals in " + name + "'s formula " + f                    
+                    raise(MarshalInFailed(id,exn_msg ""))
+                                        
+                let exn_msg f = " Failed to parse " + name + "'s transfer function " + f
                 let parse_error f line col msg = 
                     "Failed to parse " + name + "'s function: " + f + ". " +
                     "Exception: " + msg + ". " +

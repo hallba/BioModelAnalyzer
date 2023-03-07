@@ -75,7 +75,17 @@ namespace bma.BioCheck
                 log.LogDebug(string.Format("V13.0 The analysis took {0}", sw.Elapsed));
 
                 if (result.Status != StatusType.Stabilizing && result.Status != StatusType.NotStabilizing)
+                {
+                    if (result.Error!= null)
+                    {
+                        if (result.Error.Contains("Input error"))
+                        {
+                            result.Status = StatusType.InputError;
+                            throw new Exception(result.Error);
+                        }
+                    }
                     throw new Exception("The stability status is neither 'Stabilizing' nor 'NotStabilizing'; result error: " + (result.Error == null ? "<null>" : result.Error));
+                }
 
                 return new AnalysisOutput
                 {
@@ -92,13 +102,27 @@ namespace bma.BioCheck
                 var version = typeof(Analysis).Assembly.GetName().Version;
                 log.LogError(String.Format("Analysis failed. Assembly version: {0}. Exception: {1}", version, ex));
                 // Return an Unknown if fails
-                return new AnalysisOutput
+                if (ex.Message.Contains("Input error"))
                 {
-                    Status = StatusType.Error,
-                    Error = ex.Message,
-                    ErrorMessages = log.ErrorMessages.Length > 0 ? log.ErrorMessages.ToArray() : null,
-                    DebugMessages = log.DebugMessages.Length > 0 ? log.DebugMessages.ToArray() : null
-                };
+                    return new AnalysisOutput
+                    {
+                        Status = StatusType.InputError,
+                        Error = ex.Message,
+                        ErrorMessages = log.ErrorMessages.Length > 0 ? log.ErrorMessages.ToArray() : null,
+                        DebugMessages = log.DebugMessages.Length > 0 ? log.DebugMessages.ToArray() : null
+                    };
+                }
+                else
+                {
+                    return new AnalysisOutput
+                    {
+                        Status = StatusType.Error,
+                        Error = ex.Message,
+                        ErrorMessages = log.ErrorMessages.Length > 0 ? log.ErrorMessages.ToArray() : null,
+                        DebugMessages = log.DebugMessages.Length > 0 ? log.DebugMessages.ToArray() : null
+                    };
+
+                }
             }
         }
 

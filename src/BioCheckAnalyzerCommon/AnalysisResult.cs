@@ -80,6 +80,7 @@ namespace BioModelAnalyzer
         Error,
         True,
         False,
-        PartiallyTrue
+        PartiallyTrue,
+        InputError
     }
 }

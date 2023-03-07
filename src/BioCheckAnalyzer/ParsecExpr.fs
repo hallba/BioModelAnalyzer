@@ -38,6 +38,8 @@ let str s = skipString s >>. ws
 
 // Number parsing. 
 let numberFormat = NumberLiteralOptions.AllowMinusSign
+//let numberFormat = NumberLiteralOptions.Allo
+
 let numberLit = numberLiteral numberFormat "number" .>> ws
 
 // "Grammar productions". 
