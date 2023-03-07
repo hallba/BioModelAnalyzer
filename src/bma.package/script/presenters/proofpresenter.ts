@@ -102,6 +102,14 @@ module BMA {
                                 data: undefined
                             })
                         }
+                        else if (res.Status == "InputError") {
+                            proofResultViewer.SetData({
+                                //issucceeded: undefined,
+                                issucceeded: "inputerror",
+                                message: res.Error,
+                                data: undefined
+                            });
+                        }
                         else
                             proofResultViewer.SetData({
                                 issucceeded: res.Status === "Stabilizing",

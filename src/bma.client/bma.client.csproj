@@ -485,6 +485,9 @@
     <None Include="Properties\PublishProfiles\bmainterface - ReadOnly - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterface - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterface - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\bmainterface-tst - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bmainterface-tst - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bmainterface-tst - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterfacetest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterfacetest - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\bmainterfacetest - FTP2.pubxml" />

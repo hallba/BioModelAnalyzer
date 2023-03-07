@@ -21,7 +21,11 @@
                 var errTitle = $('<div></div>').addClass('proof-state').appendTo(that.errorDiv);
                 $('<img src="../../images/analysis/BMA_Failed_Icon.svg">').width(30).height(30).appendTo(errTitle);
                 $('<div></div>').addClass('stabilize-failed').text(that.options.error.title).appendTo(errTitle);
-                $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
+                if (that.options.error.message[1].includes("Input")){
+                    $('<p></p>').html("Input errors, check for decimals.").appendTo(that.errorDiv);
+                } else { 
+                    $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
+                }
             } else {
                 that.errorDiv.hide();
             }
