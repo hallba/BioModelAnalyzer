@@ -559,6 +559,7 @@ let QN_of_Model (model:Model) =
                 let dotPosition = v.Formula.IndexOf(".")
                 if dotPosition > -1 then
                     let exn_msg f = " Input error: cannot use decimals in " + name + "'s formula " + f                    
+                    Log.log_error("Input error: cannot use decimals") 
                     raise(MarshalInFailed(id,exn_msg ""))
                                         
                 let exn_msg f = " Failed to parse " + name + "'s transfer function " + f
