@@ -7,13 +7,32 @@
 </head>
 <body>
     <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
+        <span class="heading">BMA 1.14.0001</span>
+        <div class="intro-text">
+            <p>Bug fixes and documentation information updates.</p>
+            <span class="subheading">New features</span>
+            <p>
+                - Additional <a href="https://bmafreeapp.azurewebsites.net">free-tier version of BMA</a> added to run in parallel<br />
+                - Client can now check which server it is connected to from settings<br />
+                - Team members update<br/>
+                - Publications update<br/>
+            </p>
+            <span class="subheading">Bugfixes</span>
+            <p>
+                - Decimals not handled in formulae inputs, added message<br />
+                - Fixed popup bug caused by stability analysis error<br />
+                - Standalone console updated to z3 version 4.11.2 (gui-server already on this)<br />
+            </p>
+        </div>
+    </div>
+    <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
         <span class="heading">BMA 1.13.0002</span>
         <div class="intro-text">
             <p>This is the first release distributed from the UCL ARC team.</p>
             <span class="subheading">New features</span>
             <p>
                 - ServerVersion added to check server version. <br />
-                &ensp;&ensp;Call it directly from a browser,e.g 
+                &ensp;&ensp;Call it directly from a browser,e.g
                 <a href="https://bmafunctionscore.azurewebsites.net/api/ServerVersion">Production ServerVersion</a><br />
                 - Team members update<br />
             </p>
@@ -22,14 +41,14 @@
                 - Fixed reported bug: Division by a variable can cause instability that depends on node ID<br />
             </p>
         </div>
-    </div>    
+    </div>
     <div id="release-notes" class="infopage-block-intro fixed-width" style="border-bottom: 1px solid gray;">
         <span class="heading">BMA 1.12.0011</span>
         <div class="intro-text">
             <p>This release focuses on bug fixes and minor user interface updates. </p>
             <span class="subheading">New features</span>
             <p>
-                - Reintroduced the ability to create LTL states from the proof analysis and refined table headers<br/>
+                - Reintroduced the ability to create LTL states from the proof analysis and refined table headers<br />
                 - Allowed users to view proof results through the connections context menu<br />
                 - Changed the constellations rendering to better distinguish cluster links from model edges<br />
             </p>
