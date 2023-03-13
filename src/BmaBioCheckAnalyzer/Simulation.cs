@@ -50,28 +50,33 @@ namespace bma.BioCheck
                 }
 
                 Stopwatch sw = new Stopwatch();
-                sw.Start();
+                sw.Start();                
                 var output = analyzer.simulate_tick(input.Model, input.Variables);
                 sw.Stop();
 
                 log.LogDebug(string.Format("The simulation took {0}", sw.Elapsed));
 
                 return new SimulationOutput
-                {
+                {                    
                     Variables = output,
                     ErrorMessages = log.ErrorMessages.Length > 0 ? log.ErrorMessages.ToArray() : null,
                     DebugMessages = log.DebugMessages.Length > 0 ? log.DebugMessages.ToArray() : null,
                 };
             }
             catch (Exception ex)
-            {
+            {                
                 var version = typeof(Simulation).Assembly.GetName().Version;
                 log.LogError(String.Format("Simulation failed. Assembly version: {0}. Exception: {1}", version, ex));
+                if (ex.Message.Contains("MarshalInFailed"))
+                {
+                    log.LogError("Input error, check for decimals");
+                    log.LogDebug("");
+                }
                 return new SimulationOutput
                 {
                     ErrorMessages = log.ErrorMessages.Length > 0 ? log.ErrorMessages.ToArray() : null,
                     DebugMessages = log.DebugMessages.Length > 0 ? log.DebugMessages.ToArray() : null
-                };
+                };                
             }
         }
     }

@@ -1,0 +1,13 @@
+
+N.b. the bma console aquires the version by copying from the ext folder.
+The GUI-backend acquire the dll via nuget. They need to switch between Microsoft.Z3.dll and Microsoft.Z3.x86.dll for z3 to work (test).
+
+Version 1.14 (March 2023)
+BMA console 4.11.2
+GUI and backend 4.11.2
+mac 4.6 (unchanged)
+
+Version 1.13
+BMA console 4.8.4
+GUI and backend 4.11.2
+mac 4.6

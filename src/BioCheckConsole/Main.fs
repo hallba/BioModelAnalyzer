@@ -477,6 +477,13 @@ let main args =
 
         !res
     with
+        | Marshal.MarshalInFailed(id,msg) -> 
+            if (msg = "Bad command line args")
+            then
+              usage 1
+            else
+              Printf.printfn "Error: %s" msg
+            -1
         | Failure(msg) -> 
             if (msg = "Bad command line args")
             then
@@ -484,7 +491,7 @@ let main args =
             else
               Printf.printfn "Error: %s" msg
             -1
-
+    
 
 
 
