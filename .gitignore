@@ -310,3 +310,4 @@ src/bma.package/css/bma.css
 !src/bma.package/Gruntfile.js
 !src/bma.package/Silverlight.js
 src/bma.selfhost_install/*.*
+src/BackendFunctions/local.settings.json
