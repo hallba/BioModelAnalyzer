@@ -420,8 +420,7 @@ let string_to_BoolVarType (s : string) =
     else
         BadEncode
 
-let convertMapToBool map =    
-    let res = map |> Map.map(fun _ -> System.Int32.Parse)
+let convertMapToBool  (map : Map<'a, string>) =    
     map |> Map.map(fun _ -> System.Boolean.Parse)
 
 let z3_model_to_loop (model : Model) (paths : Map<QN.var,int list> list) = 
