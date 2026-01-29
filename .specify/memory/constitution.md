@@ -84,3 +84,14 @@ Enable biologists to build and analyze complex biological behavior models using 
 2. **Incremental Delivery** - Each phase produces working software
 3. **Continuous Validation** - Test against existing Windows version
 4. **Documentation as Code** - Keep specs updated with implementation
+
+## Spec-Kit Command Usage
+
+**Use the enhanced local commands instead of the base spec-kit commands:**
+
+| Instead of | Use | Reason |
+|------------|-----|--------|
+| `/speckit.tasks` | `/local.tasks` | Generates individual task files with context window scoping |
+| `/speckit.implement` | `/local.implement` | Stops at 95% context, no autocompact, controlled handoff |
+
+These enhancements ensure large implementation projects can span multiple Claude Code sessions without losing context. See `.specify/README.md` for details.

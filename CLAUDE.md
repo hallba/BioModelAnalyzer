@@ -112,6 +112,15 @@ This project uses [spec-kit](https://github.com/github/spec-kit) for specificati
 └── templates/                       # Templates for new features
 ```
 
+### Enhanced Spec-Kit Commands (USE THESE)
+
+**Always use the local enhanced commands instead of base spec-kit:**
+
+| Instead of | Use | Why |
+|------------|-----|-----|
+| `/speckit.tasks` | `/local.tasks` | Creates individual task files with context window scoping |
+| `/speckit.implement` | `/local.implement` | Stops at 95% context, no autocompact, controlled session handoff |
+
 ### Working on Features
 1. Read the constitution: `.specify/memory/constitution.md`
 2. Review the spec: `.specify/specs/001-linux-modernization/spec.md`

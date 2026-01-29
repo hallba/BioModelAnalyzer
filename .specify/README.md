@@ -21,6 +21,7 @@ This directory contains specification-driven development artifacts for the BioMo
 │   ├── spec-template.md
 │   ├── plan-template.md
 │   ├── tasks-template.md
+│   ├── task-file-template.md    # Individual task file template
 │   └── research-template.md
 └── README.md                    # This file
 ```
@@ -76,6 +77,60 @@ Follow the architecture in plan.md and ensure API matches contracts/api-spec.yam
 | ID | Feature | Status |
 |----|---------|--------|
 | 001 | Linux Modernization | Planning |
+
+## Local Enhancements
+
+**Author:** John Watts
+**Date:** 2026-01-29
+
+Enhanced versions of spec-kit commands are provided as separate files to support long-running implementation work with Claude Code. This keeps the base spec-kit commands updatable while preserving our customizations.
+
+### Using the Enhanced Commands
+
+| Standard Command | Enhanced Command | Description |
+|------------------|------------------|-------------|
+| `/speckit.tasks` | `/local.tasks` | Adds individual task files + context window scoping |
+| `/speckit.implement` | `/local.implement` | Adds 95% context management, no autocompact |
+
+**Use `/local.tasks` and `/local.implement` instead of the base commands for this project.**
+
+### Copying to New Projects
+
+To use these enhancements in a new project:
+
+1. Run `specify init` to set up base spec-kit
+2. Copy the local command files:
+   ```bash
+   cp .claude/commands/local.tasks.md /path/to/new-project/.claude/commands/
+   cp .claude/commands/local.implement.md /path/to/new-project/.claude/commands/
+   ```
+3. Copy the task file template:
+   ```bash
+   cp .specify/templates/task-file-template.md /path/to/new-project/.specify/templates/
+   ```
+
+### Enhancement Details
+
+#### Individual Task Files (`/local.tasks`)
+
+- Creates a `tasks/` subdirectory within each feature spec
+- Each task gets its own file: `tasks/T###-{task-name}.md`
+- Uses the template at `.specify/templates/task-file-template.md`
+- Each file includes a **Context Setup Prompt** for easy session handoff
+
+#### Single Context Window Scoping (`/local.tasks`)
+
+- Tasks should involve no more than 3-5 files
+- Large tasks must be split into parent + subtasks (e.g., T005, T005a, T005b, T005c)
+- Each subtask is self-contained with its own Context Setup Prompt
+
+#### Context Window Management (`/local.implement`)
+
+- **Stop at 95% context usage** - graceful checkpoint before running out of space
+- **No autocompact** - autocompaction loses important context
+- **Controlled handoff** - saves progress, marks completed tasks, provides clear instructions for resuming in a new session
+
+These changes ensure that large implementation projects can be executed across multiple Claude Code sessions without losing context or creating inconsistent state.
 
 ## References
 
