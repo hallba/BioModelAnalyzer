@@ -49,4 +49,12 @@ docker run -p 8080:8080 bma-linux
 
 ---
 
+## Notes
+
+This task creates the production Dockerfile. For development builds without local SDK, use:
+- `./scripts/dotnet-docker.sh build src/BmaLinuxApi`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
+---
+
 **Created:** 2026-01-29

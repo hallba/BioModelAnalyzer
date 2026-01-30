@@ -1,6 +1,6 @@
 # Task T006: Create DTO Models
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 1.5h
 **Dependencies:** T005 (API project created)
 **Phase:** Phase 2 - Foundational
@@ -105,7 +105,7 @@ public record VariableValue(
 );
 ```
 
-- [ ] Create CoreModels.cs with Model, Variable, Relationship, VariableValue
+- [x] Create CoreModels.cs with Model, Variable, Relationship, VariableValue
 
 ### Part B: Create Simulation Types
 
@@ -126,7 +126,7 @@ public record SimulationResult(
 );
 ```
 
-- [ ] Create SimulationModels.cs
+- [x] Create SimulationModels.cs
 
 ### Part C: Create Analysis Types
 
@@ -160,7 +160,7 @@ public record AnalysisResult(
 );
 ```
 
-- [ ] Create AnalysisModels.cs
+- [x] Create AnalysisModels.cs
 
 ### Part D: Create Further Testing Types
 
@@ -194,7 +194,7 @@ public record FurtherTestingResult(
 );
 ```
 
-- [ ] Create FurtherTestingModels.cs
+- [x] Create FurtherTestingModels.cs
 
 ### Part E: Create LTL Types
 
@@ -237,7 +237,7 @@ public record LtlPolarityResult(
 );
 ```
 
-- [ ] Create LtlModels.cs
+- [x] Create LtlModels.cs
 
 ### Part F: Create Job Status Types
 
@@ -271,7 +271,7 @@ public record JobInfo(
 );
 ```
 
-- [ ] Create JobModels.cs
+- [x] Create JobModels.cs
 
 ### Part G: Verify Build
 
@@ -280,18 +280,18 @@ cd src/BmaLinuxApi
 dotnet build
 ```
 
-- [ ] All models compile without errors
-- [ ] No naming conflicts with F# types
+- [x] All models compile without errors
+- [x] No naming conflicts with F# types
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] All schema types from api-spec.yaml have corresponding C# records
-- [ ] Property names match spec exactly (PascalCase)
-- [ ] Nullable types used for optional properties
-- [ ] `dotnet build` succeeds
-- [ ] Models are in src/BmaLinuxApi/Models/
+- [x] All schema types from api-spec.yaml have corresponding C# records
+- [x] Property names match spec exactly (PascalCase)
+- [x] Nullable types used for optional properties
+- [x] `dotnet build` succeeds
+- [x] Models are in src/BmaLinuxApi/Models/
 
 ---
 
@@ -309,15 +309,22 @@ dotnet build
 - Records with circular references need special handling
 - Use nullable types to break cycles
 
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh build src/BmaLinuxApi`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
 ---
 
 ## Completion Notes
 
-> Fill this in when task is complete
-
-**Completed:** [DATE]
-**Actual Effort:** [actual time spent]
-**Notes:** [Any learnings, issues encountered, or deviations from plan]
+**Completed:** 2026-01-30
+**Actual Effort:** ~15 min
+**Notes:**
+- Created 6 model files with 17 record types total
+- Used `[JsonPropertyName]` attributes on JobExecutingStatus for lowercase JSON property names (elapsed, started) per API spec
+- Build verified using Docker container: `docker run --rm -v $(pwd):/src -w /src/src/BmaLinuxApi mcr.microsoft.com/dotnet/sdk:8.0 dotnet build`
+- No naming conflicts with F# types encountered
 
 ---
 

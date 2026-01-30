@@ -100,4 +100,13 @@ curl http://localhost:8080/api/test-json
 
 ---
 
+## Troubleshooting
+
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh build src/BmaLinuxApi`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
+---
+
 **Created:** 2026-01-29

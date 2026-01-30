@@ -224,6 +224,11 @@ curl http://localhost:8080/api/health
 - Ensure BmaLinux projects target net8.0
 - Run `dotnet build` in BmaLinux first
 
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh build src/BmaLinuxApi`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
 ---
 
 ## Completion Notes

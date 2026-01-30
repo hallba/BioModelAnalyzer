@@ -239,6 +239,9 @@ cd src/BmaLinuxApi
 dotnet build
 ```
 
+> **No local SDK?** Use Docker: `./scripts/dotnet-docker.sh build src/BmaLinuxApi`
+> See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details.
+
 - [ ] Build succeeds
 - [ ] No namespace conflicts
 

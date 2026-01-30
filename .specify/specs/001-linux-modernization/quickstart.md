@@ -2,10 +2,45 @@
 
 ## Prerequisites
 
+**Option A: Local SDK**
 - .NET 8 SDK ([download](https://dotnet.microsoft.com/download/dotnet/8.0))
+
+**Option B: Docker (no local SDK required)**
+- Docker Engine ([install](https://docs.docker.com/engine/install/))
+
+**Common:**
 - Node.js 18+ (for frontend build)
 - Linux VM or WSL2 for testing (Ubuntu 22.04 recommended)
 - Git
+
+## Building with Docker (No Local SDK)
+
+If you don't have the .NET 8 SDK installed locally, use Docker for all build operations:
+
+```bash
+# Build BmaLinuxApi project
+docker run --rm -v "$(pwd)":/src -w /src/src/BmaLinuxApi \
+  mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
+
+# Run tests
+docker run --rm -v "$(pwd)":/src -w /src \
+  mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
+
+# Publish for production
+docker run --rm -v "$(pwd)":/src -w /src \
+  mcr.microsoft.com/dotnet/sdk:8.0 \
+  dotnet publish src/BmaLinuxApi -c Release -r linux-x64 \
+  --self-contained true -p:PublishSingleFile=true
+
+# Run the API in a container
+docker run --rm -p 8080:8080 -v "$(pwd)/src/BmaLinuxApi/bin/Release/net8.0/linux-x64/publish":/app \
+  mcr.microsoft.com/dotnet/aspnet:8.0 /app/BmaLinuxApi
+```
+
+All `dotnet` commands in this guide and in task files can be prefixed with:
+```bash
+docker run --rm -v "$(pwd)":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0
+```
 
 ## Development Environment Setup
 
@@ -155,6 +190,15 @@ curl http://linux-vm:8080/api/Analyze -X POST -H "Content-Type: application/json
 ```
 
 ## Troubleshooting
+
+### dotnet: command not found
+
+If the .NET SDK isn't installed, use Docker instead. See "Building with Docker" section above, or run:
+
+```bash
+docker run --rm -v "$(pwd)":/src -w /src/src/BmaLinuxApi \
+  mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
+```
 
 ### Z3 Library Not Found
 

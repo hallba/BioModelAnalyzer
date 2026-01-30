@@ -123,8 +123,9 @@ dotnet restore BioCheckConsoleMulti.sln
 - If restore fails completely, check for .NET 8 SDK installation: `dotnet --version`
 
 ### Missing SDK
-- Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
-- Verify with `dotnet --list-sdks`
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh restore BmaLinux/BioCheckConsoleMulti.sln`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
 
 ---
 

@@ -155,6 +155,11 @@ dotnet build BioCheckConsoleMulti.sln
 - Clear NuGet cache: `dotnet nuget locals all --clear`
 - Check NuGet.config for package sources
 
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh build BmaLinux/BioCheckConsoleMulti.sln`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
 ---
 
 ## Completion Notes

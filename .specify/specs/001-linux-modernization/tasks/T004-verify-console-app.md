@@ -161,6 +161,11 @@ Record the output from successful runs:
 - Analysis may take time for complex models
 - Start with simple test models
 
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh run --project BmaLinux/BioCheckConsoleMulti -- -model ToyModelUnstable.json -engine SCM`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
 ---
 
 ## Completion Notes

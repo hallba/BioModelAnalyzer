@@ -159,6 +159,11 @@ dotnet build BioCheckConsoleMulti.sln
 - Expected - just stub the code
 - Full implementation comes in T031 with ClosedXML
 
+### Missing SDK
+- **Option A:** Install .NET 8 SDK from https://dotnet.microsoft.com/download/dotnet/8.0
+- **Option B:** Use Docker: `./scripts/dotnet-docker.sh build BmaLinux/BioCheckConsoleMulti.sln`
+- See [quickstart.md](../quickstart.md#building-with-docker-no-local-sdk) for details
+
 ---
 
 ## Completion Notes
