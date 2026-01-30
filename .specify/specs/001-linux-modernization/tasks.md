@@ -28,7 +28,7 @@
 - [x] [T002](./tasks/T002-update-nuget-packages.md) Update NuGet package versions for .NET 8 compatibility
 - [x] [T003](./tasks/T003-fix-compilation-errors.md) Fix any compilation errors from framework upgrade in BmaLinux/
 - [x] [T004](./tasks/T004-verify-console-app.md) Verify BioCheckConsoleMulti builds and runs on Linux with .NET 8
-- [ ] [T005](./tasks/T005-create-api-project.md) Create new BmaLinuxApi ASP.NET Core 8 project in src/BmaLinuxApi/
+- [x] [T005](./tasks/T005-create-api-project.md) Create new BmaLinuxApi ASP.NET Core 8 project in src/BmaLinuxApi/
 
 **Checkpoint**: BmaLinux upgraded to .NET 8, new API project created and building
 
