@@ -436,7 +436,7 @@ let z3_model_to_loop (model : Model) (paths : Map<QN.var,int list> list) =
         fixpoint 
         |> Map.fold(fun (loop,vars) z3_var_name truth_val ->
             match string_to_BoolVarType z3_var_name with 
-            | BadEncode _
+            | BadEncode
             | TransEncode _
             | FormulaEncode _ -> loop, vars
 
