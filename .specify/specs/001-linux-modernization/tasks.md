@@ -27,7 +27,7 @@
 - [x] [T001](./tasks/T001-upgrade-target-frameworks.md) Update all BmaLinux project target frameworks from netcoreapp3.1 to net8.0
 - [x] [T002](./tasks/T002-update-nuget-packages.md) Update NuGet package versions for .NET 8 compatibility
 - [x] [T003](./tasks/T003-fix-compilation-errors.md) Fix any compilation errors from framework upgrade in BmaLinux/
-- [ ] [T004](./tasks/T004-verify-console-app.md) Verify BioCheckConsoleMulti builds and runs on Linux with .NET 8
+- [x] [T004](./tasks/T004-verify-console-app.md) Verify BioCheckConsoleMulti builds and runs on Linux with .NET 8
 - [ ] [T005](./tasks/T005-create-api-project.md) Create new BmaLinuxApi ASP.NET Core 8 project in src/BmaLinuxApi/
 
 **Checkpoint**: BmaLinux upgraded to .NET 8, new API project created and building
