@@ -1,539 +1,310 @@
-# Implementation Tasks: Linux Modernization
+# Tasks: Linux Modernization
 
-## Task Overview
+**Input**: Design documents from `.specify/specs/001-linux-modernization/`
+**Prerequisites**: plan.md, spec.md, research.md, quickstart.md, contracts/api-spec.yaml
 
-| Phase | Tasks | Status |
-|-------|-------|--------|
-| Phase 1: .NET 8 Upgrade | 5 tasks | Pending |
-| Phase 2: ASP.NET Core API | 8 tasks | Pending |
-| Phase 3: Windows Code Removal | 3 tasks | Pending |
-| Phase 4: Frontend Integration | 3 tasks | Pending |
-| Phase 5: Deployment | 4 tasks | Pending |
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing.
 
----
+## Format: `[ID] [P?] [Story] Description`
 
-## Phase 1: Upgrade BmaLinux to .NET 8
+- **[P]**: Can run in parallel (different files, no dependencies)
+- **[Story]**: Which user story this task belongs to (e.g., US1, US2)
+- Include exact file paths in descriptions
 
-### Task 1.1: Update Project Target Frameworks
-**User Story:** US-001 (Run BMA on Linux Server)
-**Priority:** High
-**Dependencies:** None
+## Path Conventions
 
-**Description:**
-Update all BmaLinux project files from `netcoreapp3.1` to `net8.0`.
-
-**Files to modify:**
-- [ ] `BmaLinux/BioCheckAnalyzerMulti/BioCheckAnalyzerMulti.fsproj`
-- [ ] `BmaLinux/BioCheckAnaylzerCommonMulti/BioCheckAnaylzerCommonMulti.csproj`
-- [ ] `BmaLinux/BioCheckConsoleMulti/BioCheckConsoleMulti.fsproj`
-- [ ] `BmaLinux/Z3testMulti/Z3testMulti.fsproj`
-
-**Acceptance Criteria:**
-- [ ] All projects target `net8.0`
-- [ ] `dotnet build BmaLinux/BioCheckConsoleMulti.sln` succeeds
+- **F# Engine**: `BmaLinux/BioCheckAnalyzerMulti/`, `BmaLinux/BioCheckAnaylzerCommonMulti/`
+- **New API**: `src/BmaLinuxApi/`
+- **Frontend**: `src/bma.client/`, `src/bma.package/`
+- **Contracts**: `.specify/specs/001-linux-modernization/contracts/api-spec.yaml`
 
 ---
 
-### Task 1.2: Update NuGet Package Versions
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Task 1.1
+## Phase 1: Setup (Project Infrastructure)
 
-**Description:**
-Update package references to .NET 8 compatible versions.
+**Purpose**: Upgrade existing BmaLinux projects to .NET 8 and create new API project structure
 
-**Changes:**
-- [ ] FSharp.Core: 5.0.0 → 8.0.100
-- [ ] Verify FParsec 1.1.1 compatibility (should work)
-- [ ] Verify Microsoft.Z3 4.11.2+ compatibility (should work)
-- [ ] Remove Microsoft.Office.Interop.Excel reference
+- [x] [T001](./tasks/T001-upgrade-target-frameworks.md) Update all BmaLinux project target frameworks from netcoreapp3.1 to net8.0
+- [x] [T002](./tasks/T002-update-nuget-packages.md) Update NuGet package versions for .NET 8 compatibility
+- [ ] [T003](./tasks/T003-fix-compilation-errors.md) Fix any compilation errors from framework upgrade in BmaLinux/
+- [ ] [T004](./tasks/T004-verify-console-app.md) Verify BioCheckConsoleMulti builds and runs on Linux with .NET 8
+- [ ] [T005](./tasks/T005-create-api-project.md) Create new BmaLinuxApi ASP.NET Core 8 project in src/BmaLinuxApi/
 
-**Acceptance Criteria:**
-- [ ] No package restore warnings
-- [ ] All packages resolve correctly
+**Checkpoint**: BmaLinux upgraded to .NET 8, new API project created and building
 
 ---
 
-### Task 1.3: Fix Compilation Errors
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Task 1.2
+## Phase 2: Foundational (Core Infrastructure)
 
-**Description:**
-Address any compilation errors from framework upgrade.
+**Purpose**: Establish shared services and models needed by ALL user stories
 
-**Potential issues:**
-- [ ] Obsolete API warnings
-- [ ] Nullable reference type issues
-- [ ] F# language version changes
+**CRITICAL**: No user story work can begin until this phase is complete
 
-**Acceptance Criteria:**
-- [ ] Clean build with no errors
-- [ ] Warnings reviewed and addressed
+- [ ] [T006](./tasks/T006-create-dto-models.md) Create DTO models matching api-spec.yaml in src/BmaLinuxApi/Models/
+- [ ] [T007](./tasks/T007-configure-di-services.md) Configure dependency injection and IAnalyzer registration in src/BmaLinuxApi/Program.cs
+- [ ] [T008](./tasks/T008-configure-json-serialization.md) Configure System.Text.Json serialization with correct naming policies
+- [ ] [T009](./tasks/T009-add-error-handling.md) Add global error handling and logging middleware
+- [ ] [T010](./tasks/T010-configure-cors-static.md) Configure CORS and static file serving for frontend
+
+**Checkpoint**: Foundation ready - all services registered, models created, basic infrastructure in place
 
 ---
 
-### Task 1.4: Run Existing Tests
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Task 1.3
+## Phase 3: User Story 1 - Run BMA on Linux (Priority: P1) - MVP
 
-**Description:**
-Verify existing functionality still works after upgrade.
+**Goal**: Deploy BMA as a self-contained executable on Linux without .NET SDK
 
-**Tests to run:**
-- [ ] `BmaLinux/BioCheckConsoleMulti/UnitTests.fs`
-- [ ] Manual test: `./BioCheckConsoleMulti -model ToyModelUnstable.json -engine SCM`
-- [ ] Manual test: `./BioCheckConsoleMulti -model ToyModelStable.json -engine VMCAI`
+**Independent Test**: `./BmaLinuxApi` starts and responds to `/api/health` on Linux
 
-**Acceptance Criteria:**
-- [ ] All unit tests pass
-- [ ] CLI produces expected output
+### Implementation
+
+- [ ] [T011](./tasks/T011-add-health-endpoint.md) [US1] Add health check endpoint GET /api/health in src/BmaLinuxApi/Endpoints/HealthEndpoint.cs
+- [ ] [T012](./tasks/T012-configure-kestrel.md) [US1] Configure Kestrel to listen on port 8080 in src/BmaLinuxApi/appsettings.json
+- [ ] [T013](./tasks/T013-configure-self-contained.md) [US1] Configure self-contained single-file publish in src/BmaLinuxApi/BmaLinuxApi.csproj
+- [ ] [T014](./tasks/T014-verify-linux-build.md) [US1] Verify self-contained build runs on fresh Linux without .NET SDK
+
+**Checkpoint**: Minimal API running on Linux, health endpoint responding
 
 ---
 
-### Task 1.5: Verify Linux Build
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Task 1.4
+## Phase 4: User Story 2 - Analyze Biological Models (Priority: P2)
 
-**Description:**
-Confirm the upgraded project builds and runs on Linux.
+**Goal**: POST /api/Analyze returns stability analysis results matching Windows version
 
-**Steps:**
-- [ ] Build on Linux: `dotnet build -r linux-x64`
-- [ ] Run on Linux VM or container
-- [ ] Verify Z3 native libraries load correctly
+**Independent Test**: `curl -X POST http://localhost:8080/api/Analyze -d @test-model.json` returns valid AnalysisResult
 
-**Acceptance Criteria:**
-- [ ] Builds without errors on Linux
-- [ ] Executable runs without missing library errors
+### Implementation
+
+- [ ] [T015](./tasks/T015-create-analysis-service.md) [US2] Create IAnalysisService interface in src/BmaLinuxApi/Services/IAnalysisService.cs
+- [ ] [T016](./tasks/T016-implement-analysis-service.md) [US2] Implement AnalysisService wrapping IAnalyzer.checkStability() in src/BmaLinuxApi/Services/AnalysisService.cs
+- [ ] [T017](./tasks/T017-create-analyze-endpoint.md) [US2] Create POST /api/Analyze endpoint in src/BmaLinuxApi/Endpoints/AnalyzeEndpoint.cs
+- [ ] [T018](./tasks/T018-add-timeout-handling.md) [US2] Add 2-minute timeout handling returning 204 for Analyze endpoint
+
+**Checkpoint**: Analysis endpoint working, returns correct results for stable/unstable models
 
 ---
 
-## Phase 2: Create ASP.NET Core API
+## Phase 5: User Story 3 - Find Counter-Examples (Priority: P3)
 
-### Task 2.1: Create BmaLinuxApi Project
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Phase 1 complete
+**Goal**: POST /api/FurtherTesting returns counter-examples (bifurcation, cycle, fixpoint)
 
-**Description:**
-Create new ASP.NET Core project with proper structure.
+**Independent Test**: Submit unstable model analysis to /api/FurtherTesting, get counter-examples
 
-**Create:**
-- [ ] `src/BmaLinuxApi/BmaLinuxApi.csproj`
-- [ ] `src/BmaLinuxApi/Program.cs` (minimal API setup)
-- [ ] `src/BmaLinuxApi/appsettings.json`
-- [ ] Project references to BioCheckAnalyzerMulti and BioCheckAnaylzerCommonMulti
+### Implementation
 
-**Acceptance Criteria:**
-- [ ] Project builds successfully
-- [ ] Can start and listen on port 8080
+- [ ] [T019](./tasks/T019-create-further-testing-service.md) [US3] Create IFurtherTestingService interface in src/BmaLinuxApi/Services/IFurtherTestingService.cs
+- [ ] [T020](./tasks/T020-implement-further-testing-service.md) [US3] Implement FurtherTestingService in src/BmaLinuxApi/Services/FurtherTestingService.cs
+- [ ] [T021](./tasks/T021-create-further-testing-endpoint.md) [US3] Create POST /api/FurtherTesting endpoint in src/BmaLinuxApi/Endpoints/FurtherTestingEndpoint.cs
+
+**Checkpoint**: FurtherTesting endpoint working, returns bifurcation/cycle/fixpoint counter-examples
 
 ---
 
-### Task 2.2: Implement DTO Models
-**User Story:** US-002, US-003, US-004, US-005
-**Priority:** High
-**Dependencies:** Task 2.1
+## Phase 6: User Story 4 - Run Simulations (Priority: P4)
 
-**Description:**
-Create C# record types matching the API contract in `docs/ApiServer.yaml`.
+**Goal**: POST /api/Simulate returns next state given current state
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Models/ModelDefinition.cs`
-- [ ] `src/BmaLinuxApi/Models/AnalysisModels.cs`
-- [ ] `src/BmaLinuxApi/Models/SimulationModels.cs`
-- [ ] `src/BmaLinuxApi/Models/LtlModels.cs`
-- [ ] `src/BmaLinuxApi/Models/FurtherTestingModels.cs`
-- [ ] `src/BmaLinuxApi/Models/LraModels.cs`
+**Independent Test**: `curl -X POST http://localhost:8080/api/Simulate -d @simulation-input.json` returns next state
 
-**Acceptance Criteria:**
-- [ ] All DTOs match OpenAPI schema exactly
-- [ ] JSON serialization produces correct format
+### Implementation
+
+- [ ] [T022](./tasks/T022-create-simulation-service.md) [US4] Create ISimulationService interface in src/BmaLinuxApi/Services/ISimulationService.cs
+- [ ] [T023](./tasks/T023-implement-simulation-service.md) [US4] Implement SimulationService wrapping IAnalyzer.simulate_tick() in src/BmaLinuxApi/Services/SimulationService.cs
+- [ ] [T024](./tasks/T024-create-simulate-endpoint.md) [US4] Create POST /api/Simulate endpoint in src/BmaLinuxApi/Endpoints/SimulateEndpoint.cs
+
+**Checkpoint**: Simulation endpoint working, returns correct next state
 
 ---
 
-### Task 2.3: Implement Analysis Service
-**User Story:** US-002
-**Priority:** High
-**Dependencies:** Task 2.2
+## Phase 7: User Story 5 - LTL Formula Checking (Priority: P5)
 
-**Description:**
-Create service that wraps `IAnalyzer.checkStability()`.
+**Goal**: LTL analysis endpoints work for simulation and polarity checking
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Services/IAnalysisService.cs`
-- [ ] `src/BmaLinuxApi/Services/AnalysisService.cs`
+**Independent Test**: Submit LTL formula to /api/AnalyzeLTLSimulation, get satisfying trace
 
-**Features:**
-- [ ] Timeout handling (2 minutes)
-- [ ] Cancellation token support
-- [ ] Error handling and logging
+### Implementation
 
-**Acceptance Criteria:**
-- [ ] Returns correct AnalysisResult for stable model
-- [ ] Returns correct AnalysisResult for unstable model
-- [ ] Times out after 2 minutes
+- [ ] [T025](./tasks/T025-create-ltl-service.md) [US5] Create ILtlService interface in src/BmaLinuxApi/Services/ILtlService.cs
+- [ ] [T026](./tasks/T026-implement-ltl-service.md) [US5] Implement LtlService wrapping checkLTLSimulation/checkLTLPolarity in src/BmaLinuxApi/Services/LtlService.cs
+- [ ] [T027](./tasks/T027-create-ltl-simulation-endpoint.md) [US5] Create POST /api/AnalyzeLTLSimulation endpoint in src/BmaLinuxApi/Endpoints/LtlEndpoints.cs
+- [ ] [T028](./tasks/T028-create-ltl-polarity-endpoint.md) [US5] Create POST /api/AnalyzeLTLPolarity endpoint in src/BmaLinuxApi/Endpoints/LtlEndpoints.cs
+
+**Checkpoint**: Both LTL endpoints working correctly
 
 ---
 
-### Task 2.4: Implement Simulation Service
-**User Story:** US-004
-**Priority:** High
-**Dependencies:** Task 2.2
+## Phase 8: User Story 6 - Export to Excel (Priority: P6)
 
-**Description:**
-Create service that wraps `IAnalyzer.simulate_tick()`.
+**Goal**: Export simulation results to .xlsx files using ClosedXML (no Office required)
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Services/ISimulationService.cs`
-- [ ] `src/BmaLinuxApi/Services/SimulationService.cs`
+**Independent Test**: Generate .xlsx file, open in LibreOffice/Excel, verify contents
 
-**Acceptance Criteria:**
-- [ ] Returns next state given current state
-- [ ] Handles invalid inputs gracefully
+### Implementation
 
----
+- [ ] [T029](./tasks/T029-add-closedxml-package.md) [P] [US6] Add ClosedXML NuGet package to src/BmaLinuxApi/BmaLinuxApi.csproj
+- [ ] [T030](./tasks/T030-create-export-service.md) [US6] Create IExportService interface in src/BmaLinuxApi/Services/IExportService.cs
+- [ ] [T031](./tasks/T031-implement-excel-export.md) [US6] Implement ExcelExportService using ClosedXML in src/BmaLinuxApi/Services/ExcelExportService.cs
+- [ ] [T032](./tasks/T032-create-export-endpoint.md) [US6] Create export endpoint returning .xlsx file in src/BmaLinuxApi/Endpoints/ExportEndpoint.cs
 
-### Task 2.5: Implement Further Testing Service
-**User Story:** US-003
-**Priority:** High
-**Dependencies:** Task 2.3
-
-**Description:**
-Create service for counter-example finding.
-
-**Create:**
-- [ ] `src/BmaLinuxApi/Services/IFurtherTestingService.cs`
-- [ ] `src/BmaLinuxApi/Services/FurtherTestingService.cs`
-
-**Methods:**
-- [ ] `FindBifurcations()`
-- [ ] `FindCycles()`
-- [ ] `FindFixpoints()`
-
-**Acceptance Criteria:**
-- [ ] Returns bifurcation counter-examples
-- [ ] Returns cycle counter-examples
-- [ ] Returns fixpoint counter-examples
+**Checkpoint**: Excel export produces valid .xlsx files on Linux
 
 ---
 
-### Task 2.6: Implement LTL Service
-**User Story:** US-005
-**Priority:** High
-**Dependencies:** Task 2.2
+## Phase 9: User Story 7 - Use Existing Frontend (Priority: P7)
 
-**Description:**
-Create service for LTL analysis.
+**Goal**: Serve the existing TypeScript/HTML5 frontend unchanged
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Services/ILtlService.cs`
-- [ ] `src/BmaLinuxApi/Services/LtlService.cs`
+**Independent Test**: Open http://localhost:8080/ in browser, full UI works
 
-**Methods:**
-- [ ] `CheckSimulationAsync()` - wraps `checkLTLSimulation`
-- [ ] `CheckPolarityAsync()` - wraps `checkLTLPolarity`
+### Implementation
 
-**Acceptance Criteria:**
-- [ ] LTL simulation analysis returns correct results
-- [ ] Polarity analysis returns correct results
+- [ ] [T033](./tasks/T033-build-frontend.md) [US7] Build frontend with npm/grunt in src/bma.package/
+- [ ] [T034](./tasks/T034-copy-frontend-wwwroot.md) [US7] Copy built frontend to src/BmaLinuxApi/wwwroot/
+- [ ] [T035](./tasks/T035-configure-spa-fallback.md) [US7] Configure SPA fallback routing in src/BmaLinuxApi/Program.cs
+- [ ] [T036](./tasks/T036-test-frontend-integration.md) [US7] Test all frontend workflows (create model, analyze, simulate, view results)
+
+**Checkpoint**: Full UI working with new backend, no visible differences from Windows
 
 ---
 
-### Task 2.7: Implement In-Memory Scheduler
-**User Story:** US-008
-**Priority:** Medium
-**Dependencies:** Task 2.1
+## Phase 10: User Story 8 - Long-Running Analysis Jobs (Priority: P8)
 
-**Description:**
-Create scheduler for long-running jobs (replaces Azure FairShareScheduler).
+**Goal**: Schedule, monitor, and retrieve results for long-running LTL analysis
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Services/IScheduler.cs`
-- [ ] `src/BmaLinuxApi/Services/InMemoryScheduler.cs`
+**Independent Test**: POST job to /api/lra/{appId}, poll status, get result
 
-**Features:**
-- [ ] Add job (returns job ID)
-- [ ] Get job status
-- [ ] Get job result
-- [ ] Delete/cancel job
-- [ ] Configurable max concurrent jobs
+### Implementation
 
-**Acceptance Criteria:**
-- [ ] Jobs execute asynchronously
-- [ ] Status correctly reflects queued/executing/completed/failed
-- [ ] Cancellation stops in-progress jobs
+- [ ] [T037](./tasks/T037-create-scheduler-interface.md) [US8] Create IScheduler interface in src/BmaLinuxApi/Services/IScheduler.cs
+- [ ] [T038](./tasks/T038-implement-memory-scheduler.md) [US8] Implement InMemoryScheduler in src/BmaLinuxApi/Services/InMemoryScheduler.cs
+- [ ] [T039](./tasks/T039-create-lra-post-endpoint.md) [US8] Create POST /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [ ] [T040](./tasks/T040-create-lra-get-endpoint.md) [US8] Create GET /api/lra/{appId} endpoint for status in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [ ] [T041](./tasks/T041-create-lra-delete-endpoint.md) [US8] Create DELETE /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [ ] [T042](./tasks/T042-create-lra-result-endpoint.md) [US8] Create GET /api/lra/{appId}/result endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+
+**Checkpoint**: Long-running job workflow complete - schedule, poll, retrieve results
 
 ---
 
-### Task 2.8: Implement API Endpoints
-**User Story:** US-002, US-003, US-004, US-005, US-008
-**Priority:** High
-**Dependencies:** Tasks 2.3-2.7
+## Phase 11: Polish & Deployment
 
-**Description:**
-Create minimal API endpoints matching the contract.
+**Purpose**: Finalize deployment artifacts and documentation
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Endpoints/AnalyzeEndpoint.cs`
-- [ ] `src/BmaLinuxApi/Endpoints/SimulateEndpoint.cs`
-- [ ] `src/BmaLinuxApi/Endpoints/FurtherTestingEndpoint.cs`
-- [ ] `src/BmaLinuxApi/Endpoints/LtlEndpoints.cs`
-- [ ] `src/BmaLinuxApi/Endpoints/LraEndpoints.cs`
+- [ ] [T043](./tasks/T043-create-dockerfile.md) [P] Create Dockerfile in src/BmaLinuxApi/Dockerfile
+- [ ] [T044](./tasks/T044-create-systemd-service.md) [P] Create systemd service unit in deployment/bma.service
+- [ ] [T045](./tasks/T045-write-deployment-docs.md) Write deployment documentation in docs/LinuxDeployment.md
+- [ ] [T046](./tasks/T046-run-regression-tests.md) Run regression tests comparing with Windows version using src/BmaTests.Common/
+- [ ] [T047](./tasks/T047-validate-api-contract.md) Validate all endpoints against api-spec.yaml contract
 
-**Acceptance Criteria:**
-- [ ] All endpoints match `docs/ApiServer.yaml` contract
-- [ ] Correct HTTP status codes (200, 204 for timeout, etc.)
-- [ ] JSON request/response format matches spec
+**Checkpoint**: Deployment-ready with documentation and validated against contract
 
 ---
 
-## Phase 3: Remove Windows-Specific Code
+## Dependencies & Execution Order
 
-### Task 3.1: Replace Excel Export
-**User Story:** US-006
-**Priority:** Medium
-**Dependencies:** Phase 2 complete
+### Phase Dependencies
 
-**Description:**
-Replace COM-based Excel export with ClosedXML.
+```
+Phase 1 (Setup) ──────────────────────────────────────────────────┐
+                                                                   │
+Phase 2 (Foundational) ◄──────────────────────────────────────────┘
+       │
+       ├──► Phase 3 (US1: Linux Deploy) ──► MVP CHECKPOINT
+       │
+       ├──► Phase 4 (US2: Analyze) ◄───────────────────────────────┐
+       │                                                            │
+       ├──► Phase 5 (US3: Counter-Examples) ◄──────────────────────┤ Can run in
+       │                                                            │ parallel after
+       ├──► Phase 6 (US4: Simulate) ◄──────────────────────────────┤ Foundational
+       │                                                            │
+       ├──► Phase 7 (US5: LTL) ◄───────────────────────────────────┤
+       │                                                            │
+       ├──► Phase 8 (US6: Excel Export) ◄──────────────────────────┤
+       │                                                            │
+       └──► Phase 9 (US7: Frontend) ◄──────────────────────────────┘
+                    │
+                    └──► Phase 10 (US8: Long-Running) ◄─── Needs endpoints working
+                              │
+                              └──► Phase 11 (Polish) ◄─── Final phase
+```
 
-**Files to modify:**
-- [ ] `BmaLinux/BioCheckAnalyzerMulti/ModelToExcel.fs`
+### Parallel Opportunities per Phase
 
-**Or create new:**
-- [ ] `src/BmaLinuxApi/Services/IExportService.cs`
-- [ ] `src/BmaLinuxApi/Services/ExcelExportService.cs`
+**Phase 1 (Setup)**:
+- T001, T002 can run sequentially (dependency)
+- T003, T004 depend on T001-T002
+- T005 can start after T004
 
-**Acceptance Criteria:**
-- [ ] Produces valid .xlsx files
-- [ ] File structure matches original export
-- [ ] Works on Linux without Office installed
+**Phase 2 (Foundational)**:
+- T006, T007, T008, T009, T010 can largely run in parallel (different files)
 
----
+**Phase 4-7 (Core Endpoints)**:
+- All 4 user stories can run in parallel after Phase 2
+- Within each story: Interface → Service → Endpoint (sequential)
 
-### Task 3.2: Add Export Endpoint
-**User Story:** US-006
-**Priority:** Medium
-**Dependencies:** Task 3.1
+**Phase 8 (Export)** and **Phase 9 (Frontend)**:
+- Can run in parallel with each other
 
-**Description:**
-Add endpoint for Excel export if needed by frontend.
+**Phase 10 (LRA)**:
+- T037, T038 (scheduler) sequential
+- T039-T042 (endpoints) can run in parallel after scheduler
 
-**Create:**
-- [ ] `src/BmaLinuxApi/Endpoints/ExportEndpoint.cs`
-
-**Acceptance Criteria:**
-- [ ] Returns .xlsx file with correct MIME type
-- [ ] Frontend can trigger download
-
----
-
-### Task 3.3: Verify No Windows Dependencies
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Tasks 3.1-3.2
-
-**Description:**
-Audit all code for remaining Windows-specific dependencies.
-
-**Check for:**
-- [ ] No `System.Windows.*` references
-- [ ] No COM interop
-- [ ] No registry access
-- [ ] No Windows paths (backslashes, drive letters)
-
-**Acceptance Criteria:**
-- [ ] Clean build on Linux
-- [ ] No runtime errors on Linux
+**Phase 11 (Polish)**:
+- T043, T044 can run in parallel
+- T045-T047 sequential (need working system)
 
 ---
 
-## Phase 4: Frontend Integration
+## Implementation Strategy
 
-### Task 4.1: Build Frontend
-**User Story:** US-007
-**Priority:** High
-**Dependencies:** Phase 2 complete
+### MVP First (Phases 1-3)
 
-**Description:**
-Build the TypeScript frontend for deployment.
+1. Complete Phase 1: Setup (.NET 8 upgrade, new project)
+2. Complete Phase 2: Foundational (models, DI, middleware)
+3. Complete Phase 3: US1 (health endpoint, self-contained build)
+4. **STOP and VALIDATE**: Application runs on Linux
+5. Deploy/demo minimal working system
 
-**Steps:**
-- [ ] `cd src/bma.package && npm install`
-- [ ] `npm run build` or `grunt`
-- [ ] Verify output in `src/bma.client/`
+### Incremental API Delivery (Phases 4-7)
 
-**Acceptance Criteria:**
-- [ ] Frontend builds without errors
-- [ ] All JavaScript files generated
+1. Add Analyze endpoint (US2) → Test → Demo
+2. Add FurtherTesting endpoint (US3) → Test → Demo
+3. Add Simulate endpoint (US4) → Test → Demo
+4. Add LTL endpoints (US5) → Test → Demo
 
----
+### Full Feature Delivery (Phases 8-11)
 
-### Task 4.2: Copy Frontend to wwwroot
-**User Story:** US-007
-**Priority:** High
-**Dependencies:** Task 4.1
-
-**Description:**
-Copy built frontend files to ASP.NET Core static files directory.
-
-**Steps:**
-- [ ] Create `src/BmaLinuxApi/wwwroot/`
-- [ ] Copy frontend assets
-- [ ] Configure `UseStaticFiles()` in Program.cs
-- [ ] Add fallback routing for SPA
-
-**Acceptance Criteria:**
-- [ ] Frontend loads at `http://localhost:8080/`
-- [ ] All assets (JS, CSS, images) load correctly
+1. Add Excel export (US6)
+2. Integrate Frontend (US7) → Full UI testing
+3. Add Long-running jobs (US8)
+4. Polish: Docker, systemd, docs, validation
 
 ---
 
-### Task 4.3: Test Frontend Integration
-**User Story:** US-007
-**Priority:** High
-**Dependencies:** Task 4.2
+## Task File Locations
 
-**Description:**
-Verify all frontend functionality works with new backend.
+All individual task files are in: `.specify/specs/001-linux-modernization/tasks/`
 
-**Test scenarios:**
-- [ ] Create new model
-- [ ] Run stability analysis
-- [ ] Run simulation
-- [ ] View counter-examples
-- [ ] Export to Excel
-- [ ] Save/load models (local storage)
-
-**Acceptance Criteria:**
-- [ ] All UI features work correctly
-- [ ] No JavaScript console errors
-- [ ] Performance acceptable
+| Task Range | Phase | Description |
+|------------|-------|-------------|
+| T001-T005 | Setup | .NET 8 upgrade and project creation |
+| T006-T010 | Foundational | Core infrastructure |
+| T011-T014 | US1 | Linux deployment |
+| T015-T018 | US2 | Analysis endpoint |
+| T019-T021 | US3 | Counter-examples endpoint |
+| T022-T024 | US4 | Simulation endpoint |
+| T025-T028 | US5 | LTL endpoints |
+| T029-T032 | US6 | Excel export |
+| T033-T036 | US7 | Frontend integration |
+| T037-T042 | US8 | Long-running jobs |
+| T043-T047 | Polish | Deployment artifacts |
 
 ---
 
-## Phase 5: Deployment Packaging
+## Notes
 
-### Task 5.1: Create Self-Contained Publish
-**User Story:** US-001
-**Priority:** High
-**Dependencies:** Phase 4 complete
-
-**Description:**
-Configure and test self-contained single-file publish.
-
-**Steps:**
-- [ ] Add publish properties to .csproj
-- [ ] Test: `dotnet publish -c Release -r linux-x64 --self-contained`
-- [ ] Verify single executable produced
-
-**Acceptance Criteria:**
-- [ ] Single executable under 200MB
-- [ ] Runs on fresh Linux VM without .NET SDK
-
----
-
-### Task 5.2: Create Dockerfile
-**User Story:** US-001
-**Priority:** Medium
-**Dependencies:** Task 5.1
-
-**Description:**
-Create Docker container for easy deployment.
-
-**Create:**
-- [ ] `src/BmaLinuxApi/Dockerfile`
-- [ ] `.dockerignore`
-
-**Acceptance Criteria:**
-- [ ] `docker build` succeeds
-- [ ] `docker run` starts application correctly
-- [ ] Container size reasonable (<500MB)
-
----
-
-### Task 5.3: Create systemd Service Unit
-**User Story:** US-001
-**Priority:** Low
-**Dependencies:** Task 5.1
-
-**Description:**
-Create systemd service for Linux deployments.
-
-**Create:**
-- [ ] `deployment/bma.service`
-- [ ] Installation instructions in README
-
-**Acceptance Criteria:**
-- [ ] Service starts on boot
-- [ ] Service restarts on failure
-- [ ] Logs to journald
-
----
-
-### Task 5.4: Write Deployment Documentation
-**User Story:** US-001
-**Priority:** Medium
-**Dependencies:** Tasks 5.1-5.3
-
-**Description:**
-Document deployment procedures.
-
-**Create/Update:**
-- [ ] `BmaLinux/README.md` - Quick start guide
-- [ ] `docs/LinuxDeployment.md` - Detailed deployment guide
-
-**Content:**
-- [ ] Prerequisites
-- [ ] Installation steps
-- [ ] Configuration options
-- [ ] Troubleshooting
-
-**Acceptance Criteria:**
-- [ ] Fresh user can deploy following docs
-- [ ] All configuration options documented
-
----
-
-## Validation Tasks
-
-### Task V.1: API Contract Tests
-**Dependencies:** Phase 2 complete
-
-**Description:**
-Verify all endpoints match OpenAPI specification.
-
-- [ ] Install contract testing tool (e.g., Schemathesis)
-- [ ] Run against `docs/ApiServer.yaml`
-- [ ] Fix any contract violations
-
----
-
-### Task V.2: Regression Tests
-**Dependencies:** Phase 4 complete
-
-**Description:**
-Compare outputs with Windows version.
-
-- [ ] Run all test models from `src/BmaTests.Common/`
-- [ ] Compare analysis results
-- [ ] Compare simulation results
-- [ ] Compare LTL results
-
----
-
-### Task V.3: End-to-End Tests
-**Dependencies:** Phase 4 complete
-
-**Description:**
-Full workflow testing on Linux.
-
-- [ ] Deploy to fresh Ubuntu 22.04 VM
-- [ ] Load test model via frontend
-- [ ] Run all analysis types
-- [ ] Export results
-- [ ] Verify correctness
+- Each user story should be independently completable and testable
+- Commit after each task or logical group
+- Stop at any checkpoint to validate story independently
+- All endpoints must match api-spec.yaml contract exactly
+- No tests included unless explicitly requested
