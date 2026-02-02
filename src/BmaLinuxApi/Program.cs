@@ -4,6 +4,17 @@ using BmaLinuxApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS for development - allows any origin
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Configure JSON serialization
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
@@ -62,7 +73,11 @@ app.UseStatusCodePages(async statusCodeContext =>
 });
 
 // Configure the HTTP request pipeline
+app.UseCors();
 app.UseStaticFiles();
+
+// SPA fallback routing - will be enhanced in T035
+// app.MapFallbackToFile("index.html");
 
 // Placeholder endpoint to verify API is running
 app.MapGet("/api/health", () => Results.Ok(new { Status = "Healthy", Timestamp = DateTime.UtcNow }));
