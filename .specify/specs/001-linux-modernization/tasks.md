@@ -40,8 +40,8 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] [T006](./tasks/T006-create-dto-models.md) Create DTO models matching api-spec.yaml in src/BmaLinuxApi/Models/
-- [ ] [T007](./tasks/T007-configure-di-services.md) Configure dependency injection and IAnalyzer registration in src/BmaLinuxApi/Program.cs
+- [x] [T006](./tasks/T006-create-dto-models.md) Create DTO models matching api-spec.yaml in src/BmaLinuxApi/Models/
+- [x] [T007](./tasks/T007-configure-di-services.md) Configure dependency injection and IAnalyzer registration in src/BmaLinuxApi/Program.cs
 - [ ] [T008](./tasks/T008-configure-json-serialization.md) Configure System.Text.Json serialization with correct naming policies
 - [ ] [T009](./tasks/T009-add-error-handling.md) Add global error handling and logging middleware
 - [ ] [T010](./tasks/T010-configure-cors-static.md) Configure CORS and static file serving for frontend

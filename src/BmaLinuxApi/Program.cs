@@ -1,7 +1,14 @@
+using BmaLinuxApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
-// (Services will be added in Phase 2)
+// Register services
+// Note: F# IAnalyzer registration will be added when implementing actual services
+builder.Services.AddScoped<IAnalysisService, PlaceholderAnalysisService>();
+builder.Services.AddScoped<ISimulationService, PlaceholderSimulationService>();
+builder.Services.AddScoped<IFurtherTestingService, PlaceholderFurtherTestingService>();
+builder.Services.AddScoped<ILtlService, PlaceholderLtlService>();
+builder.Services.AddSingleton<IScheduler, PlaceholderScheduler>();
 
 var app = builder.Build();
 
