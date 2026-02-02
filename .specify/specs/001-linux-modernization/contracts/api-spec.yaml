@@ -14,7 +14,7 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8020/api
     description: Local development server
   - url: http://localhost:8224/api
     description: OWIN self-host (legacy)

@@ -24,7 +24,7 @@ Restart=always
 RestartSec=10
 KillSignal=SIGINT
 User=bma
-Environment=ASPNETCORE_URLS=http://0.0.0.0:8080
+Environment=ASPNETCORE_URLS=http://0.0.0.0:8020
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 
 [Install]

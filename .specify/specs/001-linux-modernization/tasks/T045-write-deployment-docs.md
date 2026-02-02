@@ -23,12 +23,12 @@ Create `docs/LinuxDeployment.md`:
 1. Download BmaLinuxApi from releases
 2. Make executable: `chmod +x BmaLinuxApi`
 3. Run: `./BmaLinuxApi`
-4. Access: http://localhost:8080
+4. Access: http://localhost:8020
 
 ## Option 2: Docker
 
 1. `docker pull bma-linux:latest`
-2. `docker run -p 8080:8080 bma-linux`
+2. `docker run -p 8020:8020 bma-linux`
 
 ## Option 3: systemd Service
 
@@ -40,7 +40,7 @@ Create `docs/LinuxDeployment.md`:
 ## Configuration
 
 Edit appsettings.json or use environment variables:
-- `ASPNETCORE_URLS=http://0.0.0.0:8080`
+- `ASPNETCORE_URLS=http://0.0.0.0:8020`
 - `Analysis__TimeoutSeconds=120`
 ```
 

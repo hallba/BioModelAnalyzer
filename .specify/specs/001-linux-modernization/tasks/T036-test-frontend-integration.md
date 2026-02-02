@@ -11,7 +11,7 @@
 
 Test these workflows:
 
-1. Open http://localhost:8080/
+1. Open http://localhost:8020/
 2. Create a new model
 3. Add variables and relationships
 4. Run stability analysis

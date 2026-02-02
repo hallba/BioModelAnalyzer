@@ -18,7 +18,7 @@ pip install schemathesis
 # Run contract tests
 schemathesis run \
   .specify/specs/001-linux-modernization/contracts/api-spec.yaml \
-  --base-url http://localhost:8080/api
+  --base-url http://localhost:8020/api
 ```
 
 Or manual validation:

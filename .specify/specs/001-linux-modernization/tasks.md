@@ -59,7 +59,7 @@
 ### Implementation
 
 - [ ] [T011](./tasks/T011-add-health-endpoint.md) [US1] Add health check endpoint GET /api/health in src/BmaLinuxApi/Endpoints/HealthEndpoint.cs
-- [ ] [T012](./tasks/T012-configure-kestrel.md) [US1] Configure Kestrel to listen on port 8080 in src/BmaLinuxApi/appsettings.json
+- [ ] [T012](./tasks/T012-configure-kestrel.md) [US1] Configure Kestrel to listen on port 8020 in src/BmaLinuxApi/appsettings.json
 - [ ] [T013](./tasks/T013-configure-self-contained.md) [US1] Configure self-contained single-file publish in src/BmaLinuxApi/BmaLinuxApi.csproj
 - [ ] [T014](./tasks/T014-verify-linux-build.md) [US1] Verify self-contained build runs on fresh Linux without .NET SDK
 
@@ -71,7 +71,7 @@
 
 **Goal**: POST /api/Analyze returns stability analysis results matching Windows version
 
-**Independent Test**: `curl -X POST http://localhost:8080/api/Analyze -d @test-model.json` returns valid AnalysisResult
+**Independent Test**: `curl -X POST http://localhost:8020/api/Analyze -d @test-model.json` returns valid AnalysisResult
 
 ### Implementation
 
@@ -104,7 +104,7 @@
 
 **Goal**: POST /api/Simulate returns next state given current state
 
-**Independent Test**: `curl -X POST http://localhost:8080/api/Simulate -d @simulation-input.json` returns next state
+**Independent Test**: `curl -X POST http://localhost:8020/api/Simulate -d @simulation-input.json` returns next state
 
 ### Implementation
 
@@ -154,7 +154,7 @@
 
 **Goal**: Serve the existing TypeScript/HTML5 frontend unchanged
 
-**Independent Test**: Open http://localhost:8080/ in browser, full UI works
+**Independent Test**: Open http://localhost:8020/ in browser, full UI works
 
 ### Implementation
 

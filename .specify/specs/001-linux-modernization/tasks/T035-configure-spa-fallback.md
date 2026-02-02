@@ -19,7 +19,7 @@ app.MapFallbackToFile("index.html");
 ```
 
 - [ ] Add MapFallbackToFile
-- [ ] Test: http://localhost:8080/ loads UI
+- [ ] Test: http://localhost:8020/ loads UI
 
 ---
 

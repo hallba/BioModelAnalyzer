@@ -33,7 +33,7 @@ docker run --rm -v "$(pwd)":/src -w /src \
   --self-contained true -p:PublishSingleFile=true
 
 # Run the API in a container
-docker run --rm -p 8080:8080 -v "$(pwd)/src/BmaLinuxApi/bin/Release/net8.0/linux-x64/publish":/app \
+docker run --rm -p 8020:8020 -v "$(pwd)/src/BmaLinuxApi/bin/Release/net8.0/linux-x64/publish":/app \
   mcr.microsoft.com/dotnet/aspnet:8.0 /app/BmaLinuxApi
 ```
 
@@ -135,7 +135,7 @@ cd src/BmaLinuxApi
 # Run in development mode
 dotnet run
 
-# Open browser to http://localhost:8080
+# Open browser to http://localhost:8020
 ```
 
 ### Phase 5: Publish for Production
@@ -156,7 +156,7 @@ dotnet publish src/BmaLinuxApi -c Release -r linux-x64 --self-contained true -p:
 pip install schemathesis
 
 # Test against OpenAPI spec
-schemathesis run .specify/specs/001-linux-modernization/contracts/api-spec.yaml --base-url http://localhost:8080/api
+schemathesis run .specify/specs/001-linux-modernization/contracts/api-spec.yaml --base-url http://localhost:8020/api
 ```
 
 ### Run Regression Tests
@@ -166,7 +166,7 @@ schemathesis run .specify/specs/001-linux-modernization/contracts/api-spec.yaml 
 cd src/BmaTests.Common
 
 # For each test model:
-curl -X POST http://localhost:8080/api/Analyze \
+curl -X POST http://localhost:8020/api/Analyze \
   -H "Content-Type: application/json" \
   -d @Analysis/SomeModel_request.json \
   > actual_response.json
@@ -186,7 +186,7 @@ cd /opt/bma
 ./BmaLinuxApi
 
 # Test from another terminal
-curl http://linux-vm:8080/api/Analyze -X POST -H "Content-Type: application/json" -d '{"Model":{"Name":"test","Variables":[],"Relationships":[]}}'
+curl http://linux-vm:8020/api/Analyze -X POST -H "Content-Type: application/json" -d '{"Model":{"Name":"test","Variables":[],"Relationships":[]}}'
 ```
 
 ## Troubleshooting

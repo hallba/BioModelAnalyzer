@@ -42,7 +42,7 @@ dotnet publish -c Release -r linux-x64 --self-contained true
 sleep 3
 
 # Test health endpoint
-curl http://localhost:8080/api/health
+curl http://localhost:8020/api/health
 
 # Kill the process
 pkill BmaLinuxApi

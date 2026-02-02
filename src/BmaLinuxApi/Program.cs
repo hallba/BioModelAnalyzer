@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using BmaLinuxApi.Endpoints;
 using BmaLinuxApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,7 +80,7 @@ app.UseStaticFiles();
 // SPA fallback routing - will be enhanced in T035
 // app.MapFallbackToFile("index.html");
 
-// Placeholder endpoint to verify API is running
-app.MapGet("/api/health", () => Results.Ok(new { Status = "Healthy", Timestamp = DateTime.UtcNow }));
+// Health endpoint for monitoring
+app.MapHealthEndpoints();
 
 app.Run();

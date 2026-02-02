@@ -14,7 +14,7 @@ Create `src/BmaLinuxApi/Dockerfile`:
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 8020
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -25,7 +25,7 @@ RUN dotnet publish "src/BmaLinuxApi/BmaLinuxApi.csproj" -c Release -o /app/publi
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+:8020
 ENTRYPOINT ["dotnet", "BmaLinuxApi.dll"]
 ```
 
@@ -40,7 +40,7 @@ Create `.dockerignore`:
 Test:
 ```bash
 docker build -t bma-linux -f src/BmaLinuxApi/Dockerfile .
-docker run -p 8080:8080 bma-linux
+docker run -p 8020:8020 bma-linux
 ```
 
 - [ ] Create Dockerfile

@@ -10,13 +10,13 @@
 ## Context Setup Prompt
 
 ```
-I'm working on Task T012: Configure Kestrel for port 8080.
+I'm working on Task T012: Configure Kestrel for port 8020.
 
 Please read: .specify/specs/001-linux-modernization/tasks/T012-configure-kestrel.md
 
 ## Goal
 
-Configure Kestrel to listen on 0.0.0.0:8080 for Linux deployment.
+Configure Kestrel to listen on 0.0.0.0:8020 for Linux deployment.
 ```
 
 ---
@@ -30,7 +30,7 @@ Update `src/BmaLinuxApi/appsettings.json`:
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:8080"
+        "Url": "http://0.0.0.0:8020"
       }
     }
   },
@@ -49,14 +49,14 @@ Update `src/BmaLinuxApi/appsettings.json`:
 ```
 
 - [ ] Update appsettings.json
-- [ ] Test: `dotnet run` listens on 8080
-- [ ] Test: `curl http://localhost:8080/api/health`
+- [ ] Test: `dotnet run` listens on 8020
+- [ ] Test: `curl http://localhost:8020/api/health`
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Application listens on port 8080
+- [ ] Application listens on port 8020
 - [ ] Accessible from 0.0.0.0 (not just localhost)
 
 ---

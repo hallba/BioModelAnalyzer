@@ -179,7 +179,7 @@ The `IAnalyzer` interface in `BmaLinux/BioCheckAnaylzerCommonMulti/IAnalyzer.cs`
 4. Configure CORS if needed for development
 
 **Validation:**
-- Frontend loads at `http://localhost:8080/`
+- Frontend loads at `http://localhost:8020/`
 - All UI functionality works (model creation, analysis, simulation)
 
 ---
@@ -208,7 +208,7 @@ dotnet publish src/BmaLinuxApi -c Release -r linux-x64 \
    FROM mcr.microsoft.com/dotnet/aspnet:8.0
    WORKDIR /app
    COPY publish/ .
-   EXPOSE 8080
+   EXPOSE 8020
    ENTRYPOINT ["./BmaLinuxApi"]
    ```
 

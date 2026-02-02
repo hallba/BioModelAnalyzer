@@ -159,7 +159,7 @@ Create `src/BmaLinuxApi/appsettings.json`:
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:8080"
+        "Url": "http://0.0.0.0:8020"
       }
     }
   },
@@ -171,7 +171,7 @@ Create `src/BmaLinuxApi/appsettings.json`:
 ```
 
 - [ ] Create appsettings.json
-- [ ] Configure Kestrel for port 8080
+- [ ] Configure Kestrel for port 8020
 
 ### Part E: Verify Build
 
@@ -191,7 +191,7 @@ dotnet build
 cd src/BmaLinuxApi
 dotnet run
 # In another terminal:
-curl http://localhost:8080/api/health
+curl http://localhost:8020/api/health
 ```
 
 - [ ] Application starts
@@ -204,7 +204,7 @@ curl http://localhost:8080/api/health
 - [ ] `src/BmaLinuxApi/` directory exists with proper structure
 - [ ] Project references BioCheckAnalyzerMulti and BioCheckAnaylzerCommonMulti
 - [ ] `dotnet build` succeeds
-- [ ] `dotnet run` starts the application on port 8080
+- [ ] `dotnet run` starts the application on port 8020
 - [ ] `/api/health` endpoint responds with JSON
 
 ---

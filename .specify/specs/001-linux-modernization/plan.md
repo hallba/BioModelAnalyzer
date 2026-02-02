@@ -243,7 +243,7 @@ dotnet publish src/BmaLinuxApi -c Release -r linux-x64 \
 {
   "Kestrel": {
     "Endpoints": {
-      "Http": { "Url": "http://0.0.0.0:8080" }
+      "Http": { "Url": "http://0.0.0.0:8020" }
     }
   },
   "Analysis": {
@@ -270,7 +270,7 @@ dotnet publish src/BmaLinuxApi -c Release -r linux-x64 \
 ### Option A: Single Executable
 ```bash
 ./BmaLinuxApi
-# Runs on http://localhost:8080
+# Runs on http://localhost:8020
 ```
 
 ### Option B: Docker
@@ -278,7 +278,7 @@ dotnet publish src/BmaLinuxApi -c Release -r linux-x64 \
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
 COPY publish/ .
-EXPOSE 8080
+EXPOSE 8020
 ENTRYPOINT ["./BmaLinuxApi"]
 ```
 
@@ -287,7 +287,7 @@ ENTRYPOINT ["./BmaLinuxApi"]
 [Service]
 ExecStart=/opt/bma/BmaLinuxApi
 WorkingDirectory=/opt/bma
-Environment=ASPNETCORE_URLS=http://0.0.0.0:8080
+Environment=ASPNETCORE_URLS=http://0.0.0.0:8020
 Restart=always
 ```
 

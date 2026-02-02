@@ -81,7 +81,7 @@ app.MapGet("/api/test-json", () =>
 ```
 
 ```bash
-curl http://localhost:8080/api/test-json
+curl http://localhost:8020/api/test-json
 # Should output: {"Name":"Test","Variables":[{"Id":1,"Name":"X",...}],...}
 ```
 

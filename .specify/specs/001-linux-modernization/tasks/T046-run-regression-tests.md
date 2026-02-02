@@ -17,7 +17,7 @@ cd src/BmaLinuxApi && dotnet run &
 
 # Run tests against each endpoint
 for file in src/BmaTests.Common/Analysis/*_request.json; do
-    curl -X POST http://localhost:8080/api/Analyze \
+    curl -X POST http://localhost:8020/api/Analyze \
       -H "Content-Type: application/json" \
       -d @"$file" > "$(basename $file .json)_response.json"
 done
