@@ -72,6 +72,15 @@ Enable biologists to build and analyze complex biological behavior models using 
 - Support concurrent analysis requests
 - Memory-efficient for long-running VM deployments
 
+## Port Configuration
+
+**Always check the central port registry before configuring ports:**
+- Location: `~/.dev-ports.json` (on development machines)
+- BMA is registered on port **8020**
+- Check registry to avoid conflicts: `cat ~/.dev-ports.json | jq '.projects'`
+
+This prevents port conflicts across projects on shared development machines.
+
 ## Security Requirements
 
 - No hardcoded credentials or connection strings

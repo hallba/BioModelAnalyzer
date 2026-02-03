@@ -80,6 +80,19 @@ For Linux/Mac, use `PrepareRepositoryNix.sh` for initial setup.
 - Frontend backend URL: Set `BackEndUrl` in `bma.client/Web.config`
 - Logging: Activity logs via `/api/activitylog`, failure logs capture request/response pairs
 
+### Port Configuration
+**Central Port Registry:** Always check `~/.dev-ports.json` before configuring ports to avoid conflicts.
+
+| Service | Port | Notes |
+|---------|------|-------|
+| BmaLinuxApi (Linux) | 8020 | Registered in central registry |
+| OWIN self-host (Windows) | 8224 | Legacy Windows development |
+
+```bash
+# Check for port conflicts before starting
+cat ~/.dev-ports.json | jq '.projects.BioModelAnalyzer'
+```
+
 ### Platform Architecture
 The x86/x64 platform must be consistent across build configuration, IIS Express settings, and Azure App Service settings. Mismatches cause `BadImageFormatException`. For IIS Express: `Tools > Options > Projects and Solutions > Web Projects` controls 64-bit option.
 
