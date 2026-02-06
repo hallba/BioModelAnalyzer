@@ -36,7 +36,8 @@ whilst code contributions should follow the instructions in `CONTRIBUTING.md`.
 # Contents
 
 - [Structure of repository](#structure-of-repository)
-- [Build and test](#build-and-test)
+- [Build and run (Linux)](#build-and-run-linux)
+- [Legacy Windows build](#legacy-windows-build)
     - [Build requirements](#build-requirements)
     - [How to Build](#how-to-build)
     - [How to Test and Validate](#how-to-test-and-validate)
@@ -50,15 +51,11 @@ whilst code contributions should follow the instructions in `CONTRIBUTING.md`.
 
 # Structure of repository
 
-Powershell scripts in the root of repository ([PowerShell 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=50395) or above is required):
+Build scripts in the root of repository:
 
-* `PrepareRepository.ps1` prepares freshly cloned repository for the first use. See [Build and test](#build-and-test).
-* `build.ps1` builds `bmaclient` solution mentioned below.
-* `run.ps1` starts BioModelAnalyzer (both API and client web applications) on local machine using [OWIN](https://www.asp.net/aspnet/overview/owin-and-katana).
- See [Self-hosting application using OWIN](#self-hosting-application-using-owin).
-* `BuildAndRun.ps1` consecutively runs `PrepareRepository.ps1`, `build.ps1`, and `run.ps1`
-  in order to start the BMA app on local machine right after cloning the repository.
-* `DeployAzure.ps1` deploys BMA in Azure. See [Deployment in Azure App Services](#deployment-in-azure-app-services).
+* `build.sh` builds and optionally runs the Linux API via Docker. Usage: `./build.sh [run|test]`
+
+Legacy Windows PowerShell scripts have been moved to the `/defunct` folder (see [Legacy Windows build](#legacy-windows-build)).
 
 `/sln` - Visual Studio solutions:
 
@@ -105,14 +102,44 @@ Some functionality of BioModelAnalyzer depends on this library.
 
 `/Models` contains biological models that can be imported from the BioModelAnalyzer application.
 
-# Build and test
+# Build and run (Linux)
 
-- **Run the powershell script `PrepareRepository.ps1`** once after cloning the repository.
+The recommended way to build and run BMA is using the Linux API with Docker:
+
+```bash
+# Build only
+./build.sh
+
+# Build and run on port 8020
+./build.sh run
+
+# Build, run, and execute regression tests
+./build.sh test
+```
+
+Or using Docker directly:
+
+```bash
+# Build the image
+docker build -f src/BmaLinuxApi/Dockerfile -t bma-linux-api .
+
+# Run the container
+docker run --rm -p 8020:8020 bma-linux-api
+```
+
+The application will be available at `http://localhost:8020/`. See `docs/LinuxDeployment.md` for production deployment instructions.
+
+# Legacy Windows build and test
+
+> **Note:** The legacy Windows PowerShell build scripts have been moved to the `/defunct` folder.
+> They are preserved for reference but are no longer needed for the Linux build.
+
+- **Run the powershell script `defunct/PrepareRepository.ps1`** once after cloning the repository.
 [PowerShell 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=50395) or above is required.
 
-The rest of building, testing, and deployment processes heavily rely on this first step having been performed. 
-The script downloads [paket](https://fsprojects.github.io/Paket/index.html) and runs it in order to fetch the external dependencies. 
-Also the script creates local files `/src/ApiServer/unity.azure-appservice.config` and 
+The rest of building, testing, and deployment processes heavily rely on this first step having been performed.
+The script downloads [paket](https://fsprojects.github.io/Paket/index.html) and runs it in order to fetch the external dependencies.
+Also the script creates local files `/src/ApiServer/unity.azure-appservice.config` and
 `/src/ApiService/ServiceConfiguration.Cloud.cscfg` with default Azure deployment configurations.
 These files are configured to be ignored by git and will not be committed to the repository, thus
 they may contain Azure Storage Account connection strings.
@@ -137,13 +164,13 @@ from [Microsoft web site](https://www.microsoft.com/en-us/download/details.aspx?
 
 ## How to Build
 
-After the repository is prepared using the script `PrepareRepository.ps1`,
+After the repository is prepared using the script `defunct/PrepareRepository.ps1`,
 you can build the solutions using Visual Studio or msbuild.
 
-Also there are helpful build-related scripts located in the root of repository:
- * `build.ps1` builds `bmaclient` solution which contains BioModelAnalyzer Web API and Web client applications.
- * `run.ps1` starts both BioModelAnalyzer Web API and Web client applications on local machine using OWIN.
- * `BuildAndRun.ps1` consecutively runs `PrepareRepository.ps1`, `build.ps1`, and `run.ps1`
+Legacy build-related scripts are in the `/defunct` folder:
+ * `defunct/build.ps1` builds `bmaclient` solution which contains BioModelAnalyzer Web API and Web client applications.
+ * `defunct/run.ps1` starts both BioModelAnalyzer Web API and Web client applications on local machine using OWIN.
+ * `defunct/BuildAndRun.ps1` consecutively runs `PrepareRepository.ps1`, `build.ps1`, and `run.ps1`
   in order to start the BMA applications on local machine.
 
 ## How to Test and Validate
@@ -205,7 +232,7 @@ Please see `/docs/BMA Deployment Overview.pptx` for details about BioModelAnalyz
 
 In the followings guidelines we will use Visual Studio 2015/2017.
 The solution that produces the web applications is located in `/sln/bmaclient`. 
-Please make sure that you have run the powershell script `./PrepareRepository.ps1` as described
+Please make sure that you have run the powershell script `defunct/PrepareRepository.ps1` as described
 in the [Build and test](#build-and-test) section to prepare the repository. 
 
 
@@ -304,7 +331,7 @@ For those purposes the repository contains `bma.selfhost` application.
 It hosts BMA using OWIN making both API and UI available at [http://localhost:8224/](http://localhost:8224/) and it stores logs in
 local files (see [Activity and failure logs](#activity-and-failure-logs) for details).
 
-You can start it either by running `run.ps1` powershell script located in the root of repository
+You can start it either by running `defunct/run.ps1` powershell script
 (in which case your system's [architecture](#choosing-the-platform-architecture-32-bit-or-64-bit) will be used)
 or you can find it within `/sln/bmaclient` solution. The script will also open a browser window with BMA UI
 for you as soon as it is available. If you choose not to use the script and to
@@ -321,17 +348,17 @@ and distributes demand between multiple copies of an application.
 
 ## Quick deployment using included script
 
-Included powershell script `DeployAzure.ps1` quickly deploys BMA using a free tier App Service plan to host API and UI and a locally-redundant storage account for logging.
+Included powershell script `defunct/DeployAzure.ps1` quickly deploys BMA using a free tier App Service plan to host API and UI and a locally-redundant storage account for logging.
 Simply run in powershell console
 
-`.\DeployAzure.ps1 <name>`
+`.\defunct\DeployAzure.ps1 <name>`
 
 and log into Azure when prompted to deploy UI to https://\<name\>.azurewebsites.net and API to
 https://\<name\>api.azurewebsites.net.
 
 It's possible to customize the names of deployed resources using script arguments. Run
 
-`Get-Help .\DeployAzure.ps1 -detailed`
+`Get-Help .\defunct\DeployAzure.ps1 -detailed`
 
 for details.
 

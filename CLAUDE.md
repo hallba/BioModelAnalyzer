@@ -27,31 +27,19 @@ docker run --rm -p 8020:8020 bma-linux-api
 
 The Dockerfile (`src/BmaLinuxApi/Dockerfile`) uses a multi-stage build with `mcr.microsoft.com/dotnet/sdk:8.0` and produces a self-contained linux-x64 binary. Always use `docker build` to verify code compiles.
 
-### Legacy Windows (bmaclient)
+### Legacy Windows (bmaclient) — DEFUNCT
 
-All PowerShell scripts require PowerShell 5.0+:
+> Legacy PowerShell scripts have been moved to `/defunct`. They are preserved for reference only.
 
 ```powershell
-# First-time setup (downloads Paket, installs dependencies)
-.\PrepareRepository.ps1
-
-# Build bmaclient solution (Release configuration, auto-detects x86/x64)
-.\build.ps1
-
-# Run locally via OWIN self-hosting at http://localhost:8224/
-.\run.ps1
-
-# Complete workflow: prep → build → run
-.\BuildAndRun.ps1
-
-# Clean build artifacts
-.\Clean.ps1
-
-# Deploy to Azure App Service
-.\DeployAzure.ps1 <name>
+# All scripts are now in the defunct/ folder:
+.\defunct\PrepareRepository.ps1   # First-time setup
+.\defunct\build.ps1               # Build bmaclient solution
+.\defunct\run.ps1                 # Run via OWIN self-hosting
+.\defunct\BuildAndRun.ps1         # Complete workflow
+.\defunct\Clean.ps1               # Clean build artifacts
+.\defunct\DeployAzure.ps1 <name>  # Deploy to Azure
 ```
-
-For Linux/Mac, use `PrepareRepositoryNix.sh` for initial setup.
 
 ## Testing
 
@@ -115,7 +103,7 @@ The x86/x64 platform must be consistent across build configuration, IIS Express 
 ## Dependencies
 
 Managed via Paket (`paket.dependencies`, `paket.lock`) and NPM:
-- Run `PrepareRepository.ps1` to install all dependencies
+- Run `defunct/PrepareRepository.ps1` to install all dependencies (legacy Windows only)
 - Per-project dependencies in `paket.references` files
 - External sources in `/ext`: FParsec, CUDD (BDD library)
 
