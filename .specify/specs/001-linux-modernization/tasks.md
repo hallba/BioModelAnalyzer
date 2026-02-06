@@ -75,9 +75,9 @@
 
 ### Implementation
 
-- [ ] [T015](./tasks/T015-create-analysis-service.md) [US2] Create IAnalysisService interface in src/BmaLinuxApi/Services/IAnalysisService.cs
-- [ ] [T016](./tasks/T016-implement-analysis-service.md) [US2] Implement AnalysisService wrapping IAnalyzer.checkStability() in src/BmaLinuxApi/Services/AnalysisService.cs
-- [ ] [T017](./tasks/T017-create-analyze-endpoint.md) [US2] Create POST /api/Analyze endpoint in src/BmaLinuxApi/Endpoints/AnalyzeEndpoint.cs
+- [x] [T015](./tasks/T015-create-analysis-service.md) [US2] Create IAnalysisService interface in src/BmaLinuxApi/Services/IAnalysisService.cs
+- [x] [T016](./tasks/T016-implement-analysis-service.md) [US2] Implement AnalysisService wrapping IAnalyzer.checkStability() in src/BmaLinuxApi/Services/AnalysisService.cs
+- [x] [T017](./tasks/T017-create-analyze-endpoint.md) [US2] Create POST /api/Analyze endpoint in src/BmaLinuxApi/Endpoints/AnalyzeEndpoint.cs
 - [ ] [T018](./tasks/T018-add-timeout-handling.md) [US2] Add 2-minute timeout handling returning 204 for Analyze endpoint
 
 **Checkpoint**: Analysis endpoint working, returns correct results for stable/unstable models
@@ -190,7 +190,7 @@
 
 **Purpose**: Finalize deployment artifacts and documentation
 
-- [ ] [T043](./tasks/T043-create-dockerfile.md) [P] Create Dockerfile in src/BmaLinuxApi/Dockerfile
+- [x] [T043](./tasks/T043-create-dockerfile.md) [P] Create Dockerfile in src/BmaLinuxApi/Dockerfile
 - [ ] [T044](./tasks/T044-create-systemd-service.md) [P] Create systemd service unit in deployment/bma.service
 - [ ] [T045](./tasks/T045-write-deployment-docs.md) Write deployment documentation in docs/LinuxDeployment.md
 - [ ] [T046](./tasks/T046-run-regression-tests.md) Run regression tests comparing with Windows version using src/BmaTests.Common/

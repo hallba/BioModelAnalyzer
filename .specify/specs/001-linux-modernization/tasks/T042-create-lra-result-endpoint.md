@@ -7,6 +7,25 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T042: Create LRA Result Endpoint.
+
+Read: .specify/specs/001-linux-modernization/tasks/T042-create-lra-result-endpoint.md
+      .specify/specs/001-linux-modernization/contracts/api-spec.yaml
+      src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+      src/BmaLinuxApi/Models/LtlModels.cs
+
+## Goal
+
+Add GET /api/lra/{appId}/result endpoint to LraEndpoints.cs for
+retrieving completed job results (LtlPolarityResult).
+GET status and DELETE endpoints were added in T040-T041.
+```
+
+---
+
 ## Implementation
 
 Add to `src/BmaLinuxApi/Endpoints/LraEndpoints.cs`:

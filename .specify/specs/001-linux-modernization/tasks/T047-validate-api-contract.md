@@ -7,6 +7,24 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T047: Validate API Contract.
+
+Read: .specify/specs/001-linux-modernization/tasks/T047-validate-api-contract.md
+      .specify/specs/001-linux-modernization/contracts/api-spec.yaml
+      src/BmaLinuxApi/Program.cs
+
+## Goal
+
+Validate all implemented endpoints against the OpenAPI spec in
+contracts/api-spec.yaml using schemathesis or manual testing.
+Regression tests were run in T046.
+```
+
+---
+
 ## Implementation
 
 Use schemathesis or similar tool:

@@ -1,6 +1,6 @@
 # Task T017: Create Analyze Endpoint
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T016
 **Phase:** Phase 4 - US2 (Analyze Biological Models)

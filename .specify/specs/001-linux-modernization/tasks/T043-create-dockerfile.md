@@ -1,6 +1,6 @@
 # Task T043: Create Dockerfile
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T014
 **Phase:** Phase 11 - Polish & Deployment

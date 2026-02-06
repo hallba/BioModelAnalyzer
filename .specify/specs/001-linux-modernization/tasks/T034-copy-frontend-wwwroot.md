@@ -7,6 +7,24 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T034: Copy Frontend to wwwroot.
+
+Read: .specify/specs/001-linux-modernization/tasks/T034-copy-frontend-wwwroot.md
+      src/BmaLinuxApi/BmaLinuxApi.csproj
+      src/bma.client/
+
+## Goal
+
+Copy the built frontend files from src/bma.client/ into
+src/BmaLinuxApi/wwwroot/ so the API can serve the SPA.
+Frontend was built in T033.
+```
+
+---
+
 ## Implementation
 
 ```bash

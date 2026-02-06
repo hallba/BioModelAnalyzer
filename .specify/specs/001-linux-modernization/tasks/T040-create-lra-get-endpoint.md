@@ -7,6 +7,26 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T040: Create LRA GET Endpoint.
+
+Read: .specify/specs/001-linux-modernization/tasks/T040-create-lra-get-endpoint.md
+      .specify/specs/001-linux-modernization/contracts/api-spec.yaml
+      src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+      src/BmaLinuxApi/Services/IScheduler.cs
+
+## Goal
+
+Add GET /api/lra/{appId} endpoint to LraEndpoints.cs for checking
+long-running job status. Returns status codes per API spec
+(201=Queued, 202=Executing, 200=Completed, 203=Failed).
+The POST endpoint was created in T039.
+```
+
+---
+
 ## Implementation
 
 Add to `src/BmaLinuxApi/Endpoints/LraEndpoints.cs`:

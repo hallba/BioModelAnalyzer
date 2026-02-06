@@ -7,6 +7,23 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T041: Create LRA DELETE Endpoint.
+
+Read: .specify/specs/001-linux-modernization/tasks/T041-create-lra-delete-endpoint.md
+      .specify/specs/001-linux-modernization/contracts/api-spec.yaml
+      src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+
+## Goal
+
+Add DELETE /api/lra/{appId} endpoint to LraEndpoints.cs for cancelling
+long-running jobs. GET endpoint was added in T040.
+```
+
+---
+
 ## Implementation
 
 Add to `src/BmaLinuxApi/Endpoints/LraEndpoints.cs`:

@@ -7,6 +7,24 @@
 
 ---
 
+## Context Setup Prompt
+
+```
+I'm working on Task T028: Create LTL Polarity Endpoint.
+
+Read: .specify/specs/001-linux-modernization/tasks/T028-create-ltl-polarity-endpoint.md
+      .specify/specs/001-linux-modernization/contracts/api-spec.yaml
+      src/BmaLinuxApi/Endpoints/LtlEndpoints.cs
+
+## Goal
+
+Add POST /api/AnalyzeLTLPolarity endpoint to the existing LtlEndpoints.cs file,
+matching the OpenAPI spec. This is the second LTL endpoint alongside the
+simulation one added in T027.
+```
+
+---
+
 ## Implementation
 
 Add to `src/BmaLinuxApi/Endpoints/LtlEndpoints.cs`:
