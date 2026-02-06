@@ -10,10 +10,22 @@ public static class LtlEndpoints
         app.MapPost("/api/AnalyzeLTLSimulation", async (
             LtlSimulationInput input,
             ILtlService service,
+            IConfiguration config,
             CancellationToken ct) =>
         {
-            var result = await service.CheckSimulationAsync(input, ct);
-            return Results.Ok(result);
+            var timeoutSeconds = config.GetValue<int>("Analysis:TimeoutSeconds", 120);
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            cts.CancelAfter(TimeSpan.FromSeconds(timeoutSeconds));
+
+            try
+            {
+                var result = await service.CheckSimulationAsync(input, cts.Token);
+                return Results.Ok(result);
+            }
+            catch (OperationCanceledException)
+            {
+                return Results.NoContent(); // 204 for timeout per API spec
+            }
         });
 
         app.MapPost("/api/AnalyzeLTLPolarity", async (

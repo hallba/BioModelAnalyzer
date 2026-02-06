@@ -1,6 +1,6 @@
 # Task T027: Create LTL Simulation Endpoint
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T026
 **Phase:** Phase 7 - US5 (LTL Formula Checking)
@@ -35,8 +35,9 @@ public static class LtlEndpoints
 }
 ```
 
-- [ ] Create LtlEndpoints.cs with simulation endpoint
-- [ ] Register in Program.cs
+- [x] Create LtlEndpoints.cs with simulation endpoint
+- [x] Register in Program.cs
+- [x] Add timeout handling (204 on timeout per API spec) — added alongside T028
 
 ---
 
