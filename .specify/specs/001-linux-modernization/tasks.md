@@ -92,9 +92,9 @@
 
 ### Implementation
 
-- [ ] [T019](./tasks/T019-create-further-testing-service.md) [US3] Create IFurtherTestingService interface in src/BmaLinuxApi/Services/IFurtherTestingService.cs
-- [ ] [T020](./tasks/T020-implement-further-testing-service.md) [US3] Implement FurtherTestingService in src/BmaLinuxApi/Services/FurtherTestingService.cs
-- [ ] [T021](./tasks/T021-create-further-testing-endpoint.md) [US3] Create POST /api/FurtherTesting endpoint in src/BmaLinuxApi/Endpoints/FurtherTestingEndpoint.cs
+- [x] [T019](./tasks/T019-create-further-testing-service.md) [US3] Create IFurtherTestingService interface in src/BmaLinuxApi/Services/IFurtherTestingService.cs
+- [x] [T020](./tasks/T020-implement-further-testing-service.md) [US3] Implement FurtherTestingService in src/BmaLinuxApi/Services/FurtherTestingService.cs
+- [x] [T021](./tasks/T021-create-further-testing-endpoint.md) [US3] Create POST /api/FurtherTesting endpoint in src/BmaLinuxApi/Endpoints/FurtherTestingEndpoint.cs
 
 **Checkpoint**: FurtherTesting endpoint working, returns bifurcation/cycle/fixpoint counter-examples
 
@@ -108,8 +108,8 @@
 
 ### Implementation
 
-- [ ] [T022](./tasks/T022-create-simulation-service.md) [US4] Create ISimulationService interface in src/BmaLinuxApi/Services/ISimulationService.cs
-- [ ] [T023](./tasks/T023-implement-simulation-service.md) [US4] Implement SimulationService wrapping IAnalyzer.simulate_tick() in src/BmaLinuxApi/Services/SimulationService.cs
+- [x] [T022](./tasks/T022-create-simulation-service.md) [US4] Create ISimulationService interface in src/BmaLinuxApi/Services/ISimulationService.cs
+- [x] [T023](./tasks/T023-implement-simulation-service.md) [US4] Implement SimulationService wrapping IAnalyzer.simulate_tick() in src/BmaLinuxApi/Services/SimulationService.cs
 - [ ] [T024](./tasks/T024-create-simulate-endpoint.md) [US4] Create POST /api/Simulate endpoint in src/BmaLinuxApi/Endpoints/SimulateEndpoint.cs
 
 **Checkpoint**: Simulation endpoint working, returns correct next state
@@ -144,7 +144,7 @@
 - [ ] [T029](./tasks/T029-add-closedxml-package.md) [P] [US6] Add ClosedXML NuGet package to src/BmaLinuxApi/BmaLinuxApi.csproj
 - [ ] [T030](./tasks/T030-create-export-service.md) [US6] Create IExportService interface in src/BmaLinuxApi/Services/IExportService.cs
 - [ ] [T031](./tasks/T031-implement-excel-export.md) [US6] Implement ExcelExportService using ClosedXML in src/BmaLinuxApi/Services/ExcelExportService.cs
-- [ ] [T032](./tasks/T032-create-export-endpoint.md) [US6] Create export endpoint returning .xlsx file in src/BmaLinuxApi/Endpoints/ExportEndpoint.cs
+- [x] [T032](./tasks/T032-create-export-endpoint.md) [US6] Create export endpoint returning .xlsx file in src/BmaLinuxApi/Endpoints/ExportEndpoint.cs
 
 **Checkpoint**: Excel export produces valid .xlsx files on Linux
 
@@ -158,7 +158,7 @@
 
 ### Implementation
 
-- [ ] [T033](./tasks/T033-build-frontend.md) [US7] Build frontend with npm/grunt in src/bma.package/
+- [x] [T033](./tasks/T033-build-frontend.md) [US7] Build frontend with npm/grunt in src/bma.package/
 - [ ] [T034](./tasks/T034-copy-frontend-wwwroot.md) [US7] Copy built frontend to src/BmaLinuxApi/wwwroot/
 - [ ] [T035](./tasks/T035-configure-spa-fallback.md) [US7] Configure SPA fallback routing in src/BmaLinuxApi/Program.cs
 - [ ] [T036](./tasks/T036-test-frontend-integration.md) [US7] Test all frontend workflows (create model, analyze, simulate, view results)

@@ -1,9 +1,23 @@
 # Task T025: Create ILtlService Interface
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 15m
 **Dependencies:** T007
 **Phase:** Phase 7 - US5 (LTL Formula Checking)
+
+---
+
+## Context Setup Prompt
+
+```
+I'm working on Task T025: Create ILtlService Interface.
+
+Read: .specify/specs/001-linux-modernization/tasks/T025-create-ltl-service.md
+
+## Goal
+
+Define the ILtlService interface with CheckSimulationAsync and CheckPolarityAsync methods (already stubbed in T007).
+```
 
 ---
 
@@ -11,7 +25,7 @@
 
 Verify `src/BmaLinuxApi/Services/ILtlService.cs` exists from T007.
 
-- [ ] Interface has CheckSimulationAsync and CheckPolarityAsync
+- [x] Interface has CheckSimulationAsync and CheckPolarityAsync
 
 ---
 

@@ -4,12 +4,6 @@ using BmaLinuxApi.Models;
 
 // Placeholder implementations - to be replaced in Phase 4-7
 
-public class PlaceholderSimulationService : ISimulationService
-{
-    public Task<SimulationResult> SimulateTickAsync(Model model, VariableValue[] variables, CancellationToken ct = default)
-        => throw new NotImplementedException("Implement in T023");
-}
-
 public class PlaceholderFurtherTestingService : IFurtherTestingService
 {
     public Task<FurtherTestingResult> FindCounterExamplesAsync(Model model, AnalysisResult analysis, CancellationToken ct = default)

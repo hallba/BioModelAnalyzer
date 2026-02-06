@@ -1,6 +1,6 @@
 # Task T029: Add ClosedXML Package
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 10m
 **Dependencies:** T005
 **Phase:** Phase 8 - US6 (Export to Excel)
@@ -22,8 +22,8 @@ dotnet add package ClosedXML
 dotnet restore
 ```
 
-- [ ] Add ClosedXML package
-- [ ] Verify restore succeeds
+- [x] Add ClosedXML package
+- [x] Verify restore succeeds
 
 ---
 

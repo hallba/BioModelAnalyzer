@@ -13,6 +13,22 @@ BioModelAnalyzer (BMA) is a bioinformatics tool that allows biologists to build 
 
 ## Build Commands
 
+### BmaLinuxApi (Linux Modernization) — USE THIS
+
+**The .NET SDK is not installed on the host.** All builds for `src/BmaLinuxApi/` must be done inside the Docker container:
+
+```bash
+# Build and verify compilation (from repo root)
+docker build -f src/BmaLinuxApi/Dockerfile -t bma-linux-api .
+
+# Run the container
+docker run --rm -p 8020:8020 bma-linux-api
+```
+
+The Dockerfile (`src/BmaLinuxApi/Dockerfile`) uses a multi-stage build with `mcr.microsoft.com/dotnet/sdk:8.0` and produces a self-contained linux-x64 binary. Always use `docker build` to verify code compiles.
+
+### Legacy Windows (bmaclient)
+
 All PowerShell scripts require PowerShell 5.0+:
 
 ```powershell

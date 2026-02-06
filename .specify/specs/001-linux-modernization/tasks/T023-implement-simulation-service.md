@@ -1,6 +1,6 @@
 # Task T023: Implement SimulationService
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 1h
 **Dependencies:** T022
 **Phase:** Phase 6 - US4 (Run Simulations)
@@ -50,8 +50,8 @@ public class SimulationService : ISimulationService
 }
 ```
 
-- [ ] Implement service
-- [ ] Register in DI
+- [x] Implement service
+- [x] Register in DI
 
 ---
 

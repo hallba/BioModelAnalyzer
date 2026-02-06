@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.102.*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../../BmaLinux/BioCheckAnalyzerMulti/BioCheckAnalyzerMulti.fsproj" />
     <ProjectReference Include="../../BmaLinux/BioCheckAnaylzerCommonMulti/BioCheckAnaylzerCommonMulti.csproj" />
   </ItemGroup>

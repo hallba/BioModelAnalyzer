@@ -1,6 +1,6 @@
 # Task T035: Configure SPA Fallback
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 15m
 **Dependencies:** T034
 **Phase:** Phase 9 - US7 (Use Existing Frontend)

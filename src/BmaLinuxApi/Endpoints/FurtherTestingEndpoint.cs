@@ -1,17 +1,3 @@
-# Task T021: Create FurtherTesting Endpoint
-
-**Status:** [ ] Pending | [ ] In Progress | [x] Complete
-**Effort:** 30m
-**Dependencies:** T020
-**Phase:** Phase 5 - US3 (Find Counter-Examples)
-
----
-
-## Implementation
-
-Create `src/BmaLinuxApi/Endpoints/FurtherTestingEndpoint.cs`:
-
-```csharp
 namespace BmaLinuxApi.Endpoints;
 
 using BmaLinuxApi.Models;
@@ -31,11 +17,3 @@ public static class FurtherTestingEndpoint
         });
     }
 }
-```
-
-- [x] Create endpoint
-- [x] Register in Program.cs
-
----
-
-**Created:** 2026-01-29

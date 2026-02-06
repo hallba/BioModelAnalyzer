@@ -1,6 +1,6 @@
 # Task T020: Implement FurtherTestingService
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 1.5h
 **Dependencies:** T019
 **Phase:** Phase 5 - US3 (Find Counter-Examples)
@@ -60,8 +60,8 @@ public class FurtherTestingService : IFurtherTestingService
 }
 ```
 
-- [ ] Implement service
-- [ ] Register in DI
+- [x] Implement service
+- [x] Register in DI
 
 ---
 

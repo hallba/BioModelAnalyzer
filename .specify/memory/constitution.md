@@ -87,6 +87,12 @@ This prevents port conflicts across projects on shared development machines.
 - Validate all user input before passing to analysis engine
 - Log errors without exposing internal implementation details
 
+## Build Environment
+
+- **No .NET SDK on host** — all BmaLinuxApi builds must use `docker build -f src/BmaLinuxApi/Dockerfile` (T043 completed)
+- Always verify compilation via Docker before marking tasks complete
+- The Dockerfile uses a multi-stage build: `dotnet/sdk:8.0` for build, `runtime-deps:8.0-noble-chiseled-extra` for runtime
+
 ## Development Workflow
 
 1. **Specification First** - Define what to build before how

@@ -1,17 +1,3 @@
-# Task T032: Create Export Endpoint
-
-**Status:** [ ] Pending | [ ] In Progress | [X] Complete
-**Effort:** 20m
-**Dependencies:** T031
-**Phase:** Phase 8 - US6 (Export to Excel)
-
----
-
-## Implementation
-
-Create `src/BmaLinuxApi/Endpoints/ExportEndpoint.cs`:
-
-```csharp
 namespace BmaLinuxApi.Endpoints;
 
 using BmaLinuxApi.Models;
@@ -36,12 +22,3 @@ public static class ExportEndpoint
 }
 
 public record ExportRequest(Model Model, SimulationResult[] Results);
-```
-
-- [x] Create endpoint
-- [x] Returns .xlsx file
-- [x] Register in Program.cs
-
----
-
-**Created:** 2026-01-29

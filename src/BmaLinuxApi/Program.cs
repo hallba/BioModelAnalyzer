@@ -41,9 +41,10 @@ builder.Services.AddSingleton<IAnalyzer>(sp =>
 
 // Register services
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
-builder.Services.AddScoped<ISimulationService, PlaceholderSimulationService>();
-builder.Services.AddScoped<IFurtherTestingService, PlaceholderFurtherTestingService>();
-builder.Services.AddScoped<ILtlService, PlaceholderLtlService>();
+builder.Services.AddScoped<ISimulationService, SimulationService>();
+builder.Services.AddScoped<IFurtherTestingService, FurtherTestingService>();
+builder.Services.AddScoped<ILtlService, LtlService>();
+builder.Services.AddScoped<IExportService, ExcelExportService>();
 builder.Services.AddSingleton<IScheduler, PlaceholderScheduler>();
 
 var app = builder.Build();
@@ -86,13 +87,25 @@ app.UseStatusCodePages(async statusCodeContext =>
 app.UseCors();
 app.UseStaticFiles();
 
-// SPA fallback routing - will be enhanced in T035
-// app.MapFallbackToFile("index.html");
+// SPA fallback - serve index.html for non-API routes
+app.MapFallbackToFile("index.html");
 
 // Health endpoint for monitoring
 app.MapHealthEndpoints();
 
+// Simulation endpoint
+app.MapSimulateEndpoints();
+
 // Analysis endpoint
 app.MapAnalyzeEndpoints();
+
+// FurtherTesting endpoint
+app.MapFurtherTestingEndpoints();
+
+// LTL endpoints
+app.MapLtlEndpoints();
+
+// Export endpoint
+app.MapExportEndpoints();
 
 app.Run();
