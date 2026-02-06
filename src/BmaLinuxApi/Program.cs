@@ -92,4 +92,7 @@ app.UseStaticFiles();
 // Health endpoint for monitoring
 app.MapHealthEndpoints();
 
+// Analysis endpoint
+app.MapAnalyzeEndpoints();
+
 app.Run();
