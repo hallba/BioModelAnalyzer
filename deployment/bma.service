@@ -1,0 +1,17 @@
+[Unit]
+Description=BioModelAnalyzer API
+After=network.target
+
+[Service]
+Type=exec
+ExecStart=/opt/bma/BmaLinuxApi
+WorkingDirectory=/opt/bma
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+User=bma
+Environment=ASPNETCORE_URLS=http://0.0.0.0:8020
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

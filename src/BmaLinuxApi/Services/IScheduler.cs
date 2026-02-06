@@ -10,11 +10,13 @@ public interface IScheduler
 
 public record JobInfo(
     Guid JobId,
+    Guid AppId,
     JobState State,
     DateTime Created,
     DateTime? Started,
     DateTime? Completed,
-    string? Error
+    string? Error,
+    object? Result
 );
 
 public enum JobState

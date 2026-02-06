@@ -4,5 +4,5 @@ using BmaLinuxApi.Models;
 
 public interface IExportService
 {
-    byte[] ExportToExcel(Model model, SimulationResult[] results);
+    byte[] ExportToExcel(Model model, SimulationResult[]? results);
 }

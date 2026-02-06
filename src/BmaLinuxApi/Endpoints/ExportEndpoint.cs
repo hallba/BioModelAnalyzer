@@ -21,4 +21,4 @@ public static class ExportEndpoint
     }
 }
 
-public record ExportRequest(Model Model, SimulationResult[] Results);
+public record ExportRequest(Model Model, SimulationResult[]? Results);

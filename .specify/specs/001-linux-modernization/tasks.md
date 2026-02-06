@@ -175,12 +175,12 @@
 
 ### Implementation
 
-- [ ] [T037](./tasks/T037-create-scheduler-interface.md) [US8] Create IScheduler interface in src/BmaLinuxApi/Services/IScheduler.cs
-- [ ] [T038](./tasks/T038-implement-memory-scheduler.md) [US8] Implement InMemoryScheduler in src/BmaLinuxApi/Services/InMemoryScheduler.cs
-- [ ] [T039](./tasks/T039-create-lra-post-endpoint.md) [US8] Create POST /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
-- [ ] [T040](./tasks/T040-create-lra-get-endpoint.md) [US8] Create GET /api/lra/{appId} endpoint for status in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
-- [ ] [T041](./tasks/T041-create-lra-delete-endpoint.md) [US8] Create DELETE /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
-- [ ] [T042](./tasks/T042-create-lra-result-endpoint.md) [US8] Create GET /api/lra/{appId}/result endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [x] [T037](./tasks/T037-create-scheduler-interface.md) [US8] Create IScheduler interface in src/BmaLinuxApi/Services/IScheduler.cs
+- [x] [T038](./tasks/T038-implement-memory-scheduler.md) [US8] Implement InMemoryScheduler in src/BmaLinuxApi/Services/InMemoryScheduler.cs
+- [x] [T039](./tasks/T039-create-lra-post-endpoint.md) [US8] Create POST /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [x] [T040](./tasks/T040-create-lra-get-endpoint.md) [US8] Create GET /api/lra/{appId} endpoint for status in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [x] [T041](./tasks/T041-create-lra-delete-endpoint.md) [US8] Create DELETE /api/lra/{appId} endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
+- [x] [T042](./tasks/T042-create-lra-result-endpoint.md) [US8] Create GET /api/lra/{appId}/result endpoint in src/BmaLinuxApi/Endpoints/LraEndpoints.cs
 
 **Checkpoint**: Long-running job workflow complete - schedule, poll, retrieve results
 
@@ -191,10 +191,10 @@
 **Purpose**: Finalize deployment artifacts and documentation
 
 - [x] [T043](./tasks/T043-create-dockerfile.md) [P] Create Dockerfile in src/BmaLinuxApi/Dockerfile
-- [ ] [T044](./tasks/T044-create-systemd-service.md) [P] Create systemd service unit in deployment/bma.service
-- [ ] [T045](./tasks/T045-write-deployment-docs.md) Write deployment documentation in docs/LinuxDeployment.md
-- [ ] [T046](./tasks/T046-run-regression-tests.md) Run regression tests comparing with Windows version using src/BmaTests.Common/
-- [ ] [T047](./tasks/T047-validate-api-contract.md) Validate all endpoints against api-spec.yaml contract
+- [x] [T044](./tasks/T044-create-systemd-service.md) [P] Create systemd service unit in deployment/bma.service
+- [x] [T045](./tasks/T045-write-deployment-docs.md) Write deployment documentation in docs/LinuxDeployment.md
+- [x] [T046](./tasks/T046-run-regression-tests.md) Run regression tests comparing with Windows version using src/BmaTests.Common/
+- [x] [T047](./tasks/T047-validate-api-contract.md) Validate all endpoints against api-spec.yaml contract
 
 **Checkpoint**: Deployment-ready with documentation and validated against contract
 

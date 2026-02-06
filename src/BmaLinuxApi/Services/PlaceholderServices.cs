@@ -19,17 +19,3 @@ public class PlaceholderLtlService : ILtlService
         => throw new NotImplementedException("Implement in T026");
 }
 
-public class PlaceholderScheduler : IScheduler
-{
-    public Guid ScheduleJob(Guid appId, Func<CancellationToken, Task<object?>> work)
-        => throw new NotImplementedException("Implement in T038");
-
-    public JobInfo? GetJobStatus(Guid appId, Guid jobId)
-        => throw new NotImplementedException("Implement in T038");
-
-    public object? GetJobResult(Guid appId, Guid jobId)
-        => throw new NotImplementedException("Implement in T038");
-
-    public bool DeleteJob(Guid appId, Guid jobId)
-        => throw new NotImplementedException("Implement in T038");
-}

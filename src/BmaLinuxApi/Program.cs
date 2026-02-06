@@ -45,7 +45,7 @@ builder.Services.AddScoped<ISimulationService, SimulationService>();
 builder.Services.AddScoped<IFurtherTestingService, FurtherTestingService>();
 builder.Services.AddScoped<ILtlService, LtlService>();
 builder.Services.AddScoped<IExportService, ExcelExportService>();
-builder.Services.AddSingleton<IScheduler, PlaceholderScheduler>();
+builder.Services.AddSingleton<IScheduler, InMemoryScheduler>();
 
 var app = builder.Build();
 
@@ -107,5 +107,8 @@ app.MapLtlEndpoints();
 
 // Export endpoint
 app.MapExportEndpoints();
+
+// Long-running analysis endpoints
+app.MapLraEndpoints();
 
 app.Run();
