@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using BioCheckAnalyzerCommon;
 using BmaLinuxApi.Endpoints;
 using BmaLinuxApi.Services;
 
@@ -29,9 +30,17 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+// Register F# analyzer (stateless singleton)
+builder.Services.AddSingleton<IAnalyzer>(sp =>
+{
+    var analyzer = new UIMain.Analyzer();
+    var logger = sp.GetRequiredService<ILogger<UIMain.Analyzer>>();
+    ((IAnalyzer)analyzer).LoggingOn(new LogServiceAdapter(logger));
+    return (IAnalyzer)analyzer;
+});
+
 // Register services
-// Note: F# IAnalyzer registration will be added when implementing actual services
-builder.Services.AddScoped<IAnalysisService, PlaceholderAnalysisService>();
+builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<ISimulationService, PlaceholderSimulationService>();
 builder.Services.AddScoped<IFurtherTestingService, PlaceholderFurtherTestingService>();
 builder.Services.AddScoped<ILtlService, PlaceholderLtlService>();

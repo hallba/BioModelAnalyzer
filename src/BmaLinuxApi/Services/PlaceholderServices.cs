@@ -4,12 +4,6 @@ using BmaLinuxApi.Models;
 
 // Placeholder implementations - to be replaced in Phase 4-7
 
-public class PlaceholderAnalysisService : IAnalysisService
-{
-    public Task<AnalysisResult> AnalyzeAsync(Model model, CancellationToken ct = default)
-        => throw new NotImplementedException("Implement in T016");
-}
-
 public class PlaceholderSimulationService : ISimulationService
 {
     public Task<SimulationResult> SimulateTickAsync(Model model, VariableValue[] variables, CancellationToken ct = default)
