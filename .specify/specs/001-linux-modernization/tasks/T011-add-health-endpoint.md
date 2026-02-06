@@ -1,6 +1,6 @@
 # Task T011: Add Health Endpoint
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 15m
 **Dependencies:** T010 (Foundational complete)
 **Phase:** Phase 3 - US1 (Run BMA on Linux)
@@ -57,16 +57,16 @@ using BmaLinuxApi.Endpoints;
 app.MapHealthEndpoints();
 ```
 
-- [ ] Create HealthEndpoint.cs
-- [ ] Register in Program.cs
-- [ ] Test endpoint responds
+- [x]Create HealthEndpoint.cs
+- [x]Register in Program.cs
+- [x]Test endpoint responds
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] GET /api/health returns 200 with JSON status
-- [ ] Response includes version and uptime
+- [x]GET /api/health returns 200 with JSON status
+- [x]Response includes version and uptime
 
 ---
 

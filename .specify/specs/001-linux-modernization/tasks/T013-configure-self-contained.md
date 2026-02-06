@@ -1,6 +1,6 @@
 # Task T013: Configure Self-Contained Publish
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T005
 **Phase:** Phase 3 - US1 (Run BMA on Linux)
@@ -52,17 +52,17 @@ dotnet publish -c Release -r linux-x64
 ls -la bin/Release/net8.0/linux-x64/publish/
 ```
 
-- [ ] Add publish properties to .csproj
-- [ ] Test publish command
-- [ ] Verify single file output
+- [x]Add publish properties to .csproj
+- [x]Test publish command
+- [x]Verify single file output
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] `dotnet publish -c Release -r linux-x64` produces output
-- [ ] Single executable file in publish folder
-- [ ] File includes Z3 native libraries
+- [x]`dotnet publish -c Release -r linux-x64` produces output
+- [x]Single executable file in publish folder
+- [x]File includes Z3 native libraries
 
 ---
 

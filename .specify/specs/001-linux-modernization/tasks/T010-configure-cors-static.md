@@ -1,6 +1,6 @@
 # Task T010: Configure CORS and Static Files
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 20m
 **Dependencies:** T005 (API project created)
 **Phase:** Phase 2 - Foundational
@@ -59,8 +59,8 @@ app.UseCors();
 // ... rest of app config ...
 ```
 
-- [ ] Add CORS services
-- [ ] Enable CORS middleware
+- [x]Add CORS services
+- [x]Enable CORS middleware
 
 ### Part B: Configure Static Files
 
@@ -72,8 +72,8 @@ app.UseStaticFiles();
 // app.MapFallbackToFile("index.html");
 ```
 
-- [ ] UseStaticFiles configured
-- [ ] Comment placeholder for SPA fallback
+- [x]UseStaticFiles configured
+- [x]Comment placeholder for SPA fallback
 
 ### Part C: Verify wwwroot Exists
 
@@ -82,15 +82,15 @@ mkdir -p src/BmaLinuxApi/wwwroot
 echo "Static files placeholder" > src/BmaLinuxApi/wwwroot/test.txt
 ```
 
-- [ ] wwwroot directory exists
+- [x]wwwroot directory exists
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] CORS enabled for all origins (development)
-- [ ] Static files served from wwwroot
-- [ ] Build succeeds
+- [x]CORS enabled for all origins (development)
+- [x]Static files served from wwwroot
+- [x]Build succeeds
 
 ---
 

@@ -1,6 +1,6 @@
 # Task T012: Configure Kestrel
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 15m
 **Dependencies:** T005
 **Phase:** Phase 3 - US1 (Run BMA on Linux)
@@ -48,16 +48,16 @@ Update `src/BmaLinuxApi/appsettings.json`:
 }
 ```
 
-- [ ] Update appsettings.json
-- [ ] Test: `dotnet run` listens on 8020
-- [ ] Test: `curl http://localhost:8020/api/health`
+- [x]Update appsettings.json
+- [x]Test: `dotnet run` listens on 8020
+- [x]Test: `curl http://localhost:8020/api/health`
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Application listens on port 8020
-- [ ] Accessible from 0.0.0.0 (not just localhost)
+- [x]Application listens on port 8020
+- [x]Accessible from 0.0.0.0 (not just localhost)
 
 ---
 

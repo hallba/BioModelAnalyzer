@@ -42,9 +42,9 @@
 
 - [x] [T006](./tasks/T006-create-dto-models.md) Create DTO models matching api-spec.yaml in src/BmaLinuxApi/Models/
 - [x] [T007](./tasks/T007-configure-di-services.md) Configure dependency injection and IAnalyzer registration in src/BmaLinuxApi/Program.cs
-- [ ] [T008](./tasks/T008-configure-json-serialization.md) Configure System.Text.Json serialization with correct naming policies
-- [ ] [T009](./tasks/T009-add-error-handling.md) Add global error handling and logging middleware
-- [ ] [T010](./tasks/T010-configure-cors-static.md) Configure CORS and static file serving for frontend
+- [x] [T008](./tasks/T008-configure-json-serialization.md) Configure System.Text.Json serialization with correct naming policies
+- [x] [T009](./tasks/T009-add-error-handling.md) Add global error handling and logging middleware
+- [x] [T010](./tasks/T010-configure-cors-static.md) Configure CORS and static file serving for frontend
 
 **Checkpoint**: Foundation ready - all services registered, models created, basic infrastructure in place
 
@@ -58,10 +58,10 @@
 
 ### Implementation
 
-- [ ] [T011](./tasks/T011-add-health-endpoint.md) [US1] Add health check endpoint GET /api/health in src/BmaLinuxApi/Endpoints/HealthEndpoint.cs
-- [ ] [T012](./tasks/T012-configure-kestrel.md) [US1] Configure Kestrel to listen on port 8020 in src/BmaLinuxApi/appsettings.json
-- [ ] [T013](./tasks/T013-configure-self-contained.md) [US1] Configure self-contained single-file publish in src/BmaLinuxApi/BmaLinuxApi.csproj
-- [ ] [T014](./tasks/T014-verify-linux-build.md) [US1] Verify self-contained build runs on fresh Linux without .NET SDK
+- [x] [T011](./tasks/T011-add-health-endpoint.md) [US1] Add health check endpoint GET /api/health in src/BmaLinuxApi/Endpoints/HealthEndpoint.cs
+- [x] [T012](./tasks/T012-configure-kestrel.md) [US1] Configure Kestrel to listen on port 8020 in src/BmaLinuxApi/appsettings.json
+- [x] [T013](./tasks/T013-configure-self-contained.md) [US1] Configure self-contained single-file publish in src/BmaLinuxApi/BmaLinuxApi.csproj
+- [x] [T014](./tasks/T014-verify-linux-build.md) [US1] Verify self-contained build runs on fresh Linux without .NET SDK
 
 **Checkpoint**: Minimal API running on Linux, health endpoint responding
 

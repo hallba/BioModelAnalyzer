@@ -1,6 +1,6 @@
 # Task T004: Verify Console Application
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T003 (compilation errors fixed)
 **Phase:** Phase 1 - Setup
@@ -74,7 +74,7 @@ cd BmaLinux
 dotnet build BioCheckConsoleMulti.sln -c Release
 ```
 
-- [ ] Build succeeds in Release mode
+- [x]Build succeeds in Release mode
 
 ### Part B: Find Test Models
 
@@ -82,8 +82,8 @@ dotnet build BioCheckConsoleMulti.sln -c Release
 find BmaLinux -name "*.json" | head -10
 ```
 
-- [ ] Locate ToyModelUnstable.json
-- [ ] Locate ToyModelStable.json (or similar)
+- [x]Locate ToyModelUnstable.json
+- [x]Locate ToyModelStable.json (or similar)
 
 ### Part C: Run Analysis Tests
 
@@ -102,9 +102,9 @@ dotnet run -- -model ToyModelStable.json -engine VMCAI
 
 Expected: Should report model IS stable
 
-- [ ] Unstable model test runs
-- [ ] Stable model test runs (if test file exists)
-- [ ] No runtime errors or crashes
+- [x]Unstable model test runs
+- [x]Stable model test runs (if test file exists)
+- [x]No runtime errors or crashes
 
 ### Part D: Verify Z3 Loading
 
@@ -118,25 +118,25 @@ find ~/.nuget -name "libz3*" -o -name "z3.dll" 2>/dev/null | head -5
 ls BioCheckConsoleMulti/bin/Release/net8.0/
 ```
 
-- [ ] Z3 native library loads without errors
-- [ ] No "DllNotFoundException" for Z3
+- [x]Z3 native library loads without errors
+- [x]No "DllNotFoundException" for Z3
 
 ### Part E: Document Results
 
 Record the output from successful runs:
 
-- [ ] Document unstable model output
-- [ ] Document stable model output (if applicable)
-- [ ] Note any warnings or issues
+- [x]Document unstable model output
+- [x]Document stable model output (if applicable)
+- [x]Note any warnings or issues
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] `dotnet run -- -model ToyModelUnstable.json -engine SCM` produces output
-- [ ] Analysis results are sensible (unstable model reports not stable)
-- [ ] No Z3 native library loading errors
-- [ ] No runtime crashes on Linux
+- [x]`dotnet run -- -model ToyModelUnstable.json -engine SCM` produces output
+- [x]Analysis results are sensible (unstable model reports not stable)
+- [x]No Z3 native library loading errors
+- [x]No runtime crashes on Linux
 
 ---
 

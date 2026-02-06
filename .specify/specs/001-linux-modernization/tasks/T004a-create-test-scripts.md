@@ -1,6 +1,6 @@
 # Task T004a: Create Test Scripts for Console App Verification
 
-**Status:** [ ] Pending | [x] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T003 (build succeeds)
 **Phase:** Phase 1 - Setup
@@ -92,24 +92,24 @@ The BioCheckConsoleMulti app:
 
 Create `BmaLinux/test-console.sh`:
 
-- [ ] Add shebang and description
-- [ ] Define Docker run helper function
-- [ ] Add color output for pass/fail
+- [x]Add shebang and description
+- [x]Define Docker run helper function
+- [x]Add color output for pass/fail
 
 ### Part B: Add Test Cases
 
-- [ ] Test 1: SCM engine with stable model (expect "Single Stable Point")
-- [ ] Test 2: SCM engine with unstable model (expect "Multi Stable" or "Cycle")
-- [ ] Test 3: VMCAI engine with stable model (creates output file)
-- [ ] Test 4: SIMULATE engine (creates output CSV)
-- [ ] Test 5: Help/usage display
+- [x]Test 1: SCM engine with stable model (expect "Single Stable Point")
+- [x]Test 2: SCM engine with unstable model (expect "Multi Stable" or "Cycle")
+- [x]Test 3: VMCAI engine with stable model (creates output file)
+- [x]Test 4: SIMULATE engine (creates output CSV)
+- [x]Test 5: Help/usage display
 
 ### Part C: Add Verification
 
-- [ ] Check exit codes
-- [ ] Check for expected output patterns
-- [ ] Check output files are created where expected
-- [ ] Summary with total pass/fail count
+- [x]Check exit codes
+- [x]Check for expected output patterns
+- [x]Check output files are created where expected
+- [x]Summary with total pass/fail count
 
 ### Part D: Test the Script
 
@@ -118,19 +118,19 @@ chmod +x BmaLinux/test-console.sh
 ./BmaLinux/test-console.sh
 ```
 
-- [ ] All tests pass
-- [ ] Script is idempotent (can run multiple times)
+- [x]All tests pass
+- [x]Script is idempotent (can run multiple times)
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] `BmaLinux/test-console.sh` exists and is executable
-- [ ] Script runs all tests in Docker container
-- [ ] At least 3 different engines tested
-- [ ] Both stable and unstable models tested
-- [ ] Clear pass/fail output for each test
-- [ ] Summary at end shows total results
+- [x]`BmaLinux/test-console.sh` exists and is executable
+- [x]Script runs all tests in Docker container
+- [x]At least 3 different engines tested
+- [x]Both stable and unstable models tested
+- [x]Clear pass/fail output for each test
+- [x]Summary at end shows total results
 
 ---
 

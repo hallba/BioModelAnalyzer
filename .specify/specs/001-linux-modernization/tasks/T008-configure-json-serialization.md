@@ -1,6 +1,6 @@
 # Task T008: Configure JSON Serialization
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T006 (DTO models created)
 **Phase:** Phase 2 - Foundational
@@ -60,9 +60,9 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 // ... rest of Program.cs
 ```
 
-- [ ] Configure PropertyNamingPolicy to null (preserve PascalCase)
-- [ ] Configure enum handling
-- [ ] Configure null value handling
+- [x]Configure PropertyNamingPolicy to null (preserve PascalCase)
+- [x]Configure enum handling
+- [x]Configure null value handling
 
 ### Part B: Verify Serialization
 
@@ -85,18 +85,18 @@ curl http://localhost:8020/api/test-json
 # Should output: {"Name":"Test","Variables":[{"Id":1,"Name":"X",...}],...}
 ```
 
-- [ ] Add test endpoint
-- [ ] Verify output uses PascalCase
-- [ ] Remove test endpoint after verification
+- [x]Add test endpoint
+- [x]Verify output uses PascalCase
+- [x]Remove test endpoint after verification
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] JSON output uses PascalCase property names
-- [ ] Null values handled correctly
-- [ ] Enums serialize as strings where needed
-- [ ] `dotnet build` succeeds
+- [x]JSON output uses PascalCase property names
+- [x]Null values handled correctly
+- [x]Enums serialize as strings where needed
+- [x]`dotnet build` succeeds
 
 ---
 

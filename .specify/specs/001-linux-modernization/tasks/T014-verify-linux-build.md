@@ -1,6 +1,6 @@
 # Task T014: Verify Linux Build
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T013
 **Phase:** Phase 3 - US1 (Run BMA on Linux)
@@ -30,7 +30,7 @@ cd src/BmaLinuxApi
 dotnet publish -c Release -r linux-x64 --self-contained true
 ```
 
-- [ ] Publish succeeds
+- [x]Publish succeeds
 
 ### Part B: Test on Linux
 
@@ -48,9 +48,9 @@ curl http://localhost:8020/api/health
 pkill BmaLinuxApi
 ```
 
-- [ ] Executable starts
-- [ ] Health endpoint responds
-- [ ] No "DLL not found" errors
+- [x]Executable starts
+- [x]Health endpoint responds
+- [x]No "DLL not found" errors
 
 ### Part C: Check File Size
 
@@ -60,16 +60,16 @@ ls -lh bin/Release/net8.0/linux-x64/publish/BmaLinuxApi
 
 Expected: 80-150MB (includes .NET runtime and Z3)
 
-- [ ] File size reasonable
+- [x]File size reasonable
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Self-contained executable runs on Linux
-- [ ] No .NET SDK required
-- [ ] Health endpoint responds
-- [ ] Z3 native library loads
+- [x]Self-contained executable runs on Linux
+- [x]No .NET SDK required
+- [x]Health endpoint responds
+- [x]Z3 native library loads
 
 ---
 
