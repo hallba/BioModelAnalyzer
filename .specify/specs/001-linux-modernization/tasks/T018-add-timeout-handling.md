@@ -1,6 +1,6 @@
 # Task T018: Add Timeout Handling
 
-**Status:** [ ] Pending | [ ] In Progress | [ ] Complete
+**Status:** [ ] Pending | [ ] In Progress | [x] Complete
 **Effort:** 30m
 **Dependencies:** T017
 **Phase:** Phase 4 - US2 (Analyze Biological Models)

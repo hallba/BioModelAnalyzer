@@ -78,7 +78,7 @@
 - [x] [T015](./tasks/T015-create-analysis-service.md) [US2] Create IAnalysisService interface in src/BmaLinuxApi/Services/IAnalysisService.cs
 - [x] [T016](./tasks/T016-implement-analysis-service.md) [US2] Implement AnalysisService wrapping IAnalyzer.checkStability() in src/BmaLinuxApi/Services/AnalysisService.cs
 - [x] [T017](./tasks/T017-create-analyze-endpoint.md) [US2] Create POST /api/Analyze endpoint in src/BmaLinuxApi/Endpoints/AnalyzeEndpoint.cs
-- [ ] [T018](./tasks/T018-add-timeout-handling.md) [US2] Add 2-minute timeout handling returning 204 for Analyze endpoint
+- [x] [T018](./tasks/T018-add-timeout-handling.md) [US2] Add 2-minute timeout handling returning 204 for Analyze endpoint
 
 **Checkpoint**: Analysis endpoint working, returns correct results for stable/unstable models
 

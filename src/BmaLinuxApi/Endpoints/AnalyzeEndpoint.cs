@@ -10,10 +10,22 @@ public static class AnalyzeEndpoint
         app.MapPost("/api/Analyze", async (
             AnalysisInput input,
             IAnalysisService analysisService,
+            IConfiguration config,
             CancellationToken ct) =>
         {
-            var result = await analysisService.AnalyzeAsync(input.Model, ct);
-            return Results.Ok(result);
+            var timeoutSeconds = config.GetValue<int>("Analysis:TimeoutSeconds", 120);
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            cts.CancelAfter(TimeSpan.FromSeconds(timeoutSeconds));
+
+            try
+            {
+                var result = await analysisService.AnalyzeAsync(input.Model, cts.Token);
+                return Results.Ok(result);
+            }
+            catch (OperationCanceledException)
+            {
+                return Results.NoContent(); // 204 for timeout per API spec
+            }
         });
     }
 }
