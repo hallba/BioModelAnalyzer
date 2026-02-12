@@ -7,8 +7,7 @@ set -euo pipefail
 CONFIG_DIR="$(cd "$(dirname "$0")/.." && pwd)/config"
 NGINX_CONF_TEMPLATE="${CONFIG_DIR}/nginx/bma.conf.template"
 NGINX_CONF="${CONFIG_DIR}/nginx/bma.conf"
-WWWROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)/src/BmaLinuxApi/wwwroot"
-CONFIG_JS="${WWWROOT_DIR}/config.js"
+CONFIG_JS="${CONFIG_DIR}/config.js"
 
 # Load environment variables from production.env if it exists
 if [ -f "${CONFIG_DIR}/production.env" ]; then
@@ -60,7 +59,6 @@ echo "  Created: ${NGINX_CONF}"
 
 # Generate config.js for OneDrive integration
 echo "Generating frontend configuration..."
-mkdir -p "${WWWROOT_DIR}"
 cat > "${CONFIG_JS}" << EOF
 // Auto-generated configuration - DO NOT EDIT MANUALLY
 // Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")

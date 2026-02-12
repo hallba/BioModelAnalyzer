@@ -16,6 +16,7 @@ services:
       - ONEDRIVE_REDIRECT_URI=${ONEDRIVE_REDIRECT_URI}
     volumes:
       - ./logs/app:/var/log/bma
+      - ./config/config.js:/app/wwwroot/config.js:ro
     networks:
       - bma-network
     healthcheck:

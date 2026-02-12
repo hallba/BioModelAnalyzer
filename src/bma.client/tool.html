@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <title>Bio Model Analyzer</title>
@@ -18,6 +19,7 @@
 
     <script src="js/jszip.min.js"></script>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="config.js"></script>
     <script src="//js.live.net/v5.0/wl.js"></script>
     <script src="js/jquery.browser.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
@@ -63,21 +65,21 @@
             z-index: 10;
         }
 
-            .page-loading .loading-text {
-                display: table-cell;
-                height: 100%;
-                vertical-align: middle;
-            }
+        .page-loading .loading-text {
+            display: table-cell;
+            height: 100%;
+            vertical-align: middle;
+        }
 
-            .page-loading .spinner {
-                display: inline-block;
-            }
+        .page-loading .spinner {
+            display: inline-block;
+        }
 
-                .page-loading .spinner div {
-                    width: 8px;
-                    height: 8px;
-                    background-color: #606060;
-                }
+        .page-loading .spinner div {
+            width: 8px;
+            height: 8px;
+            background-color: #606060;
+        }
     </style>
 
 </head>
@@ -120,11 +122,31 @@
             <div id="modelelemtoolbar" class="elements-toolbar">
                 <div class="window col-options" id="variableColorPickerContent">
                     <ul>
-                        <li><div class="color-option"><div class="color-box default"></div>Default</div></li>
-                        <li data-color="BMA_Orange"><div class="color-option"><div class="color-box orange"></div>Orange</div></li>
-                        <li data-color="BMA_Purple"><div class="color-option"><div class="color-box purple"></div>Purple</div></li>
-                        <li data-color="BMA_Green"><div class="color-option"><div class="color-box green"></div>Green</div></li>
-                        <li data-color="BMA_Mint"><div class="color-option"><div class="color-box mint"></div>Mint</div></li>
+                        <li>
+                            <div class="color-option">
+                                <div class="color-box default"></div>Default
+                            </div>
+                        </li>
+                        <li data-color="BMA_Orange">
+                            <div class="color-option">
+                                <div class="color-box orange"></div>Orange
+                            </div>
+                        </li>
+                        <li data-color="BMA_Purple">
+                            <div class="color-option">
+                                <div class="color-box purple"></div>Purple
+                            </div>
+                        </li>
+                        <li data-color="BMA_Green">
+                            <div class="color-option">
+                                <div class="color-box green"></div>Green
+                            </div>
+                        </li>
+                        <li data-color="BMA_Mint">
+                            <div class="color-option">
+                                <div class="color-box mint"></div>Mint
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -139,11 +161,31 @@
                 <div>
                     <div class="window col-options" id="colorPickerContent">
                         <ul>
-                            <li data-command="DrawingSurfaceSetColorDefault"><div class="color-option"><div class="color-box default"></div>Default</div></li>
-                            <li data-command="DrawingSurfaceSetColorOrange"><div class="color-option"><div class="color-box orange"></div>Orange</div></li>
-                            <li data-command="DrawingSurfaceSetColorPurple"><div class="color-option"><div class="color-box purple"></div>Purple</div></li>
-                            <li data-command="DrawingSurfaceSetColorGreen"><div class="color-option"><div class="color-box green"></div>Green</div></li>
-                            <li data-command="DrawingSurfaceSetColorMint"><div class="color-option"><div class="color-box mint"></div>Mint</div></li>
+                            <li data-command="DrawingSurfaceSetColorDefault">
+                                <div class="color-option">
+                                    <div class="color-box default"></div>Default
+                                </div>
+                            </li>
+                            <li data-command="DrawingSurfaceSetColorOrange">
+                                <div class="color-option">
+                                    <div class="color-box orange"></div>Orange
+                                </div>
+                            </li>
+                            <li data-command="DrawingSurfaceSetColorPurple">
+                                <div class="color-option">
+                                    <div class="color-box purple"></div>Purple
+                                </div>
+                            </li>
+                            <li data-command="DrawingSurfaceSetColorGreen">
+                                <div class="color-option">
+                                    <div class="color-box green"></div>Green
+                                </div>
+                            </li>
+                            <li data-command="DrawingSurfaceSetColorMint">
+                                <div class="color-option">
+                                    <div class="color-box mint"></div>Mint
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -180,32 +222,40 @@
                             <li id="li1">
                                 <div class="option-name">Text Labels</div>
                                 <div>
-                                    <div data-behavior="toggle" data-command="Commands.ToggleLabels" data-default="true"></div>
-                                    <div data-behavior="increment" data-command="Commands.LabelsSize" data-default="10"></div>
+                                    <div data-behavior="toggle" data-command="Commands.ToggleLabels"
+                                        data-default="true"></div>
+                                    <div data-behavior="increment" data-command="Commands.LabelsSize" data-default="10">
+                                    </div>
                                 </div>
                             </li>
                             <li id="li3">
                                 <div class="option-name">Grid</div>
                                 <div>
-                                    <div data-behavior="toggle" data-command="Commands.ToggleGrid" data-default="true"></div>
+                                    <div data-behavior="toggle" data-command="Commands.ToggleGrid" data-default="true">
+                                    </div>
                                 </div>
                             </li>
                             <li id="li4">
                                 <div class="option-name">Line Width</div>
                                 <div>
-                                    <div data-behavior="increment" data-command="Commands.LineWidth" data-default="1"></div>
+                                    <div data-behavior="increment" data-command="Commands.LineWidth" data-default="1">
+                                    </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="option-name">Save Image</div>
                                 <ul class="button-list">
-                                    <li data-behavior="action" data-command="SaveSVG" class="action-button-small grey"><button id="exportSVGBtn"><div class="icon download"></div> SVG</button></li>
+                                    <li data-behavior="action" data-command="SaveSVG" class="action-button-small grey">
+                                        <button id="exportSVGBtn">
+                                            <div class="icon download"></div> SVG
+                                        </button></li>
                                 </ul>
                             </li>
                             <li>
                                 <div class="option-name" style="width: 140px;">Curved Relationships</div>
                                 <div>
-                                    <div data-behavior="toggle" data-command="Commands.ToggleCurvedRelationships" data-default="false"></div>
+                                    <div data-behavior="toggle" data-command="Commands.ToggleCurvedRelationships"
+                                        data-default="false"></div>
                                 </div>
                             </li>
                             <li>
@@ -227,8 +277,8 @@
                                 </div>
 
                             </li>
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -243,7 +293,7 @@
     <div id="drawingSurceContainer" class="bma-drawingsurfacecontainer">
 
         <div id="drawingSurface" class="bma-drawingsurface"></div>
-        
+
         <div id="modelToolbarSlider" class="tab-left model-toolbar">
             <div class="model-name">
                 <input id="modelNameEditor" type="text" value="Model 1">
