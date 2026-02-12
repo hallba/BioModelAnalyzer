@@ -7,6 +7,8 @@ COPY scripts/prepare-frontend-deps.sh scripts/
 COPY paket.dependencies .
 COPY src/bma.package/ src/bma.package/
 COPY src/bma.client/ src/bma.client/
+# Convert Windows line endings (CRLF) to Unix (LF) to prevent "bash\r: No such file" errors
+RUN sed -i 's/\r$//' scripts/prepare-frontend-deps.sh
 RUN ./scripts/prepare-frontend-deps.sh
 WORKDIR /src/src/bma.package
 RUN npm install --legacy-peer-deps
@@ -47,4 +49,6 @@ WORKDIR /app
 COPY --from=build /app/publish .
 EXPOSE 8020
 ENV ASPNETCORE_URLS=http://+:8020
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8020/api/health || exit 1
 ENTRYPOINT ["./BmaLinuxApi"]

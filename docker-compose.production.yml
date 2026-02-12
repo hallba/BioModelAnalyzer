@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # BioModelAnalyzer application
+  bma-app:
+    build:
+      context: .
+      dockerfile: src/BmaLinuxApi/Dockerfile
+    image: bma-linux-api:production
+    container_name: bma-production-app
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8020
+      - ONEDRIVE_CLIENT_ID=${ONEDRIVE_CLIENT_ID}
+      - ONEDRIVE_REDIRECT_URI=${ONEDRIVE_REDIRECT_URI}
+    volumes:
+      - ./logs/app:/var/log/bma
+    networks:
+      - bma-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8020/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: bma-production-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/bma.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./config/ssl:/etc/nginx/ssl:ro
+      - ./data/letsencrypt:/etc/letsencrypt:ro
+      - ./data/certbot-webroot:/var/www/certbot
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - bma-network
+    depends_on:
+      - bma-app
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  bma-network:
+    driver: bridge

@@ -61,3 +61,14 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Force LF line endings for shell scripts and config files (Linux/macOS compatibility)
+###############################################################################
+*.sh text eol=lf
+*.bash text eol=lf
+*.env text eol=lf
+*.env.template text eol=lf
+*.conf.template text eol=lf
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf

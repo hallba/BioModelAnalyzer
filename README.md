@@ -127,7 +127,35 @@ docker build -f src/BmaLinuxApi/Dockerfile -t bma-linux-api .
 docker run --rm -p 8020:8020 bma-linux-api
 ```
 
-The application will be available at `http://localhost:8020/`. See `docs/LinuxDeployment.md` for production deployment instructions.
+The application will be available at `http://localhost:8020/`.
+
+### Production Deployment
+
+For production deployments with HTTPS and OneDrive integration, see the [Production Deployment Guide](docs/deployment/PRODUCTION.md).
+
+**Quick start:**
+```bash
+# First-time setup (creates config, SSL certificates)
+./deploy-production.sh setup
+
+# Start production deployment
+./deploy-production.sh start
+
+# View logs
+./deploy-production.sh logs
+
+# Check status
+./deploy-production.sh status
+```
+
+Production deployment includes:
+- HTTPS via nginx reverse proxy
+- Let's Encrypt SSL certificates with auto-renewal
+- OneDrive OAuth integration
+- Security headers and optimized configuration
+- Docker Compose orchestration
+
+See the full guide for detailed instructions on OneDrive app registration, SSL certificate setup, and troubleshooting.
 
 # Legacy Windows build and test
 

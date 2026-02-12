@@ -1080,7 +1080,10 @@ function loadScript(version) {
     //var bmaNewSettings = new BMA.OneDrive.OneDriveSettings("000000004C12BD9C", "http://bmanew.cloudapp.net/html/callback.html", "signin");
     //var productionSettings = new BMA.OneDrive.OneDriveSettings("c18205a1-8587-4a03-9274-85845cbbcbb0", "http://biomodelanalyzer.research.microsoft.com/html/callback.html", "signin");
 
-    var oneDriveSettings = new BMA.OneDrive.OneDriveSettings(version.onedriveappid, version.onedriveredirecturl, "signin");
+    // Read OneDrive configuration from BMA_CONFIG (set by production deployment) or fall back to version object
+    var onedriveAppId = ((<any>window).BMA_CONFIG?.onedriveappid) || version.onedriveappid || "";
+    var onedriveRedirectUrl = ((<any>window).BMA_CONFIG?.onedriveredirecturl) || version.onedriveredirecturl || "";
+    var oneDriveSettings = new BMA.OneDrive.OneDriveSettings(onedriveAppId, onedriveRedirectUrl, "signin");
 
     var connector = new BMA.OneDrive.OneDriveConnector(oneDriveSettings);
 
