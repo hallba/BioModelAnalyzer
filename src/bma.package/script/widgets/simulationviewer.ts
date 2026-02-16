@@ -59,12 +59,16 @@
                         });
                 }
 
-                that.variables.resultswindowviewer({
-                    header: "Variables",
-                    content: container,
-                    icon: "max",
-                    tabid: "SimulationVariables"
-                });
+                // Only initialize resultswindowviewer if it doesn't exist
+                // NEVER update its content - that would detach and destroy child widgets
+                if (that.variables.data('BMA-resultswindowviewer') === undefined) {
+                    that.variables.resultswindowviewer({
+                        header: "Variables",
+                        content: container,
+                        icon: "max",
+                        tabid: "SimulationVariables"
+                    });
+                }
 
             }
             else {
