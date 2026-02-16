@@ -275,7 +275,7 @@ module BMA {
             }
 
             private ParseId(id) {
-                var parse = id.split('^');
+                var parse = String(id).split('^');
                 return parse;
             }
         }

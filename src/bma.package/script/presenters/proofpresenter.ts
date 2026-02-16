@@ -58,7 +58,13 @@ module BMA {
                     var variablesData = that.CreateTableView(that.stability.variablesStability);
                     that.expandedProofVariables = that.CreateExpandedProofVariables(variablesData);
                     var colors = that.expandedProofVariables.coloredtableviewer("option", "colorData");
+
+                    // Create the proof propagation table if it doesn't exist yet
+                    if (that.expandedProofPropagation === undefined && that.appModel.ProofResult.Ticks !== null) {
+                        that.expandedProofPropagation = that.CreateExpandedProofPropagation(that.appModel.ProofResult.Ticks);
+                    }
                     that.AddPropagationColumn(that.stability.variablesStability, colors);
+
 
 
                     proofResultViewer.SetData({
