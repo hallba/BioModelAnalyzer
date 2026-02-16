@@ -104,9 +104,14 @@
                 .appendTo(this.header);
             this.buttondiv = $('<div></div>').addClass("expand-collapse-bttn").appendTo(that.header);
             //this.icon = $('<div></div>').appendTo(this.header);
-            this.content = $('<div></div>').appendTo(this.element);
+
+            // Directly append content if provided, don't call refresh() which would detach/reappend
+            if (options.content !== undefined) {
+                this.content = options.content.appendTo(this.element);
+            } else {
+                this.content = $('<div></div>').appendTo(this.element);
+            }
             this.reseticon();
-            this.refresh();
         },
 
         toggle: function () {
