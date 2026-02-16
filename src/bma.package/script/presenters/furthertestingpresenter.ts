@@ -227,7 +227,7 @@ module BMA {
                 var that = this;
                 var table = [];
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
+                    var resid = results[variables[i].Id] || results[i];
                     table[i] = [];
                     table[i][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
@@ -244,7 +244,7 @@ module BMA {
                 var that = this;
                 var table = [];
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
+                    var resid = results[variables[i].Id] || results[i];
                     table[i] = [];
                     table[i][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
