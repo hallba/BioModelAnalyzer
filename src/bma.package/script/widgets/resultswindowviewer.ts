@@ -137,8 +137,11 @@
                     break;
                 case "content":
                     // Only refresh if content actually changed
-                    console.log('[ResultsWindow] content check - old:', oldValue, 'new:', value, 'same?', oldValue === value);
-                    if (oldValue !== value) {
+                    // Compare the actual DOM elements, not jQuery object references
+                    var oldElement = oldValue && oldValue.get ? oldValue.get(0) : oldValue;
+                    var newElement = value && value.get ? value.get(0) : value;
+                    console.log('[ResultsWindow] content check - old element:', oldElement, 'new element:', newElement, 'same?', oldElement === newElement);
+                    if (oldElement !== newElement) {
                         console.log('[ResultsWindow] content changed, refreshing');
                         this.refresh();
                     } else {
