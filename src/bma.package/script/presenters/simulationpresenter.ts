@@ -184,7 +184,9 @@ module BMA {
                         }
                         if (full !== undefined) {
                             simulationViewer.Hide({ tab: param });
+                            console.log('[SimPresenter] About to call popupViewer.Show with tab:', param, 'content:', full);
                             popupViewer.Show({ tab: param, content: full });
+                            console.log('[SimPresenter] popupViewer.Show returned');
                         }
                     }
                 });
