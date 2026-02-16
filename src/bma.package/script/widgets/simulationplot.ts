@@ -242,6 +242,8 @@
 
         _setOption: function (key, value) {
             var that = this;
+            this._super(key, value);
+
             switch (key) {
                 case "colors":
                     this.options.colors = value;
@@ -252,7 +254,6 @@
             }
             if (value !== null && value !== undefined)
                 this.refresh();
-            this._super(key, value);
 
         }
     });
