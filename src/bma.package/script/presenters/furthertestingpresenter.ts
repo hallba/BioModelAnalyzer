@@ -178,13 +178,28 @@ module BMA {
 
             private ParseOscillations(variables) {
                 var table = [];
+                console.log("ParseOscillations - input variables:", variables);
+
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
-                    if (table[parseInt(parse[0])] === undefined)
-                        table[parseInt(parse[0])] = [];
+                    var varId = parseInt(parse[0]);
 
-                    table[parseInt(parse[0])][parseInt(parse[1])] = variables[j].Value;
+                    if (table[varId] === undefined)
+                        table[varId] = [];
+
+                    // If parse[1] exists, it's a time-series format (e.g., "5^0", "5^1")
+                    // If parse[1] is undefined, it's a simple ID (e.g., "5") with a single value
+                    if (parse[1] !== undefined) {
+                        var timeIndex = parseInt(parse[1]);
+                        table[varId][timeIndex] = variables[j].Value;
+                    } else {
+                        // Simple ID format - just store the value directly
+                        table[varId][0] = variables[j].Value;
+                    }
                 }
+
+                console.log("ParseOscillations - intermediate table:", table);
+
                 var result = [];
                 for (var i = 0; i < table.length; i++) {
                     if (table[i] !== undefined) {
@@ -197,18 +212,29 @@ module BMA {
                         result[i].oscillations += table[i][table[i].length - 1];
                     }
                 }
+
+                console.log("ParseOscillations - final result:", result);
                 return result;
             }
 
             private ParseBifurcations(variables) {
                 var table = [];
+                console.log("ParseBifurcations - input variables:", variables);
+
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
-                    if (table[parseInt(parse[0])] === undefined)
-                        table[parseInt(parse[0])] = [];
-                    table[parseInt(parse[0])][0] = parseInt(variables[j].Fix1);
-                    table[parseInt(parse[0])][1] = parseInt(variables[j].Fix2);
+                    var varId = parseInt(parse[0]);
+
+                    if (table[varId] === undefined)
+                        table[varId] = [];
+
+                    // Store Fix1 and Fix2 values
+                    table[varId][0] = parseInt(variables[j].Fix1);
+                    table[varId][1] = parseInt(variables[j].Fix2);
                 }
+
+                console.log("ParseBifurcations - intermediate table:", table);
+
                 var result = [];
                 for (var i = 0; i < table.length; i++) {
                     if (table[i] !== undefined) {
@@ -220,6 +246,8 @@ module BMA {
                         };
                     }
                 }
+
+                console.log("ParseBifurcations - final result:", result);
                 return result;
             }
 
