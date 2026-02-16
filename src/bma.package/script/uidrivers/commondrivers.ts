@@ -364,9 +364,10 @@ module BMA {
             public Show(params: any) {
                 var that = this;
 
-                // If we're already showing this tab, don't refresh
+                // If we're already showing this tab, just update content
                 if (this.currentTab === params.tab && this.Seen()) {
-                    console.log('[PopupDriver] Already showing', params.tab, '- skipping refresh');
+                    console.log('[PopupDriver] Already showing', params.tab, '- updating content only');
+                    this.popupWindow.resultswindowviewer('option', 'content', params.content);
                     return;
                 }
 

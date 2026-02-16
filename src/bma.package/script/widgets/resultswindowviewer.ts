@@ -137,6 +137,7 @@
                     break;
                 case "content":
                     // Only refresh if content actually changed
+                    console.log('[ResultsWindow] content check - old:', oldValue, 'new:', value, 'same?', oldValue === value);
                     if (oldValue !== value) {
                         console.log('[ResultsWindow] content changed, refreshing');
                         this.refresh();
