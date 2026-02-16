@@ -31,8 +31,20 @@
         },
 
         Randomise: function () {
-            var rands = this.init.find("tr").not(":first-child").children("td:nth-child(2)");
-            rands.click();
+            var that = this;
+            var inputs = this.init.find("tr").not(":first-child").children("td:first-child").children("input");
+            inputs.each(function (index) {
+                var min = parseInt(that.options.interval[index][0]);
+                var max = parseInt(that.options.interval[index][1]);
+                var randomValue = that.GetRandomInt(min, max);
+                var prev = parseInt($(this).val());
+                $(this).val(randomValue);
+                // Mark as changed if value actually changed
+                if (randomValue !== prev)
+                    $(this).parent().parent().addClass('red');
+                else
+                    $(this).parent().parent().removeClass('red');
+            });
         },
 
         InitData: function () {
@@ -318,7 +330,7 @@
             this._super(key, value);
         }
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     progressiontable(): JQuery;
