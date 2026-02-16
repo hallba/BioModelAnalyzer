@@ -74,20 +74,39 @@
 
 
 
-            if (that.options.plot !== undefined && that.options.plot.length !== 0) {
-                that.plot = $('<div></div>').addClass('plot-min').simulationplot({ colors: that.options.plot });//.height(160)
 
-                that.plotDiv.resultswindowviewer({
-                    header: "Simulation Graph",
-                    content: that.plot,
-                    icon: "max",
-                    tabid: "SimulationPlot"
-                });
+
+            if (that.options.plot !== undefined && that.options.plot.length !== 0) {
+                // Check if simulationplot widget already exists
+                if (that.plot && that.plot.data('BMA-simulationplot') !== undefined) {
+                    // Widget exists, just update the colors option
+                    console.log('[SimViewer] Updating existing simulationplot');
+                    that.plot.simulationplot('option', 'colors', that.options.plot);
+                } else {
+                    // Widget doesn't exist, create it
+                    console.log('[SimViewer] Creating new simulationplot');
+                    that.plot = $('<div></div>').addClass('plot-min').simulationplot({ colors: that.options.plot });
+
+                    // Check if resultswindowviewer exists
+                    if (that.plotDiv.data('BMA-resultswindowviewer') !== undefined) {
+                        // Update content only
+                        that.plotDiv.resultswindowviewer('option', 'content', that.plot);
+                    } else {
+                        // Initialize resultswindowviewer
+                        that.plotDiv.resultswindowviewer({
+                            header: "Simulation Graph",
+                            content: that.plot,
+                            icon: "max",
+                            tabid: "SimulationPlot"
+                        });
+                    }
+                }
             }
             else {
                 that.plotDiv.resultswindowviewer();
                 that.plotDiv.resultswindowviewer("destroy");
             }
+
 
         },
 
