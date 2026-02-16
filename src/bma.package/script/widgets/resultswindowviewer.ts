@@ -123,22 +123,27 @@
 
         _setOption: function (key, value) {
             var that = this;
+            var oldValue = this.options[key];
+            this._super(key, value);
+
             switch (key) {
                 case "header":
                     this.header.children("span").text(value);
                     break;
                 case "content":
-                    if (this.options.content !== value) {
-                        this.options.content = value;
+                    // Only refresh if content actually changed
+                    if (oldValue !== value) {
+                        console.log('[ResultsWindow] content changed, refreshing');
                         this.refresh();
+                    } else {
+                        console.log('[ResultsWindow] content unchanged, skipping refresh');
                     }
                     break;
                 case "icon":
-                    this.options.icon = value;
                     this.reseticon();
                     break;
                 case "isResizable":
-                    if (this.options.isResizable !== value) {
+                    if (oldValue !== value) {
                         if (value) {
                             this.element.resizable({
                                 minWidth: 800,
@@ -160,13 +165,12 @@
                     }
                     break;
                 case "paddingOn":
-                    if (this.options.paddingOn !== value) {
+                    if (oldValue !== value) {
                         value ? this.element.removeClass("no-frames") : this.element.addClass("no-frames");
                         value ? this.header.removeClass("no-frames-title") : this.header.addClass("no-frames-title");
                     }
                     break;
             }
-            this._super(key, value);
         }
     });
 }(jQuery));
