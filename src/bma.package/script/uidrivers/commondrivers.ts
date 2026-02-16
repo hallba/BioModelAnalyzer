@@ -362,6 +362,7 @@ module BMA {
             }
 
             public Show(params: any) {
+                console.log('[PopupDriver] Show() called with tab:', params.tab, 'currentTab:', this.currentTab, 'Seen:', this.Seen());
                 var that = this;
 
                 // If we're already showing this tab, just update content
