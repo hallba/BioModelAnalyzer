@@ -350,8 +350,11 @@ module BMA {
 
         export class PopupDriver implements IPopup {
             private popupWindow: JQuery;
+            private currentTab: string;
+
             constructor(popupWindow: JQuery) {
                 this.popupWindow = popupWindow;
+                this.currentTab = null;
             }
 
             public Seen() {
@@ -360,6 +363,16 @@ module BMA {
 
             public Show(params: any) {
                 var that = this;
+
+                // If we're already showing this tab, don't refresh
+                if (this.currentTab === params.tab && this.Seen()) {
+                    console.log('[PopupDriver] Already showing', params.tab, '- skipping refresh');
+                    return;
+                }
+
+                this.currentTab = params.tab;
+                console.log('[PopupDriver] Showing', params.tab);
+
                 //this.createResultView(params);
                 var header = "";
                 this.popupWindow
@@ -397,6 +410,7 @@ module BMA {
             }
 
             public Hide() {
+                this.currentTab = null;
                 this.popupWindow.hide();
             }
 
@@ -673,7 +687,7 @@ module BMA {
                     setoncopytolocal: callback
                 });
             }
-            
+
         }
 
         export class ModelStorageDriver implements IModelStorageDriver {
@@ -943,7 +957,7 @@ module BMA {
                                         executingTime = Math.floor(executingTime / 60);
                                         if (executingTime > 60) {
                                             executingTime = Math.floor(executingTime / 60);
-                                            notification += "since " + executingTime + " hour" + (Math.abs(executingTime) > 1 ? "s": "");
+                                            notification += "since " + executingTime + " hour" + (Math.abs(executingTime) > 1 ? "s" : "");
                                         } else
                                             notification += "since " + executingTime + " min" + (Math.abs(executingTime) > 1 ? "s" : "");
                                     }
