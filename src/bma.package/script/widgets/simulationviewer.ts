@@ -78,7 +78,12 @@
 
             if (that.options.plot !== undefined && that.options.plot.length !== 0) {
                 // Check if simulationplot widget already exists
-                if (that.plot && that.plot.data('BMA-simulationplot') !== undefined) {
+                var widgetExists = that.plot && that.plot.data('BMA-simulationplot') !== undefined;
+                console.log('[SimViewer] Plot check - that.plot exists:', !!that.plot,
+                    'widget data:', that.plot ? that.plot.data('BMA-simulationplot') : 'N/A',
+                    'widgetExists:', widgetExists);
+
+                if (widgetExists) {
                     // Widget exists, just update the colors option
                     console.log('[SimViewer] Updating existing simulationplot');
                     that.plot.simulationplot('option', 'colors', that.options.plot);
