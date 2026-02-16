@@ -365,8 +365,12 @@ module BMA {
                 console.log('[PopupDriver] Show() called with tab:', params.tab, 'currentTab:', this.currentTab, 'Seen:', this.Seen());
                 var that = this;
 
+                // Check if widget already exists
+                var widgetExists = this.popupWindow.data('BMA-resultswindowviewer') !== undefined;
+                console.log('[PopupDriver] Widget exists:', widgetExists);
+
                 // If we're already showing this tab, just update content
-                if (this.currentTab === params.tab && this.Seen()) {
+                if (widgetExists && this.currentTab === params.tab && this.Seen()) {
                     console.log('[PopupDriver] Already showing', params.tab, '- updating content only');
                     this.popupWindow.resultswindowviewer('option', 'content', params.content);
                     return;
@@ -406,7 +410,18 @@ module BMA {
                         //this.popupWindow.addClass('analysis-popout');
                         break;
                 }
-                this.popupWindow.resultswindowviewer({ header: header, tabid: params.tab, content: params.content, icon: "min", isResizable: false, paddingOn: true });
+
+                // Only initialize widget if it doesn't exist, otherwise just update options
+                if (widgetExists) {
+                    console.log('[PopupDriver] Widget exists, updating options only');
+                    this.popupWindow.resultswindowviewer('option', 'header', header);
+                    this.popupWindow.resultswindowviewer('option', 'tabid', params.tab);
+                    this.popupWindow.resultswindowviewer('option', 'content', params.content);
+                } else {
+                    console.log('[PopupDriver] Widget does not exist, initializing');
+                    this.popupWindow.resultswindowviewer({ header: header, tabid: params.tab, content: params.content, icon: "min", isResizable: false, paddingOn: true });
+                }
+
                 popup_position();
                 this.popupWindow.show();
             }
