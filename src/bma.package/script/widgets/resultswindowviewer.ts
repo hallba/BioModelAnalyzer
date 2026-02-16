@@ -136,16 +136,21 @@
                     this.header.children("span").text(value);
                     break;
                 case "content":
-                    // Only refresh if content actually changed
-                    // Compare the actual DOM elements, not jQuery object references
-                    var oldElement = oldValue && oldValue.get ? oldValue.get(0) : oldValue;
-                    var newElement = value && value.get ? value.get(0) : value;
-                    console.log('[ResultsWindow] content check - old element:', oldElement, 'new element:', newElement, 'same?', oldElement === newElement);
-                    if (oldElement !== newElement) {
-                        console.log('[ResultsWindow] content changed, refreshing');
-                        this.refresh();
-                    } else {
-                        console.log('[ResultsWindow] content unchanged, skipping refresh');
+                    // Just update the content reference without calling refresh
+                    // refresh() will be called during _create, but not on subsequent option updates
+                    console.log('[ResultsWindow] content option changed, updating reference only');
+                    if (value && value.get) {
+                        // If new content is provided, detach old and append new
+                        if (this.content && this.content.detach && this.content.get(0) !== value.get(0)) {
+                            console.log('[ResultsWindow] detaching old content, appending new');
+                            this.content.detach();
+                            this.content = value.appendTo(this.element);
+                        } else if (!this.content) {
+                            console.log('[ResultsWindow] no existing content, appending new');
+                            this.content = value.appendTo(this.element);
+                        } else {
+                            console.log('[ResultsWindow] same content, no action needed');
+                        }
                     }
                     break;
                 case "icon":
