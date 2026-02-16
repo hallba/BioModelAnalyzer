@@ -114,6 +114,18 @@
             this.element.empty();
         },
 
+        _setOptions: function (options) {
+            // Call parent to set all options
+            this._super(options);
+
+            // Only refresh once after all options are set
+            // Check if any of the options that require refresh were changed
+            if (options.data !== undefined || options.plot !== undefined || options.error !== undefined) {
+                console.log('[SimViewer] Batch refresh after setting options:', Object.keys(options));
+                this.refresh();
+            }
+        },
+
         _setOption: function (key, value) {
             var that = this;
             var options = this.options;
@@ -126,12 +138,9 @@
                 this.option.error = value;
             this._super(key, value);
 
-            // Only refresh if data, plot, or error changed
-            // This prevents unnecessary widget recreation
-            if (key === "data" || key === "plot" || key === "error") {
-                console.log('[SimViewer] Refreshing due to', key, 'change');
-                this.refresh();
-            }
+            // Don't refresh here - let _setOptions handle it for batch updates
+            // Only refresh if this is a single option change (not part of a batch)
+            // We can detect this by checking if we're being called from _setOptions
         },
 
         show: function (tab) {
