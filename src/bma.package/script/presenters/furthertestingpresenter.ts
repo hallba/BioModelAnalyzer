@@ -227,9 +227,29 @@ module BMA {
                 var that = this;
                 var table = [];
                 var rowIndex = 0;
+
+                // Debug logging
+                console.log("CreateOscillationsView - variables:", variables);
+                console.log("CreateOscillationsView - results:", results);
+                console.log("CreateOscillationsView - results is array:", Array.isArray(results));
+
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
-                    if (resid === undefined) continue; // Skip if no results for this variable
+                    // Try multiple ways to find the result
+                    var resid = results[variables[i].Id] || results[i];
+
+                    // Additional debug for first iteration
+                    if (i === 0) {
+                        console.log("First variable ID:", variables[i].Id);
+                        console.log("Lookup by ID:", results[variables[i].Id]);
+                        console.log("Lookup by index:", results[i]);
+                        console.log("Result keys:", Object.keys(results));
+                    }
+
+                    if (resid === undefined) {
+                        console.warn("No results for variable", variables[i].Name, "ID:", variables[i].Id);
+                        continue; // Skip if no results for this variable
+                    }
+
                     table[rowIndex] = [];
                     table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
@@ -240,6 +260,8 @@ module BMA {
                     table[rowIndex][3] = resid.oscillations;
                     rowIndex++;
                 }
+
+                console.log("CreateOscillationsView - final table:", table);
                 return table;
             }
 
@@ -247,9 +269,20 @@ module BMA {
                 var that = this;
                 var table = [];
                 var rowIndex = 0;
+
+                // Debug logging
+                console.log("CreateBifurcationsView - variables:", variables);
+                console.log("CreateBifurcationsView - results:", results);
+
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
-                    if (resid === undefined) continue; // Skip if no results for this variable
+                    // Try multiple ways to find the result
+                    var resid = results[variables[i].Id] || results[i];
+
+                    if (resid === undefined) {
+                        console.warn("No results for variable", variables[i].Name, "ID:", variables[i].Id);
+                        continue; // Skip if no results for this variable
+                    }
+
                     table[rowIndex] = [];
                     table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
@@ -264,6 +297,8 @@ module BMA {
                     table[rowIndex][4] = resid.Fix2;
                     rowIndex++;
                 }
+
+                console.log("CreateBifurcationsView - final table:", table);
                 return table;
 
             }
