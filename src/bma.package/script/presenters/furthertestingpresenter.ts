@@ -187,13 +187,13 @@ module BMA {
                         table[varId] = [];
 
                     // If parse[1] exists, it's a time-series format (e.g., "5^0", "5^1")
-                    // If parse[1] is undefined, it's a simple ID (e.g., "5") with a single value
+                    // If parse[1] is undefined, it's a simple ID - append to the array
                     if (parse[1] !== undefined) {
                         var timeIndex = parseInt(parse[1]);
                         table[varId][timeIndex] = variables[j].Value;
                     } else {
-                        // Simple ID format - just store the value directly
-                        table[varId][0] = variables[j].Value;
+                        // Simple ID format - push value to create time series
+                        table[varId].push(variables[j].Value);
                     }
                 }
 
