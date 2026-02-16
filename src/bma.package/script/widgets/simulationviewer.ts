@@ -92,11 +92,9 @@
                     console.log('[SimViewer] Creating new simulationplot');
                     that.plot = $('<div></div>').addClass('plot-min').simulationplot({ colors: that.options.plot });
 
-                    // Check if resultswindowviewer exists
-                    if (that.plotDiv.data('BMA-resultswindowviewer') !== undefined) {
-                        // Update content only
-                        that.plotDiv.resultswindowviewer('option', 'content', that.plot);
-                    } else {
+                    // Only initialize resultswindowviewer if it doesn't exist
+                    // NEVER update its content - that would detach the plot and destroy widget data
+                    if (that.plotDiv.data('BMA-resultswindowviewer') === undefined) {
                         // Initialize resultswindowviewer
                         that.plotDiv.resultswindowviewer({
                             header: "Simulation Graph",
