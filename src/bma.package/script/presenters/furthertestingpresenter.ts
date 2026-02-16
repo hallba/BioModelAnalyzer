@@ -178,7 +178,6 @@ module BMA {
 
             private ParseOscillations(variables) {
                 var table = [];
-                console.log("ParseOscillations - input variables:", variables);
 
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
@@ -219,7 +218,6 @@ module BMA {
 
             private ParseBifurcations(variables) {
                 var table = [];
-                console.log("ParseBifurcations - input variables:", variables);
 
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
