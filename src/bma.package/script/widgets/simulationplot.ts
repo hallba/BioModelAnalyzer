@@ -13,6 +13,7 @@
 
         _create: function () {
             var that = this;
+            console.log('[SimPlot] _create called');
 
             //this.refresh();
 

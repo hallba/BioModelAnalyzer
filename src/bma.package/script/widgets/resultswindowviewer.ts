@@ -44,16 +44,29 @@
         refresh: function () {
             var that = this;
             var options = this.options;
-            // Only detach if we have existing content that's different from the new content
-            if (this.content && this.content.length > 0 && this.content[0] !== options.content[0]) {
+
+            // Check if we're trying to set the exact same content (same jQuery object)
+            // This prevents unnecessary detach/reappend which triggers widget reinitialization
+            if (options.content && this.content && options.content.get && this.content.get) {
+                var isSameContent = options.content.get(0) === this.content.get(0);
+                if (isSameContent) {
+                    console.log('[ResultsWindow] refresh - same content, skipping detach/append');
+                    return; // Don't detach/reappend the same content
+                }
+            }
+
+            console.log('[ResultsWindow] refresh - detaching old content, appending new');
+            // Detach old content if it exists
+            if (this.content && this.content.detach) {
                 this.content.detach();
             }
+
+            // Append new content
             if (options.content !== undefined) {
                 this.content = options.content.appendTo(that.element);
             }
 
         },
-
 
         _create: function () {
             var that = this;
