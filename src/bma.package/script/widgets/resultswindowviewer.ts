@@ -44,13 +44,11 @@
         refresh: function () {
             var that = this;
             var options = this.options;
-            console.log('[ResultsWindow] refresh called, detaching content');
             // Only detach if we have existing content that's different from the new content
             if (this.content && this.content.length > 0 && this.content[0] !== options.content[0]) {
                 this.content.detach();
             }
             if (options.content !== undefined) {
-                console.log('[ResultsWindow] appending new content to element');
                 this.content = options.content.appendTo(that.element);
             }
 
@@ -117,13 +115,9 @@
                     this.header.children("span").text(value);
                     break;
                 case "content":
-                    console.log('[ResultsWindow] _setOption content, same as current?', this.options.content === value);
                     if (this.options.content !== value) {
-                        console.log('[ResultsWindow] Content changed, calling refresh');
                         this.options.content = value;
                         this.refresh();
-                    } else {
-                        console.log('[ResultsWindow] Content is same, skipping refresh');
                     }
                     break;
                 case "icon":

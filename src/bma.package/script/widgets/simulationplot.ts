@@ -13,7 +13,6 @@
 
         _create: function () {
             var that = this;
-            console.log('[SimPlot] _create called, initial options:', JSON.parse(JSON.stringify(this.options)));
 
             //this.refresh();
 
@@ -72,14 +71,12 @@
             var leftAxisGestures = InteractiveDataDisplay.Gestures.applyVerticalBehavior(InteractiveDataDisplay.Gestures.getGesturesStream(leftAxis));
             that._chart.navigation.gestureSource = gestureSource.merge(bottomAxisGestures.merge(leftAxisGestures));
 
-            console.log('[SimPlot] _create complete, calling refresh');
             this.refresh();
         },
 
         refresh: function () {
             var that = this;
             var options = this.options;
-            console.log('[SimPlot] refresh called, colors:', options.colors ? options.colors.length + ' items' : 'undefined');
 
             //Clear legend
             this.legendDiv.empty();
@@ -100,7 +97,6 @@
             }
 
             this.highlightPlot.draw({ y: [] });
-            console.log('[SimPlot] refresh - checking colors, defined:', that.options.colors !== undefined, 'null:', that.options.colors === null);
             if (that.options.colors !== undefined && that.options.colors !== null) {
                 var index = 0;
                 while (true) {
@@ -246,13 +242,11 @@
 
         _setOption: function (key, value) {
             var that = this;
-            console.log('[SimPlot] _setOption called, key:', key, 'value:', value ? (Array.isArray(value) ? value.length + ' items' : typeof value) : value);
             this._super(key, value);
 
             switch (key) {
                 case "colors":
                     this.options.colors = value;
-                    console.log('[SimPlot] _setOption colors case, calling refresh');
                     this.refresh();
                     break;
                 case "labels":
