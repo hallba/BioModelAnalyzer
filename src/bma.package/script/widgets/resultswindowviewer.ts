@@ -44,18 +44,20 @@
         refresh: function () {
             var that = this;
             var options = this.options;
+            console.log('[ResultsWindow] refresh called, detaching content');
             this.content.detach();
             if (options.content !== undefined) {
-                this.content = options.content.appendTo(that.element); 
+                console.log('[ResultsWindow] appending new content to element');
+                this.content = options.content.appendTo(that.element);
             }
-            
+
         },
 
 
         _create: function () {
             var that = this;
             var options = this.options;
-            if(!options.paddingOn) this.element.addClass("no-frames");
+            if (!options.paddingOn) this.element.addClass("no-frames");
 
             if (options.isResizable) {
                 this.element.resizable({
@@ -93,7 +95,7 @@
             this.refresh();
         },
 
-        toggle: function () { 
+        toggle: function () {
             this.element.toggle(this.options.effects);
         },
 
@@ -112,12 +114,16 @@
                     this.header.children("span").text(value);
                     break;
                 case "content":
+                    console.log('[ResultsWindow] _setOption content, same as current?', this.options.content === value);
                     if (this.options.content !== value) {
+                        console.log('[ResultsWindow] Content changed, calling refresh');
                         this.options.content = value;
                         this.refresh();
+                    } else {
+                        console.log('[ResultsWindow] Content is same, skipping refresh');
                     }
                     break;
-                case "icon": 
+                case "icon":
                     this.options.icon = value;
                     this.reseticon();
                     break;
@@ -153,10 +159,10 @@
             this._super(key, value);
         }
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
-    resultswindowviewer (): JQuery;
+    resultswindowviewer(): JQuery;
     resultswindowviewer(settings: Object): JQuery;
     resultswindowviewer(fun: string): any;
     resultswindowviewer(optionLiteral: string, optionName: string): any;

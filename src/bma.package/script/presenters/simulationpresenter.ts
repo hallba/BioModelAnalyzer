@@ -172,9 +172,12 @@ module BMA {
                                 }
                                 break;
                             case "SimulationPlot":
+                                console.log('[SimPresenter] Expand SimulationPlot, cached widget exists:', that.expandedSimulationPlot !== undefined);
                                 if (that.expandedSimulationPlot !== undefined) {
+                                    console.log('[SimPresenter] Reusing cached widget');
                                     full = that.expandedSimulationPlot;
                                 } else {
+                                    console.log('[SimPresenter] Creating new widget');
                                     full = $('<div></div>').simulationplot({ colors: that.variables });
                                     that.expandedSimulationPlot = full;
                                 }
