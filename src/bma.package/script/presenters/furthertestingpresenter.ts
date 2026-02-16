@@ -226,16 +226,19 @@ module BMA {
             public CreateOscillationsView(variables, results) {
                 var that = this;
                 var table = [];
+                var rowIndex = 0;
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id] || results[i];
-                    table[i] = [];
-                    table[i][0] = (function () {
+                    var resid = results[variables[i].Id];
+                    if (resid === undefined) continue; // Skip if no results for this variable
+                    table[rowIndex] = [];
+                    table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
                         return cont !== undefined ? cont.Name : '';
                     })();
-                    table[i][1] = variables[i].Name;
-                    table[i][2] = resid.min + '-' + resid.max;
-                    table[i][3] = resid.oscillations;
+                    table[rowIndex][1] = variables[i].Name;
+                    table[rowIndex][2] = resid.min + '-' + resid.max;
+                    table[rowIndex][3] = resid.oscillations;
+                    rowIndex++;
                 }
                 return table;
             }
@@ -243,20 +246,23 @@ module BMA {
             private CreateBifurcationsView(variables, results) {
                 var that = this;
                 var table = [];
+                var rowIndex = 0;
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id] || results[i];
-                    table[i] = [];
-                    table[i][0] = (function () {
+                    var resid = results[variables[i].Id];
+                    if (resid === undefined) continue; // Skip if no results for this variable
+                    table[rowIndex] = [];
+                    table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
                         return cont !== undefined ? cont.Name : '';
                     })();
-                    table[i][1] = variables[i].Name;
+                    table[rowIndex][1] = variables[i].Name;
                     if (resid.min !== resid.max)
-                        table[i][2] = resid.min + '-' + resid.max;
+                        table[rowIndex][2] = resid.min + '-' + resid.max;
                     else
-                        table[i][2] = resid.min;
-                    table[i][3] = resid.Fix1;
-                    table[i][4] = resid.Fix2;
+                        table[rowIndex][2] = resid.min;
+                    table[rowIndex][3] = resid.Fix1;
+                    table[rowIndex][4] = resid.Fix2;
+                    rowIndex++;
                 }
                 return table;
 
