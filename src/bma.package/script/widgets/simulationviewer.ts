@@ -21,9 +21,9 @@
                 var errTitle = $('<div></div>').addClass('proof-state').appendTo(that.errorDiv);
                 $('<img src="../../images/analysis/BMA_Failed_Icon.svg">').width(30).height(30).appendTo(errTitle);
                 $('<div></div>').addClass('stabilize-failed').text(that.options.error.title).appendTo(errTitle);
-                if (that.options.error.message[1].includes("Input")){
+                if (that.options.error.message[1].includes("Input")) {
                     $('<p></p>').html("Input errors, check for decimals.").appendTo(that.errorDiv);
-                } else { 
+                } else {
                     $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
                 }
             } else {
@@ -31,8 +31,8 @@
             }
 
             var container = $('<div></div>').addClass("marginable");
-            
-            
+
+
             if (data !== undefined &&
                 data.variables !== undefined &&
                 data.variables.length !== 0) {
@@ -41,13 +41,13 @@
                     .appendTo(container)
                     .addClass("scrollable-results");
 
-                
+
                 variablestable.coloredtableviewer({
                     header: ["Graph", "Cell", "Name", "Range"],
                     type: "graph-min",
                     numericData: data.variables
                 });
-                
+
                 if (data.colorData !== undefined && data.colorData.length !== 0) {
                     var colortable = $('<div></div>')
                         //.attr("id", "Simulation-min-table")
@@ -58,22 +58,22 @@
                             colorData: data.colorData
                         });
                 }
-                
+
                 that.variables.resultswindowviewer({
                     header: "Variables",
                     content: container,
                     icon: "max",
                     tabid: "SimulationVariables"
                 });
-                
+
             }
             else {
                 this.variables.resultswindowviewer();
                 that.variables.resultswindowviewer("destroy");
             }
-            
 
-            
+
+
             if (that.options.plot !== undefined && that.options.plot.length !== 0) {
                 that.plot = $('<div></div>').addClass('plot-min').simulationplot({ colors: that.options.plot });//.height(160)
 
@@ -88,7 +88,7 @@
                 that.plotDiv.resultswindowviewer();
                 that.plotDiv.resultswindowviewer("destroy");
             }
-            
+
         },
 
 
@@ -125,7 +125,13 @@
             if (key === "error")
                 this.option.error = value;
             this._super(key, value);
-            this.refresh();
+
+            // Only refresh if data, plot, or error changed
+            // This prevents unnecessary widget recreation
+            if (key === "data" || key === "plot" || key === "error") {
+                console.log('[SimViewer] Refreshing due to', key, 'change');
+                this.refresh();
+            }
         },
 
         show: function (tab) {
@@ -158,11 +164,11 @@
             try {
                 this.plot.simulationplot("ChangeVisibility", ind, check);
             }
-            catch (ex){ }
+            catch (ex) { }
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     simulationviewer(): JQuery;

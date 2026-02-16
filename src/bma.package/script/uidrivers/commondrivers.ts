@@ -558,22 +558,7 @@ module BMA {
             }
 
             public SetData(params) {
-                // Check if widget already exists
-                var widgetExists = this.viewer.data('BMA-simulationviewer') !== undefined;
-
-                if (widgetExists) {
-                    // Widget exists, update options individually to avoid reinitialization
-                    console.log('[SimViewerDriver] Widget exists, updating options individually');
-                    for (var key in params) {
-                        if (params.hasOwnProperty(key)) {
-                            this.viewer.simulationviewer('option', key, params[key]);
-                        }
-                    }
-                } else {
-                    // Widget doesn't exist, initialize it
-                    console.log('[SimViewerDriver] Widget does not exist, initializing');
-                    this.viewer.simulationviewer(params);
-                }
+                this.viewer.simulationviewer(params);
             }
 
             public Show(params: any) {
