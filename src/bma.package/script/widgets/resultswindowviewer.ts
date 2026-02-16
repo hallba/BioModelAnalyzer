@@ -45,7 +45,10 @@
             var that = this;
             var options = this.options;
             console.log('[ResultsWindow] refresh called, detaching content');
-            this.content.detach();
+            // Only detach if we have existing content that's different from the new content
+            if (this.content && this.content.length > 0 && this.content[0] !== options.content[0]) {
+                this.content.detach();
+            }
             if (options.content !== undefined) {
                 console.log('[ResultsWindow] appending new content to element');
                 this.content = options.content.appendTo(that.element);
