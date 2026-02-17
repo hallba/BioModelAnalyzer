@@ -194,11 +194,36 @@
                 this.leftAxis.remove();
                 this.leftAxis = that._chart.addAxis("left", "labels", { labels: leftLabels });
 
-                // [SimPlotTrace] Log fitToView
-                //var bounds = that._chart.aggregateBounds();
-                //console.log(bounds);
+                // Force layout update before fitting
+                if (that._chart.host.width() !== that.element.width() || that._chart.host.height() !== that.element.height()) {
+                    that._chart.host.width(that.element.width());
+                    that._chart.host.height(that.element.height());
+                }
+                if (that._chart.requestUpdateLayout) {
+                    that._chart.requestUpdateLayout();
+                } else if (that._chart.updateLayout) {
+                    that._chart.updateLayout();
+                }
+
+                // Initial fitToView
                 that._chart.fitToView();
-                console.log('[SimPlotTrace] fitToView called. Current plotRect:', that._chart.plotRect);
+                console.log('[SimPlotTrace] Initial fitToView called. Current plotRect:', that._chart.plotRect);
+
+                // Delayed fitToView to handle animations
+                setTimeout(function () {
+                    console.log('[SimPlotTrace] Delayed fitToView executing.');
+                    console.log('[SimPlotTrace] Delayed dimensions - Width:', that.chartdiv.width(), 'Height:', that.chartdiv.height());
+
+                    if (that._chart.host.width() !== that.element.width() || that._chart.host.height() !== that.element.height()) {
+                        that._chart.host.width(that.element.width());
+                        that._chart.host.height(that.element.height());
+                        if (that._chart.requestUpdateLayout) that._chart.requestUpdateLayout();
+                    }
+
+                    that._chart.fitToView();
+                    console.log('[SimPlotTrace] Delayed fitToView done. Current plotRect:', that._chart.plotRect);
+                }, 500);
+
                 /*
                 bounds.bounds.height += 0.04; // padding
                 bounds.bounds.y -= 0.02;      // padding
