@@ -81,6 +81,7 @@
 
 
             if (that.options.plot !== undefined && that.options.plot.length !== 0) {
+                console.log('[SimViewer] refresh - plot element:', that.plot ? that.plot.get(0) : 'none');
                 // Check if simulationplot widget is initialized on the element
                 var widgetExists = that.plot.data('BMA-simulationplot') !== undefined;
                 console.log('[SimViewer] Plot check - widget data:', that.plot.data('BMA-simulationplot'),
@@ -120,6 +121,7 @@
 
             // Create the plot element once and for all
             this.plot = $('<div></div>').addClass('plot-min');
+            console.log('[SimViewer] _create - created plot element:', this.plot.get(0));
 
             // Initialize resultswindowviewer with the plot element from the start
             this.plotDiv = $('<div></div>')

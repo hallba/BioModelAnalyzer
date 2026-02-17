@@ -140,6 +140,8 @@
                     // refresh() will be called during _create, but not on subsequent option updates
                     console.log('[ResultsWindow] content option changed, updating reference only');
                     if (value && value.get) {
+                        console.log('[ResultsWindow] Comparing content - old:', this.content ? this.content.get(0) : 'none',
+                            'new:', value.get(0), 'same?:', this.content && this.content.get(0) === value.get(0));
                         // If new content is provided, detach old and append new
                         if (this.content && this.content.detach && this.content.get(0) !== value.get(0)) {
                             console.log('[ResultsWindow] detaching old content, appending new');
