@@ -81,12 +81,6 @@
 
 
             if (that.options.plot !== undefined && that.options.plot.length !== 0) {
-                // Create the plot element once if it doesn't exist
-                if (!that.plot) {
-                    console.log('[SimViewer] Creating plot element for the first time');
-                    that.plot = $('<div></div>').addClass('plot-min');
-                }
-
                 // Check if simulationplot widget is initialized on the element
                 var widgetExists = that.plot.data('BMA-simulationplot') !== undefined;
                 console.log('[SimViewer] Plot check - widget data:', that.plot.data('BMA-simulationplot'),
@@ -98,25 +92,15 @@
                     that.plot.simulationplot('option', 'colors', that.options.plot);
                 } else {
                     // Widget doesn't exist, initialize it on the existing element
-                    console.log('[SimViewer] Creating new simulationplot');
+                    console.log('[SimViewer] Initializing simulationplot widget');
                     that.plot.simulationplot({ colors: that.options.plot });
-
-                    // Only initialize resultswindowviewer if it doesn't exist
-                    // NEVER update its content - that would detach the plot and destroy widget data
-                    if (that.plotDiv.data('BMA-resultswindowviewer') === undefined) {
-                        // Initialize resultswindowviewer with the plot element
-                        that.plotDiv.resultswindowviewer({
-                            header: "Simulation Graph",
-                            content: that.plot,
-                            icon: "max",
-                            tabid: "SimulationPlot"
-                        });
-                    }
                 }
             }
             else {
-                that.plotDiv.resultswindowviewer();
-                that.plotDiv.resultswindowviewer("destroy");
+                // Destroy the simulationplot widget if it exists
+                if (that.plot && that.plot.data('BMA-simulationplot') !== undefined) {
+                    that.plot.simulationplot('destroy');
+                }
             }
 
 
@@ -134,9 +118,18 @@
                 .appendTo(that.element)
                 .resultswindowviewer();
 
+            // Create the plot element once and for all
+            this.plot = $('<div></div>').addClass('plot-min');
+
+            // Initialize resultswindowviewer with the plot element from the start
             this.plotDiv = $('<div></div>')
                 .appendTo(that.element)
-                .resultswindowviewer();
+                .resultswindowviewer({
+                    header: "Simulation Graph",
+                    content: that.plot,
+                    icon: "max",
+                    tabid: "SimulationPlot"
+                });
 
             this.refresh();
         },
