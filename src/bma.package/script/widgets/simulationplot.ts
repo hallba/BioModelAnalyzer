@@ -116,6 +116,10 @@
                 var max = 0;
 
                 if (options.colors !== undefined) {
+                    // [SimPlotTrace] Log initial state before drawing
+                    console.log('[SimPlotTrace] Preparing to draw. Colors count:', options.colors.length);
+                    console.log('[SimPlotTrace] Container dimensions - Width:', that.chartdiv.width(), 'Height:', that.chartdiv.height());
+                    console.log('[SimPlotTrace] Chart dimensions - PlotRect:', that._chart.plotRect);
 
                     this.highlightPlot.host.css("z-index", options.colors.length + 10);
 
@@ -132,6 +136,8 @@
                         polyline.stroke = options.colors[i].Color;
                         polyline.isVisible = options.colors[i].Seen;
                         polyline.draw({ y: y, thickness: 4, lineJoin: 'round' });
+                        // [SimPlotTrace] Log draw call
+                        // console.log('[SimPlotTrace] Drew polyline:', plotName, 'Points:', y ? y.length : 0, 'Visible:', polyline.isVisible);
 
                         var legendItem = $("<div></div>").addClass("simulationplot-legend-legenditem").attr("data-index", i).appendTo(that.legendDiv);
                         if (!options.colors[i].Seen) legendItem.hide();
@@ -188,9 +194,11 @@
                 this.leftAxis.remove();
                 this.leftAxis = that._chart.addAxis("left", "labels", { labels: leftLabels });
 
+                // [SimPlotTrace] Log fitToView
                 //var bounds = that._chart.aggregateBounds();
                 //console.log(bounds);
                 that._chart.fitToView();
+                console.log('[SimPlotTrace] fitToView called. Current plotRect:', that._chart.plotRect);
                 /*
                 bounds.bounds.height += 0.04; // padding
                 bounds.bounds.y -= 0.02;      // padding
