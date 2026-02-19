@@ -116,10 +116,6 @@
                 var max = 0;
 
                 if (options.colors !== undefined) {
-                    // [SimPlotTrace] Log initial state before drawing
-                    console.log('[SimPlotTrace] Preparing to draw. Colors count:', options.colors.length);
-                    console.log('[SimPlotTrace] Container dimensions - Width:', that.chartdiv.width(), 'Height:', that.chartdiv.height());
-                    console.log('[SimPlotTrace] Chart dimensions - PlotRect:', that._chart.plotRect);
 
                     this.highlightPlot.host.css("z-index", options.colors.length + 10);
 
@@ -207,13 +203,9 @@
 
                 // Initial fitToView
                 that._chart.fitToView();
-                console.log('[SimPlotTrace] Initial fitToView called. Current plotRect:', that._chart.plotRect);
 
-                // Delayed fitToView to handle animations
+                // Delayed fitToView to handle animations (pullout slide-out)
                 setTimeout(function () {
-                    console.log('[SimPlotTrace] Delayed fitToView executing.');
-                    console.log('[SimPlotTrace] Delayed dimensions - Width:', that.chartdiv.width(), 'Height:', that.chartdiv.height());
-
                     if (that._chart.host.width() !== that.element.width() || that._chart.host.height() !== that.element.height()) {
                         that._chart.host.width(that.element.width());
                         that._chart.host.height(that.element.height());
@@ -221,7 +213,6 @@
                     }
 
                     that._chart.fitToView();
-                    console.log('[SimPlotTrace] Delayed fitToView done. Current plotRect:', that._chart.plotRect);
                 }, 500);
 
                 /*
