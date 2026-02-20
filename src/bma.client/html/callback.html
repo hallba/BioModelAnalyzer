@@ -2,41 +2,65 @@
 <!-- License: MIT. See LICENSE -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
 </head>
+
 <body>
-    <!-- Load WL SDK so it can handle the auth response via its cookie mechanism (legacy path) -->
-    <script src="//js.live.net/v5.0/wl.js"></script>
+    <!--
+        NOTE: wl.js is intentionally NOT loaded here.
+        Loading it caused a second wl_auth cookie to be set at path /html/,
+        conflicting with the cookie set at / on the main page and triggering
+        "[WL] wl_auth cookie has multiple values" errors on every WL.init call.
+
+        Instead we parse the access_token directly from the URL fragment and
+        deliver it to the main page via two mechanisms:
+          1. BroadcastChannel (works even if window.opener is null due to
+             cross-origin redirect chains through login.live.com)
+          2. window.opener.postMessage as fallback for browsers without BroadcastChannel
+    -->
     <script type="text/javascript">
-        // Modern fallback: parse the access_token from the URL fragment and
-        // post it back to the opener window directly, bypassing the WL SDK's
-        // cookie-based handoff which fails in modern browsers when the cookie
-        // is set at two different paths (/  vs /html/).
         (function () {
             var hash = window.location.hash;
+            var params = {};
             if (hash) {
-                var params = {};
                 hash.replace(/^#/, '').split('&').forEach(function (part) {
                     var kv = part.split('=');
-                    params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+                    if (kv.length === 2) {
+                        params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+                    }
                 });
+            }
 
-                if (params['access_token'] && window.opener) {
-                    // Post the token to the parent window. The main app listens
-                    // for this message in OneDriveConnector.Enable().
-                    window.opener.postMessage({
-                        type: 'wl_auth_token',
-                        access_token: params['access_token'],
-                        token_type: params['token_type'] || 'bearer',
-                        expires_in: params['expires_in']
-                    }, window.location.origin);
+            if (params['access_token']) {
+                var msg = {
+                    type: 'wl_auth_token',
+                    access_token: params['access_token'],
+                    token_type: params['token_type'] || 'bearer',
+                    expires_in: params['expires_in'] || ''
+                };
+
+                // Primary: BroadcastChannel — survives cross-origin redirect chains
+                // that can null window.opener in modern browsers.
+                try {
+                    var bc = new BroadcastChannel('bma_onedrive_auth');
+                    bc.postMessage(msg);
+                    bc.close();
+                } catch (e) { /* BroadcastChannel not supported */ }
+
+                // Fallback: direct postMessage to opener if available
+                if (window.opener && !window.opener.closed) {
+                    try {
+                        window.opener.postMessage(msg, window.location.origin);
+                    } catch (e) { /* cross-origin opener blocked */ }
                 }
             }
 
-            // Always close the popup after a short delay to allow the message to be received.
-            setTimeout(function () { window.close(); }, 200);
+            // Close the popup after a short delay to allow delivery
+            setTimeout(function () { window.close(); }, 300);
         })();
     </script>
 </body>
+
 </html>

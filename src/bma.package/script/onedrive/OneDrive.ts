@@ -188,31 +188,43 @@ module BMA.OneDrive {
 
         public Enable(onLogin: (oneDrive: IOneDrive) => void, onLoginFailed: (error: LoginFailure) => void, onLogout: (any) => void): void {
 
-            // Modern fallback: callback.html posts the access_token back via
-            // postMessage when the WL SDK's cookie-based handoff fails in modern
-            // browsers (duplicate wl_auth cookies at different paths).
-            // Guard with a flag so only the first successful auth fires onLogin.
+            // Guard so only the first successful auth fires onLogin.
             var loginHandled = false;
 
+            var handleToken = function (accessToken: string) {
+                if (loginHandled) return;
+                loginHandled = true;
+                var oneDrive = new OneDrive({ access_token: accessToken });
+                onLogin(oneDrive);
+            };
+
+            // Primary: BroadcastChannel — works even when window.opener is null
+            // (cross-origin redirect chains through login.live.com can null opener).
+            // callback.html broadcasts on the 'bma_onedrive_auth' channel.
+            try {
+                var bc = new (<any>window).BroadcastChannel('bma_onedrive_auth');
+                bc.onmessage = function (event) {
+                    if (event.data && event.data.type === 'wl_auth_token' && event.data.access_token) {
+                        handleToken(event.data.access_token);
+                    }
+                };
+            } catch (e) { /* BroadcastChannel not supported in this browser */ }
+
+            // Secondary: window.message (postMessage fallback from callback.html)
             window.addEventListener("message", function (event) {
-                // Only accept messages from our own origin (the redirect URI host)
                 if (event.origin !== window.location.origin) return;
                 var data = event.data;
-                if (data && data.type === "wl_auth_token" && data.access_token && !loginHandled) {
-                    loginHandled = true;
-                    var oneDrive = new OneDrive({ access_token: data.access_token });
-                    onLogin(oneDrive);
+                if (data && data.type === "wl_auth_token" && data.access_token) {
+                    handleToken(data.access_token);
                 }
             });
 
+            // Tertiary: WL SDK cookie path — may still fire in some browsers
             WL.Event.subscribe("auth.login", function (response) {
                 if (response.error) {
                     onLoginFailed(response);
-                } else if (!loginHandled) {
-                    // WL SDK cookie path — only fires if postMessage hasn't already handled it
-                    loginHandled = true;
-                    var oneDrive = new OneDrive(response.session);
-                    onLogin(oneDrive);
+                } else {
+                    handleToken(response.session.access_token);
                 }
             });
 
@@ -221,6 +233,16 @@ module BMA.OneDrive {
                 onLogout(response);
             });
 
+            // Clear any stale wl_auth cookies at all known paths to prevent the
+            // "[WL] wl_auth cookie has multiple values" warning on WL.init.
+            // This warning fires because previous sessions left cookies at both /
+            // and /html/ (when wl.js was loaded in callback.html).
+            var clearCookie = function (name: string, path: string) {
+                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=" + path + ";";
+            };
+            clearCookie("wl_auth", "/");
+            clearCookie("wl_auth", "/html/");
+            clearCookie("wl_auth", "/html");
 
             WL.init({
                 client_id: this.settings.ClientId,
