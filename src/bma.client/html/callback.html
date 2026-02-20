@@ -6,7 +6,37 @@
     <title></title>
 </head>
 <body>
+    <!-- Load WL SDK so it can handle the auth response via its cookie mechanism (legacy path) -->
     <script src="//js.live.net/v5.0/wl.js"></script>
-    <!--<script type="text/javascript" src="https://js.live.net/v7.0/OneDrive.js"></script>-->
+    <script type="text/javascript">
+        // Modern fallback: parse the access_token from the URL fragment and
+        // post it back to the opener window directly, bypassing the WL SDK's
+        // cookie-based handoff which fails in modern browsers when the cookie
+        // is set at two different paths (/  vs /html/).
+        (function () {
+            var hash = window.location.hash;
+            if (hash) {
+                var params = {};
+                hash.replace(/^#/, '').split('&').forEach(function (part) {
+                    var kv = part.split('=');
+                    params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+                });
+
+                if (params['access_token'] && window.opener) {
+                    // Post the token to the parent window. The main app listens
+                    // for this message in OneDriveConnector.Enable().
+                    window.opener.postMessage({
+                        type: 'wl_auth_token',
+                        access_token: params['access_token'],
+                        token_type: params['token_type'] || 'bearer',
+                        expires_in: params['expires_in']
+                    }, window.location.origin);
+                }
+            }
+
+            // Always close the popup after a short delay to allow the message to be received.
+            setTimeout(function () { window.close(); }, 200);
+        })();
+    </script>
 </body>
 </html>

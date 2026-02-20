@@ -60,7 +60,7 @@ module BMA.OneDrive {
         }
 
         private get(uri): JQueryXHR {
-            var settings:any = {
+            var settings: any = {
                 method: "GET",
             };
             return $.ajax(uri, settings);
@@ -81,7 +81,7 @@ module BMA.OneDrive {
                 function (responseFailed) {
                     d.fail(responseFailed);
                 }
-                );
+            );
             return <JQueryPromise<OneDriveUserProfile>>d.promise();
         }
 
@@ -188,16 +188,36 @@ module BMA.OneDrive {
 
         public Enable(onLogin: (oneDrive: IOneDrive) => void, onLoginFailed: (error: LoginFailure) => void, onLogout: (any) => void): void {
 
+            // Modern fallback: callback.html posts the access_token back via
+            // postMessage when the WL SDK's cookie-based handoff fails in modern
+            // browsers (duplicate wl_auth cookies at different paths).
+            // Guard with a flag so only the first successful auth fires onLogin.
+            var loginHandled = false;
+
+            window.addEventListener("message", function (event) {
+                // Only accept messages from our own origin (the redirect URI host)
+                if (event.origin !== window.location.origin) return;
+                var data = event.data;
+                if (data && data.type === "wl_auth_token" && data.access_token && !loginHandled) {
+                    loginHandled = true;
+                    var oneDrive = new OneDrive({ access_token: data.access_token });
+                    onLogin(oneDrive);
+                }
+            });
+
             WL.Event.subscribe("auth.login", function (response) {
                 if (response.error) {
                     onLoginFailed(response);
-                } else {
+                } else if (!loginHandled) {
+                    // WL SDK cookie path — only fires if postMessage hasn't already handled it
+                    loginHandled = true;
                     var oneDrive = new OneDrive(response.session);
                     onLogin(oneDrive);
                 }
             });
 
             WL.Event.subscribe("auth.logout", function (response) {
+                loginHandled = false;
                 onLogout(response);
             });
 
