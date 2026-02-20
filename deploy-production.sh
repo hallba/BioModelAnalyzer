@@ -201,13 +201,21 @@ start_production() {
         exit 1
     fi
     
+    # Strip Windows CRLF line endings from the env file so Docker Compose can
+    # parse it correctly. CRLF causes values to be read as e.g. "abc\r" which
+    # Docker Compose treats as unset, producing "variable is not set" warnings.
+    CLEAN_ENV_FILE=$(mktemp)
+    tr -d '\r' < "${ENV_FILE}" > "${CLEAN_ENV_FILE}"
+    
     # Generate latest configuration
     print_info "Generating configuration..."
     bash "${SCRIPT_DIR}/scripts/generate-config.sh"
     
     # Build and start services
     print_info "Building and starting services..."
-    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" up -d --build
+    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${CLEAN_ENV_FILE}" up -d --build
+    
+    rm -f "${CLEAN_ENV_FILE}"
     
     echo ""
     print_success "Production deployment started!"
@@ -221,7 +229,10 @@ start_production() {
     ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" ps
     
     echo ""
-    source "${ENV_FILE}"
+    # Strip carriage returns when sourcing to avoid shell errors on CRLF files
+    set -a
+    source <(tr -d '\r' < "${ENV_FILE}")
+    set +a
     echo "Access your deployment at: https://${DOMAIN}"
     echo ""
     echo "Useful commands:"
