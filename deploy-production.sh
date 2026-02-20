@@ -10,6 +10,16 @@ COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.production.yml"
 ENV_FILE="${CONFIG_DIR}/production.env"
 ENV_TEMPLATE="${CONFIG_DIR}/production.env.template"
 
+# Load production.env into the shell environment early so that every Docker
+# Compose invocation inherits the variables (Docker Compose re-parses the
+# compose file on every call and warns if variables aren't set). We strip \r
+# to handle CRLF line endings from Windows-edited files.
+if [ -f "${ENV_FILE}" ]; then
+    set -a
+    source <(tr -d '\r' < "${ENV_FILE}")
+    set +a
+fi
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -201,21 +211,13 @@ start_production() {
         exit 1
     fi
     
-    # Strip Windows CRLF line endings from the env file so Docker Compose can
-    # parse it correctly. CRLF causes values to be read as e.g. "abc\r" which
-    # Docker Compose treats as unset, producing "variable is not set" warnings.
-    CLEAN_ENV_FILE=$(mktemp)
-    tr -d '\r' < "${ENV_FILE}" > "${CLEAN_ENV_FILE}"
-    
     # Generate latest configuration
     print_info "Generating configuration..."
     bash "${SCRIPT_DIR}/scripts/generate-config.sh"
     
     # Build and start services
     print_info "Building and starting services..."
-    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${CLEAN_ENV_FILE}" up -d --build
-    
-    rm -f "${CLEAN_ENV_FILE}"
+    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" up -d --build
     
     echo ""
     print_success "Production deployment started!"
@@ -226,13 +228,9 @@ start_production() {
     sleep 5
     
     # Check service status
-    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" ps
+    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" ps
     
     echo ""
-    # Strip carriage returns when sourcing to avoid shell errors on CRLF files
-    set -a
-    source <(tr -d '\r' < "${ENV_FILE}")
-    set +a
     echo "Access your deployment at: https://${DOMAIN}"
     echo ""
     echo "Useful commands:"
@@ -245,7 +243,7 @@ start_production() {
 stop_production() {
     print_header "Stopping Production Deployment"
     
-    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" down
+    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" down
     
     print_success "Production deployment stopped"
 }
@@ -262,29 +260,29 @@ show_logs() {
     SERVICE="${1:-}"
     
     if [ -z "${SERVICE}" ]; then
-        ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" logs -f
+        ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" logs -f
     else
-        ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" logs -f "${SERVICE}"
+        ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" logs -f "${SERVICE}"
     fi
 }
 
 show_status() {
     print_header "Production Deployment Status"
     
-    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" ps
+    ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" ps
     
     echo ""
     print_info "Service Health:"
     
     # Check BMA app health
-    if ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" exec -T bma-app curl -sf http://localhost:8020/api/health > /dev/null 2>&1; then
+    if ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" exec -T bma-app curl -sf http://localhost:8020/api/health > /dev/null 2>&1; then
         print_success "BMA Application: Healthy"
     else
         print_error "BMA Application: Unhealthy"
     fi
     
     # Check nginx health
-    if ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" exec -T nginx wget --quiet --tries=1 --spider http://localhost/api/health > /dev/null 2>&1; then
+    if ${DOCKER_COMPOSE} -f "${COMPOSE_FILE}" --env-file "${ENV_FILE}" exec -T nginx wget --quiet --tries=1 --spider http://localhost/api/health > /dev/null 2>&1; then
         print_success "Nginx Proxy: Healthy"
     else
         print_error "Nginx Proxy: Unhealthy"
