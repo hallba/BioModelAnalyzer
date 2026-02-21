@@ -188,6 +188,8 @@ $(document).ready(function () {
         loadVersion().done(function (version) {
             loadScript(version);
             window.setInterval(function () { versionCheck(version); }, 60 * 60 * 1000 /* 1 hour */);
+            announcementCheck();
+            window.setInterval(function () { announcementCheck(); }, 3 * 60 * 60 * 1000 /* 3 hours */);
             dfd.resolve();
 
         });
@@ -258,8 +260,60 @@ function loadVersion(): JQueryPromise<Object> {
     return d.promise();
 }
 
+function announcementCheck() {
+    var dismissKey = 'bma-dismissed-announcement';
+    $.ajax({
+        url: "/announcement.json?_=" + Date.now(),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (!data || !data.active || !data.id || !data.message) {
+                // No active announcement — remove any existing popup
+                var existing = $("#announcementPopup");
+                if (existing.length) {
+                    existing.detach();
+                }
+                return;
+            }
+
+            // Check if the user already dismissed this specific announcement
+            var dismissedId = window.localStorage.getItem(dismissKey);
+            if (dismissedId === data.id) {
+                return;
+            }
+
+            // Show the announcement popup
+            var announcementDialog = $("#announcementPopup");
+            if (!announcementDialog.length) {
+                announcementDialog = $('<div id="announcementPopup"></div>').appendTo('body');
+                announcementDialog.userdialog({
+                    message: data.message,
+                    actions: [
+                        {
+                            button: 'Dismiss',
+                            callback: function () {
+                                window.localStorage.setItem(dismissKey, data.id);
+                                announcementDialog.hide();
+                            }
+                        }
+                    ]
+                });
+            } else {
+                // Update message if it changed and re-show
+                announcementDialog.userdialog("option", "message", data.message);
+                if (!announcementDialog.is(":visible")) {
+                    announcementDialog.userdialog("Show");
+                }
+            }
+        },
+        error: function (err) {
+            console.log("Announcement check failed (non-critical): " + err.statusText);
+        }
+    });
+}
+
 function loadScript(version) {
-    var version_key = 'bma-version';    
+    var version_key = 'bma-version';
     var versionText = version.major + '.' + version.minor + '.' + version.build;
 
     //$('.version-number').text(versionText);
@@ -319,7 +373,7 @@ function loadScript(version) {
         showLogo: true,
         version: 'v. ' + versionText
     });
-    
+
     $("#zoomslider").bmazoomslider({ value: 50, min: 0, max: 100, suppressDirectChangeOnPlusMinusClick: true });
     $("#modelToolbarHeader").buttonset();
     $("#modelToolbarContent").buttonset();
@@ -666,7 +720,7 @@ function loadScript(version) {
     $("#viewswitchcontainer").viewswitchwidget();
 
     $("#viewbackendserver").viewbackendwidget();
-        
+
     var syncTopPanelsWithModelVisibility = () => {
         if (!(<any>window).IsModelReadableOnScreen) {
             //switching to navigation mode
@@ -1164,10 +1218,10 @@ function loadScript(version) {
         window.Commands.Execute("LocalStorageInitModel", reserved_key);
     }
 
-    var lastversion = window.localStorage.getItem(version_key);        
+    var lastversion = window.localStorage.getItem(version_key);
     var message = "";
-    if (lastversion !== JSON.stringify(version)) {        
-        message = "BMA client was updated to version " + versionText + '<br/><a href="ReleaseNotes.html" target="_blank">Whats new in BMA</a>';    
+    if (lastversion !== JSON.stringify(version)) {
+        message = "BMA client was updated to version " + versionText + '<br/><a href="ReleaseNotes.html" target="_blank">Whats new in BMA</a>';
         var userDialog = $('<div></div>').appendTo('body').userdialog({
             message: message,
             actions: [
@@ -1178,10 +1232,10 @@ function loadScript(version) {
             ]
         });
     }
-            
+
     var zoomLockState = undefined;
     window.Commands.On("DrawingSurfaceRefreshOutput", (args) => {
-        $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) }); 
+        $("#zoomslider").bmazoomslider({ searchTags: BMA.ModelHelper.GetModelNamesWithinContainers(appModel.BioModel, appModel.Layout) });
 
         var grid = {
             x0: window.GridSettings.xOrigin,
@@ -1229,7 +1283,7 @@ function loadScript(version) {
 
     window.onbeforeunload = function () {
         window.localStorage.setItem(version_key, JSON.stringify(version));
-                
+
         try {
             var serialized = appModel.Serialize();
             window.localStorage.setItem(reserved_key, serialized);

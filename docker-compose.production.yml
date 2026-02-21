@@ -17,6 +17,7 @@ services:
     volumes:
       - ./logs/app:/var/log/bma
       - ./config/config.js:/app/wwwroot/config.js:ro
+      - ./config/announcement.json:/app/wwwroot/announcement.json:ro
     networks:
       - bma-network
     healthcheck:
