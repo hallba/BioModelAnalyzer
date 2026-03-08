@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Self-contained publish settings -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.102.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../BmaLinux/BioCheckAnalyzerMulti/BioCheckAnalyzerMulti.fsproj" />
+    <ProjectReference Include="../../BmaLinux/BioCheckAnaylzerCommonMulti/BioCheckAnaylzerCommonMulti.csproj" />
+  </ItemGroup>
+
+  <!-- Fix Microsoft.Z3 native library for cross-platform publish -->
+  <!-- The package's .targets unconditionally copies Windows DLL; we fix this post-publish -->
+  <Target Name="FixZ3NativeLibrary" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <ItemGroup>
+      <Z3LinuxLib Include="$(NuGetPackageRoot)/microsoft.z3/4.11.2/runtimes/linux-x64/native/libz3.so" />
+    </ItemGroup>
+    <Message Importance="high" Text="Copying Linux Z3 native library from @(Z3LinuxLib)" />
+    <Copy SourceFiles="@(Z3LinuxLib)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" />
+    <Delete Files="$(PublishDir)libz3.dll" ContinueOnError="true" />
+  </Target>
+
+</Project>

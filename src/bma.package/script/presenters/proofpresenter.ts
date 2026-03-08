@@ -58,7 +58,13 @@ module BMA {
                     var variablesData = that.CreateTableView(that.stability.variablesStability);
                     that.expandedProofVariables = that.CreateExpandedProofVariables(variablesData);
                     var colors = that.expandedProofVariables.coloredtableviewer("option", "colorData");
+
+                    // Create the proof propagation table if it doesn't exist yet
+                    if (that.expandedProofPropagation === undefined && that.appModel.ProofResult.Ticks !== null) {
+                        that.expandedProofPropagation = that.CreateExpandedProofPropagation(that.appModel.ProofResult.Ticks);
+                    }
                     that.AddPropagationColumn(that.stability.variablesStability, colors);
+
 
 
                     proofResultViewer.SetData({
@@ -79,7 +85,6 @@ module BMA {
 
                     if (res.Ticks !== null) {
                         //Signal to further testing presenter about proof results
-                        that.expandedProofPropagation = $('<div></div>');
                         if (res.Status === "NotStabilizing")
                             window.Commands.Execute("InitFurtherTesting", { Model: proofInput, Res: res, Variables: that.appModel.BioModel.Variables });
                         else
@@ -350,7 +355,7 @@ module BMA {
                 var trs = this.expandedProofPropagation.find('tr');
                 $('<td></td>').text('Fix Point').appendTo(trs.eq(0));
                 //var colors = this.expandedProofPropagation.coloredtableviewer("option", "colorData");
-                
+
                 for (var i = 0; i < st.length; i++) {
                     colors[i][0] = st[i].state;
                     $('<td></td>').text(st[i].range).appendTo(trs.eq(i + 1));

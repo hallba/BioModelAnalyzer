@@ -1,0 +1,45 @@
+# Exclude data directories from Docker build context
+data/
+logs/
+config/production.env
+config/ssl/
+config/nginx/bma.conf
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+bin/
+obj/
+node_modules/
+dist/
+
+# Deployment scripts (not needed in container)
+deploy-production.sh
+bootstrap-letsencrypt.sh
+fix-ssl-certificates.sh
+diagnose-production.sh
+docker-compose*.yml
+
+# Temporary files
+*.tmp
+*.log
+*.bak

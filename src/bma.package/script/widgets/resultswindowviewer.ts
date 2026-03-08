@@ -44,18 +44,34 @@
         refresh: function () {
             var that = this;
             var options = this.options;
-            this.content.detach();
-            if (options.content !== undefined) {
-                this.content = options.content.appendTo(that.element); 
-            }
-            
-        },
 
+            // Check if we're trying to set the exact same content (same jQuery object)
+            // This prevents unnecessary detach/reappend which triggers widget reinitialization
+            if (options.content && this.content && options.content.get && this.content.get) {
+                var isSameContent = options.content.get(0) === this.content.get(0);
+                if (isSameContent) {
+                    console.log('[ResultsWindow] refresh - same content, skipping detach/append');
+                    return; // Don't detach/reappend the same content
+                }
+            }
+
+            console.log('[ResultsWindow] refresh - detaching old content, appending new');
+            // Detach old content if it exists
+            if (this.content && this.content.detach) {
+                this.content.detach();
+            }
+
+            // Append new content
+            if (options.content !== undefined) {
+                this.content = options.content.appendTo(that.element);
+            }
+
+        },
 
         _create: function () {
             var that = this;
             var options = this.options;
-            if(!options.paddingOn) this.element.addClass("no-frames");
+            if (!options.paddingOn) this.element.addClass("no-frames");
 
             if (options.isResizable) {
                 this.element.resizable({
@@ -88,12 +104,17 @@
                 .appendTo(this.header);
             this.buttondiv = $('<div></div>').addClass("expand-collapse-bttn").appendTo(that.header);
             //this.icon = $('<div></div>').appendTo(this.header);
-            this.content = $('<div></div>').appendTo(this.element);
+
+            // Directly append content if provided, don't call refresh() which would detach/reappend
+            if (options.content !== undefined) {
+                this.content = options.content.appendTo(this.element);
+            } else {
+                this.content = $('<div></div>').appendTo(this.element);
+            }
             this.reseticon();
-            this.refresh();
         },
 
-        toggle: function () { 
+        toggle: function () {
             this.element.toggle(this.options.effects);
         },
 
@@ -107,22 +128,38 @@
 
         _setOption: function (key, value) {
             var that = this;
+            var oldValue = this.options[key];
+            this._super(key, value);
+
             switch (key) {
                 case "header":
                     this.header.children("span").text(value);
                     break;
                 case "content":
-                    if (this.options.content !== value) {
-                        this.options.content = value;
-                        this.refresh();
+                    // Just update the content reference without calling refresh
+                    // refresh() will be called during _create, but not on subsequent option updates
+                    console.log('[ResultsWindow] content option changed, updating reference only');
+                    if (value && value.get) {
+                        console.log('[ResultsWindow] Comparing content - old:', this.content ? this.content.get(0) : 'none',
+                            'new:', value.get(0), 'same?:', this.content && this.content.get(0) === value.get(0));
+                        // If new content is provided, detach old and append new
+                        if (this.content && this.content.detach && this.content.get(0) !== value.get(0)) {
+                            console.log('[ResultsWindow] detaching old content, appending new');
+                            this.content.detach();
+                            this.content = value.appendTo(this.element);
+                        } else if (!this.content) {
+                            console.log('[ResultsWindow] no existing content, appending new');
+                            this.content = value.appendTo(this.element);
+                        } else {
+                            console.log('[ResultsWindow] same content, no action needed');
+                        }
                     }
                     break;
-                case "icon": 
-                    this.options.icon = value;
+                case "icon":
                     this.reseticon();
                     break;
                 case "isResizable":
-                    if (this.options.isResizable !== value) {
+                    if (oldValue !== value) {
                         if (value) {
                             this.element.resizable({
                                 minWidth: 800,
@@ -144,19 +181,18 @@
                     }
                     break;
                 case "paddingOn":
-                    if (this.options.paddingOn !== value) {
+                    if (oldValue !== value) {
                         value ? this.element.removeClass("no-frames") : this.element.addClass("no-frames");
                         value ? this.header.removeClass("no-frames-title") : this.header.addClass("no-frames-title");
                     }
                     break;
             }
-            this._super(key, value);
         }
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
-    resultswindowviewer (): JQuery;
+    resultswindowviewer(): JQuery;
     resultswindowviewer(settings: Object): JQuery;
     resultswindowviewer(fun: string): any;
     resultswindowviewer(optionLiteral: string, optionName: string): any;

@@ -21,9 +21,9 @@
                 var errTitle = $('<div></div>').addClass('proof-state').appendTo(that.errorDiv);
                 $('<img src="../../images/analysis/BMA_Failed_Icon.svg">').width(30).height(30).appendTo(errTitle);
                 $('<div></div>').addClass('stabilize-failed').text(that.options.error.title).appendTo(errTitle);
-                if (that.options.error.message[1].includes("Input")){
+                if (that.options.error.message[1].includes("Input")) {
                     $('<p></p>').html("Input errors, check for decimals.").appendTo(that.errorDiv);
-                } else { 
+                } else {
                     $('<p></p>').html(that.options.error.message).appendTo(that.errorDiv);
                 }
             } else {
@@ -31,8 +31,8 @@
             }
 
             var container = $('<div></div>').addClass("marginable");
-            
-            
+
+
             if (data !== undefined &&
                 data.variables !== undefined &&
                 data.variables.length !== 0) {
@@ -41,13 +41,13 @@
                     .appendTo(container)
                     .addClass("scrollable-results");
 
-                
+
                 variablestable.coloredtableviewer({
                     header: ["Graph", "Cell", "Name", "Range"],
                     type: "graph-min",
                     numericData: data.variables
                 });
-                
+
                 if (data.colorData !== undefined && data.colorData.length !== 0) {
                     var colortable = $('<div></div>')
                         //.attr("id", "Simulation-min-table")
@@ -58,37 +58,53 @@
                             colorData: data.colorData
                         });
                 }
-                
-                that.variables.resultswindowviewer({
-                    header: "Variables",
-                    content: container,
-                    icon: "max",
-                    tabid: "SimulationVariables"
-                });
-                
+
+                // Only initialize resultswindowviewer if it doesn't exist
+                // NEVER update its content - that would detach and destroy child widgets
+                if (that.variables.data('BMA-resultswindowviewer') === undefined) {
+                    that.variables.resultswindowviewer({
+                        header: "Variables",
+                        content: container,
+                        icon: "max",
+                        tabid: "SimulationVariables"
+                    });
+                }
+
             }
             else {
                 this.variables.resultswindowviewer();
                 that.variables.resultswindowviewer("destroy");
             }
-            
 
-            
+
+
+
+
             if (that.options.plot !== undefined && that.options.plot.length !== 0) {
-                that.plot = $('<div></div>').addClass('plot-min').simulationplot({ colors: that.options.plot });//.height(160)
+                console.log('[SimViewer] refresh - plot element:', that.plot ? that.plot.get(0) : 'none');
+                // Check if simulationplot widget is initialized on the element
+                var widgetExists = that.plot.data('BMA-simulationplot') !== undefined;
+                console.log('[SimViewer] Plot check - widget data:', that.plot.data('BMA-simulationplot'),
+                    'widgetExists:', widgetExists);
 
-                that.plotDiv.resultswindowviewer({
-                    header: "Simulation Graph",
-                    content: that.plot,
-                    icon: "max",
-                    tabid: "SimulationPlot"
-                });
+                if (widgetExists) {
+                    // Widget exists, just update the colors option
+                    console.log('[SimViewer] Updating existing simulationplot');
+                    that.plot.simulationplot('option', 'colors', that.options.plot);
+                } else {
+                    // Widget doesn't exist, initialize it on the existing element
+                    console.log('[SimViewer] Initializing simulationplot widget');
+                    that.plot.simulationplot({ colors: that.options.plot });
+                }
             }
             else {
-                that.plotDiv.resultswindowviewer();
-                that.plotDiv.resultswindowviewer("destroy");
+                // Destroy the simulationplot widget if it exists
+                if (that.plot && that.plot.data('BMA-simulationplot') !== undefined) {
+                    that.plot.simulationplot('destroy');
+                }
             }
-            
+
+
         },
 
 
@@ -103,15 +119,37 @@
                 .appendTo(that.element)
                 .resultswindowviewer();
 
+            // Create the plot element once and for all
+            this.plot = $('<div></div>').addClass('plot-min');
+            console.log('[SimViewer] _create - created plot element:', this.plot.get(0));
+
+            // Initialize resultswindowviewer with the plot element from the start
             this.plotDiv = $('<div></div>')
                 .appendTo(that.element)
-                .resultswindowviewer();
+                .resultswindowviewer({
+                    header: "Simulation Graph",
+                    content: that.plot,
+                    icon: "max",
+                    tabid: "SimulationPlot"
+                });
 
             this.refresh();
         },
 
         _destroy: function () {
             this.element.empty();
+        },
+
+        _setOptions: function (options) {
+            // Call parent to set all options
+            this._super(options);
+
+            // Only refresh once after all options are set
+            // Check if any of the options that require refresh were changed
+            if (options.data !== undefined || options.plot !== undefined || options.error !== undefined) {
+                console.log('[SimViewer] Batch refresh after setting options:', Object.keys(options));
+                this.refresh();
+            }
         },
 
         _setOption: function (key, value) {
@@ -125,7 +163,10 @@
             if (key === "error")
                 this.option.error = value;
             this._super(key, value);
-            this.refresh();
+
+            // Don't refresh here - let _setOptions handle it for batch updates
+            // Only refresh if this is a single option change (not part of a batch)
+            // We can detect this by checking if we're being called from _setOptions
         },
 
         show: function (tab) {
@@ -158,11 +199,11 @@
             try {
                 this.plot.simulationplot("ChangeVisibility", ind, check);
             }
-            catch (ex){ }
+            catch (ex) { }
         }
 
     });
-} (jQuery));
+}(jQuery));
 
 interface JQuery {
     simulationviewer(): JQuery;

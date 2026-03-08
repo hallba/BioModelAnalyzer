@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,8 @@
     <Compile Include="GenLemmas.fs" />
     <Compile Include="Stabilize.fs" />
     <Compile Include="Simulate.fs" />
-    <Compile Include="ModelToExcel.fs" />
+    <!-- ModelToExcel.fs excluded - uses Windows-only Office Interop; Excel export will be in BmaLinuxApi with ClosedXML -->
+    <!-- <Compile Include="ModelToExcel.fs" /> -->
     <Compile Include="BioCheckZ3.fs" />
     <Compile Include="BioCheckPlusZ3.fs" />
     <Compile Include="Z3rangelist.fs" />
@@ -49,8 +50,8 @@
 
   <ItemGroup>
     <PackageReference Include="FParsec" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
+    <!-- Microsoft.Office.Interop.Excel removed - Windows-only, will use ClosedXML in BmaLinuxApi -->
+    <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
   </ItemGroup>
 

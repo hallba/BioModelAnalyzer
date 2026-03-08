@@ -1,0 +1,1 @@
+“one of the challenges with this project is that the .net technology is very old and we would like to run it on a plain linux VM and be as self contained as possible. This will be a considerable amount of refactoring so I would like to use spek-kit to retrospectively analyse the existing code base and them refactor the system in a very controlled way.”

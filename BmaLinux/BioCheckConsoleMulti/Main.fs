@@ -276,11 +276,11 @@ let runSimulateEngine qn (simul_output : string) start_state_file simulation_tim
     Log.log_debug "Writing simulation log"
     let everything = String.concat "\n" (List.map (fun m -> Map.fold (fun s k v -> s + ";" + (string)k + "," + (string)v) "" m) final_values)
     System.IO.File.WriteAllText(simul_output, everything)
-    // SI: check why the xlsx is sometimes corrupted ? 
+    // Excel export disabled on Linux - Office Interop not available
+    // Excel export will be available through BmaLinuxApi using ClosedXML
     if excel_output then
-        let (app,sheet) = ModelToExcel.model_to_excel qn simulation_time init_values
-        Log.log_debug "Writing excel spreadsheet"
-        ModelToExcel.saveSpreadsheet app sheet (simul_output + ".xlsx")
+        Log.log_debug "Excel export not supported in console app on Linux - use BmaLinuxApi instead"
+        printfn "Warning: Excel export not available on Linux. Use the web API for Excel export."
 
 let prettyReport result =
     let intPrintWithSeperator sep =

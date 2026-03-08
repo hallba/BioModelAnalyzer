@@ -1,10 +1,11 @@
 // Copyright (c) Microsoft Research 2016
 // License: MIT. See LICENSE
+module Z3testMulti.Program
+
 open Microsoft.Z3
 
 
-[<EntryPoint>]
-let main argv = 
+let testZ3 () = 
     let cfg = System.Collections.Generic.Dictionary()
     cfg.Add("MODEL", "true")
     use z = new Context(cfg)
@@ -35,6 +36,6 @@ let main argv =
     let vb = model.ConstInterp(model.ConstDecls.[1])
 
 
-        
-    0 // return an integer exit code
+
+    () // test completed
 

@@ -32,6 +32,7 @@
             } else {
                 this.table = $('<regular-table></regular-table>');
                 this.table.appendTo(that.element);
+                this.table.css("font-family", "'Segoe-UI', 'OpenSans', sans-serif").css("font-size", "13px").css("line-height", "17px").css("color", "#606060");
 
                 var localmeta = undefined;
                 this.table.bind("mouseup", (event) => {

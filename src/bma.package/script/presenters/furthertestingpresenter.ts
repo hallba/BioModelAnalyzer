@@ -178,13 +178,27 @@ module BMA {
 
             private ParseOscillations(variables) {
                 var table = [];
+
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
-                    if (table[parseInt(parse[0])] === undefined)
-                        table[parseInt(parse[0])] = [];
+                    var varId = parseInt(parse[0]);
 
-                    table[parseInt(parse[0])][parseInt(parse[1])] = variables[j].Value;
+                    if (table[varId] === undefined)
+                        table[varId] = [];
+
+                    // If parse[1] exists, it's a time-series format (e.g., "5^0", "5^1")
+                    // If parse[1] is undefined, it's a simple ID - append to the array
+                    if (parse[1] !== undefined) {
+                        var timeIndex = parseInt(parse[1]);
+                        table[varId][timeIndex] = variables[j].Value;
+                    } else {
+                        // Simple ID format - push value to create time series
+                        table[varId].push(variables[j].Value);
+                    }
                 }
+
+                console.log("ParseOscillations - intermediate table:", table);
+
                 var result = [];
                 for (var i = 0; i < table.length; i++) {
                     if (table[i] !== undefined) {
@@ -197,18 +211,28 @@ module BMA {
                         result[i].oscillations += table[i][table[i].length - 1];
                     }
                 }
+
+                console.log("ParseOscillations - final result:", result);
                 return result;
             }
 
             private ParseBifurcations(variables) {
                 var table = [];
+
                 for (var j = 0; j < variables.length; j++) {
                     var parse = this.ParseId(variables[j].Id);
-                    if (table[parseInt(parse[0])] === undefined)
-                        table[parseInt(parse[0])] = [];
-                    table[parseInt(parse[0])][0] = parseInt(variables[j].Fix1);
-                    table[parseInt(parse[0])][1] = parseInt(variables[j].Fix2);
+                    var varId = parseInt(parse[0]);
+
+                    if (table[varId] === undefined)
+                        table[varId] = [];
+
+                    // Store Fix1 and Fix2 values
+                    table[varId][0] = parseInt(variables[j].Fix1);
+                    table[varId][1] = parseInt(variables[j].Fix2);
                 }
+
+                console.log("ParseBifurcations - intermediate table:", table);
+
                 var result = [];
                 for (var i = 0; i < table.length; i++) {
                     if (table[i] !== undefined) {
@@ -220,44 +244,87 @@ module BMA {
                         };
                     }
                 }
+
+                console.log("ParseBifurcations - final result:", result);
                 return result;
             }
 
             public CreateOscillationsView(variables, results) {
                 var that = this;
                 var table = [];
+                var rowIndex = 0;
+
+                // Debug logging
+                console.log("CreateOscillationsView - variables:", variables);
+                console.log("CreateOscillationsView - results:", results);
+                console.log("CreateOscillationsView - results is array:", Array.isArray(results));
+
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
-                    table[i] = [];
-                    table[i][0] = (function () {
+                    // Try multiple ways to find the result
+                    var resid = results[variables[i].Id] || results[i];
+
+                    // Additional debug for first iteration
+                    if (i === 0) {
+                        console.log("First variable ID:", variables[i].Id);
+                        console.log("Lookup by ID:", results[variables[i].Id]);
+                        console.log("Lookup by index:", results[i]);
+                        console.log("Result keys:", Object.keys(results));
+                    }
+
+                    if (resid === undefined) {
+                        console.warn("No results for variable", variables[i].Name, "ID:", variables[i].Id);
+                        continue; // Skip if no results for this variable
+                    }
+
+                    table[rowIndex] = [];
+                    table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
                         return cont !== undefined ? cont.Name : '';
                     })();
-                    table[i][1] = variables[i].Name;
-                    table[i][2] = resid.min + '-' + resid.max;
-                    table[i][3] = resid.oscillations;
+                    table[rowIndex][1] = variables[i].Name;
+                    table[rowIndex][2] = resid.min + '-' + resid.max;
+                    table[rowIndex][3] = resid.oscillations;
+                    rowIndex++;
                 }
+
+                console.log("CreateOscillationsView - final table:", table);
                 return table;
             }
 
             private CreateBifurcationsView(variables, results) {
                 var that = this;
                 var table = [];
+                var rowIndex = 0;
+
+                // Debug logging
+                console.log("CreateBifurcationsView - variables:", variables);
+                console.log("CreateBifurcationsView - results:", results);
+
                 for (var i = 0; i < variables.length; i++) {
-                    var resid = results[variables[i].Id];
-                    table[i] = [];
-                    table[i][0] = (function () {
+                    // Try multiple ways to find the result
+                    var resid = results[variables[i].Id] || results[i];
+
+                    if (resid === undefined) {
+                        console.warn("No results for variable", variables[i].Name, "ID:", variables[i].Id);
+                        continue; // Skip if no results for this variable
+                    }
+
+                    table[rowIndex] = [];
+                    table[rowIndex][0] = (function () {
                         var cont = that.appModel.Layout.GetContainerById(variables[i].ContainerId);
                         return cont !== undefined ? cont.Name : '';
                     })();
-                    table[i][1] = variables[i].Name;
+                    table[rowIndex][1] = variables[i].Name;
                     if (resid.min !== resid.max)
-                        table[i][2] = resid.min + '-' + resid.max;
+                        table[rowIndex][2] = resid.min + '-' + resid.max;
                     else
-                        table[i][2] = resid.min;
-                    table[i][3] = resid.Fix1;
-                    table[i][4] = resid.Fix2;
+                        table[rowIndex][2] = resid.min;
+                    table[rowIndex][3] = resid.Fix1;
+                    table[rowIndex][4] = resid.Fix2;
+                    rowIndex++;
                 }
+
+                console.log("CreateBifurcationsView - final table:", table);
                 return table;
 
             }
@@ -275,7 +342,7 @@ module BMA {
             }
 
             private ParseId(id) {
-                var parse = id.split('^');
+                var parse = String(id).split('^');
                 return parse;
             }
         }

@@ -1,0 +1,519 @@
+# OpenAPI 3.1 Specification for BioModelAnalyzer API
+# Converted from docs/ApiServer.yaml (Swagger 2.0)
+
+openapi: 3.1.0
+
+info:
+  title: BioModelAnalyzer API
+  version: 1.14.0
+  description: |
+    REST API for biological model analysis and simulation.
+    Performs stability analysis, counter-example finding, LTL verification, and simulation.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8020/api
+    description: Local development server
+  - url: http://localhost:8224/api
+    description: OWIN self-host (legacy)
+
+paths:
+  /Simulate:
+    post:
+      operationId: simulate
+      summary: Simulate one step of model evolution
+      description: |
+        Given initial values for model variables, computes the next state.
+        Limited to 2 minutes execution time.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimulationInput'
+      responses:
+        '200':
+          description: Simulation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationResult'
+        '204':
+          description: Timeout - simulation did not complete within 2 minutes
+
+  /Analyze:
+    post:
+      operationId: analyze
+      summary: Perform stability analysis
+      description: |
+        Checks if the model eventually reaches a stable state from any initial configuration.
+        Uses VMCAI algorithm. Limited to 2 minutes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalysisInput'
+      responses:
+        '200':
+          description: Analysis completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResult'
+        '204':
+          description: Timeout - analysis did not complete within 2 minutes
+
+  /FurtherTesting:
+    post:
+      operationId: furtherTesting
+      summary: Find counter-examples for unstable models
+      description: |
+        When stability analysis indicates the model is not stable,
+        this endpoint finds specific counter-examples showing bifurcation,
+        cycles, or fixpoints.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FurtherTestingInput'
+      responses:
+        '200':
+          description: Counter-example search completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FurtherTestingResult'
+        '204':
+          description: Timeout
+
+  /AnalyzeLTLSimulation:
+    post:
+      operationId: analyzeLtlSimulation
+      summary: Find simulation satisfying LTL formula
+      description: |
+        Searches for a simulation trace that satisfies the given
+        Linear Temporal Logic formula.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LtlSimulationInput'
+      responses:
+        '200':
+          description: LTL simulation analysis completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LtlSimulationResult'
+        '204':
+          description: Timeout
+
+  /AnalyzeLTLPolarity:
+    post:
+      operationId: analyzeLtlPolarity
+      summary: Perform LTL polarity analysis
+      description: |
+        Analyzes whether the LTL formula is satisfiable with the given polarity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LtlPolarityInput'
+      responses:
+        '200':
+          description: LTL polarity analysis completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LtlPolarityResult'
+        '204':
+          description: Timeout
+
+  /lra/{appId}:
+    post:
+      operationId: scheduleJob
+      summary: Schedule a long-running analysis job
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LtlPolarityInput'
+      responses:
+        '200':
+          description: Job scheduled
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: uuid
+                description: Job ID
+
+    get:
+      operationId: getJobStatus
+      summary: Get status of a scheduled job
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: jobId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job succeeded
+        '201':
+          description: Job queued
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: Queue position
+        '202':
+          description: Job executing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecutingStatus'
+        '203':
+          description: Job failed
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Error message
+        '404':
+          description: Job not found
+        '501':
+          description: Unknown status
+
+    delete:
+      operationId: deleteJob
+      summary: Cancel or delete a job
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: jobId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job deleted
+        '404':
+          description: Job not found
+        '500':
+          description: Error deleting job
+
+  /lra/{appId}/result:
+    get:
+      operationId: getJobResult
+      summary: Get result of a completed job
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: jobId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LtlPolarityResult'
+        '404':
+          description: Job not found or not completed
+
+components:
+  schemas:
+    Model:
+      type: object
+      required:
+        - Name
+        - Variables
+        - Relationships
+      properties:
+        Name:
+          type: string
+        Variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
+        Relationships:
+          type: array
+          items:
+            $ref: '#/components/schemas/Relationship'
+
+    Variable:
+      type: object
+      required:
+        - Id
+        - Name
+        - RangeFrom
+        - RangeTo
+        - Formula
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+        RangeFrom:
+          type: integer
+        RangeTo:
+          type: integer
+        Formula:
+          type: string
+
+    Relationship:
+      type: object
+      required:
+        - Id
+        - FromVariable
+        - ToVariable
+        - Type
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+        FromVariable:
+          type: integer
+        ToVariable:
+          type: integer
+        Type:
+          type: string
+
+    VariableValue:
+      type: object
+      required:
+        - Id
+        - Value
+      properties:
+        Id:
+          type: integer
+        Value:
+          type: integer
+
+    SimulationInput:
+      type: object
+      required:
+        - Model
+        - Variables
+      properties:
+        Model:
+          $ref: '#/components/schemas/Model'
+        Variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValue'
+
+    SimulationResult:
+      type: object
+      properties:
+        Variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValue'
+        ErrorMessages:
+          type: array
+          items:
+            type: string
+        DebugMessages:
+          type: array
+          items:
+            type: string
+
+    AnalysisInput:
+      type: object
+      required:
+        - Model
+      properties:
+        Model:
+          $ref: '#/components/schemas/Model'
+
+    Tick:
+      type: object
+      properties:
+        Time:
+          type: integer
+        Variables:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+              Lo:
+                type: integer
+              Hi:
+                type: integer
+
+    AnalysisResult:
+      type: object
+      properties:
+        Status:
+          type: string
+          enum: [Stabilizing, NotStabilizing]
+        Time:
+          type: integer
+        Ticks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tick'
+        Error:
+          type: string
+        ErrorMessages:
+          type: array
+          items:
+            type: string
+        DebugMessages:
+          type: array
+          items:
+            type: string
+
+    FurtherTestingInput:
+      type: object
+      required:
+        - Model
+        - Analysis
+      properties:
+        Model:
+          $ref: '#/components/schemas/Model'
+        Analysis:
+          $ref: '#/components/schemas/AnalysisResult'
+
+    CounterExample:
+      type: object
+      properties:
+        Status:
+          type: string
+          enum: [Bifurcation, Cycle, Fixpoint]
+        Variables:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+              Value:
+                type: integer
+              Fix1:
+                type: integer
+              Fix2:
+                type: integer
+
+    FurtherTestingResult:
+      type: object
+      properties:
+        CounterExamples:
+          type: array
+          items:
+            $ref: '#/components/schemas/CounterExample'
+        Error:
+          type: string
+        ErrorMessages:
+          type: array
+          items:
+            type: string
+        DebugMessages:
+          type: array
+          items:
+            type: string
+
+    LtlSimulationInput:
+      allOf:
+        - $ref: '#/components/schemas/Model'
+        - type: object
+          required:
+            - Formula
+            - Number_of_steps
+          properties:
+            Formula:
+              type: string
+            Number_of_steps:
+              type: integer
+            EnableLogging:
+              type: boolean
+
+    LtlSimulationResult:
+      type: object
+      properties:
+        Status:
+          type: integer
+          description: 0=no simulation found, 1=found, 2=no result
+        Loop:
+          type: integer
+        Ticks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tick'
+        Error:
+          type: string
+        ErrorMessages:
+          type: array
+          items:
+            type: string
+        DebugMessages:
+          type: array
+          items:
+            type: string
+
+    LtlPolarityInput:
+      allOf:
+        - $ref: '#/components/schemas/LtlSimulationInput'
+        - type: object
+          properties:
+            Polarity:
+              type: integer
+              enum: [0, 1]
+
+    LtlPolarityResult:
+      type: object
+      properties:
+        Item1:
+          $ref: '#/components/schemas/LtlSimulationResult'
+        Item2:
+          $ref: '#/components/schemas/LtlSimulationResult'
+
+    JobExecutingStatus:
+      type: object
+      properties:
+        elapsed:
+          type: integer
+          description: Milliseconds since execution started
+        started:
+          type: string
+          format: date-time

@@ -89,7 +89,7 @@ module BMA {
                         that.simulationStatus = "Ended";
                         that.simulationAccordeon.ContentLoaded("#icon2", true);
                         return;
-                    } 
+                    }
 
                     try {
                         var stableModel = BMA.Model.ExportBioModel(that.appModel.BioModel);
@@ -113,7 +113,7 @@ module BMA {
                     if (errors !== undefined) {
                         that.compactViewer.SetData({ data: undefined, plot: undefined, error: { title: "Invalid Model", message: BMA.Model.CreateVariablesErrorReport(errors, "There were one of more errors for the following variables:") } });
                         return;
-                    } 
+                    }
 
                     try {
                         var stableModel = BMA.Model.ExportBioModel(that.appModel.BioModel);
@@ -172,14 +172,21 @@ module BMA {
                                 }
                                 break;
                             case "SimulationPlot":
-                                full = $('<div></div>').simulationplot({ colors: that.variables });
+                                if (that.expandedSimulationPlot !== undefined) {
+                                    full = that.expandedSimulationPlot;
+                                } else {
+                                    full = $('<div></div>').simulationplot({ colors: that.variables });
+                                    that.expandedSimulationPlot = full;
+                                }
                                 break;
                             default:
                                 simulationViewer.Show({ tab: undefined });
                         }
                         if (full !== undefined) {
                             simulationViewer.Hide({ tab: param });
+                            console.log('[SimPresenter] About to call popupViewer.Show with tab:', param, 'content:', full);
                             popupViewer.Show({ tab: param, content: full });
+                            console.log('[SimPresenter] popupViewer.Show returned');
                         }
                     }
                 });
@@ -335,6 +342,10 @@ module BMA {
                 if (d !== null) {
                     for (var i = 0; i < d.length; i++) {
                         this.variables[i].Plot.push(d[i]);
+                    }
+                    // Update the expanded plot if it exists
+                    if (this.expandedSimulationPlot !== undefined) {
+                        this.expandedSimulationPlot.simulationplot('option', 'colors', this.variables);
                     }
                 }
             }

@@ -2,11 +2,65 @@
 <!-- License: MIT. See LICENSE -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
 </head>
+
 <body>
-    <script src="//js.live.net/v5.0/wl.js"></script>
-    <!--<script type="text/javascript" src="https://js.live.net/v7.0/OneDrive.js"></script>-->
+    <!--
+        NOTE: wl.js is intentionally NOT loaded here.
+        Loading it caused a second wl_auth cookie to be set at path /html/,
+        conflicting with the cookie set at / on the main page and triggering
+        "[WL] wl_auth cookie has multiple values" errors on every WL.init call.
+
+        Instead we parse the access_token directly from the URL fragment and
+        deliver it to the main page via two mechanisms:
+          1. BroadcastChannel (works even if window.opener is null due to
+             cross-origin redirect chains through login.live.com)
+          2. window.opener.postMessage as fallback for browsers without BroadcastChannel
+    -->
+    <script type="text/javascript">
+        (function () {
+            var hash = window.location.hash;
+            var params = {};
+            if (hash) {
+                hash.replace(/^#/, '').split('&').forEach(function (part) {
+                    var kv = part.split('=');
+                    if (kv.length === 2) {
+                        params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+                    }
+                });
+            }
+
+            if (params['access_token']) {
+                var msg = {
+                    type: 'wl_auth_token',
+                    access_token: params['access_token'],
+                    token_type: params['token_type'] || 'bearer',
+                    expires_in: params['expires_in'] || ''
+                };
+
+                // Primary: BroadcastChannel — survives cross-origin redirect chains
+                // that can null window.opener in modern browsers.
+                try {
+                    var bc = new BroadcastChannel('bma_onedrive_auth');
+                    bc.postMessage(msg);
+                    bc.close();
+                } catch (e) { /* BroadcastChannel not supported */ }
+
+                // Fallback: direct postMessage to opener if available
+                if (window.opener && !window.opener.closed) {
+                    try {
+                        window.opener.postMessage(msg, window.location.origin);
+                    } catch (e) { /* cross-origin opener blocked */ }
+                }
+            }
+
+            // Close the popup after a short delay to allow delivery
+            setTimeout(function () { window.close(); }, 300);
+        })();
+    </script>
 </body>
+
 </html>

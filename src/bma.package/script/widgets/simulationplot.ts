@@ -13,6 +13,7 @@
 
         _create: function () {
             var that = this;
+            console.log('[SimPlot] _create called');
 
             //this.refresh();
 
@@ -131,6 +132,8 @@
                         polyline.stroke = options.colors[i].Color;
                         polyline.isVisible = options.colors[i].Seen;
                         polyline.draw({ y: y, thickness: 4, lineJoin: 'round' });
+                        // [SimPlotTrace] Log draw call
+                        // console.log('[SimPlotTrace] Drew polyline:', plotName, 'Points:', y ? y.length : 0, 'Visible:', polyline.isVisible);
 
                         var legendItem = $("<div></div>").addClass("simulationplot-legend-legenditem").attr("data-index", i).appendTo(that.legendDiv);
                         if (!options.colors[i].Seen) legendItem.hide();
@@ -187,9 +190,31 @@
                 this.leftAxis.remove();
                 this.leftAxis = that._chart.addAxis("left", "labels", { labels: leftLabels });
 
-                //var bounds = that._chart.aggregateBounds();
-                //console.log(bounds);
+                // Force layout update before fitting
+                if (that._chart.host.width() !== that.element.width() || that._chart.host.height() !== that.element.height()) {
+                    that._chart.host.width(that.element.width());
+                    that._chart.host.height(that.element.height());
+                }
+                if (that._chart.requestUpdateLayout) {
+                    that._chart.requestUpdateLayout();
+                } else if (that._chart.updateLayout) {
+                    that._chart.updateLayout();
+                }
+
+                // Initial fitToView
                 that._chart.fitToView();
+
+                // Delayed fitToView to handle animations (pullout slide-out)
+                setTimeout(function () {
+                    if (that._chart.host.width() !== that.element.width() || that._chart.host.height() !== that.element.height()) {
+                        that._chart.host.width(that.element.width());
+                        that._chart.host.height(that.element.height());
+                        if (that._chart.requestUpdateLayout) that._chart.requestUpdateLayout();
+                    }
+
+                    that._chart.fitToView();
+                }, 500);
+
                 /*
                 bounds.bounds.height += 0.04; // padding
                 bounds.bounds.y -= 0.02;      // padding
@@ -242,17 +267,19 @@
 
         _setOption: function (key, value) {
             var that = this;
+            this._super(key, value);
+
             switch (key) {
                 case "colors":
                     this.options.colors = value;
+                    this.refresh();
                     break;
                 case "labels":
                     this.options.labels = value;
                     break;
             }
-            if (value !== null && value !== undefined)
+            if (value !== null && value !== undefined && key !== "colors")
                 this.refresh();
-            this._super(key, value);
 
         }
     });
