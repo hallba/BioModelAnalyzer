@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Compile Include="Test.fs" />
-	  <Compile Include="UnitTests.fs" />
-	  <Compile Include="Main.fs" />        
+    <Compile Include="../../src/BioCheckConsole/Test.fs" Link="Test.fs" />
+    <Compile Include="../../src/BioCheckConsole/UnitTests.fs" Link="UnitTests.fs" />
+    <Compile Include="../../src/BioCheckConsole/Main.fs" Link="Main.fs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(for f in AnalysisResult.cs FurtherTestingResult.cs IAnalyzer.cs ILogService.cs Model.cs SimulationVariable.cs)",
+      "Bash(do echo \"=== $f ===\")",
+      "Read(///wsl.localhost/Ubuntu/home/benjamin/src/BioModelAnalyzer/BmaLinux/BioCheckAnaylzerCommonMulti/**)",
+      "Bash(done)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(chmod +x //wsl.localhost/Ubuntu/home/benjamin/src/BioModelAnalyzer/build-library.sh)",
+      "Bash(dotnet --version)"
+    ]
+  }
+}

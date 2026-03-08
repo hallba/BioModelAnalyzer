@@ -3,7 +3,17 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../src/BioCheckAnalyzerCommon/AnalysisResult.cs" Link="AnalysisResult.cs" />
+    <Compile Include="../../src/BioCheckAnalyzerCommon/FurtherTestingResult.cs" Link="FurtherTestingResult.cs" />
+    <Compile Include="../../src/BioCheckAnalyzerCommon/IAnalyzer.cs" Link="IAnalyzer.cs" />
+    <Compile Include="../../src/BioCheckAnalyzerCommon/ILogService.cs" Link="ILogService.cs" />
+    <Compile Include="../../src/BioCheckAnalyzerCommon/Model.cs" Link="Model.cs" />
+    <Compile Include="../../src/BioCheckAnalyzerCommon/SimulationVariable.cs" Link="SimulationVariable.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="8.0.100" />

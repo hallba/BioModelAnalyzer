@@ -276,11 +276,17 @@ let runSimulateEngine qn (simul_output : string) start_state_file simulation_tim
     Log.log_debug "Writing simulation log"
     let everything = String.concat "\n" (List.map (fun m -> Map.fold (fun s k v -> s + ";" + (string)k + "," + (string)v) "" m) final_values)
     System.IO.File.WriteAllText(simul_output, everything)
-    // SI: check why the xlsx is sometimes corrupted ? 
     if excel_output then
+#if NETFRAMEWORK
+        // SI: check why the xlsx is sometimes corrupted ?
         let (app,sheet) = ModelToExcel.model_to_excel qn simulation_time init_values
         Log.log_debug "Writing excel spreadsheet"
         ModelToExcel.saveSpreadsheet app sheet (simul_output + ".xlsx")
+#else
+        // Excel export not available in console on Linux - use BmaLinuxApi with ClosedXML
+        Log.log_debug "Excel export not supported in console app on Linux - use BmaLinuxApi instead"
+        printfn "Warning: Excel export not available on Linux. Use the web API for Excel export."
+#endif
 
 let prettyReport result =
     let intPrintWithSeperator sep =
@@ -477,14 +483,16 @@ let main args =
 
         !res
     with
-        | Marshal.MarshalInFailed(id,msg) -> 
+#if NETFRAMEWORK
+        | Marshal.MarshalInFailed(id,msg) ->
             if (msg = "Bad command line args")
             then
               usage 1
             else
               Printf.printfn "Error: %s" msg
             -1
-        | Failure(msg) -> 
+#endif
+        | Failure(msg) ->
             if (msg = "Bad command line args")
             then
               usage 1

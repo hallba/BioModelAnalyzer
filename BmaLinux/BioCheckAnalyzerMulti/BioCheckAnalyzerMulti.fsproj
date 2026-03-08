@@ -6,46 +6,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-   <Compile Include="Version.fs" />
-    <Compile Include="Log.fs" />
-    <Compile Include="Util.fs" />
-    <!--<Compile Include="Test.fs" />-->
-    <Compile Include="Expr.fs" />
-    <Compile Include="ParsecExpr.fs" />
-    <Compile Include="QN.fs" />
-    <Compile Include="Result.fs" />
-    <Compile Include="Marshal.fs" />
-    <Compile Include="VariableEncoding.fs" />
-    <Compile Include="Z3Util.fs" />
-    <Compile Include="Z.fs" />
-    <Compile Include="Counterexample.fs" />
-    <Compile Include="FNewLemmas.fs" />
-    <Compile Include="GenLemmas.fs" />
-    <Compile Include="Stabilize.fs" />
-    <Compile Include="Simulate.fs" />
-    <!-- ModelToExcel.fs excluded - uses Windows-only Office Interop; Excel export will be in BmaLinuxApi with ClosedXML -->
-    <!-- <Compile Include="ModelToExcel.fs" /> -->
-    <Compile Include="BioCheckZ3.fs" />
-    <Compile Include="BioCheckPlusZ3.fs" />
-    <Compile Include="Z3rangelist.fs" />
-    <Compile Include="stepZ3rangelist.fs" />
-    <Compile Include="Paths.fs" />
-    <Compile Include="LTL.fs" />
-    <Compile Include="EncodingForFormula.fs" />
-    <Compile Include="EncodingForFormula2.fs" />
-    <Compile Include="InitEncodingForSys.fs" />
-    <Compile Include="IncEncodingForSys.fs" />
-    <Compile Include="BMC.fs" />
-    <Compile Include="Rangelist.fs" />
-    <Compile Include="GGraph.fs" />
-    <Compile Include="Oracle.fs" />
-    <Compile Include="Cut.fs" />
-    <Compile Include="Shrink.fs" />
-    <Compile Include="Prover.fs" />
-    <Compile Include="Suggest.fs" />
-    <Compile Include="UIMain.fs" />
-    <Compile Include="PathFinder.fs" />
-    <Compile Include="Attractors.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Version.fs" Link="Version.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Log.fs" Link="Log.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Util.fs" Link="Util.fs" />
+    <!--<Compile Include="../../src/BioCheckAnalyzer/Test.fs" Link="Test.fs" />-->
+    <Compile Include="../../src/BioCheckAnalyzer/Expr.fs" Link="Expr.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/ParsecExpr.fs" Link="ParsecExpr.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/QN.fs" Link="QN.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Result.fs" Link="Result.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Marshal.fs" Link="Marshal.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/VariableEncoding.fs" Link="VariableEncoding.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Z3Util.fs" Link="Z3Util.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Z.fs" Link="Z.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Counterexample.fs" Link="Counterexample.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/FNewLemmas.fs" Link="FNewLemmas.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/GenLemmas.fs" Link="GenLemmas.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Stabilize.fs" Link="Stabilize.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Simulate.fs" Link="Simulate.fs" />
+    <!-- ModelToExcel.fs excluded - uses Windows-only Office Interop; Excel export is in BmaLinuxApi with ClosedXML -->
+    <!-- <Compile Include="../../src/BioCheckAnalyzer/ModelToExcel.fs" Link="ModelToExcel.fs" /> -->
+    <Compile Include="../../src/BioCheckAnalyzer/BioCheckZ3.fs" Link="BioCheckZ3.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/BioCheckPlusZ3.fs" Link="BioCheckPlusZ3.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Z3rangelist.fs" Link="Z3rangelist.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/stepZ3rangelist.fs" Link="stepZ3rangelist.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Paths.fs" Link="Paths.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/LTL.fs" Link="LTL.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/EncodingForFormula.fs" Link="EncodingForFormula.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/EncodingForFormula2.fs" Link="EncodingForFormula2.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/InitEncodingForSys.fs" Link="InitEncodingForSys.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/IncEncodingForSys.fs" Link="IncEncodingForSys.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/BMC.fs" Link="BMC.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Rangelist.fs" Link="Rangelist.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/GGraph.fs" Link="GGraph.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Oracle.fs" Link="Oracle.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Cut.fs" Link="Cut.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Shrink.fs" Link="Shrink.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Prover.fs" Link="Prover.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Suggest.fs" Link="Suggest.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/UIMain.fs" Link="UIMain.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/PathFinder.fs" Link="PathFinder.fs" />
+    <Compile Include="../../src/BioCheckAnalyzer/Attractors.fs" Link="Attractors.fs" />
   </ItemGroup>
 
   <ItemGroup>
