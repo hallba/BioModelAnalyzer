@@ -18,7 +18,7 @@ public static class HealthEndpoint
         // Legacy Global.asax.cs reads version.txt and adds computeServiceUrl from config.
         // With same-origin hosting, computeServiceUrl is empty (relative API calls).
         app.MapGet("/api/version", () => Results.Text(
-            """{"major":"1","minor":"14","build":"0001","computeServiceUrl":""}""",
+            """{"major":"1","minor":"15","build":"0001","computeServiceUrl":""}""",
             "application/json"));
     }
 }
