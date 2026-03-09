@@ -312,3 +312,4 @@ src/bma.package/css/bma.css
 src/bma.selfhost_install/*.*
 
 .fake
+.claude/settings.local.json
