@@ -9,7 +9,15 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(chmod +x //wsl.localhost/Ubuntu/home/benjamin/src/BioModelAnalyzer/build-library.sh)",
-      "Bash(dotnet --version)"
+      "Bash(dotnet --version)",
+      "Bash(xargs grep -l \"ajax\\\\|Invoke\\\\|HttpService\")",
+      "Read",
+      "Grep",
+      "Glob",
+      "Read(///wsl.localhost/Ubuntu/home/benjamin/src/BioModelAnalyzer/**)",
+      "Read(///wsl.localhost/Ubuntu/home/benjamin/src/BioModelAnalyzer/src/bma.package/**)",
+      "Bash(mkdir -p /mnt/wsl/Ubuntu/home/benjamin/src/BioModelAnalyzer/.github/workflows)",
+      "Bash(wsl -d Ubuntu mkdir -p /home/benjamin/src/BioModelAnalyzer/.github/workflows)"
     ]
   }
 }

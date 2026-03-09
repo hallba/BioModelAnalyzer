@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-test:
+    name: Docker Build + API Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -f src/BmaLinuxApi/Dockerfile -t bma-linux-api .
+
+      - name: Start container
+        run: docker run -d --name bma -p 8020:8020 bma-linux-api
+
+      - name: Run regression tests
+        run: bash scripts/regression-test.sh http://localhost:8020
+
+      - name: Stop container
+        if: always()
+        run: docker rm -f bma || true
+
+  library-build:
+    name: Library DLL Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ hashFiles('BmaLinux/**/*.fsproj', 'BmaLinux/**/*.csproj') }}
+          restore-keys: nuget-
+
+      - name: Build analysis library
+        run: bash build-library.sh
+
+      - name: Verify artifacts
+        run: ls -la artifacts/library/*.dll

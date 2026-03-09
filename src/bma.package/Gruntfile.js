@@ -227,30 +227,18 @@ module.exports = function (grunt) {
             }
         }
         
-        //jasmine: {
-        //    options: {
-        //        keepRunner: true,
-        //        vendor: [
-        //            "ext/jquery/dist/jquery.js",
-        //            "ext/rxjs/dist/rx.lite.js",
-        //            "<%= concat.dist.dest %>"
-        //        ]
-        //    },
-
-        //    src: ['test/**/*.js']
-        //},
-        
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    //grunt.loadNpmTasks('grunt-base64');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    //grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks("grunt-contrib-less");
 
     grunt.registerTask('default', ['concat:tool', 'less:development', 'uglify:dist', 'copy:main']);
     grunt.registerTask('prebuild', ['copy:prebuild']);
+    // Tests use Karma with headless Chrome. Run after the full build:
+    //   npx tsc -p tsconfig.test.json || true
+    //   npx grunt prebuild && npx grunt
+    //   npx karma start --single-run karma.conf.js
 };

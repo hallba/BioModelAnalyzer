@@ -1,0 +1,49 @@
+name: Frontend Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  jasmine:
+    name: TypeScript Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y curl unzip
+
+      - name: Download vendor dependencies
+        run: bash scripts/prepare-frontend-deps.sh
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: src/bma.package/node_modules
+          key: npm-${{ hashFiles('src/bma.package/package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install npm dependencies
+        working-directory: src/bma.package
+        run: npm install --legacy-peer-deps
+
+      - name: Compile TypeScript (app + tests)
+        working-directory: src/bma.package
+        run: npx tsc -p tsconfig.test.json || true
+
+      - name: Copy vendor files (prebuild)
+        working-directory: src/bma.package
+        run: npx grunt prebuild
+
+      - name: Build app bundle (tool.js)
+        working-directory: src/bma.package
+        run: npx grunt
+
+      - name: Run Jasmine tests
+        working-directory: src/bma.package
+        run: npx karma start --single-run karma.conf.js
+        env:
+          CHROME_BIN: google-chrome-stable
