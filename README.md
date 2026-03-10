@@ -1,8 +1,12 @@
 <!--
+
 ![BMA Build](https://buildstats.info/appveyor/chart/NikitaSkoblov/biomodelanalyzer)
 ![Build status](https://ci.appveyor.com/api/projects/status/github/hallba/biomodelanalyzer?branch=master&svg=true)
 [![Tests](https://img.shields.io/appveyor/tests/NikitaSkoblov/biomodelanalyzer.svg)](https://ci.appveyor.com/project/NikitaSkoblov/biomodelanalyzer/build/tests)
 -->
+
+[![CI](https://github.com/hallba/BioModelAnalyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/hallba/BioModelAnalyzer/actions/workflows/ci.yml)
+
 The BioModelAnalyzer is a tool that allows biologists to easily and quickly build complex models 
 of biological behaviour, and to analyse them using techniques derived from the field of formal 
 verification. Its backend is written in F#, and its graphical frontend is an HTML5 application. 
