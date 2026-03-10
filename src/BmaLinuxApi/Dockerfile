@@ -9,7 +9,7 @@ COPY src/bma.package/ src/bma.package/
 COPY src/bma.client/ src/bma.client/
 # Convert Windows line endings (CRLF) to Unix (LF) to prevent "bash\r: No such file" errors
 RUN sed -i 's/\r$//' scripts/prepare-frontend-deps.sh
-RUN ./scripts/prepare-frontend-deps.sh
+RUN bash scripts/prepare-frontend-deps.sh
 WORKDIR /src/src/bma.package
 RUN npm install --legacy-peer-deps
 RUN npx tsc || true

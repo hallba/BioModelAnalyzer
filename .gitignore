@@ -313,3 +313,4 @@ src/bma.selfhost_install/*.*
 
 .fake
 .claude/settings.local.json
+ci-plan.md
