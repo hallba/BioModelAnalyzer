@@ -6,8 +6,8 @@ public record FurtherTestingInput(
 );
 
 public record CounterExampleVariable(
-    int Id,
-    int Value,
+    string Id,
+    int? Value,
     int? Fix1,
     int? Fix2
 );

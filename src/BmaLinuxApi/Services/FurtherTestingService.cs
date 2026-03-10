@@ -88,17 +88,13 @@ public class FurtherTestingService : IFurtherTestingService
         };
     }
 
-    // F# engine returns variable IDs in "id^timestep" format (e.g. "2^0")
-    private static int ParseVariableId(string id) =>
-        int.Parse(id.Contains('^') ? id[..id.IndexOf('^')] : id);
-
     private static CounterExample ConvertBifurcation(FSharp.BifurcationCounterExample bif)
     {
         return new CounterExample(
             Status: bif.Status.ToString(),
             Variables: bif.Variables?.Select(v => new CounterExampleVariable(
-                Id: ParseVariableId(v.Id),
-                Value: 0,
+                Id: v.Id,
+                Value: null,
                 Fix1: v.Fix1,
                 Fix2: v.Fix2
             )).ToArray()
@@ -110,7 +106,7 @@ public class FurtherTestingService : IFurtherTestingService
         return new CounterExample(
             Status: cyc.Status.ToString(),
             Variables: cyc.Variables?.Select(v => new CounterExampleVariable(
-                Id: ParseVariableId(v.Id),
+                Id: v.Id,
                 Value: v.Value,
                 Fix1: null,
                 Fix2: null
@@ -123,7 +119,7 @@ public class FurtherTestingService : IFurtherTestingService
         return new CounterExample(
             Status: fix.Status.ToString(),
             Variables: fix.Variables?.Select(v => new CounterExampleVariable(
-                Id: ParseVariableId(v.Id),
+                Id: v.Id,
                 Value: v.Value,
                 Fix1: null,
                 Fix2: null

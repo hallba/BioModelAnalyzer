@@ -46,7 +46,10 @@ def normalize(obj, parent_key=None):
             # Skip top-level Time field (execution time varies)
             if k == 'Time' and parent_key is None and not isinstance(v, list):
                 continue
-            result[k] = normalize(v, k)
+            normalized = normalize(v, k)
+            # Treat null/absent fields as equivalent (WhenWritingNull omits them)
+            if normalized is not None:
+                result[k] = normalized
         return result
     if isinstance(obj, list):
         # Treat [''] as None (empty error message arrays)

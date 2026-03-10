@@ -66,7 +66,7 @@ module BMA {
                         })
                             .done(function (res2) {
                                 that.driver.ActiveMode();
-                                if (res2.CounterExamples !== null && res2.CounterExamples.length > 0) {
+                                if (res2.CounterExamples != null && res2.CounterExamples.length > 0) {
                                     that.driver.HideStartFurtherTestingToggler();
                                     var bif = null, osc = null, fix = null;
                                     for (var i = 0; i < res2.CounterExamples.length; i++) {

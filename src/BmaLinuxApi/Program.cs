@@ -23,8 +23,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     // Keep PascalCase (matches API spec)
     options.SerializerOptions.PropertyNamingPolicy = null;
 
-    // Include null values in output
-    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
+    // Omit null fields (Fix1/Fix2 absent from Cycle/Fixpoint, Value absent from Bifurcation)
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
     // Handle enums as strings
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
