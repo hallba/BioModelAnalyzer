@@ -1189,11 +1189,12 @@ function loadScript(version) {
     var reserved_key = "InitialModel";
 
     var params = getSearchParameters();
-    if (params.Model !== undefined) {
+    var modelUrl = params.Model || params.model;
+    if (modelUrl !== undefined) {
 
-        var s = params.Model.split('.');
+        var s = modelUrl.split('.');
         if (s.length > 1 && s[s.length - 1] == "json") {
-            $.ajax(params.Model, {
+            $.ajax(modelUrl, {
                 dataType: "text",
                 success: function (fileContent) {
                     appModel.Deserialize(fileContent);
@@ -1202,7 +1203,7 @@ function loadScript(version) {
             })
         }
         else {
-            $.get(params.Model, function (fileContent) {
+            $.get(modelUrl, function (fileContent) {
                 try {
                     var model = BMA.ParseXmlModel(fileContent, window.GridSettings);
                     appModel.Reset(model.Model, model.Layout);
